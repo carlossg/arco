@@ -1,2 +1,4 @@
 mountpoints:
-  /: https://content.da.live/paolomoz/arco/
+  /:
+    url: https://content.da.live/carlossg/arco/
+    type: markup
