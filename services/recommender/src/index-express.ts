@@ -8,7 +8,8 @@
  * - GET /generate?query=...&slug=...&ctx=... - Stream page generation via SSE
  * - POST /api/persist - Persist generated pages to AEM DA
  * - GET /api/presets - List all model presets with role assignments
- * - GET /api/benchmark?query=...&presets=... - Benchmark presets with timing comparison
+ * - GET /api/benchmark?query=...&presets=... - Benchmark classification + reasoning
+ * - GET /api/benchmark-full?query=...&presets=... - Full pipeline benchmark
  * - GET /health - Health check
  */
 
@@ -601,6 +602,129 @@ Respond with JSON: {"blocks": [{"type": "...", "priority": 1, "rationale": "..."
 });
 
 // ============================================
+// GET /api/benchmark-full - Full pipeline benchmark
+// ============================================
+
+interface FullBenchmarkResult {
+  preset: string;
+  category: string;
+  totalDuration: number;
+  blocks: number;
+  phases: {
+    classification?: number;
+    reasoning?: number;
+    generation?: number;
+  };
+  status: 'success' | 'failed';
+  error?: string;
+}
+
+app.get('/api/benchmark-full', async (req: Request, res: Response) => {
+  const query = (req.query.query as string) || 'best espresso machine for beginners';
+  const presetsParam = req.query.presets as string | undefined;
+
+  const allPresets = getPresetList();
+  let targetPresets: string[];
+  if (presetsParam) {
+    targetPresets = presetsParam.split(',').map((p) => p.trim());
+  } else {
+    targetPresets = allPresets
+      .filter((p) => !p.requiresEndpoint)
+      .map((p) => p.name);
+  }
+
+  const results: FullBenchmarkResult[] = [];
+  const overallStart = Date.now();
+
+  for (const presetName of targetPresets) {
+    const presetInfo = allPresets.find((p) => p.name === presetName);
+    if (!presetInfo) continue;
+
+    console.log(`[benchmark-full] Testing preset: ${presetName}`);
+    const presetStart = Date.now();
+
+    // Collect timing data from SSE events
+    let blocks = 0;
+    let classificationMs: number | undefined;
+    let reasoningMs: number | undefined;
+    let generationCompleteMs: number | undefined;
+
+    try {
+      await orchestrate(
+        query,
+        `benchmark-${presetName}-${Date.now()}`,
+        daEnv,
+        (event: SSEEvent) => {
+          if (event.event === 'reasoning-step' && event.data.stage === 'classification') {
+            classificationMs = Date.now() - presetStart;
+          }
+          if (event.event === 'reasoning-complete') {
+            reasoningMs = Date.now() - presetStart;
+          }
+          if (event.event === 'block-content') {
+            blocks++;
+          }
+          if (event.event === 'generation-complete') {
+            generationCompleteMs = event.data.duration;
+          }
+        },
+        undefined,
+        presetName,
+      );
+
+      const totalDuration = Date.now() - presetStart;
+      results.push({
+        preset: presetName,
+        category: presetInfo.category,
+        totalDuration,
+        blocks,
+        phases: {
+          classification: classificationMs,
+          reasoning: reasoningMs,
+          generation: generationCompleteMs ? generationCompleteMs - (reasoningMs || 0) : undefined,
+        },
+        status: 'success',
+      });
+
+      console.log(`[benchmark-full] ${presetName}: ${totalDuration}ms, ${blocks} blocks`);
+    } catch (err) {
+      const totalDuration = Date.now() - presetStart;
+      results.push({
+        preset: presetName,
+        category: presetInfo.category,
+        totalDuration,
+        blocks,
+        phases: {},
+        status: 'failed',
+        error: err instanceof Error ? err.message : 'Unknown error',
+      });
+      console.error(`[benchmark-full] ${presetName} failed:`, err);
+    }
+  }
+
+  const successful = results.filter((r) => r.status === 'success');
+  successful.sort((a, b) => a.totalDuration - b.totalDuration);
+
+  const summary = successful.map((r) => ({
+    preset: r.preset,
+    category: r.category,
+    blocks: r.blocks,
+    classificationMs: r.phases.classification,
+    reasoningMs: r.phases.reasoning,
+    contentGenerationMs: r.phases.generation,
+    totalMs: r.totalDuration,
+  }));
+
+  res.json({
+    query,
+    benchmarkedPresets: results.length,
+    totalDuration: Date.now() - overallStart,
+    summary,
+    details: results,
+  });
+});
+
+// ============================================
 // GET /health and /healthz - Health check
 // ============================================
 
@@ -633,6 +757,7 @@ app.use((_req: Request, res: Response) => {
       'POST /api/persist',
       'GET /api/presets',
       'GET /api/benchmark?query=...&presets=...',
+      'GET /api/benchmark-full?query=...&presets=...',
       'GET /health',
     ],
   });

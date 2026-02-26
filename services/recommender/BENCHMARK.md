@@ -120,6 +120,12 @@ curl 'https://arco-recommender-642841493686.us-central1.run.app/api/benchmark?pr
 # Custom query
 curl 'https://arco-recommender-642841493686.us-central1.run.app/api/benchmark?query=latte+art+machine+under+2000'
 
+# Full pipeline benchmark (classification + reasoning + content generation)
+curl 'https://arco-recommender-642841493686.us-central1.run.app/api/benchmark-full?query=best+espresso+machine+for+beginners'
+
+# Full pipeline benchmark for specific presets
+curl 'https://arco-recommender-642841493686.us-central1.run.app/api/benchmark-full?presets=production,gemini-2.5-flash-lite,llama-3.3-70b-instruct-maas'
+
 # List all presets
 curl 'https://arco-recommender-642841493686.us-central1.run.app/api/presets'
 ```
