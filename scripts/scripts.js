@@ -161,6 +161,9 @@ function loadDelayed() {
   // load anything that can be postponed to the latest here
 }
 
+const PREFETCH_KEY = 'arco-quiz-prefetch';
+const PREFETCH_MAX_AGE_MS = 60000;
+
 /**
  * Valid recommender presets (must match model-factory-google.ts MODEL_PRESETS)
  */
@@ -256,6 +259,99 @@ async function persistToDA(query, blocks, intent) {
 }
 
 /**
+ * Render pre-collected blocks from a quiz prefetch into the DOM.
+ * Reuses the same section/block assembly logic as the SSE block-content handler.
+ * @param {Object} prefetchData Parsed prefetch data from sessionStorage
+ * @param {string} query The query string
+ */
+async function renderPrefetchedBlocks(prefetchData, query) {
+  const main = document.querySelector('main');
+  if (!main) return;
+
+  const slug = generateSlug(query);
+
+  main.innerHTML = '<div id="generation-content"></div>';
+  const content = main.querySelector('#generation-content');
+
+  const generatedBlocks = [];
+
+  // Render each block sequentially using the same pattern as the SSE handler
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < prefetchData.blocks.length; i++) {
+    const blockData = prefetchData.blocks[i];
+    const blockIdx = generatedBlocks.length;
+    generatedBlocks.push({ html: blockData.html, sectionStyle: blockData.sectionStyle });
+
+    const section = document.createElement('div');
+    section.className = 'section';
+    if (blockData.sectionStyle && blockData.sectionStyle !== 'default') {
+      section.classList.add(blockData.sectionStyle);
+    }
+    section.dataset.sectionStatus = 'initialized';
+    section.dataset.blockIndex = blockIdx;
+    section.innerHTML = blockData.html;
+
+    // Wrap block in wrapper div (EDS pattern)
+    const blockEl = section.querySelector('[class]');
+    if (blockEl) {
+      const blockName = blockEl.classList[0];
+      const wrapper = document.createElement('div');
+      wrapper.className = `${blockName}-wrapper`;
+      blockEl.parentNode.insertBefore(wrapper, blockEl);
+      wrapper.appendChild(blockEl);
+      decorateBlock(blockEl);
+      section.classList.add(`${blockName}-container`);
+    }
+
+    decorateButtons(section);
+    decorateIcons(section);
+
+    const followUpSection = content.querySelector('.follow-up-container');
+    if (followUpSection) {
+      content.insertBefore(section, followUpSection);
+    } else {
+      content.appendChild(section);
+    }
+
+    const block = section.querySelector('.block');
+    if (block) {
+      // eslint-disable-next-line no-await-in-loop
+      await loadBlock(block);
+    }
+
+    section.dataset.sectionStatus = 'loaded';
+    section.style.display = null;
+  }
+
+  // Update document title
+  const h1 = content.querySelector('h1');
+  if (h1) {
+    document.title = `${h1.textContent} | Arco`;
+  }
+
+  // Save query to session context
+  const meta = prefetchData.metadata || {};
+  SessionContextManager.addQuery({
+    query,
+    timestamp: Date.now(),
+    intent: meta.intent?.intentType || 'general',
+    entities: meta.intent?.entities || { products: [], coffeeTerms: [], goals: [] },
+    generatedPath: `/discover/${slug}`,
+    recommendedProducts: meta.recommendations?.products || [],
+    recommendedBrewGuides: meta.recommendations?.brewGuides || [],
+    blockTypes: meta.recommendations?.blockTypes || [],
+    journeyStage: meta.reasoning?.journeyStage || 'exploring',
+    confidence: meta.reasoning?.confidence || 0.5,
+    nextBestAction: meta.reasoning?.nextBestAction || '',
+  });
+
+  // Auto-persist to DA
+  if (generatedBlocks.length > 0) {
+    persistToDA(query, generatedBlocks, meta.intent);
+  }
+}
+
+/**
  * Render an Arco Recommender page from ?q= or ?query= parameter
  * Uses the recommender service with Gemini reasoning
  */
@@ -266,6 +362,24 @@ async function renderArcoRecommenderPage() {
   const params = new URLSearchParams(window.location.search);
   const query = params.get('q') || params.get('query');
   const preset = params.get('preset') || 'production';
+
+  // Check for prefetched quiz data (one-time use)
+  try {
+    const raw = sessionStorage.getItem(PREFETCH_KEY);
+    sessionStorage.removeItem(PREFETCH_KEY);
+    if (raw) {
+      const prefetchData = JSON.parse(raw);
+      const age = Date.now() - (prefetchData.timestamp || 0);
+      if (age < PREFETCH_MAX_AGE_MS && prefetchData.blocks && prefetchData.blocks.length > 0) {
+        // eslint-disable-next-line no-console
+        console.log(`[Recommender] Using prefetched quiz data (${prefetchData.blocks.length} blocks, ${(age / 1000).toFixed(1)}s old)`);
+        await renderPrefetchedBlocks(prefetchData, query);
+        return;
+      }
+    }
+  } catch {
+    // Parse error or sessionStorage unavailable — fall through to normal SSE flow
+  }
 
   // Validate preset
   if (!VALID_PRESETS.includes(preset)) {

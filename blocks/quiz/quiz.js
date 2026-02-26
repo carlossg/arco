@@ -2,7 +2,13 @@
  * Quiz Block — 4-Question Persona Identification Quiz
  * Interactive multi-step quiz using the 6-persona scoring system.
  * Sets arco_persona cookie (90 days) and redirects to experience page.
+ * Pre-generates a personalized recommender page in the background after Q2.
  */
+
+import { ARCO_RECOMMENDER_URL } from '../../scripts/api-config.js';
+import { SessionContextManager } from '../../scripts/session-context.js';
+
+const PREFETCH_KEY = 'arco-quiz-prefetch';
 
 /**
  * 6 persona tags matching personalization/persona-profiles.json
@@ -228,6 +234,98 @@ function renderQuestion(container, question, index, total, onAnswer) {
 }
 
 /**
+ * Builds a natural-language query string from answered quiz options.
+ * @param {Array<{text: string, options: string[]}>} questions Parsed questions
+ * @param {number[]} answerIndices Indices of selected options (0-based)
+ * @returns {string} Query string for the recommender
+ */
+function buildQuery(questions, answerIndices) {
+  const parts = answerIndices
+    .map((optIdx, qIdx) => questions[qIdx]?.options[optIdx])
+    .filter(Boolean);
+  return `Coffee equipment quiz: ${parts.join(', ')}`;
+}
+
+/**
+ * Opens a background SSE connection to the recommender to pre-generate blocks.
+ * @param {Array<{text: string, options: string[]}>} questions Parsed questions
+ * @param {number[]} answerIndices Current answer indices
+ * @returns {Object} Handle with { eventSource, blocks, metadata, isComplete, error }
+ */
+function startPrefetch(questions, answerIndices) {
+  const query = buildQuery(questions, answerIndices);
+  const contextParam = SessionContextManager.buildEncodedContextParam();
+  const url = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&preset=production&ctx=${contextParam}`;
+
+  const handle = {
+    eventSource: null,
+    blocks: [],
+    metadata: {},
+    isComplete: false,
+    error: false,
+    query,
+  };
+
+  try {
+    handle.eventSource = new EventSource(url);
+  } catch {
+    handle.error = true;
+    return handle;
+  }
+
+  handle.eventSource.addEventListener('block-content', (e) => {
+    try {
+      const data = JSON.parse(e.data);
+      handle.blocks.push({ html: data.html, sectionStyle: data.sectionStyle });
+    } catch {
+      // ignore parse errors
+    }
+  });
+
+  handle.eventSource.addEventListener('generation-complete', (e) => {
+    try {
+      handle.metadata = JSON.parse(e.data);
+    } catch {
+      // ignore parse errors
+    }
+    handle.isComplete = true;
+    handle.eventSource.close();
+  });
+
+  handle.eventSource.addEventListener('error', () => {
+    handle.error = true;
+    handle.eventSource.close();
+  });
+
+  handle.eventSource.onerror = () => {
+    if (handle.eventSource.readyState === EventSource.CLOSED && handle.blocks.length === 0) {
+      handle.error = true;
+    }
+  };
+
+  return handle;
+}
+
+/**
+ * Saves prefetched blocks to sessionStorage for consumption by scripts.js.
+ * @param {Object} handle Prefetch handle from startPrefetch()
+ * @param {string} fullQuery The complete 4-answer query string
+ */
+function savePrefetchToStorage(handle, fullQuery) {
+  try {
+    sessionStorage.setItem(PREFETCH_KEY, JSON.stringify({
+      query: fullQuery,
+      blocks: handle.blocks,
+      metadata: handle.metadata,
+      isComplete: handle.isComplete,
+      timestamp: Date.now(),
+    }));
+  } catch {
+    // sessionStorage unavailable — fall through silently
+  }
+}
+
+/**
  * Loads and decorates the quiz block.
  * @param {Element} block The quiz block element
  */
@@ -246,10 +344,16 @@ export default async function decorate(block) {
 
   const answers = [];
   const total = questions.length;
+  let prefetchHandle = null;
 
   const showQuestion = (index) => {
     renderQuestion(container, questions[index], index, total, (optIdx) => {
       answers.push(optIdx);
+
+      // Start background prefetch after Q2 (index 1 = second answer)
+      if (index === 1 && !prefetchHandle) {
+        prefetchHandle = startPrefetch(questions, answers);
+      }
 
       if (index + 1 < total) {
         showQuestion(index + 1);
@@ -259,9 +363,22 @@ export default async function decorate(block) {
         // Set both cookies: the new arco_persona (90 days) and legacy arco-brew-style (30 days)
         setCookie('arco_persona', persona, 90);
         setCookie('arco-brew-style', persona, 30);
-        // Redirect to experience page
-        const resultUrl = RESULT_PAGES[persona] || '/experiences/morning-minimalist';
-        window.location.href = resultUrl;
+
+        // Try to use prefetched recommender page
+        if (prefetchHandle && prefetchHandle.blocks.length > 0 && !prefetchHandle.error) {
+          // Close EventSource if still open
+          if (prefetchHandle.eventSource
+            && prefetchHandle.eventSource.readyState !== EventSource.CLOSED) {
+            prefetchHandle.eventSource.close();
+          }
+          const fullQuery = buildQuery(questions, answers);
+          savePrefetchToStorage(prefetchHandle, fullQuery);
+          window.location.href = `/?q=${encodeURIComponent(fullQuery)}`;
+        } else {
+          // Fallback to static experience page
+          const resultUrl = RESULT_PAGES[persona] || '/experiences/morning-minimalist';
+          window.location.href = resultUrl;
+        }
       }
     });
   };
