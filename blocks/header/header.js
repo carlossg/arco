@@ -233,7 +233,9 @@ export default async function decorate(block) {
     form.className = 'nav-search-form';
     form.action = '/';
     form.method = 'get';
+    const currentPreset = new URLSearchParams(window.location.search).get('preset');
     form.innerHTML = `
+      ${currentPreset ? `<input type="hidden" name="preset" value="${currentPreset}">` : ''}
       <input type="search" name="q" placeholder="Ask about coffee equipment…" aria-label="Search Arco" autocomplete="off">
       <button type="submit" aria-label="Search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

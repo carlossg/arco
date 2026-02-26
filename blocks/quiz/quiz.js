@@ -255,7 +255,8 @@ function buildQuery(questions, answerIndices) {
 function startPrefetch(questions, answerIndices) {
   const query = buildQuery(questions, answerIndices);
   const contextParam = SessionContextManager.buildEncodedContextParam();
-  const url = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&preset=production&ctx=${contextParam}`;
+  const preset = new URLSearchParams(window.location.search).get('preset') || 'production';
+  const url = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&preset=${encodeURIComponent(preset)}&ctx=${contextParam}`;
 
   const handle = {
     eventSource: null,
@@ -373,7 +374,10 @@ export default async function decorate(block) {
           }
           const fullQuery = buildQuery(questions, answers);
           savePrefetchToStorage(prefetchHandle, fullQuery);
-          window.location.href = `/?q=${encodeURIComponent(fullQuery)}`;
+          const quizPreset = new URLSearchParams(window.location.search).get('preset');
+          const quizParams = new URLSearchParams({ q: fullQuery });
+          if (quizPreset) quizParams.set('preset', quizPreset);
+          window.location.href = `/?${quizParams.toString()}`;
         } else {
           // Fallback to static experience page
           const resultUrl = RESULT_PAGES[persona] || '/experiences/morning-minimalist';

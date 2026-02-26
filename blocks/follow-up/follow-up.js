@@ -27,6 +27,8 @@ export default function decorate(block) {
   const chipsList = document.createElement('div');
   chipsList.className = 'follow-up-list';
 
+  const currentPreset = new URLSearchParams(window.location.search).get('preset');
+
   links.forEach((link) => {
     const chip = document.createElement('a');
     chip.className = 'follow-up-chip';
@@ -35,10 +37,15 @@ export default function decorate(block) {
     // Ensure the link uses ?q= format
     const { href } = link;
     if (href.includes('?q=') || href.includes('?query=')) {
-      chip.href = href;
+      const chipUrl = new URL(href, window.location.origin);
+      if (currentPreset && !chipUrl.searchParams.has('preset')) {
+        chipUrl.searchParams.set('preset', currentPreset);
+      }
+      chip.href = chipUrl.href;
     } else {
-      // Convert the link text into a query
-      chip.href = `/?q=${encodeURIComponent(link.textContent)}`;
+      const params = new URLSearchParams({ q: link.textContent });
+      if (currentPreset) params.set('preset', currentPreset);
+      chip.href = `/?${params.toString()}`;
     }
 
     chipsList.appendChild(chip);
