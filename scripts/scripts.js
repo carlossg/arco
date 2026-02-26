@@ -222,7 +222,7 @@ function escapeRegExp(string) {
 /**
  * Persist generated page to DA
  */
-async function persistToDA(query, blocks, intent) {
+async function persistToDA(query, blocks, intent, path) {
   try {
     // eslint-disable-next-line no-console
     console.log('[Recommender] Persisting page to DA...');
@@ -230,7 +230,9 @@ async function persistToDA(query, blocks, intent) {
     const response = await fetch(`${ARCO_RECOMMENDER_URL}/api/persist`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, blocks, intent }),
+      body: JSON.stringify({
+        query, blocks, intent, path,
+      }),
     });
 
     const result = await response.json();
@@ -347,7 +349,7 @@ async function renderPrefetchedBlocks(prefetchData, query) {
 
   // Auto-persist to DA
   if (generatedBlocks.length > 0) {
-    persistToDA(query, generatedBlocks, meta.intent);
+    persistToDA(query, generatedBlocks, meta.intent, `/discover/${slug}`);
   }
 }
 
@@ -558,7 +560,7 @@ async function renderArcoRecommenderPage() {
 
     // Auto-persist to DA
     if (generatedBlocks.length > 0) {
-      persistToDA(query, generatedBlocks, data.intent);
+      persistToDA(query, generatedBlocks, data.intent, `/discover/${slug}`);
     }
   });
 
