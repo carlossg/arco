@@ -311,7 +311,8 @@ async function renderArcoRecommenderPage() {
     }
     blockCount += 1;
 
-    // Store for persistence
+    // Store for persistence and track index (DOM order may differ from arrival order)
+    const blockIdx = generatedBlocks.length;
     generatedBlocks.push({ html: data.html, sectionStyle: data.sectionStyle });
 
     // Create section and add content
@@ -321,6 +322,7 @@ async function renderArcoRecommenderPage() {
       section.classList.add(data.sectionStyle);
     }
     section.dataset.sectionStatus = 'initialized';
+    section.dataset.blockIndex = blockIdx;
     section.innerHTML = data.html;
 
     // Store original src for images
@@ -343,7 +345,13 @@ async function renderArcoRecommenderPage() {
     decorateButtons(section);
     decorateIcons(section);
 
-    content.appendChild(section);
+    // Insert before follow-up section so it always stays at the bottom
+    const followUpSection = content.querySelector('.follow-up-container');
+    if (followUpSection) {
+      content.insertBefore(section, followUpSection);
+    } else {
+      content.appendChild(section);
+    }
 
     // Load the block (CSS + JS)
     const block = section.querySelector('.block');
@@ -392,11 +400,11 @@ async function renderArcoRecommenderPage() {
         imgParent.replaceChild(newImg, img);
       }
 
-      // Update stored HTML
+      // Update stored HTML using block index (not DOM position, which may differ)
       if (section && originalUrl) {
-        const sectionIndex = Array.from(content.children).indexOf(section);
-        if (sectionIndex >= 0 && generatedBlocks[sectionIndex]) {
-          generatedBlocks[sectionIndex].html = generatedBlocks[sectionIndex].html.replace(
+        const bidx = parseInt(section.dataset.blockIndex, 10);
+        if (!Number.isNaN(bidx) && generatedBlocks[bidx]) {
+          generatedBlocks[bidx].html = generatedBlocks[bidx].html.replace(
             new RegExp(escapeRegExp(originalUrl), 'g'),
             resolvedUrl,
           );

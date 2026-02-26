@@ -1573,6 +1573,27 @@ export async function orchestrate(
       },
     });
 
+    // ── Phase 2b: Stream Early Blocks (hero + follow-up) ────────────────
+    // Hero and follow-up are deterministic (no LLM call). Stream them
+    // immediately so the user sees content in <1s while reasoning runs.
+    const earlyBlocks: GeneratedBlock[] = [];
+
+    const heroBlock = generateHeroBlock(intent, ragContext, query);
+    earlyBlocks.push(heroBlock);
+    write({
+      event: 'block-content',
+      data: { html: heroBlock.html, sectionStyle: heroBlock.sectionStyle },
+    });
+    console.log('[orchestrator] Streamed early hero block');
+
+    const followUpBlock = generateFollowUpBlock(intent, ragContext, query, sessionContext);
+    earlyBlocks.push(followUpBlock);
+    write({
+      event: 'block-content',
+      data: { html: followUpBlock.html, sectionStyle: followUpBlock.sectionStyle },
+    });
+    console.log('[orchestrator] Streamed early follow-up block');
+
     // ── Phase 3: Deep Reasoning (Block Selection) ───────────────────────
     console.log('[orchestrator] Running deep reasoning (block selection)...');
     const reasoningStart = Date.now();
@@ -1615,94 +1636,88 @@ export async function orchestrate(
       contentGuidance: buildContentGuidanceFromReasoningBlock(block),
     }));
 
-    // Send layout event with block types
+    // All block types for metadata (includes early-streamed hero + follow-up)
     const blockTypes = blockSelections.map((b) => b.type);
+
+    // Filter out hero and follow-up — already streamed in Phase 2b
+    const llmBlockSelections = blockSelections.filter(
+      (b) => b.type !== 'hero' && b.type !== 'follow-up',
+    );
+
     write({
       event: 'generation-start',
       data: {
         query,
-        estimatedBlocks: blockSelections.length,
+        estimatedBlocks: llmBlockSelections.length + earlyBlocks.length,
       },
     });
 
-    // ── Phase 5: Parallel Content Generation ────────────────────────────
-    console.log(`[orchestrator] Generating ${blockSelections.length} blocks in parallel...`);
+    // ── Phase 5: Progressive Content Generation & Streaming ─────────────
+    // Each block streams to the client as soon as its promise resolves,
+    // rather than waiting for all blocks to finish first.
+    console.log(`[orchestrator] Generating ${llmBlockSelections.length} LLM blocks progressively...`);
 
-    const generationPromises = blockSelections.map((block, index) => ({
-      block,
-      index,
-      promise: generateBlockContent(
+    const generatedBlocks: GeneratedBlock[] = [...earlyBlocks];
+    let successCount = earlyBlocks.length;
+    let failCount = 0;
+
+    const streamPromises = llmBlockSelections.map((block, index) => {
+      const promise = generateBlockContent(
         block,
         intent,
         ragContext,
-        blockSelections,
+        llmBlockSelections,
         preset,
         modelOverride,
         sessionContext,
-      ),
-    }));
+      );
 
-    // Use Promise.allSettled so one block failure does not abort others
-    const results = await Promise.allSettled(
-      generationPromises.map((g) => g.promise),
-    );
+      return promise.then(
+        (generated) => {
+          generatedBlocks.push(generated);
+          successCount++;
 
-    // ── Phase 6: Stream Generated Blocks ────────────────────────────────
-    const generatedBlocks: GeneratedBlock[] = [];
-    let successCount = 0;
-    let failCount = 0;
+          write({
+            event: 'block-start',
+            data: { blockType: block.type, index: index + 1 },
+          });
+          write({
+            event: 'block-content',
+            data: {
+              html: generated.html,
+              sectionStyle: generated.sectionStyle,
+            },
+          });
+          write({
+            event: 'block-rationale',
+            data: {
+              blockType: block.type,
+              rationale: block.rationale || block.contentGuidance || '',
+            },
+          });
 
-    for (let i = 0; i < results.length; i++) {
-      const result = results[i];
-      const { block, index } = generationPromises[i];
+          console.log(`[orchestrator] Block ${index + 1}/${llmBlockSelections.length} (${generated.type}) streamed`);
+        },
+        (reason) => {
+          failCount++;
+          console.error(`[orchestrator] Block ${index + 1}/${llmBlockSelections.length} (${block.type}) failed:`, reason);
 
-      // Signal start of this block
-      write({
-        event: 'block-start',
-        data: { blockType: block.type, index },
-      });
+          const fallback = generateFallbackBlock(block.type, intent, ragContext);
+          generatedBlocks.push(fallback);
 
-      if (result.status === 'fulfilled') {
-        const generated = result.value;
-        generatedBlocks.push(generated);
-        successCount++;
+          write({
+            event: 'block-content',
+            data: {
+              html: fallback.html,
+              sectionStyle: fallback.sectionStyle,
+            },
+          });
+        },
+      );
+    });
 
-        // Stream the block content
-        write({
-          event: 'block-content',
-          data: {
-            html: generated.html,
-            sectionStyle: generated.sectionStyle,
-          },
-        });
-
-        // Stream the block rationale
-        write({
-          event: 'block-rationale',
-          data: {
-            blockType: block.type,
-            rationale: block.rationale || block.contentGuidance || '',
-          },
-        });
-
-        console.log(`[orchestrator] Block ${index + 1}/${results.length} (${generated.type}) generated successfully`);
-      } else {
-        failCount++;
-        console.error(`[orchestrator] Block ${index + 1}/${results.length} (${block.type}) failed:`, result.reason);
-
-        // Generate a fallback block
-        const fallback = generateFallbackBlock(block.type, intent, ragContext);
-        generatedBlocks.push(fallback);
-
-        write({
-          event: 'block-content',
-          data: {
-            html: fallback.html,
-            sectionStyle: fallback.sectionStyle,
-          },
-        });
-      }
-    }
+    // Wait for all LLM blocks before sending generation-complete
+    await Promise.allSettled(streamPromises);
 
     context.generatedBlocks = generatedBlocks;
 
