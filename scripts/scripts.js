@@ -243,7 +243,9 @@ async function renderArcoRecommenderPage() {
   // Clear main and show loading state
   main.innerHTML = `
     <div class="section generating-container arco-recommender">
-      <span class="generating-query">"${query}"</span>
+      <div class="generating-spinner" aria-hidden="true"></div>
+      <h1 class="generating-title">Finding recommendations&hellip;</h1>
+      <span class="generating-query">&ldquo;${query}&rdquo;</span>
     </div>
     <div id="generation-content"></div>
   `;
@@ -364,6 +366,7 @@ async function renderArcoRecommenderPage() {
 
   eventSource.addEventListener('generation-complete', (e) => {
     eventSource.close();
+    loadingState.remove();
     const data = JSON.parse(e.data);
     const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
 
@@ -428,6 +431,8 @@ async function loadPage() {
     document.documentElement.lang = 'en';
     decorateTemplateAndTheme();
     document.body.classList.add('appear', 'arco-recommender-mode');
+    loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
+    loadFonts();
     loadHeader(document.querySelector('header'));
     loadFooter(document.querySelector('footer'));
     await renderArcoRecommenderPage();
