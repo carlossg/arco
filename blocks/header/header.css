@@ -285,23 +285,72 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* tools — pill CTA */
+/* tools — search form */
 header nav .nav-tools {
   grid-area: tools;
 }
 
-header nav .nav-tools a.button:any-link {
-  margin: 0;
-  padding: 0.5em 1.8em;
-  font-size: var(--body-font-size-xs);
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  color: var(--light-color);
-  box-shadow: var(--shadow-md);
+header nav .nav-search-form {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--border-color);
+  border-radius: 999px;
+  padding: 0 4px 0 16px;
+  background: transparent;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  width: 100%;
 }
 
-header nav .nav-tools a.button:hover {
-  background-color: var(--link-hover-color);
-  border-color: var(--link-hover-color);
-  transform: scale(1.05);
+header nav .nav-search-form:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgb(181 101 29 / 15%);
+}
+
+header nav .nav-search-form input[type="search"] {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  color: var(--text-color);
+  padding: 8px 0;
+  outline: none;
+  min-width: 0;
+}
+
+header nav .nav-search-form input[type="search"]::placeholder {
+  color: #9e9a93;
+}
+
+/* remove browser default search field styling */
+header nav .nav-search-form input[type="search"]::-webkit-search-cancel-button,
+header nav .nav-search-form input[type="search"]::-webkit-search-decoration {
+  appearance: none;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+header nav .nav-search-form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--accent-color);
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color var(--transition);
+  box-shadow: none;
+}
+
+header nav .nav-search-form button:hover {
+  background-color: rgb(181 101 29 / 10%);
+  transform: none;
+  box-shadow: none;
+}
+
+@media (width >= 900px) {
+  header nav .nav-search-form {
+    width: 280px;
+  }
 }
