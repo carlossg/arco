@@ -15,7 +15,7 @@ export const GCP_PROJECT_ID = window.ARCO_CONFIG?.GCP_PROJECT_ID
 
 // Main recommender service (Cloud Run)
 export const ARCO_RECOMMENDER_URL = window.ARCO_CONFIG?.RECOMMENDER_URL
-  || 'https://arco-recommender-okyq6gkx3a-uc.a.run.app';
+  || 'https://arco-recommender-642841493686.us-central1.run.app';
 
 // Analytics service (Cloud Function Gen2)
 export const ARCO_ANALYTICS_URL = window.ARCO_CONFIG?.ANALYTICS_URL
