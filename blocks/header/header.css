@@ -384,3 +384,50 @@ header nav .nav-search-form button:hover {
     width: 280px;
   }
 }
+
+/* "For You" personalized nav item */
+header nav .nav-foryou {
+  display: none;
+}
+
+header nav .nav-foryou[aria-hidden='false'] {
+  display: block;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+header nav .nav-foryou-link {
+  color: var(--accent-color);
+  font-weight: 600;
+  position: relative;
+}
+
+header nav .nav-foryou-loading .nav-foryou-link {
+  animation: foryou-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes foryou-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+header nav .nav-foryou-ready .nav-foryou-link::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+@media (width >= 900px) {
+  header nav .nav-foryou[aria-hidden='false'] {
+    display: block;
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+}

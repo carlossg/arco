@@ -1,5 +1,7 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
+import { SessionContextManager } from '../../scripts/session-context.js';
+import { FORYOU_QUERY_KEY } from '../../scripts/for-you-prefetch.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -246,8 +248,83 @@ export default async function decorate(block) {
     wrapper.appendChild(form);
   }
 
+  // Inject "For You" personalized link
+  if (navSections) {
+    // eslint-disable-next-line no-use-before-define
+    injectForYouLink(navSections);
+  }
+
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+}
+
+/**
+ * Inject a "For You" nav item that links to a pre-generated personalized page.
+ * Hidden until the user has visited at least 2 pages.
+ * @param {Element} navSections The nav-sections element
+ */
+function injectForYouLink(navSections) {
+  const ul = navSections.querySelector('.default-content-wrapper > ul');
+  if (!ul) return;
+
+  const li = document.createElement('li');
+  li.className = 'nav-foryou';
+  li.setAttribute('aria-hidden', 'true');
+
+  const p = document.createElement('p');
+  const link = document.createElement('a');
+  link.href = '/';
+  link.className = 'nav-foryou-link';
+  link.textContent = 'For You';
+  p.appendChild(link);
+  li.appendChild(p);
+  ul.appendChild(li);
+
+  function getForYouHref() {
+    try {
+      const query = sessionStorage.getItem(FORYOU_QUERY_KEY);
+      if (query) {
+        const currentPreset = new URLSearchParams(window.location.search).get('preset');
+        const params = new URLSearchParams({ q: query });
+        if (currentPreset) params.set('preset', currentPreset);
+        return `/?${params.toString()}`;
+      }
+    } catch {
+      // sessionStorage unavailable
+    }
+    return '/?q=Recommend+coffee+equipment+based+on+my+browsing';
+  }
+
+  function updateVisibility() {
+    const context = SessionContextManager.getContext();
+    const visits = (context.browsingHistory || []).length;
+    const visible = visits >= 2;
+    li.setAttribute('aria-hidden', visible ? 'false' : 'true');
+    if (visible) {
+      link.href = getForYouHref();
+    }
+  }
+
+  // Check initial state
+  updateVisibility();
+
+  // Update when browsing context changes
+  window.addEventListener('arco-context-updated', () => {
+    updateVisibility();
+  });
+
+  // Loading state — prefetch started
+  window.addEventListener('arco-foryou-started', () => {
+    li.classList.add('nav-foryou-loading');
+    li.classList.remove('nav-foryou-ready');
+  });
+
+  // Ready state — prefetch complete
+  window.addEventListener('arco-foryou-ready', () => {
+    li.classList.remove('nav-foryou-loading');
+    li.classList.add('nav-foryou-ready');
+    link.href = getForYouHref();
+  });
 }

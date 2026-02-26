@@ -163,6 +163,8 @@ function loadDelayed() {
 
 const PREFETCH_KEY = 'arco-quiz-prefetch';
 const PREFETCH_MAX_AGE_MS = 60000;
+const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
+const FORYOU_MAX_AGE_MS = 120000;
 
 /**
  * Valid recommender presets (must match model-factory-google.ts MODEL_PRESETS)
@@ -375,6 +377,25 @@ async function renderArcoRecommenderPage() {
       if (age < PREFETCH_MAX_AGE_MS && prefetchData.blocks && prefetchData.blocks.length > 0) {
         // eslint-disable-next-line no-console
         console.log(`[Recommender] Using prefetched quiz data (${prefetchData.blocks.length} blocks, ${(age / 1000).toFixed(1)}s old)`);
+        await renderPrefetchedBlocks(prefetchData, query);
+        return;
+      }
+    }
+  } catch {
+    // Parse error or sessionStorage unavailable — fall through to normal SSE flow
+  }
+
+  // Check for prefetched "For You" data (lower priority than quiz)
+  try {
+    const foryouRaw = sessionStorage.getItem(FORYOU_PREFETCH_KEY);
+    sessionStorage.removeItem(FORYOU_PREFETCH_KEY);
+    sessionStorage.removeItem('arco-foryou-query');
+    if (foryouRaw) {
+      const prefetchData = JSON.parse(foryouRaw);
+      const age = Date.now() - (prefetchData.timestamp || 0);
+      if (age < FORYOU_MAX_AGE_MS && prefetchData.blocks && prefetchData.blocks.length > 0) {
+        // eslint-disable-next-line no-console
+        console.log(`[Recommender] Using prefetched For You data (${prefetchData.blocks.length} blocks, ${(age / 1000).toFixed(1)}s old)`);
         await renderPrefetchedBlocks(prefetchData, query);
         return;
       }

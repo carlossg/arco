@@ -266,6 +266,9 @@ export function collectBrowsingSignals() {
 
     const profile = buildInferredProfile(signals);
     SessionContextManager.updateInferredProfile(profile);
+    window.dispatchEvent(new CustomEvent('arco-context-updated', {
+      detail: { signalType: signal.type, profile },
+    }));
   }
 
   // 1. Page signal — immediate
