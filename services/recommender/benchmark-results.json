@@ -1,0 +1,443 @@
+{
+    "query": "best espresso machine for beginners",
+    "benchmarkedPresets": 14,
+    "totalDuration": 163670,
+    "summary": [
+        {
+            "preset": "llama",
+            "category": "pure",
+            "classificationMs": 588,
+            "classificationModel": "llama-3.3-70b-instruct-maas",
+            "reasoningMs": 1628,
+            "reasoningModel": "llama-3.3-70b-instruct-maas",
+            "totalMs": 2235
+        },
+        {
+            "preset": "gemini-2.5-flash-lite",
+            "category": "pure",
+            "classificationMs": 597,
+            "classificationModel": "gemini-2.5-flash-lite",
+            "reasoningMs": 2729,
+            "reasoningModel": "gemini-2.5-flash-lite",
+            "totalMs": 3345
+        },
+        {
+            "preset": "gemini-2.0-flash",
+            "category": "pure",
+            "classificationMs": 541,
+            "classificationModel": "gemini-2.0-flash",
+            "reasoningMs": 3261,
+            "reasoningModel": "gemini-2.0-flash",
+            "totalMs": 3825
+        },
+        {
+            "preset": "gemini-2.0-mixed",
+            "category": "mixed",
+            "classificationMs": 641,
+            "classificationModel": "gemini-2.0-flash-lite",
+            "reasoningMs": 3262,
+            "reasoningModel": "gemini-2.0-flash",
+            "totalMs": 3925
+        },
+        {
+            "preset": "gemini-2.0-flash-lite",
+            "category": "pure",
+            "classificationMs": 689,
+            "classificationModel": "gemini-2.0-flash-lite",
+            "reasoningMs": 6231,
+            "reasoningModel": "gemini-2.0-flash-lite",
+            "totalMs": 6942
+        },
+        {
+            "preset": "gemini-3-flash",
+            "category": "pure",
+            "classificationMs": 4217,
+            "classificationModel": "gemini-3-flash-preview",
+            "reasoningMs": 7268,
+            "reasoningModel": "gemini-3-flash-preview",
+            "totalMs": 11507
+        },
+        {
+            "preset": "gemini-2.5-flash",
+            "category": "pure",
+            "classificationMs": 2986,
+            "classificationModel": "gemini-2.5-flash",
+            "reasoningMs": 14658,
+            "reasoningModel": "gemini-2.5-flash",
+            "totalMs": 17664
+        },
+        {
+            "preset": "gemini-3-mixed",
+            "category": "mixed",
+            "classificationMs": 3967,
+            "classificationModel": "gemini-3-flash-preview",
+            "reasoningMs": 14038,
+            "reasoningModel": "gemini-3-pro-preview",
+            "totalMs": 18025
+        },
+        {
+            "preset": "production",
+            "category": "production",
+            "classificationMs": 453,
+            "classificationModel": "gemini-2.5-flash-lite",
+            "reasoningMs": 17608,
+            "reasoningModel": "gemini-3-pro-preview",
+            "totalMs": 18081
+        },
+        {
+            "preset": "gemini-2.5-mixed",
+            "category": "mixed",
+            "classificationMs": 560,
+            "classificationModel": "gemini-2.5-flash-lite",
+            "reasoningMs": 20238,
+            "reasoningModel": "gemini-2.5-pro",
+            "totalMs": 20818
+        },
+        {
+            "preset": "gemini-3-pro",
+            "category": "pure",
+            "classificationMs": 8328,
+            "classificationModel": "gemini-3-pro-preview",
+            "reasoningMs": 15824,
+            "reasoningModel": "gemini-3-pro-preview",
+            "totalMs": 25021
+        },
+        {
+            "preset": "gemini-2.5-pro",
+            "category": "pure",
+            "classificationMs": 4806,
+            "classificationModel": "gemini-2.5-pro",
+            "reasoningMs": 20297,
+            "reasoningModel": "gemini-2.5-pro",
+            "totalMs": 25126
+        }
+    ],
+    "details": [
+        {
+            "preset": "gemini-3-pro",
+            "category": "pure",
+            "timings": {
+                "classification": {
+                    "duration": 8328,
+                    "model": "gemini-3-pro-preview",
+                    "tokens": {
+                        "input": 106,
+                        "output": 18
+                    }
+                },
+                "reasoning": {
+                    "duration": 15824,
+                    "model": "gemini-3-pro-preview",
+                    "tokens": {
+                        "input": 93,
+                        "output": 419
+                    }
+                }
+            },
+            "totalDuration": 25021,
+            "status": "success"
+        },
+        {
+            "preset": "gemini-3-flash",
+            "category": "pure",
+            "timings": {
+                "classification": {
+                    "duration": 4217,
+                    "model": "gemini-3-flash-preview",
+                    "tokens": {
+                        "input": 106,
+                        "output": 20
+                    }
+                },
+                "reasoning": {
+                    "duration": 7268,
+                    "model": "gemini-3-flash-preview",
+                    "tokens": {
+                        "input": 93,
+                        "output": 321
+                    }
+                }
+            },
+            "totalDuration": 11507,
+            "status": "success"
+        },
+        {
+            "preset": "gemini-2.5-pro",
+            "category": "pure",
+            "timings": {
+                "classification": {
+                    "duration": 4806,
+                    "model": "gemini-2.5-pro",
+                    "tokens": {
+                        "input": 106,
+                        "output": 19
+                    }
+                },
+                "reasoning": {
+                    "duration": 20297,
+                    "model": "gemini-2.5-pro",
+                    "tokens": {
+                        "input": 93,
+                        "output": 79
+                    }
+                }
+            },
+            "totalDuration": 25126,
+            "status": "success"
+        },
+        {
+            "preset": "gemini-2.5-flash",
+            "category": "pure",
+            "timings": {
+                "classification": {
+                    "duration": 2986,
+                    "model": "gemini-2.5-flash",
+                    "tokens": {
+                        "input": 106,
+                        "output": 85
+                    }
+                },
+                "reasoning": {
+                    "duration": 14658,
+                    "model": "gemini-2.5-flash",
+                    "tokens": {
+                        "input": 93,
+                        "output": 386
+                    }
+                }
+            },
+            "totalDuration": 17664,
+            "status": "success"
+        },
+        {
+            "preset": "gemini-2.5-flash-lite",
+            "category": "pure",
+            "timings": {
+                "classification": {
+                    "duration": 597,
+                    "model": "gemini-2.5-flash-lite",
+                    "tokens": {
+                        "input": 106,
+                        "output": 73
+                    }
+                },
+                "reasoning": {
+                    "duration": 2729,
+                    "model": "gemini-2.5-flash-lite",
+                    "tokens": {
+                        "input": 93,
+                        "output": 469
+                    }
+                }
+            },
+            "totalDuration": 3345,
+            "status": "success"
+        },
+        {
+            "preset": "gemini-2.0-flash",
+            "category": "pure",
+            "timings": {
+                "classification": {
+                    "duration": 541,
+                    "model": "gemini-2.0-flash",
+                    "tokens": {
+                        "input": 106,
+                        "output": 54
+                    }
+                },
+                "reasoning": {
+                    "duration": 3261,
+                    "model": "gemini-2.0-flash",
+                    "tokens": {
+                        "input": 93,
+                        "output": 405
+                    }
+                }
+            },
+            "totalDuration": 3825,
+            "status": "success"
+        },
+        {
+            "preset": "gemini-2.0-flash-lite",
+            "category": "pure",
+            "timings": {
+                "classification": {
+                    "duration": 689,
+                    "model": "gemini-2.0-flash-lite",
+                    "tokens": {
+                        "input": 106,
+                        "output": 75
+                    }
+                },
+                "reasoning": {
+                    "duration": 6231,
+                    "model": "gemini-2.0-flash-lite",
+                    "tokens": {
+                        "input": 93,
+                        "output": 936
+                    }
+                }
+            },
+            "totalDuration": 6942,
+            "status": "success"
+        },
+        {
+            "preset": "llama",
+            "category": "pure",
+            "timings": {
+                "classification": {
+                    "duration": 588,
+                    "model": "llama-3.3-70b-instruct-maas",
+                    "tokens": {
+                        "input": 139,
+                        "output": 65
+                    }
+                },
+                "reasoning": {
+                    "duration": 1628,
+                    "model": "llama-3.3-70b-instruct-maas",
+                    "tokens": {
+                        "input": 122,
+                        "output": 277
+                    }
+                }
+            },
+            "totalDuration": 2235,
+            "status": "success"
+        },
+        {
+            "preset": "gemini-3-mixed",
+            "category": "mixed",
+            "timings": {
+                "classification": {
+                    "duration": 3967,
+                    "model": "gemini-3-flash-preview",
+                    "tokens": {
+                        "input": 106,
+                        "output": 19
+                    }
+                },
+                "reasoning": {
+                    "duration": 14038,
+                    "model": "gemini-3-pro-preview",
+                    "tokens": {
+                        "input": 93,
+                        "output": 364
+                    }
+                }
+            },
+            "totalDuration": 18025,
+            "status": "success"
+        },
+        {
+            "preset": "gemini-2.5-mixed",
+            "category": "mixed",
+            "timings": {
+                "classification": {
+                    "duration": 560,
+                    "model": "gemini-2.5-flash-lite",
+                    "tokens": {
+                        "input": 106,
+                        "output": 73
+                    }
+                },
+                "reasoning": {
+                    "duration": 20238,
+                    "model": "gemini-2.5-pro",
+                    "tokens": {
+                        "input": 93,
+                        "output": 405
+                    }
+                }
+            },
+            "totalDuration": 20818,
+            "status": "success"
+        },
+        {
+            "preset": "gemini-2.0-mixed",
+            "category": "mixed",
+            "timings": {
+                "classification": {
+                    "duration": 641,
+                    "model": "gemini-2.0-flash-lite",
+                    "tokens": {
+                        "input": 106,
+                        "output": 75
+                    }
+                },
+                "reasoning": {
+                    "duration": 3262,
+                    "model": "gemini-2.0-flash",
+                    "tokens": {
+                        "input": 93,
+                        "output": 398
+                    }
+                }
+            },
+            "totalDuration": 3925,
+            "status": "success"
+        },
+        {
+            "preset": "production",
+            "category": "production",
+            "timings": {
+                "classification": {
+                    "duration": 453,
+                    "model": "gemini-2.5-flash-lite",
+                    "tokens": {
+                        "input": 106,
+                        "output": 73
+                    }
+                },
+                "reasoning": {
+                    "duration": 17608,
+                    "model": "gemini-3-pro-preview",
+                    "tokens": {
+                        "input": 93,
+                        "output": 392
+                    }
+                }
+            },
+            "totalDuration": 18081,
+            "status": "success"
+        },
+        {
+            "preset": "llama-3.2-3b",
+            "category": "model-garden",
+            "timings": {
+                "classification": {
+                    "error": "Model Garden generation failed: Vertex AI generation failed: [VertexAI.ClientError]: got status: 404 Not Found. {\"error\":{\"code\":404,\"message\":\"Publisher Model `projects/api-project-642841493686/locations/us-central1/publishers/meta/models/llama-3.2-3b-instruct-maas` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions\",\"status\":\"NOT_FOUND\"}}"
+                },
+                "reasoning": {
+                    "duration": 3576,
+                    "model": "gemini-2.0-flash",
+                    "tokens": {
+                        "input": 93,
+                        "output": 428
+                    }
+                }
+            },
+            "totalDuration": 3661,
+            "status": "partial"
+        },
+        {
+            "preset": "mistral-small",
+            "category": "model-garden",
+            "timings": {
+                "classification": {
+                    "error": "Model Garden generation failed: Vertex AI generation failed: [VertexAI.ClientError]: got status: 404 Not Found. {\"error\":{\"code\":404,\"message\":\"Publisher Model `projects/api-project-642841493686/locations/us-central1/publishers/mistralai/models/mistral-small-2503` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions\",\"status\":\"NOT_FOUND\"}}"
+                },
+                "reasoning": {
+                    "duration": 3394,
+                    "model": "gemini-2.0-flash",
+                    "tokens": {
+                        "input": 93,
+                        "output": 393
+                    }
+                }
+            },
+            "totalDuration": 3495,
+            "status": "partial"
+        }
+    ]
+}

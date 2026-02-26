@@ -7,6 +7,8 @@
  * Endpoints:
  * - GET /generate?query=...&slug=...&ctx=... - Stream page generation via SSE
  * - POST /api/persist - Persist generated pages to AEM DA
+ * - GET /api/presets - List all model presets with role assignments
+ * - GET /api/benchmark?query=...&presets=... - Benchmark presets with timing comparison
  * - GET /health - Health check
  */
 
@@ -231,6 +233,374 @@ app.post('/api/persist', async (req: Request, res: Response) => {
 });
 
 // ============================================
+// GET /api/presets - List all model presets
+// ============================================
+
+interface PresetInfo {
+  name: string;
+  category: 'pure' | 'mixed' | 'model-garden' | 'gemma' | 'production';
+  description: string;
+  roles: Record<string, { provider: string; model: string; maxTokens?: number; temperature?: number }>;
+  requiresEndpoint: boolean;
+}
+
+function getPresetList(): PresetInfo[] {
+  const presets: PresetInfo[] = [
+    // Pure presets
+    {
+      name: 'gemini-3-pro',
+      category: 'pure',
+      description: 'Gemini 3 Pro for all roles — highest quality, slower',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-3-pro-preview', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-3-pro-preview', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-3-pro-preview', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-3-pro-preview', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'gemini-3-flash',
+      category: 'pure',
+      description: 'Gemini 3 Flash for all roles — fast, good quality',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-3-flash-preview', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-3-flash-preview', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-3-flash-preview', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-3-flash-preview', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'gemini-2.5-pro',
+      category: 'pure',
+      description: 'Gemini 2.5 Pro for all roles — strong reasoning, moderate speed',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.5-pro', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-2.5-pro', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.5-pro', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.5-pro', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'gemini-2.5-flash',
+      category: 'pure',
+      description: 'Gemini 2.5 Flash for all roles — balanced speed/quality',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.5-flash', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-2.5-flash', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.5-flash', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.5-flash', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'gemini-2.5-flash-lite',
+      category: 'pure',
+      description: 'Gemini 2.5 Flash Lite for all roles — optimized for low latency, 1M context',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'gemini-2.0-flash',
+      category: 'pure',
+      description: 'Gemini 2.0 Flash for all roles — fastest Gemini, cost-effective',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.0-flash', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-2.0-flash', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.0-flash', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.0-flash', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'gemini-2.0-flash-lite',
+      category: 'pure',
+      description: 'Gemini 2.0 Flash Lite for all roles — ultra-fast, lowest cost',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'llama',
+      category: 'pure',
+      description: 'Llama 3.3 70B for all roles via Model Garden MaaS',
+      roles: {
+        reasoning:      { provider: 'model-garden', model: 'llama-3.3-70b-instruct-maas', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'model-garden', model: 'llama-3.3-70b-instruct-maas', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'model-garden', model: 'llama-3.3-70b-instruct-maas', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'model-garden', model: 'llama-3.3-70b-instruct-maas', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    // Mixed presets
+    {
+      name: 'gemini-3-mixed',
+      category: 'mixed',
+      description: 'Gemini 3 Pro reasoning + 3 Flash for content/classification/validation',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-3-pro-preview', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-3-flash-preview', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-3-flash-preview', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-3-flash-preview', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'gemini-2.5-mixed',
+      category: 'mixed',
+      description: 'Gemini 2.5 Pro reasoning + 2.5 Flash Lite for content/classification/validation',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.5-pro', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'gemini-2.0-mixed',
+      category: 'mixed',
+      description: 'Gemini 2.0 Flash reasoning + 2.0 Flash Lite for content/classification/validation',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.0-flash', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    // Production
+    {
+      name: 'production',
+      category: 'production',
+      description: 'Gemini 3 Pro reasoning + 2.5 Flash Lite for speed — default production preset',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-3-pro-preview', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.5-flash-lite', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    // Model Garden
+    {
+      name: 'llama-3.2-3b',
+      category: 'model-garden',
+      description: 'Gemini 2.0 Flash reasoning + Llama 3.2 3B content (serverless MaaS)',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.0-flash', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'model-garden', model: 'llama-3.2-3b-instruct-maas', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'model-garden', model: 'llama-3.2-3b-instruct-maas', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'model-garden', model: 'llama-3.2-3b-instruct-maas', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    {
+      name: 'mistral-small',
+      category: 'model-garden',
+      description: 'Gemini 2.0 Flash reasoning + Mistral Small content (serverless MaaS)',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.0-flash', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'model-garden', model: 'mistral-small-2503', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'model-garden', model: 'mistral-small-2503', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'model-garden', model: 'mistral-small-2503', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: false,
+    },
+    // Gemma (require dedicated GPU endpoint)
+    {
+      name: 'gemma-3-4b',
+      category: 'gemma',
+      description: 'Gemini 2.0 Flash reasoning + Gemma 3 4B content (requires GPU endpoint)',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.0-flash', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'vertex-endpoint', model: 'gemma-3-4b-it', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: true,
+    },
+    {
+      name: 'gemma-3-12b',
+      category: 'gemma',
+      description: 'Gemini 2.0 Flash reasoning + Gemma 3 12B content (requires GPU endpoint)',
+      roles: {
+        reasoning:      { provider: 'google', model: 'gemini-2.0-flash', maxTokens: 2048, temperature: 0.7 },
+        content:        { provider: 'vertex-endpoint', model: 'gemma-3-12b-it', maxTokens: 1536, temperature: 0.8 },
+        classification: { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 512, temperature: 0.3 },
+        validation:     { provider: 'google', model: 'gemini-2.0-flash-lite', maxTokens: 256, temperature: 0.2 },
+      },
+      requiresEndpoint: true,
+    },
+  ];
+  return presets;
+}
+
+app.get('/api/presets', (_req: Request, res: Response) => {
+  const presets = getPresetList();
+  const currentPreset = process.env.MODEL_PRESET || 'production';
+  res.json({
+    currentPreset,
+    totalPresets: presets.length,
+    presets,
+  });
+});
+
+// ============================================
+// GET /api/benchmark - Benchmark presets with timing comparison
+// ============================================
+
+interface BenchmarkResult {
+  preset: string;
+  category: string;
+  timings: {
+    classification: { duration: number; model: string; tokens?: { input: number; output: number } } | { error: string };
+    reasoning: { duration: number; model: string; tokens?: { input: number; output: number } } | { error: string };
+  };
+  totalDuration: number;
+  status: 'success' | 'partial' | 'failed';
+}
+
+app.get('/api/benchmark', async (req: Request, res: Response) => {
+  const query = (req.query.query as string) || 'best espresso machine for beginners';
+  const presetsParam = req.query.presets as string | undefined;
+
+  // Parse which presets to benchmark
+  const allPresets = getPresetList();
+  let targetPresets: string[];
+  if (presetsParam) {
+    targetPresets = presetsParam.split(',').map((p) => p.trim());
+  } else {
+    // Default: benchmark all non-endpoint presets
+    targetPresets = allPresets
+      .filter((p) => !p.requiresEndpoint)
+      .map((p) => p.name);
+  }
+
+  const classificationPrompt = `Classify the following user query into one of these intent types: discovery, comparison, product-detail, use-case, specs, reviews, price, recommendation, support, gift, beginner, upgrade, technique.
+
+Query: "${query}"
+
+Respond with JSON: {"intentType": "...", "confidence": 0.0-1.0, "entities": {"products": [], "useCases": [], "features": []}, "journeyStage": "exploring|comparing|deciding"}`;
+
+  const reasoningPrompt = `You are an expert coffee equipment recommender. Given this query, select 3-4 content blocks from this list: hero, cards, columns, accordion, tabs, table, testimonials, product-detail, product-list, follow-up.
+
+Query: "${query}"
+
+Respond with JSON: {"blocks": [{"type": "...", "priority": 1, "rationale": "..."}], "reasoning": "..."}`;
+
+  const results: BenchmarkResult[] = [];
+  const overallStart = Date.now();
+
+  for (const presetName of targetPresets) {
+    const presetInfo = allPresets.find((p) => p.name === presetName);
+    if (!presetInfo) continue;
+
+    const result: BenchmarkResult = {
+      preset: presetName,
+      category: presetInfo.category,
+      timings: {
+        classification: { error: 'not run' },
+        reasoning: { error: 'not run' },
+      },
+      totalDuration: 0,
+      status: 'failed',
+    };
+
+    const presetStart = Date.now();
+
+    try {
+      const factory = new GoogleModelFactory(presetName);
+
+      // Benchmark classification
+      try {
+        const classStart = Date.now();
+        const classResponse = await factory.call('classification', [
+          { role: 'user', content: classificationPrompt },
+        ]);
+        result.timings.classification = {
+          duration: Date.now() - classStart,
+          model: classResponse.model,
+          tokens: classResponse.usage
+            ? { input: classResponse.usage.inputTokens, output: classResponse.usage.outputTokens }
+            : undefined,
+        };
+      } catch (err) {
+        result.timings.classification = { error: err instanceof Error ? err.message : 'Unknown error' };
+      }
+
+      // Benchmark reasoning
+      try {
+        const reasonStart = Date.now();
+        const reasonResponse = await factory.call('reasoning', [
+          { role: 'user', content: reasoningPrompt },
+        ]);
+        result.timings.reasoning = {
+          duration: Date.now() - reasonStart,
+          model: reasonResponse.model,
+          tokens: reasonResponse.usage
+            ? { input: reasonResponse.usage.inputTokens, output: reasonResponse.usage.outputTokens }
+            : undefined,
+        };
+      } catch (err) {
+        result.timings.reasoning = { error: err instanceof Error ? err.message : 'Unknown error' };
+      }
+
+      result.totalDuration = Date.now() - presetStart;
+
+      const classOk = !('error' in result.timings.classification);
+      const reasonOk = !('error' in result.timings.reasoning);
+      if (classOk && reasonOk) result.status = 'success';
+      else if (classOk || reasonOk) result.status = 'partial';
+    } catch (err) {
+      result.totalDuration = Date.now() - presetStart;
+      console.error(`[benchmark] Preset ${presetName} failed:`, err);
+    }
+
+    results.push(result);
+  }
+
+  // Build summary table sorted by total duration
+  const successful = results.filter((r) => r.status === 'success');
+  successful.sort((a, b) => a.totalDuration - b.totalDuration);
+
+  const summary = successful.map((r) => {
+    const classTime = 'duration' in r.timings.classification ? r.timings.classification.duration : null;
+    const reasonTime = 'duration' in r.timings.reasoning ? r.timings.reasoning.duration : null;
+    const classModel = 'model' in r.timings.classification ? r.timings.classification.model : 'N/A';
+    const reasonModel = 'model' in r.timings.reasoning ? r.timings.reasoning.model : 'N/A';
+    return {
+      preset: r.preset,
+      category: r.category,
+      classificationMs: classTime,
+      classificationModel: classModel,
+      reasoningMs: reasonTime,
+      reasoningModel: reasonModel,
+      totalMs: r.totalDuration,
+    };
+  });
+
+  res.json({
+    query,
+    benchmarkedPresets: results.length,
+    totalDuration: Date.now() - overallStart,
+    summary,
+    details: results,
+  });
+});
+
+// ============================================
 // GET /health and /healthz - Health check
 // ============================================
 
@@ -261,6 +631,8 @@ app.use((_req: Request, res: Response) => {
     endpoints: [
       'GET /generate?query=...',
       'POST /api/persist',
+      'GET /api/presets',
+      'GET /api/benchmark?query=...&presets=...',
       'GET /health',
     ],
   });
