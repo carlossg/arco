@@ -6,12 +6,16 @@ import {
   decorateIcons,
   decorateSections,
   decorateBlocks,
+  decorateBlock,
+  loadBlock,
   decorateTemplateAndTheme,
   waitForFirstImage,
   loadSection,
   loadSections,
   loadCSS,
 } from './aem.js';
+import { SessionContextManager } from './session-context.js';
+import { ARCO_RECOMMENDER_URL } from './api-config.js';
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -143,7 +147,293 @@ function loadDelayed() {
   // load anything that can be postponed to the latest here
 }
 
+/**
+ * Check if this is an Arco Recommender request (has ?q= or ?query= param)
+ */
+function isArcoRecommenderRequest() {
+  const params = new URLSearchParams(window.location.search);
+  return params.has('q') || params.has('query');
+}
+
+/**
+ * Generate a URL-safe slug from a query
+ */
+function generateSlug(query) {
+  const slug = query
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .substring(0, 80);
+
+  let hash = 0;
+  const str = query + Date.now();
+  for (let i = 0; i < str.length; i += 1) {
+    const char = str.charCodeAt(i);
+    // eslint-disable-next-line no-bitwise
+    hash = ((hash << 5) - hash) + char;
+    // eslint-disable-next-line no-bitwise
+    hash &= hash;
+  }
+  const hashStr = Math.abs(hash).toString(36).slice(0, 6);
+  return `${slug}-${hashStr}`;
+}
+
+/**
+ * Escape special regex characters in a string
+ */
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Persist generated page to DA
+ */
+async function persistToDA(query, blocks, intent) {
+  try {
+    // eslint-disable-next-line no-console
+    console.log('[Recommender] Persisting page to DA...');
+
+    const response = await fetch(`${ARCO_RECOMMENDER_URL}/api/persist`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, blocks, intent }),
+    });
+
+    const result = await response.json();
+
+    if (result.success && result.urls) {
+      // eslint-disable-next-line no-console
+      console.log('[Recommender] Page published:', result.urls.live);
+
+      window.dispatchEvent(new CustomEvent('page-published', {
+        detail: {
+          url: result.urls.live,
+          path: result.path,
+        },
+      }));
+
+      return result;
+    }
+    // eslint-disable-next-line no-console
+    console.error('[Recommender] Persist failed:', result.error);
+    return null;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('[Recommender] Persist error:', error);
+    return null;
+  }
+}
+
+/**
+ * Render an Arco Recommender page from ?q= or ?query= parameter
+ * Uses the recommender service with Gemini reasoning
+ */
+async function renderArcoRecommenderPage() {
+  const main = document.querySelector('main');
+  if (!main) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const query = params.get('q') || params.get('query');
+  const preset = params.get('preset') || 'production';
+  const slug = generateSlug(query);
+
+  // Clear main and show loading state
+  main.innerHTML = `
+    <div class="section generating-container arco-recommender">
+      <span class="generating-query">"${query}"</span>
+    </div>
+    <div id="generation-content"></div>
+  `;
+
+  const loadingState = main.querySelector('.generating-container');
+  const content = main.querySelector('#generation-content');
+
+  // Connect to SSE stream with session context
+  const contextParam = SessionContextManager.buildEncodedContextParam();
+  const streamUrl = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&slug=${encodeURIComponent(slug)}&preset=${encodeURIComponent(preset)}&ctx=${contextParam}`;
+  const eventSource = new EventSource(streamUrl);
+  let blockCount = 0;
+  const generatedBlocks = [];
+  const startTime = Date.now();
+
+  eventSource.addEventListener('block-content', async (e) => {
+    const data = JSON.parse(e.data);
+
+    // Hide loading state after first content block
+    if (blockCount === 0) {
+      loadingState.classList.add('done');
+    }
+    blockCount += 1;
+
+    // Store for persistence
+    generatedBlocks.push({ html: data.html, sectionStyle: data.sectionStyle });
+
+    // Create section and add content
+    const section = document.createElement('div');
+    section.className = 'section';
+    if (data.sectionStyle && data.sectionStyle !== 'default') {
+      section.classList.add(data.sectionStyle);
+    }
+    section.dataset.sectionStatus = 'initialized';
+    section.innerHTML = data.html;
+
+    // Store original src for images
+    section.querySelectorAll('img[data-gen-image]').forEach((img) => {
+      img.dataset.originalSrc = img.getAttribute('src');
+    });
+
+    // Wrap block in wrapper div (EDS pattern)
+    const blockEl = section.querySelector('[class]');
+    if (blockEl) {
+      const blockName = blockEl.classList[0];
+      const wrapper = document.createElement('div');
+      wrapper.className = `${blockName}-wrapper`;
+      blockEl.parentNode.insertBefore(wrapper, blockEl);
+      wrapper.appendChild(blockEl);
+      decorateBlock(blockEl);
+      section.classList.add(`${blockName}-container`);
+    }
+
+    decorateButtons(section);
+    decorateIcons(section);
+
+    content.appendChild(section);
+
+    // Load the block (CSS + JS)
+    const block = section.querySelector('.block');
+    if (block) {
+      await loadBlock(block);
+    }
+
+    section.dataset.sectionStatus = 'loaded';
+    section.style.display = null;
+  });
+
+  eventSource.addEventListener('block-rationale', (e) => {
+    const data = JSON.parse(e.data);
+    // eslint-disable-next-line no-console
+    console.log(`[Recommender] Block rationale for ${data.blockType}:`, data.rationale);
+  });
+
+  eventSource.addEventListener('image-ready', (e) => {
+    const data = JSON.parse(e.data);
+    const { imageId, url } = data;
+
+    let resolvedUrl = url;
+    if (url && url.startsWith('/')) {
+      resolvedUrl = `${ARCO_RECOMMENDER_URL}${url}`;
+    }
+
+    const img = content.querySelector(`img[data-gen-image="${imageId}"]`);
+    if (img && resolvedUrl) {
+      const originalUrl = img.dataset.originalSrc;
+      const section = img.closest('.section');
+      const imgParent = img.parentNode;
+
+      const cacheBustUrl = resolvedUrl.includes('?')
+        ? `${resolvedUrl}&_t=${Date.now()}`
+        : `${resolvedUrl}?_t=${Date.now()}`;
+
+      const newImg = document.createElement('img');
+      newImg.src = cacheBustUrl;
+      newImg.alt = img.alt || '';
+      newImg.className = img.className;
+      if (img.loading) newImg.loading = img.loading;
+      newImg.dataset.genImage = imageId;
+      newImg.classList.add('loaded');
+
+      if (imgParent) {
+        imgParent.replaceChild(newImg, img);
+      }
+
+      // Update stored HTML
+      if (section && originalUrl) {
+        const sectionIndex = Array.from(content.children).indexOf(section);
+        if (sectionIndex >= 0 && generatedBlocks[sectionIndex]) {
+          generatedBlocks[sectionIndex].html = generatedBlocks[sectionIndex].html.replace(
+            new RegExp(escapeRegExp(originalUrl), 'g'),
+            resolvedUrl,
+          );
+        }
+      }
+    }
+  });
+
+  eventSource.addEventListener('generation-complete', (e) => {
+    eventSource.close();
+    const data = JSON.parse(e.data);
+    const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
+
+    // eslint-disable-next-line no-console
+    console.log(`[Recommender] Complete in ${totalTime}s`, data);
+
+    // Update document title
+    const h1 = content.querySelector('h1');
+    if (h1) {
+      document.title = `${h1.textContent} | Arco`;
+    }
+
+    // Save query to session context
+    SessionContextManager.addQuery({
+      query,
+      timestamp: Date.now(),
+      intent: data.intent?.intentType || 'general',
+      entities: data.intent?.entities || { products: [], coffeeTerms: [], goals: [] },
+      generatedPath: `/discover/${slug}`,
+      recommendedProducts: data.recommendations?.products || [],
+      recommendedBrewGuides: data.recommendations?.brewGuides || [],
+      blockTypes: data.recommendations?.blockTypes || [],
+      journeyStage: data.reasoning?.journeyStage || 'exploring',
+      confidence: data.reasoning?.confidence || 0.5,
+      nextBestAction: data.reasoning?.nextBestAction || '',
+    });
+
+    // Auto-persist to DA
+    if (generatedBlocks.length > 0) {
+      persistToDA(query, generatedBlocks, data.intent);
+    }
+  });
+
+  eventSource.addEventListener('error', (e) => {
+    if (e.data) {
+      const data = JSON.parse(e.data);
+      loadingState.innerHTML = `
+        <h1>Something went wrong</h1>
+        <p style="color: #c00;">${data.message}</p>
+        <p><a href="/">Return to homepage</a></p>
+      `;
+    }
+    eventSource.close();
+  });
+
+  eventSource.onerror = () => {
+    if (eventSource.readyState === EventSource.CLOSED) {
+      if (blockCount === 0) {
+        loadingState.innerHTML = `
+          <h1>Connection failed</h1>
+          <p style="color: #c00;">Unable to connect to the server. Please try again.</p>
+          <p><a href="/">Return to homepage</a></p>
+        `;
+      }
+    }
+  };
+}
+
 async function loadPage() {
+  // Check if this is an Arco Recommender request (?q= or ?query=)
+  if (isArcoRecommenderRequest()) {
+    document.documentElement.lang = 'en';
+    decorateTemplateAndTheme();
+    document.body.classList.add('appear', 'arco-recommender-mode');
+    loadHeader(document.querySelector('header'));
+    loadFooter(document.querySelector('footer'));
+    await renderArcoRecommenderPage();
+    return;
+  }
+
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();

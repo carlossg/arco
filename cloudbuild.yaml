@@ -1,0 +1,63 @@
+steps:
+  # Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/arco-recommender:$COMMIT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/arco-recommender:latest'
+      - '--label'
+      - 'app=arco'
+      - '--label'
+      - 'component=recommender'
+      - '.'
+
+  # Push Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'gcr.io/$PROJECT_ID/arco-recommender'
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'arco-recommender'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/arco-recommender:$COMMIT_SHA'
+      - '--region'
+      - '${_REGION}'
+      - '--platform'
+      - 'managed'
+      - '--service-account'
+      - 'arco-recommender-sa@$PROJECT_ID.iam.gserviceaccount.com'
+      - '--cpu'
+      - '2'
+      - '--memory'
+      - '2Gi'
+      - '--max-instances'
+      - '10'
+      - '--timeout'
+      - '3600'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'GCP_PROJECT_ID=$PROJECT_ID,GCP_LOCATION=${_REGION},MODEL_PRESET=${_MODEL_PRESET},DA_ORG=${_DA_ORG},DA_REPO=${_DA_REPO}'
+      - '--set-secrets'
+      - 'DA_TOKEN=DA_TOKEN:latest'
+
+substitutions:
+  _REGION: us-central1
+  _MODEL_PRESET: production
+  _DA_ORG: carlossg
+  _DA_REPO: arco
+
+images:
+  - 'gcr.io/$PROJECT_ID/arco-recommender:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/arco-recommender:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

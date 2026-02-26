@@ -1,0 +1,22 @@
+{
+  "name": "arco-analytics",
+  "version": "1.0.0",
+  "description": "Arco Coffee Equipment - Analytics Cloud Function",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "functions-framework --target=trackEvent"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^8.2.0",
+    "@google-cloud/functions-framework": "^3.4.2",
+    "@google-cloud/vertexai": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

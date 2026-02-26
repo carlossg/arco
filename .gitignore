@@ -13,3 +13,12 @@ daTokenService.ts
 # Ensure these files are tracked
 !CLAUDE.md
 !AGENTS.md
+
+# Backend service
+services/recommender/node_modules/
+services/recommender/dist/
+.env
+
+# Cloud Functions
+functions/*/node_modules/
+functions/*/dist/

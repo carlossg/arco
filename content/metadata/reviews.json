@@ -1,0 +1,259 @@
+{
+  "total": 10,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "id": "review-001",
+      "productId": "studio",
+      "productName": "Studio",
+      "author": "Marcus T.",
+      "location": "Portland, OR",
+      "date": "2025-11-15",
+      "rating": 5,
+      "title": "Finally replaced my cafe visits",
+      "body": "After years of pulling decent shots on entry-level machines, the Studio has completely transformed my home espresso. The saturated group head delivers incredible temperature stability, and the flow profiling paddle has opened up a whole new world of extraction possibilities. I spent the first week just experimenting with different flow rates on the same coffee, and every profile tasted noticeably different. The build quality is exceptional. This machine feels like it will last decades. My only note is the 15-minute heat-up time, so I put it on a smart plug timer to warm up before my alarm goes off. Worth every penny.",
+      "verified": true,
+      "helpfulCount": 47,
+      "images": [],
+      "pros": [
+        "Rock-solid temperature stability",
+        "Flow profiling is a game-changer",
+        "Beautiful build quality",
+        "Plumb-in option is great for serious setups"
+      ],
+      "cons": [
+        "15-minute heat-up time",
+        "Heavy at 18 kg, hard to move",
+        "Significant investment"
+      ]
+    },
+    {
+      "id": "review-002",
+      "productId": "zero",
+      "productName": "Zero",
+      "author": "Sarah K.",
+      "location": "Seattle, WA",
+      "date": "2025-12-03",
+      "rating": 5,
+      "title": "The grinder that changed everything",
+      "body": "I upgraded from a Preciso to the Zero and the difference is night and day. The 83mm SSP burrs produce an incredibly uniform grind with clarity I have never tasted from home espresso before. The near-zero retention is real. I weigh 18g of beans, grind them, and get 18g of grounds out. With the bellows, there is virtually nothing left inside. Switching between beans for espresso in the morning and pour-over in the afternoon is effortless. The magnetic catch cup is a small detail that makes the daily workflow so much better. If you are serious about coffee, this is the grinder to buy.",
+      "verified": true,
+      "helpfulCount": 62,
+      "images": [],
+      "pros": [
+        "Incredible grind uniformity from SSP burrs",
+        "Near-zero retention is not marketing hype, it is real",
+        "Easy to switch between brew methods",
+        "Premium build quality"
+      ],
+      "cons": [
+        "Expensive for a grinder",
+        "Need a separate scale to weigh dose",
+        "Takes a bit of practice to find the right bellows technique"
+      ]
+    },
+    {
+      "id": "review-003",
+      "productId": "primo",
+      "productName": "Primo",
+      "author": "David L.",
+      "location": "Austin, TX",
+      "date": "2025-10-22",
+      "rating": 4,
+      "title": "The perfect first real espresso machine",
+      "body": "Coming from a pressurized basket machine, the Primo was a revelation. The PID temperature control and commercial 58mm group head immediately made a huge difference in my shots. I paired it with the Preciso grinder and within a week I was pulling shots that tasted better than most cafes in my neighborhood. The single boiler is the one compromise. If you make milk drinks, you will need to wait 30-45 seconds after pulling a shot to switch to steaming. For me it is fine since I mostly drink straight espresso, but latte lovers should consider the Doppio. Great build quality for the price and I love the Matte Black finish.",
+      "verified": true,
+      "helpfulCount": 38,
+      "images": [],
+      "pros": [
+        "PID control at an accessible price",
+        "58mm commercial group uses standard accessories",
+        "Solid build quality",
+        "Quick 8-minute heat-up"
+      ],
+      "cons": [
+        "Single boiler means waiting between brew and steam",
+        "Basic steam wand compared to higher-end models",
+        "No pre-infusion adjustment"
+      ]
+    },
+    {
+      "id": "review-004",
+      "productId": "viaggio",
+      "productName": "Viaggio",
+      "author": "Elena R.",
+      "location": "San Francisco, CA",
+      "date": "2025-09-18",
+      "rating": 5,
+      "title": "A lifesaver for business travel",
+      "body": "I travel 3-4 times per month for work and hotel coffee used to be the worst part of my trips. The Viaggio lives permanently in my carry-on now. At just 1.2 kg it adds almost nothing to my luggage weight. I usually ask the front desk for hot water or bring a small travel kettle, grind some beans at home into a small container before my trip, and I have real espresso in my hotel room in under 2 minutes. The manual lever is actually fun to use and gives you surprising control over the extraction. The ESE pod option is great for mornings when I do not want to fuss. The Brushed Copper color is gorgeous. Best travel purchase I have ever made.",
+      "verified": true,
+      "helpfulCount": 55,
+      "images": [],
+      "pros": [
+        "Incredibly lightweight and portable",
+        "No electricity needed",
+        "Surprisingly good extraction quality",
+        "ESE pod compatibility for convenience"
+      ],
+      "cons": [
+        "Requires external hot water source",
+        "Single serve only",
+        "No milk frothing capability"
+      ]
+    },
+    {
+      "id": "review-005",
+      "productId": "doppio",
+      "productName": "Doppio",
+      "author": "James W.",
+      "location": "Chicago, IL",
+      "date": "2025-11-28",
+      "rating": 5,
+      "title": "Dual boiler perfection for latte lovers",
+      "body": "My wife and I both drink lattes every morning. With our old single boiler machine, making two lattes took 15 minutes with all the temperature surfing and waiting between brew and steam cycles. The Doppio changed everything. Brew a shot and steam milk simultaneously, no waiting, no compromise. The E61 group head heats up predictably and the dual PID keeps both boilers exactly where they need to be. The rotary pump is also noticeably quieter than our old vibratory pump machine. We have had it for three months now and have not had a single bad shot. The cool-touch steam wand tip is a thoughtful safety detail my wife particularly appreciates.",
+      "verified": true,
+      "helpfulCount": 41,
+      "images": [],
+      "pros": [
+        "Simultaneous brew and steam is a game-changer",
+        "Rotary pump is very quiet",
+        "E61 group provides great thermal stability",
+        "Cool-touch steam wand tip"
+      ],
+      "cons": [
+        "12-minute heat-up is longer than entry-level machines",
+        "At 14 kg it is not easy to move",
+        "No flow control at this price point"
+      ]
+    },
+    {
+      "id": "review-006",
+      "productId": "automatico",
+      "productName": "Automatico",
+      "author": "Rachel M.",
+      "location": "Denver, CO",
+      "date": "2026-01-10",
+      "rating": 4,
+      "title": "Perfect for our busy household",
+      "body": "With two kids and morning chaos, I needed something that gives me a great latte without a 10-minute ritual. The Automatico delivers. Fresh-ground beans, one button, and I have a perfectly frothed latte in about 90 seconds. My husband, who knows nothing about coffee, makes himself cappuccinos now. The 8 drink options cover everything we want. The auto-rinse feature keeps it clean, and the removable brew group makes weekly deep cleaning actually manageable. Is it as good as a manual setup? Probably not if you are chasing perfection. But for a busy family that wants genuinely good coffee every morning without the fuss, it is ideal. The bypass doser is nice for when I get decaf pre-ground.",
+      "verified": true,
+      "helpfulCount": 33,
+      "images": [],
+      "pros": [
+        "One-touch convenience is unbeatable",
+        "Built-in grinder means fresh coffee every time",
+        "Anyone in the household can use it",
+        "Easy maintenance with removable brew group"
+      ],
+      "cons": [
+        "Less control than manual machines",
+        "Auto-milk is good but not latte-art quality",
+        "Built-in grinder can be a bit loud"
+      ]
+    },
+    {
+      "id": "review-007",
+      "productId": "macinino",
+      "productName": "Macinino",
+      "author": "Alex P.",
+      "location": "Brooklyn, NY",
+      "date": "2025-12-20",
+      "rating": 5,
+      "title": "64mm flat burrs that punch above their weight",
+      "body": "I was torn between the Macinino and spending more on the Zero. For my workflow (I drink the same espresso blend most days and rarely switch beans), the Macinino with its 300g hopper is actually more practical. The 64mm Italian flat burrs produce incredible clarity. I can taste individual tasting notes in my espresso that were muddled on my previous conical grinder. The stepless adjustment is smooth and precise, and the retention at under 0.5g means my first shot of the day is almost as good as the second. The anti-clump screen at the outlet works well. Highly recommend for espresso-focused home baristas who do not need the single-dose workflow.",
+      "verified": true,
+      "helpfulCount": 29,
+      "images": [],
+      "pros": [
+        "Exceptional clarity from 64mm flat burrs",
+        "Very low retention under 0.5g",
+        "Smooth stepless adjustment",
+        "Hopper convenience for single-blend users"
+      ],
+      "cons": [
+        "Noticeably louder than conical grinders",
+        "Not ideal for frequent bean switching",
+        "Heavier than expected"
+      ]
+    },
+    {
+      "id": "review-008",
+      "productId": "ufficio",
+      "productName": "Ufficio",
+      "author": "Patricia H.",
+      "location": "New York, NY",
+      "date": "2025-10-05",
+      "rating": 5,
+      "title": "Transformed our office coffee culture",
+      "body": "We replaced a pod machine with the Ufficio for our 30-person design studio. The difference in team morale was immediate and measurable. People actually look forward to coffee breaks now and we have had multiple clients comment on the quality. The dual group heads handle our morning rush (usually 15-20 drinks between 8:30 and 9:30) without any drop in quality. We had it professionally plumbed in with the included kit, which took about 2 hours. The auto-cleaning cycle runs overnight and the volumetric dosing means anyone can pull a consistent shot after a 5-minute training. We go through about 2 kg of beans per week and the machine has not missed a beat in 4 months. The stainless steel looks fantastic in our kitchen area.",
+      "verified": true,
+      "helpfulCount": 51,
+      "images": [],
+      "pros": [
+        "Handles 50+ drinks per day easily",
+        "Dual groups for peak-hour throughput",
+        "Volumetric dosing ensures consistency",
+        "Professional appearance"
+      ],
+      "cons": [
+        "Requires professional plumbing installation",
+        "Very heavy at 38 kg",
+        "25-minute heat-up time",
+        "Premium price point"
+      ]
+    },
+    {
+      "id": "review-009",
+      "productId": "studio-pro",
+      "productName": "Studio Pro",
+      "author": "Thomas C.",
+      "location": "Nashville, TN",
+      "date": "2026-01-25",
+      "rating": 5,
+      "title": "The endgame machine",
+      "body": "After 8 years of home espresso, 4 machines, and more grinder upgrades than I care to admit, the Studio Pro is my endgame. The pressure profiling via the gear pump is absurdly precise. I have saved 12 profiles so far and each one brings out completely different characteristics from the same coffee. The touchscreen showing real-time pressure and flow graphs is addictive. I find myself analyzing every shot and making tiny adjustments. The triple boiler system means the brew temperature never wavers even when steaming aggressively for guest lattes. The Bluetooth app connectivity is a nice bonus for logging shots. If you are at the point in your coffee journey where you understand what pressure profiling can do, this machine will not disappoint. It will probably be the last machine you buy.",
+      "verified": true,
+      "helpfulCount": 44,
+      "images": [],
+      "pros": [
+        "Full pressure profiling with saveable profiles",
+        "Real-time extraction graphing on touchscreen",
+        "Triple boiler for absolute temperature stability",
+        "Integrated shot scale"
+      ],
+      "cons": [
+        "Very expensive",
+        "18-minute heat-up time",
+        "Steep learning curve for pressure profiling",
+        "At 24 kg, this machine is not moving once placed"
+      ]
+    },
+    {
+      "id": "review-010",
+      "productId": "preciso",
+      "productName": "Preciso",
+      "author": "Michelle B.",
+      "location": "Minneapolis, MN",
+      "date": "2025-11-02",
+      "rating": 4,
+      "title": "The Swiss Army knife of grinders",
+      "body": "I bought the Preciso because I wanted one grinder that could do it all: espresso in the morning, pour-over on the weekend, and the occasional French press for guests. It delivers on that promise remarkably well. The macro plus micro adjustment system lets me dial in for espresso with precision, and then quickly jump to a coarser setting for my V60 without losing my espresso reference point. The 48mm conical burrs produce a sweet, full-bodied cup that I find very enjoyable across all brew methods. It is not going to match a dedicated flat burr grinder for espresso clarity, but the versatility is unbeatable at this price point. The portafilter holder with 54mm and 58mm adapters is a thoughtful inclusion. Solid recommendation for anyone who brews multiple ways.",
+      "verified": true,
+      "helpfulCount": 36,
+      "images": [],
+      "pros": [
+        "True all-rounder for every brew method",
+        "Sweet, full-bodied flavor from conical burrs",
+        "Macro + micro adjustment is intuitive",
+        "Excellent value for versatility"
+      ],
+      "cons": [
+        "Does not match flat burr clarity for light roast espresso",
+        "0.8g retention is noticeable when switching beans",
+        "Motor could be a touch quieter"
+      ]
+    }
+  ]
+}

@@ -16,3 +16,151 @@ html {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }
+
+/* ============================================
+   Arco Recommender Mode Styles
+   ============================================ */
+
+/* Generating container */
+.generating-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 48px 24px;
+  text-align: center;
+  transition: opacity 0.5s ease, min-height 0.5s ease;
+}
+
+.generating-container.done {
+  min-height: 0;
+  padding: 24px;
+  opacity: 0.6;
+}
+
+.generating-container .generating-query {
+  font-size: 18px;
+  color: var(--text-color, #1c2b35);
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* Skeleton loading animations */
+.skeleton {
+  background: linear-gradient(90deg, #f0ebe3 25%, #e8e2d8 50%, #f0ebe3 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 12px;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-hero {
+  height: 400px;
+  margin-bottom: 24px;
+}
+
+.skeleton-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 24px;
+}
+
+.skeleton-card {
+  height: 300px;
+  border-radius: 12px;
+}
+
+.skeleton-text {
+  padding: 24px;
+}
+
+.skeleton-line {
+  height: 16px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  background: inherit;
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+
+/* Generation section transitions */
+.generating-section {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.generating-section[data-gen-status="complete"] {
+  opacity: 1;
+}
+
+/* Generated images */
+img[data-gen-image] {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+img[data-gen-image].loaded {
+  opacity: 1;
+}
+
+/* Generation error */
+.generation-error {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.generation-error h2 {
+  color: var(--text-color, #1c2b35);
+}
+
+.generation-error p {
+  color: #666;
+}
+
+/* Save page UI */
+.save-page-section {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid var(--border-color, #d4cfc5);
+}
+
+.save-page-container {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.save-page-container h3 {
+  margin-bottom: 8px;
+}
+
+.save-page-container p {
+  margin-bottom: 16px;
+  color: #666;
+}
+
+.save-page-btn {
+  margin-bottom: 12px;
+}
+
+.save-success .permanent-link {
+  display: block;
+  margin: 12px 0;
+  word-break: break-all;
+}
+
+.copy-link-btn {
+  margin-top: 8px;
+}
+
+/* Arco Recommender body mode */
+.arco-recommender-mode main {
+  padding-top: 0;
+}

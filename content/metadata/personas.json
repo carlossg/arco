@@ -1,0 +1,296 @@
+{
+  "total": 8,
+  "offset": 0,
+  "limit": 8,
+  "data": [
+    {
+      "id": "morning-minimalist",
+      "name": "The Morning Minimalist",
+      "slug": "morning-minimalist",
+      "tagline": "Quick, consistent, and out the door",
+      "description": "You appreciate good coffee but your morning routine is a well-oiled machine. You want something that delivers a great cup quickly and consistently without requiring you to become a barista. Ease of use and reliability are your top priorities. You might enjoy a simple espresso or Americano before heading to work.",
+      "avatar": "morning-minimalist",
+      "priorities": [
+        "Speed and convenience",
+        "Consistency without fuss",
+        "Easy maintenance",
+        "Compact footprint"
+      ],
+      "typicalDrinks": [
+        "espresso",
+        "americano",
+        "latte"
+      ],
+      "budget": "mid-range",
+      "budgetRange": {
+        "min": 500,
+        "max": 2000
+      },
+      "skillLevel": "beginner",
+      "recommendedSetup": {
+        "machines": ["automatico", "primo"],
+        "grinders": ["preciso"],
+        "accessories": ["precision-scale", "cleaning-kit", "bean-vault"]
+      },
+      "painPoints": [
+        "Do not want to spend more than 5 minutes on morning coffee",
+        "Intimidated by complex equipment",
+        "Worried about consistency"
+      ]
+    },
+    {
+      "id": "craft-home-barista",
+      "name": "The Craft Home Barista",
+      "slug": "craft-home-barista",
+      "tagline": "The journey is the destination",
+      "description": "For you, making coffee is a craft and a hobby, not just a caffeine delivery mechanism. You watch YouTube channels about extraction theory, you have opinions about water chemistry, and you have a spreadsheet tracking your dial-in process. You want equipment that rewards skill and lets you explore the full depth of espresso science.",
+      "avatar": "craft-home-barista",
+      "priorities": [
+        "Maximum control over extraction variables",
+        "High-quality components that reward technique",
+        "Ability to grow into the equipment",
+        "Community and learning resources"
+      ],
+      "typicalDrinks": [
+        "espresso",
+        "flat-white",
+        "cortado",
+        "pour-over"
+      ],
+      "budget": "high",
+      "budgetRange": {
+        "min": 1500,
+        "max": 4500
+      },
+      "skillLevel": "advanced",
+      "recommendedSetup": {
+        "machines": ["studio", "studio-pro"],
+        "grinders": ["zero", "macinino"],
+        "accessories": ["distribution-tool", "precision-scale", "tamper-set", "dosing-cup", "bean-vault"]
+      },
+      "painPoints": [
+        "Current equipment is limiting further progress",
+        "Wants to replicate cafe-quality results at home",
+        "Needs precise, repeatable control"
+      ]
+    },
+    {
+      "id": "office-manager",
+      "name": "The Office Manager",
+      "slug": "office-manager",
+      "tagline": "Happy team, productive team",
+      "description": "You are responsible for keeping the office running smoothly, and good coffee is a morale booster your team cares about. You need something that can handle high volume, requires minimal training for everyone to use, and does not need constant maintenance. Reliability and throughput are your key concerns.",
+      "avatar": "office-manager",
+      "priorities": [
+        "High volume capacity",
+        "Easy for anyone to operate",
+        "Low maintenance requirements",
+        "Professional appearance"
+      ],
+      "typicalDrinks": [
+        "espresso",
+        "americano",
+        "latte",
+        "cappuccino"
+      ],
+      "budget": "high",
+      "budgetRange": {
+        "min": 1800,
+        "max": 5000
+      },
+      "skillLevel": "beginner",
+      "recommendedSetup": {
+        "machines": ["ufficio", "automatico"],
+        "grinders": ["preciso"],
+        "accessories": ["cleaning-kit", "descaling-solution", "knock-box", "espresso-cups", "double-wall-glasses"]
+      },
+      "painPoints": [
+        "Previous office machines broke down frequently",
+        "Team complaints about coffee quality",
+        "Needs something that multiple untrained people can use",
+        "Worried about ongoing maintenance costs"
+      ]
+    },
+    {
+      "id": "traveling-professional",
+      "name": "The Traveling Professional",
+      "slug": "traveling-professional",
+      "tagline": "Hotel coffee is not coffee",
+      "description": "You travel frequently for work and have suffered through one too many terrible hotel room coffee makers. You want a portable solution that fits in your carry-on and lets you enjoy real espresso wherever you are. Weight, size, and independence from electricity are key factors in your decision.",
+      "avatar": "traveling-professional",
+      "priorities": [
+        "Ultra-portable and lightweight",
+        "Does not require electricity",
+        "Easy to pack and carry",
+        "Quick cleanup"
+      ],
+      "typicalDrinks": [
+        "espresso",
+        "americano"
+      ],
+      "budget": "low-to-mid",
+      "budgetRange": {
+        "min": 200,
+        "max": 800
+      },
+      "skillLevel": "intermediate",
+      "recommendedSetup": {
+        "machines": ["viaggio", "nano"],
+        "grinders": [],
+        "accessories": ["precision-scale", "espresso-cups"]
+      },
+      "painPoints": [
+        "Hotel and airport coffee is unacceptable",
+        "Needs something TSA-friendly and luggage-compatible",
+        "Limited access to quality coffee while traveling",
+        "Does not want to depend on finding a good cafe"
+      ]
+    },
+    {
+      "id": "upgrade-seeker",
+      "name": "The Upgrade Seeker",
+      "slug": "upgrade-seeker",
+      "tagline": "Ready for the next level",
+      "description": "You have been making espresso at home for a while on entry-level equipment and you are hitting a ceiling. Your current machine or grinder is holding you back and you can taste the difference at your favorite cafe. You are ready to invest in a meaningful upgrade that will unlock the next tier of quality.",
+      "avatar": "upgrade-seeker",
+      "priorities": [
+        "Significant quality improvement over current setup",
+        "Equipment that will last many years",
+        "Features to grow into (flow control, pressure profiling)",
+        "Better temperature stability and grind consistency"
+      ],
+      "typicalDrinks": [
+        "espresso",
+        "flat-white",
+        "cappuccino",
+        "cortado"
+      ],
+      "budget": "mid-to-high",
+      "budgetRange": {
+        "min": 1000,
+        "max": 4000
+      },
+      "skillLevel": "intermediate",
+      "recommendedSetup": {
+        "machines": ["doppio", "studio"],
+        "grinders": ["macinino", "zero"],
+        "accessories": ["distribution-tool", "precision-scale", "tamper-set", "knock-box"]
+      },
+      "painPoints": [
+        "Current equipment lacks temperature stability",
+        "Grinder produces inconsistent particle sizes",
+        "Cannot replicate cafe-quality results",
+        "Outgrown entry-level features"
+      ]
+    },
+    {
+      "id": "gift-buyer",
+      "name": "The Gift Buyer",
+      "slug": "gift-buyer",
+      "tagline": "The perfect gift for a coffee lover",
+      "description": "You are shopping for someone who loves coffee. Maybe it is a holiday, birthday, housewarming, or wedding gift. You want something that will genuinely delight them, looks beautiful, and matches their experience level. You might not be a coffee expert yourself, so clear guidance on what to buy is essential.",
+      "avatar": "gift-buyer",
+      "priorities": [
+        "Beautiful presentation and packaging",
+        "Appropriate for the recipient's skill level",
+        "Great value for the price point",
+        "Gift-ready or bundle options"
+      ],
+      "typicalDrinks": [
+        "espresso",
+        "latte",
+        "cappuccino",
+        "americano"
+      ],
+      "budget": "variable",
+      "budgetRange": {
+        "min": 15,
+        "max": 2500
+      },
+      "skillLevel": "beginner",
+      "recommendedSetup": {
+        "machines": ["primo", "nano", "viaggio"],
+        "grinders": ["preciso", "filtro"],
+        "accessories": ["espresso-cups", "double-wall-glasses", "bean-vault", "milk-pitcher", "tamper-set"]
+      },
+      "painPoints": [
+        "Not sure what the recipient already has",
+        "Overwhelmed by technical specifications",
+        "Wants to give something meaningful, not generic",
+        "Uncertain about appropriate budget"
+      ]
+    },
+    {
+      "id": "latte-art-enthusiast",
+      "name": "The Latte Art Enthusiast",
+      "slug": "latte-art-enthusiast",
+      "tagline": "Coffee is a canvas",
+      "description": "You are drawn to the visual artistry of latte art. You have watched countless tutorials and you are chasing that perfect rosetta, tulip, or swan. For you, the steam wand is just as important as the group head, and you need a machine that produces consistent, silky microfoam every time.",
+      "avatar": "latte-art-enthusiast",
+      "priorities": [
+        "Powerful, well-designed steam wand",
+        "Consistent microfoam production",
+        "Dual boiler for simultaneous brew and steam",
+        "Quality milk pitcher with latte art spout"
+      ],
+      "typicalDrinks": [
+        "latte",
+        "flat-white",
+        "cappuccino"
+      ],
+      "budget": "mid-to-high",
+      "budgetRange": {
+        "min": 1200,
+        "max": 3500
+      },
+      "skillLevel": "intermediate",
+      "recommendedSetup": {
+        "machines": ["doppio", "studio"],
+        "grinders": ["preciso", "macinino"],
+        "accessories": ["milk-pitcher", "precision-scale", "tamper-set", "double-wall-glasses"]
+      },
+      "painPoints": [
+        "Current machine steam wand lacks power or control",
+        "Cannot get consistent microfoam texture",
+        "Single boiler machines cool down too much between brewing and steaming",
+        "Milk scorches before reaching proper texture"
+      ]
+    },
+    {
+      "id": "budget-conscious-beginner",
+      "name": "The Budget-Conscious Beginner",
+      "slug": "budget-conscious-beginner",
+      "tagline": "Great coffee without breaking the bank",
+      "description": "You want to start making better coffee at home and you have heard that home espresso can save money compared to daily cafe visits. You have a limited budget but you do not want to buy something you will outgrow in six months. You are looking for the best value entry point that still delivers genuinely good coffee.",
+      "avatar": "budget-conscious-beginner",
+      "priorities": [
+        "Best quality within a tight budget",
+        "Low cost of ownership",
+        "Not something you will outgrow too quickly",
+        "Good learning platform"
+      ],
+      "typicalDrinks": [
+        "espresso",
+        "americano",
+        "latte"
+      ],
+      "budget": "low",
+      "budgetRange": {
+        "min": 300,
+        "max": 1200
+      },
+      "skillLevel": "beginner",
+      "recommendedSetup": {
+        "machines": ["nano", "primo", "viaggio"],
+        "grinders": ["filtro", "preciso"],
+        "accessories": ["precision-scale", "cleaning-kit"]
+      },
+      "painPoints": [
+        "Spending too much at cafes",
+        "Limited counter space",
+        "Worried about buying the wrong thing",
+        "Concerned about the learning curve"
+      ]
+    }
+  ]
+}

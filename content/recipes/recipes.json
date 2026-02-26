@@ -1,0 +1,537 @@
+{
+  "total": 12,
+  "offset": 0,
+  "limit": 12,
+  "data": [
+    {
+      "id": "espresso",
+      "name": "Classic Espresso",
+      "category": "espresso",
+      "url": "/recipes/espresso",
+      "description": "The foundation of all espresso drinks. A properly pulled espresso is a thing of beauty: a rich, syrupy body topped with a layer of golden crema. This recipe focuses on the standard double shot, the benchmark every home barista should master before moving on to more complex drinks.",
+      "difficulty": "intermediate",
+      "prepTime": "5 minutes",
+      "grindSize": "Fine (espresso)",
+      "dose": "18g",
+      "yield": "36g (1:2 ratio)",
+      "extractionTime": "25-30 seconds",
+      "temperature": "93-94°C (200-201°F)",
+      "pressure": "9 bar",
+      "technique": [
+        "Purge the group head with a short flush of water",
+        "Grind 18g of fresh coffee directly into the portafilter",
+        "Use a WDT tool to break up any clumps and distribute evenly",
+        "Tamp with firm, level pressure (about 30 lbs / 15 kg)",
+        "Lock the portafilter into the group head",
+        "Start extraction immediately",
+        "Target 36g of liquid espresso in 25-30 seconds",
+        "The stream should look like warm honey dripping from the spout",
+        "Stop the shot when you reach your target yield"
+      ],
+      "requiredEquipment": [
+        "Espresso machine",
+        "Grinder",
+        "Scale",
+        "Tamper"
+      ],
+      "tips": [
+        "If the shot runs too fast (under 20 seconds), grind finer",
+        "If the shot runs too slow (over 35 seconds), grind coarser",
+        "Always adjust grind in small increments",
+        "Fresh beans (7-21 days post roast) produce the best crema",
+        "Taste first, then adjust. Sour = under-extracted, bitter = over-extracted",
+        "Pre-heat your cup with hot water for better temperature retention"
+      ],
+      "pairsWith": [
+        "A small glass of sparkling water to cleanse the palate",
+        "Dark chocolate",
+        "Biscotti"
+      ]
+    },
+    {
+      "id": "latte",
+      "name": "Caffe Latte",
+      "category": "latte",
+      "url": "/recipes/latte",
+      "description": "The latte is the crowd-pleaser of the espresso world. A double shot of espresso combined with silky steamed milk creates a smooth, approachable drink that highlights the sweeter, more caramel notes in your coffee. Mastering the milk texture is the key to a great latte, both for taste and for latte art.",
+      "difficulty": "intermediate",
+      "prepTime": "7 minutes",
+      "grindSize": "Fine (espresso)",
+      "dose": "18g",
+      "yield": "36g espresso + 200ml steamed milk",
+      "extractionTime": "25-30 seconds",
+      "temperature": "93°C (200°F) brew, 60-65°C (140-149°F) milk",
+      "pressure": "9 bar",
+      "technique": [
+        "Pull a double espresso (18g in, 36g out, 25-30 seconds) into your cup",
+        "While the shot pulls, begin steaming 200ml of cold whole milk",
+        "Position the steam wand tip just below the milk surface",
+        "Introduce air for the first 2-3 seconds (you should hear a gentle hissing)",
+        "Submerge the tip to create a whirlpool, heating to 60-65°C",
+        "Tap the pitcher on the counter to pop any large bubbles",
+        "Swirl the pitcher to integrate the foam into a glossy, paint-like texture",
+        "Pour the milk into the espresso from a moderate height, then bring the spout close to the surface for latte art"
+      ],
+      "requiredEquipment": [
+        "Espresso machine with steam wand",
+        "Grinder",
+        "Scale",
+        "Milk pitcher",
+        "Thermometer (optional)"
+      ],
+      "tips": [
+        "Cold milk gives you more time to texture properly",
+        "Whole milk produces the best microfoam due to its fat and protein content",
+        "The finished milk should look like wet white paint with no visible bubbles",
+        "For latte art, the milk needs to be poured within 10 seconds of finishing steaming",
+        "A 350ml pitcher is ideal for a single latte",
+        "Oat milk is the best dairy alternative for latte art"
+      ],
+      "pairsWith": [
+        "Croissant",
+        "Banana bread",
+        "Morning pastries"
+      ]
+    },
+    {
+      "id": "cappuccino",
+      "name": "Cappuccino",
+      "category": "cappuccino",
+      "url": "/recipes/cappuccino",
+      "description": "The traditional Italian cappuccino features equal parts espresso, steamed milk, and milk foam. Compared to a latte, the cappuccino has more air incorporated into the milk, creating a lighter, airier texture with a more prominent foam cap. In Italy, cappuccinos are exclusively a morning drink, never ordered after 11 AM.",
+      "difficulty": "intermediate",
+      "prepTime": "7 minutes",
+      "grindSize": "Fine (espresso)",
+      "dose": "18g",
+      "yield": "36g espresso + 120ml steamed milk with thick foam",
+      "extractionTime": "25-30 seconds",
+      "temperature": "93°C (200°F) brew, 60-65°C (140-149°F) milk",
+      "pressure": "9 bar",
+      "technique": [
+        "Pull a double espresso (18g in, 36g out, 25-30 seconds) into a 180ml cappuccino cup",
+        "Steam 120ml of cold whole milk",
+        "Introduce more air than for a latte: keep the tip near the surface for 4-5 seconds",
+        "You want about 1cm of foam on top of the milk in the pitcher",
+        "Continue heating with a whirlpool motion until 60-65°C",
+        "Tap and swirl the pitcher aggressively to break up any large bubbles",
+        "Pour the milk into the center of the espresso with a slight wiggle",
+        "The foam should sit proud above the rim of the cup"
+      ],
+      "requiredEquipment": [
+        "Espresso machine with steam wand",
+        "Grinder",
+        "Scale",
+        "Milk pitcher",
+        "180ml cappuccino cup"
+      ],
+      "tips": [
+        "The key difference from a latte is more air and less liquid milk",
+        "A proper cappuccino foam should hold a teaspoon of sugar on its surface for a moment",
+        "Use a smaller cup than a latte to maintain the proper ratio",
+        "Traditional Italian cappuccinos are 150-180ml total",
+        "Chocolate powder on top is optional and not traditional in Italy",
+        "The foam should be silky, not dry or stiff"
+      ],
+      "pairsWith": [
+        "Cornetto (Italian croissant)",
+        "Brioche",
+        "Light breakfast pastries"
+      ]
+    },
+    {
+      "id": "flat-white",
+      "name": "Flat White",
+      "category": "flat-white",
+      "url": "/recipes/flat-white",
+      "description": "Originating from Australia and New Zealand, the flat white is the espresso-forward milk drink. It uses a ristretto double shot (a shorter, more concentrated extraction) combined with velvety microfoam that has very little air. The result is a drink where the espresso character shines through the milk, rather than being diluted by it.",
+      "difficulty": "advanced",
+      "prepTime": "7 minutes",
+      "grindSize": "Fine (espresso, slightly finer for ristretto)",
+      "dose": "18g",
+      "yield": "27g ristretto espresso + 150ml steamed milk",
+      "extractionTime": "20-25 seconds (ristretto)",
+      "temperature": "93°C (200°F) brew, 60°C (140°F) milk",
+      "pressure": "9 bar",
+      "technique": [
+        "Pull a ristretto double (18g in, 27g out, 20-25 seconds) into a 180ml cup",
+        "Steam 150ml of cold whole milk with minimal air incorporation",
+        "Only introduce air for 1-2 seconds, just enough for a thin microfoam layer",
+        "Heat the milk to no more than 60°C for sweetness",
+        "The finished milk should be glossy with almost no visible foam",
+        "Pour directly into the center of the ristretto",
+        "The thin microfoam creates a flat, glossy surface, hence the name",
+        "Finish with a small latte art pattern if desired"
+      ],
+      "requiredEquipment": [
+        "Espresso machine with steam wand",
+        "Grinder",
+        "Scale",
+        "Milk pitcher"
+      ],
+      "tips": [
+        "The ristretto shot is key. It should be sweeter and more intense than a standard shot",
+        "Less foam is the defining characteristic. Aim for almost no foam at all",
+        "Use a smaller cup (160-180ml) to keep the espresso-to-milk ratio strong",
+        "The lower milk temperature lets the coffee flavor come through",
+        "A flat white should taste noticeably more coffee-forward than a latte",
+        "This drink really rewards using high-quality, fresh beans"
+      ],
+      "pairsWith": [
+        "Avocado toast",
+        "Simple butter cookies",
+        "Mid-morning snack"
+      ]
+    },
+    {
+      "id": "pour-over",
+      "name": "Pour-Over Coffee",
+      "category": "pour-over",
+      "url": "/recipes/pour-over",
+      "description": "Pour-over coffee is a meditative brewing method that gives you complete control over every variable. The slow, deliberate pouring of water over a bed of coffee produces a remarkably clean, nuanced cup that highlights the unique characteristics of single-origin beans. This recipe uses a standard V60-style dripper.",
+      "difficulty": "intermediate",
+      "prepTime": "10 minutes",
+      "grindSize": "Medium-fine (like table salt)",
+      "dose": "15g",
+      "yield": "250ml brewed coffee",
+      "extractionTime": "2:30-3:30 total brew time",
+      "temperature": "92-96°C (198-205°F)",
+      "pressure": "Gravity",
+      "technique": [
+        "Boil water and let it cool to 92-96°C (or use immediately off boil for light roasts)",
+        "Place a paper filter in the dripper and rinse thoroughly with hot water",
+        "Discard the rinse water from your server",
+        "Add 15g of medium-fine ground coffee to the filter",
+        "Bloom: pour 30-45g of water in a spiral, wetting all grounds evenly",
+        "Wait 30-45 seconds for the bloom (you should see bubbles forming as CO2 escapes)",
+        "First pour: slowly add water in concentric circles to 150g total (30 seconds)",
+        "Wait until the water level drops near the coffee bed",
+        "Second pour: add water to 250g total in concentric circles",
+        "Allow all water to draw through. Total time should be 2:30-3:30"
+      ],
+      "requiredEquipment": [
+        "Pour-over dripper (V60 or similar)",
+        "Paper filters",
+        "Gooseneck kettle",
+        "Grinder (filter setting)",
+        "Scale with timer"
+      ],
+      "tips": [
+        "A gooseneck kettle is essential for controlling your pour rate and placement",
+        "Always rinse the paper filter to remove papery taste and preheat the dripper",
+        "Stale coffee will not bloom visibly. Use beans within 4 weeks of roasting",
+        "Adjust grind size based on total brew time: too fast means grind finer, too slow means grind coarser",
+        "Pour in slow, steady concentric circles, avoiding the edges of the filter",
+        "Light roast single-origin coffees tend to shine best with this method",
+        "The Arco Filtro grinder is optimized for pour-over grind consistency"
+      ],
+      "pairsWith": [
+        "Fresh fruit",
+        "Light pastries",
+        "Quiet morning reading"
+      ]
+    },
+    {
+      "id": "cold-brew",
+      "name": "Cold Brew Coffee",
+      "category": "cold-brew",
+      "url": "/recipes/cold-brew",
+      "description": "Cold brew coffee is steeped overnight in cold water, producing a smooth, low-acidity concentrate that is perfect for hot summer days. The long, slow extraction at room temperature or below draws out the sweeter, chocolatey notes while leaving behind much of the bitterness. Makes a concentrate that can be diluted to taste.",
+      "difficulty": "beginner",
+      "prepTime": "5 minutes active + 12-24 hours steeping",
+      "grindSize": "Coarse (like raw sugar)",
+      "dose": "100g",
+      "yield": "500ml concentrate (dilute 1:1 with water or milk)",
+      "extractionTime": "12-24 hours",
+      "temperature": "Room temperature or refrigerated",
+      "pressure": "None (immersion)",
+      "technique": [
+        "Grind 100g of coffee on the coarsest setting",
+        "Add the ground coffee to a large jar or cold brew maker",
+        "Pour 500ml of filtered room-temperature water over the grounds",
+        "Stir gently to ensure all grounds are saturated",
+        "Cover and place in the refrigerator (or leave at room temperature for a bolder result)",
+        "Steep for 12-24 hours (16 hours is the sweet spot for most people)",
+        "Strain through a fine mesh filter, then through a paper filter for clarity",
+        "Store the concentrate in the fridge for up to 2 weeks",
+        "To serve, dilute 1:1 with cold water, milk, or pour over ice"
+      ],
+      "requiredEquipment": [
+        "Grinder (coarse setting)",
+        "Large jar or cold brew maker",
+        "Fine mesh strainer",
+        "Paper filter (optional, for clarity)",
+        "Scale"
+      ],
+      "tips": [
+        "Use a medium to dark roast for the best cold brew flavor profile",
+        "A coarse grind prevents over-extraction during the long steep time",
+        "Refrigerator steeping produces a cleaner, milder result. Room temperature is bolder",
+        "The concentrate is strong. Always dilute before drinking",
+        "Cold brew naturally has about 60% less acidity than hot-brewed coffee",
+        "Add a pinch of salt to the concentrate to enhance sweetness and reduce bitterness",
+        "Try serving over coffee ice cubes (frozen cold brew) to prevent dilution"
+      ],
+      "pairsWith": [
+        "Ice cream",
+        "Chocolate desserts",
+        "Summer brunches"
+      ]
+    },
+    {
+      "id": "americano",
+      "name": "Americano",
+      "category": "americano",
+      "url": "/recipes/americano",
+      "description": "The Americano bridges the gap between espresso and drip coffee. By adding hot water to a double espresso, you get a long, sippable drink that retains the flavor complexity of espresso with a lighter, more approachable body. Legend has it that American soldiers in Italy during World War II diluted espresso to resemble the drip coffee they were accustomed to.",
+      "difficulty": "beginner",
+      "prepTime": "5 minutes",
+      "grindSize": "Fine (espresso)",
+      "dose": "18g",
+      "yield": "36g espresso + 150-200ml hot water",
+      "extractionTime": "25-30 seconds",
+      "temperature": "93°C (200°F) brew, 80-85°C (176-185°F) water",
+      "pressure": "9 bar",
+      "technique": [
+        "Pull a double espresso (18g in, 36g out, 25-30 seconds)",
+        "Heat 150-200ml of fresh water to 80-85°C (slightly below boiling to avoid scalding the espresso)",
+        "For a traditional Americano: add the hot water to the cup first, then pour the espresso on top. This preserves the crema",
+        "For a Long Black (Australian style): pour espresso directly into the hot water",
+        "Adjust the water amount to your preferred strength",
+        "Serve immediately"
+      ],
+      "requiredEquipment": [
+        "Espresso machine",
+        "Grinder",
+        "Scale",
+        "Kettle or hot water dispenser"
+      ],
+      "tips": [
+        "The water temperature matters. Too hot and it scorches the espresso. 80-85°C is ideal",
+        "Adding espresso to water (Long Black style) preserves more crema on top",
+        "Use slightly less coffee than normal drip to avoid an overly intense flavor",
+        "An Americano from a good shot reveals flavors you might miss in straight espresso",
+        "Many machines have a hot water spout that can be used directly",
+        "This is a great drink for showcasing lighter roasted single-origin espressos"
+      ],
+      "pairsWith": [
+        "Breakfast",
+        "Sandwiches",
+        "Afternoon reading"
+      ]
+    },
+    {
+      "id": "cortado",
+      "name": "Cortado",
+      "category": "cortado",
+      "url": "/recipes/cortado",
+      "description": "The cortado is the perfect balance of espresso and milk. Originating from Spain (cortar means to cut), a cortado cuts the intensity of espresso with an equal measure of warm, lightly steamed milk. There is minimal foam, the milk temperature is lower than a latte, and the drink is served in a small 120-150ml glass. It is pure simplicity.",
+      "difficulty": "beginner",
+      "prepTime": "5 minutes",
+      "grindSize": "Fine (espresso)",
+      "dose": "18g",
+      "yield": "36g espresso + 36-60ml warm milk",
+      "extractionTime": "25-30 seconds",
+      "temperature": "93°C (200°F) brew, 55-60°C (131-140°F) milk",
+      "pressure": "9 bar",
+      "technique": [
+        "Pull a double espresso (18g in, 36g out, 25-30 seconds) into a small glass",
+        "Steam 60ml of milk just until warm (55-60°C), with almost no foam",
+        "Alternatively, heat milk gently in a saucepan without frothing",
+        "Pour the warm milk directly into the espresso",
+        "The result should be a 1:1 ratio of espresso to milk",
+        "Serve in a small cortado glass or tumbler"
+      ],
+      "requiredEquipment": [
+        "Espresso machine",
+        "Grinder",
+        "Scale",
+        "Small glass or cortado cup (120-150ml)"
+      ],
+      "tips": [
+        "The cortado is about simplicity. Do not overthink the milk",
+        "The milk should be warm, not hot. This keeps the drink drinkable in a few sips",
+        "There should be virtually no foam. Just warm, flat milk",
+        "This is an excellent drink for tasting different espresso beans",
+        "In many Spanish cafes, the cortado is the default coffee order",
+        "The Arco Double-Wall Glasses are perfect for cortados"
+      ],
+      "pairsWith": [
+        "Churros",
+        "Almond cookies",
+        "Mid-afternoon break"
+      ]
+    },
+    {
+      "id": "macchiato",
+      "name": "Espresso Macchiato",
+      "category": "macchiato",
+      "url": "/recipes/macchiato",
+      "description": "The macchiato (meaning stained or spotted in Italian) is an espresso marked with just a small dollop of milk foam. It is the purists compromise: nearly a straight espresso, but with just enough milk to soften the edge. Do not confuse this with the sugary, flavored drinks that some chains have turned the name into. A true macchiato is just espresso with a spot of foam.",
+      "difficulty": "beginner",
+      "prepTime": "4 minutes",
+      "grindSize": "Fine (espresso)",
+      "dose": "18g",
+      "yield": "36g espresso + 1 tablespoon of milk foam",
+      "extractionTime": "25-30 seconds",
+      "temperature": "93°C (200°F) brew",
+      "pressure": "9 bar",
+      "technique": [
+        "Pull a double espresso (18g in, 36g out, 25-30 seconds) into a small espresso cup",
+        "Steam a small amount of milk (50ml) to create a thick, dense foam",
+        "Using a spoon, place a single dollop of foam on top of the espresso",
+        "The foam should float on the crema, creating a white spot on the brown surface",
+        "Serve immediately in an espresso cup"
+      ],
+      "requiredEquipment": [
+        "Espresso machine with steam wand",
+        "Grinder",
+        "Scale",
+        "Espresso cup",
+        "Small spoon"
+      ],
+      "tips": [
+        "The macchiato is 95% espresso, 5% milk. It should taste like espresso",
+        "Use a small spoon to place the foam precisely",
+        "Some baristas use a tiny pitcher to pour a dot of steamed milk instead",
+        "This is traditionally an afternoon drink in Italy",
+        "If you want slightly more milk, you are making a cortado instead",
+        "The foam acts as an insulator, keeping the espresso warm slightly longer"
+      ],
+      "pairsWith": [
+        "Dark chocolate",
+        "Biscotti",
+        "After-dinner conversation"
+      ]
+    },
+    {
+      "id": "affogato",
+      "name": "Affogato",
+      "category": "affogato",
+      "url": "/recipes/affogato",
+      "description": "Is it coffee? Is it dessert? The affogato (meaning drowned in Italian) is gloriously both. A scoop of cold vanilla gelato is drowned in a shot of hot espresso, creating a stunning contrast of temperatures, textures, and flavors. The espresso melts the gelato slowly, evolving from a frozen treat into a rich, creamy coffee drink. Pure Italian genius.",
+      "difficulty": "beginner",
+      "prepTime": "5 minutes",
+      "grindSize": "Fine (espresso)",
+      "dose": "18g",
+      "yield": "36g espresso + 1 scoop gelato/ice cream",
+      "extractionTime": "25-30 seconds",
+      "temperature": "93°C (200°F) brew",
+      "pressure": "9 bar",
+      "technique": [
+        "Place a scoop of high-quality vanilla gelato or ice cream into a chilled glass or bowl",
+        "Pull a double espresso (18g in, 36g out, 25-30 seconds)",
+        "Immediately pour the hot espresso directly over the gelato",
+        "Serve immediately with a spoon",
+        "Eat and drink as it melts, enjoying the evolving flavors and temperatures"
+      ],
+      "requiredEquipment": [
+        "Espresso machine",
+        "Grinder",
+        "Scale",
+        "Chilled glass or bowl",
+        "Spoon"
+      ],
+      "tips": [
+        "Quality gelato or ice cream makes all the difference. Use the best you can find",
+        "Vanilla is traditional, but hazelnut and pistachio gelato are incredible alternatives",
+        "A small glass keeps the portions in balance. Too much gelato overwhelms the espresso",
+        "Serve immediately. The beauty is in the contrast of hot and cold",
+        "For an adults-only version, add a splash of Amaretto or Frangelico",
+        "Use a slightly longer (standard ratio) shot rather than a ristretto for better balance with the sweet gelato"
+      ],
+      "pairsWith": [
+        "After dinner",
+        "Amaretti cookies",
+        "Summer evenings"
+      ]
+    },
+    {
+      "id": "mocha",
+      "name": "Caffe Mocha",
+      "category": "mocha",
+      "url": "/recipes/mocha",
+      "description": "The mocha is the indulgent crossover where coffee meets chocolate. A double espresso is combined with rich chocolate sauce and steamed milk, creating a drink that satisfies both coffee cravings and sweet tooth. Topped with whipped cream or chocolate shavings, the mocha is comfort in a cup and a gateway drink for those new to espresso-based beverages.",
+      "difficulty": "beginner",
+      "prepTime": "8 minutes",
+      "grindSize": "Fine (espresso)",
+      "dose": "18g",
+      "yield": "36g espresso + 20g chocolate + 150ml steamed milk",
+      "extractionTime": "25-30 seconds",
+      "temperature": "93°C (200°F) brew, 60-65°C (140-149°F) milk",
+      "pressure": "9 bar",
+      "technique": [
+        "Add 20g of high-quality chocolate sauce or melted dark chocolate to the bottom of a 240ml cup",
+        "Pull a double espresso (18g in, 36g out, 25-30 seconds) directly onto the chocolate",
+        "Stir vigorously to fully incorporate the chocolate into the espresso",
+        "Steam 150ml of cold whole milk to 60-65°C with a latte-like microfoam",
+        "Pour the steamed milk over the chocolate-espresso mixture",
+        "Optionally top with whipped cream and chocolate shavings or cocoa powder",
+        "Serve immediately"
+      ],
+      "requiredEquipment": [
+        "Espresso machine with steam wand",
+        "Grinder",
+        "Scale",
+        "Milk pitcher",
+        "Large cup or mug (240ml+)"
+      ],
+      "tips": [
+        "Use real chocolate or high-quality chocolate sauce, not chocolate syrup, for the best flavor",
+        "70% dark chocolate provides the best balance with espresso",
+        "Stir the chocolate and espresso thoroughly before adding milk to avoid clumps at the bottom",
+        "For a white mocha, use white chocolate sauce instead",
+        "A mocha is an excellent choice for introducing espresso to people who find it too intense",
+        "For an iced mocha, use cold milk and pour everything over ice instead of steaming"
+      ],
+      "pairsWith": [
+        "Whipped cream",
+        "Marshmallows",
+        "Chocolate cake"
+      ]
+    },
+    {
+      "id": "iced-latte",
+      "name": "Iced Latte",
+      "category": "iced-latte",
+      "url": "/recipes/iced-latte",
+      "description": "A refreshing iced latte combines the richness of espresso with the smooth coolness of cold milk over ice. The key to a great iced latte is pulling a concentrated, slightly shorter espresso that can stand up to dilution from the ice, and using enough ice to chill the drink instantly without watering it down over time.",
+      "difficulty": "beginner",
+      "prepTime": "5 minutes",
+      "grindSize": "Fine (espresso)",
+      "dose": "18g",
+      "yield": "36g espresso + 200ml cold milk + ice",
+      "extractionTime": "25-30 seconds",
+      "temperature": "93°C (200°F) brew, cold milk",
+      "pressure": "9 bar",
+      "technique": [
+        "Fill a tall glass (350-400ml) to the top with ice",
+        "Pour 200ml of cold milk over the ice",
+        "Pull a double espresso (18g in, 36g out, 25-30 seconds)",
+        "Slowly pour the hot espresso over the milk and ice",
+        "The espresso will cool instantly and create beautiful layers",
+        "Stir to combine, or serve layered for visual effect",
+        "Optional: add simple syrup or flavored syrup before the milk"
+      ],
+      "requiredEquipment": [
+        "Espresso machine",
+        "Grinder",
+        "Scale",
+        "Tall glass (350-400ml)",
+        "Ice"
+      ],
+      "tips": [
+        "Use plenty of ice. The espresso needs to be chilled rapidly to avoid a lukewarm drink",
+        "Cold milk poured first prevents the ice from melting too quickly",
+        "For a creamier result, use cold whole milk or oat milk",
+        "Pouring espresso over ice first (flash chilling) then adding milk is an alternative method",
+        "Coffee ice cubes prevent dilution as they melt",
+        "A slightly finer grind can compensate for the dilution from ice"
+      ],
+      "pairsWith": [
+        "Fresh pastries",
+        "Fruit salad",
+        "Summer afternoons"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,492 @@
+{
+  "total": 12,
+  "offset": 0,
+  "limit": 12,
+  "data": [
+    {
+      "id": "tamper-set",
+      "name": "Tamper Set",
+      "type": "tamper",
+      "url": "/products/accessories/tamper-set",
+      "price": 89,
+      "currency": "USD",
+      "description": "Precision-machined 58mm tamper with ergonomic rosewood handle and calibrated 30lb spring. Includes a silicone tamping mat and leveling tool for perfectly even extractions every time. The flat stainless steel base is CNC-machined to within 0.05mm tolerance for a perfect seal against your portafilter basket.",
+      "features": [
+        "58mm CNC-machined stainless steel base",
+        "Calibrated 30lb spring mechanism",
+        "Ergonomic rosewood handle",
+        "Includes silicone tamping mat",
+        "Includes leveling tool",
+        "Flat base with 0.05mm tolerance",
+        "Weight: 420g for comfortable tamping"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "studio",
+        "studio-pro",
+        "ufficio"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-tamper-set.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "tamper-set-rosewood",
+          "material": "Rosewood",
+          "sku": "ARCO-AC-TMP-RW",
+          "inStock": true
+        },
+        {
+          "id": "tamper-set-walnut",
+          "material": "Walnut",
+          "sku": "ARCO-AC-TMP-WN",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "distribution-tool",
+      "name": "Distribution Tool",
+      "type": "preparation",
+      "url": "/products/accessories/distribution-tool",
+      "price": 69,
+      "currency": "USD",
+      "description": "The Arco WDT (Weiss Distribution Technique) tool features ultra-fine 0.4mm stainless steel needles set in a precision-machined aluminum body. Breaks up clumps and evenly distributes grounds in your portafilter basket for consistent, channeling-free extractions. The magnetic stand keeps it accessible on your workspace.",
+      "features": [
+        "0.4mm stainless steel needles",
+        "CNC-machined aluminum body",
+        "Adjustable depth collar",
+        "Magnetic desktop stand included",
+        "Compatible with 54mm and 58mm baskets",
+        "Ergonomic grip design"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "nano",
+        "studio",
+        "studio-pro",
+        "ufficio"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-distribution-tool.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "distribution-tool-black",
+          "color": "Matte Black",
+          "sku": "ARCO-AC-WDT-BLK",
+          "inStock": true
+        },
+        {
+          "id": "distribution-tool-silver",
+          "color": "Silver",
+          "sku": "ARCO-AC-WDT-SLV",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "precision-scale",
+      "name": "Precision Scale",
+      "type": "scale",
+      "url": "/products/accessories/precision-scale",
+      "price": 129,
+      "currency": "USD",
+      "description": "The Arco Precision Scale is designed specifically for espresso workflows. Its ultra-thin profile fits under any drip tray, while the built-in auto-tare, shot timer, and flow rate indicator give you all the data you need for repeatable results. Water-resistant and rechargeable via USB-C, this scale is an essential tool for any serious barista.",
+      "features": [
+        "0.1g resolution up to 2000g",
+        "Built-in shot timer with auto-start",
+        "Flow rate indicator",
+        "Ultra-thin 6mm profile",
+        "Auto-tare function",
+        "Water-resistant silicone pad",
+        "Rechargeable via USB-C",
+        "Backlit LED display",
+        "Auto-off with adjustable timer"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "nano",
+        "studio",
+        "studio-pro",
+        "ufficio",
+        "viaggio",
+        "automatico"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-precision-scale.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "precision-scale-black",
+          "color": "Black",
+          "sku": "ARCO-AC-SCL-BLK",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "milk-pitcher",
+      "name": "Milk Pitcher",
+      "type": "pitcher",
+      "url": "/products/accessories/milk-pitcher",
+      "price": 45,
+      "currency": "USD",
+      "description": "Professional-grade 350ml milk frothing pitcher crafted from 18/10 stainless steel. The precision-formed spout enables intricate latte art, while the interior measurement markings and matte finish exterior provide both function and style. The ergonomic handle stays cool during steaming for comfortable, controlled pours.",
+      "features": [
+        "350ml capacity (12oz)",
+        "18/10 stainless steel construction",
+        "Precision latte art spout",
+        "Interior measurement markings",
+        "Cool-touch handle",
+        "Matte finish exterior",
+        "Dishwasher safe"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "studio",
+        "studio-pro",
+        "ufficio"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-milk-pitcher.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "milk-pitcher-silver",
+          "color": "Stainless",
+          "size": "350ml",
+          "sku": "ARCO-AC-MPT-350",
+          "inStock": true
+        },
+        {
+          "id": "milk-pitcher-black",
+          "color": "Matte Black",
+          "size": "350ml",
+          "sku": "ARCO-AC-MPT-350B",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "knock-box",
+      "name": "Knock Box",
+      "type": "preparation",
+      "url": "/products/accessories/knock-box",
+      "price": 59,
+      "currency": "USD",
+      "description": "A sturdy knock box built to handle high-volume puck disposal. The heavy rubber base prevents sliding, while the replaceable silicone knock bar absorbs impact quietly. The generous capacity holds 15-20 pucks before emptying, and the removable inner tray makes cleaning a breeze. Non-slip feet keep it securely in place on any surface.",
+      "features": [
+        "Heavy-duty stainless steel body",
+        "Replaceable silicone knock bar",
+        "Non-slip rubber base",
+        "Holds 15-20 espresso pucks",
+        "Removable inner tray for easy cleaning",
+        "Sound-dampening design",
+        "Dishwasher-safe removable parts"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "nano",
+        "studio",
+        "studio-pro",
+        "ufficio",
+        "viaggio"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-knock-box.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "knock-box-black",
+          "color": "Matte Black",
+          "sku": "ARCO-AC-KNX-BLK",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "cleaning-kit",
+      "name": "Cleaning Kit",
+      "type": "cleaning",
+      "url": "/products/accessories/cleaning-kit",
+      "price": 39,
+      "currency": "USD",
+      "description": "The complete Arco Cleaning Kit includes everything you need to keep your espresso machine performing at its best. Contains backflush detergent tablets, group head cleaning powder, a flexible group head brush, microfiber cloths, and a detailed maintenance guide. Regular cleaning extends machine life and ensures every shot tastes its best.",
+      "features": [
+        "30x backflush detergent tablets",
+        "Group head cleaning powder (200g)",
+        "Flexible group head brush",
+        "2x microfiber cleaning cloths",
+        "Blind basket for backflushing",
+        "Detailed maintenance guide",
+        "6-month supply for daily use"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "nano",
+        "studio",
+        "studio-pro",
+        "ufficio"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-cleaning-kit.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "cleaning-kit-standard",
+          "size": "Standard (6-month supply)",
+          "sku": "ARCO-AC-CLN-STD",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "descaling-solution",
+      "name": "Descaling Solution",
+      "type": "cleaning",
+      "url": "/products/accessories/descaling-solution",
+      "price": 24,
+      "currency": "USD",
+      "description": "Arco Descaling Solution is a citric acid-based formula specifically designed for use with all Arco espresso machines. Gentle enough to protect internal components while effectively removing mineral buildup that can affect taste and reduce machine lifespan. Each bottle contains enough solution for 4 descaling cycles.",
+      "features": [
+        "Citric acid-based formula",
+        "Safe for all Arco machine components",
+        "Removes mineral scale buildup",
+        "Odorless and biodegradable",
+        "4 descaling cycles per bottle (500ml)",
+        "Easy-measure bottle cap",
+        "Recommended quarterly use"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "nano",
+        "studio",
+        "studio-pro",
+        "ufficio",
+        "automatico"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-descaling-solution.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "descaling-solution-500ml",
+          "size": "500ml",
+          "sku": "ARCO-AC-DSC-500",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "group-head-brush",
+      "name": "Group Head Brush",
+      "type": "cleaning",
+      "url": "/products/accessories/group-head-brush",
+      "price": 15,
+      "currency": "USD",
+      "description": "A purpose-built brush for cleaning espresso machine group heads. Heat-resistant nylon bristles effectively remove coffee residue from the group head gasket and shower screen without scratching. The angled head design reaches into tight spaces, and the comfortable silicone grip stays cool even when cleaning a hot machine.",
+      "features": [
+        "Heat-resistant nylon bristles",
+        "Angled head for easy access",
+        "Silicone non-slip grip",
+        "Will not scratch group head surfaces",
+        "Compact size for storage",
+        "Replacement heads available"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "studio",
+        "studio-pro",
+        "ufficio"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-group-head-brush.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "group-head-brush-standard",
+          "sku": "ARCO-AC-GHB-STD",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "espresso-cups",
+      "name": "Espresso Cups",
+      "type": "cups",
+      "url": "/products/accessories/espresso-cups",
+      "price": 65,
+      "currency": "USD",
+      "description": "Set of 4 handcrafted Italian ceramic espresso cups with matching saucers. Each 60ml cup features thick walls for optimal heat retention and a narrow rim that directs espresso perfectly across the palate. The Arco logo is subtly embossed on each handle. Microwave and dishwasher safe.",
+      "features": [
+        "Set of 4 cups with saucers",
+        "60ml (2oz) capacity each",
+        "Handcrafted Italian ceramic",
+        "Thick walls for heat retention",
+        "Narrow rim design for optimal tasting",
+        "Embossed Arco logo",
+        "Microwave and dishwasher safe"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "nano",
+        "studio",
+        "studio-pro",
+        "ufficio",
+        "viaggio",
+        "automatico"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-espresso-cups.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "espresso-cups-white",
+          "color": "Classic White",
+          "sku": "ARCO-AC-CUP-WHT",
+          "inStock": true
+        },
+        {
+          "id": "espresso-cups-black",
+          "color": "Matte Black",
+          "sku": "ARCO-AC-CUP-BLK",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "double-wall-glasses",
+      "name": "Double-Wall Glasses",
+      "type": "cups",
+      "url": "/products/accessories/double-wall-glasses",
+      "price": 49,
+      "currency": "USD",
+      "description": "Set of 4 double-wall borosilicate glass tumblers that showcase the beautiful layers of your espresso drinks. The vacuum insulation keeps hot drinks hot and cold drinks cold, while the exterior remains comfortable to hold. Perfect for cortados, macchiatos, and flat whites. The suspended coffee effect is a visual treat.",
+      "features": [
+        "Set of 4 double-wall glasses",
+        "180ml (6oz) capacity each",
+        "Borosilicate glass construction",
+        "Vacuum insulation layer",
+        "Cool-touch exterior",
+        "Shows beautiful drink layering",
+        "Dishwasher safe",
+        "Thermal shock resistant"
+      ],
+      "compatibility": [
+        "primo",
+        "doppio",
+        "nano",
+        "studio",
+        "studio-pro",
+        "ufficio",
+        "viaggio",
+        "automatico"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-double-wall-glasses.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "double-wall-glasses-180",
+          "size": "180ml (6oz)",
+          "sku": "ARCO-AC-DWG-180",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "bean-vault",
+      "name": "Bean Vault",
+      "type": "storage",
+      "url": "/products/accessories/bean-vault",
+      "price": 79,
+      "currency": "USD",
+      "description": "The Arco Bean Vault is an airtight coffee bean storage container with a built-in CO2 release valve that lets freshly roasted beans degas without letting oxygen in. The vacuum-sealed lid with date tracker helps you manage bean freshness. Holds up to 400g of whole beans and blocks UV light with its opaque design.",
+      "features": [
+        "400g whole bean capacity",
+        "One-way CO2 release valve",
+        "Vacuum-sealed lid",
+        "Built-in date tracker dial",
+        "UV-blocking opaque design",
+        "Stainless steel construction",
+        "BPA-free silicone gasket",
+        "Measuring scoop included"
+      ],
+      "compatibility": [
+        "filtro",
+        "preciso",
+        "macinino",
+        "zero",
+        "automatico"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-bean-vault.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "bean-vault-black",
+          "color": "Matte Black",
+          "sku": "ARCO-AC-BNV-BLK",
+          "inStock": true
+        },
+        {
+          "id": "bean-vault-silver",
+          "color": "Brushed Silver",
+          "sku": "ARCO-AC-BNV-SLV",
+          "inStock": true
+        }
+      ]
+    },
+    {
+      "id": "dosing-cup",
+      "name": "Dosing Cup",
+      "type": "preparation",
+      "url": "/products/accessories/dosing-cup",
+      "price": 35,
+      "currency": "USD",
+      "description": "A precision-machined stainless steel dosing cup designed for transferring grounds cleanly from grinder to portafilter. The cup fits snugly over 58mm portafilter baskets for a mess-free flip transfer, and slides perfectly under all Arco grinder spouts. Interior measurement lines help confirm dose weight at a glance.",
+      "features": [
+        "58mm diameter fits all Arco portafilters",
+        "Precision-machined stainless steel",
+        "Snug fit for flip transfer",
+        "Interior measurement lines",
+        "Compatible with all Arco grinder spouts",
+        "Anti-static coating interior",
+        "Easy to clean"
+      ],
+      "compatibility": [
+        "filtro",
+        "preciso",
+        "macinino",
+        "zero"
+      ],
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-dosing-cup.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "dosing-cup-steel",
+          "color": "Stainless Steel",
+          "sku": "ARCO-AC-DSC-STL",
+          "inStock": true
+        },
+        {
+          "id": "dosing-cup-black",
+          "color": "Matte Black",
+          "sku": "ARCO-AC-DSC-BLK",
+          "inStock": true
+        }
+      ]
+    }
+  ]
+}

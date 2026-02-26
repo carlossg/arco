@@ -1,0 +1,34 @@
+{
+  "name": "arco-recommender",
+  "version": "1.0.0",
+  "description": "AI-driven Arco Coffee Equipment Recommender - Google Cloud Native",
+  "main": "dist/index-express.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index-express.js",
+    "dev": "ts-node src/index-express.ts",
+    "types": "tsc --noEmit"
+  },
+  "keywords": ["google-cloud", "cloud-run", "arco", "coffee", "ai", "gemini", "vertex-ai"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/aiplatform": "^6.1.0",
+    "@google-cloud/firestore": "^8.2.0",
+    "@google-cloud/secret-manager": "^6.1.1",
+    "@google-cloud/storage": "^7.18.0",
+    "@google-cloud/vertexai": "^1.10.0",
+    "express": "^4.21.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

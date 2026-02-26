@@ -1,0 +1,338 @@
+{
+  "total": 12,
+  "offset": 0,
+  "limit": 12,
+  "description": "Use case scoring per product on a 1-10 scale. Higher scores indicate stronger suitability for the given use case.",
+  "useCases": [
+    "espresso",
+    "milk-drinks",
+    "home-barista",
+    "office",
+    "travel",
+    "pour-over",
+    "beginner",
+    "upgrade"
+  ],
+  "data": [
+    {
+      "productId": "primo",
+      "productName": "Primo",
+      "series": "espresso-machines",
+      "scores": {
+        "espresso": 7,
+        "milk-drinks": 5,
+        "home-barista": 6,
+        "office": 3,
+        "travel": 2,
+        "pour-over": 1,
+        "beginner": 9,
+        "upgrade": 4
+      },
+      "strengths": [
+        "Excellent entry point for learning espresso fundamentals",
+        "PID control at an accessible price",
+        "Commercial 58mm group head uses standard accessories"
+      ],
+      "limitations": [
+        "Single boiler means waiting between brewing and steaming",
+        "Limited milk drink throughput",
+        "No advanced extraction features"
+      ]
+    },
+    {
+      "productId": "doppio",
+      "productName": "Doppio",
+      "series": "espresso-machines",
+      "scores": {
+        "espresso": 8,
+        "milk-drinks": 9,
+        "home-barista": 8,
+        "office": 5,
+        "travel": 1,
+        "pour-over": 1,
+        "beginner": 5,
+        "upgrade": 8
+      },
+      "strengths": [
+        "Dual boilers allow simultaneous brewing and steaming",
+        "E61 group head provides excellent thermal stability",
+        "Rotary pump is quiet and powerful",
+        "Great for milk drink workflows"
+      ],
+      "limitations": [
+        "Heavier learning curve than automatic machines",
+        "Requires a quality grinder to maximize potential",
+        "No flow control or pressure profiling"
+      ]
+    },
+    {
+      "productId": "nano",
+      "productName": "Nano",
+      "series": "espresso-machines",
+      "scores": {
+        "espresso": 5,
+        "milk-drinks": 3,
+        "home-barista": 3,
+        "office": 2,
+        "travel": 7,
+        "pour-over": 1,
+        "beginner": 8,
+        "upgrade": 2
+      },
+      "strengths": [
+        "Ultra-compact design fits anywhere",
+        "Rapid 3-minute heat-up",
+        "Lightweight enough for travel",
+        "PID control despite compact size"
+      ],
+      "limitations": [
+        "42mm group head limits accessory compatibility",
+        "Small water tank requires frequent refills",
+        "Steam wand is basic, limited latte art potential",
+        "Will not satisfy advanced baristas"
+      ]
+    },
+    {
+      "productId": "studio",
+      "productName": "Studio",
+      "series": "espresso-machines",
+      "scores": {
+        "espresso": 9,
+        "milk-drinks": 8,
+        "home-barista": 10,
+        "office": 4,
+        "travel": 1,
+        "pour-over": 1,
+        "beginner": 3,
+        "upgrade": 9
+      },
+      "strengths": [
+        "Saturated group head for rock-solid temperature stability",
+        "Built-in flow profiling opens creative possibilities",
+        "Plumb-in option for serious setups",
+        "Commercial-level build quality"
+      ],
+      "limitations": [
+        "Steep learning curve for flow profiling",
+        "Requires dedicated counter space",
+        "Premium price point",
+        "15-minute heat-up time"
+      ]
+    },
+    {
+      "productId": "studio-pro",
+      "productName": "Studio Pro",
+      "series": "espresso-machines",
+      "scores": {
+        "espresso": 10,
+        "milk-drinks": 9,
+        "home-barista": 10,
+        "office": 3,
+        "travel": 1,
+        "pour-over": 1,
+        "beginner": 2,
+        "upgrade": 10
+      },
+      "strengths": [
+        "Triple boiler with gear pump is the ultimate extraction platform",
+        "Full pressure profiling with saveable profiles",
+        "Touchscreen with real-time extraction graphing",
+        "Integrated shot scale for precision dosing"
+      ],
+      "limitations": [
+        "Highest price point in the lineup",
+        "Requires significant knowledge to leverage fully",
+        "Heavy and large footprint",
+        "Overkill for simple drink preferences"
+      ]
+    },
+    {
+      "productId": "ufficio",
+      "productName": "Ufficio",
+      "series": "espresso-machines",
+      "scores": {
+        "espresso": 8,
+        "milk-drinks": 8,
+        "home-barista": 3,
+        "office": 10,
+        "travel": 1,
+        "pour-over": 1,
+        "beginner": 2,
+        "upgrade": 5
+      },
+      "strengths": [
+        "Dual group heads handle high volume with ease",
+        "50+ cups per day capacity",
+        "Commercial-grade reliability",
+        "Programmable volumetric dosing"
+      ],
+      "limitations": [
+        "Requires plumbed water connection",
+        "Very large and heavy (38 kg)",
+        "High power requirements",
+        "Excessive for home use"
+      ]
+    },
+    {
+      "productId": "viaggio",
+      "productName": "Viaggio",
+      "series": "espresso-machines",
+      "scores": {
+        "espresso": 4,
+        "milk-drinks": 1,
+        "home-barista": 2,
+        "office": 1,
+        "travel": 10,
+        "pour-over": 1,
+        "beginner": 6,
+        "upgrade": 1
+      },
+      "strengths": [
+        "Truly portable at only 1.2 kg",
+        "No electricity required",
+        "Surprisingly good espresso for a manual device",
+        "Works with ESE pods for ultimate convenience"
+      ],
+      "limitations": [
+        "No steam wand for milk drinks",
+        "Requires external hot water source",
+        "Manual lever requires some technique",
+        "Small single-serve capacity"
+      ]
+    },
+    {
+      "productId": "automatico",
+      "productName": "Automatico",
+      "series": "espresso-machines",
+      "scores": {
+        "espresso": 6,
+        "milk-drinks": 7,
+        "home-barista": 2,
+        "office": 7,
+        "travel": 1,
+        "pour-over": 1,
+        "beginner": 10,
+        "upgrade": 3
+      },
+      "strengths": [
+        "One-touch operation for 8 different drinks",
+        "Built-in grinder grinds fresh for every cup",
+        "Automatic milk system requires no technique",
+        "45-second heat-up time"
+      ],
+      "limitations": [
+        "Limited control over extraction variables",
+        "Built-in grinder quality does not match standalone grinders",
+        "Automatic milk system cannot match manual steam wand results",
+        "Not suitable for espresso purists"
+      ]
+    },
+    {
+      "productId": "filtro",
+      "productName": "Filtro",
+      "series": "grinders",
+      "scores": {
+        "espresso": 2,
+        "milk-drinks": 2,
+        "home-barista": 5,
+        "office": 3,
+        "travel": 1,
+        "pour-over": 9,
+        "beginner": 7,
+        "upgrade": 4
+      },
+      "strengths": [
+        "Optimized specifically for filter grind range",
+        "Excellent particle uniformity for pour-over",
+        "Affordable entry point for quality grinding",
+        "Compact footprint"
+      ],
+      "limitations": [
+        "Not suitable for espresso grind",
+        "30-step adjustment is less precise than stepless",
+        "Hopper-based design retains some coffee",
+        "Limited versatility"
+      ]
+    },
+    {
+      "productId": "preciso",
+      "productName": "Preciso",
+      "series": "grinders",
+      "scores": {
+        "espresso": 7,
+        "milk-drinks": 7,
+        "home-barista": 7,
+        "office": 5,
+        "travel": 1,
+        "pour-over": 7,
+        "beginner": 8,
+        "upgrade": 5
+      },
+      "strengths": [
+        "True all-rounder from espresso to French press",
+        "Conical burrs produce sweet, full-bodied flavor",
+        "Macro + micro adjustment for precise dialing in",
+        "Excellent value for the versatility offered"
+      ],
+      "limitations": [
+        "Does not match flat burr clarity for light roast espresso",
+        "0.8g retention means some waste between dose changes",
+        "Not a specialist at any single brew method"
+      ]
+    },
+    {
+      "productId": "macinino",
+      "productName": "Macinino",
+      "series": "grinders",
+      "scores": {
+        "espresso": 9,
+        "milk-drinks": 8,
+        "home-barista": 8,
+        "office": 4,
+        "travel": 1,
+        "pour-over": 5,
+        "beginner": 4,
+        "upgrade": 8
+      },
+      "strengths": [
+        "64mm flat burrs produce exceptional clarity and definition",
+        "Stepless adjustment for infinite precision",
+        "Very low 0.5g retention",
+        "Excellent for medium and light roast espresso"
+      ],
+      "limitations": [
+        "Louder than conical alternatives",
+        "Primarily optimized for espresso range",
+        "Requires dialing in experience",
+        "Heavier than entry-level grinders"
+      ]
+    },
+    {
+      "productId": "zero",
+      "productName": "Zero",
+      "series": "grinders",
+      "scores": {
+        "espresso": 10,
+        "milk-drinks": 9,
+        "home-barista": 10,
+        "office": 2,
+        "travel": 1,
+        "pour-over": 8,
+        "beginner": 3,
+        "upgrade": 10
+      },
+      "strengths": [
+        "83mm SSP burrs produce world-class grind quality",
+        "Near-zero retention means every dose is fresh",
+        "Effortless switching between coffees and brew methods",
+        "Premium build quality and materials"
+      ],
+      "limitations": [
+        "Highest price point in grinder lineup",
+        "Single dose workflow is slower than hopper grinders",
+        "Requires a separate scale for dosing",
+        "Overkill for casual coffee drinkers"
+      ]
+    }
+  ]
+}

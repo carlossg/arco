@@ -1,0 +1,861 @@
+{
+  "total": 12,
+  "offset": 0,
+  "limit": 12,
+  "data": [
+    {
+      "id": "primo",
+      "name": "Primo",
+      "series": "espresso-machines",
+      "category": "single-boiler",
+      "url": "/products/espresso-machines/primo",
+      "price": 899,
+      "currency": "USD",
+      "tagline": "Your first step into serious espresso",
+      "description": "The Arco Primo brings commercial-grade espresso quality to your kitchen counter. Featuring a 58mm commercial group head and precise PID temperature control, the Primo delivers cafe-quality shots with remarkable consistency. Its single boiler design keeps things simple while the 15-bar vibratory pump provides the pressure needed for rich, full-bodied espresso with beautiful crema.",
+      "features": [
+        "PID temperature control with 0.5 degree accuracy",
+        "58mm commercial portafilter",
+        "Pre-infusion capability",
+        "Stainless steel boiler",
+        "Quick heat-up in under 8 minutes",
+        "Adjustable OPV for pressure fine-tuning",
+        "Drip tray with full indicator",
+        "Steam wand for milk texturing"
+      ],
+      "bestFor": [
+        "home-barista",
+        "espresso",
+        "beginner",
+        "budget-conscious"
+      ],
+      "specs": {
+        "boilers": "Single",
+        "boilerMaterial": "Stainless Steel",
+        "pumpType": "15-bar vibratory",
+        "groupHead": "58mm commercial",
+        "waterSource": "2L removable tank",
+        "heatUpTime": "8 minutes",
+        "dimensions": "28 x 35 x 38 cm",
+        "weight": "8.5 kg",
+        "power": "1350W",
+        "voltage": "120V / 60Hz",
+        "pidControl": true,
+        "pressureProfiling": false,
+        "flowControl": false,
+        "plumbedIn": false
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-primo.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "primo-black",
+          "color": "Matte Black",
+          "sku": "ARCO-PM-BLK",
+          "inStock": true
+        },
+        {
+          "id": "primo-silver",
+          "color": "Brushed Silver",
+          "sku": "ARCO-PM-SLV",
+          "inStock": true
+        },
+        {
+          "id": "primo-white",
+          "color": "Pearl White",
+          "sku": "ARCO-PM-WHT",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Single and double portafilter baskets",
+        "58mm tamper",
+        "Cleaning brush",
+        "Water filter"
+      ],
+      "warranty": "2 years"
+    },
+    {
+      "id": "doppio",
+      "name": "Doppio",
+      "series": "espresso-machines",
+      "category": "dual-boiler",
+      "url": "/products/espresso-machines/doppio",
+      "price": 1599,
+      "currency": "USD",
+      "tagline": "Double the power, double the precision",
+      "description": "The Arco Doppio elevates your home espresso experience with true dual boiler technology. Brew espresso and steam milk simultaneously without any temperature compromise. The iconic E61 group head provides exceptional thermal stability, while dual PID controllers let you independently set brew and steam temperatures for ultimate control over every variable.",
+      "features": [
+        "Dual PID temperature control",
+        "E61 thermosyphon group head",
+        "Rotary pump for quiet operation",
+        "Simultaneous brewing and steaming",
+        "Cool-touch steam wand with no-burn tip",
+        "Shot timer display",
+        "Programmable pre-infusion",
+        "Commercial-grade 58mm portafilter"
+      ],
+      "bestFor": [
+        "home-barista",
+        "milk-drinks",
+        "espresso",
+        "upgrade"
+      ],
+      "specs": {
+        "boilers": "Dual",
+        "boilerMaterial": "Stainless Steel",
+        "pumpType": "Rotary",
+        "groupHead": "58mm E61 thermosyphon",
+        "waterSource": "2.5L removable tank",
+        "heatUpTime": "12 minutes",
+        "dimensions": "32 x 40 x 42 cm",
+        "weight": "14 kg",
+        "power": "1800W",
+        "voltage": "120V / 60Hz",
+        "pidControl": true,
+        "pressureProfiling": false,
+        "flowControl": false,
+        "plumbedIn": false
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-doppio.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "doppio-black",
+          "color": "Matte Black",
+          "sku": "ARCO-DP-BLK",
+          "inStock": true
+        },
+        {
+          "id": "doppio-silver",
+          "color": "Brushed Silver",
+          "sku": "ARCO-DP-SLV",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Single and double portafilter baskets",
+        "58mm calibrated tamper",
+        "Cleaning brush and tablets",
+        "Water softener filter",
+        "Blind basket for backflushing"
+      ],
+      "warranty": "2 years"
+    },
+    {
+      "id": "nano",
+      "name": "Nano",
+      "series": "espresso-machines",
+      "category": "compact",
+      "url": "/products/espresso-machines/nano",
+      "price": 649,
+      "currency": "USD",
+      "tagline": "Big espresso in a small package",
+      "description": "The Arco Nano proves that great espresso does not require a large footprint. This compact powerhouse uses advanced thermoblock technology with PID control to deliver surprisingly excellent espresso from a machine that fits in the tightest kitchen corners. At just 4.2 kg, it is also light enough to bring along on weekend getaways.",
+      "features": [
+        "Ultra-compact design",
+        "PID-controlled thermoblock",
+        "Rapid 3-minute heat-up",
+        "42mm precision group head",
+        "Compact steam wand",
+        "Energy-efficient standby mode",
+        "Tool-free maintenance",
+        "Travel-friendly size"
+      ],
+      "bestFor": [
+        "beginner",
+        "travel",
+        "espresso",
+        "budget-conscious"
+      ],
+      "specs": {
+        "boilers": "Thermoblock",
+        "boilerMaterial": "Aluminum with stainless steel lining",
+        "pumpType": "15-bar vibratory",
+        "groupHead": "42mm proprietary",
+        "waterSource": "1L removable tank",
+        "heatUpTime": "3 minutes",
+        "dimensions": "18 x 28 x 30 cm",
+        "weight": "4.2 kg",
+        "power": "1100W",
+        "voltage": "120V / 60Hz",
+        "pidControl": true,
+        "pressureProfiling": false,
+        "flowControl": false,
+        "plumbedIn": false
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-nano.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "nano-black",
+          "color": "Matte Black",
+          "sku": "ARCO-NN-BLK",
+          "inStock": true
+        },
+        {
+          "id": "nano-white",
+          "color": "Pearl White",
+          "sku": "ARCO-NN-WHT",
+          "inStock": true
+        },
+        {
+          "id": "nano-sage",
+          "color": "Sage Green",
+          "sku": "ARCO-NN-SGE",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Single portafilter basket",
+        "42mm tamper",
+        "Cleaning tool",
+        "Descaling solution sample"
+      ],
+      "warranty": "2 years"
+    },
+    {
+      "id": "studio",
+      "name": "Studio",
+      "series": "espresso-machines",
+      "category": "prosumer",
+      "url": "/products/espresso-machines/studio",
+      "price": 2299,
+      "currency": "USD",
+      "tagline": "Where art meets engineering",
+      "description": "The Arco Studio is the machine for the dedicated home barista who demands professional results. Its saturated group head maintains rock-solid temperature stability shot after shot, while the built-in flow profiling system lets you manipulate every phase of extraction. With dual boilers and a rotary pump, the Studio brings true cafe performance into your home.",
+      "features": [
+        "Saturated 58mm group head",
+        "Built-in flow profiling with manual paddle",
+        "Dual boiler with PID",
+        "Rotary pump with low-pressure pre-infusion",
+        "Real-time pressure and flow gauges",
+        "Plumb-in capable with tank option",
+        "Shot mirror for bottomless portafilter",
+        "Programmable dose presets"
+      ],
+      "bestFor": [
+        "home-barista",
+        "espresso",
+        "upgrade",
+        "milk-drinks"
+      ],
+      "specs": {
+        "boilers": "Dual",
+        "boilerMaterial": "Copper with lead-free brass group",
+        "pumpType": "Rotary",
+        "groupHead": "Saturated 58mm",
+        "waterSource": "3L tank / plumbed-in option",
+        "heatUpTime": "15 minutes",
+        "dimensions": "35 x 45 x 42 cm",
+        "weight": "18 kg",
+        "power": "2100W",
+        "voltage": "120V / 60Hz",
+        "pidControl": true,
+        "pressureProfiling": false,
+        "flowControl": true,
+        "plumbedIn": true
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-studio.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "studio-black",
+          "color": "Matte Black",
+          "sku": "ARCO-ST-BLK",
+          "inStock": true
+        },
+        {
+          "id": "studio-silver",
+          "color": "Brushed Silver",
+          "sku": "ARCO-ST-SLV",
+          "inStock": true
+        },
+        {
+          "id": "studio-walnut",
+          "color": "Walnut Accent",
+          "sku": "ARCO-ST-WNT",
+          "inStock": false
+        }
+      ],
+      "includedAccessories": [
+        "Single, double, and triple portafilter baskets",
+        "58mm precision tamper",
+        "Distribution tool",
+        "Cleaning kit with tablets and brush",
+        "Plumbing kit",
+        "Blind basket"
+      ],
+      "warranty": "3 years"
+    },
+    {
+      "id": "studio-pro",
+      "name": "Studio Pro",
+      "series": "espresso-machines",
+      "category": "commercial",
+      "url": "/products/espresso-machines/studio-pro",
+      "price": 3499,
+      "currency": "USD",
+      "tagline": "Professional precision, no compromise",
+      "description": "The Arco Studio Pro represents the pinnacle of home espresso engineering. A triple boiler system with a gear pump delivers unmatched pressure profiling capabilities, letting you replicate any extraction curve. The full-color touchscreen interface provides real-time extraction data and stores up to 20 custom profiles. This is the machine that professionals choose for their home.",
+      "features": [
+        "Triple boiler system",
+        "Gear pump with full pressure profiling",
+        "Full-color touchscreen display",
+        "Save up to 20 extraction profiles",
+        "Real-time extraction graphing",
+        "Automatic backflush cycle",
+        "Integrated shot scale",
+        "App connectivity via Bluetooth",
+        "Volumetric dosing",
+        "Cool-touch articulating steam wand"
+      ],
+      "bestFor": [
+        "home-barista",
+        "espresso",
+        "upgrade",
+        "milk-drinks"
+      ],
+      "specs": {
+        "boilers": "Triple",
+        "boilerMaterial": "Stainless steel with copper heat exchangers",
+        "pumpType": "Gear pump",
+        "groupHead": "Saturated 58mm with integrated pressure transducer",
+        "waterSource": "3.5L tank / plumbed-in option",
+        "heatUpTime": "18 minutes",
+        "dimensions": "38 x 48 x 44 cm",
+        "weight": "24 kg",
+        "power": "2400W",
+        "voltage": "120V / 60Hz",
+        "pidControl": true,
+        "pressureProfiling": true,
+        "flowControl": true,
+        "plumbedIn": true,
+        "touchscreen": true
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-studio-pro.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "studio-pro-black",
+          "color": "Matte Black",
+          "sku": "ARCO-SP-BLK",
+          "inStock": true
+        },
+        {
+          "id": "studio-pro-white",
+          "color": "Arctic White",
+          "sku": "ARCO-SP-WHT",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Competition portafilter baskets (14g, 18g, 20g, 22g)",
+        "58mm calibrated tamper",
+        "WDT distribution tool",
+        "Comprehensive cleaning kit",
+        "Plumbing kit with water softener",
+        "Blind basket",
+        "USB-C cable for firmware updates"
+      ],
+      "warranty": "3 years"
+    },
+    {
+      "id": "ufficio",
+      "name": "Ufficio",
+      "series": "espresso-machines",
+      "category": "office",
+      "url": "/products/espresso-machines/ufficio",
+      "price": 4299,
+      "currency": "USD",
+      "tagline": "Cafe quality for the entire office",
+      "description": "The Arco Ufficio is built for high-volume environments where quality cannot be sacrificed. Dual commercial group heads serve up to 50+ cups per day without breaking a sweat. The plumbed-in design ensures continuous operation, while dual boilers maintain rock-solid temperature stability even during peak morning rush. Built with commercial-grade components for years of reliable service.",
+      "features": [
+        "Dual commercial 58mm group heads",
+        "Serve 50+ cups per day",
+        "Commercial-grade rotary pump",
+        "Dual boiler system with independent PID",
+        "Direct plumb-in with drain connection",
+        "Programmable volumetric dosing per group",
+        "Auto-cleaning cycle with scheduling",
+        "Cup warmer tray",
+        "Service alert system",
+        "Stainless steel construction"
+      ],
+      "bestFor": [
+        "office",
+        "espresso",
+        "milk-drinks"
+      ],
+      "specs": {
+        "boilers": "Dual commercial",
+        "boilerMaterial": "Copper",
+        "pumpType": "Rotary commercial-grade",
+        "groupHead": "2x 58mm commercial saturated",
+        "waterSource": "Plumbed-in required",
+        "heatUpTime": "25 minutes",
+        "dimensions": "72 x 52 x 48 cm",
+        "weight": "38 kg",
+        "power": "3200W",
+        "voltage": "120V / 60Hz (240V option available)",
+        "pidControl": true,
+        "pressureProfiling": false,
+        "flowControl": false,
+        "plumbedIn": true,
+        "groupCount": 2,
+        "dailyCapacity": "50+ cups"
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-ufficio.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "ufficio-black",
+          "color": "Matte Black",
+          "sku": "ARCO-UF-BLK",
+          "inStock": true
+        },
+        {
+          "id": "ufficio-silver",
+          "color": "Stainless Steel",
+          "sku": "ARCO-UF-SLV",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "4x portafilter baskets (single and double per group)",
+        "2x 58mm commercial tampers",
+        "Commercial knock box",
+        "Professional cleaning kit",
+        "Plumbing installation kit",
+        "Water treatment system"
+      ],
+      "warranty": "3 years commercial"
+    },
+    {
+      "id": "viaggio",
+      "name": "Viaggio",
+      "series": "espresso-machines",
+      "category": "portable",
+      "url": "/products/espresso-machines/viaggio",
+      "price": 399,
+      "currency": "USD",
+      "tagline": "Espresso anywhere you go",
+      "description": "The Arco Viaggio is the ultimate travel companion for espresso lovers who refuse to compromise on quality away from home. This beautifully crafted manual lever machine generates a full 9 bars of pressure through arm power alone, requiring no electricity. Compatible with both ESE pods and freshly ground coffee, the Viaggio weighs just 1.2 kg and fits in any backpack or carry-on.",
+      "features": [
+        "Manual lever operation, no electricity needed",
+        "Full 9-bar pressure extraction",
+        "Compatible with ESE pods and ground coffee",
+        "Aircraft-grade aluminum construction",
+        "Integrated cup doubles as water chamber",
+        "Quick-disassemble for easy cleaning",
+        "Includes carrying case",
+        "Works with any hot water source"
+      ],
+      "bestFor": [
+        "travel",
+        "espresso",
+        "beginner"
+      ],
+      "specs": {
+        "boilers": "None (manual)",
+        "boilerMaterial": "N/A",
+        "pumpType": "Manual lever (9 bar)",
+        "groupHead": "ESE/ground compatible",
+        "waterSource": "Integrated chamber",
+        "heatUpTime": "N/A (uses external hot water)",
+        "dimensions": "10 x 10 x 18 cm",
+        "weight": "1.2 kg",
+        "power": "0W (manual)",
+        "voltage": "N/A",
+        "pidControl": false,
+        "pressureProfiling": false,
+        "flowControl": false,
+        "plumbedIn": false,
+        "manual": true
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-viaggio.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "viaggio-black",
+          "color": "Anodized Black",
+          "sku": "ARCO-VG-BLK",
+          "inStock": true
+        },
+        {
+          "id": "viaggio-gunmetal",
+          "color": "Gunmetal",
+          "sku": "ARCO-VG-GNM",
+          "inStock": true
+        },
+        {
+          "id": "viaggio-copper",
+          "color": "Brushed Copper",
+          "sku": "ARCO-VG-CPR",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Carrying case",
+        "ESE pod adapter",
+        "Ground coffee basket",
+        "Tamper tool",
+        "Microfiber cloth"
+      ],
+      "warranty": "5 years"
+    },
+    {
+      "id": "automatico",
+      "name": "Automatico",
+      "series": "espresso-machines",
+      "category": "automatic",
+      "url": "/products/espresso-machines/automatico",
+      "price": 1899,
+      "currency": "USD",
+      "tagline": "One touch, perfect every time",
+      "description": "The Arco Automatico delivers the full Arco espresso experience at the touch of a button. Its built-in conical burr grinder grinds fresh beans for every cup, while the advanced thermoblock system heats water to the precise temperature for each drink type. With 8 programmable beverages and an automatic milk system, crafting cafe-quality drinks has never been easier.",
+      "features": [
+        "Built-in conical burr grinder with 12 settings",
+        "8 programmable one-touch drinks",
+        "Automatic milk frothing and steaming system",
+        "Advanced thermoblock with rapid heating",
+        "Adjustable drink strength and volume",
+        "Auto-rinse and descale programs",
+        "Removable brew group for easy cleaning",
+        "Color display with intuitive interface",
+        "Bypass doser for pre-ground coffee"
+      ],
+      "bestFor": [
+        "beginner",
+        "office",
+        "milk-drinks",
+        "espresso"
+      ],
+      "specs": {
+        "boilers": "Thermoblock",
+        "boilerMaterial": "Stainless steel",
+        "pumpType": "15-bar internal",
+        "groupHead": "Integrated brew group",
+        "waterSource": "1.8L removable tank",
+        "heatUpTime": "45 seconds",
+        "dimensions": "24 x 38 x 36 cm",
+        "weight": "9.5 kg",
+        "power": "1450W",
+        "voltage": "120V / 60Hz",
+        "pidControl": true,
+        "pressureProfiling": false,
+        "flowControl": false,
+        "plumbedIn": false,
+        "builtInGrinder": true,
+        "autoMilk": true,
+        "touchscreen": false,
+        "programmableDrinks": 8
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-automatico.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "automatico-black",
+          "color": "Piano Black",
+          "sku": "ARCO-AT-BLK",
+          "inStock": true
+        },
+        {
+          "id": "automatico-silver",
+          "color": "Titanium Silver",
+          "sku": "ARCO-AT-SLV",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Milk container with lid",
+        "Water filter cartridge",
+        "Cleaning tablets",
+        "Descaling solution",
+        "Measuring scoop for pre-ground coffee",
+        "Quick start guide"
+      ],
+      "warranty": "2 years"
+    },
+    {
+      "id": "filtro",
+      "name": "Filtro",
+      "series": "grinders",
+      "category": "filter-grinder",
+      "url": "/products/grinders/filtro",
+      "price": 349,
+      "currency": "USD",
+      "tagline": "Precision ground for pour-over perfection",
+      "description": "The Arco Filtro is purpose-built for filter coffee enthusiasts who demand consistency in every grind. Its 48mm flat burrs produce remarkably uniform particles across the coarser grind settings that pour-over, drip, and French press methods demand. With 30 precisely calibrated steps and under 1g of retention, the Filtro ensures every gram of coffee counts.",
+      "features": [
+        "48mm flat hardened steel burrs",
+        "Optimized for filter grind range",
+        "30-step grind adjustment",
+        "Less than 1g retention",
+        "Anti-static grounds outlet",
+        "Timer-based dosing",
+        "Quiet DC motor",
+        "Compact footprint"
+      ],
+      "bestFor": [
+        "pour-over",
+        "beginner",
+        "home-barista"
+      ],
+      "specs": {
+        "burrType": "Flat",
+        "burrSize": "48mm",
+        "burrMaterial": "Hardened steel",
+        "grindSettings": "30-step",
+        "dosing": "Timer-based",
+        "retention": "<1g",
+        "hopperCapacity": "200g",
+        "grindsPerSecond": "1.2g/s",
+        "dimensions": "12 x 18 x 32 cm",
+        "weight": "3.2 kg",
+        "power": "150W",
+        "voltage": "120V / 60Hz",
+        "stepless": false,
+        "singleDose": false
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-filtro.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "filtro-black",
+          "color": "Matte Black",
+          "sku": "ARCO-FL-BLK",
+          "inStock": true
+        },
+        {
+          "id": "filtro-white",
+          "color": "Matte White",
+          "sku": "ARCO-FL-WHT",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Grounds container",
+        "Cleaning brush",
+        "Burr alignment tool"
+      ],
+      "warranty": "2 years"
+    },
+    {
+      "id": "preciso",
+      "name": "Preciso",
+      "series": "grinders",
+      "category": "conical-burr",
+      "url": "/products/grinders/preciso",
+      "price": 449,
+      "currency": "USD",
+      "tagline": "Versatile precision from espresso to pour-over",
+      "description": "The Arco Preciso is the all-rounder of the Arco grinder lineup. Its 48mm conical burrs deliver the sweetness and body that conical geometry is celebrated for, while the macro-plus-micro adjustment system provides an impressive 40 distinct grind settings. Whether you are pulling espresso in the morning and brewing pour-over in the afternoon, the Preciso transitions effortlessly between methods.",
+      "features": [
+        "48mm Italian conical burrs",
+        "Macro + micro adjustment (40 steps)",
+        "Versatile espresso-to-French press range",
+        "Less than 0.8g retention",
+        "Anti-popcorn hopper design",
+        "Stepless micro adjustment within each macro step",
+        "Quiet low-RPM motor preserves flavor",
+        "Portafilter holder included"
+      ],
+      "bestFor": [
+        "home-barista",
+        "espresso",
+        "pour-over",
+        "beginner"
+      ],
+      "specs": {
+        "burrType": "Conical",
+        "burrSize": "48mm",
+        "burrMaterial": "Italian hardened steel",
+        "grindSettings": "40-step macro + stepless micro",
+        "dosing": "Timer-based with portafilter holder",
+        "retention": "<0.8g",
+        "hopperCapacity": "250g",
+        "grindsPerSecond": "1.5g/s",
+        "dimensions": "14 x 20 x 35 cm",
+        "weight": "3.9 kg",
+        "power": "180W",
+        "voltage": "120V / 60Hz",
+        "stepless": false,
+        "singleDose": false
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-preciso.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "preciso-black",
+          "color": "Matte Black",
+          "sku": "ARCO-PR-BLK",
+          "inStock": true
+        },
+        {
+          "id": "preciso-silver",
+          "color": "Brushed Silver",
+          "sku": "ARCO-PR-SLV",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Portafilter holder (54mm and 58mm adapters)",
+        "Grounds container",
+        "Cleaning brush",
+        "Grind size reference card"
+      ],
+      "warranty": "2 years"
+    },
+    {
+      "id": "macinino",
+      "name": "Macinino",
+      "series": "grinders",
+      "category": "flat-burr",
+      "url": "/products/grinders/macinino",
+      "price": 549,
+      "currency": "USD",
+      "tagline": "Flat burr clarity in every cup",
+      "description": "The Arco Macinino is designed for espresso enthusiasts who crave the clarity and definition that large flat burrs deliver. Its 64mm Italian-made flat burrs produce an exceptionally uniform grind with bright, clean flavors and stunning clarity in the cup. The stepless adjustment allows infinite precision, while under 0.5g retention means minimal waste between grind changes.",
+      "features": [
+        "64mm flat Italian burrs",
+        "Stepless infinite grind adjustment",
+        "Less than 0.5g retention",
+        "High-torque low-RPM motor",
+        "Anti-clump screen at outlet",
+        "Portafilter and grounds bin compatible",
+        "Grind-on-demand timer",
+        "Easy burr access for cleaning"
+      ],
+      "bestFor": [
+        "espresso",
+        "home-barista",
+        "upgrade"
+      ],
+      "specs": {
+        "burrType": "Flat",
+        "burrSize": "64mm",
+        "burrMaterial": "Italian hardened steel",
+        "grindSettings": "Stepless",
+        "dosing": "Timer-based with portafilter holder",
+        "retention": "<0.5g",
+        "hopperCapacity": "300g",
+        "grindsPerSecond": "1.8g/s",
+        "dimensions": "16 x 22 x 38 cm",
+        "weight": "5.8 kg",
+        "power": "250W",
+        "voltage": "120V / 60Hz",
+        "stepless": true,
+        "singleDose": false
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-macinino.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "macinino-black",
+          "color": "Matte Black",
+          "sku": "ARCO-MC-BLK",
+          "inStock": true
+        },
+        {
+          "id": "macinino-chrome",
+          "color": "Chrome",
+          "sku": "ARCO-MC-CHR",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Portafilter holder (54mm and 58mm adapters)",
+        "Grounds container with anti-static lid",
+        "Cleaning brush",
+        "Burr alignment shims"
+      ],
+      "warranty": "2 years"
+    },
+    {
+      "id": "zero",
+      "name": "Zero",
+      "series": "grinders",
+      "category": "single-dose",
+      "url": "/products/grinders/zero",
+      "price": 699,
+      "currency": "USD",
+      "tagline": "Zero waste, maximum flavor",
+      "description": "The Arco Zero is the ultimate single-dose grinder for the discerning home barista. Massive 83mm SSP flat burrs produce world-class particle uniformity, while the innovative bellows system achieves near-zero retention, meaning every milligram you put in comes right back out. Weigh your dose, grind, and enjoy knowing that nothing is wasted and every shot is ground fresh from whole beans.",
+      "features": [
+        "83mm SSP flat burrs",
+        "Near-zero retention with bellows system",
+        "Purpose-built for single dosing",
+        "Stepless precision adjustment with marker",
+        "Anti-popcorn RDT-compatible hopper",
+        "Declumping screen integrated",
+        "Premium fit and finish",
+        "Magnetic catch cup"
+      ],
+      "bestFor": [
+        "espresso",
+        "home-barista",
+        "upgrade",
+        "pour-over"
+      ],
+      "specs": {
+        "burrType": "Flat",
+        "burrSize": "83mm",
+        "burrMaterial": "SSP (Sweet Spot Precision)",
+        "grindSettings": "Stepless",
+        "dosing": "Single dose with bellows",
+        "retention": "Near zero (<0.1g with bellows)",
+        "hopperCapacity": "Single dose (no hopper)",
+        "grindsPerSecond": "2.2g/s",
+        "dimensions": "18 x 24 x 40 cm",
+        "weight": "7.2 kg",
+        "power": "300W",
+        "voltage": "120V / 60Hz",
+        "stepless": true,
+        "singleDose": true
+      },
+      "images": [
+        "https://content.da.live/paolomoz/arco/media/product-zero.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "zero-black",
+          "color": "Matte Black",
+          "sku": "ARCO-ZR-BLK",
+          "inStock": true
+        },
+        {
+          "id": "zero-white",
+          "color": "Matte White",
+          "sku": "ARCO-ZR-WHT",
+          "inStock": true
+        },
+        {
+          "id": "zero-titanium",
+          "color": "Titanium",
+          "sku": "ARCO-ZR-TTN",
+          "inStock": false
+        }
+      ],
+      "includedAccessories": [
+        "Magnetic dosing cup",
+        "Bellows",
+        "Cleaning brush",
+        "Burr alignment tool",
+        "Grind size reference card"
+      ],
+      "warranty": "2 years"
+    }
+  ]
+}

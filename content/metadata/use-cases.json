@@ -1,0 +1,276 @@
+{
+  "total": 8,
+  "offset": 0,
+  "limit": 8,
+  "data": [
+    {
+      "id": "espresso",
+      "name": "Espresso Brewing",
+      "slug": "espresso",
+      "icon": "espresso",
+      "description": "For those who appreciate the art and science of pulling the perfect shot. Espresso is the concentrated foundation of Italian coffee culture, demanding precision in grind, dose, temperature, and timing.",
+      "keywords": [
+        "espresso",
+        "shot",
+        "crema",
+        "extraction",
+        "barista"
+      ],
+      "recommendedProducts": [
+        "primo",
+        "doppio",
+        "studio",
+        "studio-pro",
+        "macinino",
+        "zero"
+      ],
+      "recommendedAccessories": [
+        "tamper-set",
+        "distribution-tool",
+        "precision-scale",
+        "espresso-cups"
+      ],
+      "relatedRecipes": [
+        "espresso",
+        "americano",
+        "macchiato",
+        "cortado"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "milk-drinks",
+      "name": "Milk-Based Drinks",
+      "slug": "milk-drinks",
+      "icon": "latte",
+      "description": "From velvety lattes to airy cappuccinos, milk-based drinks require a machine with excellent steam power and a grinder that can produce espresso fine enough to cut through milk. Dual boiler machines are ideal for simultaneous brewing and steaming.",
+      "keywords": [
+        "latte",
+        "cappuccino",
+        "flat white",
+        "milk",
+        "steam",
+        "foam",
+        "latte art"
+      ],
+      "recommendedProducts": [
+        "doppio",
+        "studio",
+        "studio-pro",
+        "automatico",
+        "preciso",
+        "macinino"
+      ],
+      "recommendedAccessories": [
+        "milk-pitcher",
+        "precision-scale",
+        "double-wall-glasses"
+      ],
+      "relatedRecipes": [
+        "latte",
+        "cappuccino",
+        "flat-white",
+        "mocha",
+        "iced-latte"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "home-barista",
+      "name": "Home Barista",
+      "slug": "home-barista",
+      "icon": "home",
+      "description": "The dedicated home barista wants full control over every variable. You are willing to invest in quality equipment and spend time perfecting your craft. You appreciate the ritual of making coffee as much as drinking it, and you want equipment that will grow with your skills.",
+      "keywords": [
+        "home",
+        "craft",
+        "hobby",
+        "barista",
+        "quality",
+        "control"
+      ],
+      "recommendedProducts": [
+        "doppio",
+        "studio",
+        "studio-pro",
+        "preciso",
+        "macinino",
+        "zero"
+      ],
+      "recommendedAccessories": [
+        "tamper-set",
+        "distribution-tool",
+        "precision-scale",
+        "knock-box",
+        "bean-vault",
+        "dosing-cup"
+      ],
+      "relatedRecipes": [
+        "espresso",
+        "flat-white",
+        "cappuccino",
+        "pour-over"
+      ],
+      "priority": 3
+    },
+    {
+      "id": "office",
+      "name": "Office Coffee",
+      "slug": "office",
+      "icon": "office",
+      "description": "Keep your team fueled with great coffee. Office setups need reliability, volume capacity, and ease of use. Whether it is a small team that appreciates quality or a large office that needs high throughput, there is an Arco solution for your workplace.",
+      "keywords": [
+        "office",
+        "workplace",
+        "team",
+        "volume",
+        "reliability",
+        "easy"
+      ],
+      "recommendedProducts": [
+        "ufficio",
+        "automatico",
+        "doppio"
+      ],
+      "recommendedAccessories": [
+        "cleaning-kit",
+        "descaling-solution",
+        "knock-box",
+        "espresso-cups"
+      ],
+      "relatedRecipes": [
+        "espresso",
+        "americano",
+        "latte",
+        "cappuccino"
+      ],
+      "priority": 4
+    },
+    {
+      "id": "travel",
+      "name": "Travel & Portable",
+      "slug": "travel",
+      "icon": "travel",
+      "description": "Great espresso should not be limited to your kitchen. Whether you are camping, staying in a hotel, or working from a remote cabin, portable equipment lets you enjoy quality coffee wherever life takes you.",
+      "keywords": [
+        "travel",
+        "portable",
+        "camping",
+        "compact",
+        "lightweight",
+        "mobile"
+      ],
+      "recommendedProducts": [
+        "viaggio",
+        "nano"
+      ],
+      "recommendedAccessories": [
+        "precision-scale",
+        "espresso-cups"
+      ],
+      "relatedRecipes": [
+        "espresso",
+        "americano"
+      ],
+      "priority": 5
+    },
+    {
+      "id": "pour-over",
+      "name": "Pour-Over & Filter",
+      "slug": "pour-over",
+      "icon": "pour-over",
+      "description": "Pour-over and filter brewing methods reveal the subtle, nuanced flavors in specialty single-origin coffees. A dedicated filter grinder with excellent particle uniformity is essential for clean, sweet, and complex cups.",
+      "keywords": [
+        "pour-over",
+        "filter",
+        "drip",
+        "V60",
+        "Chemex",
+        "clean cup",
+        "single origin"
+      ],
+      "recommendedProducts": [
+        "filtro",
+        "preciso",
+        "zero"
+      ],
+      "recommendedAccessories": [
+        "precision-scale",
+        "bean-vault"
+      ],
+      "relatedRecipes": [
+        "pour-over",
+        "cold-brew"
+      ],
+      "priority": 6
+    },
+    {
+      "id": "beginner",
+      "name": "Getting Started",
+      "slug": "beginner",
+      "icon": "start",
+      "description": "New to espresso? Start here. The beginner use case focuses on equipment that is forgiving, easy to learn on, and delivers great results without requiring advanced technique. As your skills grow, you can upgrade knowing you have built a solid foundation.",
+      "keywords": [
+        "beginner",
+        "starter",
+        "first",
+        "easy",
+        "learn",
+        "entry-level"
+      ],
+      "recommendedProducts": [
+        "primo",
+        "nano",
+        "automatico",
+        "preciso",
+        "filtro"
+      ],
+      "recommendedAccessories": [
+        "precision-scale",
+        "tamper-set",
+        "cleaning-kit",
+        "espresso-cups"
+      ],
+      "relatedRecipes": [
+        "espresso",
+        "americano",
+        "latte",
+        "cold-brew"
+      ],
+      "priority": 7
+    },
+    {
+      "id": "upgrade",
+      "name": "Upgrading Your Setup",
+      "slug": "upgrade",
+      "icon": "upgrade",
+      "description": "Ready to take your coffee to the next level? Upgrading from entry-level equipment opens up new possibilities: pressure profiling, flow control, larger burrs, and lower retention. The difference in cup quality can be transformative.",
+      "keywords": [
+        "upgrade",
+        "advanced",
+        "prosumer",
+        "next level",
+        "improve",
+        "better"
+      ],
+      "recommendedProducts": [
+        "studio",
+        "studio-pro",
+        "macinino",
+        "zero"
+      ],
+      "recommendedAccessories": [
+        "distribution-tool",
+        "precision-scale",
+        "dosing-cup",
+        "bean-vault"
+      ],
+      "relatedRecipes": [
+        "espresso",
+        "flat-white",
+        "pour-over"
+      ],
+      "priority": 8
+    }
+  ]
+}

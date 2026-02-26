@@ -8,3 +8,11 @@ package-lock.json
 test/*
 tools/*
 drafts/*
+services/*
+functions/*
+infrastructure/*
+content/*
+deploy-google-cloud.sh
+cloudbuild.yaml
+Dockerfile
+.env.example
