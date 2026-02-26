@@ -96,11 +96,18 @@ export class VertexAIClient {
 		// Model Garden MaaS models (e.g. Llama) need the full resource path with publisher
 		const modelId = this.getModelResourceName(model, location);
 
+		// Thinking models (Gemini 3, Gemini 2.5 Pro) need a higher token budget
+		// because thinking tokens count against maxOutputTokens.
+		const isThinkingModel = model.startsWith('gemini-3') || model === 'gemini-2.5-pro';
+		const maxOutputTokens = isThinkingModel
+			? Math.max((options.maxTokens ?? 4096) * 4, 8192)
+			: (options.maxTokens ?? 4096);
+
 		const generativeModel = vertexAI.getGenerativeModel({
 			model: modelId,
 			generationConfig: {
 				temperature: options.temperature ?? 0.7,
-				maxOutputTokens: options.maxTokens ?? 4096,
+				maxOutputTokens,
 			},
 		});
 
@@ -108,26 +115,23 @@ export class VertexAIClient {
 		const contents = this.convertMessagesToGeminiFormat(messages);
 
 		try {
-			if (options.stream) {
-				// Streaming not yet implemented for SSE
-				// For now, fall back to non-streaming
-				const result = await generativeModel.generateContent({ contents });
-				const response = result.response;
-				const text = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
-
-				return {
-					content: text,
-					model: model,
-					usage: {
-						inputTokens: response.usageMetadata?.promptTokenCount || 0,
-						outputTokens: response.usageMetadata?.candidatesTokenCount || 0,
-					},
-				};
-			}
-
 			const result = await generativeModel.generateContent({ contents });
 			const response = result.response;
-			const text = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+			// Thinking models (e.g. Gemini 3 Pro) return multi-part responses:
+			// parts[0] = thinking content (thought: true), parts[1] = actual output.
+			// Extract the last non-thought part for the actual response text.
+			const parts = response.candidates?.[0]?.content?.parts || [];
+			let text = '';
+			for (let i = parts.length - 1; i >= 0; i--) {
+				if (!(parts[i] as any).thought && parts[i]?.text) {
+					text = parts[i].text!;
+					break;
+				}
+			}
+			if (!text) {
+				text = parts[0]?.text || '';
+			}
 
 			return {
 				content: text,

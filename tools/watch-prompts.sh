@@ -1,11 +1,14 @@
 #!/bin/bash
-# Watch recommender service logs to inspect LLM prompts and context.
+# Watch recommender service logs to inspect LLM prompts, reasoning, and pipeline.
 #
 # Usage:
 #   ./tools/watch-prompts.sh              # Local dev server (default)
 #   ./tools/watch-prompts.sh local        # Same as above
 #   ./tools/watch-prompts.sh cloud        # Cloud Run logs via gcloud
 #   ./tools/watch-prompts.sh cloud full   # Cloud Run, no truncation
+#
+# Shows: [LLM] prompts/responses, [reasoning-engine] block selection,
+#        [orchestrator] pipeline steps, errors, and timing.
 #
 # The LOG_PROMPTS=true env var must be set on the server for prompt logging.
 # For local: set it in services/recommender/.env or export before starting.
@@ -75,7 +78,7 @@ watch_cloud() {
   if [ "$FILTER" = "full" ]; then
     # Stream all logs, no filtering
     gcloud logging read \
-      'resource.type="cloud_run_revision" AND resource.labels.service_name="arco-recommender" AND textPayload=~"\\[LLM\\]"' \
+      'resource.type="cloud_run_revision" AND resource.labels.service_name="arco-recommender" AND textPayload=~"(\\[LLM\\]|\\[reasoning-engine\\]|\\[orchestrator\\])"' \
       --project="$PROJECT" \
       --format="value(textPayload)" \
       --freshness=5m \
@@ -86,8 +89,8 @@ watch_cloud() {
     gcloud beta run services logs tail arco-recommender \
       --project="$PROJECT" \
       --region=us-central1 2>&1 | while IFS= read -r line; do
-      # Only show LLM log lines
-      if echo "$line" | grep -q '\[LLM\]'; then
+      # Show LLM, reasoning-engine, and orchestrator log lines
+      if echo "$line" | grep -qE '\[LLM\]|\[reasoning-engine\]|\[orchestrator\]'; then
         colorize "$line"
       fi
     done
@@ -111,6 +114,16 @@ colorize() {
     echo -e "${CYAN}${line}${RESET}"
   elif echo "$line" | grep -q '\[LLM\] USER'; then
     echo -e "${GREEN}${line}${RESET}"
+  elif echo "$line" | grep -qE '\[reasoning-engine\].*fallback'; then
+    echo -e "${RED}${line}${RESET}"
+  elif echo "$line" | grep -q '\[reasoning-engine\]'; then
+    echo -e "${YELLOW}${line}${RESET}"
+  elif echo "$line" | grep -qE '\[orchestrator\].*(failed|error)'; then
+    echo -e "${RED}${line}${RESET}"
+  elif echo "$line" | grep -qE '\[orchestrator\].*(complete|streamed)'; then
+    echo -e "${GREEN}${line}${RESET}"
+  elif echo "$line" | grep -q '\[orchestrator\]'; then
+    echo -e "${CYAN}${line}${RESET}"
   elif echo "$line" | grep -q '\[LLM\]'; then
     echo -e "${DIM}${line}${RESET}"
   else
