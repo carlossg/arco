@@ -618,8 +618,8 @@ ${chipLinks}
 }
 
 /**
- * Builds contextual follow-up suggestions based on intent, RAG context,
- * and optional browsing history from passive signal collection.
+ * Builds contextual follow-up suggestions based on the actual query,
+ * RAG-matched products, intent classification, and optional browsing history.
  */
 function buildFollowUpSuggestions(
   intent: IntentClassification,
@@ -631,85 +631,115 @@ function buildFollowUpSuggestions(
   const products = ragContext.relevantProducts || [];
   const guides = ragContext.relevantBrewGuides || [];
   const browsingProfile = sessionContext?.inferredProfile;
+  const lower = query.toLowerCase();
 
-  // Use browsing context to generate targeted comparison suggestions
+  // 1. Product-specific suggestions from RAG results
+  if (products.length >= 2) {
+    suggestions.push(`Compare ${products[0].name} vs ${products[1].name}`);
+  }
+  if (products.length >= 1) {
+    // Suggest a product the query didn't explicitly mention
+    const mentionedNames = intent.entities.products.map((p) => p.toLowerCase());
+    const other = products.find(
+      (p) => !mentionedNames.some((m) => p.name.toLowerCase().includes(m)),
+    );
+    if (other) {
+      suggestions.push(`Tell me about the ${other.name}`);
+    }
+  }
+
+  // 2. Browsing context (session-aware)
   if (browsingProfile?.productsViewed && browsingProfile.productsViewed.length >= 2) {
     const [a, b] = browsingProfile.productsViewed.slice(-2);
     suggestions.push(`Compare ${formatModelName(a)} vs ${formatModelName(b)}`);
   }
-
-  // Suggest exploring a product the user hasn't browsed yet
-  if (products.length > 0) {
-    const viewedSet = new Set([
-      ...intent.entities.products,
-      ...(browsingProfile?.productsViewed || []),
-    ]);
-    const unexplored = products.find(
-      (p) => !viewedSet.has(p.id) && !viewedSet.has(p.name.toLowerCase()),
-    );
-    if (unexplored) {
-      suggestions.push(`Tell me about the ${unexplored.name}`);
-    }
-  }
-
-  // Suggest a comparison if the user was looking at a single product
-  if (intent.intentType === 'product-detail' && products.length >= 2) {
-    suggestions.push(`Compare ${products[0].name} vs ${products[1].name}`);
-  }
-
-  // Suggest a brew guide if available
-  if (guides.length > 0) {
-    suggestions.push(`How do I ${guides[0].name.toLowerCase()}?`);
-  }
-
-  // Use quiz answers from browsing to suggest relevant follow-ups
   if (browsingProfile?.quizAnswers && Object.keys(browsingProfile.quizAnswers).length > 0) {
     suggestions.push('Which machine matches my quiz results?');
   }
 
-  // Use browsing interests from filters
-  if (browsingProfile?.interests && browsingProfile.interests.length > 0) {
-    const interest = browsingProfile.interests[0];
-    suggestions.push(`Tell me more about ${interest}`);
+  // 3. Brew guide suggestion if available
+  if (guides.length > 0) {
+    suggestions.push(`How do I ${guides[0].name.toLowerCase()}?`);
   }
 
-  // Intent-specific suggestions
-  switch (intent.intentType) {
-    case 'beginner':
-      suggestions.push('What grinder should I get as a beginner?');
-      suggestions.push('How much should I budget for a full setup?');
-      break;
-    case 'comparison':
-      suggestions.push('Which one is better for milk drinks?');
-      suggestions.push('Show me customer reviews');
-      break;
-    case 'price':
-      suggestions.push('What accessories do I need?');
-      suggestions.push('Is there a more affordable option?');
-      break;
-    case 'technique':
-      suggestions.push('What grind size for espresso?');
-      suggestions.push('How do I dial in my shots?');
-      break;
-    case 'support':
-      suggestions.push('Where can I find replacement parts?');
-      suggestions.push('How do I descale my machine?');
-      break;
-    case 'gift':
-      suggestions.push('What accessories make good gifts?');
-      suggestions.push('Which machine is easiest to use?');
-      break;
-    case 'upgrade':
-      suggestions.push('What grinder pairs best with my new machine?');
-      suggestions.push('Should I upgrade my grinder first?');
-      break;
-    default:
-      suggestions.push('Show me all espresso machines');
-      suggestions.push('Help me choose a grinder');
-      break;
+  // 4. Query-contextual suggestions based on keywords
+  if (/grinder|grind|burr/i.test(lower)) {
+    suggestions.push('What espresso machine pairs well with this grinder?');
+    suggestions.push('Flat burrs vs conical burrs — which is better?');
+  } else if (/machine|espresso.*machine/i.test(lower)) {
+    suggestions.push('What grinder should I pair with this?');
+    suggestions.push('What accessories do I need to get started?');
+  } else if (/latte|cappuccino|milk|steam|flat white/i.test(lower)) {
+    suggestions.push('How do I steam milk for latte art?');
+    suggestions.push('Which machine has the best steam wand?');
+  } else if (/beginner|start|first|new to/i.test(lower)) {
+    suggestions.push('How much should I budget for a full setup?');
+    suggestions.push('What mistakes do beginners make?');
+  } else if (/compare|vs|versus|difference/i.test(lower)) {
+    suggestions.push('Which one is better for daily use?');
+    suggestions.push('Show me the full espresso machine lineup');
+  } else if (/clean|descal|mainten/i.test(lower)) {
+    suggestions.push('How often should I descale?');
+    suggestions.push('What cleaning accessories do I need?');
+  } else if (/gift|present|someone/i.test(lower)) {
+    suggestions.push('What accessories make good gifts?');
+    suggestions.push('Which machine is easiest for a non-barista?');
+  } else if (/budget|cheap|afford|price|cost/i.test(lower)) {
+    suggestions.push('What is the best value espresso machine?');
+    suggestions.push('Is there a bundle deal?');
+  } else if (/upgrade|better|improve/i.test(lower)) {
+    suggestions.push('Should I upgrade my grinder or machine first?');
+    suggestions.push('What is the next step up from my current setup?');
+  } else if (/recipe|brew|extract|dial|shot/i.test(lower)) {
+    suggestions.push('What grind size should I use?');
+    suggestions.push('How do I dial in my shots?');
   }
 
-  // Deduplicate and limit to 3-4 suggestions
+  // 5. Intent-based fallbacks (only if we still need more)
+  if (suggestions.length < 3) {
+    switch (intent.intentType) {
+      case 'beginner':
+        suggestions.push('What grinder should I get as a beginner?');
+        break;
+      case 'comparison':
+        suggestions.push('Which one is better for milk drinks?');
+        break;
+      case 'technique':
+        suggestions.push('What grind size for espresso?');
+        break;
+      case 'support':
+        suggestions.push('How do I descale my machine?');
+        break;
+      default:
+        break;
+    }
+  }
+
+  // 6. General fallbacks — pick from a pool based on query hash to vary them
+  const generalPool = [
+    'Show me all espresso machines',
+    'Help me choose a grinder',
+    'What accessories do I need?',
+    'Compare the Primo vs the Doppio',
+    'What is the best machine for beginners?',
+    'Tell me about the Studio Pro',
+    'How do I make better espresso at home?',
+    'What is the difference between manual and automatic?',
+  ];
+  // Simple hash of query to pick different defaults each time
+  const hash = lower.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  let poolIdx = hash % generalPool.length;
+  while (suggestions.length < 4) {
+    const candidate = generalPool[poolIdx % generalPool.length];
+    if (!suggestions.includes(candidate) && !lower.includes(candidate.toLowerCase())) {
+      suggestions.push(candidate);
+    }
+    poolIdx += 1;
+    // Safety: stop if we've gone through the whole pool
+    if (poolIdx > hash + generalPool.length) break;
+  }
+
+  // Deduplicate and limit to 4
   const unique = [...new Set(suggestions)];
   return unique.slice(0, 4);
 }
