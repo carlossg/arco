@@ -15,7 +15,29 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const CONTENT_DIR = join(ROOT, 'content');
 const DRAFTS_DIR = join(ROOT, 'drafts');
-const DA_BASE = 'https://content.da.live/paolomoz/arco/media';
+
+function loadEnv() {
+  const envPath = join(ROOT, '.env');
+  const vars = {};
+  if (existsSync(envPath)) {
+    readFileSync(envPath, 'utf-8').split('\n').forEach((line) => {
+      const match = line.match(/^([A-Z_]+)=(.*)$/);
+      if (match) vars[match[1]] = match[2].replace(/^"|"$/g, '');
+    });
+  }
+  return vars;
+}
+
+const envVars = loadEnv();
+const DA_ORG = process.env.DA_ORG || envVars.DA_ORG;
+const DA_REPO = process.env.DA_REPO || envVars.DA_REPO;
+
+if (!DA_ORG || !DA_REPO) {
+  console.error('ERROR: DA_ORG and DA_REPO must be set in .env or environment');
+  process.exit(1);
+}
+
+const DA_BASE = `https://content.da.live/${DA_ORG}/${DA_REPO}/media`;
 
 let totalGenerated = 0;
 let totalSkipped = 0;

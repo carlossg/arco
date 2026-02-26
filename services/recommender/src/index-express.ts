@@ -30,8 +30,8 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 // DA (Document Authoring) env for persist operations
 const daEnv = {
-  DA_ORG: process.env.DA_ORG || 'carlossg',
-  DA_REPO: process.env.DA_REPO || 'arco',
+  DA_ORG: process.env.DA_ORG || '',
+  DA_REPO: process.env.DA_REPO || '',
   DA_TOKEN: process.env.DA_TOKEN || process.env.TOKEN || '',
   DA_CLIENT_ID: process.env.DA_CLIENT_ID,
   DA_CLIENT_SECRET: process.env.DA_CLIENT_SECRET,

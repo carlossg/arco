@@ -7,12 +7,17 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 DRAFTS_DIR="$PROJECT_DIR/drafts"
-ADMIN_API="https://admin.hlx.page/preview/paolomoz/arco/main"
 
 # Read env vars from .env file
 DA_CLIENT_ID=$(grep "DA_CLIENT_ID" "$PROJECT_DIR/.env" | sed 's/DA_CLIENT_ID=//' | tr -d '"')
 DA_CLIENT_SECRET=$(grep "DA_CLIENT_SECRET" "$PROJECT_DIR/.env" | sed 's/DA_CLIENT_SECRET=//' | tr -d '"')
 DA_SERVICE_TOKEN=$(grep "DA_SERVICE_TOKEN" "$PROJECT_DIR/.env" | sed 's/DA_SERVICE_TOKEN=//' | tr -d '"')
+DA_ORG=$(grep "^DA_ORG" "$PROJECT_DIR/.env" | sed 's/DA_ORG=//' | tr -d '"')
+DA_REPO=$(grep "^DA_REPO" "$PROJECT_DIR/.env" | sed 's/DA_REPO=//' | tr -d '"')
+
+DA_ORG="${DA_ORG:?DA_ORG must be set in .env}"
+DA_REPO="${DA_REPO:?DA_REPO must be set in .env}"
+ADMIN_API="https://admin.hlx.page/preview/$DA_ORG/$DA_REPO/main"
 
 echo "Authenticating with Adobe IMS..."
 ACCESS_TOKEN=$(curl -s -X POST "https://ims-na1.adobelogin.com/ims/token/v3" \

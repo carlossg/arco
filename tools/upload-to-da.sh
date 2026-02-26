@@ -23,8 +23,8 @@ DA_SERVICE_TOKEN=$(grep "DA_SERVICE_TOKEN" "$PROJECT_DIR/.env" | sed 's/DA_SERVI
 DA_ORG=$(grep "DA_ORG" "$PROJECT_DIR/.env" | sed 's/DA_ORG=//' | tr -d '"')
 DA_REPO=$(grep "DA_REPO" "$PROJECT_DIR/.env" | sed 's/DA_REPO=//' | tr -d '"')
 
-DA_ORG="${DA_ORG:-paolomoz}"
-DA_REPO="${DA_REPO:-arco}"
+DA_ORG="${DA_ORG:?DA_ORG must be set in .env}"
+DA_REPO="${DA_REPO:?DA_REPO must be set in .env}"
 DA_API="https://admin.da.live/source/$DA_ORG/$DA_REPO"
 
 ACCESS_TOKEN=""

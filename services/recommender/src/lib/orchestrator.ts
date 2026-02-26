@@ -1479,19 +1479,31 @@ ${specRows}
 }
 
 /**
+ * Resolves a media path to a full DA content URL.
+ * Handles both relative paths (/media/...) and already-absolute URLs.
+ */
+function resolveMediaUrl(path: string): string {
+  if (path.startsWith('http')) return path;
+  const org = process.env.DA_ORG;
+  const repo = process.env.DA_REPO;
+  if (!org || !repo) return path;
+  return `https://content.da.live/${org}/${repo}${path}`;
+}
+
+/**
  * Extracts the best available image URL for a product.
  */
 function getProductImageUrl(product: Product): string | null {
   if (!product.images) return null;
-  // Handle array of URLs (actual data format from products.json)
+  // Handle array of URLs/paths (actual data format from products.json)
   if (Array.isArray(product.images) && product.images.length > 0) {
-    return String(product.images[0]);
+    return resolveMediaUrl(String(product.images[0]));
   }
   // Handle object format as fallback
   const images = product.images as Record<string, unknown>;
-  if (typeof images.primary === 'string') return images.primary;
+  if (typeof images.primary === 'string') return resolveMediaUrl(images.primary);
   if (Array.isArray(images.remoteUrls) && images.remoteUrls.length > 0) {
-    return String(images.remoteUrls[0]);
+    return resolveMediaUrl(String(images.remoteUrls[0]));
   }
   return null;
 }

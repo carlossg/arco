@@ -46,7 +46,7 @@
         "plumbedIn": false
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-primo.jpeg"
+        "/media/product-primo.jpeg"
       ],
       "variants": [
         {
@@ -119,7 +119,7 @@
         "plumbedIn": false
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-doppio.jpeg"
+        "/media/product-doppio.jpeg"
       ],
       "variants": [
         {
@@ -187,7 +187,7 @@
         "plumbedIn": false
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-nano.jpeg"
+        "/media/product-nano.jpeg"
       ],
       "variants": [
         {
@@ -260,7 +260,7 @@
         "plumbedIn": true
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-studio.jpeg"
+        "/media/product-studio.jpeg"
       ],
       "variants": [
         {
@@ -338,7 +338,7 @@
         "touchscreen": true
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-studio-pro.jpeg"
+        "/media/product-studio-pro.jpeg"
       ],
       "variants": [
         {
@@ -411,7 +411,7 @@
         "dailyCapacity": "50+ cups"
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-ufficio.jpeg"
+        "/media/product-ufficio.jpeg"
       ],
       "variants": [
         {
@@ -480,7 +480,7 @@
         "manual": true
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-viaggio.jpeg"
+        "/media/product-viaggio.jpeg"
       ],
       "variants": [
         {
@@ -559,7 +559,7 @@
         "programmableDrinks": 8
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-automatico.jpeg"
+        "/media/product-automatico.jpeg"
       ],
       "variants": [
         {
@@ -627,7 +627,7 @@
         "singleDose": false
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-filtro.jpeg"
+        "/media/product-filtro.jpeg"
       ],
       "variants": [
         {
@@ -693,7 +693,7 @@
         "singleDose": false
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-preciso.jpeg"
+        "/media/product-preciso.jpeg"
       ],
       "variants": [
         {
@@ -759,7 +759,7 @@
         "singleDose": false
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-macinino.jpeg"
+        "/media/product-macinino.jpeg"
       ],
       "variants": [
         {
@@ -826,7 +826,7 @@
         "singleDose": true
       },
       "images": [
-        "https://content.da.live/paolomoz/arco/media/product-zero.jpeg"
+        "/media/product-zero.jpeg"
       ],
       "variants": [
         {

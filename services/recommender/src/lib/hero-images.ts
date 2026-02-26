@@ -5,7 +5,14 @@
  * coffee equipment site. Uses DA media URLs since we don't have a CDN.
  */
 
-const ARCO_MEDIA_BASE = 'https://content.da.live/paolomoz/arco/media';
+function getMediaBase(): string {
+  const org = process.env.DA_ORG;
+  const repo = process.env.DA_REPO;
+  if (!org || !repo) {
+    throw new Error('DA_ORG and DA_REPO environment variables must be set');
+  }
+  return `https://content.da.live/${org}/${repo}/media`;
+}
 
 /**
  * Hero images organised by category/use-case.
@@ -171,7 +178,7 @@ export function selectHeroImage(
   const selectedImage = candidateImages[Math.floor(Math.random() * candidateImages.length)];
 
   // Return full URL
-  return `${ARCO_MEDIA_BASE}${selectedImage}`;
+  return `${getMediaBase()}${selectedImage}`;
 }
 
 /**

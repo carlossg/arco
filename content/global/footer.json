@@ -74,9 +74,9 @@
     { "label": "Deutsch", "code": "de", "url": "/localization/de/praezision-trifft-kaffee", "hreflang": "de" }
   ],
   "hreflang_declarations": {
-    "en": "https://main--arco--paolomoz.aem.live/",
-    "it": "https://main--arco--paolomoz.aem.live/localization/it/",
-    "de": "https://main--arco--paolomoz.aem.live/localization/de/"
+    "en": "https://main--arco--carlossg.aem.live/",
+    "it": "https://main--arco--carlossg.aem.live/localization/it/",
+    "de": "https://main--arco--carlossg.aem.live/localization/de/"
   },
   "copyright": "© 2026 Arco Coffee Equipment. All rights reserved."
 }

@@ -75,8 +75,10 @@ done
 PROJECT_ID="${GCP_PROJECT_ID:-$(gcloud config get-value project 2>/dev/null || true)}"
 REGION="${GCP_REGION:-us-central1}"
 NOTIFICATION_EMAIL="${NOTIFICATION_EMAIL:-}"
-DA_ORG="carlossg"
-DA_REPO="arco"
+DA_ORG="${DA_ORG:-$(grep '^DA_ORG' "$SCRIPT_DIR/.env" 2>/dev/null | sed 's/DA_ORG=//' | tr -d '"')}"
+DA_REPO="${DA_REPO:-$(grep '^DA_REPO' "$SCRIPT_DIR/.env" 2>/dev/null | sed 's/DA_REPO=//' | tr -d '"')}"
+DA_ORG="${DA_ORG:?DA_ORG must be set in environment or .env}"
+DA_REPO="${DA_REPO:?DA_REPO must be set in environment or .env}"
 SERVICE_NAME="arco-recommender"
 IMAGE_NAME="gcr.io/${PROJECT_ID}/${SERVICE_NAME}"
 
