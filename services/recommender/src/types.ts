@@ -352,11 +352,36 @@ export interface UserJourneyPlan {
 // Session Context Types
 // ============================================
 
+export interface BrowsingHistoryItem {
+	path: string;
+	title?: string;
+	blocks?: string[];
+	intent?: string;
+	stage?: JourneyStage;
+	timestamp?: number;
+	timeSpent?: number;
+	scrollDepth?: number;
+}
+
+export interface InferredBrowsingProfile {
+	productsViewed: string[];
+	categoriesViewed: string[];
+	contentTypes: string[];
+	inferredIntent: string;
+	journeyStage: JourneyStage;
+	interests: string[];
+	quizAnswers?: Record<string, string>;
+	pagesVisited: number;
+	totalTimeOnSite: number;
+}
+
 export interface SessionContext {
 	sessionId?: string;
 	sessionStart?: number;
 	previousQueries: QueryHistoryItem[];
 	profile?: UserProfile;
+	browsingHistory?: BrowsingHistoryItem[];
+	inferredProfile?: InferredBrowsingProfile;
 }
 
 export interface QueryHistoryItem {

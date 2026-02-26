@@ -22,6 +22,8 @@ import type {
   SSEEvent,
   BlockType,
   JourneyStage,
+  BrowsingHistoryItem,
+  InferredBrowsingProfile,
 } from '../types';
 import {
   createGoogleModelFactory as createModelFactory,
@@ -137,6 +139,51 @@ Extract ALL Arco model names if mentioned. Be generous with entity extraction.
 If the user mentions competitor brands, still classify normally and note Arco products that are relevant.`;
 
 /**
+ * Formats browsing context (page visits and inferred profile) into a text
+ * block suitable for inclusion in the classification prompt.
+ */
+function formatBrowsingContextForClassification(
+  browsingHistory?: BrowsingHistoryItem[],
+  inferredProfile?: InferredBrowsingProfile,
+): string {
+  const parts: string[] = ['## Browsing Context'];
+
+  if (inferredProfile) {
+    const profileLines: string[] = [];
+    if (inferredProfile.productsViewed.length > 0) {
+      profileLines.push(`- Products viewed: ${inferredProfile.productsViewed.join(', ')}`);
+    }
+    if (inferredProfile.categoriesViewed.length > 0) {
+      profileLines.push(`- Categories browsed: ${inferredProfile.categoriesViewed.join(', ')}`);
+    }
+    if (inferredProfile.interests.length > 0) {
+      profileLines.push(`- Interests/filters: ${inferredProfile.interests.join(', ')}`);
+    }
+    if (inferredProfile.quizAnswers && Object.keys(inferredProfile.quizAnswers).length > 0) {
+      const answers = Object.values(inferredProfile.quizAnswers).join(', ');
+      profileLines.push(`- Quiz answers: ${answers}`);
+    }
+    profileLines.push(`- Journey stage: ${inferredProfile.journeyStage}`);
+    profileLines.push(`- Pages visited: ${inferredProfile.pagesVisited}`);
+    if (inferredProfile.totalTimeOnSite > 0) {
+      profileLines.push(`- Total time on site: ${inferredProfile.totalTimeOnSite}s`);
+    }
+    parts.push(profileLines.join('\n'));
+  }
+
+  if (browsingHistory && browsingHistory.length > 0) {
+    const recentPages = browsingHistory.slice(-5);
+    const pageLines = recentPages.map((p) => {
+      const timeStr = p.timeSpent ? ` (${p.timeSpent}s)` : '';
+      return `- Visited: ${p.path}${timeStr}`;
+    });
+    parts.push(`Recent pages:\n${pageLines.join('\n')}`);
+  }
+
+  return parts.join('\n');
+}
+
+/**
  * Classifies user intent using a fast model (Gemini Flash).
  * Provides conversational continuity when session context is available.
  */
@@ -153,16 +200,30 @@ export async function classifyIntent(
     { role: 'system', content: CLASSIFICATION_SYSTEM_PROMPT },
   ];
 
-  // Include recent conversation history for continuity
+  // Build context sections
+  const contextSections: string[] = [];
+
+  // Browsing context from passive signal collection
+  if (sessionContext?.browsingHistory?.length || sessionContext?.inferredProfile) {
+    contextSections.push(formatBrowsingContextForClassification(
+      sessionContext.browsingHistory,
+      sessionContext.inferredProfile,
+    ));
+  }
+
+  // Recent conversation history for continuity
   if (sessionContext?.previousQueries?.length) {
     const recentQueries = sessionContext.previousQueries.slice(-3);
     const historyContext = recentQueries
       .map((q) => `- Previous query: "${q.query}" → intent: ${q.intent}, products: [${q.entities?.products?.join(', ') || ''}]`)
       .join('\n');
+    contextSections.push(`## Conversation History\n${historyContext}`);
+  }
 
+  if (contextSections.length > 0) {
     messages.push({
       role: 'user',
-      content: `## Conversation History\n${historyContext}\n\n## Current Query\n"${query}"\n\nClassify the current query considering the conversation context. Return JSON only.`,
+      content: `${contextSections.join('\n\n')}\n\n## Current Query\n"${query}"\n\nClassify the current query considering all available context. Return JSON only.`,
     });
   } else {
     messages.push({
@@ -478,12 +539,13 @@ export async function generateBlockContent(
   allBlocks: BlockSelection[],
   preset?: string,
   modelOverride?: string,
+  sessionContext?: SessionContext,
 ): Promise<GeneratedBlock> {
   const blockType = block.type;
 
   // Special-case handlers for blocks that can be generated deterministically
   if (blockType === 'follow-up') {
-    return generateFollowUpBlock(intent, ragContext, intent.entities.products[0] || '');
+    return generateFollowUpBlock(intent, ragContext, intent.entities.products[0] || '', sessionContext);
   }
 
   if (blockType === 'hero') {
@@ -533,8 +595,9 @@ export function generateFollowUpBlock(
   intent: IntentClassification,
   ragContext: RAGContext,
   query: string,
+  sessionContext?: SessionContext,
 ): GeneratedBlock {
-  const suggestions = buildFollowUpSuggestions(intent, ragContext, query);
+  const suggestions = buildFollowUpSuggestions(intent, ragContext, query, sessionContext);
 
   const chipLinks = suggestions
     .map((s) => {
@@ -555,21 +618,34 @@ ${chipLinks}
 }
 
 /**
- * Builds contextual follow-up suggestions based on intent and RAG context.
+ * Builds contextual follow-up suggestions based on intent, RAG context,
+ * and optional browsing history from passive signal collection.
  */
 function buildFollowUpSuggestions(
   intent: IntentClassification,
   ragContext: RAGContext,
   query: string,
+  sessionContext?: SessionContext,
 ): string[] {
   const suggestions: string[] = [];
   const products = ragContext.relevantProducts || [];
   const guides = ragContext.relevantBrewGuides || [];
+  const browsingProfile = sessionContext?.inferredProfile;
 
-  // Suggest exploring a related product
+  // Use browsing context to generate targeted comparison suggestions
+  if (browsingProfile?.productsViewed && browsingProfile.productsViewed.length >= 2) {
+    const [a, b] = browsingProfile.productsViewed.slice(-2);
+    suggestions.push(`Compare ${formatModelName(a)} vs ${formatModelName(b)}`);
+  }
+
+  // Suggest exploring a product the user hasn't browsed yet
   if (products.length > 0) {
+    const viewedSet = new Set([
+      ...intent.entities.products,
+      ...(browsingProfile?.productsViewed || []),
+    ]);
     const unexplored = products.find(
-      (p) => !intent.entities.products.includes(p.id) && !intent.entities.products.includes(p.name.toLowerCase()),
+      (p) => !viewedSet.has(p.id) && !viewedSet.has(p.name.toLowerCase()),
     );
     if (unexplored) {
       suggestions.push(`Tell me about the ${unexplored.name}`);
@@ -584,6 +660,17 @@ function buildFollowUpSuggestions(
   // Suggest a brew guide if available
   if (guides.length > 0) {
     suggestions.push(`How do I ${guides[0].name.toLowerCase()}?`);
+  }
+
+  // Use quiz answers from browsing to suggest relevant follow-ups
+  if (browsingProfile?.quizAnswers && Object.keys(browsingProfile.quizAnswers).length > 0) {
+    suggestions.push('Which machine matches my quiz results?');
+  }
+
+  // Use browsing interests from filters
+  if (browsingProfile?.interests && browsingProfile.interests.length > 0) {
+    const interest = browsingProfile.interests[0];
+    suggestions.push(`Tell me more about ${interest}`);
   }
 
   // Intent-specific suggestions
@@ -1523,6 +1610,7 @@ export async function orchestrate(
         blockSelections,
         preset,
         modelOverride,
+        sessionContext,
       ),
     }));
 
@@ -1609,7 +1697,7 @@ export async function orchestrate(
           journeyStage: intent.journeyStage,
           confidence: intent.confidence,
           nextBestAction: buildNextBestAction(intent, ragContext),
-          suggestedFollowUps: buildFollowUpSuggestions(intent, ragContext, query),
+          suggestedFollowUps: buildFollowUpSuggestions(intent, ragContext, query, sessionContext),
         },
         recommendations: {
           products: recommendedProducts,

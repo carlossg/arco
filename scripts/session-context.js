@@ -7,6 +7,7 @@
 
 const CONTEXT_KEY = 'arco-session-context';
 const MAX_HISTORY = 10;
+const MAX_BROWSING_HISTORY = 15;
 
 /**
  * Session Context Manager - handles reading/writing query history for contextual browsing
@@ -33,6 +34,8 @@ export class SessionContextManager {
     }
     return {
       queries: [],
+      browsingHistory: [],
+      inferredProfile: null,
       sessionStart: Date.now(),
       lastUpdated: Date.now(),
       sessionId: crypto.randomUUID(),
@@ -83,7 +86,7 @@ export class SessionContextManager {
    */
   static buildContextParam() {
     const context = this.getContext();
-    return {
+    const param = {
       previousQueries: context.queries.map((q) => ({
         query: q.query,
         intent: q.intent,
@@ -96,6 +99,15 @@ export class SessionContextManager {
         nextBestAction: q.nextBestAction,
       })),
     };
+
+    if (context.browsingHistory && context.browsingHistory.length > 0) {
+      param.browsingHistory = context.browsingHistory;
+    }
+    if (context.inferredProfile) {
+      param.inferredProfile = context.inferredProfile;
+    }
+
+    return param;
   }
 
   /**
@@ -113,7 +125,8 @@ export class SessionContextManager {
    */
   static hasContext() {
     const context = this.getContext();
-    return context.queries.length > 0;
+    return context.queries.length > 0
+      || (context.browsingHistory && context.browsingHistory.length > 0);
   }
 
   /**
@@ -168,6 +181,72 @@ export class SessionContextManager {
       q.entities.coffeeTerms.forEach((t) => terms.add(t));
     });
     return [...terms];
+  }
+
+  /**
+   * Add a page visit to the browsing history
+   * @param {Object} visit - Page visit signal
+   */
+  static addPageVisit(visit) {
+    const context = this.getContext();
+    if (!context.browsingHistory) context.browsingHistory = [];
+
+    context.browsingHistory.push({
+      path: visit.path,
+      title: visit.title || '',
+      blocks: visit.blocks || [],
+      intent: visit.intent || 'discovery',
+      stage: visit.stage || 'exploring',
+      timestamp: visit.timestamp || Date.now(),
+      timeSpent: 0,
+      scrollDepth: 0,
+    });
+
+    if (context.browsingHistory.length > MAX_BROWSING_HISTORY) {
+      context.browsingHistory = context.browsingHistory.slice(-MAX_BROWSING_HISTORY);
+    }
+
+    context.lastUpdated = Date.now();
+    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+  }
+
+  /**
+   * Update the last page visit with engagement data (time spent, scroll depth)
+   * @param {Object} engagement - Engagement data
+   */
+  static updateLastPageVisit(engagement) {
+    const context = this.getContext();
+    if (!context.browsingHistory || context.browsingHistory.length === 0) return;
+
+    const last = context.browsingHistory[context.browsingHistory.length - 1];
+    if (engagement.timeSpent !== undefined) last.timeSpent = engagement.timeSpent;
+    if (engagement.scrollDepth !== undefined) last.scrollDepth = engagement.scrollDepth;
+
+    context.lastUpdated = Date.now();
+    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+  }
+
+  /**
+   * Update the inferred user profile from browsing signals
+   * @param {Object} profile - Inferred profile from the local classifier
+   */
+  static updateInferredProfile(profile) {
+    const context = this.getContext();
+    context.inferredProfile = profile;
+    context.lastUpdated = Date.now();
+    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+  }
+
+  /**
+   * Get the browsing context for the backend (history + profile)
+   * @returns {Object}
+   */
+  static getBrowsingContext() {
+    const context = this.getContext();
+    return {
+      browsingHistory: context.browsingHistory || [],
+      inferredProfile: context.inferredProfile || null,
+    };
   }
 
   /**
