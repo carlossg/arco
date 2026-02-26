@@ -406,25 +406,48 @@ step "Step 9: Deploy Cloud Functions"
 
 FUNCTIONS_DIR="${SCRIPT_DIR}/functions"
 if [ -d "$FUNCTIONS_DIR" ]; then
-  for func_dir in "${FUNCTIONS_DIR}"/*/; do
-    if [ -d "$func_dir" ]; then
-      func_name=$(basename "$func_dir")
-      echo -ne "  ${YELLOW}Deploying function ${func_name}...${NC} "
+  # Map function directories to their entry points and service accounts
+  declare -A FUNC_ENTRY_POINTS=(
+    ["analytics"]="trackEvent"
+    ["embeddings"]="searchBrewGuides"
+  )
+  declare -A FUNC_SERVICE_ACCOUNTS=(
+    ["analytics"]="${SA_ANALYTICS}"
+    ["embeddings"]="${SA_EMBEDDINGS}"
+  )
 
-      if gcloud functions deploy "$func_name" \
+  for func_dir in "${FUNCTIONS_DIR}"/*/; do
+    if [ -d "$func_dir" ] && [ -f "${func_dir}package.json" ]; then
+      func_name=$(basename "$func_dir")
+      entry_point="${FUNC_ENTRY_POINTS[$func_name]:-$func_name}"
+      sa_name="${FUNC_SERVICE_ACCOUNTS[$func_name]:-$SA_ANALYTICS}"
+      sa_email="${sa_name}@${PROJECT_ID}.iam.gserviceaccount.com"
+
+      # Build TypeScript before deploying
+      echo -ne "  ${YELLOW}Building ${func_name}...${NC} "
+      if (cd "$func_dir" && npm ci --quiet 2>/dev/null && npm run build 2>/dev/null); then
+        echo -e "${GREEN}Built${NC}"
+      else
+        echo -e "${RED}Build failed${NC}"
+        continue
+      fi
+
+      echo -ne "  ${YELLOW}Deploying ${func_name} (entry: ${entry_point})...${NC} "
+      if gcloud functions deploy "arco-${func_name}" \
         --gen2 \
         --region="$REGION" \
         --runtime=nodejs20 \
         --source="$func_dir" \
-        --entry-point="$func_name" \
+        --entry-point="$entry_point" \
         --trigger-http \
         --allow-unauthenticated \
-        --service-account="${SA_ANALYTICS}@${PROJECT_ID}.iam.gserviceaccount.com" \
-        --set-env-vars="GCP_PROJECT_ID=${PROJECT_ID}" \
+        --service-account="${sa_email}" \
+        --set-env-vars="GCP_PROJECT_ID=${PROJECT_ID},GCP_LOCATION=${REGION}" \
         --project="$PROJECT_ID" 2>/dev/null; then
         echo -e "${GREEN}Deployed${NC}"
       else
         echo -e "${RED}Failed${NC}"
+        warn "Function deployment failed. You can deploy manually: cd ${func_dir} && gcloud functions deploy arco-${func_name} ..."
       fi
     fi
   done

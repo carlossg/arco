@@ -23,6 +23,22 @@ fi
 echo -e "${BLUE}Setting up Cloud Monitoring for project: ${PROJECT_ID}${NC}"
 echo ""
 
+# Check if gcloud alpha component is available
+if ! gcloud alpha --help &>/dev/null; then
+  echo -e "${YELLOW}gcloud alpha component is not installed. Monitoring alerts require it.${NC}"
+  echo -e "${YELLOW}Install with: gcloud components install alpha${NC}"
+  echo -e "${YELLOW}Skipping monitoring setup — you can run this script again after installing.${NC}"
+  echo ""
+  echo -e "${GREEN}Monitoring setup complete.${NC}"
+  echo ""
+  echo -e "${BLUE}View alerts at:${NC}"
+  echo "  https://console.cloud.google.com/monitoring/alerting?project=${PROJECT_ID}"
+  echo ""
+  echo -e "${BLUE}View Cloud Run metrics at:${NC}"
+  echo "  https://console.cloud.google.com/run/detail/${REGION}/arco-recommender/metrics?project=${PROJECT_ID}"
+  exit 0
+fi
+
 # Create notification channel if email is provided
 NOTIFICATION_CHANNEL_ID=""
 if [ -n "$NOTIFICATION_EMAIL" ]; then
