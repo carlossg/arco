@@ -36,9 +36,12 @@ The repository provides the basic structure, blocks, and configuration needed to
     ├── lazy-styles.css     # Additional global styling and layout for below the fold/post LCP content
     └── fonts.css           # Font definitions
 ├── scripts/         # JavaScript libraries and utilities
-    ├── aem.js           # Core AEM Library for Edge Delivery page decoration logic (NEVER MODIFY THIS FILE)
-    ├── scripts.js       # Global JavaScript utilities, main entry point for page decoration
-    └── delayed.js       # Delayed functionality such as martech loading
+    ├── aem.js              # Core AEM Library for Edge Delivery page decoration logic (NEVER MODIFY THIS FILE)
+    ├── scripts.js          # Global JavaScript utilities, main entry point for page decoration
+    ├── delayed.js          # Delayed functionality — browsing signal collection
+    ├── session-context.js  # Session context manager — query history, browsing history, inferred profile
+    ├── browsing-signals.js # Passive browsing signal collector and local intent classifier
+    └── api-config.js       # API endpoint configuration for recommender and analytics services
 ├── fonts/           # Web fonts
 ├── icons/           # SVG icons
 ├── head.html        # Global HTML head content
@@ -115,7 +118,61 @@ Pages are progressively loaded in three phases to maximize performance. This pro
 
 * Eager - load only what is required to get to LCP. This generally includes decorating the overall page content to create sections, blocks, buttons, etc. and loading the first section of the page.
 * Lazy - load all other page content, including the header and footer.
-* Delayed - load things that can be safely loaded later here and incur a performance penalty when loaded earlier
+* Delayed - load things that can be safely loaded later here and incur a performance penalty when loaded earlier. This phase starts the **browsing signal collector** (`scripts/browsing-signals.js`) which passively gathers navigation, engagement, and interaction signals to inform subsequent recommender queries.
+
+### Recommender Session Flow
+
+The site includes an AI-powered recommender that generates personalized pages in response to natural language queries (`/?q=...`). The flow spans client-side and server-side:
+
+```
+Regular Pages                    Recommender Query (/?q=...)
+─────────────                    ───────────────────────────
+                                 
+  ┌──────────────────┐           ┌──────────────────────────────────────┐
+  │  Delayed Phase   │           │  scripts.js / renderArcoRecommender  │
+  │  (3s after load) │           │                                      │
+  │                  │           │  1. Read session context              │
+  │  browsing-       │           │  2. Encode ctx (queries + browsing)  │
+  │  signals.js      │           │  3. SSE stream to backend            │
+  │                  │           └──────────┬───────────────────────────┘
+  │  • Page signal   │                      │
+  │  • Scroll depth  │                      ▼
+  │  • Interactions  │           ┌──────────────────────────────────────┐
+  │  • Quiz answers  │           │  Backend Orchestrator                │
+  │                  │           │                                      │
+  └────────┬─────────┘           │  1. classifyIntent() — uses browsing │
+           │                     │     context + conversation history   │
+           ▼                     │  2. RAG context lookup               │
+  ┌──────────────────┐           │  3. Deep reasoning (block selection) │
+  │  Session Context │           │  4. Parallel content generation      │
+  │  (sessionStorage)│◄──────────│  5. Follow-up suggestions informed   │
+  │                  │           │     by products viewed & interests   │
+  │  • queries[]     │           └──────────────────────────────────────┘
+  │  • browsingHist[]│
+  │  • inferredProf  │
+  └──────────────────┘
+```
+
+**Key files:**
+
+| File | Role |
+|------|------|
+| `scripts/browsing-signals.js` | Passive signal collector + rule-based local intent classifier. Runs in the delayed phase on every non-recommender page. |
+| `scripts/session-context.js` | Manages `sessionStorage` — stores query history, browsing history (last 15 page visits), and an inferred browsing profile. |
+| `scripts/delayed.js` | Entry point for delayed-phase code. Starts the browsing signal collector. |
+| `scripts/scripts.js` | Main page decoration. On `/?q=` pages, reads session context and streams it to the backend. |
+| `services/recommender/src/lib/orchestrator.ts` | Backend pipeline — uses browsing context for richer intent classification and more targeted follow-up suggestions. |
+| `services/recommender/src/types.ts` | TypeScript interfaces for `BrowsingHistoryItem`, `InferredBrowsingProfile`, and `SessionContext`. |
+
+**How browsing context flows:**
+
+1. User browses regular pages (homepage, product pages, stories, etc.)
+2. `browsing-signals.js` passively collects page signals, engagement (scroll, time), and interactions (quiz, filters, tabs)
+3. A lightweight rule-based classifier infers intent (`discovery`, `product-detail`, `comparison`, etc.) and journey stage (`exploring`, `comparing`, `deciding`)
+4. Signals and the inferred profile are stored in `sessionStorage` via `SessionContextManager`
+5. When the user submits a recommender query (`/?q=...`), the full context (queries + browsing history + inferred profile) is sent to the backend
+6. The backend `classifyIntent()` prompt includes browsing context (e.g. "User viewed the Primo and Doppio pages, spent 2 minutes on each")
+7. `buildFollowUpSuggestions()` uses products viewed and interests to generate targeted follow-up chips instead of generic ones
 
 ## Testing & Quality Assurance
 
