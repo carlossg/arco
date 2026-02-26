@@ -130,6 +130,25 @@ export class GoogleModelFactory {
 		const config = this.preset[role];
 		const startTime = Date.now();
 
+		// Structured prompt logging (enable with LOG_PROMPTS=true)
+		if (process.env.LOG_PROMPTS === 'true') {
+			const separator = '═'.repeat(80);
+			const thin = '─'.repeat(80);
+			console.log(`\n${separator}`);
+			console.log(`[LLM] ${role.toUpperCase()} | preset=${this.presetName} | model=${config.model} | provider=${config.provider}`);
+			console.log(`[LLM] temp=${config.temperature} maxTokens=${config.maxTokens}`);
+			console.log(thin);
+			for (const msg of messages) {
+				const label = msg.role.toUpperCase().padEnd(9);
+				const preview = msg.content.length > 2000
+					? `${msg.content.substring(0, 2000)}\n... (${msg.content.length} chars total)`
+					: msg.content;
+				console.log(`[LLM] ${label} | ${preview}`);
+				console.log(thin);
+			}
+			console.log(separator);
+		}
+
 		let response: ModelResponse;
 
 		switch (config.provider) {
@@ -147,6 +166,19 @@ export class GoogleModelFactory {
 		}
 
 		response.duration = Date.now() - startTime;
+
+		if (process.env.LOG_PROMPTS === 'true') {
+			const tokens = response.usage
+				? `in=${response.usage.inputTokens} out=${response.usage.outputTokens}`
+				: 'n/a';
+			const preview = response.content.length > 1000
+				? `${response.content.substring(0, 1000)}\n... (${response.content.length} chars total)`
+				: response.content;
+			console.log(`[LLM] RESPONSE | ${role} | ${response.duration}ms | tokens: ${tokens}`);
+			console.log(`[LLM] ${preview}`);
+			console.log('═'.repeat(80));
+		}
+
 		return response;
 	}
 
