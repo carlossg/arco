@@ -1553,6 +1553,7 @@ export async function orchestrate(
     const reasoningResult = await analyzeAndSelectBlocks(
       { text: query },
       ragContext,
+      preset,
     );
     context.reasoningResult = reasoningResult;
 

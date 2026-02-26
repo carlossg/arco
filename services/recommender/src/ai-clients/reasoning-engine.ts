@@ -526,8 +526,9 @@ function getDefaultFollowUpSuggestions(userQuery: UserQuery): string[] {
 export async function analyzeAndSelectBlocks(
   userQuery: UserQuery,
   ragContext?: RAGContext,
+  preset?: string,
 ): Promise<ReasoningResult> {
-  const modelFactory = new GoogleModelFactory();
+  const modelFactory = new GoogleModelFactory(preset);
   const { system, user } = buildReasoningPrompt(userQuery, ragContext);
 
   try {

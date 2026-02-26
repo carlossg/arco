@@ -5,61 +5,6 @@
 **Service:** Cloud Run (`arco-recommender-642841493686.us-central1.run.app`)
 **Region:** us-central1
 **Presets:** 16 total (14 benchmarked, 2 require GPU endpoint)
-**Total benchmark duration:** 163.7s (14 presets tested sequentially)
-
-## Results (sorted fastest to slowest)
-
-> **Note:** These benchmarks measure **classification + reasoning only** (Phases 1 & 3 of the pipeline).
-> The full `/generate` endpoint runs additional phases — RAG context lookup, parallel content generation
-> (3-4 AI calls for block HTML), and image handling — so real page generation times will be significantly
-> higher than the totals shown here.
-
-| # | Preset | Category | Classification | Reasoning | Total | Classification Model | Reasoning Model |
-|---|--------|----------|---------------:|----------:|------:|---------------------|----------------|
-| 1 | `llama-3.3-70b-instruct-maas` | pure | 588ms | 1,628ms | **2,235ms** | llama-3.3-70b-instruct-maas | llama-3.3-70b-instruct-maas |
-| 2 | `gemini-2.5-flash-lite` | pure | 597ms | 2,729ms | **3,345ms** | gemini-2.5-flash-lite | gemini-2.5-flash-lite |
-| 3 | `gemini-2.0-flash` | pure | 541ms | 3,261ms | **3,825ms** | gemini-2.0-flash | gemini-2.0-flash |
-| 4 | `gemini-2.0-mixed` | mixed | 641ms | 3,262ms | **3,925ms** | gemini-2.0-flash-lite | gemini-2.0-flash |
-| 5 | `gemini-2.0-flash-lite` | pure | 689ms | 6,231ms | **6,942ms** | gemini-2.0-flash-lite | gemini-2.0-flash-lite |
-| 6 | `gemini-3-flash` | pure | 4,217ms | 7,268ms | **11,507ms** | gemini-3-flash-preview | gemini-3-flash-preview |
-| 7 | `gemini-2.5-flash` | pure | 2,986ms | 14,658ms | **17,664ms** | gemini-2.5-flash | gemini-2.5-flash |
-| 8 | `gemini-3-mixed` | mixed | 3,967ms | 14,038ms | **18,025ms** | gemini-3-flash-preview | gemini-3-pro-preview |
-| 9 | `production` | production | 453ms | 17,608ms | **18,081ms** | gemini-2.5-flash-lite | gemini-3-pro-preview |
-| 10 | `gemini-2.5-mixed` | mixed | 560ms | 20,238ms | **20,818ms** | gemini-2.5-flash-lite | gemini-2.5-pro |
-| 11 | `gemini-3-pro` | pure | 8,328ms | 15,824ms | **25,021ms** | gemini-3-pro-preview | gemini-3-pro-preview |
-| 12 | `gemini-2.5-pro` | pure | 4,806ms | 20,297ms | **25,126ms** | gemini-2.5-pro | gemini-2.5-pro |
-
-### Partially Failed
-
-| Preset | Category | Issue |
-|--------|----------|-------|
-| `llama-3.2-3b` | model-garden | Classification 404 (model not available in region) |
-| `mistral-small` | model-garden | Classification 404 (model not available in region) |
-
-### Not Tested (require GPU endpoint)
-
-| Preset | Category | Requirement |
-|--------|----------|-------------|
-| `gemma-3-4b` | gemma | Vertex AI Endpoint with GPU |
-| `gemma-3-12b` | gemma | Vertex AI Endpoint with GPU |
-
-## Key Findings
-
-1. **Fastest overall:** `llama-3.3-70b-instruct-maas` (Llama 3.3 70B via MaaS) at ~2.2s total — 11x faster than the slowest
-2. **Fastest Gemini:** `gemini-2.5-flash-lite` at ~3.3s — best quality/speed/cost tradeoff among Gemini models
-3. **Gemini 2.5 Flash Lite** outperforms both `gemini-2.0-flash` (3.8s) and `gemini-2.0-flash-lite` (6.9s) while being a newer generation
-4. **Production preset** now uses 2.5 Flash Lite for classification (453ms) + Gemini 3 Pro for reasoning (17.6s) = ~18s total
-5. **Gemini 2.5 models** with thinking (Pro/Flash) have long reasoning times (14-20s) due to chain-of-thought tokens
-6. **Mixed presets** with 2.5 Flash Lite classification are very fast at the classification stage (~500ms)
-
-## Speed Tiers
-
-| Tier | Presets | Total Time | Best For |
-|------|---------|-----------|----------|
-| Ultra-fast (<5s) | llama-3.3-70b-instruct-maas, gemini-2.5-flash-lite, gemini-2.0-flash, gemini-2.0-mixed | 2-4s | Real-time UX, high throughput |
-| Fast (5-12s) | gemini-2.0-flash-lite, gemini-3-flash | 7-12s | Good quality with acceptable wait |
-| Standard (15-20s) | gemini-2.5-flash, gemini-3-mixed, production, gemini-2.5-mixed | 17-21s | Best quality/speed for production |
-| Thorough (25-30s) | gemini-3-pro, gemini-2.5-pro | 25s | Maximum reasoning depth |
 
 ## Preset Matrix (all 16 presets)
 
@@ -86,6 +31,51 @@
 | **Gemma** | | | | | |
 | `gemma-3-4b` | gemini-2.0-flash | gemma-3-4b-it | gemini-2.0-flash-lite | gemini-2.0-flash-lite | GPU |
 | `gemma-3-12b` | gemini-2.0-flash | gemma-3-12b-it | gemini-2.0-flash-lite | gemini-2.0-flash-lite | GPU |
+
+## Results — Full Pipeline (sorted fastest to slowest)
+
+End-to-end benchmark via `GET /api/benchmark-full`: classification, RAG context, reasoning, and parallel content generation for all blocks. Total benchmark duration: 272.8s (14 presets tested sequentially).
+
+| # | Preset | Category | Blocks | Classification | Reasoning | Content Gen | **Total** |
+|---|--------|----------|:------:|---------------:|----------:|------------:|----------:|
+| 1 | `llama-3.3-70b-instruct-maas` | pure | 4 | 571ms | 2,859ms | 2,593ms | **5.5s** |
+| 2 | `llama-3.2-3b` | model-garden | 4 | 95ms | 5,748ms | 143ms | **5.9s** |
+| 3 | `gemini-2.0-flash-lite` | pure | 3 | 645ms | 3,740ms | 2,344ms | **6.1s** |
+| 4 | `mistral-small` | model-garden | 4 | 84ms | 6,054ms | 256ms | **6.3s** |
+| 5 | `gemini-2.5-flash-lite` | pure | 5 | 513ms | 4,099ms | 3,646ms | **7.7s** |
+| 6 | `gemini-2.0-flash` | pure | 4 | 732ms | 5,797ms | 3,012ms | **8.8s** |
+| 7 | `gemini-2.0-mixed` | mixed | 4 | 748ms | 6,545ms | 2,526ms | **9.1s** |
+| 8 | `gemini-2.5-mixed` | mixed | 3 | 689ms | 20,839ms | 1,443ms | **22.3s** |
+| 9 | `production` | production | 3 | 644ms | 21,387ms | 1,504ms | **22.9s** |
+| 10 | `gemini-2.5-flash` | pure | 3 | 3,721ms | 15,784ms | 9,086ms | **24.9s** |
+| 11 | `gemini-3-flash` | pure | 7 | 4,088ms | 14,956ms | 13,772ms | **28.7s** |
+| 12 | `gemini-3-mixed` | mixed | 3 | 4,465ms | 25,057ms | 10,178ms | **35.2s** |
+| 13 | `gemini-2.5-pro` | pure | 3 | 5,418ms | 26,160ms | 14,681ms | **40.8s** |
+| 14 | `gemini-3-pro` | pure | 3 | 8,259ms | 30,338ms | 18,236ms | **48.6s** |
+
+### Not Tested (require GPU endpoint)
+
+| Preset | Category | Requirement |
+|--------|----------|-------------|
+| `gemma-3-4b` | gemma | Vertex AI Endpoint with GPU |
+| `gemma-3-12b` | gemma | Vertex AI Endpoint with GPU |
+
+## Key Findings
+
+1. **Fastest end-to-end:** `llama-3.3-70b-instruct-maas` at **5.5s** — 9x faster than the slowest preset
+2. **Fast Gemini presets now actually fast:** `gemini-2.0-flash-lite` at 6.1s, `gemini-2.5-flash-lite` at 7.7s, `gemini-2.0-flash` at 8.8s
+3. **Reasoning times now reflect actual preset models** — previously all presets were incorrectly using the production reasoning model (Gemini 3 Pro). The fix dropped fast presets from ~20s to ~3-6s reasoning.
+4. **Production preset:** ~23s total — uses Gemini 3 Pro reasoning (21s) + Flash Lite content (1.5s)
+5. **Content generation** adds 1-18s depending on model, generated in parallel across 3-7 blocks
+6. **Model Garden presets** (llama-3.2-3b, mistral-small) show near-zero content gen time, likely using fallback content
+
+## Speed Tiers
+
+| Tier | Presets | Total Time | Best For |
+|------|---------|-----------|----------|
+| Ultra-fast (<10s) | llama-3.3-70b-instruct-maas, llama-3.2-3b, gemini-2.0-flash-lite, mistral-small, gemini-2.5-flash-lite, gemini-2.0-flash, gemini-2.0-mixed | 5-9s | Real-time UX, high throughput |
+| Standard (20-30s) | gemini-2.5-mixed, production, gemini-2.5-flash, gemini-3-flash | 22-29s | Best quality/speed for production |
+| Thorough (35s+) | gemini-3-mixed, gemini-2.5-pro, gemini-3-pro | 35-49s | Maximum reasoning depth |
 
 ## Try It — Test Links
 
@@ -115,7 +105,7 @@ For localhost testing, replace the domain with `http://localhost:3000`.
 curl 'https://arco-recommender-642841493686.us-central1.run.app/api/benchmark?query=best+espresso+machine+for+beginners'
 
 # Specific presets
-curl 'https://arco-recommender-642841493686.us-central1.run.app/api/benchmark?presets=production,gemini-2.5-flash-lite,llama'
+curl 'https://arco-recommender-642841493686.us-central1.run.app/api/benchmark?presets=production,gemini-2.5-flash-lite,llama-3.3-70b-instruct-maas'
 
 # Custom query
 curl 'https://arco-recommender-642841493686.us-central1.run.app/api/benchmark?query=latte+art+machine+under+2000'
