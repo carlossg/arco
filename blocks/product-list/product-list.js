@@ -82,7 +82,14 @@ function buildCard(row) {
   imageWrap.className = 'product-list-card-image';
   const picture = imageDiv.querySelector('picture');
   if (picture) {
-    imageWrap.append(picture);
+    if (link) {
+      const imageLink = document.createElement('a');
+      imageLink.href = link.href;
+      imageLink.append(picture);
+      imageWrap.append(imageLink);
+    } else {
+      imageWrap.append(picture);
+    }
   }
   card.append(imageWrap);
 
@@ -99,7 +106,14 @@ function buildCard(row) {
 
   if (name) {
     const heading = document.createElement('h3');
-    heading.textContent = name;
+    if (link) {
+      const nameLink = document.createElement('a');
+      nameLink.href = link.href;
+      nameLink.textContent = name;
+      heading.append(nameLink);
+    } else {
+      heading.textContent = name;
+    }
     body.append(heading);
   }
 

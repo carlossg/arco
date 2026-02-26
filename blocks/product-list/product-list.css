@@ -142,7 +142,13 @@
   transition: color var(--transition);
 }
 
-.product-list .product-list-card:hover .product-list-card-body h3 {
+.product-list .product-list-card-body h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.product-list .product-list-card:hover .product-list-card-body h3,
+.product-list .product-list-card:hover .product-list-card-body h3 a {
   color: var(--accent-color);
 }
 
