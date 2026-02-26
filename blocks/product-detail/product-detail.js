@@ -14,14 +14,10 @@ function parseBlockRows(block) {
     const cols = [...row.children];
     if (!cols.length) return;
 
-    // Row with images: first cell contains picture elements
-    const pictures = cols[0].querySelectorAll('picture');
-    if (pictures.length) {
-      pictures.forEach((pic) => images.push(pic));
-      // Also check second cell for additional images
-      if (cols[1]) {
-        cols[1].querySelectorAll('picture').forEach((pic) => images.push(pic));
-      }
+    // Row with images: either cell may contain picture elements
+    const allPictures = cols.flatMap((col) => [...col.querySelectorAll('picture')]);
+    if (allPictures.length) {
+      allPictures.forEach((pic) => images.push(pic));
       return;
     }
 
