@@ -95,7 +95,7 @@ export function getResultPage(personaTag) {
     'office-manager': 'the-non-barista',
   };
   const slug = slugMap[personaTag] || 'morning-minimalist';
-  return `/experiences/core/${slug}`;
+  return `/experiences/${slug}`;
 }
 
 /**

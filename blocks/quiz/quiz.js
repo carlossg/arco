@@ -56,12 +56,12 @@ const SCORING = [
  * Maps persona tag to experience page slug.
  */
 const RESULT_PAGES = {
-  'morning-minimalist': '/experiences/core/morning-minimalist',
-  upgrader: '/experiences/core/the-upgrade-path',
-  'craft-barista': '/experiences/core/craft-at-home',
-  traveller: '/experiences/core/espresso-anywhere',
-  'non-barista': '/experiences/core/the-non-barista',
-  'office-manager': '/experiences/core/the-non-barista',
+  'morning-minimalist': '/experiences/morning-minimalist',
+  upgrader: '/experiences/the-upgrade-path',
+  'craft-barista': '/experiences/craft-at-home',
+  traveller: '/experiences/espresso-anywhere',
+  'non-barista': '/experiences/the-non-barista',
+  'office-manager': '/experiences/the-non-barista',
 };
 
 /**
@@ -260,7 +260,7 @@ export default async function decorate(block) {
         setCookie('arco_persona', persona, 90);
         setCookie('arco-brew-style', persona, 30);
         // Redirect to experience page
-        const resultUrl = RESULT_PAGES[persona] || '/experiences/core/morning-minimalist';
+        const resultUrl = RESULT_PAGES[persona] || '/experiences/morning-minimalist';
         window.location.href = resultUrl;
       }
     });

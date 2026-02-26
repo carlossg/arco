@@ -1343,7 +1343,7 @@
     },
     {
       "id": "exp-core-003",
-      "slug": "/experiences/core/craft-at-home",
+      "slug": "/experiences/craft-at-home",
       "title": "Craft at Home",
       "type": "experience",
       "persona_tags": [
@@ -1364,11 +1364,11 @@
       "hero_image_alt": "A dedicated home coffee station with professional-grade equipment, a knock box, scales, and multiple bags of single-origin coffee arranged on a wooden shelf, warm pendant lighting overhead",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/core/craft-at-home.json"
+      "source_file": "content/experiences/craft-at-home.json"
     },
     {
       "id": "exp-core-004",
-      "slug": "/experiences/core/espresso-anywhere",
+      "slug": "/experiences/espresso-anywhere",
       "title": "Espresso Anywhere",
       "type": "experience",
       "persona_tags": [
@@ -1389,11 +1389,11 @@
       "hero_image_alt": "A compact espresso setup on a hotel room desk beside a window overlooking a foreign city at dawn, a small travel grinder and the Arco Viaggio machine neatly arranged next to a passport and a leather travel bag",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/core/espresso-anywhere.json"
+      "source_file": "content/experiences/espresso-anywhere.json"
     },
     {
       "id": "exp-core-001",
-      "slug": "/experiences/core/morning-minimalist",
+      "slug": "/experiences/morning-minimalist",
       "title": "The Morning Minimalist",
       "type": "experience",
       "persona_tags": [
@@ -1413,11 +1413,11 @@
       "hero_image_alt": "A single espresso cup on a clean white marble countertop, morning light streaming through a window, steam rising gently from a freshly pulled shot, an Arco Primo machine in soft focus behind it",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/core/morning-minimalist.json"
+      "source_file": "content/experiences/morning-minimalist.json"
     },
     {
       "id": "exp-core-005",
-      "slug": "/experiences/core/the-non-barista",
+      "slug": "/experiences/the-non-barista",
       "title": "The Non-Barista",
       "type": "experience",
       "persona_tags": [
@@ -1438,11 +1438,11 @@
       "hero_image_alt": "A modern automatic coffee machine on a clean kitchen counter with a freshly brewed cup beneath its spout, a person reaching for the cup while glancing at their phone, soft morning light filling the room",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/core/the-non-barista.json"
+      "source_file": "content/experiences/the-non-barista.json"
     },
     {
       "id": "exp-core-002",
-      "slug": "/experiences/core/the-upgrade-path",
+      "slug": "/experiences/the-upgrade-path",
       "title": "The Upgrade Path",
       "type": "experience",
       "persona_tags": [
@@ -1462,7 +1462,7 @@
       "hero_image_alt": "A person standing in their kitchen looking critically at a mid-range espresso machine, surrounded by bags of specialty coffee, a worn tamper, and a basic grinder, morning light casting long shadows across the countertop",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/core/the-upgrade-path.json"
+      "source_file": "content/experiences/the-upgrade-path.json"
     },
     {
       "id": "exp-cu-001",

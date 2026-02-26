@@ -35,13 +35,13 @@
     },
     {
       "label": "Experiences",
-      "url": "/experiences/core/morning-minimalist",
+      "url": "/experiences/morning-minimalist",
       "children": [
-        { "label": "The Morning Minimalist", "url": "/experiences/core/morning-minimalist" },
-        { "label": "The Upgrade Path", "url": "/experiences/core/the-upgrade-path" },
-        { "label": "Craft at Home", "url": "/experiences/core/craft-at-home" },
-        { "label": "Espresso Anywhere", "url": "/experiences/core/espresso-anywhere" },
-        { "label": "The Non-Barista", "url": "/experiences/core/the-non-barista" }
+        { "label": "The Morning Minimalist", "url": "/experiences/morning-minimalist" },
+        { "label": "The Upgrade Path", "url": "/experiences/the-upgrade-path" },
+        { "label": "Craft at Home", "url": "/experiences/craft-at-home" },
+        { "label": "Espresso Anywhere", "url": "/experiences/espresso-anywhere" },
+        { "label": "The Non-Barista", "url": "/experiences/the-non-barista" }
       ]
     },
     {
@@ -71,33 +71,33 @@
   ],
   "cta": {
     "label": "Find Your Brew Style",
-    "url": "/experiences/core/morning-minimalist"
+    "url": "/experiences/morning-minimalist"
   },
   "persona_overrides": {
     "morning-minimalist": {
       "promoted": ["/products/espresso-machines", "/guides/fundamentals/your-first-week-with-a-machine", "/bundles/persona-kits/morning-minimalist-kit"],
       "demoted": ["/guides/advanced/flow-control-profiling"],
-      "cta": { "label": "Your Morning Setup", "url": "/experiences/core/morning-minimalist" }
+      "cta": { "label": "Your Morning Setup", "url": "/experiences/morning-minimalist" }
     },
     "upgrader": {
       "promoted": ["/products/comparison/arco-primo-vs-arco-doppio", "/guides/intermediate/dialing-in-new-beans", "/bundles/persona-kits/upgrader-kit"],
       "demoted": ["/guides/fundamentals/tamping-technique"],
-      "cta": { "label": "Find Your Upgrade", "url": "/experiences/core/the-upgrade-path" }
+      "cta": { "label": "Find Your Upgrade", "url": "/experiences/the-upgrade-path" }
     },
     "craft-barista": {
       "promoted": ["/guides/advanced/flow-control-profiling", "/products/espresso-machines", "/blog/brand/why-arco-chose-brass-for-the-studio-boiler"],
       "demoted": ["/guides/fundamentals/what-is-extraction"],
-      "cta": { "label": "Pro Setup", "url": "/experiences/core/craft-at-home" }
+      "cta": { "label": "Pro Setup", "url": "/experiences/craft-at-home" }
     },
     "traveller": {
       "promoted": ["/products/espresso-machines", "/blog/travel/espresso-bars-worth-visiting-in-milan", "/bundles/persona-kits/traveller-kit"],
       "demoted": ["/guides/advanced/flow-control-profiling"],
-      "cta": { "label": "Travel Gear", "url": "/experiences/core/espresso-anywhere" }
+      "cta": { "label": "Travel Gear", "url": "/experiences/espresso-anywhere" }
     },
     "non-barista": {
       "promoted": ["/products/espresso-machines", "/guides/fundamentals/your-first-week-with-a-machine", "/bundles/persona-kits/non-barista-kit"],
       "demoted": ["/guides/advanced/tds-and-extraction-yield", "/guides/intermediate/using-a-refractometer"],
-      "cta": { "label": "Easy Setup", "url": "/experiences/core/the-non-barista" }
+      "cta": { "label": "Easy Setup", "url": "/experiences/the-non-barista" }
     },
     "office-manager": {
       "promoted": ["/products/espresso-machines", "/bundles/gift-guides/gift-for-an-office", "/tools/calculators/capsule-to-bean-cost-comparison"],

@@ -262,6 +262,14 @@ else
   fi
 fi
 
+# Apply labels to bucket
+echo -ne "  ${YELLOW}Setting labels on bucket...${NC} "
+if gsutil label ch -l "app:arco" -l "component:data" "gs://${BUCKET_NAME}" 2>/dev/null; then
+  echo -e "${GREEN}Done${NC}"
+else
+  echo -e "${YELLOW}Skipped (label may already be set)${NC}"
+fi
+
 success "Cloud Storage setup complete."
 
 # =============================================================================
@@ -289,15 +297,27 @@ for secret_name in "${SECRETS[@]}"; do
       info "  Has ${VERSION_COUNT} enabled version(s)"
     fi
   else
-    echo -e "${YELLOW}Creating...${NC}"
+    echo -e "${YELLOW}Not found — creating...${NC}"
     if gcloud secrets create "$secret_name" \
       --project="$PROJECT_ID" \
-      --replication-policy="automatic" 2>/dev/null; then
+      --replication-policy="automatic" \
+      --labels="app=arco" 2>/dev/null; then
       success "Secret created"
       warn "Add a value: echo -n 'TOKEN' | gcloud secrets versions add ${secret_name} --data-file=- --project=${PROJECT_ID}"
     else
       error "Failed to create secret"
     fi
+  fi
+
+  # Ensure labels are set (for pre-existing secrets)
+  echo -ne "    ${YELLOW}Setting labels...${NC} "
+  if gcloud secrets update "$secret_name" \
+    --project="$PROJECT_ID" \
+    --update-labels="app=arco" \
+    --quiet 2>/dev/null; then
+    echo -e "${GREEN}Done${NC}"
+  else
+    echo -e "${YELLOW}Skipped${NC}"
   fi
 
   # Grant access to recommender service account
@@ -322,9 +342,13 @@ success "Secrets setup complete."
 step "Step 7: Verify Vertex AI Models"
 
 declare -A MODELS=(
+  ["gemini-3-pro-preview"]="Google Gemini 3 Pro"
+  ["gemini-3-flash-preview"]="Google Gemini 3 Flash"
+  ["gemini-2.5-pro"]="Google Gemini 2.5 Pro"
+  ["gemini-2.5-flash"]="Google Gemini 2.5 Flash"
+  ["gemini-2.5-flash-lite"]="Google Gemini 2.5 Flash Lite"
   ["gemini-2.0-flash"]="Google Gemini 2.0 Flash"
   ["gemini-2.0-flash-lite"]="Google Gemini 2.0 Flash Lite"
-  ["gemini-2.5-pro-preview-05-06"]="Google Gemini 2.5 Pro"
 )
 
 PASS_COUNT=0
@@ -366,6 +390,7 @@ if [ "$SKIP_BUILD" = true ]; then
 else
   info "Building Docker image..."
   docker build \
+    --platform linux/amd64 \
     -t "${IMAGE_NAME}:latest" \
     -t "${IMAGE_NAME}:$(git rev-parse --short HEAD 2>/dev/null || echo 'manual')" \
     --label "app=arco" \
@@ -391,7 +416,8 @@ if gcloud run deploy "${SERVICE_NAME}" \
   --max-instances=10 \
   --timeout=3600 \
   --allow-unauthenticated \
-  --set-env-vars="GCP_PROJECT_ID=${PROJECT_ID},GCP_LOCATION=${REGION},MODEL_PRESET=production,DA_ORG=${DA_ORG},DA_REPO=${DA_REPO}" \
+  --labels="app=arco,component=recommender" \
+  --set-env-vars="GCP_PROJECT_ID=${PROJECT_ID},GCP_LOCATION=${REGION},MODEL_PRESET=production,DA_ORG=${DA_ORG},DA_REPO=${DA_REPO},LOG_PROMPTS=true" \
   --set-secrets="DA_TOKEN=DA_TOKEN:latest" \
   --project="$PROJECT_ID" 2>/dev/null; then
   success "Cloud Run deployment complete."
@@ -443,6 +469,7 @@ if [ -d "$FUNCTIONS_DIR" ]; then
         --allow-unauthenticated \
         --service-account="${sa_email}" \
         --set-env-vars="GCP_PROJECT_ID=${PROJECT_ID},GCP_LOCATION=${REGION}" \
+        --update-labels="app=arco,component=${func_name}" \
         --project="$PROJECT_ID" 2>/dev/null; then
         echo -e "${GREEN}Deployed${NC}"
       else
@@ -488,7 +515,7 @@ SERVICE_URL=$(gcloud run services describe "${SERVICE_NAME}" \
 
 echo -e "${BOLD}${CYAN}Service URLs:${NC}"
 echo -e "  Recommender API:     ${GREEN}${SERVICE_URL}${NC}"
-echo -e "  Health Check:        ${GREEN}${SERVICE_URL}/healthz${NC}"
+echo -e "  Health Check:        ${GREEN}${SERVICE_URL}/health${NC}"
 echo ""
 
 echo -e "${BOLD}${CYAN}Console URLs:${NC}"
@@ -513,7 +540,7 @@ echo -e "${YELLOW}Next steps:${NC}"
 echo -e "  1. Add DA_TOKEN secret value if not already set:"
 echo -e "     ${BLUE}echo -n 'YOUR_TOKEN' | gcloud secrets versions add DA_TOKEN --data-file=- --project=${PROJECT_ID}${NC}"
 echo -e "  2. Test the health endpoint:"
-echo -e "     ${BLUE}curl ${SERVICE_URL}/healthz${NC}"
+echo -e "     ${BLUE}curl ${SERVICE_URL}/health${NC}"
 echo -e "  3. Configure Cloud Build trigger for CI/CD:"
 echo -e "     ${BLUE}gcloud builds triggers create github --repo-owner=${DA_ORG} --repo-name=${DA_REPO} --branch-pattern='^main$' --build-config=cloudbuild.yaml --project=${PROJECT_ID}${NC}"
 echo ""

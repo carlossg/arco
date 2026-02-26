@@ -39,7 +39,7 @@
       "experience_cta": "persona_specific",
       "nav": "persona_overrides_applied",
       "personalization_banner": "visible_with_persona_label",
-      "redirect": "/experiences/core/{experience_slug}"
+      "redirect": "/experiences/{experience_slug}"
     },
     "returning_visitor": {
       "description": "User has arco_persona cookie from previous session.",
