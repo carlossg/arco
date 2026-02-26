@@ -1,0 +1,36 @@
+{
+  "id": "exp-lm-002",
+  "slug": "new-parent-upgrade",
+  "title": "New Parent Upgrade",
+  "persona_tag": "time-poor-parent",
+  "experience_archetype": "New Parent",
+  "hero_image_alt": "A kitchen at 6am with a baby monitor glowing on the counter beside an Arco Nano machine, a tired but content parent holding an espresso in one hand, soft predawn light, a high chair visible in the background",
+  "hero_headline": "Less sleep. Less time. The coffee has to be better, not harder.",
+  "hero_subtext": "Parenthood changed everything. Your coffee needs to keep up.",
+  "editorial_intro": "You used to have a morning routine. It involved leisurely grinding, careful tamping, a slow extraction watched with the attention of someone who had nowhere to be. Then the baby arrived, and that routine detonated. Now your mornings are dictated by a small person with no concept of time, and your coffee needs to happen in the gaps between feeds, nappy changes, and the desperate negotiation of sleep.",
+  "editorial_body": "The first thing that goes when you become a parent is time. Not in the abstract, philosophical sense. In the concrete, brutal sense that the twenty minutes you used to spend making coffee are now twenty minutes that someone else needs from you, urgently and non-negotiably. The baby does not care about your extraction yield. The baby needs feeding. Now.\n\nYour old machine — a lovely semi-automatic that required warming up, dialling in, and careful attention — sits on the counter like a memorial to your former life. You used it twice in the first month after the birth, both times at the cost of a crying baby and a frustrated partner. By the second month, you were drinking instant. By the third, you were buying capsules. By the fourth, you were miserable about all of it.\n\nThe Arco Nano arrived like a small, quiet rescue. You ordered it at 2am while feeding the baby, one-handed, on your phone, with the specific requirements of a person who had been brought to their knees by parenthood: it had to heat up in under a minute, produce a double shot in under thirty seconds, and be operable with one hand if necessary. The Nano does all three.\n\nThe Automatico handles the mornings when even the Nano feels like too many steps. On those mornings — and you know exactly which ones they are, the ones where the baby was up four times in the night and you are operating on a substrate of consciousness that barely qualifies as being awake — you press a single button and the Automatico grinds, tamps, and brews without requiring anything from you except the physical act of placing a cup.\n\nBetween the two machines, you have rebuilt a coffee life that works within the constraints of parenthood. The Nano is for the good mornings, the ones where the baby slept until six and you have five minutes to yourself. The Automatico is for the survival mornings. Both produce excellent espresso. Neither asks more of you than you can give.\n\nThe shift in your relationship with coffee has been unexpected and, in hindsight, illuminating. You used to treat coffee-making as a hobby. You had equipment, you had technique, you had opinions about water temperature and distribution tools. Now you treat it as a necessity — a functional requirement of getting through the day — and the reduction has not diminished the pleasure. If anything, the pleasure is sharper. When you have only ninety seconds and a single shot, that shot matters more than any of the leisurely doubles you pulled in your previous life.\n\nYou have also learned to drink fast. This is not something anyone prepares you for. The espresso is poured, you take a sip, and then the baby makes a sound from the monitor and you take the cup with you, drinking it in stages between tasks. Three sips while warming a bottle. Two more while changing a nappy. The last one, now lukewarm, while rocking the baby back to sleep. The coffee accompanies the chaos rather than preceding it.\n\nYour partner has noticed the improvement. They drink the Automatico's output gratefully, without discussion, because when you are both running on four hours of sleep, any coffee that arrives without effort is a gift. On Saturday mornings, when one of you takes the baby and the other gets an extra hour, the freed parent makes a proper Nano espresso and drinks it slowly, standing at the window, remembering what stillness feels like.\n\nThe baby will grow. The nights will improve. The mornings will open up again, gradually, until one day you will have time to pull out the old semi-automatic and rediscover the ritual. But right now, in the thick of it, the Nano and the Automatico are the machines that fit this life. They do not ask for your time. They do not demand your attention. They simply deliver good coffee, fast, when you need it most.\n\nThat is enough. In the economy of new parenthood, that is everything.",
+  "product_bundle": [
+    { "product_id": "arco-nano", "role": "anchor" },
+    { "product_id": "arco-automatico", "role": "primary" }
+  ],
+  "bundle_headline": "Your New Parent setup",
+  "bundle_intro": "Great coffee in ninety seconds, because that is all the time parenthood gives you.",
+  "featured_guides": [
+    "guide-one-handed-espresso",
+    "guide-automatico-quick-start",
+    "guide-nano-timer-setup"
+  ],
+  "related_blog_posts": [
+    "blog-coffee-for-new-parents",
+    "blog-when-simple-is-better",
+    "blog-automatico-vs-capsules"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "time-poor-parent",
+  "persona_tags": ["time-poor-parent", "convenience-needs", "quality-conscious"],
+  "intent_tags": ["new-parent", "time-poor", "fast", "automatic", "one-handed"],
+  "seo": {
+    "title": "New Parent Upgrade — Coffee That Fits the Chaos of Early Parenthood | Arco Coffee",
+    "meta_description": "Less sleep, less time, but coffee that is better not harder. The Arco Nano and Automatico deliver great espresso in ninety seconds for new parents."
+  }
+}

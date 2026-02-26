@@ -1,0 +1,40 @@
+{
+  "id": "exp-core-003",
+  "slug": "craft-at-home",
+  "title": "Craft at Home",
+  "persona_tag": "home-barista",
+  "experience_archetype": "Home Barista",
+  "hero_image_alt": "A dedicated home coffee station with professional-grade equipment, a knock box, scales, and multiple bags of single-origin coffee arranged on a wooden shelf, warm pendant lighting overhead",
+  "hero_headline": "Your kitchen is the best cafe in town.",
+  "hero_subtext": "When making coffee at home becomes something closer to a practice than a habit.",
+  "editorial_intro": "There is a point where home coffee stops being a morning routine and becomes a craft. You weigh your doses. You track your extractions. You have opinions about water chemistry. This is not a phase — it is who you are now. And your equipment should reflect that.",
+  "editorial_body": "You can pinpoint when it happened, roughly. Somewhere between your third bag of specialty coffee and the afternoon you spent calibrating your refractometer, the casual interest became something more deliberate. You started keeping a journal — not because anyone told you to, but because you wanted to remember what happened when you dropped the dose by half a gram on that washed Colombian. The sweetness that appeared. The way the acidity sharpened into something precise and clean.\n\nYour friends think you are slightly obsessive. They are not wrong. But they also keep asking to come over for coffee, and when they taste what comes out of your setup, they stop making jokes. Last month your neighbour — a man who has drunk instant coffee his entire adult life — stood in your kitchen, took a sip of the espresso you handed him, and said nothing for five full seconds. Then he asked where you bought your beans.\n\nThat is the quiet reward of craft at home. You are not performing for anyone. There is no audience, no latte art competition, no Instagram account documenting your pours. There is just you, early in the morning or late on a Sunday afternoon, working through a new bag, adjusting variables, tasting the results, and occasionally producing something that makes you stop and pay attention.\n\nThe Arco Studio is the centre of this practice. It gives you the control you need without forcing you into a rigid workflow. Programmable pre-infusion lets you experiment with pressure profiles — a long, gentle ramp for light roasts, a sharper attack for darker blends. The PID holds temperature to within half a degree, which matters when you are chasing the difference between a good shot and an exceptional one. The commercial E61-style group head retains heat beautifully, and the dual boiler means you can steam milk immediately after pulling a shot without waiting for the machine to recover.\n\nBut the Studio Pro takes it further, and you have been thinking about it. Flow control. Real, manual, paddle-operated flow control that lets you manipulate pressure throughout the entire extraction. It is the closest thing to having a commercial lever machine in your kitchen, and it opens up a category of shots you simply cannot achieve with a pump-driven profile alone. The declining pressure curve of a traditional lever pull. The turbo shot. The blooming espresso. All of them become possible.\n\nThe Arco Zero grinder sits beside whatever machine you choose, and it is the piece that ties everything together. Zero-retention, single-dose design. You weigh your beans in, and exactly that amount comes out, ground to a consistency that makes distribution almost unnecessary. Sixty-four millimetre flat burrs with a bimodal particle distribution tuned for espresso. When you switch between a light Ethiopian and a dark Brazilian blend, the adjustment is two clicks. No purging. No waste.\n\nThe accessories matter too. A precision tamper that fits the basket exactly. A WDT tool for distribution. A dosing funnel that prevents mess. These are small things, but in a practice built on precision, small things compound.\n\nYou will never stop learning. That is the real attraction. Every new coffee is a puzzle. Every variable is a lever you can pull. The equipment does not make you a barista — your attention does, your patience does, your willingness to taste the difference between good and great and keep reaching for great.\n\nBut the right equipment removes the ceiling. It lets your skill be the limiting factor, not your hardware. And that is exactly where you want to be.",
+  "product_bundle": [
+    { "product_id": "arco-studio", "role": "anchor" },
+    { "product_id": "arco-studio-pro", "role": "primary" },
+    { "product_id": "arco-zero", "role": "primary" },
+    { "product_id": "arco-tamper", "role": "accessory" },
+    { "product_id": "arco-wdt-tool", "role": "accessory" },
+    { "product_id": "arco-dosing-funnel", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Home Barista setup",
+  "bundle_intro": "Professional-grade craft, built for the kitchen counter.",
+  "featured_guides": [
+    "guide-pressure-profiling-basics",
+    "guide-single-dosing-workflow",
+    "guide-water-chemistry-for-espresso"
+  ],
+  "related_blog_posts": [
+    "blog-home-barista-essentials",
+    "blog-flow-control-explained",
+    "blog-tracking-your-extractions"
+  ],
+  "quiz_result": true,
+  "persona_cookie_value": "home-barista",
+  "persona_tags": ["home-barista", "craft-focused", "precision-driven"],
+  "intent_tags": ["craft", "precision", "home-setup", "advanced", "flow-control"],
+  "seo": {
+    "title": "Craft at Home — The Serious Home Barista Setup | Arco Coffee",
+    "meta_description": "Build a professional home coffee station with the Arco Studio, Studio Pro, and Zero grinder. For the home barista who treats coffee as a craft, not a habit."
+  }
+}

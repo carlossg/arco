@@ -1,0 +1,281 @@
+{
+  "id": "maint-care-calendar",
+  "slug": "machine-care-calendar",
+  "title": "Machine Care Calendar",
+  "description": "A comprehensive maintenance schedule for every Arco machine. Daily, weekly, monthly, quarterly, and annual tasks — follow this calendar to keep your machine performing like new for years.",
+  "hero_image_alt": "A clean, well-maintained Arco espresso machine with cleaning supplies arranged beside it — brush, cloth, descaling solution, and backflush disc",
+  "data": {
+    "schedules": [
+      {
+        "machine": "arco-steam",
+        "label": "Arco Steam",
+        "tasks": {
+          "daily": [
+            { "task": "Empty and rinse the drip tray", "time_minutes": 1 },
+            { "task": "Wipe the steam tip with a damp cloth immediately after each use", "time_minutes": 1 },
+            { "task": "Run a water-only cycle to flush the brew path after the last drink of the day", "time_minutes": 2 }
+          ],
+          "weekly": [
+            { "task": "Remove and soak the portafilter and basket in hot water for 15 minutes", "time_minutes": 20 },
+            { "task": "Wipe the exterior and drip tray slot with a damp microfibre cloth", "time_minutes": 3 },
+            { "task": "Clean the water reservoir with fresh water — do not use soap", "time_minutes": 5 }
+          ],
+          "monthly": [
+            { "task": "Descale using Arco Descaling Solution (if no water filter installed and water is medium-hard or above)", "time_minutes": 30 },
+            { "task": "Inspect the silicone gasket in the portafilter holder for cracks or coffee buildup", "time_minutes": 2 }
+          ],
+          "quarterly": [
+            { "task": "Replace the water filter cartridge (if installed)", "time_minutes": 2 },
+            { "task": "Deep-clean the steam wand by soaking in a milk-cleaning solution for 20 minutes", "time_minutes": 25 }
+          ],
+          "annual": [
+            { "task": "Replace the portafilter gasket (group head seal)", "time_minutes": 10 },
+            { "task": "Inspect the power cord and plug for damage", "time_minutes": 2 }
+          ]
+        }
+      },
+      {
+        "machine": "arco-nano",
+        "label": "Arco Nano",
+        "tasks": {
+          "daily": [
+            { "task": "Purge the group head with a short burst of water before the first shot", "time_minutes": 1 },
+            { "task": "Wipe the steam wand immediately after frothing", "time_minutes": 1 },
+            { "task": "Empty the drip tray and knock box", "time_minutes": 2 },
+            { "task": "Rinse the portafilter and basket under hot running water", "time_minutes": 1 }
+          ],
+          "weekly": [
+            { "task": "Backflush with water only (insert blind basket, run 3 cycles of 10 seconds)", "time_minutes": 5 },
+            { "task": "Soak baskets and portafilter in Arco Cleaning Powder solution for 15 minutes", "time_minutes": 20 },
+            { "task": "Clean the shower screen with a group head brush", "time_minutes": 3 },
+            { "task": "Wash the water reservoir with warm water", "time_minutes": 5 }
+          ],
+          "monthly": [
+            { "task": "Backflush with Arco Cleaning Powder (1g in blind basket, 5 on/off cycles)", "time_minutes": 10 },
+            { "task": "Inspect and clean the shower screen — remove with a flat screwdriver if needed", "time_minutes": 10 }
+          ],
+          "quarterly": [
+            { "task": "Descale with Arco Descaling Solution following the machine's descaling mode", "time_minutes": 30 },
+            { "task": "Replace the water filter cartridge", "time_minutes": 2 },
+            { "task": "Lubricate the cam lever mechanism with food-safe silicone grease", "time_minutes": 5 }
+          ],
+          "annual": [
+            { "task": "Replace the group head gasket", "time_minutes": 10 },
+            { "task": "Replace the shower screen and dispersion plate", "time_minutes": 10 },
+            { "task": "Have a technician inspect the pump pressure and boiler condition", "time_minutes": 60 }
+          ]
+        }
+      },
+      {
+        "machine": "arco-automatico",
+        "label": "Arco Automatico",
+        "tasks": {
+          "daily": [
+            { "task": "Empty the grounds container when prompted", "time_minutes": 1 },
+            { "task": "Empty and rinse the drip tray", "time_minutes": 2 },
+            { "task": "Run the automatic rinse cycle (the machine does this on startup and shutdown)", "time_minutes": 0 },
+            { "task": "Rinse the milk carafe or frother attachment after each milk drink", "time_minutes": 3 }
+          ],
+          "weekly": [
+            { "task": "Remove and rinse the brew unit under warm running water — no soap", "time_minutes": 5 },
+            { "task": "Clean the milk system with the automatic milk-clean cycle", "time_minutes": 10 },
+            { "task": "Wipe the bean hopper and chute with a dry cloth", "time_minutes": 3 },
+            { "task": "Wash the water reservoir with warm water", "time_minutes": 5 }
+          ],
+          "monthly": [
+            { "task": "Run a cleaning tablet through the brew unit (use the machine's cleaning programme)", "time_minutes": 15 },
+            { "task": "Deep-clean the milk system — disassemble and soak all parts", "time_minutes": 20 },
+            { "task": "Lubricate the brew unit rails with food-safe grease (apply a thin line to each rail)", "time_minutes": 5 }
+          ],
+          "quarterly": [
+            { "task": "Descale using the machine's automatic descaling programme with Arco Descaling Solution", "time_minutes": 40 },
+            { "task": "Replace the water filter cartridge", "time_minutes": 2 }
+          ],
+          "annual": [
+            { "task": "Replace the brew unit seals (o-rings)", "time_minutes": 15 },
+            { "task": "Have the grinder burrs inspected — replace if visibly worn or after 10,000 cycles", "time_minutes": 30 },
+            { "task": "Full internal inspection by Arco service or authorised technician", "time_minutes": 90 }
+          ]
+        }
+      },
+      {
+        "machine": "arco-classica",
+        "label": "Arco Classica",
+        "tasks": {
+          "daily": [
+            { "task": "Purge the group head before the first shot and between shots", "time_minutes": 1 },
+            { "task": "Wipe the steam wand immediately after every use — purge briefly to clear milk residue", "time_minutes": 1 },
+            { "task": "Rinse the portafilter and basket", "time_minutes": 1 },
+            { "task": "Empty the drip tray", "time_minutes": 1 }
+          ],
+          "weekly": [
+            { "task": "Backflush with Arco Cleaning Powder", "time_minutes": 10 },
+            { "task": "Soak baskets in cleaning solution", "time_minutes": 20 },
+            { "task": "Scrub the group head and shower screen with a nylon brush", "time_minutes": 5 },
+            { "task": "Clean the steam wand with a milk-dissolving solution", "time_minutes": 10 }
+          ],
+          "monthly": [
+            { "task": "Remove and clean the shower screen and dispersion plate", "time_minutes": 15 },
+            { "task": "Inspect the group gasket for wear (coffee leaking around the portafilter is a sign)", "time_minutes": 5 }
+          ],
+          "quarterly": [
+            { "task": "Descale with Arco Descaling Solution", "time_minutes": 30 },
+            { "task": "Replace the water filter cartridge", "time_minutes": 2 },
+            { "task": "Check and clean the OPV (over-pressure valve) screen", "time_minutes": 10 }
+          ],
+          "annual": [
+            { "task": "Replace the group head gasket and shower screen", "time_minutes": 15 },
+            { "task": "Inspect the solenoid valve for debris", "time_minutes": 20 },
+            { "task": "Professional service: pump pressure test, boiler inspection, safety valve check", "time_minutes": 60 }
+          ]
+        }
+      },
+      {
+        "machine": "arco-barista-pro",
+        "label": "Arco Barista Pro",
+        "tasks": {
+          "daily": [
+            { "task": "Purge the group head before and between shots", "time_minutes": 1 },
+            { "task": "Wipe and purge the steam wand after every use", "time_minutes": 1 },
+            { "task": "Rinse portafilter and basket", "time_minutes": 1 },
+            { "task": "Empty drip tray and knock box", "time_minutes": 2 }
+          ],
+          "weekly": [
+            { "task": "Backflush with Arco Cleaning Powder", "time_minutes": 10 },
+            { "task": "Soak baskets and portafilter springs in cleaning solution", "time_minutes": 20 },
+            { "task": "Clean shower screen with group brush", "time_minutes": 5 },
+            { "task": "Soak the steam wand tip in milk-cleaning solution", "time_minutes": 10 }
+          ],
+          "monthly": [
+            { "task": "Remove, clean, and inspect the shower screen and dispersion plate", "time_minutes": 15 },
+            { "task": "Clean the pressure gauge lens with a soft cloth", "time_minutes": 2 },
+            { "task": "Run a full water-only backflush cycle (10 cycles) to clear residue from the solenoid", "time_minutes": 10 }
+          ],
+          "quarterly": [
+            { "task": "Descale with Arco Descaling Solution", "time_minutes": 30 },
+            { "task": "Replace the water filter cartridge", "time_minutes": 2 },
+            { "task": "Inspect the pre-infusion chamber for scale deposits", "time_minutes": 10 }
+          ],
+          "annual": [
+            { "task": "Replace group gasket, shower screen, and dispersion plate", "time_minutes": 15 },
+            { "task": "Replace the solenoid valve o-rings", "time_minutes": 20 },
+            { "task": "Professional service: full pressure and temperature calibration", "time_minutes": 90 }
+          ]
+        }
+      },
+      {
+        "machine": "arco-lever",
+        "label": "Arco Lever",
+        "tasks": {
+          "daily": [
+            { "task": "Flush the group by lifting and lowering the lever 2-3 times with water only before the first shot", "time_minutes": 2 },
+            { "task": "Wipe the steam wand after every use", "time_minutes": 1 },
+            { "task": "Rinse the portafilter", "time_minutes": 1 },
+            { "task": "Empty the drip tray", "time_minutes": 1 }
+          ],
+          "weekly": [
+            { "task": "Remove and soak the portafilter and basket in cleaning solution", "time_minutes": 20 },
+            { "task": "Clean the group head cylinder bore with a damp cloth (lever in up position)", "time_minutes": 5 },
+            { "task": "Wipe the chrome lever arm and group body with a soft cloth", "time_minutes": 3 }
+          ],
+          "monthly": [
+            { "task": "Remove the shower screen and piston assembly — clean and inspect the piston seal", "time_minutes": 20 },
+            { "task": "Apply food-safe silicone grease to the piston o-ring and cylinder walls", "time_minutes": 10 }
+          ],
+          "quarterly": [
+            { "task": "Descale with Arco Descaling Solution — follow the lever-specific procedure (gravity feed, no pump)", "time_minutes": 40 },
+            { "task": "Replace the water filter cartridge", "time_minutes": 2 },
+            { "task": "Inspect the lever spring tension — the lever should return to the up position smoothly", "time_minutes": 5 }
+          ],
+          "annual": [
+            { "task": "Replace the piston seal and group gasket", "time_minutes": 20 },
+            { "task": "Replace the shower screen", "time_minutes": 10 },
+            { "task": "Inspect the boiler pressure stat and safety valve", "time_minutes": 15 },
+            { "task": "Professional service: full piston rebuild if extraction pressure feels inconsistent", "time_minutes": 90 }
+          ]
+        }
+      },
+      {
+        "machine": "arco-maestro",
+        "label": "Arco Maestro",
+        "tasks": {
+          "daily": [
+            { "task": "Flush the E61 group head for 5 seconds before the first shot (thermosyphon purge)", "time_minutes": 1 },
+            { "task": "Wipe and purge the steam wand", "time_minutes": 1 },
+            { "task": "Rinse the portafilter and basket", "time_minutes": 1 },
+            { "task": "Empty the drip tray", "time_minutes": 1 }
+          ],
+          "weekly": [
+            { "task": "Backflush with Arco Cleaning Powder using the blind basket", "time_minutes": 10 },
+            { "task": "Soak baskets and accessories in cleaning solution", "time_minutes": 20 },
+            { "task": "Clean the E61 group head mushroom and screen with a group brush", "time_minutes": 5 }
+          ],
+          "monthly": [
+            { "task": "Remove, disassemble, and clean the E61 group head (mushroom, spring, upper screen)", "time_minutes": 25 },
+            { "task": "Lubricate the E61 cam mechanism with food-safe grease", "time_minutes": 10 },
+            { "task": "Inspect and clean the thermosyphon tubes (external check for blockage signs)", "time_minutes": 5 }
+          ],
+          "quarterly": [
+            { "task": "Descale with Arco Descaling Solution — E61 machines require running solution through the group AND the steam circuit", "time_minutes": 45 },
+            { "task": "Replace the water filter cartridge", "time_minutes": 2 },
+            { "task": "Check the expansion valve discharge — a steady drip during brewing is normal, a stream indicates a problem", "time_minutes": 5 }
+          ],
+          "annual": [
+            { "task": "Replace the group gasket and shower screen", "time_minutes": 15 },
+            { "task": "Replace the E61 group springs and cam lever seals", "time_minutes": 30 },
+            { "task": "Professional service: heat-exchange tube inspection, pump rebuild kit, safety valve test", "time_minutes": 120 }
+          ]
+        }
+      },
+      {
+        "machine": "arco-dual-boiler",
+        "label": "Arco Dual Boiler",
+        "tasks": {
+          "daily": [
+            { "task": "Flush the group head for 3-5 seconds before the first shot", "time_minutes": 1 },
+            { "task": "Wipe and purge the steam wand", "time_minutes": 1 },
+            { "task": "Rinse portafilter and basket", "time_minutes": 1 },
+            { "task": "Empty the drip tray", "time_minutes": 1 }
+          ],
+          "weekly": [
+            { "task": "Backflush with Arco Cleaning Powder", "time_minutes": 10 },
+            { "task": "Soak baskets in cleaning solution", "time_minutes": 20 },
+            { "task": "Scrub the group head and shower screen", "time_minutes": 5 },
+            { "task": "Clean the steam wand with milk-dissolving solution", "time_minutes": 10 }
+          ],
+          "monthly": [
+            { "task": "Remove and deep-clean the shower screen and dispersion block", "time_minutes": 15 },
+            { "task": "Flush the steam boiler by opening the hot water tap for 30 seconds (removes stale water and mineral deposits)", "time_minutes": 3 },
+            { "task": "Clean the PID temperature probes (external wipe, check display accuracy)", "time_minutes": 5 }
+          ],
+          "quarterly": [
+            { "task": "Descale both boilers independently using the machine's descale mode and Arco Descaling Solution", "time_minutes": 50 },
+            { "task": "Replace the water filter cartridge (or in-line filter if direct-plumbed)", "time_minutes": 5 },
+            { "task": "Inspect the plumbing connections for leaks (if direct-plumbed)", "time_minutes": 10 }
+          ],
+          "annual": [
+            { "task": "Replace the group gasket, shower screen, and dispersion block", "time_minutes": 20 },
+            { "task": "Replace the anti-vacuum valve on the steam boiler", "time_minutes": 15 },
+            { "task": "Professional service: full boiler inspection, element check, pump rebuild, pressure profiling calibration", "time_minutes": 120 }
+          ]
+        }
+      }
+    ]
+  },
+  "persona_tags": ["new-owner", "maintenance-conscious", "home-barista"],
+  "intent_tags": ["maintenance", "cleaning", "schedule", "machine-care"],
+  "related_products": [
+    "arco-cleaning-powder",
+    "arco-descaling-solution",
+    "arco-group-head-brush",
+    "arco-backflush-disc"
+  ],
+  "cta": {
+    "label": "Shop Cleaning & Maintenance Supplies",
+    "url": "/products/accessories/cleaning"
+  },
+  "seo": {
+    "title": "Machine Care Calendar | Maintenance Schedule for Every Arco Machine | Arco",
+    "meta_description": "Follow our complete maintenance calendar to keep your Arco espresso machine in perfect condition. Daily, weekly, monthly, quarterly, and annual tasks for all 8 models."
+  }
+}

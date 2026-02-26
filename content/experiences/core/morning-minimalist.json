@@ -1,0 +1,38 @@
+{
+  "id": "exp-core-001",
+  "slug": "morning-minimalist",
+  "title": "The Morning Minimalist",
+  "persona_tag": "quality-minimalist",
+  "experience_archetype": "Morning Minimalist",
+  "hero_image_alt": "A single espresso cup on a clean white marble countertop, morning light streaming through a window, steam rising gently from a freshly pulled shot, an Arco Primo machine in soft focus behind it",
+  "hero_headline": "One cup. No compromise.",
+  "hero_subtext": "For the person who believes that fewer things, done well, is the whole point.",
+  "editorial_intro": "You don't need a shelf of gadgets or a complicated routine. You need one excellent cup, made quietly and precisely, before the rest of the day begins. The morning minimalist understands that quality isn't about accumulation — it's about distillation. Your coffee ritual is the proof.",
+  "editorial_body": "You wake before the alarm most mornings. Not because you have to, but because something in you craves the stillness of a house not yet in motion. The light is thin and grey, or maybe golden depending on the season, and for a few minutes the world belongs entirely to you.\n\nYou walk to the kitchen and the routine begins. It is barely a routine at all — three, maybe four deliberate movements. Beans into the grinder. The brief, satisfying whir of the Arco Macinino reducing them to a precise, even grind. Grounds into the portafilter. A firm, level tamp. The portafilter locks into the Arco Primo with a quarter turn, and you press a single button.\n\nTwenty-five seconds. That is all it takes. The espresso falls in a slow, steady stream, the colour shifting from dark mahogany to a warm amber as the shot completes. You do not time it with a stopwatch anymore. You did once, weeks ago, when you were dialling in a new bag. Now you know the rhythm by feel. The sound changes. The colour tells you everything.\n\nYou carry the cup — just the one, always the same one, a simple white porcelain demitasse you found years ago — to wherever you sit in the mornings. The kitchen table. The windowsill. The back step if the weather permits. You do not check your phone. Not yet. There is a boundary here, invisible but real, between the quiet and the noise. Coffee is the threshold.\n\nThe first sip is the one that matters. Today the shot is bright with a thread of dark chocolate running through the finish. Yesterday it was rounder, sweeter, with stone fruit on the nose. The difference comes down to a gram here, a second there, and you appreciate the subtlety without overanalysing it. You are not trying to be a barista. You are simply paying attention.\n\nThis is what people misunderstand about minimalism. They think it means deprivation, doing without. But standing here with this single cup of coffee, you are not doing without anything. You have removed the clutter — the pods, the capsules, the machines with eighteen buttons and a steam wand you never learned to use — and what remains is the thing itself. Coffee. Good coffee. Made well.\n\nThe Arco Primo was the right choice for you because it does one thing and does it properly. It pulls a consistent shot every time, heats up in under a minute, and takes up less counter space than a toaster. The Nano would have worked too — even smaller, even simpler — but you liked the Primo's portafilter size and the way the group head retains temperature between shots on the rare occasion you make two.\n\nThe Macinino grinds precisely enough that you stopped thinking about grind size weeks after buying it. You found your setting, marked it, and now it is simply part of the process. No fuss. No drama.\n\nBy the time you finish the cup, the house is starting to wake. Someone is moving upstairs. A door opens. The day is arriving, and you are ready for it — not because caffeine has jolted you into alertness, but because you gave yourself five minutes of deliberate, unhurried attention to something that matters to you.\n\nThat is the whole philosophy, really. Not less for the sake of less. Less so that what remains can be exactly right.",
+  "product_bundle": [
+    { "product_id": "arco-primo", "role": "anchor" },
+    { "product_id": "arco-nano", "role": "primary" },
+    { "product_id": "arco-macinino", "role": "accessory" },
+    { "product_id": "arco-tamper", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Morning Minimalist setup",
+  "bundle_intro": "Everything you need for one perfect cup, nothing you don't.",
+  "featured_guides": [
+    "guide-dialling-in-espresso",
+    "guide-essential-grind-settings",
+    "guide-cleaning-your-machine"
+  ],
+  "related_blog_posts": [
+    "blog-why-less-is-more-in-coffee",
+    "blog-single-origin-espresso-guide",
+    "blog-morning-routines-of-coffee-lovers"
+  ],
+  "quiz_result": true,
+  "persona_cookie_value": "quality-minimalist",
+  "persona_tags": ["quality-minimalist", "morning-ritual", "espresso-purist"],
+  "intent_tags": ["simplify", "quality-over-quantity", "morning-coffee", "entry-level"],
+  "seo": {
+    "title": "The Morning Minimalist — One Cup, No Compromise | Arco Coffee",
+    "meta_description": "Discover the morning minimalist coffee setup. One precise espresso, made simply and well, with the Arco Primo and Macinino grinder. Quality without clutter."
+  }
+}

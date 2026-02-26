@@ -1,0 +1,83 @@
+<body>
+  <header></header>
+  <main>
+    <div>
+      <div class="hero">
+        <div>
+          <div>
+            <picture>
+              <source type="image/webp" srcset="https://content.da.live/paolomoz/arco/media/pre-infusion-what-it-is-and-why-arco-uses-it.jpeg" media="(min-width: 600px)">
+              <img src="https://content.da.live/paolomoz/arco/media/pre-infusion-what-it-is-and-why-arco-uses-it.jpeg" alt="Side-angle photograph of water gently saturating a freshly tamped espresso puck through a glass portafilter insert, the slow bloom of dark coffee visible through the glass, warm tungsten lighting from above, stainless steel group head partially visible at top of frame" loading="eager" width="1920" height="1080">
+            </picture>
+            <h1>Pre-Infusion: What It Is and Why Arco Uses It</h1>
+            <p></p>
+            <p><strong><a href="/products/arco-studio">Explore the Arco Studio</a></strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p><em>Sophie Chen, Product Engineer · 10 min read</em></p>
+    </div>
+    <div>
+      <p>Before the full force of nine bars of pressure hits your coffee puck, something quieter and arguably more important happens: pre-infusion. This brief, low-pressure wetting phase saturates the grounds evenly, seals micro-channels, and sets the stage for a more uniform extraction. Here is what pre-infusion actually does, why it matters, and how Arco machines implement it.</p>
+    </div>
+    <div>
+      <h2>What Happens During Pre-Infusion</h2>
+      <p>Pre-infusion is the initial phase of an espresso shot where water contacts the coffee puck at low pressure — typically between one and four bars — before the pump ramps up to full extraction pressure. During this phase, water slowly saturates the dry coffee bed, filling the interstitial spaces between particles and wetting each grain. This wetting is critical because dry coffee is hydrophobic at first contact; the oils and gases trapped inside roasted coffee repel water briefly before surrendering. If you skip this step and blast the puck with nine bars of pressure immediately, the water follows the path of least resistance: it punches through any weak points in the bed, creating channels where flow is fast and extraction is excessive, while leaving dense pockets barely touched. The result is uneven extraction — bitter in some spots, sour in others, and muddled overall. Pre-infusion gives water time to distribute itself evenly across the entire surface area of the puck. As the grounds absorb moisture, they swell slightly, which compresses the bed uniformly and closes any small gaps left by imperfect distribution or tamping. By the time full pressure arrives, the puck is a more homogeneous, self-sealing structure. The reward is a more uniform flow, a more balanced extraction, and ultimately a sweeter, cleaner cup.</p>
+    </div>
+    <div>
+      <h2>Why Most Machines Get It Wrong</h2>
+      <p>Many consumer espresso machines claim to offer pre-infusion, but the implementation varies enormously and not all approaches are equal. The simplest version is a timed delay where the pump pauses for a few seconds before engaging. This is better than nothing, but during the pause no water is actually flowing — the puck sits dry, then gets hit with pressure. It is pre-infusion in name only. Slightly better is a system where the pump runs at reduced voltage, delivering water at lower pressure for a set time. This at least wets the puck, but the pressure curve is often poorly controlled and the duration is fixed regardless of the coffee or dose. The gold standard is what Arco implements in the Studio and Doppio: true progressive pre-infusion where water enters the group at line pressure — roughly two bars — through a dedicated pre-infusion valve. The machine monitors back-pressure from the puck in real time. Once the puck is saturated and pressure stabilizes, the system smoothly ramps to full extraction pressure. This approach adapts to the actual state of the coffee rather than relying on a timer. A tightly packed dose of a light roast that needs longer to saturate gets the time it needs. A coarser, darker roast that wets quickly transitions faster. The machine responds to the coffee rather than imposing a fixed profile.</p>
+    </div>
+    <div>
+      <h2>The Impact on Flavor</h2>
+      <p>The flavor difference between a shot with proper pre-infusion and one without is surprisingly large, especially with lighter roasts that are more sensitive to channeling. In our internal testing at Arco, we pulled hundreds of paired shots — same beans, same grind, same dose, same yield — with and without pre-infusion on otherwise identical hardware. The pre-infused shots consistently scored higher on sweetness and clarity in blind cupping sessions. Judges described them as rounder, more articulate, and more complex. The non-pre-infused shots were not bad, but they tended toward a slightly harsher finish and less distinct flavor separation. The explanation maps back to extraction uniformity. When every particle in the puck extracts at a similar rate, the compounds in the cup are in proportion — acids, sugars, and bitter compounds arrive in balance. Without pre-infusion, the channeled zones produce harsh over-extracted flavors that mask the delicate sugars and fruit notes from the rest of the puck. This is especially noticeable with single-origin coffees where you are trying to taste terroir and processing method. Pre-infusion does not change what flavors are in the bean; it simply reveals more of them by ensuring the extraction is even enough to let them through without interference from localized over-extraction.</p>
+    </div>
+    <div>
+      <h2>How Arco Implements Pre-Infusion Across Its Range</h2>
+      <p>Every Arco machine includes some form of pre-infusion, but the sophistication scales with the lineup. The Arco Primo uses a passive pre-infusion system: a small restrictor in the water path limits initial flow to roughly two bars for the first five seconds, giving the puck time to wet before the pump reaches full pressure. It is simple, reliable, and noticeably better than no pre-infusion at all. The Arco Doppio steps up to active pre-infusion with a solenoid-controlled valve. The machine delivers water at line pressure for a configurable duration — default is six seconds — then ramps smoothly to nine bars over two seconds. You can adjust the pre-infusion time in one-second increments through the interface, which is useful for dialing in different roast levels. The Arco Studio and Studio Pro feature adaptive pre-infusion. A pressure transducer in the group monitors real-time back-pressure from the puck. The system holds at low pressure until it detects that the puck is saturated — signaled by a stabilization in back-pressure — then transitions to full extraction pressure along a programmable ramp curve. This means the machine adapts to your coffee automatically, whether you are pulling a 15-gram dose of a dense Kenyan light roast or a 20-gram dose of a chocolatey Brazilian medium. It is the closest you can get to manual lever feel with the consistency of electronic control.</p>
+    </div>
+    <div>
+      <h2>Getting the Most from Pre-Infusion at Home</h2>
+      <p>Even with excellent hardware, you can maximize the benefit of pre-infusion through good puck preparation. Distribution matters more than tamping force. Use a distribution tool or the Weiss Distribution Technique — stirring the grounds in the basket with a fine needle — to break up clumps before tamping. Clumps create dense spots that resist wetting during pre-infusion, partially defeating the purpose. Tamp level and consistent, but do not obsess over pressure; anything between 15 and 30 pounds produces nearly identical results once pre-infusion evens out the bed. If your machine allows you to adjust pre-infusion duration, experiment. Start with the default and pull five shots. Then extend it by two seconds and pull five more. Taste them side by side. Lighter roasts and higher doses generally benefit from longer pre-infusion because there is more resistance to initial wetting. Darker roasts and lower doses saturate quickly and can tolerate shorter pre-infusion. Finally, watch the bottomless portafilter. During pre-infusion, you should see the first drops appear evenly across the basket bottom, like a slow rain. If drops appear from one side first, your distribution is uneven and pre-infusion is compensating rather than enhancing. Fix the distribution and let pre-infusion do its real job: making an already good puck great.</p>
+    </div>
+    <div>
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Pre-infusion is a low-pressure wetting phase that saturates the puck evenly before full extraction pressure, reducing channeling.</li>
+        <li>Proper pre-infusion noticeably improves sweetness, clarity, and flavor separation — especially with lighter roasts.</li>
+        <li>Arco machines implement pre-infusion at every price point, from passive restriction in the Primo to adaptive pressure sensing in the Studio.</li>
+        <li>Good puck preparation amplifies the benefits of pre-infusion; focus on even distribution and clump-free dosing.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Related Products</h2>
+      <div class="product-card">
+        <div>
+          <div>
+            <picture>
+              <img src="https://content.da.live/paolomoz/arco/media/product-studio.jpeg" alt="Arco Studio" loading="lazy" width="600" height="450">
+            </picture>
+          </div>
+          <div>
+            <h3>Arco Studio</h3>
+            <p><a href="/products/pdp-canonical/arco-studio">View Details</a></p>
+          </div>
+        </div>
+        <div>
+          <div>
+            <picture>
+              <img src="https://content.da.live/paolomoz/arco/media/product-doppio.jpeg" alt="Arco Doppio" loading="lazy" width="600" height="450">
+            </picture>
+          </div>
+          <div>
+            <h3>Arco Doppio</h3>
+            <p><a href="/products/pdp-canonical/arco-doppio">View Details</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer></footer>
+</body>

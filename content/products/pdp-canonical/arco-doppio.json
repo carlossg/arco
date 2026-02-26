@@ -1,0 +1,89 @@
+{
+  "id": "arco-doppio",
+  "slug": "arco-doppio",
+  "name": "Arco Doppio",
+  "tagline": "When you're ready for more.",
+  "price_eur": 549,
+  "price_display": "€549",
+  "category": "espresso-machine",
+  "hero_image_alt": "Arco Doppio dual-boiler espresso machine in brushed steel finish on a dark walnut countertop, steam rising from a freshly pulled espresso, PID display glowing softly, a small latte art pitcher beside it, diffused natural light from a nearby window",
+  "headline": "Two boilers. Zero compromises.",
+  "subheadline": "A dual-boiler machine with PID temperature control that lets you brew and steam simultaneously — the natural next step for the serious home barista.",
+  "description_short": "A dual-boiler espresso machine with PID control that lets you brew and steam at the same time.",
+  "description_long": "The Arco Doppio removes the biggest limitation of single-boiler machines: waiting. With independent boilers for brewing and steaming, you can pull a shot and texture milk simultaneously — a workflow that changes how your mornings feel. PID temperature control on both boilers keeps extraction stable within ±1°C, so your espresso tastes the same on the hundredth shot as the first. The 58mm commercial portafilter, quick-set steam wand, and clean digital interface make the Doppio a machine you'll use for years without outgrowing.",
+  "key_specs": {
+    "dimensions": "29 × 22 × 35 cm",
+    "weight": "9.8 kg",
+    "boiler_type": "Dual boiler (brass brew, stainless steam)",
+    "brew_boiler_capacity": "300 ml",
+    "steam_boiler_capacity": "500 ml",
+    "warm_up_time": "3 minutes",
+    "pressure": "Rotary vane pump, adjustable OPV (6–10 bar)",
+    "water_tank": "2.0 L removable",
+    "portafilter": "58 mm spouted and bottomless included",
+    "pid_control": "Dual PID with ±1°C stability",
+    "power": "1600 W",
+    "voltage": "220–240 V",
+    "drip_tray_capacity": "450 ml"
+  },
+  "whats_in_box": [
+    "Arco Doppio espresso machine",
+    "58 mm spouted portafilter",
+    "58 mm bottomless portafilter",
+    "Single, double, and triple baskets",
+    "Precision tamper (58 mm convex)",
+    "Dosing funnel",
+    "Stainless steel milk pitcher (350 ml)",
+    "Cleaning brush and blind basket",
+    "Descaling sachet",
+    "Quick-start guide and brew journal"
+  ],
+  "variants": [
+    { "name": "Brushed Steel", "hex": "#B0B5B3" },
+    { "name": "Matte Black", "hex": "#2C2C2C" }
+  ],
+  "use_case_headline": "Perfect for the home barista who's ready to level up.",
+  "use_case_body": "If you've been pulling shots on a single-boiler and want real temperature stability and simultaneous steaming, the Doppio is the logical upgrade. It closes the gap between home machines and commercial equipment without demanding a commercial budget.",
+  "pairing_products": [
+    { "product_id": "arco-preciso", "rationale": "Stepless grind adjustment pairs perfectly with the Doppio's PID precision for dialling in any bean." },
+    { "product_id": "preparation-accessories", "rationale": "A WDT tool and precision scale will help you get the most from the dual-boiler workflow." }
+  ],
+  "experience_tag": "upgrader",
+  "persona_tags": ["upgrader", "craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "related_blog_posts": [
+    "single-boiler-to-dual-boiler",
+    "pid-temperature-explained",
+    "milk-texturing-fundamentals"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Doppio",
+    "description": "A dual-boiler espresso machine with PID control that lets you brew and steam at the same time.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-DOPPIO",
+    "image": "/content/products/images/arco-doppio-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 549,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-doppio"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.7,
+      "reviewCount": 234
+    }
+  },
+  "seo": {
+    "title": "Arco Doppio — Dual-Boiler Espresso Machine with PID | Arco",
+    "meta_description": "The Arco Doppio features dual boilers, PID temperature control, and a 58 mm portafilter for simultaneous brewing and steaming. The upgrade you've been waiting for. €549.",
+    "og_image_alt": "Arco Doppio dual-boiler espresso machine in brushed steel with PID display",
+    "canonical_url": "/products/arco-doppio"
+  }
+}

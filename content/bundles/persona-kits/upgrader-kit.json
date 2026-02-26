@@ -1,0 +1,50 @@
+{
+  "id": "bundle-pk-002",
+  "slug": "upgrader-kit",
+  "title": "The Upgrader Kit",
+  "persona_tag": "upgrader",
+  "headline": "You've outgrown your setup. This is what comes next.",
+  "editorial_intro": "The Upgrader Kit is built for the home barista who has been pulling shots for a while and knows — instinctively, frustratingly — that their equipment is now the ceiling. This bundle removes that ceiling.",
+  "products": [
+    {
+      "product_id": "arco-doppio",
+      "role": "anchor",
+      "include_rationale": "Dual boilers and PID temperature control mean you can brew and steam simultaneously, with extraction stability that reveals nuances your single-boiler machine was hiding."
+    },
+    {
+      "product_id": "arco-preciso",
+      "role": "primary",
+      "include_rationale": "The Preciso's stepless flat burr design and near-zero retention let you micro-adjust grind size for each new bag — the single biggest upgrade most home baristas can make."
+    },
+    {
+      "product_id": "arco-distribution-tool",
+      "role": "accessory",
+      "include_rationale": "An adjustable distribution tool ensures an even coffee bed before tamping, eliminating channelling that wastes even the best grind."
+    },
+    {
+      "product_id": "arco-precision-scale",
+      "role": "accessory",
+      "include_rationale": "A 0.1g precision scale with built-in timer takes the guesswork out of dose and yield — the two variables that define a great shot."
+    }
+  ],
+  "total_price_eur": 900,
+  "price_display": "€900",
+  "savings_vs_individual_eur": 48,
+  "what_you_get_list": [
+    "Arco Doppio dual-boiler espresso machine with PID",
+    "Arco Preciso stepless flat burr grinder",
+    "Adjustable distribution tool (58mm)",
+    "0.1g precision scale with integrated shot timer",
+    "Free shipping and consolidated packaging"
+  ],
+  "editorial_body": "There is a moment in every home barista's journey that feels like a wall. Your technique has improved, you are buying better beans, you understand the basics of dose and yield — and yet the shots are inconsistent. Some mornings the espresso sings. Other mornings it is thin, or bitter, or just flat. The frustrating truth is that you have probably reached the limit of your equipment, not your skill. The Upgrader Kit addresses both sides of the extraction equation simultaneously. The Doppio's dual boilers hold brew temperature within one degree Celsius, so the variable that caused yesterday's sour shot and today's bitter one simply disappears. The Preciso's stepless adjustment lets you make grind changes so small they would be impossible on a stepped grinder — changes that translate directly into flavour clarity in the cup. The distribution tool and precision scale are not luxuries at this level; they are the tools that let you repeat a good shot reliably rather than stumbling into one occasionally. This is the setup that turns intuition into understanding.",
+  "related_experience": "the-upgrade-path",
+  "hero_image_alt": "The Upgrader Kit displayed on a dark walnut countertop: Arco Doppio espresso machine with PID display glowing, Preciso grinder with stepless adjustment collar visible, distribution tool and precision scale arranged neatly alongside",
+  "persona_tags": ["upgrader", "craft-barista"],
+  "intent_tags": ["decide"],
+  "seo": {
+    "title": "Upgrader Kit — Doppio + Preciso Espresso Bundle | Arco",
+    "meta_description": "The Upgrader Kit pairs the Arco Doppio dual-boiler with the Preciso stepless grinder, distribution tool, and precision scale. Save €48 at €900.",
+    "canonical_url": "/bundles/persona-kits/upgrader-kit"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "exp-hs-001",
+  "slug": "small-kitchen-setup",
+  "title": "Small Kitchen Setup",
+  "persona_tag": "space-conscious",
+  "experience_archetype": "Small Kitchen",
+  "hero_image_alt": "A narrow kitchen counter under 40 centimetres deep with an Arco Nano and Macinino grinder neatly arranged beside a kettle, mugs hung on hooks above to save space, warm overhead lighting in a compact galley kitchen",
+  "hero_headline": "Under 40 centimetres. Every millimetre earns its place.",
+  "hero_subtext": "Great coffee in small spaces is an engineering problem. Here is the solution.",
+  "editorial_intro": "Your kitchen was not designed for a coffee setup. It was barely designed for cooking. The counter is shallow, the worktop is short, and every appliance competes for the same thirty-eight centimetres of depth. But you refuse to accept that limited space means limited coffee. The constraint just means you have to be smarter about what you choose.",
+  "editorial_body": "You measured the counter three times before buying anything. Not because you are naturally cautious, but because the first machine you ordered — a perfectly good mid-range espresso machine that looked compact in the product photos — arrived and did not fit. It overhung the counter by four centimetres, the drip tray pressed against the backsplash, and the water tank could not be removed without pulling the entire machine forward. You returned it the same week.\n\nThe second attempt was the Arco Nano, and the moment you placed it on the counter, you understood why it exists. Twenty-three centimetres wide, twenty-eight centimetres deep, thirty centimetres tall. It sits on your counter with space to spare on either side. The water tank slides out from the back without requiring any clearance behind the machine. The drip tray pulls forward. Everything is designed for a kitchen that does not have the luxury of excess space.\n\nThe Macinino grinder stands beside it and together they occupy less surface area than a standard microwave. You keep a small container of beans between them, and the whole setup looks deliberate rather than cramped. It looks, in fact, like a tiny cafe — compact, purposeful, and complete.\n\nLiving in a small kitchen teaches you to think vertically. Your mugs hang on hooks screwed into the underside of the upper cabinet. Your tamper sits in a wall-mounted holder. The knock box is the smallest model Arco makes, fitting neatly between the machine and the edge of the counter. Nothing sits on the worktop that does not have a daily function. This is not minimalism by choice — it is minimalism by necessity, and it has made you surprisingly good at spatial planning.\n\nThe Nano's simplicity is an advantage here. A larger machine with a steam wand and a separate boiler would require clearance on the right side, space for a milk jug, room to manoeuvre the wand. You do not have that space, and honestly, you do not miss it. You drink espresso straight or with a splash of cold milk. The Nano pulls a beautiful double shot — consistent, full-bodied, with excellent crema — and that is all you ask of it.\n\nThe Macinino grinds directly into the portafilter, which eliminates the need for a dosing cup or funnel. Another few centimetres saved. You tamp on a small silicone mat that doubles as the surface protector for the portafilter rest. When you are finished, the mat stores vertically between the machine and the wall.\n\nFriends visit and express surprise that you make your own espresso. They expected a capsule machine at most, given the kitchen. When they taste the result, the surprise shifts to admiration. You have pulled better shots from this compact setup than many of them get from machines three times the size. Because the truth is that shot quality has nothing to do with machine size. It comes from temperature stability, pressure consistency, and grind quality. The Nano delivers on all three, and it does it from a footprint smaller than a sheet of A4 paper.\n\nThe only compromise is volume. If you have more than two guests who want coffee, you are pulling shots in sequence, and the kitchen gets crowded. But for daily use — one person, two shots maximum — the setup is perfect. It does exactly what it needs to do in exactly the space you have.\n\nYou have stopped apologising for the size of your kitchen. It makes good coffee. That is enough.\n\nSometimes the best equipment is not the biggest or the most feature-rich. It is the equipment that fits your life as it actually is, not as you wish it were. The Nano fits. The Macinino fits. And every morning, in your narrow, imperfect, beautifully functional kitchen, the espresso is excellent.",
+  "product_bundle": [
+    { "product_id": "arco-nano", "role": "anchor" },
+    { "product_id": "arco-macinino", "role": "primary" }
+  ],
+  "bundle_headline": "Your Small Kitchen setup",
+  "bundle_intro": "Professional espresso in under forty centimetres of counter space.",
+  "featured_guides": [
+    "guide-nano-dimensions-and-placement",
+    "guide-small-kitchen-organisation",
+    "guide-compact-accessories"
+  ],
+  "related_blog_posts": [
+    "blog-small-space-coffee-solutions",
+    "blog-nano-owners-share-their-setups",
+    "blog-measuring-your-counter-guide"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "space-conscious",
+  "persona_tags": ["space-conscious", "compact-setup", "practical"],
+  "intent_tags": ["small-kitchen", "compact", "space-saving", "apartment", "nano"],
+  "seo": {
+    "title": "Small Kitchen Setup — Espresso in Under 40cm of Counter Space | Arco Coffee",
+    "meta_description": "Great espresso in the smallest kitchen. The Arco Nano and Macinino grinder fit in under 40cm of counter depth. Compact, capable, and no compromises on quality."
+  }
+}

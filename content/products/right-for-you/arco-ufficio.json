@@ -1,0 +1,56 @@
+{
+  "id": "right-for-you-arco-ufficio",
+  "slug": "arco-ufficio",
+  "product_id": "arco-ufficio",
+  "headline": "Is the Arco Ufficio right for you?",
+  "intro": "The Ufficio is built for shared spaces where multiple people need good espresso every day without anyone becoming the designated barista. It prioritises reliability and volume over fine control. That is a deliberate choice, and it is not the right choice for everyone.",
+  "hero_image_alt": "Arco Ufficio espresso machine in brushed steel in a modern office kitchen, a row of clean white cups on a wooden tray beside it, a small sign reading 'Help yourself', bright overhead office lighting, clean and professional environment",
+  "perfect_for": [
+    "You manage a team of 8 to 25 people and your current office coffee situation \u2014 whether capsules, a vending machine, or a broken drip brewer \u2014 is a running joke.",
+    "You need a machine that handles 30 or more cups per day without needing a maintenance call every other week.",
+    "You want a heat-exchange system that lets anyone brew and steam simultaneously without understanding boiler physics.",
+    "You need to justify the purchase to finance or management and want clear cost-per-cup numbers versus your current capsule spend."
+  ],
+  "not_ideal_for": [
+    "You are a home barista looking for a personal machine \u2014 the Ufficio's heat-exchange boiler and fixed pressure are designed for throughput, not the micro-adjustments that make home espresso satisfying.",
+    "You want to experiment with pressure profiling or flow control \u2014 the Ufficio's fixed 9-bar pump is intentionally simple and does not offer those features.",
+    "Your office has fewer than 5 regular coffee drinkers \u2014 the Ufficio's 2.5-litre boiler and commercial pump are oversized for light use, and a Doppio would serve you better."
+  ],
+  "what_you_need_to_know": [
+    "The heat-exchange boiler design means the Ufficio can brew and steam continuously without recovery time. This is essential in a shared environment but comes with a trade-off: temperature is less precisely controlled than a dual-boiler machine with PID. For office use, this trade-off is correct.",
+    "You will need a grinder. The Preciso is our recommended office pairing because it is durable, low-maintenance, and forgiving of different users. Some office managers opt for a commercial grinder with a timer for dose consistency.",
+    "Maintenance matters more with volume. The Ufficio includes a descaling reminder system and the drip tray has a fill indicator. Budget for monthly cleaning cycles and quarterly descaling. Our maintenance guide covers everything."
+  ],
+  "common_objections": [
+    {
+      "objection": "Will people actually use it or will they go back to capsules?",
+      "honest_answer": "This depends on setup, not on the machine. Put a clear laminated guide next to the machine, pre-set the grinder, and provide a tamper that sits on the drip tray. Offices where the Ufficio is set up for self-service see adoption rates above 80%. Offices where it is tucked in a corner with no instructions see it collect dust."
+    },
+    {
+      "objection": "Is it cheaper than our capsule machine in the long run?",
+      "honest_answer": "Almost certainly. A typical capsule costs \u20ac0.35\u20130.50 per cup. The Ufficio plus beans costs approximately \u20ac0.08\u20130.12 per cup after amortising the machine over three years. For a 15-person office drinking 40 cups a day, that is roughly \u20ac3,000 saved per year. We have a calculator on our site that uses your actual numbers."
+    },
+    {
+      "objection": "What if it breaks? We can't have an office without coffee.",
+      "honest_answer": "The Ufficio uses a commercial-grade rotary pump and heat-exchange boiler \u2014 the same architecture used in cafes. It is designed for daily volume. That said, we offer a 3-year warranty and our service team can typically diagnose problems remotely. For offices that cannot tolerate any downtime, we recommend keeping a Nano as a backup."
+    }
+  ],
+  "alternative_if_not_right": {
+    "product_id": "arco-doppio",
+    "rationale": "For smaller offices (under 8 people) or home use, the Doppio at \u20ac549 offers dual-boiler precision in a more appropriately sized package."
+  },
+  "persona_match_score": {
+    "morning-minimalist": 1,
+    "upgrader": 2,
+    "craft-barista": 1,
+    "traveller": 1,
+    "non-barista": 3,
+    "office-manager": 5
+  },
+  "persona_tags": ["office-manager"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Is the Arco Ufficio Right for You? \u2014 Honest Office Espresso Buying Guide | Arco",
+    "meta_description": "The Arco Ufficio (\u20ac799) handles 30+ cups a day for offices and shared spaces. Here's who it's designed for, what to expect, and when a simpler machine makes more sense."
+  }
+}

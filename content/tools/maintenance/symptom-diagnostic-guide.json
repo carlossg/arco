@@ -1,0 +1,275 @@
+{
+  "id": "maint-symptom-diagnostic",
+  "slug": "symptom-diagnostic-guide",
+  "title": "Symptom Diagnostic Guide",
+  "description": "Troubleshoot your Arco espresso machine with our diagnostic tree. Select your symptom and follow the steps to identify the cause and fix it yourself — or know when to call for professional service.",
+  "hero_image_alt": "A barista examining the underside of a portafilter with a magnifying glass, diagnostic checklist visible on a tablet beside the machine",
+  "data": {
+    "symptoms": [
+      {
+        "id": "no-water-flow",
+        "symptom": "No water flows from the group head when brewing",
+        "severity": "high",
+        "possible_causes": [
+          { "cause": "Water reservoir is empty or not seated properly", "likelihood": "high", "fix": "Refill the reservoir and ensure it clicks into place. Some machines have a float valve — press down on the reservoir firmly.", "diy": true },
+          { "cause": "Grind is too fine — puck is choking the machine", "likelihood": "high", "fix": "Remove the portafilter. If water flows freely from the group without the portafilter, your grind is too fine. Adjust 2-3 steps coarser.", "diy": true },
+          { "cause": "Solenoid valve is stuck closed", "likelihood": "moderate", "fix": "Backflush with cleaning solution to dissolve coffee oil buildup. If this does not resolve it, the solenoid may need replacement.", "diy": true },
+          { "cause": "Pump has failed", "likelihood": "low", "fix": "Listen for the pump sound when you activate the brew switch. If silent, the pump may have failed or lost electrical connection. Contact Arco service.", "diy": false },
+          { "cause": "Scale blockage in the boiler or thermosyphon tubes (E61 machines)", "likelihood": "moderate", "fix": "Perform a full descaling cycle. If severely blocked, a professional chemical flush may be required.", "diy": true }
+        ],
+        "when_to_call_service": "If water does not flow after verifying the reservoir, grind, and performing a backflush and descale."
+      },
+      {
+        "id": "weak-espresso",
+        "symptom": "Espresso is thin, watery, or sour",
+        "severity": "low",
+        "possible_causes": [
+          { "cause": "Grind is too coarse", "likelihood": "high", "fix": "Grind 1-2 steps finer. The shot should take 25-30 seconds for a 1:2 ratio. If it finishes in under 20 seconds, the grind is far too coarse.", "diy": true },
+          { "cause": "Dose is too low", "likelihood": "moderate", "fix": "Weigh your dose. A standard double shot uses 16-20g depending on basket size. Increase the dose if under the basket's rated capacity.", "diy": true },
+          { "cause": "Water temperature is too low", "likelihood": "moderate", "fix": "Allow the machine to fully heat (PID should read target temp). Flush the group for 3 seconds before pulling the shot. If temperature reads low, the PID may need recalibration.", "diy": true },
+          { "cause": "Coffee is stale", "likelihood": "moderate", "fix": "Check the roast date. Coffee peaks 7-21 days after roasting. Beyond 6 weeks, espresso quality degrades significantly. Use fresh beans.", "diy": true },
+          { "cause": "Channeling due to uneven distribution", "likelihood": "moderate", "fix": "Use a WDT tool to break up clumps before tamping. Ensure a level tamp. A bottomless portafilter helps diagnose channeling visually.", "diy": true }
+        ],
+        "when_to_call_service": "If adjusting grind, dose, and distribution does not improve the shot, and the machine's temperature and pressure readings are abnormal."
+      },
+      {
+        "id": "bitter-espresso",
+        "symptom": "Espresso is harsh, bitter, or astringent",
+        "severity": "low",
+        "possible_causes": [
+          { "cause": "Grind is too fine — over-extraction", "likelihood": "high", "fix": "Grind 1-2 steps coarser. If the shot takes longer than 35 seconds, the grind is too fine. Aim for 25-30 seconds.", "diy": true },
+          { "cause": "Water temperature is too high", "likelihood": "moderate", "fix": "Check the PID setting. Dark roasts prefer 88-92C; medium roasts 93-96C. Lower the temperature by 1-2 degrees and retest.", "diy": true },
+          { "cause": "Dirty group head — old coffee oils", "likelihood": "moderate", "fix": "Backflush with Arco Cleaning Powder. Remove and soak the shower screen. Rancid oils produce a bitter, acrid taste.", "diy": true },
+          { "cause": "Dose is too high — puck is compressed too tightly", "likelihood": "low", "fix": "Reduce the dose by 1g. An overfilled basket restricts flow and causes over-extraction at the edges.", "diy": true },
+          { "cause": "Coffee is very dark roast", "likelihood": "moderate", "fix": "Dark roasts extract faster. Use a coarser grind, lower temperature (88-91C), and a shorter ratio (1:1.5 to 1:2).", "diy": true }
+        ],
+        "when_to_call_service": "Bitterness is rarely a machine fault. Exhaust all recipe adjustments first."
+      },
+      {
+        "id": "no-crema",
+        "symptom": "Espresso has no crema or very thin crema",
+        "severity": "low",
+        "possible_causes": [
+          { "cause": "Coffee is stale (roasted more than 4-6 weeks ago)", "likelihood": "high", "fix": "Crema is produced by CO2 trapped in fresh-roasted coffee. Old beans have degassed. Use coffee within 3-4 weeks of roast date.", "diy": true },
+          { "cause": "Grind is too coarse — under-extraction", "likelihood": "high", "fix": "A finer grind increases extraction and crema production. Adjust finer until the shot takes 25-30 seconds.", "diy": true },
+          { "cause": "Low brew pressure", "likelihood": "low", "fix": "Check the pressure gauge during a shot. It should read 8-10 bar. If consistently low, the pump may need servicing or the OPV may need adjustment.", "diy": false },
+          { "cause": "Very light roast", "likelihood": "moderate", "fix": "Light roasts naturally produce less crema than medium or dark roasts. This is normal and does not indicate a problem — the flavour may still be excellent.", "diy": true },
+          { "cause": "Machine not at full temperature", "likelihood": "moderate", "fix": "Allow the machine at least 15-25 minutes to heat fully (longer for E61 and dual boiler machines). Flush the group before pulling.", "diy": true }
+        ],
+        "when_to_call_service": "If pressure is consistently below 8 bar with fresh beans and correct grind."
+      },
+      {
+        "id": "steam-wand-weak",
+        "symptom": "Steam wand produces weak or wet steam",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Machine has not reached full steam pressure", "likelihood": "high", "fix": "Wait for the steam-ready indicator. Single-boiler machines need to switch modes and heat up — this takes 30-60 seconds after the light activates.", "diy": true },
+          { "cause": "Steam wand tip is blocked with dried milk", "likelihood": "high", "fix": "Soak the steam tip in hot water with milk-dissolving cleaning solution for 20 minutes. Use a pin to clear each hole. Always wipe and purge after steaming.", "diy": true },
+          { "cause": "Scale buildup in the steam boiler or tube", "likelihood": "moderate", "fix": "Perform a full descale. Run solution through the steam circuit specifically.", "diy": true },
+          { "cause": "Steam thermostat or pressurestat failure", "likelihood": "low", "fix": "If steam pressure does not build at all and the boiler is heating (you can hear it), the pressurestat or thermostat may be faulty. Contact service.", "diy": false }
+        ],
+        "when_to_call_service": "If cleaning the tip and descaling does not restore steam power."
+      },
+      {
+        "id": "water-leak-bottom",
+        "symptom": "Water leaking from the bottom of the machine",
+        "severity": "high",
+        "possible_causes": [
+          { "cause": "Drip tray is full or overflow tube is blocked", "likelihood": "high", "fix": "Empty the drip tray. Check that the internal overflow drain is not blocked by coffee grounds.", "diy": true },
+          { "cause": "Reservoir is cracked or not seated properly", "likelihood": "moderate", "fix": "Remove the reservoir and inspect for cracks. Reseat it firmly. Check the valve seal at the base of the reservoir.", "diy": true },
+          { "cause": "Internal hose connection has come loose", "likelihood": "moderate", "fix": "Turn off and unplug the machine. If you are comfortable opening the case, inspect for loose silicone hose connections. Re-clamp if found.", "diy": true },
+          { "cause": "Boiler fitting or seal is leaking", "likelihood": "low", "fix": "A boiler leak requires professional repair. Do not continue using the machine — turn it off and contact Arco service.", "diy": false }
+        ],
+        "when_to_call_service": "Immediately if water pools under the machine after checking the drip tray and reservoir."
+      },
+      {
+        "id": "water-leak-group",
+        "symptom": "Water drips from the group head when not brewing",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Solenoid valve not sealing properly", "likelihood": "high", "fix": "Backflush 10 times with clean water. Coffee particles can prevent the solenoid from closing fully. If persists, the valve may need a rebuild.", "diy": true },
+          { "cause": "E61 group head preinfusion chamber leaking (Maestro)", "likelihood": "moderate", "fix": "Disassemble and clean the E61 group. Replace the upper chamber seals if worn.", "diy": true },
+          { "cause": "Expansion valve dripping (normal on some machines)", "likelihood": "moderate", "fix": "A slow drip from the expansion valve into the drip tray during heating is normal on some single-boiler machines. This prevents excessive pressure buildup. No action needed.", "diy": true }
+        ],
+        "when_to_call_service": "If dripping is continuous and significant after backflushing."
+      },
+      {
+        "id": "portafilter-leak",
+        "symptom": "Water leaks around the portafilter during extraction",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Group gasket is worn", "likelihood": "high", "fix": "Replace the group head gasket. This is the most common cause and an easy DIY fix.", "diy": true },
+          { "cause": "Portafilter not locked in fully", "likelihood": "high", "fix": "Ensure the portafilter is locked firmly to approximately 90 degrees (6 o'clock position). If it goes past 90, the gasket is compressed — replace it.", "diy": true },
+          { "cause": "Coffee grounds on the gasket seal surface", "likelihood": "moderate", "fix": "Wipe the group gasket and the rim of the portafilter before locking in. A single ground can break the seal.", "diy": true },
+          { "cause": "Portafilter ears are worn or damaged", "likelihood": "low", "fix": "Inspect the portafilter lugs for wear or rounding. If badly worn, replace the portafilter.", "diy": true }
+        ],
+        "when_to_call_service": "Only if a new gasket and clean portafilter still leak — the group head threads may be damaged."
+      },
+      {
+        "id": "machine-not-heating",
+        "symptom": "Machine turns on but does not heat up",
+        "severity": "high",
+        "possible_causes": [
+          { "cause": "Thermal fuse / safety thermostat has tripped", "likelihood": "moderate", "fix": "Some machines have a reset button on the back or bottom. Press it. If it trips again immediately, the heating element or thermostat is faulty — call service.", "diy": true },
+          { "cause": "Heating element has failed", "likelihood": "moderate", "fix": "If the machine powers on (lights, pump) but never heats, the element has likely burned out. This requires professional replacement.", "diy": false },
+          { "cause": "PID controller malfunction", "likelihood": "low", "fix": "If the PID display shows an error code or reads room temperature indefinitely, the PID sensor or controller may be faulty.", "diy": false },
+          { "cause": "Low water level — machine has a low-water safety cutoff", "likelihood": "high", "fix": "Fill the reservoir. Many machines disable the heater when water is low to prevent element burnout.", "diy": true }
+        ],
+        "when_to_call_service": "If the machine does not heat after filling the reservoir and checking the thermal reset."
+      },
+      {
+        "id": "loud-pump",
+        "symptom": "Pump is excessively loud, vibrating, or rattling",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Air in the pump (common after refilling or descaling)", "likelihood": "high", "fix": "Open the steam or hot water valve and run the pump for 10 seconds to purge air. Repeat 3 times. The pump should quiet down.", "diy": true },
+          { "cause": "Pump mounting screws have loosened", "likelihood": "moderate", "fix": "If comfortable opening the case, check that the pump is securely mounted. Tighten any loose screws and ensure the rubber grommets are intact.", "diy": true },
+          { "cause": "Pump is worn and needs replacement", "likelihood": "low", "fix": "Vibratory pumps have a 3-5 year lifespan. A continuously loud pump that vibrates the machine needs replacement.", "diy": false },
+          { "cause": "Scale restricting water flow through the pump", "likelihood": "moderate", "fix": "Descale the machine. Restricted flow causes the pump to work harder and louder.", "diy": true }
+        ],
+        "when_to_call_service": "If purging air and descaling do not reduce the noise."
+      },
+      {
+        "id": "grinder-not-grinding",
+        "symptom": "Grinder motor runs but beans are not grinding",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Bean hopper gate is closed", "likelihood": "high", "fix": "Some hoppers have a sliding gate for removing the hopper without spilling beans. Ensure it is open.", "diy": true },
+          { "cause": "Beans are bridging above the burrs", "likelihood": "high", "fix": "Oily dark roasts can stick together and create an arch above the burrs. Give the hopper a gentle shake or stir the beans with a spoon.", "diy": true },
+          { "cause": "Burrs are worn smooth", "likelihood": "low", "fix": "Severely worn burrs cannot bite into beans. Replace the burr set.", "diy": true },
+          { "cause": "Foreign object jammed in the burrs (stone, twig)", "likelihood": "low", "fix": "Turn off and unplug the grinder. Remove the hopper and upper burr. Inspect for foreign objects and remove.", "diy": true }
+        ],
+        "when_to_call_service": "If the motor runs but produces a grinding/clicking noise, stop immediately and contact service — a jammed motor can burn out."
+      },
+      {
+        "id": "grinder-inconsistent",
+        "symptom": "Grind size is inconsistent — mix of fine and coarse particles",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Burrs need replacement", "likelihood": "moderate", "fix": "Inspect the burrs for visible wear (rounded edges, chips). Replace if past their rated lifespan.", "diy": true },
+          { "cause": "Burrs are not aligned properly", "likelihood": "moderate", "fix": "After a burr replacement, misalignment causes uneven grinding. Re-align using the manufacturer's procedure or an alignment tool.", "diy": true },
+          { "cause": "Grinder retention causing stale grounds to mix with fresh", "likelihood": "high", "fix": "Purge 2-3g of coffee before each dose to clear retained grounds from the previous session. Single-dose with a bellows if your grinder supports it.", "diy": true },
+          { "cause": "Beans are a mix of roast levels or origins (unintentional blend)", "likelihood": "low", "fix": "Check your bean supply. Different densities grind differently. Use a single origin or intentional blend for consistent results.", "diy": true }
+        ],
+        "when_to_call_service": "If burr replacement and alignment do not resolve the inconsistency."
+      },
+      {
+        "id": "machine-trips-breaker",
+        "symptom": "Machine trips the electrical circuit breaker",
+        "severity": "critical",
+        "possible_causes": [
+          { "cause": "Circuit is overloaded — other high-draw appliances on the same circuit", "likelihood": "high", "fix": "Espresso machines draw 1200-1800W. Do not run the machine on the same circuit as a kettle, toaster, or microwave. Move to a dedicated circuit.", "diy": true },
+          { "cause": "Heating element has a ground fault", "likelihood": "moderate", "fix": "A failed heating element can short to the chassis. Do not continue using the machine. Contact Arco service immediately.", "diy": false },
+          { "cause": "Power cord or plug is damaged", "likelihood": "low", "fix": "Inspect the cord for fraying, cuts, or burn marks on the plug. Replace if damaged.", "diy": false },
+          { "cause": "Internal wiring fault", "likelihood": "low", "fix": "Stop using the machine and contact Arco service.", "diy": false }
+        ],
+        "when_to_call_service": "Immediately. Repeated breaker trips indicate a potential electrical hazard."
+      },
+      {
+        "id": "error-code-display",
+        "symptom": "Machine displays an error code",
+        "severity": "varies",
+        "possible_causes": [
+          { "cause": "E01/E1 — Water reservoir empty or not detected", "likelihood": "high", "fix": "Fill and reseat the reservoir. Clean the reservoir contacts with a dry cloth.", "diy": true },
+          { "cause": "E02/E2 — Brew unit not inserted (Automatico)", "likelihood": "high", "fix": "Remove, rinse, and re-insert the brew unit until it clicks. Ensure the machine is off during reinsertion.", "diy": true },
+          { "cause": "E03/E3 — Descale required", "likelihood": "high", "fix": "Perform a full descaling cycle. The machine will not allow brewing until descaling is completed.", "diy": true },
+          { "cause": "E04/E4 — Grounds container full (Automatico)", "likelihood": "high", "fix": "Empty the grounds container, rinse, and reinsert.", "diy": true },
+          { "cause": "E05/E5 — Temperature sensor fault", "likelihood": "low", "fix": "Try turning the machine off, waiting 30 seconds, and restarting. If the error persists, the sensor needs professional replacement.", "diy": false },
+          { "cause": "E06/E6 — Pump pressure fault", "likelihood": "low", "fix": "Check for kinks in the water supply line (plumbed machines). For tank machines, ensure the reservoir is full. If error persists, the pump may need service.", "diy": false },
+          { "cause": "E07/E7 — Grinder fault (Automatico)", "likelihood": "low", "fix": "Turn off, remove hopper, check for foreign objects in the grinder throat. If clear, the motor or control board may be faulty.", "diy": true }
+        ],
+        "when_to_call_service": "For E05, E06, E07 if the basic troubleshooting steps do not clear the code."
+      },
+      {
+        "id": "channeling",
+        "symptom": "Espresso sprays sideways or has uneven flow from a bottomless portafilter",
+        "severity": "low",
+        "possible_causes": [
+          { "cause": "Uneven coffee distribution in the basket", "likelihood": "high", "fix": "Use a WDT tool (fine needle tool) to stir and distribute the grounds evenly before tamping. This is the single most effective fix for channeling.", "diy": true },
+          { "cause": "Uneven tamp", "likelihood": "high", "fix": "Ensure you tamp level. A calibrated tamper or leveling tool helps. Press straight down — do not twist or angle.", "diy": true },
+          { "cause": "Grind is too fine, creating excessive pressure that finds weak spots", "likelihood": "moderate", "fix": "Go 1 step coarser. Extremely fine grinds are more prone to channeling because any tiny imperfection in the puck becomes a path of least resistance.", "diy": true },
+          { "cause": "Shower screen is dirty or damaged, creating uneven water delivery", "likelihood": "moderate", "fix": "Remove and clean or replace the shower screen. A blocked screen pushes water through unevenly.", "diy": true },
+          { "cause": "Basket holes are clogged", "likelihood": "moderate", "fix": "Soak the basket in Arco Cleaning Powder solution for 30 minutes. Use a pin to clear any remaining blocked holes.", "diy": true }
+        ],
+        "when_to_call_service": "Channeling is almost always a technique or maintenance issue, not a machine fault."
+      },
+      {
+        "id": "milk-not-frothing",
+        "symptom": "Milk does not froth or produces large bubbles only",
+        "severity": "low",
+        "possible_causes": [
+          { "cause": "Steam pressure too low — machine not fully heated", "likelihood": "high", "fix": "Wait for full steam readiness. Purge the wand for 2 seconds before submerging to clear condensation.", "diy": true },
+          { "cause": "Milk is not cold enough", "likelihood": "moderate", "fix": "Use refrigerator-cold milk (4C or below). Pour into a cold stainless steel pitcher. Cold milk gives you more time to create microfoam before it overheats.", "diy": true },
+          { "cause": "Steam tip is at the wrong depth", "likelihood": "high", "fix": "Position the steam tip just below the surface to introduce air (you should hear a gentle chirping sound). Once you have enough foam, lower the tip deeper to heat and spin the milk.", "diy": true },
+          { "cause": "Steam wand tip holes are blocked", "likelihood": "moderate", "fix": "Clean the tip holes with a pin. Soak in milk-cleaning solution.", "diy": true },
+          { "cause": "Using non-dairy milk that does not froth well", "likelihood": "moderate", "fix": "Oat milk (barista versions) and soy milk froth best among non-dairy options. Almond and coconut milk are difficult to froth. Look for barista-edition non-dairy milks with added fats and proteins.", "diy": true }
+        ],
+        "when_to_call_service": "Not typically a service issue unless steam pressure is consistently weak after cleaning and descaling."
+      },
+      {
+        "id": "slow-heating",
+        "symptom": "Machine takes much longer than usual to heat up",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Heavy scale buildup insulating the heating element", "likelihood": "high", "fix": "Perform a thorough descaling cycle. Scale acts as an insulator, forcing the element to work harder and longer.", "diy": true },
+          { "cause": "Ambient temperature is very cold", "likelihood": "moderate", "fix": "In cold environments, machines take longer to heat. This is normal in winter. Allow extra time.", "diy": true },
+          { "cause": "Heating element is partially failed", "likelihood": "low", "fix": "An element can fail partially — still heating, but at reduced power. If descaling does not improve heat-up time, contact service.", "diy": false },
+          { "cause": "Voltage supply issue", "likelihood": "low", "fix": "If your home has voltage drops (lights dim when the machine heats), the machine receives less power. Try a different circuit or consult an electrician.", "diy": false }
+        ],
+        "when_to_call_service": "If heat-up time has increased by more than 50% and descaling does not help."
+      },
+      {
+        "id": "pressure-too-high",
+        "symptom": "Pressure gauge reads above 10 bar during extraction",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Grind is too fine", "likelihood": "high", "fix": "Grind coarser. Excessive pressure means the water cannot pass through the puck at the correct rate.", "diy": true },
+          { "cause": "Dose is too high for the basket", "likelihood": "moderate", "fix": "Reduce the dose by 1-2g. An overpacked basket creates excessive resistance.", "diy": true },
+          { "cause": "OPV (over-pressure valve) needs adjustment", "likelihood": "low", "fix": "The OPV should be set to 10-11 bar (static, no coffee). Adjustment requires opening the machine and turning the OPV screw. Consult the service manual or a technician.", "diy": false }
+        ],
+        "when_to_call_service": "If pressure reads above 11 bar with a normal grind and dose, the OPV may be set too high."
+      },
+      {
+        "id": "pressure-too-low",
+        "symptom": "Pressure gauge reads below 7 bar during extraction",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Grind is too coarse", "likelihood": "high", "fix": "Grind finer until the gauge reads 8-10 bar during a standard extraction.", "diy": true },
+          { "cause": "Pump is weak or failing", "likelihood": "moderate", "fix": "Test with a blind basket — lock in and run the pump. The gauge should climb to 10-11 bar. If it does not, the pump needs servicing.", "diy": false },
+          { "cause": "OPV is set too low", "likelihood": "low", "fix": "OPV set below 9 bar will limit maximum extraction pressure. Requires internal adjustment.", "diy": false },
+          { "cause": "Scale restricting flow to the group head", "likelihood": "moderate", "fix": "Descale thoroughly. Scale in the lines between the pump and group head reduces effective pressure at the puck.", "diy": true }
+        ],
+        "when_to_call_service": "If blind basket test shows pressure below 9 bar, the pump or OPV needs professional attention."
+      },
+      {
+        "id": "strange-taste",
+        "symptom": "Coffee has a strange or off taste (chemical, metallic, rubbery)",
+        "severity": "moderate",
+        "possible_causes": [
+          { "cause": "Residual descaling solution", "likelihood": "high", "fix": "Run 2-3 full tanks of fresh water through the machine (group and steam circuits). Discard the first several drinks after descaling.", "diy": true },
+          { "cause": "New gasket or silicone parts outgassing", "likelihood": "moderate", "fix": "New rubber parts can impart a slight taste for the first 20-30 shots. This is normal and fades quickly. Pull and discard shots until the taste clears.", "diy": true },
+          { "cause": "Stagnant water in the boiler", "likelihood": "moderate", "fix": "If the machine has not been used for several days, flush the boiler by running 300-500ml through the group and steam wand before making drinks.", "diy": true },
+          { "cause": "Contaminated water reservoir", "likelihood": "moderate", "fix": "Clean the reservoir with warm water (no soap). Soap residue can cause off-flavours. If the reservoir is discoloured or has biofilm, replace it.", "diy": true },
+          { "cause": "Old coffee oils in the brew path", "likelihood": "high", "fix": "Backflush with Arco Cleaning Powder. Soak all removable parts. Rancid coffee oils produce a sharp, acrid off-taste.", "diy": true }
+        ],
+        "when_to_call_service": "If off-taste persists after thorough cleaning, descaling, and flushing with fresh water."
+      }
+    ]
+  },
+  "persona_tags": ["troubleshooter", "new-owner", "diy-repairer"],
+  "intent_tags": ["troubleshoot", "diagnose", "fix", "repair"],
+  "related_products": [
+    "arco-cleaning-powder",
+    "arco-descaling-solution",
+    "arco-group-head-brush",
+    "arco-wdt-tool"
+  ],
+  "cta": {
+    "label": "Contact Arco Support",
+    "url": "/support/contact"
+  },
+  "seo": {
+    "title": "Espresso Machine Troubleshooting Guide | Symptom Diagnostics | Arco",
+    "meta_description": "Diagnose and fix common espresso machine problems with our symptom-based troubleshooting guide. 20+ symptoms with causes, DIY fixes, and when to call for service."
+  }
+}

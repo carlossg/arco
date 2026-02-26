@@ -1,0 +1,51 @@
+{
+  "id": "bundle-gg-005",
+  "slug": "gift-for-the-person-who-has-everything",
+  "title": "Gift for the Person Who Has Everything",
+  "headline": "They don't need anything. That's exactly why this works.",
+  "editorial_intro": "The person who has everything does not respond to utility. They respond to craft, to intention, to the unmistakable feeling that someone chose this specifically for them. This guide is for that kind of gift — one that cannot be replicated by a gift card.",
+  "tiers": [
+    {
+      "tier_name": "The Considered Choice — Under €800",
+      "price_range": "€699",
+      "products": [
+        {
+          "product_id": "arco-zero",
+          "description": "Even people with extensive espresso setups rarely own a competition-grade grinder. The Zero's 64mm flat burrs, true zero retention, and machined aluminium body are beautiful enough to display and capable enough to transform their morning coffee. It is the kind of object that makes someone pause and say, 'Where did you find this?'"
+        }
+      ]
+    },
+    {
+      "tier_name": "The Definitive Setup — Under €3,000",
+      "price_range": "€2,199–€2,898",
+      "products": [
+        {
+          "product_id": "arco-studio-pro",
+          "description": "Pressure profiling, flow control, a saturated group head, and dual PID-controlled boilers. The Studio Pro is the machine that professionals use at home — not because they need to practise, but because they refuse to drink anything less. Available with custom engraving on the drip tray for a gift that is permanently and unmistakably personal."
+        },
+        {
+          "product_id": "arco-zero",
+          "description": "Pair the Studio Pro with the Zero and you have given someone the finest home espresso setup Arco makes. This is the combination that competition baristas choose when there are no sponsors and no requirements — just the honest preference for the best tools available."
+        }
+      ]
+    },
+    {
+      "tier_name": "The Engraved Edition — Custom",
+      "price_range": "Contact us",
+      "products": [
+        {
+          "product_id": "arco-studio-pro-engraved",
+          "description": "The Studio Pro Engraved Edition features a custom inscription laser-etched into the stainless steel drip tray — a name, a date, a line that means something. Each engraving is done by hand in our workshop and takes five to seven working days. This is not a machine. It is a statement about what this person means to you."
+        }
+      ]
+    }
+  ],
+  "hero_image_alt": "An Arco Studio Pro in matte black with copper accents displayed on a dark concrete surface, the drip tray showing a subtle laser engraving, the Zero grinder beside it, a single perfect espresso in a handmade ceramic cup, dramatic low-key lighting with warm highlights on the copper details",
+  "persona_tags": ["craft-barista", "upgrader"],
+  "intent_tags": ["discover", "decide"],
+  "seo": {
+    "title": "Gift Guide — Luxury Espresso Gift for the Person Who Has Everything | Arco",
+    "meta_description": "The ultimate espresso gift: from the €699 Arco Zero grinder to the Studio Pro with custom engraving. For the person who has everything except this.",
+    "canonical_url": "/bundles/gift-guides/gift-for-the-person-who-has-everything"
+  }
+}

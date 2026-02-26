@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-primo",
+  "persona_tag": "non-barista",
+  "headline": "Great espresso. No barista skills required.",
+  "subheadline": "The Arco Primo was designed for people who love good coffee but have zero interest in becoming a hobbyist. It's genuinely simple -- and the espresso is genuinely excellent.",
+  "hero_image_alt": "Arco Primo espresso machine in matte white on a bright modern kitchen counter, a person casually holding a finished espresso with a relaxed smile, warm inviting atmosphere with no clutter or tools visible",
+  "description_long": "Let's be honest: most espresso machines are intimidating. The Arco Primo isn't. It heats up in 90 seconds, uses a standard portafilter that's easy to load, and has exactly two buttons -- one for a single shot, one for a double. That's it. No pressure gauges to interpret, no steaming wands to master, no grind settings to agonize over. The included quick-start guide walks you through your first shot in under five minutes, and by the third morning you'll be doing it on autopilot. You don't need to become a barista to drink like one.",
+  "use_case_headline": "Coffee you'll be proud of, with nothing to learn.",
+  "use_case_body": "The Primo ships with everything you need: portafilter, baskets, tamper, and a step-by-step quick-start guide. Pair it with pre-ground espresso coffee or the Arco Macinino grinder, and you're making cafe-quality espresso from day one.",
+  "recommended_accessories": [
+    "Tamper Set",
+    "Cleaning Kit",
+    "Espresso Cups Set",
+    "Bean Vault"
+  ],
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Start Making Great Espresso",
+  "cta_primary_url": "/products/arco-primo",
+  "social_proof_quote": {
+    "quote": "I was genuinely nervous about buying an espresso machine. I'm not a coffee person -- I just wanted better coffee than capsules. The Primo made me feel capable from the very first cup. My partner says I'm smug about it now.",
+    "name": "Anja K.",
+    "location": "Copenhagen, Denmark"
+  }
+}

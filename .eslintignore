@@ -1,2 +1,6 @@
 helix-importer-ui
 *.min.js
+tools/
+scripts/generate-images.js
+personalization/
+content/

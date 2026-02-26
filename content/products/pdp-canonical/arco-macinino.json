@@ -1,0 +1,86 @@
+{
+  "id": "arco-macinino",
+  "slug": "arco-macinino",
+  "name": "Arco Macinino",
+  "tagline": "Fresh grounds. Simple mornings.",
+  "price_eur": 129,
+  "price_display": "€129",
+  "category": "grinder",
+  "hero_image_alt": "Arco Macinino compact conical burr grinder in matte black on a light wooden shelf beside a bag of whole coffee beans, ground coffee falling into a small dosing cup, clean lines and minimal design, soft directional light from the left, kitchen herbs in the background",
+  "headline": "The grinder that starts everything.",
+  "subheadline": "A compact conical burr grinder with stepped settings and a built-in timer — the simplest path from whole beans to a good cup.",
+  "description_short": "A compact 40mm conical burr grinder with stepped settings and timer-based dosing for consistent, fresh grounds every morning.",
+  "description_long": "The Arco Macinino does one thing well: it grinds coffee beans consistently, quickly, and without fuss. The 40mm hardened steel conical burrs produce an even grind across 20 stepped settings, covering everything from espresso to French press. The built-in timer lets you set your dose once and repeat it every morning. At 10 cm wide and 18 cm tall, the Macinino occupies less counter space than a coffee mug. It is the grinder for people who understand that fresh-ground coffee tastes better and want the most direct way to get there.",
+  "key_specs": {
+    "dimensions": "10 × 10 × 18 cm",
+    "weight": "1.4 kg",
+    "burr_type": "Conical, hardened steel",
+    "burr_size": "40 mm",
+    "grind_settings": "20 stepped positions",
+    "grind_range": "Espresso to French press",
+    "dosing": "Timer-based (0.2 s increments)",
+    "hopper_capacity": "160 g",
+    "grounds_container": "Removable 50 g cup",
+    "retention": "~1.5 g",
+    "motor": "DC motor, 400 RPM",
+    "noise_level": "< 70 dB",
+    "power": "150 W",
+    "voltage": "220–240 V"
+  },
+  "whats_in_box": [
+    "Arco Macinino grinder",
+    "Grounds collection cup",
+    "Cleaning brush",
+    "Grind setting reference card",
+    "Quick-start guide"
+  ],
+  "variants": [
+    { "name": "Matte Black", "hex": "#2C2C2C" },
+    { "name": "Matte White", "hex": "#F0EDE8" }
+  ],
+  "use_case_headline": "Perfect for your first grinder — or your last simple one.",
+  "use_case_body": "The Macinino pairs with any espresso machine in our range and handles filter brewing methods too. It is the entry point for anyone upgrading from pre-ground coffee and the daily workhorse for those who value straightforward mornings.",
+  "pairing_products": [
+    { "product_id": "arco-primo", "rationale": "The Primo and Macinino together make the most accessible genuine espresso setup in the range." },
+    { "product_id": "arco-nano", "rationale": "A compact grinder for a compact machine — matched in philosophy and footprint." },
+    { "product_id": "preparation-accessories", "rationale": "A dosing cup and scale will help you dial in your grind quickly." }
+  ],
+  "experience_tag": "morning-minimalist",
+  "persona_tags": ["morning-minimalist", "upgrader"],
+  "intent_tags": ["discover", "research", "decide"],
+  "related_blog_posts": [
+    "why-grind-fresh",
+    "conical-vs-flat-burrs",
+    "dialling-in-your-grinder"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Macinino",
+    "description": "A compact 40mm conical burr grinder with stepped settings and timer-based dosing for consistent, fresh grounds every morning.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-MACININO",
+    "image": "/content/products/images/arco-macinino-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 129,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-macinino"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.4,
+      "reviewCount": 267
+    }
+  },
+  "seo": {
+    "title": "Arco Macinino — Compact Conical Burr Grinder | Arco",
+    "meta_description": "The Arco Macinino is a compact 40mm conical burr grinder with 20 stepped settings and timer dosing. Fresh grounds, simple mornings. €129.",
+    "og_image_alt": "Arco Macinino compact conical burr grinder in matte black",
+    "canonical_url": "/products/arco-macinino"
+  }
+}

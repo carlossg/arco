@@ -1,0 +1,69 @@
+{
+  "id": "arco-macinino-vs-arco-preciso",
+  "slug": "arco-macinino-vs-arco-preciso",
+  "title": "Arco Macinino vs Arco Preciso",
+  "products": ["arco-macinino", "arco-preciso"],
+  "comparison_headline": "Is your grinder holding you back?",
+  "comparison_intro": "The Macinino is a solid stepped grinder that does the job reliably. The Preciso is a stepless grinder with near-zero retention that gives you control most people don't realise they're missing. The gap between these two grinders is often bigger than the gap between the machines they feed.",
+  "hero_image_alt": "Arco Macinino and Arco Preciso grinders side by side on a white marble countertop, the Macinino compact and minimal, the Preciso taller with its visible stepless adjustment collar, a small pile of freshly ground coffee in a dosing cup between them, clean studio lighting",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac129",
+      "product_b": "\u20ac299"
+    },
+    "boiler_type": {
+      "product_a": "N/A \u2014 Stepped conical burr grinder",
+      "product_b": "N/A \u2014 Stepless flat burr grinder"
+    },
+    "heat_up_time": {
+      "product_a": "Instant on",
+      "product_b": "Instant on"
+    },
+    "pressure_control": {
+      "product_a": "N/A",
+      "product_b": "N/A"
+    },
+    "steam_capability": {
+      "product_a": "N/A",
+      "product_b": "N/A"
+    },
+    "grind_compatibility": {
+      "product_a": "20 stepped settings \u2014 good for espresso and coarser methods but limited fine-tuning between steps",
+      "product_b": "Infinitely adjustable stepless collar \u2014 micro-adjustments that let you dial in to the gram"
+    },
+    "suitable_for": {
+      "product_a": "Beginners and anyone who wants a grinder that works predictably without overthinking the adjustment",
+      "product_b": "Intermediate to advanced home baristas who dial in for each new bag and want zero retention for single-dosing"
+    },
+    "not_suitable_for": {
+      "product_a": "Anyone who changes beans frequently and needs to micro-adjust grind size \u2014 the stepped settings can leave you stuck between two settings",
+      "product_b": "Anyone who doesn't want to think about grind adjustment \u2014 the Preciso's infinite range requires intention and a little patience"
+    }
+  },
+  "recommendation_by_persona": {
+    "morning-minimalist": {
+      "recommended_product_id": "arco-macinino",
+      "rationale": "The stepped settings are forgiving and repeatable \u2014 pick a number, grind, and brew without second-guessing yourself."
+    },
+    "upgrader": {
+      "recommended_product_id": "arco-preciso",
+      "rationale": "If your shots taste different every day despite doing everything else the same, your grinder is almost certainly the bottleneck \u2014 the Preciso eliminates that variable."
+    },
+    "craft-barista": {
+      "recommended_product_id": "arco-preciso",
+      "rationale": "Stepless adjustment and low retention are non-negotiable at this level \u2014 the Preciso gives you the resolution your technique demands."
+    }
+  },
+  "verdict": "The Macinino is an honest grinder that punches above its price and pairs perfectly with the Primo for simple morning workflows. But if you are pulling shots on a Doppio or better and wonder why some days taste different from others, the grinder is almost always the answer. The Preciso's stepless adjustment and low retention make it the single most impactful upgrade many home baristas can make.",
+  "related_blog_posts": [
+    "grind-size-explained",
+    "single-dose-workflow",
+    "dialing-in-new-beans"
+  ],
+  "persona_tags": ["morning-minimalist", "upgrader", "craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Macinino vs Arco Preciso \u2014 Entry Grinder vs Prosumer Grinder | Arco",
+    "meta_description": "The Arco Macinino (\u20ac129) is a reliable stepped grinder for beginners. The Arco Preciso (\u20ac299) is a stepless flat burr grinder for serious dialling in. Here's how to choose."
+  }
+}

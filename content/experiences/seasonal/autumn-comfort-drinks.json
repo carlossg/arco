@@ -1,0 +1,38 @@
+{
+  "id": "exp-seasonal-005",
+  "slug": "autumn-comfort-drinks",
+  "title": "Autumn Comfort Drinks",
+  "persona_tag": "morning-minimalist",
+  "experience_archetype": "Autumn Comfort",
+  "hero_image_alt": "A cappuccino with rich microfoam on a reclaimed wooden table, autumn leaves visible through a rain-speckled window, an Arco Doppio and Preciso grinder on the counter, a warm amber pendant light overhead, a cinnamon stick resting on the saucer",
+  "hero_headline": "The season changes. Your coffee gets richer.",
+  "hero_subtext": "Autumn espresso is bolder, warmer, and more generous. Like the season itself.",
+  "editorial_intro": "There is a moment in early October when the air turns and everything shifts. The light goes golden. The mornings get that particular chill that is not yet cold but is no longer warm. And your coffee, as if responding to the same signal, starts wanting to be different — richer, bolder, more layered. Autumn is the season of comfort drinks done properly, and your espresso machine is where they begin.",
+  "editorial_body": "You notice it first in the beans. The light, fruity single origins that carried you through summer start feeling thin, like wearing linen in a downpour. Your hand reaches past the Ethiopian natural and toward the back of the shelf, where the darker blends live. The ones with chocolate and caramel and toasted nuts in the tasting notes. The ones that smell like autumn itself when you open the bag.\n\nThis is not a failure of palate. It is seasonal intelligence. Your body and your senses know what the weather wants before your conscious mind catches up. In October, what the weather wants is warmth, depth, and richness — and the best medium and dark roast blends deliver exactly that.\n\nThe cappuccino becomes the defining drink of autumn. Not the oversized, lukewarm vessel that chain cafes serve, but the real thing — a six-ounce drink, one-third espresso, one-third steamed milk, one-third foam, served in a ceramic cup that retains heat for the ten minutes it takes to drink it properly. The ratio matters because it keeps the espresso present. You should taste coffee through the milk, not milk through the coffee.\n\nOn the Arco Doppio, pulling espresso for a cappuccino is an exercise in controlled richness. The dual boiler means your brew temperature holds steady at ninety-three degrees while the steam boiler operates independently at one hundred and forty. You pull a double shot — eighteen grams in, thirty-six out — that is deliberately intense because the milk will soften it. Then you steam, and this is where autumn cappuccinos live or die.\n\nThe milk should be textured, not frothed. The distinction matters. Frothed milk is bubbly, dry, and sits on top of the coffee like an afterthought. Textured milk is glossy, dense, with microbubbles so fine they are invisible. When you pour it into the espresso, it integrates rather than floats. The result is a drink that is unified — every sip contains both coffee and milk in proper proportion, from the first to the last.\n\nThe Preciso grinder handles the seasonal shift without complaint. When you move from light-roasted single origins to darker blends, the adjustment is four clicks coarser. Darker roasts are more soluble and extract faster, so a coarser grind prevents bitterness while preserving the chocolate and caramel notes you are chasing. The sixty-four millimetre flat burrs give you the consistency to make this adjustment once and leave it for the duration of the bag.\n\nAutumn weekends call for something more elaborate. The flat white — an Australian invention that has conquered the world for good reason — is the weekend version of the cappuccino. Same espresso base, but less foam and more milk, producing a drink that is silkier and more indulgent. On a Saturday morning with rain on the windows and nowhere to be, a flat white and a pastry is about as close to contentment as a kitchen can deliver.\n\nThere is a spiced espresso variation that belongs specifically to November. Not the pumpkin-spice catastrophe — we are not doing that here — but something subtler. A pinch of cinnamon, no more than a quarter teaspoon, stirred into the grounds before tamping. The espresso extracts the cinnamon alongside the coffee, and the result is a warm, aromatic undercurrent that surfaces in the finish of each sip. It is the kind of thing you do on a cold Sunday, not every day, and it makes the kitchen smell like a reason to stay indoors.\n\nFor the craft barista, autumn is also the season to explore espresso blends with intention. While spring is about single origins and their individual voices, autumn is about harmony — the way a Brazilian base provides body, a Colombian middle note adds sweetness, and a small percentage of robusta contributes crema and a hint of dark chocolate bitterness. Blends are compositions, and autumn is the season that rewards compositional thinking.\n\nThe evenings lengthen. The clocks go back. There is a particular pleasure in making an after-dinner espresso when the darkness outside is complete and the kitchen is warm and the day has already given everything it is going to give. A short, intense ristretto with a square of dark chocolate on the saucer. It is not necessary. It is not productive. It is simply good, in the way that autumn is good — generous, unhurried, and warm where it counts.\n\nYour machine is already at temperature. The grinder is dialled in. The beans are darker, richer, more forgiving than the demanding single origins of spring. Autumn asks less of your technique and more of your presence. Be here. Be warm. Drink the coffee slowly. The season is doing exactly what it should.",
+  "product_bundle": [
+    { "product_id": "arco-doppio", "role": "anchor" },
+    { "product_id": "arco-preciso", "role": "primary" },
+    { "product_id": "arco-tamper", "role": "accessory" },
+    { "product_id": "arco-dosing-funnel", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Autumn Comfort Drinks setup",
+  "bundle_intro": "Richer roasts, milk drinks, and the gear that makes them right.",
+  "featured_guides": [
+    "guide-cappuccino-technique",
+    "guide-milk-texturing-masterclass",
+    "guide-espresso-blend-profiles"
+  ],
+  "related_blog_posts": [
+    "blog-autumn-espresso-blends",
+    "blog-the-perfect-cappuccino",
+    "blog-seasonal-coffee-drinking"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "morning-minimalist",
+  "persona_tags": ["morning-minimalist", "craft-barista", "comfort-seeker", "seasonal-drinker"],
+  "intent_tags": ["autumn", "seasonal", "cappuccino", "dark-roast", "milk-drinks", "comfort", "blends"],
+  "seo": {
+    "title": "Autumn Comfort Drinks — Rich Espresso for the Cooler Months | Arco Coffee",
+    "meta_description": "Discover autumn espresso drinks with the Arco Doppio and Preciso grinder. Cappuccinos, flat whites, and richer roasts for the season that rewards warmth and depth."
+  }
+}

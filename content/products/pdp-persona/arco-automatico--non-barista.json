@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-automatico",
+  "persona_tag": "non-barista",
+  "headline": "Press a button. Get perfect coffee.",
+  "subheadline": "The Arco Automatico grinds, brews, and froths milk -- all at the touch of a button. Eight drinks, zero skills required. This is the espresso machine for people who don't want an espresso machine.",
+  "hero_image_alt": "Arco Automatico automatic espresso machine in matte black on a bright modern kitchen counter, its touchscreen showing drink options with simple icons, a finished cappuccino with perfect foam beside it, inviting and uncomplicated scene",
+  "description_long": "You want great coffee. You don't want to learn how to make it. The Automatico understands. It has a built-in conical burr grinder, an automatic milk system, and a touchscreen with eight programmable drinks -- espresso, lungo, cappuccino, latte, flat white, and more. You fill the bean hopper, fill the water tank, and press the icon for whatever you feel like drinking. The machine grinds the beans, tamps the coffee, extracts the shot, and froths the milk. Then it runs its own cleaning cycle. That's it. That's the entire experience. No portafilters, no tamping, no temperature surfing, no jargon. Just consistently excellent coffee that happens to be made from freshly ground beans -- which is why it tastes dramatically better than pods, instant, or drip. You don't need to understand why. You just need to taste it.",
+  "use_case_headline": "Great coffee shouldn't require a hobby.",
+  "use_case_body": "Fill the beans. Fill the water. Touch the screen. The Automatico handles grinding, brewing, milk frothing, and cleaning. Eight drinks at the press of a button. The only thing you need to know about coffee is what you like to drink.",
+  "recommended_accessories": [
+    "Bean Vault",
+    "Cleaning Kit",
+    "Descaling Solution",
+    "Double-Wall Glasses"
+  ],
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "See How Easy It Is",
+  "cta_primary_url": "/products/arco-automatico",
+  "social_proof_quote": {
+    "quote": "I know absolutely nothing about coffee and I don't want to. The Automatico gives me a perfect cappuccino every morning with one button press. My barista friends are annoyed that it's this good with zero effort. I find that hilarious.",
+    "name": "Katrin B.",
+    "location": "Hamburg, Germany"
+  }
+}

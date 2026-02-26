@@ -1,0 +1,73 @@
+{
+  "id": "arco-automatico-vs-arco-studio",
+  "slug": "arco-automatico-vs-arco-studio",
+  "title": "Arco Automatico vs Arco Studio",
+  "products": ["arco-automatico", "arco-studio"],
+  "comparison_headline": "Convenience or craft \u2014 what matters more to you?",
+  "comparison_intro": "These two machines sit at similar price points but represent fundamentally different philosophies. The Automatico handles everything from grinding to extraction with one touch. The Studio hands you full control and expects you to learn how to use it. Neither approach is wrong \u2014 they serve different people.",
+  "hero_image_alt": "Arco Automatico and Arco Studio espresso machines in a split-screen composition, the Automatico in a bright modern kitchen with a clean uncluttered counter, the Studio in a dedicated coffee corner surrounded by grinder and accessories, visual contrast between simplicity and craft",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac1,099",
+      "product_b": "\u20ac1,299"
+    },
+    "boiler_type": {
+      "product_a": "Thermoblock with integrated conical burr grinder",
+      "product_b": "Dual boiler with saturated group head (brass throughout)"
+    },
+    "heat_up_time": {
+      "product_a": "60 seconds",
+      "product_b": "8 minutes"
+    },
+    "pressure_control": {
+      "product_a": "Automatic pressure management \u2014 machine optimises extraction",
+      "product_b": "Adjustable OPV + manual pre-infusion lever (0\u20139 bar ramp)"
+    },
+    "steam_capability": {
+      "product_a": "Automatic milk system \u2014 select drink type and it textures to the right consistency",
+      "product_b": "Manual articulating steam wand \u2014 full control but requires technique"
+    },
+    "grind_compatibility": {
+      "product_a": "Built-in grinder with 5 grind settings \u2014 no separate grinder needed",
+      "product_b": "Requires a separate grinder (Preciso minimum, Zero recommended)"
+    },
+    "suitable_for": {
+      "product_a": "People who want specialty-grade coffee at home without learning barista skills, capsule switchers, and households where multiple people brew",
+      "product_b": "Dedicated home baristas who find the process rewarding and want manual control over every variable"
+    },
+    "not_suitable_for": {
+      "product_a": "Anyone who finds joy in the manual process of making espresso \u2014 the Automatico removes the very thing craft baristas love",
+      "product_b": "Anyone who just wants great coffee without the learning curve \u2014 the Studio does not forgive inattention"
+    }
+  },
+  "recommendation_by_persona": {
+    "non-barista": {
+      "recommended_product_id": "arco-automatico",
+      "rationale": "The Automatico gives you café-quality results from day one without requiring any technique \u2014 it is the fastest path from capsules to real coffee."
+    },
+    "craft-barista": {
+      "recommended_product_id": "arco-studio",
+      "rationale": "The Studio's pre-infusion control and manual workflow are the entire point \u2014 if you find the process rewarding, the Automatico will feel like a step backward."
+    },
+    "office-manager": {
+      "recommended_product_id": "arco-automatico",
+      "rationale": "In a shared environment where nobody wants to be the designated barista, the Automatico delivers consistent results regardless of who pushes the button."
+    },
+    "morning-minimalist": {
+      "recommended_product_id": "arco-automatico",
+      "rationale": "One button, 60-second heat-up, no separate grinder cluttering the counter \u2014 the Automatico is the most streamlined morning workflow we offer."
+    }
+  },
+  "verdict": "This comparison comes down to a single question: do you enjoy making espresso, or do you enjoy drinking it? If the answer is making, the Studio gives you a lifetime of craft to explore. If the answer is drinking, the Automatico gets out of your way and delivers exceptional coffee with almost no effort. Both are excellent machines \u2014 they just respect different priorities.",
+  "related_blog_posts": [
+    "your-first-week-with-a-machine",
+    "pre-infusion-in-practice",
+    "morning-routine-three-minutes"
+  ],
+  "persona_tags": ["non-barista", "craft-barista", "morning-minimalist", "office-manager"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Automatico vs Arco Studio \u2014 Automatic vs Manual Craft Espresso | Arco",
+    "meta_description": "The Arco Automatico (\u20ac1,099) does everything automatically. The Arco Studio (\u20ac1,299) gives you full manual control. Two philosophies, similar prices \u2014 here's how to decide."
+  }
+}

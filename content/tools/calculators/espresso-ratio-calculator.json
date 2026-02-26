@@ -1,0 +1,54 @@
+{
+  "id": "calc-espresso-ratio",
+  "slug": "espresso-ratio-calculator",
+  "title": "Espresso Ratio Calculator",
+  "description": "Dial in your espresso by calculating brew ratio, evaluating extraction time, and getting taste predictions with adjustment recommendations. Enter your dose, yield, and shot time to find the perfect balance.",
+  "inputs": [
+    {
+      "id": "dose",
+      "label": "Coffee Dose (g)",
+      "type": "number",
+      "min": 6,
+      "max": 25,
+      "step": 0.1,
+      "default": 18
+    },
+    {
+      "id": "target_yield",
+      "label": "Beverage Yield (g)",
+      "type": "number",
+      "min": 15,
+      "max": 80,
+      "step": 0.5,
+      "default": 36
+    },
+    {
+      "id": "actual_time",
+      "label": "Extraction Time (seconds)",
+      "type": "number",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "default": 28
+    }
+  ],
+  "formula": "ratio = target_yield / dose. Ideal range: 1:1.5 (ristretto) to 1:3 (lungo). Time window: 24-30s for standard espresso. If time < 22s and ratio > 2, extraction is under (sour). If time > 32s and ratio < 1.8, extraction is over (bitter). Balanced zone: ratio 1.8-2.5 with time 24-30s.",
+  "output_format": "Brew ratio displayed as 1:X, time-in-range boolean, taste prediction (under-extracted / over-extracted / balanced), and a specific adjustment recommendation (grind finer/coarser, adjust dose, change yield).",
+  "persona_tags": ["home-barista", "espresso-enthusiast", "beginner"],
+  "intent_tags": ["dial-in", "troubleshoot", "improve-espresso"],
+  "related_products": [
+    "arco-maestro",
+    "arco-classica",
+    "arco-nano",
+    "arco-precision-scale"
+  ],
+  "cta": {
+    "label": "Explore Arco Espresso Machines",
+    "url": "/products/espresso-machines"
+  },
+  "seo": {
+    "title": "Espresso Ratio Calculator | Dial In Your Perfect Shot | Arco",
+    "meta_description": "Use the Arco espresso ratio calculator to find your ideal brew ratio, diagnose extraction issues, and get adjustment recommendations for a balanced shot every time."
+  },
+  "hero_image_alt": "Close-up of espresso extracting from a bottomless portafilter into a white ceramic cup on an Arco precision scale"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "exp-sc-004",
+  "slug": "espresso-and-filter-couple",
+  "title": "Espresso and Filter Couple",
+  "persona_tag": "coffee-couple",
+  "experience_archetype": "The Couple",
+  "hero_image_alt": "A couple in a sunlit kitchen, one holding a small espresso cup and the other cradling a large mug of filter coffee, both leaning against the counter, an Arco Doppio and Arco Filtro visible side by side, relaxed weekend morning atmosphere",
+  "hero_headline": "One loves espresso. One loves filter. Both are right.",
+  "hero_subtext": "The setup that keeps the peace and satisfies both palates.",
+  "editorial_intro": "You drink espresso — short, intense, concentrated. Your partner drinks filter — long, smooth, meditative. You have tried each other's preference and found it wanting. This is not a problem to be solved. It is a difference to be equipped for. Two machines, two methods, one shared counter, and a relationship where coffee preference is a source of affection rather than argument.",
+  "editorial_body": "The argument, when it happened, was not really about coffee. It was a Tuesday morning, both of you were late, and the single machine on the counter — a compromise purchase that made neither espresso nor filter particularly well — produced something that disappointed both of you simultaneously. You wanted it darker and shorter. They wanted it lighter and longer. The machine delivered tepid mediocrity, and the Tuesday mood soured further.\n\nThat evening, sitting on the sofa with a glass of wine and the residual irritation of a bad morning, you had the conversation. Not about the machine, exactly, but about the principle. Why were you compromising? Why was one of you always slightly dissatisfied? You both loved coffee. You just loved different kinds. The solution was not a better compromise. It was the elimination of compromise altogether.\n\nThe Arco Doppio arrived for you. Dual boiler, consistent temperature, nine bars of pressure. Everything an espresso needs and nothing it does not. The Arco Filtro arrived for your partner. Precision water temperature, calibrated bloom time, insulated carafe. Everything a filter brew needs and nothing it does not. Two machines, side by side on the counter, each dedicated to its purpose.\n\nThe mornings transformed. You stand at the Doppio, grinding, tamping, extracting. They stand at the Filtro, measuring, pouring, waiting. The parallel routines overlap without competing. You finish first — espresso is faster — and drink your double shot while they watch the filter drip. Sometimes you lean against the counter together, each holding your respective cup, and the kitchen feels like two people who have figured something out.\n\nThe grinder was the one piece of shared equipment. The Arco Preciso handles both espresso and filter grinds, and switching between them takes a single adjustment of the dial. You grind first, fine for espresso. Then you adjust to coarse, and your partner grinds for filter. The two-grind routine takes under a minute and has become a small act of domestic choreography — a sequence of handoffs and adjustments that you perform without thinking.\n\nYou have learned about each other's coffee. Not by converting — neither of you has switched allegiance — but by proximity. You know that your partner's Ethiopian filter, brewed at ninety-four degrees, produces a cup with floral notes and a tea-like body that is, you admit privately, beautiful in its own way. They know that your twenty-five-second double shot of a Brazilian blend has a chocolate richness and a velvety texture that is, they admit privately, quite good actually.\n\nOccasionally, on weekends, you cross the line. They try a sip of your espresso. You pour yourself a small cup of their filter. These moments of trespass are affectionate — a acknowledgement that the other's taste is valid, even if it is not your own. You would never switch permanently. But the willingness to taste is a form of respect that extends well beyond coffee.\n\nThe counter looks right with both machines on it. The Doppio, dark and compact, speaks of intensity and precision. The Filtro, lighter and taller, speaks of patience and volume. Together they represent the full spectrum of what coffee can be, and the kitchen accommodates both without crowding. Friends who visit see the setup and understand immediately: this is a household that takes coffee seriously enough to do it twice.\n\nThe financial logic is surprisingly sound. Two dedicated machines, each excellent at its single purpose, cost less than one machine that attempts both and excels at neither. The beans are different — you use a medium-dark blend, they use a light single origin — and the combined monthly spend is roughly what you were spending on takeaway coffees from the cafe that neither of you was fully happy with.\n\nBut the real value is not financial. It is relational. The dual-machine kitchen is a daily, physical reminder that you do not need to agree on everything to live well together. That difference, handled with generosity and good equipment, becomes a feature rather than a flaw. That a home can hold two ways of doing the same thing and be richer for it.\n\nThe Tuesday argument never repeated. Not because the coffee issue was resolved — it was never really about the coffee — but because the morning now starts with two people, two cups, and the quiet satisfaction of a kitchen that gives both of them exactly what they want.\n\nCompromise is overrated. Parallel excellence is better.",
+  "product_bundle": [
+    { "product_id": "arco-doppio", "role": "anchor" },
+    { "product_id": "arco-filtro", "role": "primary" },
+    { "product_id": "arco-preciso", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Couple setup",
+  "bundle_intro": "Two machines, two methods, one shared grinder, and mornings that work for both of you.",
+  "featured_guides": [
+    "guide-switching-grind-for-filter-and-espresso",
+    "guide-filtro-brew-parameters",
+    "guide-choosing-beans-for-two-methods"
+  ],
+  "related_blog_posts": [
+    "blog-espresso-vs-filter-explained",
+    "blog-dual-method-kitchens",
+    "blog-one-grinder-two-brew-methods"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "coffee-couple",
+  "persona_tags": ["coffee-couple", "dual-method", "relationship"],
+  "intent_tags": ["couple", "filter-and-espresso", "dual-setup", "shared-kitchen", "parallel"],
+  "seo": {
+    "title": "Espresso and Filter Couple — Two Machines, Two Methods, One Happy Kitchen | Arco Coffee",
+    "meta_description": "One drinks espresso, one drinks filter. The Arco Doppio and Filtro sit side by side, giving both partners exactly what they want. Parallel excellence, zero compromise."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "10-most-common-beginner-mistakes",
+  "slug": "10-most-common-beginner-mistakes",
+  "category": "how-to",
+  "title": "The 10 Most Common Beginner Espresso Mistakes (and How to Fix Them)",
+  "author": {
+    "name": "Priya Sharma",
+    "role": "Customer Care Lead",
+    "bio_short": "Priya runs Arco's customer support team and has talked more people through descaling procedures than she can count. She believes preventive maintenance is the kindest thing you can do for your machine."
+  },
+  "published_date": "2025-03-08T08:00:00Z",
+  "read_time_minutes": 11,
+  "hero_image_alt": "Flat lay of a home espresso workspace showing common mistakes — a kitchen scale without tare, a portafilter with uneven coffee distribution, a bag of pre-ground coffee next to whole beans, and a grinder with visible clumps in the chute, warm overhead light casting minimal shadows on a light wood surface",
+  "tags": ["beginner", "mistakes", "espresso-basics", "troubleshooting", "tips"],
+  "persona_tags": ["morning-minimalist"],
+  "intent_tags": ["research", "own"],
+  "intro": "We field thousands of support messages a year, and the same issues come up again and again. None of them are about broken equipment — they are about small habits and misunderstandings that sabotage otherwise good shots. Here are the ten mistakes we see most often, with real fixes for each one.",
+  "body": [
+    {
+      "heading": "Mistakes 1–3: The Grind Trifecta",
+      "content": "Mistake number one: using pre-ground coffee. Pre-ground espresso was ground to a generic particle size in a factory, weeks or months ago. It has been exposed to oxygen the entire time, and it cannot be adjusted to match your specific machine, basket, and dose. Grinding fresh before each shot is the single biggest quality improvement most beginners can make. Mistake number two: not weighing your dose. Eyeballing the amount of coffee in the basket introduces variation of two to three grams from shot to shot, which is enormous in espresso terms. A simple kitchen scale — accurate to 0.1 grams — transforms your consistency overnight. Dose the same weight every time and your shots become predictable. Mistake number three: ignoring grind clumps. Most home grinders produce some degree of clumping, especially at fine espresso settings. If you dump clumpy grounds into the basket and tamp without breaking them apart, you create dense pockets that resist water flow. Water routes around these pockets, creating channels of over-extraction surrounded by under-extracted zones. Use a distribution tool, a stirring needle, or even a toothpick to break up clumps in the basket before leveling and tamping. This five-second step eliminates a major source of channeling."
+    },
+    {
+      "heading": "Mistakes 4–6: Machine and Water",
+      "content": "Mistake number four: not warming up the machine fully. A thermoblock machine like the Arco Primo reaches brew temperature in ninety seconds, but the group head and portafilter take longer to absorb heat. Running a blank shot — water through the empty portafilter — after the machine signals ready warms the metal path the espresso will travel. Skipping this step means your first shot contacts cold metal, losing several degrees of brew temperature and producing an under-extracted result. Mistake number five: using water straight from the tap without checking hardness. Very hard water scales your machine faster and adds mineral flavors. Very soft water under-extracts because minerals in water are actually necessary for proper extraction chemistry — they help dissolve flavor compounds. Test your water with the strip included in every Arco machine. Ideal total dissolved solids are between 70 and 150 parts per million. If your tap water falls outside this range, filtered or bottled water with a known mineral content is a worthwhile investment. Mistake number six: filling the water tank with hot water to speed things up. This seems logical but it can damage thermoblocks designed to heat cold water at a controlled rate, and it can introduce off-flavors from your hot water system's pipes or tank. Always fill with cold, fresh water."
+    },
+    {
+      "heading": "Mistakes 7–8: Puck Preparation",
+      "content": "Mistake number seven: tamping unevenly. The tamp does not need to be hard — fifteen to thirty pounds of pressure is sufficient — but it needs to be level. An uneven tamp creates a puck that is thicker on one side than the other. Water, always seeking the path of least resistance, flows faster through the thinner side, over-extracting it while under-extracting the thicker side. To check your tamp, lock in the portafilter, pull it back out before brewing, and look at the puck surface. If one side shows deeper indentation or the surface is visibly angled, your tamp is tilted. Practice against a flat surface — a countertop works — until you can press straight down consistently. The Arco calibrated tamper included with the Doppio clicks at thirty pounds, removing guesswork. Mistake number eight: tamping into a dirty basket. Coffee oils and old grounds accumulate in the basket holes over time, partially blocking them and creating uneven flow. After every shot, knock the puck out, rinse the basket under running water, and wipe it with a cloth. Once a week, soak the basket in hot water with espresso machine cleaning powder for fifteen minutes to dissolve oil buildup. A clean basket is essential for even extraction, and it takes thirty seconds to maintain."
+    },
+    {
+      "heading": "Mistakes 9–10: Timing and Taste",
+      "content": "Mistake number nine: watching the clock instead of the scale. Many beginners fixate on hitting a twenty-five-second shot time, adjusting grind to target that number regardless of flavor. But shot time is an output, not a target. The real target is a specific yield in grams — the weight of liquid in your cup. If you use a one-to-two ratio (18 grams in, 36 grams out), the time it takes to reach 36 grams tells you whether your grind is in the right zone. But the final judge is taste, not time. A shot that runs in twenty-two seconds but tastes sweet and balanced is better than a twenty-seven-second shot that tastes bitter. Use time as a diagnostic clue, not a success criterion. Mistake number ten: giving up too soon. Espresso has a learning curve. Your first dozen shots will not be great, and that is completely normal. The variables are interactive — grind, dose, distribution, tamp, temperature — and it takes practice to develop the feel and the palate to manage them. Most people who stick with it for two weeks report a dramatic improvement. Those who quit after three bad shots never get past the initial hump. Keep a simple log of your shots — grind setting, dose, yield, time, and a one-word taste note — and review it after a week. You will see clear patterns, and those patterns will guide your next adjustment. Every great home barista started exactly where you are right now."
+    }
+  ],
+  "key_takeaways": [
+    "Grind fresh, weigh your dose, and break up clumps — these three habits fix the majority of beginner espresso issues.",
+    "Warm up the machine and portafilter fully, and use water with appropriate mineral content.",
+    "Tamp level rather than hard, and keep your basket clean to ensure even extraction.",
+    "Judge shots by taste and yield weight, not shot time — and give yourself at least two weeks before drawing conclusions."
+  ],
+  "related_products": ["arco-primo", "arco-macinino"],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Start with the Arco Primo",
+    "url": "/products/arco-primo"
+  },
+  "related_posts": ["how-to-dial-in-espresso-in-under-10-minutes", "why-your-grinder-matters-more-than-your-machine", "descaling-step-by-step"],
+  "seo": {
+    "title": "10 Most Common Beginner Espresso Mistakes and Fixes | Arco",
+    "meta_description": "The ten most common mistakes new home baristas make — from pre-ground coffee to clock-watching — with practical fixes for each one. Based on thousands of real support conversations."
+  }
+}

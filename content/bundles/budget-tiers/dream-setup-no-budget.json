@@ -1,0 +1,62 @@
+{
+  "id": "bundle-bt-005",
+  "slug": "dream-setup-no-budget",
+  "title": "The Dream Setup — No Budget Limit",
+  "headline": "Everything. The best of everything. No compromises left.",
+  "budget_range": "€3,000+",
+  "editorial_intro": "This is what happens when budget is not a variable. Every tool in this setup is the finest Arco makes, chosen not because it costs the most but because at each position in the workflow, nothing else is better.",
+  "editorial_body": "The Arco Studio Pro (€2,199) and Arco Zero (€699) form the foundation at €2,898. Add the full complement of preparation and maintenance accessories and the total approaches €3,200. This is aspirational, certainly. But every component earns its place.\n\nThe Studio Pro is not simply a more expensive version of the Studio. It is a fundamentally different kind of machine. The saturated group head maintains temperature within half a degree Celsius — tighter than most commercial equipment — which means extraction stability is no longer something you manage. It is simply there, consistently, shot after shot. The flow control paddle and manual pressure profiling open an entirely new dimension of espresso: you can build custom extraction curves that bring out different characteristics from the same bean. A long, low-pressure pre-infusion followed by a gradual ramp produces syrupy body from a medium roast. A quick bloom followed by declining pressure draws clarity and acidity from a light Ethiopian natural. These are techniques that were exclusive to competition stages five years ago. Now they are on your countertop.\n\nThe Zero grinder paired with the Studio Pro is not an upgrade from the Preciso in the way the Preciso is an upgrade from the Macinino. It is a different resolution of flavour. The 64mm competition burrs produce a particle distribution so tight that differences between individual lots of the same origin become visible in the cup. Single-dosing with true zero retention means every shot uses only the beans you intended, with no stale grounds contaminating the first dose of a new bag.\n\nThe full accessories suite — WDT tool, calibrated tamper, distribution tool, precision scale, graduated shot glasses, and a comprehensive maintenance kit — eliminates every remaining variable. Nothing is improvised. Nothing is 'good enough for now.' Every tool is the one you would choose if you were choosing once and forever.\n\nIs this setup necessary? No. The under-€1,000 tier produces excellent espresso that most people cannot distinguish from this in a blind tasting. But for the person who finds deep satisfaction in the pursuit of the best possible cup — who enjoys the process as much as the result — this is the setup that stops the search. There is nothing left to upgrade. There is only coffee to make.",
+  "products": [
+    {
+      "product_id": "arco-studio-pro",
+      "role": "recommended-machine",
+      "combo_note": "Saturated group, pressure profiling, flow control, dual PID. The machine that has no ceiling."
+    },
+    {
+      "product_id": "arco-zero",
+      "role": "recommended-grinder",
+      "combo_note": "64mm competition burrs, true zero retention. The grinder the Studio Pro demands."
+    },
+    {
+      "product_id": "arco-wdt-tool",
+      "role": "recommended-accessory",
+      "combo_note": "0.4mm needles for puck preparation at the particle level."
+    },
+    {
+      "product_id": "arco-distribution-tool",
+      "role": "recommended-accessory",
+      "combo_note": "Adjustable depth for a perfectly level coffee bed."
+    },
+    {
+      "product_id": "arco-precision-scale",
+      "role": "recommended-accessory",
+      "combo_note": "0.1g with shot timer for absolute dose and yield accuracy."
+    },
+    {
+      "product_id": "arco-shot-glasses",
+      "role": "recommended-accessory",
+      "combo_note": "Graduated borosilicate for real-time visual extraction feedback."
+    },
+    {
+      "product_id": "arco-maintenance-kit",
+      "role": "recommended-accessory",
+      "combo_note": "Comprehensive cleaning and descaling supplies for a year of daily use."
+    }
+  ],
+  "value_proposition": "The finest home espresso station Arco can build. Pressure profiling, flow control, competition-grade grinding, and a full suite of professional tools. Nothing left to want.",
+  "trade_offs": [
+    "The Studio Pro weighs 26 kg and needs a dedicated, stable surface — this is permanent kitchen furniture",
+    "Full warm-up takes 12 minutes — not a spontaneous morning machine unless you use a smart plug on a timer",
+    "The learning curve on pressure profiling is real — early results may be worse than a simpler machine until technique develops",
+    "This setup produces its best work with specialty-grade, freshly roasted beans — commodity supermarket coffee will not reveal the equipment's capabilities",
+    "Maintenance requirements are higher: weekly backflushing, monthly descaling, and regular group gasket inspection"
+  ],
+  "hero_image_alt": "The complete Arco dream setup on a wide concrete countertop: Studio Pro in matte black with copper accents and flow control paddle, Zero grinder with single-dose hopper, WDT tool, distribution tool, precision scale, graduated shot glasses, and maintenance kit arranged with care, dramatic directional lighting emphasising the copper and chrome details, a perfect espresso with tiger striping in the foreground",
+  "persona_tags": ["craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Dream Espresso Setup — No Budget Limit Guide | Arco",
+    "meta_description": "The ultimate home espresso setup: Arco Studio Pro + Zero grinder + full accessories from €2,898. Pressure profiling, flow control, competition-grade grinding. No compromises.",
+    "canonical_url": "/bundles/budget-tiers/dream-setup-no-budget"
+  }
+}

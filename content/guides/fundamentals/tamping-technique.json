@@ -1,0 +1,48 @@
+{
+  "id": "tamping-technique",
+  "slug": "tamping-technique",
+  "category": "fundamentals",
+  "title": "Tamping Technique: How to Compress Your Coffee Puck Evenly",
+  "difficulty": "beginner",
+  "read_time_minutes": 6,
+  "persona_tags": ["morning-minimalist"],
+  "intent_tags": ["research", "own"],
+  "hero_image_alt": "Hands pressing a stainless steel tamper into a portafilter filled with freshly ground coffee, viewed from slightly above and to the side, wrist aligned straight with forearm, espresso machine blurred in background, warm kitchen lighting",
+  "intro": "Tamping compresses loose ground coffee into a firm, even puck. It sounds simple — and it is — but small mistakes in technique can create uneven density, which leads to channeling and inconsistent extraction. A few minutes of practice and a clear understanding of what tamping does will make every shot you pull more reliable.",
+  "body": [
+    {
+      "heading": "Why We Tamp at All",
+      "content": "After grinding, coffee sits loosely in the portafilter basket with significant air between the particles. If you were to lock this loose bed into the group head and start brewing, pressurized water would blast through the gaps of least resistance, creating channels — fast-flowing pathways that over-extract some coffee while leaving the rest barely touched. Tamping eliminates those large air gaps by compressing the grounds into a uniform, level surface. The goal is not to create maximum density but to create even density. When every part of the puck has the same resistance to water flow, the pressurized water distributes itself evenly across the entire surface, passing through the bed at a consistent rate. This evenness is what produces a balanced, sweet extraction. Think of tamping as setting the stage for water to do its job properly. A level, evenly compressed puck gives water no reason to prefer one path over another, and that even flow is the foundation of a well-extracted shot. Without it, even perfect grind size, dose, and temperature cannot save you from uneven, muddled flavors."
+    },
+    {
+      "heading": "Proper Tamping Form and Pressure",
+      "content": "Hold the tamper like a doorknob — your thumb and fingers wrap around the sides of the handle, and the base of your palm rests on top. Your wrist should be straight and aligned with your forearm, not bent at an angle. This alignment lets you press straight down without tilting the tamper, which would create an uneven puck surface. Place the portafilter on a flat, stable surface or use a tamping station to keep it steady. Position the tamper on top of the grounds and press straight down with firm, even pressure — roughly 15 to 20 kilograms of force, which is about as hard as pressing your palm flat against a table and leaning into it moderately. The exact pressure matters less than consistency and levelness. Research has shown that once you exceed about 10 kilograms of force, additional pressure has diminishing returns — the puck is already compressed enough. What matters far more is that the tamper sits perfectly level. A tilted tamp creates a thick side and a thin side; water will rush through the thin side, channeling badly. After pressing, give a slight twist — no more than a light polish — to seal the surface. Then lift the tamper cleanly without bumping the edge of the basket."
+    },
+    {
+      "heading": "Distribution Before Tamping",
+      "content": "Many extraction problems blamed on tamping are actually distribution problems. If the grounds are not spread evenly in the basket before you tamp, tamping will compress an uneven bed into an uneven puck — no amount of level pressing can fix a mound of coffee sitting in one corner. Before you tamp, take a moment to distribute the grounds. The simplest method is the Stockfleth technique: place your index finger across the top of the portafilter and rotate the portafilter beneath it, using your finger to sweep grounds from high spots to low spots until the surface looks flat. A dosing funnel helps keep grounds from spilling during this step. More advanced distribution tools — like WDT needles or leveling tools — break up clumps and spread grounds even more evenly. These are especially helpful with grinders that produce clumpy output or when single-dosing, where grounds can land unevenly in the basket. The key principle is: distribute first, then tamp. Tamping is a finishing step, not a correction step. If you get distribution right, tamping becomes almost trivially easy — just a straight, level press that seals the already-even bed."
+    },
+    {
+      "heading": "Common Mistakes and How to Fix Them",
+      "content": "The most common tamping mistake is an uneven press. If your wrist is bent or your elbow is at an awkward angle, the tamper naturally tilts, creating a sloped puck. Fix this by adjusting your body position: stand with the portafilter at elbow height so your forearm can drive straight down without contortion. The second common mistake is tapping the side of the portafilter with the tamper after pressing. Some baristas do this to knock loose grounds off the basket wall, but it can fracture the compressed puck, creating gaps along the edge where water will channel. If you see grounds clinging to the basket wall, use a light finger sweep instead. The third mistake is inconsistency. If you tamp with 15 kilograms one shot and 25 the next, you are changing a variable unnecessarily. Pick a pressure that feels comfortable and repeatable, and stick with it. A calibrated tamper with a built-in spring that clicks at a set pressure can help build muscle memory. Finally, do not overthink tamping. It is important, but it is not the variable you should obsess over. Get it level, get it consistent, and then direct your attention to grind size and ratio, which have a much larger impact on flavor."
+    }
+  ],
+  "key_takeaways": [
+    "Tamping creates an even, level puck so water flows uniformly — evenness matters more than force.",
+    "Press straight down with a flat wrist at roughly 15 to 20 kilograms of force, keeping the tamper perfectly level.",
+    "Distribute grounds evenly in the basket before tamping — tamping cannot fix poor distribution.",
+    "Avoid tapping the side of the portafilter after tamping, as it can crack the puck and cause channeling.",
+    "Once your tamp is consistent and level, focus your energy on grind size and dose for bigger flavor gains."
+  ],
+  "related_products": ["arco-primo"],
+  "related_guides": ["what-is-extraction", "wdt-technique", "troubleshooting-bad-espresso", "your-first-week-with-a-machine"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "See What Comes in the Arco Primo Box",
+    "url": "/products/arco-primo"
+  },
+  "seo": {
+    "title": "How to Tamp Espresso: Proper Technique for Beginners | Arco",
+    "meta_description": "Learn correct espresso tamping technique — proper form, pressure, levelness, and distribution. Avoid common mistakes that cause channeling. Beginner guide from Arco."
+  }
+}

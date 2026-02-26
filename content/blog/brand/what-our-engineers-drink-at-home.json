@@ -1,0 +1,53 @@
+{
+  "id": "what-our-engineers-drink-at-home",
+  "slug": "what-our-engineers-drink-at-home",
+  "category": "brand",
+  "title": "What Our Engineers Drink at Home: Four Setups, Four Philosophies",
+  "author": {
+    "name": "Marcus Webb",
+    "role": "Barista Trainer",
+    "bio_short": "Marcus trains home baristas through Arco's workshop program. He competed in the UK Barista Championship twice and has a knack for making complex techniques feel simple."
+  },
+  "published_date": "2026-01-28T08:00:00Z",
+  "read_time_minutes": 9,
+  "hero_image_alt": "Collage-style grid of four different kitchen countertops, each showing a distinct espresso setup — one minimalist with a single compact machine, one cluttered with accessories and a roasting log, one featuring a vintage lever machine beside a modern grinder, one with a travel kit and portable brewer — warm domestic lighting in each frame",
+  "tags": ["team-profiles", "home-setups", "engineering", "behind-the-scenes", "personal-stories"],
+  "persona_tags": ["craft-barista"],
+  "intent_tags": ["discover"],
+  "intro": "We asked four engineers on the Arco team to photograph their home coffee setups and explain why they chose what they chose. The results reveal that the people who design espresso machines have wildly different opinions about how to use them — and that is exactly the kind of internal debate that makes Arco's product range stronger.",
+  "body": [
+    {
+      "heading": "Sophie: The Data-Driven Setup",
+      "content": "Sophie Chen, who leads brew system engineering, has a home setup that looks like a miniature laboratory. Her Arco Studio Pro sits on a silicone mat beside an Arco Zero grinder and a precision scale with Bluetooth logging. A tablet mounted to the backsplash runs a custom spreadsheet she built to track every shot: dose, yield, time, grind setting, bean origin, roast date, and a one-to-ten flavor score. She has logged over two thousand shots in three years. Sophie's philosophy is that espresso is an applied science, and the fastest path to consistent quality is measurement and iteration. She pulls two shots every morning, logs both, and reviews her weekly data on Sunday evenings to spot trends. She noticed, for example, that her shots consistently scored higher between days eight and fourteen post-roast, which changed her buying rhythm. She also discovered that a half-degree temperature increase on washed Ethiopians produced measurably sweeter shots, a finding she later validated in Arco's test lab and incorporated into the Studio Pro's preset profiles. Her setup cost more than most people's entire kitchen, and she freely admits it is excessive for someone who drinks two espressos a day. But for Sophie, the measurement is part of the pleasure. Every data point is a tiny experiment, and the cumulative knowledge feeds directly into the machines she designs."
+    },
+    {
+      "heading": "Marco: The Minimalist",
+      "content": "Marco Rossi has assembled machines at Arco since the company launched, and his home setup is the opposite of Sophie's. He uses an Arco Primo in matte black and an Arco Macinino grinder. No scale, no timer, no accessories beyond the portafilter and tamper that came in the box. He doses by eye using the portafilter as a measuring cup — filling to the ridge line, leveling with his finger, and tamping once. His shots take somewhere between twenty and thirty seconds. He has never timed one precisely. Marco's philosophy is that espresso should require no more thought than making toast. He drinks three or four cups a day, always with a splash of hot milk, and judges quality by a single criterion: does it taste good right now? If it does, the recipe is correct. If it does not, he nudges the grinder one click and moves on. He has been making espresso this way for twenty years, first on a Bialetti Moka pot, then on a series of increasingly capable machines. The Primo is his favorite because it does not ask him to interact with a display, set a temperature, or think about pre-infusion profiles. It heats up, it makes espresso, and it fits in the corner of his counter without commanding attention. When asked if he feels any contradiction between building precision machines all day and ignoring precision at home, he laughs. The precision, he says, is baked into the machine. That is the whole point."
+    },
+    {
+      "heading": "Giulia: The Experimenter",
+      "content": "Giulia De Luca runs incoming quality inspection at Arco and has the most eclectic setup of anyone on the team. Her kitchen features an Arco Doppio for espresso, a manual lever machine she restored from a flea market in Parma, a ceramic pour-over dripper, and a Vietnamese phin filter she picked up on a trip to Ho Chi Minh City. She uses a different brew method almost every day, depending on the beans she has open and her mood. Her grinder is an Arco Preciso, which she chose specifically for its wide adjustment range — fine enough for espresso, coarse enough for pour-over. She switches between settings daily, which would horrify Sophie but delights Giulia, who sees each brew method as a different lens on the same bean. A washed Colombian that tastes bright and citric as espresso becomes round and chocolatey through the pour-over. The same natural Ethiopian that explodes with blueberry in espresso turns into a gentle, tea-like infusion through the phin. She buys beans from six different roasters on a rotating basis and rarely orders the same coffee twice. Her pantry shelf looks like a stamp collection — small bags from Tokyo, Oslo, Melbourne, and Addis Ababa, each with a few doses remaining. Giulia's approach reminds the team that espresso is only one expression of coffee, and that designing great espresso machines requires understanding the broader landscape."
+    },
+    {
+      "heading": "Tomás: The Weekend Ritualist",
+      "content": "Tomás Fernández, an electrical engineer who designs Arco's control boards, has a home setup that barely gets used on weekdays. He wakes early, drops his daughter at school, and grabs a quick espresso at the bar near the workshop. His home machine — an Arco Studio — comes alive on Saturday and Sunday mornings, when he has time for the full ritual. He wakes before the rest of the family, switches the machine on, and grinds while the boiler heats. He weighs his dose on a small brass scale he found in an antique shop, distributes with a needle tool, and tamps with deliberate care. He pulls a single shot into a ceramic cup his wife made in a pottery class, carries it to the living room, and drinks it slowly while reading the newspaper. The whole process takes about twenty minutes. On weekdays, it would be impractical. On weekends, it is his meditation. Tomás chose the Studio specifically because it rewards slow, attentive operation — the fifteen-minute warm-up is a feature, not a bug, because it gives him time to prepare and settle in. He argues that machines should accommodate different modes of use: fast and functional for weekdays, slow and ritualistic for weekends. This perspective shaped the Studio's dual-profile feature, which lets users save a quick-start configuration alongside a full warm-up configuration. An engineer who uses his own products in real life designs better products, and Tomás is living proof."
+    }
+  ],
+  "key_takeaways": [
+    "Sophie logs every shot in a custom spreadsheet and uses the data to refine both her home brewing and Arco's product presets.",
+    "Marco uses the Primo with no scale and no timer, proving that a well-designed machine can deliver quality without demanding attention.",
+    "Giulia rotates through five brew methods daily, using the Preciso's wide adjustment range to explore how beans express differently across techniques.",
+    "Tomás reserves his Studio for weekend rituals, and his preference for slow, attentive brewing shaped the machine's dual-profile feature."
+  ],
+  "related_products": ["arco-primo", "arco-studio", "arco-studio-pro", "arco-doppio", "arco-preciso", "arco-zero"],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Find Your Setup",
+    "url": "/products"
+  },
+  "related_posts": ["qa-with-our-head-of-product", "a-visit-to-our-workshop", "two-coffee-people-one-machine"],
+  "seo": {
+    "title": "What Arco Engineers Drink at Home: Four Setups | Arco",
+    "meta_description": "Four Arco engineers, four home espresso setups, four different philosophies. From data-obsessed logging to no-scale minimalism — inside the kitchens of the people who build your machine."
+  }
+}

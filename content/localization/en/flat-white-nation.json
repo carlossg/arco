@@ -1,0 +1,38 @@
+{
+  "id": "loc-en-004",
+  "slug": "flat-white-nation",
+  "title": "Flat White Nation: Britain's Favourite Coffee and the Machines That Make It",
+  "market": "United Kingdom",
+  "language": "en-GB",
+  "persona_tag": "upgrader",
+  "hero_image_alt": "A close-up of a flat white being poured in a small ceramic cup, the milk creating a rosetta latte art pattern on the espresso surface, an Arco Doppio machine in soft focus behind, a British kitchen setting with a wooden chopping board and a window with condensation suggesting a cold morning outside",
+  "hero_headline": "The flat white is not just a drink. It is how Britain drinks coffee now.",
+  "hero_subtext": "More than any other beverage, the flat white defines contemporary British coffee culture. Making one properly at home requires an espresso machine that takes milk as seriously as it takes the shot.",
+  "editorial_intro": "The flat white arrived in Britain from Australia and New Zealand in the early 2000s and within fifteen years had become the defining coffee order of a generation. It is not a latte. It is not a cappuccino. It is a drink that demands both a well-extracted espresso and precisely textured milk, and making it at home is the single most common reason people buy an espresso machine in the UK.",
+  "editorial_body": "The numbers tell a clear story. The flat white is the most ordered specialty coffee drink in the United Kingdom. It overtook the latte in 2018 and has held its position since. Every major chain serves one. Every independent cafe serves one. The drink has become so embedded in British daily life that ordering 'a flat white' requires no further specification — everyone knows what it means.\n\nBut what does it actually mean? Precision. A flat white is a double espresso topped with steamed milk that has been textured to a microfoam consistency — milk that is silky, glossy, and free of visible bubbles. The volume is smaller than a latte (typically 150 to 180 millilitres total), which means the espresso is not drowned but carried. The ratio of coffee to milk is higher, so the espresso's flavour is the dominant note, with the milk providing sweetness, body, and texture rather than dilution.\n\nThis matters for equipment because the flat white exposes weakness in both halves of the machine. A poor espresso — under-extracted, bitter, or thin — will taste distinctly wrong in a flat white, where there is not enough milk to mask it. Weak or poorly textured steam will produce milk that is either too foamy (cappuccino territory) or too thin (latte territory), missing the narrow band of microfoam that defines the drink.\n\nThe Arco Doppio was designed, in part, with the flat white in mind. Its dual boilers mean you never have to wait between pulling the shot and steaming the milk — a critical advantage when timing matters. The espresso boiler holds temperature at 93 degrees Celsius by default, producing shots with the body and sweetness that milk drinks demand. The steam boiler generates consistent, dry steam at 1.5 bar pressure, enough to texture milk quickly and create the dense, paint-like microfoam that a proper flat white requires.\n\nThe steaming technique is what separates a flat white from everything else. You introduce air for two to three seconds maximum — just enough to increase the milk's volume by roughly a third. Then you submerge the tip and spin the milk until it reaches 65 degrees. The result should look like wet white paint: glossy, smooth, with no visible foam layer on top. Pour it into the espresso in a single stream, and the microfoam integrates with the crema to produce a uniform, tawny surface.\n\nBritain's relationship with the flat white reveals something interesting about how the country adopts food and drink from elsewhere. Unlike the Italian espresso tradition, which came to Britain through immigration and was largely adopted by the middle class as an aspirational signifier in the 1990s, the flat white arrived through the cafe industry itself — brought by Australian and New Zealand baristas who staffed London's emerging specialty cafes and simply made what they knew. It spread not through marketing but through taste: people tried it, preferred it to what they had been drinking, and kept ordering it.\n\nThe flat white also suits the British temperament. It is efficient — smaller than a latte, quicker to drink. It is unpretentious — no elaborate sizing system, no customisation menu, no whipped cream. It is a drink for people who want good coffee without performance. Order it, drink it, get on with your day.\n\nAt home, the flat white is the drink that justifies an espresso machine. It is what you make every morning, what you offer guests, what you perfect over months of small adjustments to grind and milk technique. The Doppio, paired with the Preciso grinder, gives you the consistency to make the same flat white every morning — and the precision to make it better next month than this month.\n\nBritain did not invent the flat white. But it made the flat white its own, and in doing so created a coffee culture that values quality, simplicity, and the quiet pleasure of a well-made drink. Arco exists to serve exactly that.",
+  "product_bundle": [
+    { "product_id": "arco-doppio", "role": "anchor" },
+    { "product_id": "arco-preciso", "role": "primary" },
+    { "product_id": "arco-primo", "role": "entry" }
+  ],
+  "featured_guides": [
+    "guide-flat-white-technique",
+    "guide-milk-texturing",
+    "guide-dialling-in-espresso"
+  ],
+  "cta": {
+    "text": "Explore the Arco Doppio",
+    "url": "/en/products/arco-doppio",
+    "secondary_text": "See the Flat White Starter Kit",
+    "secondary_url": "/en/bundles/persona-kits/upgrader-kit"
+  },
+  "seo": {
+    "title": "Flat White Nation — Britain's Favourite Coffee and the Machine for It | Arco Coffee",
+    "meta_description": "The flat white is Britain's defining coffee drink. The Arco Doppio's dual boilers and consistent steam make it the ideal machine for perfecting flat whites at home."
+  },
+  "hreflang": {
+    "en": "/en/flat-white-nation",
+    "it": "/it/flat-white-nazione",
+    "de": "/de/flat-white-nation"
+  }
+}

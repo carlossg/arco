@@ -1,0 +1,84 @@
+{
+  "id": "arco-viaggio",
+  "slug": "arco-viaggio",
+  "name": "Arco Viaggio",
+  "tagline": "Espresso, untethered.",
+  "price_eur": 89,
+  "price_display": "€89",
+  "category": "espresso-machine",
+  "hero_image_alt": "Arco Viaggio portable manual lever espresso maker in forest green aluminium, held in one hand against a blurred mountain landscape background, a small espresso cup below it catching dark crema-topped espresso, warm golden-hour light, travel backpack out of focus in the background",
+  "headline": "340 grams. Genuine espresso. Anywhere.",
+  "subheadline": "A manual lever espresso maker machined from a single block of aluminium — no electricity, no compromise, no reason to drink bad coffee on the road.",
+  "description_short": "A portable 340g manual lever espresso maker machined from aluminium — no electricity needed, genuine espresso anywhere.",
+  "description_long": "The Arco Viaggio weighs less than a paperback and produces espresso that rivals machines fifty times its size. The precision-machined aluminium body and stainless steel filter basket create up to 9 bars of pressure through a simple lever mechanism — your arm is the pump. Add hot water, insert your coffee, press, and in under a minute you have a real shot. The Viaggio disassembles for easy cleaning and packs into the included neoprene travel case. From mountain huts to hotel rooms to train journeys, this is espresso without boundaries.",
+  "key_specs": {
+    "dimensions": "17 × 6 cm (assembled)",
+    "weight": "340 g",
+    "material": "CNC-machined 6061 aluminium body, stainless steel filter",
+    "pressure": "Up to 9 bar (manual lever)",
+    "capacity": "Single shot (40–60 ml)",
+    "filter_basket": "Stainless steel micro-mesh, reusable",
+    "grind_compatibility": "Fine to medium-fine (espresso grind)",
+    "water_capacity": "60 ml chamber",
+    "electricity": "None required",
+    "dishwasher_safe": "No (hand wash only)",
+    "operating_temperature": "Add water at 90–96°C"
+  },
+  "whats_in_box": [
+    "Arco Viaggio manual espresso maker",
+    "Stainless steel filter basket",
+    "Spare silicone seal",
+    "Neoprene travel case",
+    "Dosing scoop",
+    "Quick-start guide with brewing tips"
+  ],
+  "variants": [
+    { "name": "Graphite", "hex": "#4A4A4A" },
+    { "name": "Forest Green", "hex": "#3A5F3A" },
+    { "name": "Desert Sand", "hex": "#C2A878" }
+  ],
+  "use_case_headline": "Perfect for travellers, hikers, and anyone who refuses bad coffee.",
+  "use_case_body": "The Viaggio goes where plug-in machines cannot. Pack it for a weekend in the mountains, a work trip, or a camping expedition — anywhere you have access to hot water and ground coffee, you have espresso.",
+  "pairing_products": [
+    { "product_id": "arco-macinino", "rationale": "Grind fresh beans at home and bring your dose — or use the Macinino as your daily grinder when you're not travelling." },
+    { "product_id": "preparation-accessories", "rationale": "A compact travel scale ensures consistent dosing wherever you are." }
+  ],
+  "experience_tag": "traveller",
+  "persona_tags": ["traveller", "morning-minimalist"],
+  "intent_tags": ["discover", "research", "decide"],
+  "related_blog_posts": [
+    "espresso-on-the-road",
+    "manual-espresso-technique",
+    "best-travel-coffee-gear"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Viaggio",
+    "description": "A portable 340g manual lever espresso maker machined from aluminium — no electricity needed, genuine espresso anywhere.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-VIAGGIO",
+    "image": "/content/products/images/arco-viaggio-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 89,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-viaggio"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.4,
+      "reviewCount": 421
+    }
+  },
+  "seo": {
+    "title": "Arco Viaggio — Portable Manual Espresso Maker | Arco",
+    "meta_description": "The Arco Viaggio weighs 340g and makes genuine espresso with no electricity. Machined aluminium, manual lever, travel-ready. From €89.",
+    "og_image_alt": "Arco Viaggio portable espresso maker in forest green aluminium",
+    "canonical_url": "/products/arco-viaggio"
+  }
+}

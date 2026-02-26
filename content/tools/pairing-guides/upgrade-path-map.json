@@ -1,0 +1,140 @@
+{
+  "id": "pairing-upgrade-path",
+  "slug": "upgrade-path-map",
+  "title": "Upgrade Path Map",
+  "description": "Visualize every logical upgrade route through the Arco product lineup. Each path shows the budget delta, what you gain, and why the move makes sense. Plan your coffee journey from entry-level to endgame.",
+  "hero_image_alt": "An infographic-style path diagram showing Arco machines and grinders connected by arrows, starting from entry-level at the bottom to flagship at the top",
+  "data": {
+    "nodes": [
+      { "id": "arco-steam", "type": "machine", "label": "Arco Steam", "price": 199, "tier": 1 },
+      { "id": "arco-nano", "type": "machine", "label": "Arco Nano", "price": 449, "tier": 2 },
+      { "id": "arco-automatico", "type": "machine", "label": "Arco Automatico", "price": 699, "tier": 2 },
+      { "id": "arco-classica", "type": "machine", "label": "Arco Classica", "price": 899, "tier": 3 },
+      { "id": "arco-barista-pro", "type": "machine", "label": "Arco Barista Pro", "price": 1199, "tier": 4 },
+      { "id": "arco-lever", "type": "machine", "label": "Arco Lever", "price": 1499, "tier": 4 },
+      { "id": "arco-maestro", "type": "machine", "label": "Arco Maestro", "price": 1699, "tier": 5 },
+      { "id": "arco-dual-boiler", "type": "machine", "label": "Arco Dual Boiler", "price": 2199, "tier": 5 },
+      { "id": "arco-mini-grinder", "type": "grinder", "label": "Arco Mini Grinder", "price": 149, "tier": 1 },
+      { "id": "arco-macinino-home", "type": "grinder", "label": "Arco Macinino Home", "price": 299, "tier": 2 },
+      { "id": "arco-conico", "type": "grinder", "label": "Arco Conico", "price": 399, "tier": 3 },
+      { "id": "arco-macinino-pro", "type": "grinder", "label": "Arco Macinino Pro", "price": 499, "tier": 4 }
+    ],
+    "edges": [
+      {
+        "from": "arco-steam",
+        "to": "arco-nano",
+        "budget_delta": 250,
+        "rationale": "The biggest single upgrade you can make. Moving from steam pressure to pump-driven espresso transforms shot quality. The Nano adds PID temperature control and a proper portafilter.",
+        "what_you_gain": ["Real 9-bar espresso extraction", "PID temperature control", "53mm commercial-style portafilter", "Pre-infusion capability"]
+      },
+      {
+        "from": "arco-steam",
+        "to": "arco-automatico",
+        "budget_delta": 500,
+        "rationale": "Skip the learning curve entirely. The Automatico handles grinding, dosing, tamping, and brewing — just add beans and press a button.",
+        "what_you_gain": ["Built-in grinder", "One-touch operation", "Programmable drink recipes", "Automatic milk frothing"]
+      },
+      {
+        "from": "arco-nano",
+        "to": "arco-classica",
+        "budget_delta": 450,
+        "rationale": "The step up from compact to full-size. The Classica's larger boiler means better temperature stability across back-to-back shots and real steam power for milk drinks.",
+        "what_you_gain": ["58mm industry-standard portafilter", "Larger 1L boiler", "Commercial-grade steam wand", "Better thermal stability"]
+      },
+      {
+        "from": "arco-nano",
+        "to": "arco-barista-pro",
+        "budget_delta": 750,
+        "rationale": "A bigger jump that skips the mid-tier. The Barista Pro adds pre-infusion control, a pressure gauge, and a professional steam arm. Ideal if you are serious about latte art.",
+        "what_you_gain": ["Adjustable pre-infusion", "Pressure gauge", "Cool-touch steam wand", "Shot timer", "58mm portafilter"]
+      },
+      {
+        "from": "arco-automatico",
+        "to": "arco-classica",
+        "budget_delta": 200,
+        "rationale": "Trading convenience for control. You will need a separate grinder, but gain hands-on command of every variable. The jump to manual espresso-making unlocks much higher quality ceilings.",
+        "what_you_gain": ["Full manual control", "58mm portafilter system", "Better steam performance", "Upgradable workflow"]
+      },
+      {
+        "from": "arco-classica",
+        "to": "arco-barista-pro",
+        "budget_delta": 300,
+        "rationale": "The natural next step. Pre-infusion, a pressure gauge, and the cool-touch steam wand make the Barista Pro the most capable single-boiler in the range.",
+        "what_you_gain": ["Adjustable pre-infusion", "Real-time pressure gauge", "Improved steam boiler capacity", "Shot timer display"]
+      },
+      {
+        "from": "arco-classica",
+        "to": "arco-lever",
+        "budget_delta": 600,
+        "rationale": "A lateral move for those who want tactile connection to the extraction. Lever machines reward skilled operators with espresso that no pump machine can replicate.",
+        "what_you_gain": ["Manual pressure profiling", "Direct tactile feedback", "Iconic design", "Near-silent operation"]
+      },
+      {
+        "from": "arco-barista-pro",
+        "to": "arco-maestro",
+        "budget_delta": 500,
+        "rationale": "From single-boiler to heat-exchange. The Maestro lets you brew and steam simultaneously — no more waiting between pulling a shot and frothing milk.",
+        "what_you_gain": ["Simultaneous brew and steam", "Heat-exchange boiler", "E61-style group head", "Commercial rotary pump option"]
+      },
+      {
+        "from": "arco-barista-pro",
+        "to": "arco-dual-boiler",
+        "budget_delta": 1000,
+        "rationale": "The endgame for precision-focused baristas. Independent PID control of brew and steam temperature. No compromises.",
+        "what_you_gain": ["Independent brew and steam boilers", "Dual PID temperature control", "Programmable pressure profiling", "Direct plumb option"]
+      },
+      {
+        "from": "arco-maestro",
+        "to": "arco-dual-boiler",
+        "budget_delta": 500,
+        "rationale": "Moving from heat-exchange to true dual-boiler gives you independent temperature control. Critical for light-roast espresso where brew temperature precision matters most.",
+        "what_you_gain": ["Independent temperature control", "Programmable pressure profiling", "Larger steam boiler", "Digital PID display"]
+      },
+      {
+        "from": "arco-mini-grinder",
+        "to": "arco-macinino-home",
+        "budget_delta": 150,
+        "rationale": "Larger 50mm burrs grind faster and more uniformly. The single biggest grinder upgrade for the money. You will taste the difference immediately in espresso clarity.",
+        "what_you_gain": ["50mm flat burrs (vs 38mm)", "Stepless grind adjustment", "Lower retention", "Quieter motor"]
+      },
+      {
+        "from": "arco-macinino-home",
+        "to": "arco-conico",
+        "budget_delta": 100,
+        "rationale": "A flavour-profile shift rather than a pure upgrade. Conical burrs produce a different particle distribution that emphasizes body and sweetness over clarity. Great for medium-dark roasts and traditional espresso.",
+        "what_you_gain": ["58mm conical burrs", "Lower RPM for less heat", "Sweeter, more full-bodied shots", "Excellent for medium-dark roasts"]
+      },
+      {
+        "from": "arco-macinino-home",
+        "to": "arco-macinino-pro",
+        "budget_delta": 200,
+        "rationale": "The definitive grinder upgrade. 64mm flat burrs deliver surgical precision in particle size distribution. You will notice increased clarity, sweetness, and complexity in every cup.",
+        "what_you_gain": ["64mm flat burrs", "Near-zero retention", "Programmable dose timer", "Cafe-level grind quality"]
+      },
+      {
+        "from": "arco-conico",
+        "to": "arco-macinino-pro",
+        "budget_delta": 100,
+        "rationale": "Moving from conical to large flat burrs prioritizes clarity and origin-character expression. If you drink light roasts or single origins, this is the right move.",
+        "what_you_gain": ["64mm flat burrs", "Higher clarity and brightness", "Better for light roasts", "Programmable dose timer"]
+      }
+    ]
+  },
+  "persona_tags": ["upgrader", "planner", "home-barista"],
+  "intent_tags": ["upgrade", "compare", "plan-purchase", "budget"],
+  "related_products": [
+    "arco-classica",
+    "arco-barista-pro",
+    "arco-maestro",
+    "arco-dual-boiler",
+    "arco-macinino-pro"
+  ],
+  "cta": {
+    "label": "Talk to an Arco Specialist About Your Upgrade",
+    "url": "/contact"
+  },
+  "seo": {
+    "title": "Arco Upgrade Path Map | Plan Your Coffee Equipment Journey | Arco",
+    "meta_description": "Visualize every upgrade route through the Arco lineup. See what you gain at each step, the budget delta, and why each move makes sense for your coffee journey."
+  }
+}

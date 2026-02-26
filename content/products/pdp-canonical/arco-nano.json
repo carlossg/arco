@@ -1,0 +1,86 @@
+{
+  "id": "arco-nano",
+  "slug": "arco-nano",
+  "name": "Arco Nano",
+  "tagline": "Small machine. Real espresso.",
+  "price_eur": 199,
+  "price_display": "€199",
+  "category": "espresso-machine",
+  "hero_image_alt": "Arco Nano ultra-compact espresso machine in matte white on a narrow kitchen shelf beside a potted succulent, pulling espresso into a small glass cup, the machine barely larger than a hardback book, bright Scandinavian-style interior with pale birch surfaces",
+  "headline": "Everything you need. Nothing you don't.",
+  "subheadline": "An ultra-compact espresso machine that heats up in 60 seconds and fits anywhere — proof that great espresso doesn't require a large footprint.",
+  "description_short": "An ultra-compact espresso machine with 60-second heat-up that fits on any countertop, shelf, or desk.",
+  "description_long": "The Arco Nano was designed around a single question: what is the smallest machine that can produce genuinely good espresso? The answer is 20 cm tall, heats up in 60 seconds, and uses a 53mm portafilter that produces balanced, full-bodied shots. The thermoblock system is efficient and responsive, and the 0.8L tank lasts a full weekend of double shots. Whether you live in a studio apartment, want espresso at the office, or need a second machine for a small space, the Nano proves that constraints inspire better design.",
+  "key_specs": {
+    "dimensions": "20 × 12 × 28 cm",
+    "weight": "3.1 kg",
+    "boiler_type": "Thermoblock",
+    "warm_up_time": "60 seconds",
+    "pressure": "15 bar vibratory pump (9 bar at group)",
+    "water_tank": "0.8 L removable",
+    "portafilter": "53 mm pressurised and unpressurised baskets",
+    "power": "1100 W",
+    "voltage": "220–240 V",
+    "material": "ABS body with stainless steel internals",
+    "drip_tray_capacity": "200 ml",
+    "cup_clearance": "Up to 8 cm (espresso cups and small glasses)"
+  },
+  "whats_in_box": [
+    "Arco Nano espresso machine",
+    "53 mm portafilter",
+    "Pressurised basket (single)",
+    "Unpressurised basket (double)",
+    "Plastic tamper (53 mm)",
+    "Measuring scoop",
+    "Cleaning pin",
+    "Quick-start guide"
+  ],
+  "variants": [
+    { "name": "Matte White", "hex": "#F0EDE8" },
+    { "name": "Matte Black", "hex": "#2C2C2C" }
+  ],
+  "use_case_headline": "Perfect for small spaces and first-time espresso drinkers.",
+  "use_case_body": "The Nano is for anyone who wants real espresso without surrendering counter space. It thrives in studio kitchens, home offices, and guest rooms — anywhere you want a good cup without a large commitment.",
+  "pairing_products": [
+    { "product_id": "arco-macinino", "rationale": "A compact grinder that matches the Nano's small-footprint philosophy." },
+    { "product_id": "preparation-accessories", "rationale": "A small precision scale and tamper upgrade will improve your shots immediately." }
+  ],
+  "experience_tag": "morning-minimalist",
+  "persona_tags": ["morning-minimalist", "non-barista"],
+  "intent_tags": ["discover", "research", "decide"],
+  "related_blog_posts": [
+    "small-space-espresso-guide",
+    "pressurised-vs-unpressurised-baskets",
+    "your-first-home-espresso"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Nano",
+    "description": "An ultra-compact espresso machine with 60-second heat-up that fits on any countertop, shelf, or desk.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-NANO",
+    "image": "/content/products/images/arco-nano-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 199,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-nano"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.3,
+      "reviewCount": 312
+    }
+  },
+  "seo": {
+    "title": "Arco Nano — Ultra-Compact Espresso Machine | Arco",
+    "meta_description": "The Arco Nano heats up in 60 seconds and produces real espresso from the smallest footprint in its class. Perfect for studios, offices, and small kitchens. €199.",
+    "og_image_alt": "Arco Nano ultra-compact espresso machine in matte white",
+    "canonical_url": "/products/arco-nano"
+  }
+}

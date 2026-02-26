@@ -1,0 +1,83 @@
+{
+  "id": "calc-setup-value",
+  "slug": "setup-value-estimator",
+  "title": "Setup Value Estimator",
+  "description": "Estimate the resale value of your current coffee equipment and see what upgrading to a new Arco setup would cost after trade-in. Get a personalized upgrade recommendation based on what you already own.",
+  "inputs": [
+    {
+      "id": "current_machine",
+      "label": "Your Current Machine",
+      "type": "select",
+      "options": [
+        { "value": "none", "label": "No machine / basic drip" },
+        { "value": "moka-pot", "label": "Moka Pot / Stovetop" },
+        { "value": "pod-machine", "label": "Pod/Capsule Machine" },
+        { "value": "entry-espresso", "label": "Entry-Level Espresso (under 300)" },
+        { "value": "mid-espresso", "label": "Mid-Range Espresso (300-800)" },
+        { "value": "prosumer-espresso", "label": "Prosumer Espresso (800-2000)" },
+        { "value": "commercial", "label": "Commercial / High-End (2000+)" },
+        { "value": "arco-nano", "label": "Arco Nano" },
+        { "value": "arco-classica", "label": "Arco Classica" },
+        { "value": "arco-automatico", "label": "Arco Automatico" },
+        { "value": "arco-barista-pro", "label": "Arco Barista Pro" },
+        { "value": "arco-maestro", "label": "Arco Maestro" },
+        { "value": "arco-dual-boiler", "label": "Arco Dual Boiler" },
+        { "value": "arco-lever", "label": "Arco Lever" }
+      ],
+      "default": "entry-espresso"
+    },
+    {
+      "id": "current_grinder",
+      "label": "Your Current Grinder",
+      "type": "select",
+      "options": [
+        { "value": "none", "label": "No dedicated grinder" },
+        { "value": "blade", "label": "Blade Grinder" },
+        { "value": "entry-burr", "label": "Entry-Level Burr Grinder (under 100)" },
+        { "value": "mid-burr", "label": "Mid-Range Burr Grinder (100-300)" },
+        { "value": "prosumer-burr", "label": "Prosumer Burr Grinder (300-700)" },
+        { "value": "commercial-burr", "label": "Commercial Grinder (700+)" },
+        { "value": "arco-mini-grinder", "label": "Arco Mini Grinder" },
+        { "value": "arco-macinino-home", "label": "Arco Macinino Home" },
+        { "value": "arco-conico", "label": "Arco Conico" },
+        { "value": "arco-macinino-pro", "label": "Arco Macinino Pro" }
+      ],
+      "default": "entry-burr"
+    },
+    {
+      "id": "accessories_owned",
+      "label": "Accessories You Own",
+      "type": "checkbox-group",
+      "options": [
+        { "value": "tamper", "label": "Quality Tamper (calibrated)" },
+        { "value": "scale", "label": "Precision Coffee Scale" },
+        { "value": "distributor", "label": "Distribution Tool / WDT" },
+        { "value": "knock-box", "label": "Knock Box" },
+        { "value": "milk-pitcher", "label": "Milk Pitcher (stainless)" },
+        { "value": "water-filter", "label": "In-Line Water Filter" },
+        { "value": "bottomless-pf", "label": "Bottomless Portafilter" },
+        { "value": "dosing-cup", "label": "Dosing Cup" }
+      ],
+      "default": []
+    }
+  ],
+  "formula": "Each equipment tier has an estimated resale value range (percentage of original MSRP adjusted for typical depreciation). Arco trade-in program offers 10-15% of estimated current value as credit. Upgrade recommendation is based on the gap between current and next-tier Arco product. Budget delta = recommended Arco setup price - trade-in credit. Accessories reduce the delta if compatible with the new setup.",
+  "output_format": "Estimated current setup resale value, Arco trade-in credit estimate, recommended upgrade path (machine + grinder), new setup price, budget delta after trade-in, list of existing accessories that carry over.",
+  "persona_tags": ["upgrader", "budget-conscious", "existing-owner"],
+  "intent_tags": ["upgrade", "trade-in", "value-estimate", "compare-setups"],
+  "related_products": [
+    "arco-classica",
+    "arco-barista-pro",
+    "arco-maestro",
+    "arco-macinino-pro"
+  ],
+  "cta": {
+    "label": "Explore Upgrade Options",
+    "url": "/products"
+  },
+  "seo": {
+    "title": "Coffee Setup Value Estimator | Trade-In & Upgrade Calculator | Arco",
+    "meta_description": "Estimate what your current coffee equipment is worth and see what it costs to upgrade to an Arco setup. Get a personalized trade-in estimate and upgrade recommendation."
+  },
+  "hero_image_alt": "A before-and-after split of a cluttered countertop with old equipment on the left and a clean Arco Maestro setup on the right"
+}

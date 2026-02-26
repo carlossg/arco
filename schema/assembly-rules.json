@@ -1,0 +1,143 @@
+{
+  "description": "Formal rules defining how persona signals map to content selections in the Arco personalization system.",
+  "signal_sources": [
+    {
+      "id": "persona_cookie",
+      "name": "arco_persona cookie",
+      "priority": 1,
+      "description": "Set by the quiz or experience page visit. 90-day expiry. Most reliable signal.",
+      "values": ["morning-minimalist", "upgrader", "craft-barista", "traveller", "non-barista", "office-manager"]
+    },
+    {
+      "id": "quiz_result",
+      "name": "Quiz completion",
+      "priority": 0,
+      "description": "Immediate signal from quiz. Sets persona_cookie and redirects to experience page."
+    },
+    {
+      "id": "utm_persona",
+      "name": "UTM persona parameter",
+      "priority": 2,
+      "description": "Optional URL parameter ?persona={tag} for campaign targeting. Lower priority than cookie."
+    }
+  ],
+  "behaviors": {
+    "no_signal": {
+      "description": "First-time visitor with no persona cookie, no UTM parameter.",
+      "hero": "default",
+      "product_recommendations": ["arco-primo", "arco-doppio", "arco-studio"],
+      "blog_feed": "latest_by_date",
+      "experience_cta": "quiz_prompt",
+      "nav": "default",
+      "personalization_banner": "hidden"
+    },
+    "quiz_result": {
+      "description": "User just completed the quiz. Cookie is freshly set.",
+      "hero": "persona_variant",
+      "product_recommendations": "persona_ordered",
+      "blog_feed": "persona_weighted",
+      "experience_cta": "persona_specific",
+      "nav": "persona_overrides_applied",
+      "personalization_banner": "visible_with_persona_label",
+      "redirect": "/experiences/core/{experience_slug}"
+    },
+    "returning_visitor": {
+      "description": "User has arco_persona cookie from previous session.",
+      "hero": "persona_variant",
+      "product_recommendations": "persona_ordered",
+      "blog_feed": "persona_weighted",
+      "experience_cta": "persona_specific",
+      "nav": "persona_overrides_applied",
+      "personalization_banner": "visible_unless_dismissed"
+    },
+    "utm_override": {
+      "description": "Campaign UTM persona parameter present. Use if no cookie, else cookie wins.",
+      "priority_logic": "cookie > utm > default",
+      "hero": "persona_variant",
+      "product_recommendations": "persona_ordered"
+    }
+  },
+  "page_composition_rules": {
+    "homepage": {
+      "blocks": [
+        { "block": "personalization-banner", "source": "auto-block from scripts.js" },
+        { "block": "hero", "variant": "campaign", "content_source": "assembly-engine.getHeroVariant(persona)" },
+        { "block": "product-card", "variant": "featured", "content_source": "assembly-engine.getProductRecommendations(persona, 3)" },
+        { "block": "quiz", "variant": "embedded", "content_source": "authored" },
+        { "block": "blog-card", "variant": "feed", "content_source": "assembly-engine.getBlogFeed(persona, 3)" },
+        { "block": "experience-cta", "variant": "trio", "content_source": "assembly-engine.getExperienceCTA(persona)" },
+        { "block": "testimonials", "content_source": "authored" },
+        { "block": "columns", "content_source": "authored" }
+      ]
+    },
+    "pdp": {
+      "blocks": [
+        { "block": "personalization-banner", "source": "auto-block" },
+        { "block": "hero", "variant": "product", "content_source": "canonical or persona variant" },
+        { "block": "product-detail", "content_source": "pdp-canonical merged with pdp-persona if persona match" },
+        { "block": "product-card", "variant": "compact", "content_source": "pairing_products" },
+        { "block": "experience-cta", "content_source": "experience_tag from product" },
+        { "block": "blog-card", "content_source": "related_blog_posts, persona-filtered" }
+      ]
+    },
+    "guide": {
+      "blocks": [
+        { "block": "hero", "variant": "experience" },
+        { "block": "body_sections", "content_source": "guide.body array" },
+        { "block": "product-card", "content_source": "related_products" },
+        { "block": "blog-card", "content_source": "related_guides rendered as blog cards" }
+      ]
+    },
+    "experience": {
+      "blocks": [
+        { "block": "hero", "variant": "experience" },
+        { "block": "editorial", "content_source": "editorial_body" },
+        { "block": "bundle-card", "content_source": "product_bundle" },
+        { "block": "quiz", "condition": "quiz_result === true" },
+        { "block": "blog-card", "content_source": "featured_guides + related_blog_posts" }
+      ]
+    },
+    "blog": {
+      "blocks": [
+        { "block": "hero", "variant": "experience" },
+        { "block": "body_sections", "content_source": "post.body array" },
+        { "block": "product-card", "content_source": "related_products" },
+        { "block": "blog-card", "content_source": "related_posts" }
+      ]
+    }
+  },
+  "persona_content_mapping": {
+    "morning-minimalist": {
+      "suppress_difficulty": ["advanced"],
+      "boost_formats": ["how-to", "editorial"],
+      "primary_products": ["arco-primo", "arco-nano", "arco-macinino"]
+    },
+    "upgrader": {
+      "suppress_difficulty": [],
+      "boost_formats": ["comparison", "guide", "how-to"],
+      "primary_products": ["arco-doppio", "arco-studio", "arco-preciso"]
+    },
+    "craft-barista": {
+      "suppress_difficulty": ["beginner"],
+      "boost_formats": ["guide", "editorial", "comparison"],
+      "primary_products": ["arco-studio-pro", "arco-zero", "arco-studio"]
+    },
+    "traveller": {
+      "suppress_difficulty": [],
+      "boost_formats": ["editorial", "story"],
+      "primary_products": ["arco-viaggio", "arco-nano", "arco-macinino"]
+    },
+    "non-barista": {
+      "suppress_difficulty": ["advanced"],
+      "suppress_formats": ["competition"],
+      "boost_formats": ["product", "how-to"],
+      "primary_products": ["arco-automatico", "arco-nano", "arco-primo"]
+    },
+    "office-manager": {
+      "suppress_difficulty": [],
+      "suppress_formats": ["travel", "competition"],
+      "boost_formats": ["comparison", "tool"],
+      "primary_products": ["arco-ufficio", "arco-doppio", "arco-preciso"]
+    }
+  }
+}

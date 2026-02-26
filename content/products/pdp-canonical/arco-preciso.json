@@ -1,0 +1,90 @@
+{
+  "id": "arco-preciso",
+  "slug": "arco-preciso",
+  "name": "Arco Preciso",
+  "tagline": "Dial in. Lock on. Repeat.",
+  "price_eur": 299,
+  "price_display": "€299",
+  "category": "grinder",
+  "hero_image_alt": "Arco Preciso flat burr grinder in brushed aluminium with a micrometric adjustment dial, ground coffee falling into a portafilter on the fork, close-up detail showing the stepless adjustment collar with engraved markings, set on a dark granite countertop with an espresso machine blurred in the background",
+  "headline": "Precision you can feel.",
+  "subheadline": "A 54mm flat burr grinder with stepless micrometric adjustment and low retention — built for the barista who dials in by feel and by taste.",
+  "description_short": "A 54mm flat burr grinder with stepless micrometric adjustment and sub-1g retention for precise, repeatable espresso grinding.",
+  "description_long": "The Arco Preciso is the grinder that changes what you think home espresso can taste like. Its 54mm hardened steel flat burrs produce a remarkably uniform particle distribution, and the stepless micrometric adjustment collar lets you make changes so fine you'll taste them before you see them. Retention sits below 1 gram, meaning what you dose is what you brew — no stale grounds contaminating your next shot. The Preciso handles espresso with authority and manages filter grinds with clarity. It is the grinder for people who have outgrown steps and are ready for a continuous spectrum of flavour.",
+  "key_specs": {
+    "dimensions": "12 × 17 × 32 cm",
+    "weight": "3.8 kg",
+    "burr_type": "Flat, hardened steel",
+    "burr_size": "54 mm",
+    "grind_settings": "Stepless micrometric (infinite adjustment)",
+    "grind_range": "Turkish to coarse filter",
+    "dosing": "Timer-based (0.1 s increments) or manual",
+    "hopper_capacity": "280 g with UV-resistant lid",
+    "retention": "< 1.0 g",
+    "motor": "DC motor, 1400 RPM",
+    "grind_speed": "~1.5 g/s for espresso",
+    "noise_level": "< 72 dB",
+    "portafilter_fork": "Adjustable, fits 50–58 mm",
+    "power": "260 W",
+    "voltage": "220–240 V"
+  },
+  "whats_in_box": [
+    "Arco Preciso grinder",
+    "Portafilter fork (adjustable)",
+    "Grounds collection cup",
+    "Dosing cup (54 mm)",
+    "Single-dose hopper lid",
+    "Cleaning brush",
+    "Burr alignment reference card",
+    "Quick-start guide"
+  ],
+  "variants": [
+    { "name": "Brushed Aluminium", "hex": "#A8A9AD" },
+    { "name": "Matte Black", "hex": "#2C2C2C" }
+  ],
+  "use_case_headline": "Perfect for baristas who taste the difference between grind steps.",
+  "use_case_body": "The Preciso rewards attention. Small adjustments to the micrometric collar produce noticeable changes in body, acidity, and sweetness. If you're the kind of person who dials in a new bag over three or four shots, this is your grinder.",
+  "pairing_products": [
+    { "product_id": "arco-doppio", "rationale": "The Preciso's precision complements the Doppio's PID-controlled dual boilers for a balanced mid-range setup." },
+    { "product_id": "arco-studio", "rationale": "Stepless adjustment pairs well with the Studio's E61 group for dialling in traditional espresso." },
+    { "product_id": "arco-ufficio", "rationale": "A capable grinder that handles the variety of beans that different people bring to an office." }
+  ],
+  "experience_tag": "upgrader",
+  "persona_tags": ["upgrader", "craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "related_blog_posts": [
+    "flat-vs-conical-burrs-deep-dive",
+    "stepless-grind-adjustment-guide",
+    "retention-and-why-it-matters"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Preciso",
+    "description": "A 54mm flat burr grinder with stepless micrometric adjustment and sub-1g retention for precise, repeatable espresso grinding.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-PRECISO",
+    "image": "/content/products/images/arco-preciso-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 299,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-preciso"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.7,
+      "reviewCount": 189
+    }
+  },
+  "seo": {
+    "title": "Arco Preciso — Stepless Flat Burr Grinder | Arco",
+    "meta_description": "The Arco Preciso features 54mm flat burrs, stepless micrometric adjustment, and sub-1g retention. Precision grinding for espresso and filter. €299.",
+    "og_image_alt": "Arco Preciso flat burr grinder in brushed aluminium with micrometric dial",
+    "canonical_url": "/products/arco-preciso"
+  }
+}

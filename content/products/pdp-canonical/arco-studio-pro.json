@@ -1,0 +1,100 @@
+{
+  "id": "arco-studio-pro",
+  "slug": "arco-studio-pro",
+  "name": "Arco Studio Pro",
+  "tagline": "Full control. No excuses.",
+  "price_eur": 2199,
+  "price_display": "€2,199",
+  "category": "espresso-machine",
+  "hero_image_alt": "Arco Studio Pro dual-boiler espresso machine in matte black with copper accents, featuring a saturated group head and flow control paddle, positioned on a concrete countertop in a loft-style kitchen, shot mid-pull with tiger-striped espresso flowing, pressure profiling gauge illuminated",
+  "headline": "Pressure profiling. Flow control. Your rules.",
+  "subheadline": "A dual-boiler machine with a saturated group head, real-time pressure profiling, and a flow control paddle — for baristas who want to shape every extraction.",
+  "description_short": "A dual-boiler espresso machine with pressure profiling, flow control, and a saturated group head for complete extraction control.",
+  "description_long": "The Arco Studio Pro gives you the tools that define the best cafés in the world and puts them on your countertop. The saturated group head maintains temperature within ±0.5°C — tighter than most commercial machines. The flow control paddle lets you manipulate pressure in real time, opening up extraction profiles that were impossible on conventional home machines: long pre-infusions, declining pressure curves, blooming profiles for light roasts. Dual PID-controlled boilers, a digital pressure gauge, and shot-timer integration mean every variable is visible and adjustable. This is the machine you buy when you've decided espresso is a lifelong pursuit.",
+  "key_specs": {
+    "dimensions": "35 × 30 × 38 cm",
+    "weight": "26 kg",
+    "boiler_type": "Dual boiler (brass brew, stainless steel steam)",
+    "brew_boiler_capacity": "450 ml",
+    "steam_boiler_capacity": "1.2 L",
+    "group_head": "Saturated, temperature-stabilised (±0.5°C)",
+    "warm_up_time": "12 minutes (full thermal stability)",
+    "pressure_profiling": "Manual paddle with digital pressure readout",
+    "flow_control": "Integrated needle valve, real-time flow rate display",
+    "pressure": "Rotary pump, adjustable 0–12 bar via paddle",
+    "water_tank": "2.5 L removable (plumb-in kit included)",
+    "portafilter": "58 mm bottomless (IMS competition basket included)",
+    "pid_control": "Dual PID with ±0.5°C brew stability",
+    "shot_timer": "Built-in, auto-start on pump activation",
+    "power": "1800 W",
+    "voltage": "220–240 V",
+    "drip_tray_capacity": "700 ml",
+    "cup_warmer": "Active heated top plate"
+  },
+  "whats_in_box": [
+    "Arco Studio Pro espresso machine",
+    "58 mm bottomless portafilter",
+    "58 mm spouted portafilter",
+    "IMS competition precision baskets (14 g, 18 g, 21 g)",
+    "Calibrated flat tamper (58 mm)",
+    "WDT distribution tool",
+    "Dosing funnel",
+    "Blind basket for backflushing",
+    "Plumb-in kit with braided hose",
+    "Cleaning tablets (10 pack)",
+    "Descaling solution (3 sachets)",
+    "Microfibre cloths (2)",
+    "Comprehensive owner's manual",
+    "Pressure profiling quick-reference card"
+  ],
+  "variants": [
+    { "name": "Matte Black", "hex": "#1A1A1A" },
+    { "name": "Matte Black & Copper", "hex": "#B87333" }
+  ],
+  "use_case_headline": "Perfect for the barista who wants to shape every shot.",
+  "use_case_body": "The Studio Pro is for those who see extraction as a creative act. Whether you're profiling a delicate Ethiopian natural or pulling a syrupy medium roast, flow control and pressure profiling let you bring out exactly the character you want.",
+  "pairing_products": [
+    { "product_id": "arco-zero", "rationale": "Zero-retention single-dosing is essential for the shot-to-shot consistency the Studio Pro demands." },
+    { "product_id": "preparation-accessories", "rationale": "Precision scales with auto-timer and a levelling tamper round out the professional workflow." },
+    { "product_id": "maintenance-accessories", "rationale": "Keep the saturated group and boilers in peak condition with a proper maintenance kit." }
+  ],
+  "experience_tag": "craft-barista",
+  "persona_tags": ["craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "related_blog_posts": [
+    "pressure-profiling-guide",
+    "flow-control-recipes",
+    "saturated-vs-e61-group-heads",
+    "light-roast-espresso-techniques"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Studio Pro",
+    "description": "A dual-boiler espresso machine with pressure profiling, flow control, and a saturated group head for complete extraction control.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-STUDIO-PRO",
+    "image": "/content/products/images/arco-studio-pro-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 2199,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-studio-pro"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.9,
+      "reviewCount": 64
+    }
+  },
+  "seo": {
+    "title": "Arco Studio Pro — Pressure Profiling Dual-Boiler Espresso Machine | Arco",
+    "meta_description": "The Arco Studio Pro features dual boilers, a saturated group head, pressure profiling, and flow control. Complete extraction control for the dedicated barista. €2,199.",
+    "og_image_alt": "Arco Studio Pro espresso machine in matte black with copper accents and flow control paddle",
+    "canonical_url": "/products/arco-studio-pro"
+  }
+}

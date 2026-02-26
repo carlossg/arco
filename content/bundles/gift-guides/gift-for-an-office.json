@@ -1,0 +1,55 @@
+{
+  "id": "bundle-gg-003",
+  "slug": "gift-for-an-office",
+  "title": "Gift for an Office",
+  "headline": "Replace the capsule machine. Your team will remember who made it happen.",
+  "editorial_intro": "Gifting an office a proper espresso machine is the kind of gesture that shifts the entire culture of a workplace. It turns the kitchen from a place people pass through into a place people linger — and the conversations that happen while milk is steaming tend to be the ones that matter.",
+  "tiers": [
+    {
+      "tier_name": "The Quick Win — Under €200",
+      "price_range": "€129–€199",
+      "products": [
+        {
+          "product_id": "arco-macinino",
+          "description": "If the office already has a machine but is grinding stale pre-ground coffee, a dedicated grinder is the single biggest quality improvement you can make. The Macinino is forgiving enough for a shared environment where not everyone knows their dose from their yield."
+        }
+      ]
+    },
+    {
+      "tier_name": "The Full Office Setup — Under €1,100",
+      "price_range": "€799–€1,098",
+      "products": [
+        {
+          "product_id": "arco-ufficio",
+          "description": "The Ufficio was literally designed for this. A 2.5-litre water tank handles back-to-back drinks for morning meetings. Dual boilers mean no waiting between espresso and cappuccino. The auto-off timer and easy-descale mode keep maintenance manageable even when nobody is officially in charge of the machine."
+        },
+        {
+          "product_id": "arco-preciso",
+          "description": "Pair the Ufficio with a Preciso grinder and the office has a setup that rivals any neighbourhood cafe. The stepless adjustment handles the variety of beans different team members will inevitably bring in."
+        }
+      ]
+    },
+    {
+      "tier_name": "The Executive Statement — Over €1,100",
+      "price_range": "€1,100+",
+      "products": [
+        {
+          "product_id": "arco-automatico",
+          "description": "For offices where simplicity matters more than craft, the Automatico handles everything from grinding to frothing at the touch of a screen. Four user profiles mean the founders can save their flat white preferences while the interns figure out theirs."
+        },
+        {
+          "product_id": "maintenance-accessories",
+          "description": "Include a year's worth of cleaning tablets and descaling solution. In a shared environment, consumables disappear fast and nobody reorders them. Pre-supplying a year's worth removes this entirely."
+        }
+      ]
+    }
+  ],
+  "hero_image_alt": "An Arco Ufficio espresso machine in a modern open-plan office kitchen, two colleagues in the background chatting while one textures milk, a group of espresso cups on the warming tray, natural light from large windows, plants on the countertop",
+  "persona_tags": ["office-manager", "non-barista"],
+  "intent_tags": ["discover", "decide"],
+  "seo": {
+    "title": "Gift Guide — Best Espresso Machine for the Office | Arco",
+    "meta_description": "The best espresso setups for offices: from a €129 grinder upgrade to the €799 Arco Ufficio complete office bundle. Real coffee for real workplaces.",
+    "canonical_url": "/bundles/gift-guides/gift-for-an-office"
+  }
+}

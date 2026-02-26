@@ -1,0 +1,67 @@
+{
+  "id": "bundle-gg-001",
+  "slug": "gift-for-someone-with-a-machine",
+  "title": "Gift for Someone Who Already Has an Espresso Machine",
+  "headline": "They have the machine. Give them the upgrade they haven't bought themselves.",
+  "editorial_intro": "The best gifts for someone who already owns an espresso machine are the tools they know they want but keep postponing — the accessories that transform a good setup into a great one. Here are three tiers, from thoughtful stocking fillers to serious upgrades.",
+  "tiers": [
+    {
+      "tier_name": "Under €80 — Thoughtful and Useful",
+      "price_range": "€30–€80",
+      "products": [
+        {
+          "product_id": "arco-tamper",
+          "description": "Most home baristas are still using the plastic tamper that came in the box. A properly weighted, flat-base 58mm tamper is the kind of upgrade they will use twice a day and think of you each time."
+        },
+        {
+          "product_id": "arco-dosing-cup",
+          "description": "An anti-static stainless steel dosing cup that transfers grounds cleanly from grinder to portafilter. It solves a daily annoyance they may not even realise they have."
+        },
+        {
+          "product_id": "arco-cleaning-kit",
+          "description": "Backflush tablets, a group head brush, and microfibre cloths. Not glamorous, but deeply practical — and the sort of thing they will never buy for themselves."
+        }
+      ]
+    },
+    {
+      "tier_name": "€80–€200 — A Real Upgrade",
+      "price_range": "€80–€200",
+      "products": [
+        {
+          "product_id": "arco-macinino",
+          "description": "If they are grinding with a blade grinder or an old hand-crank model, the Macinino is a revelation. Twenty stepped settings, conical burrs, and a compact footprint that fits beside any machine."
+        },
+        {
+          "product_id": "arco-distribution-tool",
+          "description": "An adjustable-depth distribution tool paired with a precision scale. Together, these two items will improve their shots more noticeably than almost any other single purchase."
+        },
+        {
+          "product_id": "arco-precision-scale",
+          "description": "A 0.1g scale with integrated shot timer. Once they start weighing dose and yield, there is no going back. This is the gift that turns instinct into understanding."
+        }
+      ]
+    },
+    {
+      "tier_name": "€200+ — The Statement Gift",
+      "price_range": "€200+",
+      "products": [
+        {
+          "product_id": "arco-preciso",
+          "description": "The single most impactful upgrade for anyone pulling shots on a decent machine. Stepless adjustment and near-zero retention mean every bag of beans gets dialled in properly for the first time."
+        },
+        {
+          "product_id": "arco-zero",
+          "description": "For the person whose espresso obsession has become a genuine craft. Competition-grade 64mm flat burrs and true zero retention — the grinder that stops being the bottleneck."
+        }
+      ]
+    }
+  ],
+  "hero_image_alt": "A curated selection of Arco accessories arranged on dark gift wrapping paper: a precision tamper, dosing cup, scale, and distribution tool alongside a small bag of specialty coffee beans and a gift tag, warm overhead lighting",
+  "persona_tags": ["upgrader", "craft-barista", "morning-minimalist"],
+  "intent_tags": ["discover", "decide"],
+  "seo": {
+    "title": "Gift Guide — What to Buy Someone Who Has an Espresso Machine | Arco",
+    "meta_description": "The best gifts for someone who already owns an espresso machine, from €30 accessories to €699 grinder upgrades. Three tiers of thoughtful, useful presents.",
+    "canonical_url": "/bundles/gift-guides/gift-for-someone-with-a-machine"
+  }
+}

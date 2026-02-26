@@ -1,15 +1,68 @@
 /*
- * Quiz Block — Brew Style Quiz
- * Interactive multi-step quiz that maps answers to experience profiles.
+ * Quiz Block — 4-Question Persona Identification Quiz
+ * Interactive multi-step quiz using the 6-persona scoring system.
+ * Sets arco_persona cookie (90 days) and redirects to experience page.
  */
 
-const EXPERIENCE_TAGS = [
+/**
+ * 6 persona tags matching personalization/persona-profiles.json
+ */
+const PERSONAS = [
   'morning-minimalist',
-  'the-upgrade-path',
-  'craft-at-home',
-  'espresso-anywhere',
-  'the-non-barista',
+  'upgrader',
+  'craft-barista',
+  'traveller',
+  'non-barista',
+  'office-manager',
 ];
+
+/**
+ * Scoring matrix: [question][option][persona scores]
+ * Persona order: morning-minimalist(0), upgrader(1), craft-barista(2),
+ *                traveller(3), non-barista(4), office-manager(5)
+ */
+const SCORING = [
+  // Q1: "When do you usually have your first coffee?"
+  [
+    [2, 0, 0, 0, 1, 0], // Before 7am
+    [1, 1, 0, 0, 0, 0], // 7–9am
+    [0, 0, 1, 1, 0, 0], // After 9am
+    [0, 0, 0, 0, 2, 0], // "I lose track"
+  ],
+  // Q2: "How do you feel about the brewing process?"
+  [
+    [1, 0, 0, 0, 2, 0], // "I want it fast"
+    [2, 1, 0, 0, 0, 0], // "I enjoy the ritual"
+    [0, 1, 2, 0, 0, 0], // "I want to master it"
+    [0, 0, 0, 0, 2, 1], // "I just want it to work"
+  ],
+  // Q3: "Where do you mostly brew?"
+  [
+    [1, 1, 0, 0, 0, 0], // Home kitchen
+    [1, 0, 0, 0, 1, 0], // Home office
+    [0, 0, 0, 3, 0, 0], // Travelling
+    [0, 0, 0, 0, 0, 3], // At the office
+  ],
+  // Q4: "What's your current setup?"
+  [
+    [1, 0, 0, 0, 1, 0], // No machine yet
+    [0, 1, 0, 0, 2, 0], // A capsule/pod machine
+    [0, 2, 1, 0, 0, 0], // A basic espresso machine
+    [0, 0, 3, 0, 0, 0], // A proper espresso setup
+  ],
+];
+
+/**
+ * Maps persona tag to experience page slug.
+ */
+const RESULT_PAGES = {
+  'morning-minimalist': '/experiences/core/morning-minimalist',
+  upgrader: '/experiences/core/the-upgrade-path',
+  'craft-barista': '/experiences/core/craft-at-home',
+  traveller: '/experiences/core/espresso-anywhere',
+  'non-barista': '/experiences/core/the-non-barista',
+  'office-manager': '/experiences/core/the-non-barista',
+};
 
 /**
  * Parses authored block rows into an array of question objects.
@@ -28,10 +81,8 @@ function parseQuestions(block) {
     if (optionCell) {
       const paragraphs = [...optionCell.querySelectorAll('p')];
       if (paragraphs.length > 1) {
-        // Each option is its own paragraph
         options = paragraphs.map((p) => p.textContent.trim()).filter(Boolean);
       } else {
-        // Options are comma-separated in a single cell
         options = optionCell.textContent
           .split(',')
           .map((o) => o.trim())
@@ -44,89 +95,33 @@ function parseQuestions(block) {
 }
 
 /**
- * Determines the brew-style experience tag from the pattern of answer indices.
- * Uses a simple mapping: the combination of first-answer indices maps to a tag.
+ * Calculates the winning persona from answer indices using the scoring matrix.
  * @param {number[]} answers Array of selected option indices (0-based)
- * @returns {string} The experience slug
+ * @returns {string} The winning persona tag
  */
-function resolveExperience(answers) {
-  // Build a simple key from the answer indices
-  const key = answers.join('-');
+function calculatePersona(answers) {
+  const scores = [0, 0, 0, 0, 0, 0];
 
-  // Direct mapping for common patterns
-  const mapping = {
-    '0-0-0': 'morning-minimalist',
-    '0-0-1': 'morning-minimalist',
-    '0-1-0': 'morning-minimalist',
-    '1-1-1': 'craft-at-home',
-    '1-1-0': 'craft-at-home',
-    '1-0-1': 'the-upgrade-path',
-    '1-0-0': 'the-upgrade-path',
-    '0-1-1': 'the-upgrade-path',
-    '2-2-2': 'espresso-anywhere',
-    '2-0-2': 'espresso-anywhere',
-    '2-2-0': 'espresso-anywhere',
-    '2-0-0': 'the-upgrade-path',
-    '2-1-2': 'espresso-anywhere',
-    '2-2-1': 'espresso-anywhere',
-    '2-1-0': 'craft-at-home',
-    '2-1-1': 'craft-at-home',
-    '2-0-1': 'espresso-anywhere',
-    '3-3-3': 'the-non-barista',
-    '3-3-0': 'the-non-barista',
-    '3-3-1': 'the-non-barista',
-    '3-3-2': 'the-non-barista',
-    '3-0-3': 'the-non-barista',
-    '3-1-3': 'the-non-barista',
-    '3-2-3': 'the-non-barista',
-    '0-3-3': 'the-non-barista',
-    '1-3-3': 'the-non-barista',
-    '0-0-3': 'morning-minimalist',
-    '0-0-2': 'morning-minimalist',
-    '1-1-2': 'craft-at-home',
-    '1-1-3': 'craft-at-home',
-    '0-2-0': 'espresso-anywhere',
-    '0-2-1': 'espresso-anywhere',
-    '0-2-2': 'espresso-anywhere',
-    '0-2-3': 'espresso-anywhere',
-    '1-2-0': 'craft-at-home',
-    '1-2-1': 'craft-at-home',
-    '1-2-2': 'espresso-anywhere',
-    '1-2-3': 'espresso-anywhere',
-    '0-3-0': 'morning-minimalist',
-    '0-3-1': 'the-upgrade-path',
-    '0-3-2': 'espresso-anywhere',
-    '1-3-0': 'the-upgrade-path',
-    '1-3-1': 'craft-at-home',
-    '1-3-2': 'espresso-anywhere',
-    '1-0-2': 'the-upgrade-path',
-    '1-0-3': 'the-upgrade-path',
-    '3-0-0': 'the-non-barista',
-    '3-0-1': 'the-non-barista',
-    '3-0-2': 'the-non-barista',
-    '3-1-0': 'the-non-barista',
-    '3-1-1': 'the-non-barista',
-    '3-1-2': 'the-non-barista',
-    '3-2-0': 'the-non-barista',
-    '3-2-1': 'the-non-barista',
-    '3-2-2': 'the-non-barista',
-    '2-3-0': 'espresso-anywhere',
-    '2-3-1': 'espresso-anywhere',
-    '2-3-2': 'espresso-anywhere',
-    '2-3-3': 'the-non-barista',
-    '0-1-2': 'the-upgrade-path',
-    '0-1-3': 'the-upgrade-path',
-  };
-
-  if (mapping[key]) return mapping[key];
-
-  // Fallback: use the most frequent answer index to pick a tag
-  const counts = [0, 0, 0, 0];
-  answers.forEach((a) => {
-    if (a >= 0 && a < counts.length) counts[a] += 1;
+  answers.forEach((answerIndex, questionIndex) => {
+    if (questionIndex < SCORING.length && answerIndex >= 0) {
+      const questionScoring = SCORING[questionIndex];
+      const optionScoring = questionScoring[Math.min(answerIndex, questionScoring.length - 1)];
+      optionScoring.forEach((points, personaIndex) => {
+        scores[personaIndex] += points;
+      });
+    }
   });
-  const dominant = counts.indexOf(Math.max(...counts));
-  return EXPERIENCE_TAGS[dominant] || EXPERIENCE_TAGS[0];
+
+  let maxScore = 0;
+  let winnerIndex = 0;
+  scores.forEach((score, index) => {
+    if (score > maxScore) {
+      maxScore = score;
+      winnerIndex = index;
+    }
+  });
+
+  return PERSONAS[winnerIndex];
 }
 
 /**
@@ -193,7 +188,6 @@ function renderQuestion(container, question, index, total, onAnswer) {
     btn.textContent = option;
     btn.setAttribute('aria-label', `${option} — option ${optIdx + 1} of ${question.options.length}`);
     btn.addEventListener('click', () => {
-      // Visual feedback: mark selected
       optionsGrid.querySelectorAll('.quiz-option').forEach((b) => {
         b.classList.remove('quiz-option-selected');
         b.setAttribute('aria-pressed', 'false');
@@ -201,12 +195,10 @@ function renderQuestion(container, question, index, total, onAnswer) {
       btn.classList.add('quiz-option-selected');
       btn.setAttribute('aria-pressed', 'true');
 
-      // Disable all buttons to prevent double-clicks
       optionsGrid.querySelectorAll('.quiz-option').forEach((b) => {
         b.disabled = true;
       });
 
-      // Brief delay for visual feedback, then advance
       setTimeout(() => onAnswer(optIdx), 400);
     });
     btn.setAttribute('aria-pressed', 'false');
@@ -262,10 +254,14 @@ export default async function decorate(block) {
       if (index + 1 < total) {
         showQuestion(index + 1);
       } else {
-        // Quiz complete — resolve experience
-        const result = resolveExperience(answers);
-        setCookie('arco-brew-style', result, 30);
-        window.location.href = `/experiences/${result}`;
+        // Quiz complete — calculate persona using 6-persona scoring
+        const persona = calculatePersona(answers);
+        // Set both cookies: the new arco_persona (90 days) and legacy arco-brew-style (30 days)
+        setCookie('arco_persona', persona, 90);
+        setCookie('arco-brew-style', persona, 30);
+        // Redirect to experience page
+        const resultUrl = RESULT_PAGES[persona] || '/experiences/core/morning-minimalist';
+        window.location.href = resultUrl;
       }
     });
   };

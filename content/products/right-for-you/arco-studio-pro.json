@@ -1,0 +1,56 @@
+{
+  "id": "right-for-you-arco-studio-pro",
+  "slug": "arco-studio-pro",
+  "product_id": "arco-studio-pro",
+  "headline": "Is the Arco Studio Pro right for you?",
+  "intro": "The Studio Pro is the most capable home espresso machine we make. It is also the most demanding. Before you spend \u20ac2,199, we want to make sure this is the machine you need, not just the machine you want.",
+  "hero_image_alt": "Arco Studio Pro espresso machine in matte black on a polished concrete countertop, the flow control paddle visible, a real-time pressure gauge glowing, a bottomless portafilter mid-extraction showing tiger striping, dramatic side lighting, serious and intentional atmosphere",
+  "perfect_for": [
+    "You have already used a machine with pre-infusion and want paddle-based flow control to shape the entire pressure curve of each shot.",
+    "You compete in barista competitions at any level, or you prepare espresso with competition-level attention to extraction yield and consistency.",
+    "You own (or will buy) a Zero-class grinder and a refractometer, and you actively use extraction data to refine your technique.",
+    "You have been brewing espresso for two or more years and have a clear sense of what your current machine cannot do that you wish it could."
+  ],
+  "not_ideal_for": [
+    "You are still learning the basics of dose, grind, and extraction time \u2014 the Studio Pro's advanced features will overwhelm rather than help, and the Studio or Doppio will teach you more at this stage.",
+    "You want fast mornings \u2014 the 10-minute warm-up requires planning, and the machine rewards slow, deliberate work, not rushed pulls.",
+    "You are buying based on specifications rather than experience \u2014 the Studio Pro on paper is impressive, but its value only emerges when paired with advanced technique."
+  ],
+  "what_you_need_to_know": [
+    "The flow control paddle replaces the Studio's pre-infusion lever with continuous variable control. This means you can design pressure profiles in real time \u2014 ramp up slowly, hold, decline \u2014 but it also means every shot requires active attention. There is no autopilot mode.",
+    "The real-time pressure gauge and optional shot profiling software let you log and compare extractions. This is a tool for deliberate improvement, not a novelty. If you don't plan to review your shot data, this feature adds cost without value.",
+    "The thermal insulation around the group head adds stability but also adds warm-up time. The Studio Pro reaches thermal equilibrium in about 10 minutes. A programmable smart plug that turns it on before you wake up is the standard workaround."
+  ],
+  "common_objections": [
+    {
+      "objection": "Why not just buy a commercial machine at this price?",
+      "honest_answer": "A commercial machine at this price would be entry-level and designed for throughput, not single-shot precision. The Studio Pro is engineered for one or two cups at a time with maximum control \u2014 commercial machines optimise for a different set of problems. That said, if volume is your priority, look at the Ufficio."
+    },
+    {
+      "objection": "Will I really use the flow control paddle?",
+      "honest_answer": "If you are asking this question, probably not yet. The flow control paddle is genuinely useful for advanced technique \u2014 reducing channeling on light roasts, extending pre-infusion for high-altitude beans, creating declining pressure profiles. But these are skills that build on years of manual brewing. If this is your first serious machine, start with the Studio."
+    },
+    {
+      "objection": "Is the price difference from the Studio justified?",
+      "honest_answer": "The \u20ac900 gap buys you the flow control paddle, real-time pressure gauge, shot profiling capability, additional thermal insulation, and a larger steam boiler. If you will use at least the flow control and profiling, yes. If you are primarily paying for peace of mind that you bought the best, the Studio gives you 85% of the experience at 60% of the price."
+    }
+  ],
+  "alternative_if_not_right": {
+    "product_id": "arco-studio",
+    "rationale": "The Studio at \u20ac1,299 offers a saturated group head and pre-infusion lever \u2014 it is a more forgiving entry into serious espresso that leaves the door open to the Pro later."
+  },
+  "persona_match_score": {
+    "morning-minimalist": 1,
+    "upgrader": 2,
+    "craft-barista": 5,
+    "traveller": 1,
+    "non-barista": 1,
+    "office-manager": 1
+  },
+  "persona_tags": ["craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Is the Arco Studio Pro Right for You? \u2014 Honest Buying Guide | Arco",
+    "meta_description": "The Arco Studio Pro (\u20ac2,199) offers flow control, shot profiling, and competition-grade build quality. An honest assessment of who actually needs this machine."
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "id": "arco-ufficio-vs-arco-studio-pro",
+  "slug": "arco-ufficio-vs-arco-studio-pro",
+  "title": "Arco Ufficio vs Arco Studio Pro",
+  "products": ["arco-ufficio", "arco-studio-pro"],
+  "comparison_headline": "Built for volume, or built for precision?",
+  "comparison_intro": "The Ufficio is an espresso machine designed for shared environments where reliability, throughput, and simplicity matter more than fine control. The Studio Pro is a competition-grade home machine built for one person who wants to push every variable. Same price neighbourhood, completely different priorities.",
+  "hero_image_alt": "Arco Ufficio and Arco Studio Pro side by side, the Ufficio in a modern office kitchen with a row of cups waiting, the Studio Pro in a home coffee corner with a precision scale and notebook, split composition showing their different contexts, bright office light on left and warm home light on right",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac799",
+      "product_b": "\u20ac2,199"
+    },
+    "boiler_type": {
+      "product_a": "Commercial heat-exchange boiler (2.5 L capacity)",
+      "product_b": "Dual boiler with saturated group head, thermally insulated"
+    },
+    "heat_up_time": {
+      "product_a": "5 minutes",
+      "product_b": "10 minutes"
+    },
+    "pressure_control": {
+      "product_a": "Fixed 9 bar commercial pump \u2014 designed for consistency at volume",
+      "product_b": "Adjustable OPV + flow control paddle with real-time pressure gauge"
+    },
+    "steam_capability": {
+      "product_a": "Continuous steam from heat-exchange system \u2014 brew and steam without interruption, high volume",
+      "product_b": "High-capacity steam boiler (1,000 ml), dry steam mode for precision texturing"
+    },
+    "grind_compatibility": {
+      "product_a": "Works well with the Preciso or any commercial grinder \u2014 tolerant of slight dose variation",
+      "product_b": "Competition-grade grinder required (Zero or equivalent) \u2014 the machine resolves grind differences the Ufficio would mask"
+    },
+    "suitable_for": {
+      "product_a": "Offices, co-working spaces, and households with 4+ regular coffee drinkers who want reliable espresso without training",
+      "product_b": "Individual advanced baristas who want flow control, shot profiling, and no ceiling on experimentation"
+    },
+    "not_suitable_for": {
+      "product_a": "Anyone who wants to profile shots or micro-adjust extraction \u2014 the Ufficio is built for throughput, not tinkering",
+      "product_b": "Shared environments \u2014 the Studio Pro requires dedicated knowledge to operate and maintain, and its features are wasted on push-and-go usage"
+    }
+  },
+  "recommendation_by_persona": {
+    "office-manager": {
+      "recommended_product_id": "arco-ufficio",
+      "rationale": "The Ufficio is designed for exactly this \u2014 high throughput, simple operation, and heat-exchange reliability that handles 30+ cups a day without complaint."
+    },
+    "craft-barista": {
+      "recommended_product_id": "arco-studio-pro",
+      "rationale": "The flow control paddle and shot profiling are tools the Ufficio doesn't have and doesn't need \u2014 the Studio Pro is built for your workflow."
+    },
+    "upgrader": {
+      "recommended_product_id": "arco-ufficio",
+      "rationale": "If you are setting up a shared space and need something multiple people can use well, the Ufficio's forgiving design is the right call over the Studio Pro's demanding precision."
+    }
+  },
+  "verdict": "These machines are not alternatives to each other \u2014 they solve different problems. The Ufficio is the right machine when multiple people need good espresso with minimal training and maximum reliability. The Studio Pro is the right machine when one person wants the best possible espresso and is willing to invest the time to achieve it. Buying a Studio Pro for an office is as misguided as buying an Ufficio for a home barista setup.",
+  "related_blog_posts": [
+    "how-competition-baristas-dial-in",
+    "flow-control-profiling",
+    "morning-routine-three-minutes"
+  ],
+  "persona_tags": ["office-manager", "craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Ufficio vs Arco Studio Pro \u2014 Office Volume vs Home Competition-Grade | Arco",
+    "meta_description": "The Arco Ufficio (\u20ac799) handles 30+ cups a day for teams. The Arco Studio Pro (\u20ac2,199) offers flow control for advanced home baristas. Completely different machines for completely different needs."
+  }
+}

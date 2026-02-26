@@ -1,0 +1,35 @@
+{
+  "id": "exp-se-002",
+  "slug": "winter-long-brews",
+  "title": "Winter Long Brews",
+  "persona_tag": "winter-ritualist",
+  "experience_archetype": "Winter Slow Filter",
+  "hero_image_alt": "A large ceramic mug of filter coffee on a windowsill with frost patterns on the glass outside, a thick woollen jumper sleeve visible holding the mug, an Arco Filtro machine glowing warmly on the counter behind, a candle lit beside a stack of books",
+  "hero_headline": "Short days. Long brews. The season that belongs to filter coffee.",
+  "hero_subtext": "When the mornings are dark and cold, the slow pour-over becomes a meditation.",
+  "editorial_intro": "Winter changes everything about how you drink coffee. The quick espresso that powers your summer mornings feels insufficient when the kitchen is cold and the sky is still dark at eight o'clock. You want something larger, something you can hold in both hands, something that takes longer to make and longer to drink. Winter is filter season, and the Arco Filtro was built for exactly this mood.",
+  "editorial_body": "The alarm goes off and the room is dark. Not the thin, promising dark of a summer dawn but the heavy, opaque dark of a winter morning, the kind that presses against the window and makes the idea of getting out of bed feel like an act of courage. You reach for the lamp and the room appears, cold and still.\n\nThe kitchen floor is a shock. You pull on socks, then slippers, and walk to the counter where the Filtro sits, quietly patient. You filled the reservoir and loaded the basket last night — a habit developed specifically for mornings like this, when the distance between bed and brewed coffee needs to be as short as possible. You press the button. The machine begins its work.\n\nFilter coffee takes longer than espresso. This is the point. The Filtro runs water through thirty grams of medium-coarse grounds over a period of four to five minutes, beginning with a bloom phase that allows the coffee to degas, then progressing through a steady, calibrated pour. You watch it because there is something hypnotic about the process — the dark liquid dripping into the carafe, the smell rising from the basket, the gradual filling of the glass vessel.\n\nThe smell is different from espresso. Where espresso is concentrated, sharp, and intense, filter coffee fills the kitchen with a broad, warm aroma that settles into the air like a blanket. In winter, this matters. The house has been sealed all night, cold and closed, and the smell of fresh filter coffee is the first signal that the day is opening up.\n\nThe carafe holds six cups. You will drink two before leaving the house and a third from a thermos at mid-morning. Your partner will drink two more, which means the pot is finished by eleven and the afternoon will require a fresh one. This volume is another reason winter belongs to filter. In summer, a single shot is sufficient. In winter, you want a mug. You want to cradle it. You want the warmth to transfer from the ceramic through your palms and into the cold that has settled overnight in your bones.\n\nThe beans shift with the season, following an instinct that mirrors the shift from salads to soups. The bright, acidic single origins of summer give way to deeper, rounder profiles. A Guatemalan with notes of dark chocolate and toasted almond. A Brazilian natural process with body like velvet and a finish of dried fruit. A Sumatran that tastes of earth and cedar and something dark and comforting that you cannot name but recognise as exactly right for February.\n\nThe Filtro extracts these flavours with a precision that a manual pour-over cannot match. Water temperature is held at ninety-four degrees throughout the brew cycle — not fluctuating as a kettle cools, not spiking as fresh water is added. The flow rate is calibrated to produce an extraction yield between nineteen and twenty-one percent, which is the window where the sweetness and the body are maximised without crossing into bitterness. You set it once for the bean and the grind, and it reproduces the result every morning.\n\nWeekends in winter are for longer, more deliberate brews. You switch to a different bean, grind it slightly coarser, and let the Filtro run a slower extraction that emphasises body over brightness. The result is a cup that is almost syrupy in its richness — something to drink while reading, while looking at the rain, while doing nothing at all.\n\nThe insulated carafe holds temperature for two hours without a hot plate, which means the coffee does not scorch or stew. The last cup at ten is as clean and sweet as the first at eight. This is a small technical detail with a large practical impact: it means you can brew a full pot, carry the carafe to your desk or your armchair, and drink at your own pace without the quality degrading.\n\nThere is a particular contentment to winter filter mornings that no other season provides. The darkness outside makes the warmth inside more vivid. The length of the brew gives the morning a pace. The volume of the cup gives you permission to sit longer, to linger, to let the day arrive gradually rather than rushing to meet it.\n\nYou discover things about coffee in winter that the speed of espresso conceals. The way a good filter coffee changes as it cools — brighter, sweeter, more complex at sixty degrees than at eighty. The way the second cup tastes different from the first because your palate has woken up. The way a particular bean reveals a note you missed on the first sip, something fleeting and specific that rewards the patience of a long morning.\n\nBy March, the mornings are lighter and the filter habit loosens. The espresso machine comes back into rotation. The bright single origins return to the shelf. But the Filtro does not go anywhere. It sits on the counter year-round, waiting for the next dark morning, the next cold kitchen, the next season that asks for something slower, deeper, and held in both hands.\n\nWinter is not a season to endure. It is a season to brew for.",
+  "product_bundle": [
+    { "product_id": "arco-filtro", "role": "anchor" }
+  ],
+  "bundle_headline": "Your Winter Slow Filter setup",
+  "bundle_intro": "Long, rich filter brews for the dark mornings that demand something you can hold in both hands.",
+  "featured_guides": [
+    "guide-filter-coffee-brewing-guide",
+    "guide-choosing-beans-for-filter",
+    "guide-filtro-brew-ratios"
+  ],
+  "related_blog_posts": [
+    "blog-winter-filter-rituals",
+    "blog-dark-roasts-for-filter-brewing",
+    "blog-why-filter-coffee-changes-as-it-cools"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "winter-ritualist",
+  "persona_tags": ["winter-ritualist", "filter-lover", "slow-morning"],
+  "intent_tags": ["winter", "filter", "slow-brew", "seasonal", "volume"],
+  "seo": {
+    "title": "Winter Long Brews — Slow Filter Mornings for the Darkest Season | Arco Coffee",
+    "meta_description": "Winter belongs to filter coffee. The Arco Filtro brews rich, precise long cups for dark mornings. Slow, warming, and held in both hands."
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "right-for-you-arco-primo",
+  "slug": "arco-primo",
+  "product_id": "arco-primo",
+  "headline": "Is the Arco Primo right for you?",
+  "intro": "The Primo is our most popular machine for a reason \u2014 it makes genuinely good espresso without demanding much from you. But it is not the right machine for everyone, and we would rather help you find the right fit than sell you the wrong one.",
+  "hero_image_alt": "Arco Primo espresso machine in sage green on a light oak countertop next to a simple ceramic cup, a person's hand reaching for the cup, soft morning light, calm and unhurried domestic scene",
+  "perfect_for": [
+    "You drink one or two straight espressos each morning and want them to be genuinely good, not just convenient.",
+    "You are switching from a capsule machine and want real espresso without a steep learning curve or a cluttered countertop.",
+    "You live in a small apartment and need a machine that shares counter space gracefully with a kettle and a toaster.",
+    "You want a 58 mm portafilter so you can grow into better baskets and accessories over time without replacing the machine."
+  ],
+  "not_ideal_for": [
+    "You make cappuccinos or lattes daily \u2014 the single boiler means switching between brew and steam modes, which adds time and breaks your flow.",
+    "You have already been making espresso for a year or more and are frustrated by temperature inconsistency \u2014 the thermoblock is good, but a PID-controlled boiler is better.",
+    "You want a machine that handles back-to-back shots for guests without needing recovery time between pulls."
+  ],
+  "what_you_need_to_know": [
+    "The Primo uses a thermoblock, not a traditional boiler. This means fast heat-up (90 seconds) but slightly less temperature stability shot to shot than a boiler-based machine. For most people, this is a trade-off worth making.",
+    "You will need a grinder. The Primo does not grind beans. We recommend the Macinino as a starting pair, but any grinder that can reach espresso fineness will work.",
+    "The learning curve is real but short. Expect your first week to involve some experimentation with dose and grind. By week two, most people have a reliable recipe."
+  ],
+  "common_objections": [
+    {
+      "objection": "Is \u20ac299 too much for a first espresso machine?",
+      "honest_answer": "It depends on what you compare it to. Against capsule machines, it is more upfront but dramatically cheaper per cup over time. Against cheaper espresso machines, the Primo's 58 mm portafilter and build quality mean you are not buying something you will want to replace in a year. We think it is the right entry point for someone serious about good espresso."
+    },
+    {
+      "objection": "Will I outgrow it quickly?",
+      "honest_answer": "Possibly, and that is fine. The Primo is designed to be a great first machine, not your last machine. If you find yourself wanting PID control and simultaneous steaming after six months, that is a sign you are ready for the Doppio \u2014 not a sign you made a bad choice."
+    },
+    {
+      "objection": "Can I make latte art with it?",
+      "honest_answer": "Technically yes, but it is difficult. The single boiler means you steam after brewing, so the espresso cools while you texture milk. Basic frothed milk for cappuccinos works well. Instagram-quality latte art is a stretch. If milk drinks are your daily priority, consider the Doppio."
+    }
+  ],
+  "alternative_if_not_right": {
+    "product_id": "arco-doppio",
+    "rationale": "If milk drinks matter to you or you want PID temperature control, the Doppio is the natural step up at \u20ac549."
+  },
+  "persona_match_score": {
+    "morning-minimalist": 5,
+    "upgrader": 3,
+    "craft-barista": 1,
+    "traveller": 2,
+    "non-barista": 3,
+    "office-manager": 1
+  },
+  "persona_tags": ["morning-minimalist", "upgrader", "non-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Is the Arco Primo Right for You? \u2014 Honest Buying Guide | Arco",
+    "meta_description": "An honest look at who the Arco Primo is built for, who should look elsewhere, and what you need to know before buying your first real espresso machine."
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "id": "arco-studio",
+  "slug": "arco-studio",
+  "name": "Arco Studio",
+  "tagline": "The craft of espresso, made tangible.",
+  "price_eur": 1299,
+  "price_display": "€1,299",
+  "category": "espresso-machine",
+  "hero_image_alt": "Arco Studio E61 espresso machine with exposed brass group head and walnut side panels, positioned on a dark stone countertop, dual pressure gauges visible, a rich espresso flowing into a hand-thrown ceramic cup, warm ambient lighting emphasising the chrome and wood textures",
+  "headline": "Where tradition meets intention.",
+  "subheadline": "An E61 heat-exchange machine with a brass group, hand-finished walnut panels, and the kind of build quality that reveals itself over decades of daily use.",
+  "description_short": "An E61 heat-exchange espresso machine with brass group head and walnut accents, built for the dedicated home barista.",
+  "description_long": "The Arco Studio honours the E61 group head — the most proven design in espresso — by pairing it with a modern heat-exchange boiler and meticulous material choices. The brass group provides exceptional thermal stability and a pre-infusion phase that naturally smooths extraction. Walnut side panels and chrome detailing give the Studio a presence that belongs in a kitchen as much as a workshop. The dual pressure gauges let you read boiler and brew pressure at a glance, making every shot a conversation between you and the machine.",
+  "key_specs": {
+    "dimensions": "33 × 28 × 40 cm",
+    "weight": "21 kg",
+    "boiler_type": "Heat exchange (HX), copper",
+    "boiler_capacity": "1.8 L",
+    "group_head": "E61 thermosyphon, brass",
+    "warm_up_time": "15–20 minutes (full thermal stability)",
+    "pressure": "Rotary pump, adjustable OPV",
+    "water_tank": "2.5 L removable (plumb-in kit optional)",
+    "portafilter": "58 mm E61 standard",
+    "gauges": "Dual analogue (boiler pressure, brew pressure)",
+    "steam_wand": "Two-hole articulating tip, no-burn insulation",
+    "power": "1400 W",
+    "voltage": "220–240 V",
+    "drip_tray_capacity": "600 ml",
+    "cup_warmer": "Passive top-mounted"
+  },
+  "whats_in_box": [
+    "Arco Studio espresso machine",
+    "58 mm E61 portafilter (spouted)",
+    "58 mm bottomless portafilter",
+    "Single and double VST precision baskets",
+    "Walnut-handled tamper (58 mm flat)",
+    "Blind basket for backflushing",
+    "Cleaning brush",
+    "Descaling solution (2 sachets)",
+    "Plumb-in adapter kit",
+    "Owner's manual and maintenance schedule"
+  ],
+  "variants": [
+    { "name": "Walnut & Chrome", "hex": "#6B4226" },
+    { "name": "Chrome", "hex": "#C0C0C0" }
+  ],
+  "use_case_headline": "Perfect for the barista who treats espresso as a craft.",
+  "use_case_body": "The Studio is for people who enjoy the ritual — warming the group, flushing before a shot, listening to the pump. If the process matters as much as the cup, this is the machine that rewards your attention.",
+  "pairing_products": [
+    { "product_id": "arco-zero", "rationale": "A zero-retention single-dose grinder matches the Studio's precision and craft-oriented workflow." },
+    { "product_id": "arco-preciso", "rationale": "An excellent stepless grinder at a more accessible price that still does justice to the Studio's capabilities." },
+    { "product_id": "preparation-accessories", "rationale": "A distribution tool and precision basket will help you extract the most from the E61 group." }
+  ],
+  "experience_tag": "craft-barista",
+  "persona_tags": ["craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "related_blog_posts": [
+    "e61-group-head-explained",
+    "heat-exchange-vs-dual-boiler",
+    "the-art-of-temperature-surfing",
+    "maintaining-your-espresso-machine"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Studio",
+    "description": "An E61 heat-exchange espresso machine with brass group head and walnut accents, built for the dedicated home barista.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-STUDIO",
+    "image": "/content/products/images/arco-studio-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 1299,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-studio"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.8,
+      "reviewCount": 92
+    }
+  },
+  "seo": {
+    "title": "Arco Studio — E61 Heat-Exchange Espresso Machine | Arco",
+    "meta_description": "The Arco Studio pairs a classic E61 brass group head with a heat-exchange boiler and hand-finished walnut panels. Built for the dedicated home barista. €1,299.",
+    "og_image_alt": "Arco Studio E61 espresso machine with walnut panels and brass group head",
+    "canonical_url": "/products/arco-studio"
+  }
+}

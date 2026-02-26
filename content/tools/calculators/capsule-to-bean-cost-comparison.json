@@ -1,0 +1,69 @@
+{
+  "id": "calc-capsule-bean-cost",
+  "slug": "capsule-to-bean-cost-comparison",
+  "title": "Capsule vs. Bean Cost Comparison",
+  "description": "Discover how much you could save by switching from capsules to fresh beans with an Arco machine. Enter your daily consumption and see the real numbers — monthly costs, break-even timeline, and five-year savings.",
+  "inputs": [
+    {
+      "id": "cups_per_day",
+      "label": "Cups Per Day",
+      "type": "number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "id": "capsule_cost_per_cup",
+      "label": "Cost Per Capsule (your currency)",
+      "type": "number",
+      "min": 0.1,
+      "max": 3.0,
+      "step": 0.05,
+      "default": 0.55
+    },
+    {
+      "id": "target_machine",
+      "label": "Arco Machine You Are Considering",
+      "type": "select",
+      "options": [
+        { "value": "arco-nano", "label": "Arco Nano (449)", "price": 449 },
+        { "value": "arco-automatico", "label": "Arco Automatico (699)", "price": 699 },
+        { "value": "arco-classica", "label": "Arco Classica (899)", "price": 899 },
+        { "value": "arco-barista-pro", "label": "Arco Barista Pro (1199)", "price": 1199 },
+        { "value": "arco-maestro", "label": "Arco Maestro (1699)", "price": 1699 },
+        { "value": "arco-dual-boiler", "label": "Arco Dual Boiler (2199)", "price": 2199 },
+        { "value": "arco-lever", "label": "Arco Lever (1499)", "price": 1499 }
+      ],
+      "default": "arco-automatico"
+    },
+    {
+      "id": "coffee_budget_per_kg",
+      "label": "Price Per Kg of Whole Beans (your currency)",
+      "type": "number",
+      "min": 5,
+      "max": 120,
+      "step": 1,
+      "default": 28
+    }
+  ],
+  "formula": "capsule_monthly = cups_per_day × 30.4 × capsule_cost. bean_grams_per_cup ≈ 16g (double shot average). bean_monthly = cups_per_day × 30.4 × 0.016 × coffee_budget_per_kg. monthly_savings = capsule_monthly − bean_monthly. break_even = machine_price / monthly_savings. five_year_savings = monthly_savings × 60 − machine_price. Also calculates cost_per_cup for beans.",
+  "output_format": "Monthly capsule cost, monthly bean cost, monthly savings, bean cost per cup, break-even months, five-year net savings, and a summary statement.",
+  "persona_tags": ["capsule-switcher", "budget-conscious", "new-buyer"],
+  "intent_tags": ["compare-costs", "justify-purchase", "save-money"],
+  "related_products": [
+    "arco-automatico",
+    "arco-nano",
+    "arco-classica",
+    "arco-macinino-home"
+  ],
+  "cta": {
+    "label": "Find the Right Machine for Your Budget",
+    "url": "/products/espresso-machines"
+  },
+  "seo": {
+    "title": "Capsule vs. Bean Cost Calculator | How Much Can You Save? | Arco",
+    "meta_description": "Calculate your real savings when switching from coffee capsules to fresh beans with an Arco espresso machine. See monthly costs, break-even time, and five-year savings."
+  },
+  "hero_image_alt": "Split image: a pile of used aluminum capsules on the left versus a bag of whole coffee beans beside an Arco Automatico on the right"
+}

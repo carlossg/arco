@@ -1,0 +1,53 @@
+{
+  "id": "building-a-home-tasting-group",
+  "slug": "building-a-home-tasting-group",
+  "category": "community",
+  "title": "Building a Home Tasting Group: How to Start a Neighbourhood Coffee Circle",
+  "author": {
+    "name": "Elena Marchetti",
+    "role": "Head of Product",
+    "bio_short": "Elena leads product development at Arco and has been designing espresso equipment for over a decade. She splits her time between the Emilia-Romagna workshop and her home kitchen in Bologna, where she tests everything she builds."
+  },
+  "published_date": "2026-02-12T08:00:00Z",
+  "read_time_minutes": 9,
+  "hero_image_alt": "A kitchen table set for a coffee tasting with six small ceramic cups arranged in a row, each containing a different espresso, handwritten tasting cards beside each cup, an Arco Studio espresso machine and Preciso grinder in the background, six bags of specialty coffee from different roasters open on the counter, warm afternoon light through a window",
+  "tags": ["tasting-group", "community", "cupping", "coffee-tasting", "neighbourhood", "education"],
+  "persona_tags": ["craft-barista", "upgrader", "entertainer"],
+  "intent_tags": ["discover", "learn", "entertain"],
+  "intro": "You do not need a professional cupping lab or a Q-grader certification to host a meaningful coffee tasting. All you need is an espresso machine, a few bags of beans from different roasters, some friends who are curious, and a willingness to pay attention to what you are drinking. Here is how to start a tasting group that lasts.",
+  "body": [
+    {
+      "heading": "Why a Tasting Group Works",
+      "content": "Drinking coffee alone is a private pleasure. Tasting coffee with others is an education. The difference is not pretension — it is attention. When you drink your morning espresso, you are operating on autopilot: same beans, same grind, same routine, same result. When you sit with four or five people and taste the same shot, then talk about what you each experienced, something shifts. You notice flavours you would have ignored. Someone says 'this tastes like dried apricot' and suddenly you can taste it too — not because they planted the suggestion, but because they gave your palate a word for something it was already sensing but had not articulated. This is how palate development works. It is not a solo activity. Professional cuppers and Q-graders train in groups for exactly this reason: calibration against other tasters sharpens your ability to detect, identify, and describe flavour. A home tasting group does the same thing at a lower intensity and a higher enjoyment level. You are not trying to pass an exam. You are trying to drink better coffee and understand why you like what you like. Over the course of a few months, regular participants in a tasting group develop a shared vocabulary, a collective memory of beans and roasters, and — most valuably — the ability to articulate their preferences clearly enough to buy coffee more confidently. Instead of guessing at the roaster's flavour notes on a bag, you know from experience what 'berry-forward Ethiopian natural' actually tastes like, because you tasted one in February and the group spent ten minutes discussing it."
+    },
+    {
+      "heading": "The Format That Works",
+      "content": "After two years of hosting monthly tastings in my kitchen in Bologna, I have settled on a format that balances structure and informality. The group meets once a month, on a Saturday afternoon. Four to six people is ideal — fewer feels sparse, more creates chaos around a single espresso machine. Each session features three to four coffees. One person brings the coffees for that session and rotates monthly, which distributes the cost and introduces variety that no single buyer would achieve. The coffees should have a theme — not rigid, but enough to give the tasting a thread. Good themes include: single origin versus blend, same origin at different roast levels, same roast from three different roasters, natural versus washed process, or simply 'things I found interesting this month.' Each coffee is pulled as espresso using the same dose, yield, and temperature, adjusted only for grind to hit a target shot time of twenty-five to thirty seconds. Consistency in preparation is important because it isolates the variable you are actually tasting: the coffee itself. I pull three shots of each coffee so everyone can taste from the same extraction, and I use the Arco Studio's consistent temperature to ensure each set of shots is comparable. The tasting proceeds in order from lightest to darkest roast, or from most delicate to most intense flavour. Each coffee gets five minutes of silent tasting — no talking while you are forming your impression — followed by open discussion. I provide simple tasting cards with prompts: aroma, first sip, body, acidity, sweetness, finish, and overall impression. These are not scores; they are scaffolding for the conversation."
+    },
+    {
+      "heading": "Keeping It Accessible",
+      "content": "The single greatest threat to a home tasting group is pretension. The moment someone starts lecturing about processing methods or correcting another person's flavour description, the atmosphere dies. The point of the group is not expertise — it is shared curiosity. Every impression is valid. If someone tastes blueberry and someone else tastes nothing but bitterness, both are correct descriptions of their experience. The host's job is to create an environment where people feel comfortable saying what they taste without fear of being wrong. A few practical rules help. First, no one is allowed to read the bag's tasting notes aloud before the group has tasted and discussed the coffee. Tasting notes create anchoring bias — once someone tells you a coffee has 'notes of blackcurrant and dark chocolate,' that is all you will taste. Second, all coffees are presented blind for the first round. I cover the bags with tea towels and number them. After discussion, we reveal the coffee and read the roaster's notes, which invariably leads to the best conversation of the session: the gap between what the roaster says and what the group experienced. Third, provide water and plain crackers between coffees to reset the palate. Fourth, serve the coffees at proper espresso temperature, but allow time for them to cool slightly — many flavours emerge as espresso drops from scalding to warm. Fifth, take photos of the bags and the group's tasting cards after each session. Over time, this creates a record that is fascinating to look back on — you can see your palate developing in your own handwriting."
+    },
+    {
+      "heading": "Equipment and Cost",
+      "content": "You do not need an elaborate setup. An Arco espresso machine, a good grinder, a kitchen scale, a timer, and enough cups for the group are sufficient. The Studio or Doppio are ideal for tasting groups because their temperature stability means you can pull multiple shots of the same coffee and get consistent results — essential when you need everyone tasting the same extraction. The Preciso grinder's stepless adjustment lets you dial in quickly for each new coffee without wasting beans. Cost per session is modest. Three bags of specialty coffee, shared across a group of five, runs to roughly eight to twelve euros per person. This is less than a single cafe visit for most people, and you taste more variety in one afternoon than you would in a month of cafe-going. Over time, the group develops collective buying power. Members discover roasters through the tastings and begin ordering from them individually. Some groups I know have arranged group purchases from small roasters who offer wholesale pricing on orders above a kilogram — effectively getting specialty coffee at near-wholesale prices by combining orders. The social cost is the most important consideration, and it is zero. Do not turn the tasting group into a formal club with membership fees, attendance requirements, or a social media presence. Keep it simple: a standing monthly invitation, a rotation of who brings the coffee, and the understanding that you come when you can and skip when you cannot. The groups that last are the ones that feel like a gathering of friends, not an obligation."
+    }
+  ],
+  "key_takeaways": [
+    "Tasting coffee with others develops your palate faster than drinking alone — calibration against other tasters sharpens flavour detection.",
+    "The ideal format: 4-6 people, 3-4 coffees per session, monthly rotation of who brings the beans, blind tasting before revealing.",
+    "Keep it accessible — no lectures, no correcting, all impressions are valid. Pretension kills tasting groups faster than anything else.",
+    "Cost is modest: roughly 8-12 euros per person per session for specialty coffee that would cost far more at a cafe."
+  ],
+  "related_products": ["arco-studio", "arco-doppio", "arco-preciso"],
+  "related_experience": "craft-barista",
+  "cta": {
+    "label": "Explore Arco Espresso Machines",
+    "url": "/products"
+  },
+  "related_posts": ["weeknight-espresso-martini-club", "blind-tasting-your-espresso", "how-to-store-beans-properly"],
+  "seo": {
+    "title": "How to Start a Home Coffee Tasting Group | Arco",
+    "meta_description": "A practical guide to starting a neighbourhood coffee tasting circle. Format, equipment, blind tasting protocol, and how to keep it fun and unpretentious."
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "newsletter": {
+    "default": {
+      "headline": "Stay in the Loop",
+      "body": "Sign up for new releases, brewing tips, and exclusive offers.",
+      "cta_label": "Subscribe"
+    },
+    "persona_variants": {
+      "craft-barista": {
+        "headline": "Technique Drops, Monthly",
+        "body": "Advanced brewing techniques, equipment deep-dives, and competition insights. Written for people who know what EY means.",
+        "cta_label": "Join the Lab"
+      },
+      "morning-minimalist": {
+        "headline": "Simple Coffee, Better Mornings",
+        "body": "Quick tips for a better cup, new product drops, and the occasional recipe. No jargon, ever.",
+        "cta_label": "Keep It Simple"
+      }
+    }
+  },
+  "columns": [
+    {
+      "heading": "Products",
+      "links": [
+        { "label": "Espresso Machines", "url": "/products/espresso-machines" },
+        { "label": "Grinders", "url": "/products/grinders" },
+        { "label": "Accessories", "url": "/products/accessories" },
+        { "label": "Bundles", "url": "/bundles/persona-kits/morning-minimalist-kit" },
+        { "label": "Compare", "url": "/products/comparison/arco-primo-vs-arco-doppio" }
+      ]
+    },
+    {
+      "heading": "Learn",
+      "links": [
+        { "label": "Brewing Guides", "url": "/guides/fundamentals/what-is-extraction" },
+        { "label": "Stories", "url": "/blog/brand/a-visit-to-our-workshop" },
+        { "label": "Tools & Calculators", "url": "/tools/calculators/espresso-ratio-calculator" },
+        { "label": "Experiences", "url": "/experiences/core/morning-minimalist" }
+      ]
+    },
+    {
+      "heading": "Company",
+      "links": [
+        { "label": "About Arco", "url": "/about" },
+        { "label": "Sustainability", "url": "/blog/brand/the-sustainability-audit" },
+        { "label": "Refurbishment Program", "url": "/blog/brand/the-arco-refurbishment-program" },
+        { "label": "Workshop Visit", "url": "/blog/brand/a-visit-to-our-workshop" }
+      ]
+    },
+    {
+      "heading": "Support",
+      "links": [
+        { "label": "Contact Us", "url": "/support" },
+        { "label": "Warranty & Service", "url": "/tools/maintenance/warranty-and-service-guide" },
+        { "label": "Machine Care", "url": "/tools/maintenance/machine-care-calendar" },
+        { "label": "Diagnostics", "url": "/tools/maintenance/symptom-diagnostic-guide" }
+      ]
+    }
+  ],
+  "social": [
+    { "label": "Instagram", "url": "https://instagram.com/arcocoffee", "icon": "instagram" },
+    { "label": "YouTube", "url": "https://youtube.com/@arcocoffee", "icon": "youtube" },
+    { "label": "Pinterest", "url": "https://pinterest.com/arcocoffee", "icon": "pinterest" }
+  ],
+  "sustainability_tagline": "Every Arco machine is built to last a decade, not a trend.",
+  "legal": [
+    { "label": "Privacy Policy", "url": "/privacy" },
+    { "label": "Terms of Service", "url": "/terms" },
+    { "label": "Cookie Policy", "url": "/cookies" }
+  ],
+  "language_switcher": [
+    { "label": "English", "code": "en", "url": "/", "hreflang": "en" },
+    { "label": "Italiano", "code": "it", "url": "/localization/it/italian-espresso-culture-arco", "hreflang": "it" },
+    { "label": "Deutsch", "code": "de", "url": "/localization/de/praezision-trifft-kaffee", "hreflang": "de" }
+  ],
+  "hreflang_declarations": {
+    "en": "https://main--arco--paolomoz.aem.live/",
+    "it": "https://main--arco--paolomoz.aem.live/localization/it/",
+    "de": "https://main--arco--paolomoz.aem.live/localization/de/"
+  },
+  "copyright": "© 2026 Arco Coffee Equipment. All rights reserved."
+}

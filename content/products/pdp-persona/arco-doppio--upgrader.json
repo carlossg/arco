@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-doppio",
+  "persona_tag": "upgrader",
+  "headline": "The dual boiler that ends the compromise.",
+  "subheadline": "Independent brew and steam boilers, a rotary pump, and an E61 group head. The Doppio is where single-boiler frustrations go to die.",
+  "hero_image_alt": "Arco Doppio dual-boiler espresso machine in brushed steel on a dark kitchen counter, dual PID displays showing different temperatures, a perfectly textured milk pitcher beside a freshly pulled espresso with thick crema",
+  "description_long": "If you've been waiting for your single boiler to cool down between brewing and steaming, you already know why the Doppio exists. Two independent brass boilers mean you pull a shot at one temperature and steam milk at another -- simultaneously, without compromise. The rotary pump is whisper-quiet and delivers pressure so consistent you'll wonder how you ever tolerated a vibratory. The E61 group head is the industry standard for a reason: thermal stability and a massive ecosystem of aftermarket accessories. This is the machine that turns frustration into satisfaction.",
+  "use_case_headline": "Why upgraders choose the Doppio.",
+  "use_case_body": "No more temperature surfing. No more waiting between shots and milk. No more rattling pumps. The Doppio's dual-boiler architecture, rotary pump, and E61 group head address every single pain point of a single-boiler setup -- and the difference is obvious from your very first shot.",
+  "recommended_accessories": [
+    "Precision Scale",
+    "Distribution Tool",
+    "Milk Pitcher",
+    "Dosing Cup",
+    "Tamper Set"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "End the Compromise",
+  "cta_primary_url": "/products/arco-doppio",
+  "social_proof_quote": {
+    "quote": "I upgraded from a Breville Bambino and the Doppio is a completely different experience. Simultaneous brew and steam changed my mornings. The rotary pump alone was worth the price of admission -- dead silent, rock steady.",
+    "name": "Daniel W.",
+    "location": "Amsterdam, Netherlands"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "exp-lm-006",
+  "slug": "gifting-for-a-coffee-lover",
+  "title": "Gifting for a Coffee Lover",
+  "persona_tag": "thoughtful-gifter",
+  "experience_archetype": "The Gift",
+  "hero_image_alt": "A beautifully wrapped gift box open on a table revealing an Arco tamper, distribution tool, and a bag of specialty beans nestled in tissue paper, a handwritten card visible, warm holiday lighting in the background",
+  "hero_headline": "They are impossible to buy for. Until now.",
+  "hero_subtext": "A guide to gifting for the person who already has opinions about water temperature.",
+  "editorial_intro": "You love someone who loves coffee. This should make gift-giving easy, but it does the opposite, because they already own a machine, already have a grinder, and already have strong, specific opinions about every piece of equipment they use. Buying them the wrong thing is not just a waste of money — it is a statement that you do not understand them. The stakes are unreasonably high.",
+  "editorial_body": "You have been here before. The Christmas you bought them a mug that said 'But First, Coffee' and watched them smile in a way that was generous but did not reach their eyes. The birthday where you chose a bag of beans from the supermarket and they thanked you warmly and then you found the bag, unopened, in the cupboard three months later. The anniversary where you gave them a milk frothing wand that was, apparently, incompatible with their machine and also philosophically incorrect in ways you did not understand.\n\nThe problem is not that you do not care. You care deeply. You notice them standing at the machine every morning, adjusting, tasting, adjusting again. You see the focus and the pleasure and the small fist pump when a shot comes out right. You want to contribute to this thing that brings them joy. You just do not know how.\n\nHere is the secret: the best gifts for coffee lovers are not machines or grinders. Those are deeply personal choices, researched and deliberated over, and buying one for someone else is like choosing their next car based on the colour. The best gifts are the things they would love to own but have not yet bought for themselves — the accessories, the consumables, the small luxuries that elevate their daily practice without disrupting it.\n\nThe Arco precision tamper is a near-perfect gift. It is a beautifully machined piece of stainless steel, weighted for balance, sized to fit standard portafilter baskets. Most coffee lovers use whatever tamper came with their machine, which is typically a cheap, lightweight, poorly balanced afterthought. Upgrading to a proper tamper is one of those small changes that produces an outsized improvement in both the process and the result. They will feel the difference in their first tamp, and they will think of you every morning.\n\nThe WDT distribution tool is another excellent option. It is a precision instrument with thin needles that break up clumps in the coffee grounds before tamping, ensuring an even extraction. Most enthusiasts know about WDT but use a makeshift version — a paperclip, a 3D-printed tool, a toothpick. The Arco version is the real thing, elegant and effective, and receiving it communicates that you understand their practice well enough to improve it.\n\nA subscription to specialty beans is the gift that keeps arriving. You can set it up through any reputable roaster — or through Arco's own programme — and each month a new bag appears at the door. This is ideal because it removes the risk of choosing the wrong beans. The roaster chooses, the recipient explores, and you get credit for twelve months of variety without making a single flavour decision.\n\nFor the coffee lover who travels, the Arco travel kit — a compact case containing a dosing funnel, travel tamper, and distribution tool, all sized for portable espresso makers — is the gift that says you have been paying attention to their complaints about hotel coffee.\n\nThe dosing funnel might seem mundane, but it is the kind of accessory that most coffee lovers use every single day and most have never thought to upgrade. The Arco funnel is machined aluminium, precisely fitted, and eliminates the mess that comes from grinding directly into the portafilter. It costs less than a nice bottle of wine and will be used more often than anything else in the kitchen.\n\nIf your budget is larger and you know — genuinely know, because they have told you — what they want, the Arco gift bundles combine equipment with accessories in curated sets. The Essentials bundle pairs a tamper, funnel, and distribution tool. The Explorer bundle adds a selection of single-origin beans. The Complete bundle includes scales and a knock box.\n\nThe card matters as much as the gift. Write something that shows you see them. Not 'I know you like coffee' but 'I noticed you have been using that bent paperclip to distribute your grounds and I thought you deserved better.' Specificity is the language of love, and a gift that says 'I have been watching, and I understand' is worth more than any machine.\n\nThey will open it. They will look at it. And their smile will reach their eyes this time, because the gift is not generic coffee merchandise from someone who thinks they like coffee. It is a precise, considered addition to their daily practice from someone who has been paying attention.\n\nThat is the gift. Not the object. The attention.",
+  "product_bundle": [
+    { "product_id": "arco-tamper", "role": "anchor" },
+    { "product_id": "arco-wdt-tool", "role": "primary" },
+    { "product_id": "arco-dosing-funnel", "role": "primary" },
+    { "product_id": "arco-travel-kit", "role": "accessory" },
+    { "product_id": "arco-essentials-bundle", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Gift setup",
+  "bundle_intro": "Curated accessories for the coffee lover who already has the machine and the opinions.",
+  "featured_guides": [
+    "guide-gift-guide-by-budget",
+    "guide-what-accessories-actually-matter",
+    "guide-bean-subscriptions-explained"
+  ],
+  "related_blog_posts": [
+    "blog-gifts-for-coffee-lovers",
+    "blog-accessories-that-make-a-difference",
+    "blog-the-art-of-the-coffee-gift"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "thoughtful-gifter",
+  "persona_tags": ["thoughtful-gifter", "gift-buyer", "non-expert"],
+  "intent_tags": ["gift", "accessories", "bundles", "subscription", "holiday"],
+  "seo": {
+    "title": "Gifting for a Coffee Lover — Accessories and Bundles They Actually Want | Arco Coffee",
+    "meta_description": "The best gifts for coffee lovers are not machines. Arco tampers, distribution tools, and curated bundles for the person who already has opinions about extraction."
+  }
+}

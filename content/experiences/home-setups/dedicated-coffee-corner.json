@@ -1,0 +1,38 @@
+{
+  "id": "exp-hs-002",
+  "slug": "dedicated-coffee-corner",
+  "title": "Dedicated Coffee Corner",
+  "persona_tag": "home-barista",
+  "experience_archetype": "Coffee Corner",
+  "hero_image_alt": "A purpose-built coffee station in a kitchen alcove featuring an Arco Studio machine, Arco Zero grinder, wooden shelving with coffee bags and ceramic cups, a knock box, scales, and a small plant under warm pendant lighting",
+  "hero_headline": "You built it a corner. It deserved one.",
+  "hero_subtext": "When the coffee setup stops sharing counter space and gets its own dedicated station.",
+  "editorial_intro": "It started with the machine on the main counter, squeezed between the toaster and the fruit bowl. Then the grinder arrived and needed its own spot. Then the accessories. At some point you looked at the kitchen and realised that coffee had colonised a third of the worktop. It was time to give it a proper home.",
+  "editorial_body": "The dedicated coffee corner is not a kitchen renovation. You want to be clear about that, because the phrase conjures images of contractors and planning permission and months of disruption. What it actually involved was a weekend, a trip to a furniture shop, and some careful thought about what goes where.\n\nYou chose the alcove beside the fridge. It was previously home to a microwave you used twice a month and a stack of cookbooks you never opened. The microwave moved to a high shelf. The cookbooks went to the living room. In their place, you installed a solid wooden shelf at counter height, forty-five centimetres deep and ninety centimetres wide, with a power strip mounted on the wall behind it and a small shelf above for cups and accessories.\n\nThe Arco Studio sits in the centre, its chrome and steel catching the light from the pendant you hung above. To the left, the Arco Zero grinder, positioned so that the portafilter slides directly beneath the chute. To the right, a knock box, a small scale, and a tamping station — a flat silicone mat with a raised edge that keeps the portafilter steady. Above, on the shelf, your favourite cups are arranged in a row: two espresso, two cappuccino, and a tall glass for the occasional latte.\n\nThe coffee itself lives on a narrow wooden shelf mounted on the wall, displaying the bags like books on a spine. You keep three or four open at any time — a reliable house espresso blend, a rotating single origin, and something experimental that you may or may not enjoy but want to try. Each bag is clipped shut and dated with a small label noting the roast date and your preferred recipe.\n\nThis organisation sounds obsessive written down. In practice, it simply means you never have to search for anything. Everything has a place, every tool is within arm's reach, and the workflow moves in one direction: beans from the shelf, into the grinder, into the portafilter, into the machine, into the cup. No backtracking, no rummaging, no clutter.\n\nThe Zero grinder was the piece that made the corner work as a system rather than a collection of equipment. Zero retention means no waste and no purging. You weigh your dose, pour it in, and exactly that amount comes out, ground to a consistency that makes distribution nearly effortless. When you switch between the house blend and the single origin — which you do daily, sometimes more — the adjustment is two clicks on the stepless dial. No beans are sacrificed to the transition.\n\nThe Studio rewards the dedicated space. Its E61 group head needs twenty minutes to reach thermal equilibrium, but on a smart plug with a timer, it is warm before you wake up. The pressure gauge glows softly in the morning dimness, and there is something deeply satisfying about walking up to a machine that is ready and waiting.\n\nYou have added small touches over the months. A framed print of an Italian coffee bar on the wall behind the setup. A small ceramic dish for spent pucks that you empty into the compost each evening. A timer mounted on the shelf above the machine, though you rarely use it anymore because you have learned to read the shot by sight and sound.\n\nGuests gravitate to the corner. They stand in front of it the way people stand in front of aquariums — not quite interacting, just watching. When you make them coffee, they lean against the counter and observe the process with a focus they normally reserve for cooking shows. The corner has become a feature of the kitchen, a conversation piece, a place where something interesting happens.\n\nBut the corner is not for guests. It is for the 6:30am version of you, half-awake and barefoot, moving through a sequence of motions that you know so well they require almost no thought. The beans falling into the grinder. The portafilter clicking home. The espresso emerging in a slow, golden thread. The cup warming your hands.\n\nThat daily repetition, in a space designed for exactly this purpose, is the real luxury. Not the equipment, not the aesthetic, but the feeling that you have arranged a small part of your world around something that gives you genuine pleasure.",
+  "product_bundle": [
+    { "product_id": "arco-studio", "role": "anchor" },
+    { "product_id": "arco-zero", "role": "primary" },
+    { "product_id": "arco-tamper", "role": "accessory" },
+    { "product_id": "arco-knock-box", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Coffee Corner setup",
+  "bundle_intro": "A complete station built for daily craft and quiet morning pleasure.",
+  "featured_guides": [
+    "guide-building-a-coffee-station",
+    "guide-zero-grinder-single-dosing",
+    "guide-organising-your-accessories"
+  ],
+  "related_blog_posts": [
+    "blog-coffee-corner-inspiration",
+    "blog-from-counter-to-station",
+    "blog-the-home-barista-toolkit"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "home-barista",
+  "persona_tags": ["home-barista", "design-conscious", "dedicated-space"],
+  "intent_tags": ["dedicated-setup", "home-station", "organisation", "full-build", "aesthetics"],
+  "seo": {
+    "title": "Dedicated Coffee Corner — Building Your Home Coffee Station | Arco Coffee",
+    "meta_description": "Build a dedicated coffee corner with the Arco Studio and Zero grinder. From alcove to complete station — organise your setup for daily craft and quiet morning ritual."
+  }
+}

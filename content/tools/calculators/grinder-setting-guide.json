@@ -1,0 +1,79 @@
+{
+  "id": "calc-grinder-setting",
+  "slug": "grinder-setting-guide",
+  "title": "Grinder Setting Guide",
+  "description": "Get a recommended grind setting for your Arco grinder based on brew method, bean origin, and roast level. A precise starting point saves beans and gets you to a great cup faster.",
+  "inputs": [
+    {
+      "id": "grinder_model",
+      "label": "Your Arco Grinder",
+      "type": "select",
+      "options": [
+        { "value": "arco-macinino-pro", "label": "Arco Macinino Pro (64mm flat burrs)" },
+        { "value": "arco-macinino-home", "label": "Arco Macinino Home (50mm flat burrs)" },
+        { "value": "arco-conico", "label": "Arco Conico (58mm conical burrs)" },
+        { "value": "arco-mini-grinder", "label": "Arco Mini Grinder (38mm flat burrs)" }
+      ],
+      "default": "arco-macinino-home"
+    },
+    {
+      "id": "brew_method",
+      "label": "Brew Method",
+      "type": "select",
+      "options": [
+        { "value": "espresso", "label": "Espresso (9-bar)" },
+        { "value": "v60", "label": "Hario V60" },
+        { "value": "chemex", "label": "Chemex" },
+        { "value": "aeropress", "label": "AeroPress" },
+        { "value": "french-press", "label": "French Press" },
+        { "value": "cold-brew", "label": "Cold Brew" }
+      ],
+      "default": "espresso"
+    },
+    {
+      "id": "bean_origin_type",
+      "label": "Bean Origin Type",
+      "type": "select",
+      "options": [
+        { "value": "african", "label": "African (Ethiopian, Kenyan, etc.)" },
+        { "value": "central-american", "label": "Central American (Guatemala, Costa Rica, etc.)" },
+        { "value": "south-american", "label": "South American (Brazilian, Colombian, etc.)" },
+        { "value": "asian", "label": "Asian/Pacific (Sumatran, Indonesian, etc.)" },
+        { "value": "blend", "label": "Blend / Unknown" }
+      ],
+      "default": "blend"
+    },
+    {
+      "id": "roast_level",
+      "label": "Roast Level",
+      "type": "select",
+      "options": [
+        { "value": "light", "label": "Light Roast" },
+        { "value": "medium-light", "label": "Medium-Light" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "medium-dark", "label": "Medium-Dark" },
+        { "value": "dark", "label": "Dark Roast" }
+      ],
+      "default": "medium"
+    }
+  ],
+  "formula": "Each grinder has a numeric setting range. Base settings per brew method are defined from factory calibration data. Roast level shifts the setting (lighter roasts need finer grind for same extraction; darker roasts extract faster so go coarser). Bean density by origin applies a secondary offset. African and Central American beans tend to be harder/denser (grind slightly finer); Asian beans and dark roasts are more porous (grind coarser).",
+  "output_format": "Recommended numeric grind setting, ±2 adjustment range, adjustment direction note (finer if sour, coarser if bitter), and expected dose-time range for espresso or target brew time for filter methods.",
+  "persona_tags": ["home-barista", "beginner", "filter-coffee-lover"],
+  "intent_tags": ["dial-in", "grinder-setup", "brew-method"],
+  "related_products": [
+    "arco-macinino-pro",
+    "arco-macinino-home",
+    "arco-conico",
+    "arco-mini-grinder"
+  ],
+  "cta": {
+    "label": "Shop Arco Grinders",
+    "url": "/products/grinders"
+  },
+  "seo": {
+    "title": "Grinder Setting Guide | Find Your Starting Grind | Arco",
+    "meta_description": "Get a precise grind setting recommendation for your Arco grinder based on brew method, bean origin, and roast level. Stop wasting beans and dial in faster."
+  },
+  "hero_image_alt": "Top-down view of freshly ground coffee in an Arco Macinino Pro portafilter holder with the grind adjustment dial visible"
+}

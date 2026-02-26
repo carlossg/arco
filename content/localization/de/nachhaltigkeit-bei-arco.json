@@ -1,0 +1,38 @@
+{
+  "id": "loc-de-003",
+  "slug": "nachhaltigkeit-bei-arco",
+  "title": "Nachhaltigkeit bei Arco — Fakten statt Versprechen",
+  "market": "Germany",
+  "language": "de",
+  "persona_tag": "morning-minimalist",
+  "hero_image_alt": "Detailaufnahme einer Arco Studio aus gebürstetem Edelstahl, Fokus auf die massiven Messingkomponenten des E61-Brühkopfs, daneben ein recycelter Jutesack mit Kaffeebohnen, natürliches Tageslicht, sachlicher industrieller Hintergrund",
+  "hero_headline": "Nachhaltigkeit ist kein Slogan. Es ist eine Konstruktionsentscheidung.",
+  "hero_subtext": "Was Arco konkret tut — und wo wir ehrlich zugeben, dass wir noch besser werden müssen.",
+  "editorial_intro": "Der deutsche Markt hat wenig Geduld für grünes Marketing ohne Substanz. Das respektieren wir. Auf dieser Seite beschreiben wir, was Arco in Sachen Nachhaltigkeit tatsächlich tut, was wir planen und wo unsere Grenzen liegen.",
+  "editorial_body": "Nachhaltigkeit ist in der Kaffeebranche ein belastetes Wort geworden. Jede Marke behauptet, nachhaltig zu sein. Die wenigsten belegen es. Wir möchten einen anderen Weg gehen: keine großen Versprechen, sondern konkrete Fakten, ehrliche Einschränkungen und ein überprüfbarer Fahrplan.\n\nBeginnen wir mit dem, was wir tun.\n\nLanglebigkeit als Designprinzip. Die nachhaltigste Maschine ist die, die nicht ersetzt werden muss. Jede Arco-Maschine ist auf eine Lebensdauer von mindestens fünfzehn Jahren bei täglichem Gebrauch ausgelegt. Alle verschleißanfälligen Teile — Dichtungen, Duschsiebe, Ventile — sind einzeln bestellbar und vom Benutzer austauschbar. Wir veröffentlichen detaillierte Wartungsanleitungen und liefern Ersatzteile für mindestens zehn Jahre nach Produktionsende einer Baureihe. In einer Branche, in der die durchschnittliche Kaffeemaschine nach drei bis fünf Jahren entsorgt wird, ist Langlebigkeit der wirkungsvollste Beitrag, den ein Hersteller leisten kann.\n\nReparierbarkeit. Kein Arco-Produkt verwendet proprietäre Schrauben, verklebte Gehäuse oder Komponenten, die eine Reparatur durch den Nutzer verhindern. Die Studio und Studio Pro verwenden standardisierte E61-Komponenten, die weltweit verfügbar sind — nicht nur von uns, sondern von jedem Fachhändler. Das ist kein Zufall. Es ist eine bewusste Entscheidung gegen geplante Obsoleszenz.\n\nMaterialien. Die Brühkessel unserer höherwertigen Maschinen sind aus Messing und Kupfer — Materialien, die nicht nur hervorragende thermische Eigenschaften haben, sondern auch vollständig recycelbar sind. Das Gehäuse der Studio verwendet Edelstahl und massives Walnussholz aus zertifizierter europäischer Forstwirtschaft. Keine Verbundwerkstoffe, kein Plastik an Stellen, wo es nicht sein muss.\n\nVerpackung. Seit 2024 verwenden wir ausschließlich Karton und Zellstoffpolster statt Styropor oder Schaumstoff. Der Karton besteht zu 85 % aus Recyclingmaterial. Die Druckfarben sind pflanzenbasiert. Die Verpackung jeder Maschine ist vollständig über die kommunale Altpapiersammlung recycelbar.\n\nEnergieverbrauch. Die Primo verbraucht im täglichen Betrieb etwa so viel Strom wie eine 60-Watt-Glühbirne für eine Stunde. Die automatische Abschaltung aller Modelle verhindert unnötigen Standby-Verbrauch. Die Filtro wurde spezifisch optimiert, um ohne Warmhalteplatte auszukommen — was nicht nur den Geschmack verbessert, sondern auch den Energieverbrauch pro Kanne um etwa 40 % reduziert im Vergleich zu herkömmlichen Filtermaschinen.\n\nNun zu dem, was wir noch nicht tun — und wo wir ehrlich sein müssen.\n\nCO2-Bilanz der Lieferkette. Wir kennen den CO2-Fußabdruck unserer Endmontage, aber die vollständige Bilanz aller Zulieferkomponenten ist noch unvollständig. Wir arbeiten an einer Lifecycle-Analyse (LCA) nach ISO 14044, die voraussichtlich Ende 2026 veröffentlicht wird. Bis dahin wäre jede konkrete CO2-Zahl von uns unseriös.\n\nVerpackungsgewicht. Unsere Verpackungen sind recycelbar, aber nicht so leicht, wie sie sein könnten. Schwerere Maschinen wie die Studio Pro erfordern robuste Verpackung, und wir haben den optimalen Kompromiss zwischen Transportschutz und Materialverbrauch noch nicht gefunden. Wir testen gerade Alternativen auf Pilzbasis für die Innenpolsterung.\n\nKaffee selbst. Arco baut keine Kaffeebohnen an und kontrolliert keine Lieferkette vom Anbau bis zur Röstung. Wir können Röster empfehlen, die transparent und fair arbeiten, aber die Verantwortung für nachhaltig angebauten Kaffee liegt bei den Röstern und letztlich bei Ihnen als Verbraucher. Wir werden niemals ein \"Arco Certified Sustainable\"-Siegel auf Bohnen drucken, die wir nicht selbst kontrollieren.\n\nDas ist unser aktueller Stand. Nicht perfekt. Nicht abgeschlossen. Aber überprüfbar, ehrlich und mit einem klaren Fahrplan für die nächsten Jahre. In Deutschland erwartet man keine Perfektion. Man erwartet Seriosität. Daran arbeiten wir.",
+  "product_bundle": [
+    { "product_id": "arco-studio", "role": "featured" },
+    { "product_id": "arco-primo", "role": "featured" },
+    { "product_id": "arco-filtro", "role": "featured" }
+  ],
+  "featured_guides": [
+    "guide-machine-maintenance",
+    "guide-cleaning-your-machine",
+    "guide-replacing-gaskets"
+  ],
+  "cta": {
+    "text": "Unsere Maschinen und ihre Lebensdauer",
+    "url": "/de/products",
+    "secondary_text": "Wartungsanleitungen herunterladen",
+    "secondary_url": "/de/support/maintenance"
+  },
+  "seo": {
+    "title": "Nachhaltigkeit bei Arco — Fakten, Grenzen, Fahrplan | Arco Coffee",
+    "meta_description": "Was Arco für Nachhaltigkeit tut: langlebige Konstruktion, reparierbare Maschinen, recycelbare Verpackung. Und wo wir ehrlich zugeben, dass wir noch besser werden müssen."
+  },
+  "hreflang": {
+    "en": "/en/sustainability-at-arco",
+    "it": "/it/sostenibilita-arco",
+    "de": "/de/nachhaltigkeit-bei-arco"
+  }
+}

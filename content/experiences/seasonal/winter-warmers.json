@@ -1,0 +1,38 @@
+{
+  "id": "exp-seasonal-002",
+  "slug": "winter-warmers",
+  "title": "Winter Warmers",
+  "persona_tag": "morning-minimalist",
+  "experience_archetype": "Winter Ritual",
+  "hero_image_alt": "A ceramic cup of steaming espresso on a wooden table beside a frosted window, early winter morning light filtering through, a woollen blanket draped over a chair, an Arco Automatico glowing warmly on the kitchen counter behind",
+  "hero_headline": "The cold outside makes the warmth inside matter more.",
+  "hero_subtext": "Winter coffee is slower, richer, and more deliberate. Lean into it.",
+  "editorial_intro": "Something changes about coffee in winter. Not the beans, not the machine — you. The days are short, the mornings are dark, and the cup in your hands becomes more than caffeine. It becomes warmth, ritual, a small act of comfort in a season that demands it. These are the drinks and the practices that make winter the best coffee season of the year.",
+  "editorial_body": "December arrives and the kitchen is cold at six in the morning. The tiles are a shock underfoot. The window above the sink is black — not pre-dawn dark, but properly dark, the kind that makes seven o'clock feel like the middle of the night. You pull your sleeves down over your hands and press the button on the machine.\n\nThis is when the ritual matters most. In summer, coffee is functional — a quick shot, a glass of iced espresso, and you are out the door. In winter, it slows down. You wait for the machine to heat, and instead of resenting the thirty seconds, you stand there in the quiet kitchen and let the day arrive at its own pace. The Arco Automatico is ready in under a minute. The Primo takes even less. But there is no rush, because the world outside is not going anywhere, and the warmth building in the group head is a promise of something good.\n\nWinter espresso wants to be longer and richer. This is not a rule written in any manual, but it is a truth you discover through seasons of paying attention. The same Ethiopian natural that sang with bright acidity in August becomes rounder and more comforting in January when you pull the shot a few grams longer. The fruit softens into something closer to stewed plum than fresh citrus. The body thickens. It is the same coffee, expressing differently because your palate asks different questions when the air is cold.\n\nThe cortado becomes the drink of winter. Equal parts espresso and steamed milk — not the flood of a latte, not the foam of a cappuccino, but a small, intense, warm thing that you can hold in both hands and drink in four or five considered sips. The Automatico makes this effortlessly with its integrated milk system, producing steamed milk with a texture that would have taken you three years to learn with a wand. For the morning minimalist, this is the season to explore milk drinks without the ceremony.\n\nThere is a particular joy in making coffee for someone else on a cold morning. Your partner, still half-asleep, appears in the doorway wrapped in a dressing gown, and you hand them a cup without being asked. It is a small kindness that costs you nothing but thirty seconds and eighteen grams of coffee, and it carries a weight disproportionate to the effort. In winter, hot coffee given freely is a form of love that everyone understands.\n\nDarker roasts come into their own now. The chocolatey, nutty, caramelly profiles that felt heavy in the heat become exactly right when the temperature drops. A Brazilian or a Colombian blend with notes of cocoa and brown sugar, pulled as a standard double, is winter in a cup. You do not need to be a barista to appreciate this — you just need to be cold and holding something warm.\n\nThe evening espresso is a winter invention. You would not dream of it in July, when caffeine after four in the afternoon means lying awake listening to the neighbour's barbecue. But in December, when darkness falls at half past four and the evening stretches ahead like a country road, a small espresso after dinner is permitted. Even encouraged. It is the punctuation mark between the meal and the evening, a moment of alertness before you settle into the sofa and the book and the quiet.\n\nWeekends in winter are for experiments. The long, unhurried Saturday morning when nobody needs to be anywhere is the time to try something different. An affogato — a scoop of good vanilla ice cream drowned in a fresh double shot. The contrast of cold and hot, sweet and bitter, is theatrical and delicious and requires zero skill. Children love watching the ice cream melt. Adults love drinking the result.\n\nOr a mocha, done properly. Not the syrupy, whipped-cream-topped confection from the high street, but a real one: a double espresso stirred into a tablespoon of quality cocoa powder and a teaspoon of sugar, topped with steamed milk. It is the drink that reminds you that chocolate and coffee are, botanically and temperamentally, close cousins. On a Sunday afternoon in February, with rain against the windows, it is close to perfect.\n\nWinter asks you to slow down, to pay attention to warmth, to find comfort in the small and the repeatable. Coffee answers that request better than almost anything else. The machine is warm. The cup is warm. The kitchen fills with a smell that is, for millions of people in cold places, the smell of morning itself. This is not productivity. This is not optimisation. This is the simple, ancient pleasure of something hot to drink when the world is cold.",
+  "product_bundle": [
+    { "product_id": "arco-automatico", "role": "anchor" },
+    { "product_id": "arco-primo", "role": "primary" },
+    { "product_id": "arco-macinino", "role": "accessory" },
+    { "product_id": "arco-descaling-kit", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Winter Warmers setup",
+  "bundle_intro": "Slow mornings, rich coffee, and the warmth that makes winter worth it.",
+  "featured_guides": [
+    "guide-cortado-recipe",
+    "guide-dark-roast-espresso-settings",
+    "guide-milk-texturing-basics"
+  ],
+  "related_blog_posts": [
+    "blog-winter-coffee-rituals",
+    "blog-best-dark-roasts-for-espresso",
+    "blog-the-perfect-cortado"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "morning-minimalist",
+  "persona_tags": ["morning-minimalist", "non-barista", "comfort-seeker"],
+  "intent_tags": ["winter", "seasonal", "warm-drinks", "cortado", "dark-roast", "comfort"],
+  "seo": {
+    "title": "Winter Warmers — Cozy Coffee Drinks and Rituals for Cold Mornings | Arco Coffee",
+    "meta_description": "Discover winter coffee rituals with the Arco Automatico and Primo. Cortados, dark roasts, and the slow warmth that makes cold mornings something to look forward to."
+  }
+}

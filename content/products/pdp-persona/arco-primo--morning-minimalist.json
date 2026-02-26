@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-primo",
+  "persona_tag": "morning-minimalist",
+  "headline": "Ninety seconds to your best morning.",
+  "subheadline": "The Arco Primo heats up before your kettle does. A genuine espresso, no fuss, no wasted time -- just the ritual you actually look forward to.",
+  "hero_image_alt": "Arco Primo espresso machine on a clean white countertop beside a single ceramic cup, early morning light streaming through a kitchen window, everything calm and uncluttered",
+  "description_long": "Your morning should feel like a deep breath, not a science experiment. The Arco Primo reaches brewing temperature in 90 seconds, so it's ready the moment you are. Fill the portafilter, tamp once, press the button. In under two minutes you're holding a proper espresso -- rich, balanced, and entirely yours. The small footprint keeps your counter clear, the intuitive controls mean there's nothing to learn, and the 58mm portafilter means you'll never outgrow it. This is the machine that makes your morning feel intentional without making it complicated.",
+  "use_case_headline": "A calmer start, every single day.",
+  "use_case_body": "No preheating rituals, no dial-in anxiety, no mess. The Primo is built for the person who wants one beautiful espresso and then wants to get on with their morning. Heat, dose, tamp, pull. Done.",
+  "recommended_accessories": [
+    "Tamper Set",
+    "Precision Scale",
+    "Espresso Cups Set",
+    "Cleaning Kit"
+  ],
+  "related_blog_posts": [
+    "morning-routine-three-minutes",
+    "your-first-home-espresso",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Simplify Your Mornings",
+  "cta_primary_url": "/products/arco-primo",
+  "social_proof_quote": {
+    "quote": "I used to skip espresso on weekday mornings because my old machine took forever to warm up. The Primo is ready before I've finished grinding. It's become the one thing I genuinely look forward to before leaving the house.",
+    "name": "Elena V.",
+    "location": "Zurich, Switzerland"
+  }
+}

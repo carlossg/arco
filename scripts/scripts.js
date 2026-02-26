@@ -49,6 +49,20 @@ async function loadFonts() {
 }
 
 /**
+ * Builds a personalization-banner block and prepends to main if persona cookie exists.
+ * @param {Element} main The container element
+ */
+function buildPersonalizationBanner(main) {
+  const hasPersona = document.cookie.match(/(?:^|;\s*)arco_persona=([^;]*)/);
+  if (!hasPersona) return;
+  // Only add on homepage or pages without an existing banner
+  if (main.querySelector('.personalization-banner')) return;
+  const section = document.createElement('div');
+  section.append(buildBlock('personalization-banner', { elems: [] }));
+  main.prepend(section);
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -73,6 +87,7 @@ function buildAutoBlocks(main) {
     }
 
     buildHeroBlock(main);
+    buildPersonalizationBanner(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

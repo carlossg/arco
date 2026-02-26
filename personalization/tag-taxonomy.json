@@ -1,0 +1,49 @@
+{
+  "persona": [
+    { "id": "morning-minimalist", "label": "The Morning Minimalist", "description": "Values calm mornings and quality without effort" },
+    { "id": "upgrader", "label": "The Upgrader", "description": "Has entry-level gear, researching the next step up" },
+    { "id": "craft-barista", "label": "The Craft Barista", "description": "Serious home barista pursuing mastery" },
+    { "id": "traveller", "label": "The Traveller", "description": "Refuses to compromise on coffee while on the move" },
+    { "id": "non-barista", "label": "The Non-Barista", "description": "Wants excellent coffee with zero effort" },
+    { "id": "office-manager", "label": "The Office Manager", "description": "Responsible for team coffee, focused on reliability and ROI" }
+  ],
+  "intent": [
+    { "id": "discover", "label": "Discover", "description": "Exploring what's available" },
+    { "id": "research", "label": "Research", "description": "Comparing options, reading reviews" },
+    { "id": "decide", "label": "Decide", "description": "Ready to make a purchase decision" },
+    { "id": "own", "label": "Own", "description": "Already owns Arco, looking for guides and maintenance" }
+  ],
+  "format": [
+    { "id": "editorial", "label": "Editorial" },
+    { "id": "how-to", "label": "How-To" },
+    { "id": "tool", "label": "Tool / Calculator" },
+    { "id": "product", "label": "Product Page" },
+    { "id": "story", "label": "Story / Profile" },
+    { "id": "guide", "label": "Brewing Guide" },
+    { "id": "comparison", "label": "Comparison" }
+  ],
+  "market": [
+    { "id": "en", "label": "English (UK)", "hreflang": "en" },
+    { "id": "it", "label": "Italiano", "hreflang": "it" },
+    { "id": "de", "label": "Deutsch", "hreflang": "de" }
+  ],
+  "difficulty": [
+    { "id": "beginner", "label": "Beginner" },
+    { "id": "intermediate", "label": "Intermediate" },
+    { "id": "advanced", "label": "Advanced" }
+  ],
+  "product_affinity": [
+    { "id": "arco-primo", "label": "Arco Primo", "category": "espresso-machine" },
+    { "id": "arco-doppio", "label": "Arco Doppio", "category": "espresso-machine" },
+    { "id": "arco-studio", "label": "Arco Studio", "category": "espresso-machine" },
+    { "id": "arco-studio-pro", "label": "Arco Studio Pro", "category": "espresso-machine" },
+    { "id": "arco-nano", "label": "Arco Nano", "category": "espresso-machine" },
+    { "id": "arco-ufficio", "label": "Arco Ufficio", "category": "espresso-machine" },
+    { "id": "arco-viaggio", "label": "Arco Viaggio", "category": "espresso-machine" },
+    { "id": "arco-automatico", "label": "Arco Automatico", "category": "espresso-machine" },
+    { "id": "arco-macinino", "label": "Arco Macinino", "category": "grinder" },
+    { "id": "arco-preciso", "label": "Arco Preciso", "category": "grinder" },
+    { "id": "arco-zero", "label": "Arco Zero", "category": "grinder" },
+    { "id": "arco-filtro", "label": "Arco Filtro", "category": "grinder" }
+  ]
+}

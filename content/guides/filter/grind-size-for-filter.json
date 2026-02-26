@@ -1,0 +1,53 @@
+{
+  "id": "grind-size-for-filter",
+  "slug": "grind-size-for-filter",
+  "category": "filter",
+  "title": "Grind Size for Filter Coffee: Why It Matters and How to Get It Right",
+  "difficulty": "beginner",
+  "read_time_minutes": 7,
+  "persona_tags": ["upgrader", "morning-minimalist"],
+  "intent_tags": ["discover", "research", "use"],
+  "hero_image_alt": "Three small white ceramic bowls arranged in a row on a light oak surface, each containing ground coffee at different particle sizes — fine, medium, and coarse — with the grind size visibly increasing from left to right, a silver coffee scoop resting beside them, soft diffused overhead lighting",
+  "intro": "Grind size is the most important variable in filter coffee, yet it is the one most beginners overlook. Getting the particle size right for your chosen method is the difference between a sweet, balanced cup and one that is bitter, sour, or frustratingly inconsistent. This guide explains why filter needs a different grind than espresso, how to set your grinder correctly, and the most common mistakes to avoid.",
+  "body": [
+    {
+      "heading": "Why Filter Coffee Needs a Coarser Grind Than Espresso",
+      "content": "Espresso extracts coffee by forcing water through a tightly packed bed of very fine grounds at roughly nine bars of pressure. The fine grind creates enormous surface area, and the high pressure ensures water contacts every particle thoroughly in about twenty-five seconds. Filter coffee has none of that pressure — water moves through the coffee bed by gravity alone (or with very gentle hand pressure in the case of an AeroPress). Because gravity is a much weaker force than nine bars of mechanical pressure, the coffee bed needs to be more porous to allow water to flow through at a reasonable rate. If you used an espresso-fine grind in a pour-over, water would pool above the coffee and take ten or more minutes to drain, producing an aggressively bitter, over-extracted cup. Conversely, if the grind is too coarse, water rushes through in under a minute without extracting enough soluble flavour, leaving you with a sour, watery cup. The ideal filter grind sits in a range between table salt and coarse sea salt, depending on the method. This larger particle size means each individual grain of coffee has less surface area exposed to water, so the extraction happens more slowly and evenly. The contact time for a typical filter brew is two to four minutes — roughly five to ten times longer than an espresso shot — and the coarser grind is what makes that extended contact time produce a balanced cup rather than a bitter one."
+    },
+    {
+      "heading": "Matching Grind Size to Your Brew Method",
+      "content": "Different filter methods require different grind sizes because they use different mechanics to control contact time and flow rate. The general rule is: the faster the water passes through the coffee, the finer the grind should be to compensate. AeroPress sits at the finest end of the filter spectrum. Because you press water through the coffee, you have manual control over flow rate. A medium-fine grind — slightly finer than table salt — works well for standard one-minute recipes. The particles should feel gritty between your fingers but not powdery. V60 and similar cone drippers use a medium to medium-fine grind. The V60's large drain hole and thin paper filter offer minimal resistance to flow, so a slightly finer grind slows the drawdown to the target two-and-a-half to three-minute range. The particles should look like fine sand when you rub them between your thumb and forefinger. Chemex needs a medium grind — slightly coarser than V60 — because the thick Chemex filter already slows flow substantially. If you use a V60 grind in a Chemex, the brew will stall and over-extract. Flat-bottom brewers like the Kalita Wave also work well at medium, as the restricted drain holes create their own flow control. French Press requires a coarse grind — visibly chunky particles roughly the size of coarse sea salt. Because there is no paper filter to prevent fine particles from reaching your cup, grinding too fine for a French Press results in a muddy, silty texture and harsh bitterness. The coarse grind also prevents over-extraction during the four-minute immersion. Cold brew uses the coarsest grind of all — very coarse, almost like raw sugar crystals — because the twelve-to-twenty-four-hour steep time compensates for the reduced extraction efficiency of each large particle."
+    },
+    {
+      "heading": "Why Grind Consistency Matters More Than Grind Size",
+      "content": "Setting the right average particle size is important, but what separates a good grinder from a great one is how uniform those particles are. Every grinder produces a distribution of particle sizes — some larger, some smaller than the target. A cheap blade grinder produces a wildly inconsistent distribution: some particles are dust-fine while others are boulder-coarse. In the cup, the fine particles over-extract (bitter, harsh, dry) while the coarse particles under-extract (sour, grassy, thin). The result is a cup that is simultaneously bitter and sour — the worst of both worlds. A quality burr grinder like the Arco Filtro produces a much tighter distribution: most particles cluster close to the target size, with fewer outliers on either end. This means the extraction is more uniform — every particle contributes roughly the same amount of flavour to the cup, so the brew tastes cleaner, sweeter, and more balanced. You can taste the difference immediately. Brew the same coffee at the same ratio with a blade grinder and a burr grinder, and the burr-ground cup will have noticeably more sweetness, less bitterness, and clearer flavour definition. This is why the specialty coffee community considers the grinder the most important piece of equipment in any setup — more impactful than the brewer, the water, or even the beans. When shopping for a grinder, look for flat or conical burrs made from hardened steel or ceramic, and a design that minimises fines production at filter grind sizes. The Filtro's burr set is specifically profiled for the filter range, which means it produces fewer fines at coarser settings than a grinder designed primarily for espresso."
+    },
+    {
+      "heading": "Common Grind Mistakes and How to Fix Them",
+      "content": "The most common mistake is using the same grind for every filter method. If you own a V60 and a French Press and use the same setting for both, one of them is always wrong. Each method has its own optimal particle size, and the few seconds it takes to adjust your grinder between methods will dramatically improve the cup from whichever method you are currently under-serving. The second most common mistake is not adjusting grind when you change coffees. A light-roasted dense Ethiopian bean grinds differently from a dark-roasted porous Brazilian bean. The same grinder setting will produce a faster drawdown with the softer, darker roast because the particles shatter more easily and produce more fines. When you open a new bag, expect to spend one or two brews re-dialling your grind. A third mistake is ignoring brew time as a diagnostic tool. If your V60 drawdown is too fast — under two minutes for a single cup — your grind is too coarse and the coffee will taste sour, thin, and underdeveloped. If it drags past three and a half minutes, your grind is too fine and the cup will be bitter, dry, and astringent. Use a timer alongside your scale, and let drawdown time guide your grind adjustments. Finally, many beginners store pre-ground coffee and wonder why quality degrades. Ground coffee goes stale dramatically faster than whole beans because the vastly increased surface area accelerates oxidation. Grinding immediately before brewing is one of the single biggest improvements you can make to your filter coffee. If you remember one thing from this guide, let it be this: grind fresh, grind for your method, and adjust based on taste."
+    }
+  ],
+  "key_takeaways": [
+    "Filter coffee needs a coarser grind than espresso because water moves by gravity, not pressure — larger particles control the extraction rate.",
+    "Match your grind to your method: medium-fine for AeroPress and V60, medium for Chemex and Kalita, coarse for French Press, very coarse for cold brew.",
+    "Grind consistency (uniform particle size) matters more than hitting an exact setting — this is why a quality burr grinder is the best investment.",
+    "Use brew time as a diagnostic: too fast means too coarse, too slow means too fine. Adjust one step at a time.",
+    "Always grind fresh. Pre-ground coffee stales rapidly and loses the clarity that makes filter coffee worthwhile."
+  ],
+  "related_products": ["arco-filtro", "arco-macinino"],
+  "related_guides": [
+    "using-arco-filtro-for-different-methods",
+    "pour-over-vs-aeropress-vs-french-press",
+    "water-ratio-guide-for-filter",
+    "why-filter-is-having-a-moment"
+  ],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "See the Arco Filtro grinder",
+    "url": "/products/arco-filtro"
+  },
+  "seo": {
+    "title": "Grind Size for Filter Coffee — How to Get It Right | Arco",
+    "meta_description": "Learn why grind size is the most important variable in filter coffee. Method-specific recommendations for V60, AeroPress, French Press, Chemex, and cold brew, plus common mistakes to avoid."
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "id": "pairing-water-filter",
+  "slug": "water-filter-compatibility",
+  "title": "Water Filter Compatibility Guide",
+  "description": "Find the right water filter for your Arco machine. Not every filter fits every model — check compatibility, installation method, and replacement intervals before you buy.",
+  "hero_image_alt": "Three Arco water filter cartridges of different sizes displayed beside an in-line filter system, with clear water flowing through a transparent housing",
+  "data": {
+    "filters": [
+      {
+        "id": "arco-filter-standard",
+        "name": "Arco Standard Water Filter Cartridge",
+        "type": "reservoir-drop-in",
+        "capacity_litres": 50,
+        "replacement_months": 2,
+        "reduces_hardness_pct": 40,
+        "price": 12,
+        "description": "Drop-in cartridge that sits inside the water reservoir. Reduces chlorine, limescale, and off-flavours. No tools or plumbing required."
+      },
+      {
+        "id": "arco-filter-pro",
+        "name": "Arco Pro Water Filter Cartridge",
+        "type": "reservoir-drop-in",
+        "capacity_litres": 40,
+        "replacement_months": 1,
+        "reduces_hardness_pct": 80,
+        "price": 16,
+        "description": "High-capacity ion exchange cartridge for hard water areas (14+ °dH). Reservoir drop-in design with faster flow rate. Replace monthly in hard water."
+      },
+      {
+        "id": "arco-filter-max",
+        "name": "Arco Max Protection Filter System",
+        "type": "in-line",
+        "capacity_litres": 1500,
+        "replacement_months": 6,
+        "reduces_hardness_pct": 85,
+        "price": 89,
+        "description": "Two-stage in-line filter system. Connects between your water supply and the machine's direct-plumb inlet. Stage 1: sediment and chlorine pre-filter. Stage 2: scale inhibitor cartridge. Professional installation recommended."
+      },
+      {
+        "id": "arco-filter-taste",
+        "name": "Arco Taste Optimiser Filter",
+        "type": "reservoir-drop-in",
+        "capacity_litres": 60,
+        "replacement_months": 3,
+        "reduces_hardness_pct": 10,
+        "price": 14,
+        "description": "For soft water areas. Minimal hardness reduction; focuses on chlorine removal and mineral balancing for optimal espresso flavour per SCA water standards."
+      }
+    ],
+    "machine_compatibility": [
+      {
+        "machine": "arco-steam",
+        "reservoir_type": "fixed-tank",
+        "reservoir_size_ml": 800,
+        "compatible_filters": ["arco-filter-standard", "arco-filter-taste"],
+        "installation_notes": "Small reservoir. Use the Standard or Taste Optimiser cartridge. Pro cartridge is physically too large for this tank. No direct-plumb option.",
+        "direct_plumb": false
+      },
+      {
+        "machine": "arco-nano",
+        "reservoir_type": "removable-tank",
+        "reservoir_size_ml": 1200,
+        "compatible_filters": ["arco-filter-standard", "arco-filter-pro", "arco-filter-taste"],
+        "installation_notes": "Removable 1.2L tank accepts all drop-in cartridges. Drop the cartridge into the tank before filling with water. Replace when the flow indicator turns red.",
+        "direct_plumb": false
+      },
+      {
+        "machine": "arco-automatico",
+        "reservoir_type": "removable-tank",
+        "reservoir_size_ml": 1800,
+        "compatible_filters": ["arco-filter-standard", "arco-filter-pro", "arco-filter-taste"],
+        "installation_notes": "Generous 1.8L tank. The machine's display will remind you when to replace the filter based on usage tracking. All drop-in cartridges fit.",
+        "direct_plumb": false
+      },
+      {
+        "machine": "arco-classica",
+        "reservoir_type": "removable-tank",
+        "reservoir_size_ml": 2000,
+        "compatible_filters": ["arco-filter-standard", "arco-filter-pro", "arco-filter-taste"],
+        "installation_notes": "2L removable tank. For heavy users (5+ cups/day), consider the Pro cartridge and replace monthly. Standard cartridge works well for lighter use.",
+        "direct_plumb": false
+      },
+      {
+        "machine": "arco-barista-pro",
+        "reservoir_type": "removable-tank-or-plumb",
+        "reservoir_size_ml": 2500,
+        "compatible_filters": ["arco-filter-standard", "arco-filter-pro", "arco-filter-taste", "arco-filter-max"],
+        "installation_notes": "Dual-feed system: use drop-in cartridges with the tank, or connect the Max Protection in-line system via the rear plumbing port. Plumbing kit sold separately.",
+        "direct_plumb": true
+      },
+      {
+        "machine": "arco-lever",
+        "reservoir_type": "removable-tank",
+        "reservoir_size_ml": 1500,
+        "compatible_filters": ["arco-filter-standard", "arco-filter-pro", "arco-filter-taste"],
+        "installation_notes": "1.5L tank behind the group head. Lever machines are especially sensitive to scale in the piston seal area. Use the Pro cartridge in hard water areas.",
+        "direct_plumb": false
+      },
+      {
+        "machine": "arco-maestro",
+        "reservoir_type": "removable-tank-or-plumb",
+        "reservoir_size_ml": 3000,
+        "compatible_filters": ["arco-filter-standard", "arco-filter-pro", "arco-filter-taste", "arco-filter-max"],
+        "installation_notes": "Large 3L tank or direct plumb. The heat-exchange boiler is the most scale-sensitive in the lineup. The Max Protection in-line system is strongly recommended for water above 14 °dH.",
+        "direct_plumb": true
+      },
+      {
+        "machine": "arco-dual-boiler",
+        "reservoir_type": "removable-tank-or-plumb",
+        "reservoir_size_ml": 3500,
+        "compatible_filters": ["arco-filter-standard", "arco-filter-pro", "arco-filter-taste", "arco-filter-max"],
+        "installation_notes": "3.5L tank or direct plumb. With two independent boilers, scale protection is critical. Direct plumb with the Max Protection system is the best choice for this machine.",
+        "direct_plumb": true
+      }
+    ]
+  },
+  "persona_tags": ["maintenance-conscious", "new-owner", "hard-water-area"],
+  "intent_tags": ["water-filter", "compatibility", "maintenance", "scale-prevention"],
+  "related_products": [
+    "arco-filter-standard",
+    "arco-filter-pro",
+    "arco-filter-max",
+    "arco-descaling-solution"
+  ],
+  "cta": {
+    "label": "Shop Water Filters",
+    "url": "/products/accessories/water-care"
+  },
+  "seo": {
+    "title": "Water Filter Compatibility Guide for Arco Machines | Arco",
+    "meta_description": "Find the right water filter for your Arco espresso machine. Check compatibility, installation methods, and replacement schedules for every model."
+  }
+}

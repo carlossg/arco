@@ -1,0 +1,69 @@
+{
+  "id": "calc-water-hardness",
+  "slug": "water-hardness-checker",
+  "title": "Water Hardness Checker",
+  "description": "Check your water hardness, find out how often to descale your specific Arco machine, and get a filter recommendation. Hard water is the number one cause of espresso machine failure — stay ahead of limescale buildup.",
+  "inputs": [
+    {
+      "id": "tds_ppm",
+      "label": "Total Dissolved Solids (ppm)",
+      "type": "number",
+      "min": 0,
+      "max": 1000,
+      "step": 1,
+      "default": 150
+    },
+    {
+      "id": "hardness_dh",
+      "label": "German Hardness (°dH) — use if TDS is unknown",
+      "type": "number",
+      "min": 0,
+      "max": 50,
+      "step": 0.5,
+      "default": null
+    },
+    {
+      "id": "machine_model",
+      "label": "Your Arco Machine",
+      "type": "select",
+      "options": [
+        { "value": "arco-maestro", "label": "Arco Maestro" },
+        { "value": "arco-classica", "label": "Arco Classica" },
+        { "value": "arco-nano", "label": "Arco Nano" },
+        { "value": "arco-automatico", "label": "Arco Automatico" },
+        { "value": "arco-barista-pro", "label": "Arco Barista Pro" },
+        { "value": "arco-dual-boiler", "label": "Arco Dual Boiler" },
+        { "value": "arco-lever", "label": "Arco Lever" },
+        { "value": "arco-steam", "label": "Arco Steam" }
+      ],
+      "default": "arco-classica"
+    },
+    {
+      "id": "cups_per_day",
+      "label": "Cups Per Day",
+      "type": "number",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "formula": "Convert TDS to °dH if needed (1 °dH ≈ 17.8 ppm). Categories: 0-7 °dH soft, 7-14 °dH medium, 14-21 °dH hard, >21 °dH very hard. Descaling frequency based on hardness × usage × machine boiler volume. Single boiler machines (Nano, Steam) descale less frequently at low usage; dual boiler and heat exchange machines (Dual Boiler, Maestro) need more frequent attention. Filter recommendation depends on hardness category and machine type.",
+  "output_format": "Hardness category (soft/medium/hard/very hard), descaling frequency in weeks, recommended filter product, risk level (low/moderate/high/critical) with explanation.",
+  "persona_tags": ["home-barista", "maintenance-conscious", "new-owner"],
+  "intent_tags": ["maintenance", "descaling", "water-quality", "machine-care"],
+  "related_products": [
+    "arco-descaling-solution",
+    "arco-water-filter-cartridge",
+    "arco-water-test-strips"
+  ],
+  "cta": {
+    "label": "Shop Water Filters & Descaling Products",
+    "url": "/products/accessories/water-care"
+  },
+  "seo": {
+    "title": "Water Hardness Checker for Espresso Machines | Arco",
+    "meta_description": "Check your water hardness and get a personalized descaling schedule for your Arco espresso machine. Protect your investment with the right water filter and maintenance routine."
+  },
+  "hero_image_alt": "A glass of clear water beside an Arco water test strip showing hardness levels, with an espresso machine in the background"
+}

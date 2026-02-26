@@ -1,0 +1,65 @@
+{
+  "id": "arco-preciso-vs-arco-zero",
+  "slug": "arco-preciso-vs-arco-zero",
+  "title": "Arco Preciso vs Arco Zero",
+  "products": ["arco-preciso", "arco-zero"],
+  "comparison_headline": "When does a grinder stop being good enough?",
+  "comparison_intro": "The Preciso is already a serious grinder that satisfies most home baristas. The Zero pushes into competition territory with larger burrs, true zero retention, and a particle distribution that brings out nuance most setups can't resolve. The honest question is whether your palate and machine can tell the difference.",
+  "hero_image_alt": "Arco Preciso and Arco Zero grinders on a dark slate surface, the Zero noticeably taller and heavier, a refractometer and cupping spoon nearby suggesting advanced technique, shallow depth of field focusing on the burr adjustment collars, moody ambient lighting",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac299",
+      "product_b": "\u20ac699"
+    },
+    "boiler_type": {
+      "product_a": "N/A \u2014 Stepless flat burr grinder (54 mm burrs)",
+      "product_b": "N/A \u2014 Stepless flat burr grinder (64 mm competition-grade burrs)"
+    },
+    "heat_up_time": {
+      "product_a": "Instant on",
+      "product_b": "Instant on"
+    },
+    "pressure_control": {
+      "product_a": "N/A",
+      "product_b": "N/A"
+    },
+    "steam_capability": {
+      "product_a": "N/A",
+      "product_b": "N/A"
+    },
+    "grind_compatibility": {
+      "product_a": "Stepless adjustment, low retention (~0.3g), single-dose capable",
+      "product_b": "Stepless adjustment, true zero retention (<0.1g), purpose-built for single-dosing, tighter particle distribution"
+    },
+    "suitable_for": {
+      "product_a": "Home baristas who want stepless control and single-dosing capability at a sensible price",
+      "product_b": "Advanced baristas who taste the difference between good and exceptional grind quality, and own a machine that can resolve it"
+    },
+    "not_suitable_for": {
+      "product_a": "Competition-focused baristas who need the tightest possible particle distribution and absolute zero retention",
+      "product_b": "Anyone pairing it with an entry-level machine \u2014 the Zero's precision will be wasted on equipment that can't express it"
+    }
+  },
+  "recommendation_by_persona": {
+    "upgrader": {
+      "recommended_product_id": "arco-preciso",
+      "rationale": "The Preciso already represents a massive upgrade from a stepped grinder \u2014 its quality ceiling is high enough that most upgraders won't reach it for a long time."
+    },
+    "craft-barista": {
+      "recommended_product_id": "arco-zero",
+      "rationale": "If you own a Studio or Studio Pro and regularly taste the difference between grind adjustments, the Zero's larger burrs and tighter distribution will give you clarity the Preciso can't match."
+    }
+  },
+  "verdict": "The Preciso is one of the best values in home espresso grinding and will satisfy most baristas for years. The Zero is for the subset of people who have trained their palate, invested in a capable machine, and want the grinder to stop being the limiting factor. If you are pairing with a Doppio, the Preciso is the right choice. If you own a Studio or Studio Pro and take extraction seriously, the Zero completes the setup.",
+  "related_blog_posts": [
+    "single-dose-workflow",
+    "tds-and-extraction-yield",
+    "physics-of-puck-resistance"
+  ],
+  "persona_tags": ["upgrader", "craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Preciso vs Arco Zero \u2014 Prosumer vs Competition Grinder | Arco",
+    "meta_description": "The Arco Preciso (\u20ac299) delivers stepless precision for serious home use. The Arco Zero (\u20ac699) is a competition-grade grinder with true zero retention. Which one matches your setup?"
+  }
+}

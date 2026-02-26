@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-zero",
+  "persona_tag": "upgrader",
+  "headline": "The grinder serious baristas build their setup around.",
+  "subheadline": "83mm flat burrs, zero retention, and SSP compatibility. The Arco Zero isn't just an upgrade -- it's the grinder that makes every other piece of your equipment perform better.",
+  "hero_image_alt": "Arco Zero single-dose grinder in matte black on a sophisticated kitchen counter, the calibrated dial indicator showing precise markings, a single dose of specialty beans in the hopper, an Arco espresso machine in the background, aspirational but achievable home setup",
+  "description_long": "If you've been upgrading incrementally -- better baskets, a new tamper, a distribution tool -- the Zero is the single move that makes the biggest difference. Its 83mm flat burrs produce a grind uniformity that smaller burrs physically cannot match. The single-dose workflow eliminates stale-bean waste: weigh your beans, drop them in, grind, and the bellows-assisted purge ensures every particle reaches the portafilter. Retention is functionally zero -- not 'low', not 'under a gram', but zero. The stepless adjustment with a calibrated dial indicator gives you the precision to fine-tune your grind in micro-increments, and the indicator lets you return to marked settings with perfect repeatability. SSP burr compatibility means you can choose your flavour profile as your palate evolves. This is the grinder that stops the upgrade cycle, because there's nowhere meaningful left to go.",
+  "use_case_headline": "The upgrade that stops the upgrading.",
+  "use_case_body": "83mm flat burrs vs. your current 54mm or 64mm: measurably more uniform grind, measurably better extraction. Zero retention vs. the grams you're currently wasting. SSP compatibility means you can evolve your burr set as your tastes change. The Zero is the grinder that turns incremental upgrades into a finished setup.",
+  "recommended_accessories": [
+    "Precision Scale",
+    "Dosing Cup",
+    "Bean Vault",
+    "Distribution Tool",
+    "Knock Box"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "Complete Your Setup",
+  "cta_primary_url": "/products/arco-zero",
+  "social_proof_quote": {
+    "quote": "I went from a Eureka Mignon to the Zero and it was like hearing music in high fidelity for the first time. Same beans, same machine, completely different shots. The 83mm burrs extract flavours my old grinder was physically incapable of producing. I've stopped looking at grinders.",
+    "name": "Oliver S.",
+    "location": "Copenhagen, Denmark"
+  }
+}

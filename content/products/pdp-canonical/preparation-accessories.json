@@ -1,0 +1,84 @@
+{
+  "id": "preparation-accessories",
+  "slug": "preparation-accessories",
+  "name": "Preparation Accessories",
+  "tagline": "The details that define the cup.",
+  "price_eur": 0,
+  "price_display": "From €19",
+  "category": "accessory",
+  "hero_image_alt": "Flat lay arrangement of Arco espresso preparation accessories on a dark slate surface — a precision tamper with walnut handle, stainless steel distribution tool, digital scale displaying 18.0g, white ceramic espresso cups, a stainless milk pitcher, and a WDT tool, all arranged with geometric precision, overhead soft-box lighting creating clean shadows",
+  "headline": "Tools that earn their place.",
+  "subheadline": "Tampers, distribution tools, scales, cups, and pitchers — each designed to improve your workflow and elevate your coffee without adding clutter.",
+  "description_short": "Precision tampers, distribution tools, scales, cups, and pitchers designed to complement every Arco machine.",
+  "description_long": "Good equipment deserves good accessories. Our preparation range includes everything between the grinder and the cup: calibrated tampers that apply consistent pressure every time, WDT distribution tools that eliminate channelling, precision scales that read to 0.1 grams with built-in shot timers, double-walled ceramic cups that keep espresso at temperature, and stainless steel milk pitchers with pour-optimised spouts. Every piece is designed to integrate with Arco machines and with each other — same materials, same proportions, same quiet confidence. These are not add-ons. They are the details that close the gap between a good shot and a great one.",
+  "key_specs": {
+    "tampers": "Calibrated spring (58 mm, 53 mm), flat and convex base options",
+    "distribution_tools": "WDT needle tool (0.4 mm needles), levelling distributor (58 mm, 53 mm)",
+    "scales": "0.1 g precision, built-in shot timer, auto-tare, rechargeable USB-C",
+    "cups": "Double-walled ceramic, 60 ml espresso and 180 ml cappuccino",
+    "pitchers": "18/10 stainless steel, 350 ml and 600 ml, latte art spout",
+    "dosing_cups": "Stainless steel, 58 mm and 53 mm, magnetic base",
+    "materials": "Stainless steel, walnut, borosilicate glass, ceramic",
+    "compatibility": "Designed for all Arco espresso machines"
+  },
+  "whats_in_box": [
+    "Each accessory ships individually or as curated sets:",
+    "Essentials Set: Calibrated tamper + dosing cup + WDT tool — €79",
+    "Precision Set: Scale + calibrated tamper + distribution tool + dosing cup — €149",
+    "Barista Set: Scale + tamper + WDT + dosing cup + pitcher (350 ml) + two espresso cups — €229",
+    "All items also available individually from €19"
+  ],
+  "variants": [
+    { "name": "Stainless Steel & Walnut", "hex": "#6B4226" },
+    { "name": "All Matte Black", "hex": "#2C2C2C" }
+  ],
+  "use_case_headline": "Perfect for any barista who wants consistency in every detail.",
+  "use_case_body": "Whether you are pulling your first shots on the Nano or profiling extractions on the Studio Pro, the right accessories make your workflow more repeatable and your results more predictable. Start with a scale and a tamper — everything else follows naturally.",
+  "pairing_products": [
+    { "product_id": "arco-primo", "rationale": "The Essentials Set completes the Primo setup for a new home barista." },
+    { "product_id": "arco-doppio", "rationale": "The Precision Set pairs with the Doppio's PID controls for a dialled-in mid-range workflow." },
+    { "product_id": "arco-studio-pro", "rationale": "The Barista Set matches the Studio Pro's professional-grade capabilities." },
+    { "product_id": "maintenance-accessories", "rationale": "Pair preparation tools with maintenance supplies for a complete equipment care routine." }
+  ],
+  "experience_tag": "craft-barista",
+  "persona_tags": ["morning-minimalist", "upgrader", "craft-barista"],
+  "intent_tags": ["discover", "research", "decide"],
+  "related_blog_posts": [
+    "tamping-technique-guide",
+    "wdt-distribution-explained",
+    "choosing-a-coffee-scale",
+    "latte-art-pitcher-guide"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Preparation Accessories",
+    "description": "Precision tampers, distribution tools, scales, cups, and pitchers designed to complement every Arco machine.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-PREP-ACC",
+    "image": "/content/products/images/preparation-accessories-hero.jpg",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "EUR",
+      "lowPrice": 19,
+      "highPrice": 229,
+      "offerCount": 15,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/preparation-accessories"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.7,
+      "reviewCount": 342
+    }
+  },
+  "seo": {
+    "title": "Preparation Accessories — Tampers, Scales, Cups & More | Arco",
+    "meta_description": "Precision tampers, WDT tools, scales, cups, and pitchers designed for Arco espresso machines. The details that define the cup. From €19.",
+    "og_image_alt": "Arco preparation accessories including tamper, scale, distribution tool, and espresso cups",
+    "canonical_url": "/products/preparation-accessories"
+  }
+}

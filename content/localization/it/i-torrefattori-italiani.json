@@ -1,0 +1,38 @@
+{
+  "id": "loc-it-003",
+  "slug": "i-torrefattori-italiani",
+  "title": "I torrefattori italiani per la tua Arco",
+  "market": "Italy",
+  "language": "it",
+  "persona_tag": "craft-barista",
+  "hero_image_alt": "Sacchi di caffè in grani appena tostati su un bancone di legno scuro accanto a una macchina Arco Doppio, con etichette artigianali che indicano origini diverse, luce calda da una lampada industriale, atmosfera di torrefazione artigianale",
+  "hero_headline": "La macchina è metà della storia. L'altra metà è chi tosta i tuoi chicchi.",
+  "hero_subtext": "Cinque torrefazioni italiane che condividono la filosofia Arco: qualità senza scorciatoie, rispetto per la materia prima, rifiuto del compromesso.",
+  "editorial_intro": "Una macchina eccellente con un caffè mediocre produce un risultato mediocre. Non esistono scorciatoie. Ecco cinque torrefattori italiani che tostano con la stessa cura con cui Arco costruisce le sue macchine — artigiani che conoscono il proprio mestiere e non si nascondono dietro blend generici.",
+  "editorial_body": "L'Italia ha un rapporto complesso con la torrefazione. Da un lato, la tradizione dei grandi torrefattori industriali ha definito il gusto di generazioni intere — miscele scure, corpose, progettate per espresso al bancone con zucchero. È una tradizione nobile e non va rinnegata. Dall'altro, negli ultimi quindici anni è cresciuta una nuova generazione di micro-torrefattori che lavora con chicchi tracciabili, tostature più chiare, e un approccio che mette in primo piano l'origine piuttosto che la firma del torrefattore.\n\nArco funziona splendidamente con entrambi gli approcci. La Primo e il Macinino estraggono con coerenza miscele tradizionali scure che danno il meglio a temperature più alte e con rapporti classici. La Doppio con il Preciso permette di esplorare tostature medie con la precisione necessaria a estrarre dolcezza senza amarezza. E la Studio Pro con il suo controllo di flusso apre le porte a monorigine leggeri che richiedono profili di pressione specifici per esprimere la loro complessità.\n\nEcco cinque torrefazioni che consigliamo, distribuite lungo la penisola:\n\nCaffè Ferrante, Torino — Una torrefazione familiare attiva dal 1952, oggi guidata dalla terza generazione. La loro miscela Classica è l'espresso torinese per eccellenza: cioccolato, nocciola, un finale lungo e pulito. Perfetta per la Primo con il Macinino, senza complicazioni. Ma il vero gioiello è la selezione monorigine mensile — lotti piccoli tostati in modo da preservare il carattere dell'origine, ideali per il Preciso o lo Zero.\n\nTorrefazione Meridiana, Napoli — Se esiste un espresso più napoletano di quello della Meridiana, nessuno lo ha ancora trovato. Miscela densa, crema spessa, corpo pieno che riempie la bocca. Tostatura scura ma non bruciata — c'è una differenza enorme, e la Meridiana la conosce. Funziona magnificamente con qualsiasi macchina Arco, ma provate il loro Intenso sulla Studio con il dosaggio a 20 grammi: è un'esperienza.\n\nOfficina del Caffè, Bologna — Micro-torrefazione fondata nel 2018 da due ex agronomi che hanno deciso di seguire il caffè dalla piantagione alla tazzina. Lavorano esclusivamente con produttori diretti in Etiopia, Colombia e Guatemala. Le loro tostature sono più chiare della media italiana — territorio da specialty coffee — e richiedono un macinino preciso. Il Preciso è il minimo; lo Zero è l'ideale. Sulla Studio Pro con pre-infusione lunga, il loro Yirgacheffe lavato produce un espresso con note floreali che non dimenticherete.\n\nAntica Torrefazione Ferrara, Firenze — Nonostante il nome, è stata fondata solo nel 2009 da Matteo Ferrara, che ha abbandonato una carriera nell'ingegneria meccanica per seguire la passione del caffè. La sua miscela Bar Italia è un omaggio alla tradizione del bar toscano: equilibrata, leggermente nocciolata, con un'acidità contenuta che la rende bevibile tre volte al giorno senza stancare. È il tipo di caffè che non ti colpisce al primo sorso ma che dopo una settimana non riesci più a sostituire.\n\nCaffè Verticale, Milano — Il torrefattore più giovane della lista, fondato nel 2021 da un collettivo di baristi competitivi che volevano tostare il caffè che avrebbero voluto usare in gara. Lotti microscopici, tracciabilità totale, tostature calibrate lotto per lotto. Non è caffè per tutti i giorni — è caffè per i giorni in cui vuoi capire di cosa è capace la tua macchina. Sulla Studio Pro con controllo di flusso, i loro lotti sperimentali di processo anaerobico producono un espresso che sembra appartenere a un universo completamente diverso.\n\nCinque torrefazioni, cinque filosofie, un principio comune: il caffè è una materia prima viva che merita rispetto in ogni fase, dalla piantagione alla tazzina. Esattamente come Arco tratta ogni fase dell'estrazione.",
+  "product_bundle": [
+    { "product_id": "arco-doppio", "role": "anchor" },
+    { "product_id": "arco-preciso", "role": "primary" },
+    { "product_id": "arco-studio-pro", "role": "aspirational" }
+  ],
+  "featured_guides": [
+    "guide-dialling-in-espresso",
+    "guide-essential-grind-settings",
+    "guide-choosing-beans"
+  ],
+  "cta": {
+    "text": "Esplora le macchine Arco",
+    "url": "/it/products",
+    "secondary_text": "Leggi la guida alla scelta dei chicchi",
+    "secondary_url": "/it/guides/choosing-beans"
+  },
+  "seo": {
+    "title": "I migliori torrefattori italiani per la tua Arco | Arco Coffee",
+    "meta_description": "Cinque torrefazioni italiane artigianali consigliate per le macchine Arco: da Torino a Napoli, da blend classici a monorigine specialty. Guida alla scelta dei chicchi."
+  },
+  "hreflang": {
+    "en": "/en/italian-roasters-for-arco",
+    "it": "/it/i-torrefattori-italiani",
+    "de": "/de/italienische-roester-fuer-arco"
+  }
+}

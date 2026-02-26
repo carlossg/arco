@@ -1,0 +1,111 @@
+/* Personalization Banner — slim top banner with persona label and retake option */
+.personalization-banner {
+  background-color: var(--text-color);
+  color: var(--light-color);
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 80px;
+}
+
+.personalization-banner.personalization-banner-hiding {
+  max-height: 0;
+  opacity: 0;
+}
+
+.personalization-banner .personalization-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  gap: 16px;
+}
+
+.personalization-banner .personalization-banner-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.personalization-banner .personalization-banner-persona {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-color);
+  background-color: var(--accent-secondary, #D4883A);
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.personalization-banner .personalization-banner-tagline {
+  font-size: 13px;
+  color: rgb(245 240 232 / 75%);
+  line-height: 1.4;
+}
+
+.personalization-banner .personalization-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.personalization-banner .personalization-banner-retake {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent-secondary, #D4883A);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--transition);
+}
+
+.personalization-banner .personalization-banner-retake:hover {
+  color: var(--accent-color);
+}
+
+.personalization-banner .personalization-banner-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgb(245 240 232 / 10%);
+  color: var(--light-color);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--transition);
+  box-shadow: none;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.personalization-banner .personalization-banner-dismiss:hover {
+  background: rgb(245 240 232 / 20%);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Hide tagline on small screens */
+@media (width < 600px) {
+  .personalization-banner .personalization-banner-tagline {
+    display: none;
+  }
+}
+
+@media (width >= 900px) {
+  .personalization-banner .personalization-banner-inner {
+    padding: 10px 32px;
+  }
+}

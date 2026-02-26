@@ -1,0 +1,160 @@
+{
+  "personas": [
+    {
+      "id": "morning-minimalist",
+      "label": "The Morning Minimalist",
+      "description": "Lives alone or with a partner and values calm mornings above everything else. Wants quality coffee without complexity — the fewer steps, the better.",
+      "goals": [
+        "Find a machine that delivers great coffee quickly",
+        "Simplify the morning routine to one reliable ritual",
+        "Learn just enough technique to be consistent"
+      ],
+      "pain_points": [
+        "Overwhelmed by espresso jargon and technique culture",
+        "Frustrated when machines require long warm-up times",
+        "Doesn't want to spend weekends dialing in a grinder"
+      ],
+      "preferred_products": ["arco-primo", "arco-nano", "arco-macinino"],
+      "preferred_content_formats": ["how-to", "editorial", "product"],
+      "nav_overrides": {
+        "promote": ["Products", "Brewing Guides"],
+        "demote": ["Advanced Technique"]
+      },
+      "hero_message": "One perfect cup. Every morning.",
+      "hero_subtext": "The Arco Primo is built for people who want quality without complexity. Heat up in 90 seconds, pull a beautiful shot, and start your day.",
+      "hero_cta": { "label": "Meet the Primo", "url": "/products/pdp-canonical/arco-primo" },
+      "blog_feed_tags": ["how-to", "editorial", "beginner"],
+      "excluded_content_types": ["advanced", "competition"]
+    },
+    {
+      "id": "upgrader",
+      "label": "The Upgrader",
+      "description": "Has been making espresso for a while with entry-level equipment and is getting frustrated with inconsistency. Ready to invest in something better and wants to understand what the next step actually looks like.",
+      "goals": [
+        "Understand the real difference between entry and mid-range gear",
+        "Make a confident purchase decision with clear comparisons",
+        "Improve shot consistency and learn intermediate techniques"
+      ],
+      "pain_points": [
+        "Can't tell if the problem is the machine, the grinder, or the technique",
+        "Overwhelmed by options and conflicting advice online",
+        "Worried about spending too much or too little"
+      ],
+      "preferred_products": ["arco-doppio", "arco-studio", "arco-preciso"],
+      "preferred_content_formats": ["comparison", "guide", "how-to"],
+      "nav_overrides": {
+        "promote": ["Compare Products", "Brewing Guides"],
+        "demote": ["Beginner Guides"]
+      },
+      "hero_message": "Ready for the real thing.",
+      "hero_subtext": "You've outgrown your first machine. The Arco Doppio gives you dual-boiler precision without the learning cliff — real performance, approachable controls.",
+      "hero_cta": { "label": "Compare Machines", "url": "/products/comparison/arco-primo-vs-arco-doppio" },
+      "blog_feed_tags": ["comparison", "intermediate", "technique"],
+      "excluded_content_types": []
+    },
+    {
+      "id": "craft-barista",
+      "label": "The Craft Barista",
+      "description": "Follows the World Barista Championship, knows what extraction yield means, and has opinions about water chemistry. Wants professional-grade equipment at home and content that respects their knowledge level.",
+      "goals": [
+        "Access pro-level equipment designed for home use",
+        "Push technique boundaries with pressure profiling and flow control",
+        "Connect with content that matches an advanced skill level"
+      ],
+      "pain_points": [
+        "Most home equipment is dumbed down and lacks real control",
+        "Tired of beginner-level content that wastes their time",
+        "Wants detailed specs, not marketing fluff"
+      ],
+      "preferred_products": ["arco-studio-pro", "arco-studio", "arco-zero"],
+      "preferred_content_formats": ["guide", "editorial", "comparison"],
+      "nav_overrides": {
+        "promote": ["Advanced Technique", "Products"],
+        "demote": ["Beginner Guides", "Gift Guides"]
+      },
+      "hero_message": "Built for the obsessed.",
+      "hero_subtext": "The Arco Studio Pro puts pressure profiling, PID temperature control, and competition-grade build quality on your kitchen counter. No compromises.",
+      "hero_cta": { "label": "Explore Studio Pro", "url": "/products/pdp-canonical/arco-studio-pro" },
+      "blog_feed_tags": ["advanced", "technique", "competition", "science"],
+      "excluded_content_types": ["beginner"]
+    },
+    {
+      "id": "traveller",
+      "label": "The Traveller",
+      "description": "Digital nomad, outdoor enthusiast, or frequent flyer who refuses to compromise on coffee quality just because they're not at home. Compactness, portability, and durability are non-negotiable.",
+      "goals": [
+        "Find portable equipment that makes real espresso anywhere",
+        "Discover coffee destinations and travel-friendly brewing methods",
+        "Build a compact kit that fits in a carry-on or backpack"
+      ],
+      "pain_points": [
+        "Most portable espresso solutions taste like compromise",
+        "Hard to find travel-specific coffee content that isn't about instant coffee",
+        "Frustrated by gear that's too fragile for real travel"
+      ],
+      "preferred_products": ["arco-viaggio", "arco-nano", "arco-macinino"],
+      "preferred_content_formats": ["editorial", "story", "product"],
+      "nav_overrides": {
+        "promote": ["Travel & Destinations", "Portable Gear"],
+        "demote": ["Office Solutions"]
+      },
+      "hero_message": "Espresso, everywhere.",
+      "hero_subtext": "The Arco Viaggio weighs 340g and pulls genuine espresso from a mountain ledge, a hotel room, or a campervan. No electricity required.",
+      "hero_cta": { "label": "Meet the Viaggio", "url": "/products/pdp-canonical/arco-viaggio" },
+      "blog_feed_tags": ["travel", "portable", "adventure"],
+      "excluded_content_types": ["office"]
+    },
+    {
+      "id": "non-barista",
+      "label": "The Non-Barista",
+      "description": "Wants excellent coffee every single time but has zero interest in the process. Probably switching from capsules or pods and wants something that handles the complexity automatically.",
+      "goals": [
+        "Get café-quality coffee at home with minimal effort",
+        "Stop spending money on capsules without downgrading taste",
+        "Find a machine that requires almost no technique"
+      ],
+      "pain_points": [
+        "Intimidated by grinders, tamping, and manual machines",
+        "Afraid of buying an expensive machine they can't use properly",
+        "Doesn't want to feel judged by coffee snobs"
+      ],
+      "preferred_products": ["arco-automatico", "arco-nano", "arco-primo"],
+      "preferred_content_formats": ["product", "how-to", "editorial"],
+      "nav_overrides": {
+        "promote": ["Easy Setup", "Products"],
+        "demote": ["Advanced Technique", "Competition"]
+      },
+      "hero_message": "Great coffee. No barista required.",
+      "hero_subtext": "The Arco Automatico grinds, tamps, and brews with one touch. Specialty-grade espresso without the learning curve.",
+      "hero_cta": { "label": "See the Automatico", "url": "/products/pdp-canonical/arco-automatico" },
+      "blog_feed_tags": ["beginner", "convenience", "how-to"],
+      "excluded_content_types": ["advanced", "competition", "science"]
+    },
+    {
+      "id": "office-manager",
+      "label": "The Office Manager",
+      "description": "Responsible for their team's coffee setup and focused on reliability, total cost of ownership, and keeping everyone happy. Needs equipment that handles volume without constant maintenance.",
+      "goals": [
+        "Find a reliable machine that handles 30+ cups per day",
+        "Justify the investment with clear ROI against capsule or vending costs",
+        "Minimize maintenance overhead and service disruptions"
+      ],
+      "pain_points": [
+        "Previous office machines broke down constantly",
+        "Hard to find equipment designed for office volume at a reasonable price",
+        "Nobody in the office wants to be responsible for a complicated machine"
+      ],
+      "preferred_products": ["arco-ufficio", "arco-doppio", "arco-preciso"],
+      "preferred_content_formats": ["comparison", "tool", "product"],
+      "nav_overrides": {
+        "promote": ["Office Solutions", "ROI Calculator"],
+        "demote": ["Travel", "Competition"]
+      },
+      "hero_message": "Office coffee that people actually look forward to.",
+      "hero_subtext": "The Arco Ufficio is built for teams — high-volume, easy to maintain, and it pays for itself in under six months versus capsules.",
+      "hero_cta": { "label": "Calculate Your Savings", "url": "/tools/calculators/capsule-to-bean-cost-comparison" },
+      "blog_feed_tags": ["office", "roi", "maintenance"],
+      "excluded_content_types": ["travel", "competition", "adventure"]
+    }
+  ]
+}

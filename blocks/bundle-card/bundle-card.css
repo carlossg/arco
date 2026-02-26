@@ -1,0 +1,152 @@
+/* Bundle Card — product bundle display with items, pricing, savings callout */
+.bundle-card .bundle-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.bundle-card .bundle-card-item {
+  background-color: var(--light-color);
+  border-radius: var(--card-radius, 12px);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.bundle-card .bundle-card-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.bundle-card .bundle-card-image {
+  overflow: hidden;
+  line-height: 0;
+}
+
+.bundle-card .bundle-card-image picture,
+.bundle-card .bundle-card-image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.bundle-card .bundle-card-body {
+  padding: 24px;
+}
+
+.bundle-card .bundle-card-name {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-s);
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--text-color);
+}
+
+.bundle-card .bundle-card-description {
+  font-size: var(--body-font-size-s);
+  color: var(--muted-color);
+  margin: 0 0 16px;
+  line-height: 1.6;
+}
+
+.bundle-card .bundle-card-items {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.bundle-card .bundle-card-items li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+  font-size: var(--body-font-size-xs);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.bundle-card .bundle-card-items li:last-child {
+  border-bottom: none;
+}
+
+.bundle-card .bundle-card-items li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.bundle-card .bundle-card-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.bundle-card .bundle-card-price {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-m);
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.bundle-card .bundle-card-savings {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--success, #4A7C59);
+  background-color: rgb(74 124 89 / 10%);
+  border-radius: 100px;
+}
+
+.bundle-card .bundle-card-cta {
+  display: inline-block;
+  padding: 0.7em 2em;
+  font-size: var(--body-font-size-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--light-color);
+  background-color: var(--accent-color);
+  border-radius: 100px;
+  text-decoration: none;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.bundle-card .bundle-card-cta:hover {
+  background-color: var(--link-hover-color);
+  transform: translateY(-2px);
+}
+
+@media (width >= 600px) {
+  .bundle-card .bundle-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+/* Variant: editorial — side-by-side layout */
+.bundle-card.editorial .bundle-card-grid {
+  grid-template-columns: 1fr;
+}
+
+@media (width >= 900px) {
+  .bundle-card.editorial .bundle-card-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .bundle-card.editorial .bundle-card-image img {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .bundle-card.editorial .bundle-card-body {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

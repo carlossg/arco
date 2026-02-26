@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-macinino",
+  "persona_tag": "upgrader",
+  "headline": "64mm flat burrs that outperform grinders twice the price.",
+  "subheadline": "Italian flat burrs, stepless micrometric adjustment, and under 0.5g retention. The Macinino delivers the grind consistency that your machine has been waiting for.",
+  "hero_image_alt": "Arco Macinino flat burr grinder in matte black on a dark countertop, the stepless adjustment dial in sharp focus, freshly ground coffee in a dosing cup showing uniform particle size, a precision scale nearby",
+  "description_long": "Your grinder matters more than your machine. If you're still using a stepped grinder, a blade grinder, or the built-in grinder from an automatic, the Macinino will transform your espresso overnight. Its 64mm Italian flat burrs produce a unimodal particle distribution that extracts more evenly and tastes cleaner than anything a conical or smaller flat burr can achieve. The stepless micrometric adjustment lets you dial in with a precision that stepped grinders simply can't match -- fine-tune your grind in micro-increments until your shot is exactly where you want it. Retention is under 0.5 grams, which means less waste and more consistency between doses. The 1400 RPM motor grinds a full dose in about 5 seconds, and the timed dosing feature makes it repeatable every time. If you've been blaming your machine for underwhelming shots, the Macinino might be the upgrade that actually solves the problem.",
+  "use_case_headline": "The single upgrade that makes the biggest difference.",
+  "use_case_body": "64mm flat burrs vs. your current conical or stepped grinder: more uniform particle size, more even extraction, more flavour clarity. Stepless adjustment for micro-fine dialing. Under 0.5g retention. The Macinino is the grinder upgrade that makes your existing machine perform like a different machine entirely.",
+  "recommended_accessories": [
+    "Dosing Cup",
+    "Precision Scale",
+    "Bean Vault",
+    "Distribution Tool"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "Upgrade Your Grind",
+  "cta_primary_url": "/products/arco-macinino",
+  "social_proof_quote": {
+    "quote": "I was spending all my energy trying to get better shots from my machine. Then I replaced my Baratza with the Macinino and everything changed. Same machine, same beans, completely different espresso. The flat burrs and stepless adjustment are a revelation.",
+    "name": "Florian H.",
+    "location": "Salzburg, Austria"
+  }
+}

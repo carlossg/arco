@@ -1,0 +1,39 @@
+{
+  "id": "exp-seasonal-004",
+  "slug": "spring-single-origins",
+  "title": "Spring Single Origins",
+  "persona_tag": "craft-barista",
+  "experience_archetype": "Seasonal Explorer",
+  "hero_image_alt": "Three bags of single-origin coffee arranged on a marble counter beside an Arco Studio Pro and Zero grinder, morning spring light flooding through a window, a cupping spoon and small tasting bowls visible, fresh flowers in a vase at the edge of the frame",
+  "hero_headline": "New harvest. New flavours. Your favourite time of year.",
+  "hero_subtext": "Spring means fresh crop arrivals, and the best single origins of the year are landing now.",
+  "editorial_intro": "Every spring, the coffee calendar resets. Fresh harvests arrive from East Africa, Central America, and beyond, and for a few weeks the specialty shelves are stocked with beans at their absolute peak — vibrant, complex, and unlike anything you tasted last month. If you care about origin, if you chase flavour, this is your season.",
+  "editorial_body": "You know the feeling. A notification from your favourite roaster. New arrivals. Washed Ethiopian Yirgacheffe, natural process Kenyan from Nyeri, a honey-processed Costa Rican from Tarrazú that they are calling the best lot they have sourced in five years. Your pulse quickens in a way that your non-coffee friends would find genuinely concerning.\n\nSpring single origins are the wine vintages of the coffee world. Each year's harvest is different — shaped by rainfall, altitude, processing decisions, and the thousand small variables that make agriculture perpetually interesting. The Yirgacheffe you loved last April will not taste the same this April. It might be better. It might be different in ways that surprise you. The only way to know is to buy it, grind it, pull it, and pay attention.\n\nThis is where equipment matters in a way that transcends convenience. Light-roasted single origins are the most demanding beans you can put through an espresso machine. They are denser than darker roasts, harder to extract, and brutally unforgiving of temperature instability or grind inconsistency. The flavours you are chasing — the bergamot in a washed Sidamo, the blackcurrant in a Kenyan AA, the tropical fruit in a Panamanian Gesha — exist in a narrow extraction window. Miss it, and you get sourness or astringency. Hit it, and you get something that makes you set down the cup and think about what just happened.\n\nThe Arco Studio Pro earns its place in this pursuit. The PID holds temperature within half a degree, which is not a marketing specification — it is the difference between extracting the delicate sugars in a light roast and scalding them into bitterness. The flow control paddle lets you manipulate pressure throughout the shot. For a dense, light-roasted Ethiopian, a long, gentle pre-infusion at two bars followed by a slow ramp to seven bars — not the standard nine — opens up sweetness and complexity that a flat-pressure profile would miss entirely.\n\nThe Arco Zero grinder is the other half of this equation. Single-dosing is not optional when you are working through three or four different origins in a week, which is exactly what spring demands. You weigh seventeen grams of the Yirgacheffe into the hopper, grind, and every particle comes out. No retention, no cross-contamination from yesterday's Brazilian blend. When you switch to the Kenyan after lunch, the first shot tastes purely of Kenya. The sixty-four millimetre flat burrs produce the clarity that light roasts demand — a clean, defined particle distribution that lets each origin speak in its own voice.\n\nThe spring workflow, if you are doing it properly, involves a cupping discipline that the rest of the year does not require. When a new bag arrives, you taste it as espresso first — a standard recipe, eighteen grams in, thirty-six out, to establish a baseline. Then you adjust. The Ethiopian might want a finer grind and a longer pre-infusion. The Kenyan might want a slightly higher temperature and a shorter ratio. The Costa Rican might surprise you by tasting best as a lungo, stretched to fifty grams, where the honey process sweetness has room to unfold.\n\nKeep notes. This is not obsessive, it is practical. When the same origin returns next spring — as it will, if the roaster's relationship with the farm holds — your notes from this year become next year's starting point. You will dial in faster. You will taste the vintage difference more clearly. Over the years, your notebook becomes a personal archive of flavour, a record of springs spent paying attention.\n\nThere is a social dimension to spring single origins that the rest of the year lacks. Roasters host cupping events. Coffee forums light up with tasting notes and comparisons. The community comes alive around shared excitement for the new harvest, and pulling a shot of a highly anticipated lot on the morning it arrives feels like opening night.\n\nShare it. When you find something extraordinary — and you will, because spring always delivers at least one coffee that stops you in your tracks — invite someone over. Pull them a shot without telling them what it is. Watch their face when the flavour lands. This is the deepest pleasure of craft: not the solitary pursuit of perfection, but the moment when you hand someone a cup and they taste something they did not know coffee could do.\n\nSpring is short. The best lots sell out within weeks. The freshness window on a light roast is measured in days, not months. But that urgency is part of the appeal. This is seasonal eating applied to coffee — the idea that the best things are available briefly, demand attention, and reward those who show up ready.\n\nYour equipment is ready. Your palate is ready. The beans are arriving. This is your season.",
+  "product_bundle": [
+    { "product_id": "arco-studio-pro", "role": "anchor" },
+    { "product_id": "arco-zero", "role": "primary" },
+    { "product_id": "arco-tamper", "role": "accessory" },
+    { "product_id": "arco-wdt-tool", "role": "accessory" },
+    { "product_id": "arco-dosing-funnel", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Spring Single Origins setup",
+  "bundle_intro": "Precision equipment for the most demanding beans of the year.",
+  "featured_guides": [
+    "guide-dialling-in-light-roasts",
+    "guide-pressure-profiling-for-single-origins",
+    "guide-cupping-at-home"
+  ],
+  "related_blog_posts": [
+    "blog-spring-harvest-preview",
+    "blog-light-roast-espresso-technique",
+    "blog-single-origin-vs-blend"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "craft-barista",
+  "persona_tags": ["craft-barista", "upgrader", "origin-explorer", "seasonal-drinker"],
+  "intent_tags": ["single-origin", "spring", "seasonal", "light-roast", "craft", "exploration"],
+  "seo": {
+    "title": "Spring Single Origins — Fresh Harvest Espresso at Its Peak | Arco Coffee",
+    "meta_description": "Explore fresh seasonal single-origin beans with the Arco Studio Pro and Zero grinder. Spring harvests demand precision equipment and reward it with extraordinary flavour."
+  }
+}

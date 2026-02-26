@@ -1,0 +1,37 @@
+{
+  "id": "exp-core-002",
+  "slug": "the-upgrade-path",
+  "title": "The Upgrade Path",
+  "persona_tag": "frustrated-enthusiast",
+  "experience_archetype": "Upgrade Path",
+  "hero_image_alt": "A person standing in their kitchen looking critically at a mid-range espresso machine, surrounded by bags of specialty coffee, a worn tamper, and a basic grinder, morning light casting long shadows across the countertop",
+  "hero_headline": "You've outgrown your setup. You know it.",
+  "hero_subtext": "When the beans are better than the machine, it's time.",
+  "editorial_intro": "You have been drinking good coffee for years. You have tried the specialty roasters, dialled in your grind, watched the videos, read the forums. And every morning, you taste the gap between what your beans could be and what your current setup actually delivers. That gap has become intolerable.",
+  "editorial_body": "You remember the exact moment you realised your machine was the bottleneck. It was a Tuesday, unremarkable in every other way. You had just opened a bag from that roaster you discovered on holiday — the one with the small batch Ethiopian natural process that smelled like blueberries and jasmine the moment you tore the seal. You ground it carefully, tamped it evenly, and pulled the shot.\n\nIt was fine. That was the problem. It was fine. Drinkable, pleasant, perfectly acceptable. But you had tasted this coffee at the roaster's bar, pulled on a machine that cost more than your car, and it had been transcendent. Layers of flavour you could not even name. A sweetness that lingered for minutes. You knew the beans were capable of that. Your kitchen was not.\n\nSo you started researching. You always start researching. That is who you are — the person who reads comparative reviews at midnight, who builds spreadsheets of specifications, who watches the same shot pulled on six different machines and tries to hear the difference in the pump pressure. Your browser history is a monument to obsession.\n\nThe frustration is specific. Your current grinder produces fines that choke the puck on lighter roasts. Your machine's boiler temperature swings by three degrees, which sounds like nothing until you taste the sourness it introduces on a delicate single origin. The steam wand takes forty-five seconds to produce something resembling microfoam. You have worked around these limitations for months, adjusting dose and timing to compensate, and you are tired of compensating.\n\nWhat you want is straightforward. You want a machine that holds temperature within a degree. A grinder that produces a consistent particle distribution whether you are pulling a ristretto or a lungo. A setup that lets the coffee speak for itself instead of fighting the hardware.\n\nThe Arco Doppio is where most people on your path arrive. Dual boiler, PID-controlled temperature, commercial-grade group head in a domestic footprint. It does not try to be clever. It does not have a touchscreen or an app. It has a brew pressure gauge, a steam pressure gauge, and a temperature readout. Everything you need to know, nothing you don't.\n\nPair it with the Arco Preciso grinder and the conversation changes entirely. Stepless adjustment, sixty-four millimetre flat burrs, near-zero retention. The first time you dial in that Ethiopian natural on this setup, you will taste the blueberries. You will taste the jasmine. You will taste things you have never tasted in your own kitchen before, and you will understand that the beans were never the problem.\n\nThe Arco Studio sits one step further up the path if you want programmable pre-infusion profiles and flow control. You may not need it now. But knowing it exists — knowing the path continues — is part of what makes this moment satisfying. You are not at the end. You are at the point where the equipment finally matches your palate, and everything from here is refinement rather than frustration.\n\nThe upgrade is not about spending more money. You have already spent plenty on beans you could not do justice to. This is about closing the gap. About finally hearing what the coffee has been trying to tell you all along.\n\nYou will know it worked the first morning you pull a shot and do not immediately think about what you would change. You will just drink it. And it will be right.",
+  "product_bundle": [
+    { "product_id": "arco-doppio", "role": "anchor" },
+    { "product_id": "arco-studio", "role": "primary" },
+    { "product_id": "arco-preciso", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Upgrade Path setup",
+  "bundle_intro": "The equipment that finally matches your palate.",
+  "featured_guides": [
+    "guide-upgrading-your-espresso-setup",
+    "guide-dual-boiler-temperature-management",
+    "guide-grinder-burr-comparison"
+  ],
+  "related_blog_posts": [
+    "blog-when-to-upgrade-your-machine",
+    "blog-understanding-extraction-yields",
+    "blog-flat-vs-conical-burrs"
+  ],
+  "quiz_result": true,
+  "persona_cookie_value": "frustrated-enthusiast",
+  "persona_tags": ["frustrated-enthusiast", "upgrader", "research-driven"],
+  "intent_tags": ["upgrade", "investment", "better-extraction", "enthusiast"],
+  "seo": {
+    "title": "The Upgrade Path — When Your Beans Deserve Better Equipment | Arco Coffee",
+    "meta_description": "Ready to upgrade your espresso setup? The Arco Doppio and Preciso grinder close the gap between great beans and great coffee. For the enthusiast who's done compromising."
+  }
+}

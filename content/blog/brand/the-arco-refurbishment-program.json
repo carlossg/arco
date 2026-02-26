@@ -1,0 +1,53 @@
+{
+  "id": "the-arco-refurbishment-program",
+  "slug": "the-arco-refurbishment-program",
+  "category": "brand",
+  "title": "The Arco Refurbishment Program: A Second Life for Every Machine",
+  "author": {
+    "name": "Priya Sharma",
+    "role": "Customer Care Lead",
+    "bio_short": "Priya runs Arco's customer support team and has talked more people through descaling procedures than she can count. She believes preventive maintenance is the kindest thing you can do for your machine."
+  },
+  "published_date": "2025-09-01T08:00:00Z",
+  "read_time_minutes": 8,
+  "hero_image_alt": "A refurbished Arco Studio in matte white sitting on a workbench beside its original, slightly worn predecessor, both machines clean and well-lit under warm task lighting, small label on the refurbished unit reading 'Arco Renewed' in embossed lettering, background showing organized shelves of spare parts",
+  "tags": ["refurbishment", "sustainability", "circular-economy", "arco-renewed", "repair"],
+  "persona_tags": ["morning-minimalist", "upgrader", "craft-barista"],
+  "intent_tags": ["discover", "decide"],
+  "intro": "When you are done with your Arco machine — because you upgraded, moved, or simply changed how you drink coffee — we do not want it in a landfill. The Arco Refurbishment Program takes back used machines, rebuilds them to factory standard, and resells them as Arco Renewed units at a lower price. Here is how it works and why we think it matters.",
+  "body": [
+    {
+      "heading": "Why Refurbishment, Not Recycling",
+      "content": "Recycling an espresso machine means stripping it for raw materials — melting down the brass, shredding the steel, reclaiming the copper wiring. That process recovers maybe sixty percent of the material value and consumes significant energy in the process. The embedded energy in a finished machine — the casting, machining, assembly, and testing — is lost entirely. Refurbishment preserves all of that. A well-built espresso machine is not a disposable appliance. The brass boiler, the stainless steel chassis, the E61 group head — these components are designed to last decades. What wears out are the consumables: gaskets, seals, pump diaphragms, heating elements, and cosmetic surfaces. Replacing these components costs a fraction of building a new machine and uses a fraction of the energy and raw materials. The result is a machine that performs identically to a new unit at a significantly lower environmental and financial cost. We launched the Refurbishment Program because we believe that if you design a machine well enough to last twenty years, you should also design a system that keeps it in use for twenty years — even if it changes hands two or three times along the way. Arco Renewed machines carry a twelve-month warranty, the same as our new units, because we stand behind the rebuild quality."
+    },
+    {
+      "heading": "How the Program Works",
+      "content": "The process starts when an owner contacts us to return their machine. We accept any Arco machine in any condition — working, non-working, cosmetically damaged, incomplete. We pay return shipping within Europe and offer a credit toward a new purchase if the owner is upgrading. There is no time limit and no receipt required; the serial number tells us everything we need to know. When a machine arrives at the workshop, it goes through a full teardown. Every component is inspected, measured, and categorized as reusable, replaceable, or damaged. The boiler is pressure-tested, descaled, and inspected for corrosion. The group head is measured for wear and re-polished if needed. The pump is tested for pressure output and flow rate. Electronics are bench-tested for correct function. Components that meet specification are cleaned and retained. Components that do not are replaced with new factory parts. Every machine receives new gaskets, a new shower screen, a new water tank, and new external panels if the originals show significant wear. The rebuild follows the same assembly protocol as a new machine — one technician, start to finish — and passes the same three-stage test: cold pressure, thermal stability, and a live espresso shot. The refurbished unit is then re-serialized with an 'R' prefix, given a new warranty card, and listed in our Arco Renewed section at thirty to forty percent below the equivalent new model price."
+    },
+    {
+      "heading": "What Arco Renewed Buyers Get",
+      "content": "An Arco Renewed machine is not a compromise. It is a fully rebuilt unit that has passed every test a new machine passes, housed in a case that may show minor signs of previous ownership — a small scratch on the drip tray, a barely perceptible mark on the frame — or that has been re-paneled entirely. Cosmetic condition is graded and disclosed in the listing: Grade A means the exterior is indistinguishable from new. Grade B means minor cosmetic marks that do not affect function. There is no Grade C — machines with significant cosmetic damage receive new panels. Inside, the machine is functionally new. Every wear component has been replaced, every system tested, every seal verified. The twelve-month warranty covers the same scope as the new-machine warranty: all components, parts and labor, with the same turnaround time. Renewed machines ship with the same accessories as new units — portafilter, baskets, tamper, dosing funnel, cleaning pin, and quick-start guide — plus an Arco Renewed certificate that documents the rebuild, including the original serial number, the rebuild date, and the technician's initials. For someone entering the Arco ecosystem who wants a Studio-level machine at a Doppio-level price, Renewed is a genuinely smart entry point."
+    },
+    {
+      "heading": "The Bigger Picture",
+      "content": "The Refurbishment Program is one part of a broader commitment to reducing the environmental footprint of Arco products across their full lifecycle. We design for longevity — brass boilers, stainless steel chassis, modular electronics that can be replaced individually rather than as a sealed unit. We publish full service manuals so owners and independent repair shops can maintain machines without sending them back to us. We stock spare parts for every model we have ever made, with no planned discontinuation. And when a machine does come back to us, we rebuild it rather than scrapping it. This is not altruism; it is good engineering philosophy. A machine that lasts twenty years and serves two or three owners produces better espresso, generates more customer satisfaction, and consumes fewer resources per cup than a machine designed to be replaced every five years. The economics work for everyone: the original owner gets trade-in value, the Renewed buyer gets a premium machine at an accessible price, and Arco earns margin on the rebuild with lower material costs than a new build. We currently refurbish about fifteen percent of all machines we have ever sold. As the installed base grows and early models age, we expect that percentage to increase. The goal is to keep every Arco machine in service for as long as someone wants to pull espresso on it."
+    }
+  ],
+  "key_takeaways": [
+    "Refurbishment preserves the embedded energy and materials in a machine — replacing only consumable wear components rather than scrapping the whole unit.",
+    "Every Renewed machine undergoes a full teardown, inspection, and rebuild by a single technician, then passes the same tests as a new unit.",
+    "Arco Renewed machines carry a twelve-month warranty and are priced thirty to forty percent below equivalent new models.",
+    "The program supports a circular lifecycle: trade in, rebuild, resell — keeping machines in service for decades."
+  ],
+  "related_products": ["arco-primo", "arco-doppio", "arco-studio", "arco-studio-pro", "arco-nano"],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Browse Arco Renewed",
+    "url": "/renewed"
+  },
+  "related_posts": ["the-sustainability-audit", "a-visit-to-our-workshop", "qa-with-our-head-of-product"],
+  "seo": {
+    "title": "The Arco Refurbishment Program: Rebuilt to Factory Standard | Arco",
+    "meta_description": "Arco takes back used machines, rebuilds them to factory standard, and resells them as Arco Renewed with a full warranty. Learn how the program works and why it matters."
+  }
+}

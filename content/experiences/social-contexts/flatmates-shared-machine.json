@@ -1,0 +1,36 @@
+{
+  "id": "exp-sc-002",
+  "slug": "flatmates-shared-machine",
+  "title": "Flatmates Shared Machine",
+  "persona_tag": "shared-living",
+  "experience_archetype": "Shared House",
+  "hero_image_alt": "A shared kitchen in a modern flat with an Arco Ufficio machine on the counter, a chalkboard on the wall listing flatmates' coffee preferences, mismatched mugs on a shelf, morning light through a large window",
+  "hero_headline": "Three people. One machine. Zero drama.",
+  "hero_subtext": "The shared coffee setup that actually works, because someone finally chose the right equipment.",
+  "editorial_intro": "Living with other people means compromising on the thermostat, the bathroom schedule, and what counts as a clean kitchen. Coffee should not be another battleground. But when three adults with three different skill levels and three different ideas about how strong an espresso should be share a single machine, the potential for conflict is real. The solution is equipment that is forgiving enough for everyone.",
+  "editorial_body": "The flatshare coffee situation before you intervened was a humanitarian crisis. Alex used a French press and left grounds in the sink. Sam had a pod machine that occupied valuable counter space and produced coffee that tasted like hot disappointment. You were using a moka pot on the hob and pretending it was espresso. The kitchen contained three separate coffee-making devices, none of them good, all of them in the way.\n\nThe intervention happened on a Sunday evening, during a flat meeting called to discuss the electricity bill. You raised the coffee question under 'any other business' and proposed a radical idea: one shared machine, jointly funded, with a bean fund that everyone contributes to monthly. Alex was sceptical. Sam was enthusiastic but concerned about complexity. You had already done the research.\n\nThe Arco Ufficio was designed for exactly this scenario — multiple daily users with varying skill levels and preferences. It has three programmable user profiles, each storing a different dose, extraction time, and temperature. You set them up on the first evening: yours at eighteen grams, ninety-three degrees, twenty-six seconds. Sam's at sixteen grams, ninety-two degrees, shorter and milder. Alex's at twenty grams, ninety-four degrees, long and strong, because Alex has the caffeine tolerance of a person twice their size.\n\nEach morning, the routine is simple. Whoever gets up first turns on the machine. It heats in ninety seconds. They select their profile, grind their dose — the Doppio-grade grinder built into the Ufficio adjusts automatically based on the selected profile — and press the button. The machine does the rest. The portafilter is shared but the experience is personalised.\n\nThe bean fund was the masterstroke. Twenty pounds per person per month goes into a jar on the shelf. You take turns ordering — a one-kilogram bag of a good blend that works across all three profiles. The cost per cup works out to roughly thirty pence, which is less than a third of what Sam was spending on pods and dramatically less than Alex's daily flat white from the cafe downstairs.\n\nThe shared machine created an unexpected social benefit. Mornings in the flat now have a focal point. Someone is always at the machine, and the person waiting for their turn stands nearby and talks. More conversation happens in the three minutes between waking up and leaving the house than used to happen in an entire evening. The machine has become a gathering point, a small social engine that runs on espresso and proximity.\n\nSam, who claimed to know nothing about coffee, has become curious. They asked you last week what the difference between a single and a double shot was, and you explained it without condescension, and they nodded and adjusted their profile from sixteen grams to seventeen. This is progress. Alex has developed opinions about beans and now reads the tasting notes on the bag before you order. This is either progress or the beginning of trouble.\n\nThe cleaning schedule was the final piece. The machine needs backflushing once a week and descaling once a month. You created a rota and pinned it to the fridge. Compliance has been surprisingly good, partly because the Ufficio displays a reminder on its screen when maintenance is due, and partly because nobody wants to be the flatmate who broke the coffee machine.\n\nThe French press is in a cupboard. The pod machine went to a charity shop. The moka pot is at the back of a shelf, kept for nostalgic reasons but never used. The counter has one machine where there were three, and the espresso that comes out of it is better than anything any of you were making independently.\n\nShared living is about finding the systems that reduce friction. The right coffee machine, with the right features, shared equitably, is one of those systems. It will not solve the thermostat argument or the bathroom schedule. But it means that every morning, in the one room where everyone converges, something works. Something is good. And that small, daily dose of shared satisfaction makes everything else slightly more tolerable.\n\nYour flatmates did not ask for a coffee education. They got one anyway. And the flat, quietly, has become a better place to live.",
+  "product_bundle": [
+    { "product_id": "arco-ufficio", "role": "anchor" },
+    { "product_id": "arco-doppio", "role": "primary" }
+  ],
+  "bundle_headline": "Your Shared House setup",
+  "bundle_intro": "One machine, multiple profiles, zero flatmate conflict over coffee.",
+  "featured_guides": [
+    "guide-ufficio-user-profiles",
+    "guide-shared-machine-maintenance",
+    "guide-bean-budgeting-for-flatshares"
+  ],
+  "related_blog_posts": [
+    "blog-shared-living-coffee-solutions",
+    "blog-ufficio-multi-user-review",
+    "blog-cost-per-cup-breakdown"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "shared-living",
+  "persona_tags": ["shared-living", "multi-user", "practical"],
+  "intent_tags": ["flatshare", "shared", "multi-user", "profiles", "budget"],
+  "seo": {
+    "title": "Flatmates Shared Machine — One Coffee Setup for the Whole Flat | Arco Coffee",
+    "meta_description": "Three flatmates, one machine, zero drama. The Arco Ufficio with programmable user profiles makes shared-living coffee simple, personal, and affordable."
+  }
+}

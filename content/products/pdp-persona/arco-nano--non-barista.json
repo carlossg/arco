@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-nano",
+  "persona_tag": "non-barista",
+  "headline": "Espresso made small and simple.",
+  "subheadline": "The Arco Nano is tiny, approachable, and makes proper espresso without asking you to become an expert. Just dose, tamp, press -- and enjoy.",
+  "hero_image_alt": "Arco Nano compact espresso machine in arctic white on a small bright kitchen shelf next to a plant and a ceramic mug, everything cheerful and unintimidating, soft natural light, clean and minimal scene",
+  "description_long": "The Nano is the least intimidating real espresso machine you'll find. It weighs just 4.2 kg, takes up less space than a stack of books, and has two buttons: one for a single shot, one for a double. That's the entire interface. The thermoblock heating system means it's ready in seconds -- no waiting, no planning ahead. The PID temperature control keeps every shot consistent, so you don't need to learn any techniques to get great results. And because it uses standard ground coffee (no pods, no capsules), your per-cup cost stays low and your espresso tastes genuine. If you've been telling yourself that espresso machines are too complicated, the Nano is the machine that proves you wrong.",
+  "use_case_headline": "Real espresso for people who want it easy.",
+  "use_case_body": "Two buttons. Instant heat-up. Standard ground coffee. The Nano gives you cafe-quality espresso in a machine so small and simple that it takes the intimidation out of the equation entirely. Perfect for small kitchens, first-time buyers, or anyone who values simplicity.",
+  "recommended_accessories": [
+    "Tamper Set",
+    "Espresso Cups Set",
+    "Cleaning Kit",
+    "Bean Vault"
+  ],
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "See How Simple It Is",
+  "cta_primary_url": "/products/arco-nano",
+  "social_proof_quote": {
+    "quote": "I bought the Nano because I wanted espresso but I was terrified of complicated machines. It's so small and simple that I had it set up and pulling shots within ten minutes of opening the box. My friends don't believe the espresso comes from something so tiny.",
+    "name": "Lisa H.",
+    "location": "Helsinki, Finland"
+  }
+}

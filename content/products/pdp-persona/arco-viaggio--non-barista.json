@@ -1,0 +1,26 @@
+{
+  "base_product_id": "arco-viaggio",
+  "persona_tag": "non-barista",
+  "headline": "The simplest way to make espresso. Anywhere.",
+  "subheadline": "No plugs, no settings, no learning curve. The Arco Viaggio uses hot water and a simple lever press to make genuine espresso -- it's as easy as using a French press.",
+  "hero_image_alt": "Arco Viaggio portable espresso maker in silver on a bright kitchen table beside a kettle and a simple mug, a person pressing the lever with a relaxed expression, cheerful and approachable scene with morning light",
+  "description_long": "If the idea of an espresso machine makes you nervous, the Viaggio will put you at ease. There are no dials, no settings, no digital displays. Here's all you do: heat water in a kettle, put ground coffee in the basket, pour in the hot water, and press the lever down slowly. That's it. The lever does the work of a pump -- you just push. In about 30 seconds, you have a real espresso. Use ESE pods if you want zero mess and zero measuring, or pre-ground espresso coffee from the supermarket for the lowest possible cost. The Viaggio cleans up in seconds under running water, stores in a drawer, and doesn't require any expertise whatsoever. It's the least intimidating path to genuine espresso that exists.",
+  "use_case_headline": "Easier than a French press. Better than any pod machine.",
+  "use_case_body": "Heat water. Add an ESE pod or pre-ground coffee. Press the lever. Rinse. That's the entire process. No electricity, no complicated steps, no mess. The Viaggio is the most approachable way to make real espresso, at home or anywhere else.",
+  "recommended_accessories": [
+    "Espresso Cups Set",
+    "Double-Wall Glasses"
+  ],
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Try the Easy Way",
+  "cta_primary_url": "/products/arco-viaggio",
+  "social_proof_quote": {
+    "quote": "I don't know anything about coffee. My friend gave me the Viaggio with some ESE pods and I made my first espresso in about two minutes. It tasted amazing. I've used it every day since and I still don't know what a portafilter is. That's the point.",
+    "name": "David L.",
+    "location": "Edinburgh, United Kingdom"
+  }
+}

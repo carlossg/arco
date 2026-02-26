@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Arco Content Page Schema",
+  "description": "Validation schema for all Arco content types",
+  "type": "object",
+  "required": ["id", "slug", "title"],
+  "properties": {
+    "id": { "type": "string", "description": "Unique content identifier" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "category": { "type": "string" },
+    "headline": { "type": "string" },
+    "subheadline": { "type": "string" },
+    "hero_image_alt": { "type": "string", "description": "Scene description for image generation" },
+    "hero_headline": { "type": "string" },
+    "hero_subtext": { "type": "string" },
+    "description_short": { "type": "string" },
+    "description_long": { "type": "string" },
+    "intro": { "type": "string" },
+    "editorial_intro": { "type": "string" },
+    "editorial_body": { "type": "string" },
+    "difficulty": { "type": "string", "enum": ["beginner", "intermediate", "advanced"] },
+    "read_time_minutes": { "type": "integer", "minimum": 1 },
+    "persona_tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["morning-minimalist", "upgrader", "craft-barista", "traveller", "non-barista", "office-manager"]
+      }
+    },
+    "intent_tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["discover", "research", "decide", "own"]
+      }
+    },
+    "body": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["heading", "content"],
+        "properties": {
+          "heading": { "type": "string" },
+          "content": { "type": "string" }
+        }
+      }
+    },
+    "key_takeaways": { "type": "array", "items": { "type": "string" } },
+    "related_products": { "type": "array", "items": { "type": "string" } },
+    "related_guides": { "type": "array", "items": { "type": "string" } },
+    "related_blog_posts": { "type": "array", "items": { "type": "string" } },
+    "related_experience": { "type": "string" },
+    "cta": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "url": { "type": "string" }
+      }
+    },
+    "seo": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "meta_description": { "type": "string" },
+        "og_image_alt": { "type": "string" },
+        "canonical_url": { "type": "string" }
+      }
+    },
+    "price_eur": { "type": "number" },
+    "price_display": { "type": "string" },
+    "key_specs": { "type": "object" },
+    "whats_in_box": { "type": "array", "items": { "type": "string" } },
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "hex": { "type": "string" }
+        }
+      }
+    },
+    "json_ld": { "type": "object" },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "bio_short": { "type": "string" }
+      }
+    },
+    "published_date": { "type": "string", "format": "date" },
+    "product_bundle": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_id": { "type": "string" },
+          "role": { "type": "string", "enum": ["anchor", "primary", "accessory"] }
+        }
+      }
+    },
+    "quiz_result": { "type": "boolean" },
+    "persona_cookie_value": { "type": "string" },
+    "market": { "type": "string" },
+    "language": { "type": "string" }
+  }
+}

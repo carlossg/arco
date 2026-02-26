@@ -1,0 +1,57 @@
+{
+  "id": "home-barista-of-the-month-sarah",
+  "slug": "home-barista-of-the-month-sarah",
+  "category": "community",
+  "title": "Home Barista of the Month: Sarah Lindqvist",
+  "author": {
+    "name": "Sophie Chen",
+    "role": "Community Manager",
+    "bio_short": "Sophie manages the Arco community program and spends her weekends visiting home setups across Europe. She drinks cortados exclusively and judges every kitchen by its counter space."
+  },
+  "published_date": "2025-12-16T08:00:00Z",
+  "read_time_minutes": 7,
+  "hero_image_alt": "A bright Scandinavian kitchen with white oak cabinets and a large window overlooking a snowy garden, an Arco Studio Pro espresso machine on a light marble countertop next to an Arco Preciso grinder, a woman in a chunky knit sweater pulling a shot into a handmade ceramic cup, steam catching soft winter light",
+  "tags": ["community-spotlight", "home-barista-of-the-month", "home-setup", "arco-studio-pro", "nordic"],
+  "persona_tags": ["craft-barista"],
+  "intent_tags": ["discover", "inspire"],
+  "intro": "Each month we spotlight an Arco owner whose dedication, creativity, or generosity stands out in our community. This month we traveled to Gothenburg, Sweden, to meet Sarah Lindqvist — a marine biologist who brings the same precision to her espresso as she does to her research, and whose home setup has become the unofficial gathering point for her entire neighborhood.",
+  "body": [
+    {
+      "heading": "The Setup",
+      "content": "Sarah's espresso station occupies a purpose-built alcove in the kitchen of her 1920s wooden house in the Majorna district of Gothenburg. The house was renovated two years ago, and she designed the coffee alcove during the planning phase — not as an afterthought but as a core requirement alongside the bathroom and the heating system. The alcove is eighty centimeters wide and sixty deep, tiled in handmade ceramic from a local potter, with a dedicated twenty-amp circuit and a plumbed water line running through a carbon block filter. The Arco Studio Pro sits on the left, its dual boiler always warm during the morning hours. The Arco Preciso sits on the right, positioned so the chute drops grounds directly toward where the portafilter rests on a magnetic holder mounted to the tile wall. Between them, a small walnut shelf holds a dosing cup, a WDT tool, a tamper, and a scale. Below the counter, a pull-out drawer contains cleaning supplies, spare gaskets, and a box of descaling solution. Everything has a place. Sarah says the design was inspired by the wet labs she works in at the University of Gothenburg — compact spaces where efficiency depends on every tool being exactly where you expect it."
+    },
+    {
+      "heading": "The Routine",
+      "content": "Sarah wakes at five-thirty, even on weekends, because her internal clock was set years ago by early-morning research cruises in the North Sea. The first thing she does is switch on the Studio Pro, which reaches brew temperature in about fifteen minutes. During that warm-up she feeds her two cats, checks weather data for an ongoing fjord monitoring project, and selects beans. She keeps four to five bags open at any time, sourced from Nordic roasters — Drop Coffee in Stockholm, Tim Wendelboe in Oslo, and Koppi in Helsingborg are her regulars. She chooses based on what she wants to taste that morning, which she says changes with the season. In winter she gravitates toward heavier naturals from Ethiopia and Brazil with chocolate and berry notes. In the long Swedish summer, she reaches for washed Kenyans and Colombians with bright acidity. Her standard recipe is eighteen grams in, thirty-six out, in roughly twenty-eight to thirty seconds, but she adjusts freely depending on the bean. She pulls the first shot into a handmade cup from a ceramicist in Gothenburg's Haga district — she owns six of them in different glazes and rotates through them during the week. She drinks the first shot straight, standing at the counter, watching the garden through the kitchen window. If her partner Erik is awake, she pulls a second shot and makes him a flat white with oat milk steamed on the Studio Pro's dedicated steam boiler. On weekends, the routine extends. She experiments with new beans, tries different ratios, and logs detailed tasting notes in a leather journal she keeps in the kitchen drawer."
+    },
+    {
+      "heading": "The Science Behind Her Approach",
+      "content": "Sarah's background in marine biology — specifically water chemistry and the behavior of dissolved compounds in seawater — gives her an unusual perspective on espresso extraction. She thinks about coffee brewing as a solvent extraction problem, which is technically what it is: hot water acting as a solvent to dissolve soluble compounds from ground coffee. This framing leads her to pay close attention to water composition. Gothenburg's municipal water is soft — low in dissolved minerals — which she says tends to produce under-extracted, flat-tasting espresso because the water lacks the mineral content needed to bind effectively with the flavor compounds in the coffee. She experimented for months with remineralization, adding precise amounts of magnesium sulfate and sodium bicarbonate to distilled water to create a brew water profile that balances extraction efficiency with flavor clarity. Her current recipe, which she calls Gothenburg Standard, uses sixty parts per million of magnesium hardness and forty parts per million of alkalinity buffer. She mixes a five-liter batch every Sunday evening and stores it in glass bottles on the counter. She acknowledges that most home baristas will never go this deep into water chemistry, and she does not think they need to. But for her, the precision is the point. She approaches espresso the way she approaches fieldwork — with a hypothesis, controlled variables, and careful measurement. The cup is the data, and she wants the data to be clean."
+    },
+    {
+      "heading": "The Neighborhood Effect",
+      "content": "Sarah did not set out to become the neighborhood barista, but that is what happened. It started when her next-door neighbor, a retired ship captain named Anders, mentioned that he had been drinking instant coffee every morning for forty years and was curious about what Sarah was doing with all that equipment. She invited him over, pulled him an espresso, and watched his expression change mid-sip. He came back the next morning. And the morning after that. Eventually, she gave him a standing invitation for eight o'clock espresso on Saturdays. Word spread. Within a few months, Saturday mornings at Sarah's house had become an informal gathering for six to eight neighbors — a rotating cast that includes Anders, a young couple who run a bakery on the next street, a retired nurse, and a graphic designer who works from home. Sarah pulls shots for everyone, adjusting the drink to each person's preference. Anders likes a lungo. The baker couple share a double-shot oat milk latte. The designer wants a cortado, precisely four ounces. She has their preferences memorized. The sessions last about an hour and function as a neighborhood social hour that happens to revolve around excellent espresso. Conversations range from local politics to boat maintenance to the best hiking routes along the coast. Sarah says the espresso is the excuse but the community is the point. She did not know most of these people before the coffee gatherings started. Now she considers them friends."
+    },
+    {
+      "heading": "Why She Chose Arco",
+      "content": "Sarah researched espresso machines for nearly a year before purchasing the Studio Pro. She considered several well-known Italian and British manufacturers and tested machines at specialty cafes in Gothenburg and Stockholm. She chose the Studio Pro for three reasons. First, thermal stability. Her water chemistry work made her acutely aware that extraction temperature consistency matters, and the Studio Pro's dual-boiler PID system delivered the tightest temperature band of any machine she tested at its price point. She measured it herself using a thermocouple probe at the puck — a research habit she could not switch off. Second, build quality and serviceability. She wanted a machine built to last decades, not years, and one she could maintain and repair herself. The Studio Pro uses standard E61 group components, brass boilers with accessible fittings, and published technical documentation. She has already replaced the group gasket and shower screen herself, following the Arco maintenance guide. Third, the company's philosophy. She liked that Arco machines are built by individual technicians in a small workshop, tested with actual espresso before shipping, and designed for long-term ownership rather than planned obsolescence. As a scientist who studies systems under pressure, she says she trusts things built by people who understand what they are building. The Preciso grinder was a natural companion — its stepless adjustment lets her make the micro-changes her experimental approach demands, and its low retention means she is always grinding fresh. Together, the two machines form what she calls a complete system — every variable between bean and cup is under her control."
+    }
+  ],
+  "key_takeaways": [
+    "A purpose-built coffee alcove designed around workflow makes daily espresso preparation effortless and enjoyable.",
+    "Water chemistry has a measurable impact on extraction quality — even simple remineralization of soft water can improve cup clarity.",
+    "A home espresso setup can become a social anchor, drawing neighbors into a community that would not otherwise exist.",
+    "The Studio Pro's thermal stability, serviceability, and build quality make it a strong choice for scientifically minded home baristas."
+  ],
+  "related_products": ["arco-studio-pro", "arco-preciso"],
+  "related_experience": "craft-barista",
+  "cta": {
+    "label": "Explore the Arco Studio Pro",
+    "url": "/products/arco-studio-pro"
+  },
+  "related_posts": ["the-architect-who-built-a-coffee-corner", "the-retired-teacher-who-became-a-barista", "from-capsules-to-craft"],
+  "seo": {
+    "title": "Home Barista of the Month: Sarah Lindqvist | Arco",
+    "meta_description": "Meet Sarah Lindqvist — a marine biologist in Gothenburg whose Arco Studio Pro setup, custom water chemistry, and Saturday espresso gatherings have made her kitchen the heart of the neighborhood."
+  }
+}

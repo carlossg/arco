@@ -1,0 +1,56 @@
+{
+  "id": "bundle-pk-003",
+  "slug": "craft-barista-kit",
+  "title": "The Craft Barista Kit",
+  "persona_tag": "craft-barista",
+  "headline": "For the person who treats every extraction as a conversation.",
+  "editorial_intro": "The Craft Barista Kit brings together Arco's most capable espresso machine and grinder with the preparation tools that serious baristas consider non-negotiable. This is a complete station, built for intention.",
+  "products": [
+    {
+      "product_id": "arco-studio",
+      "role": "anchor",
+      "include_rationale": "The Studio's E61 brass group head and heat-exchange boiler deliver the thermal stability and pre-infusion character that reward careful technique and attentive extraction."
+    },
+    {
+      "product_id": "arco-zero",
+      "role": "primary",
+      "include_rationale": "True zero-retention single-dosing and 64mm competition-grade flat burrs produce a particle distribution tight enough to reveal origin character and roast nuance in the cup."
+    },
+    {
+      "product_id": "arco-wdt-tool",
+      "role": "accessory",
+      "include_rationale": "A Weiss Distribution Technique tool with 0.4mm needles breaks up clumps at the particle level, ensuring water flows evenly through the entire puck."
+    },
+    {
+      "product_id": "arco-dosing-cup",
+      "role": "accessory",
+      "include_rationale": "A stainless steel dosing cup with anti-static coating transfers grounds cleanly from grinder to portafilter without mess or loss."
+    },
+    {
+      "product_id": "arco-shot-glasses",
+      "role": "accessory",
+      "include_rationale": "Graduated borosilicate shot glasses let you read extraction volume in real time, adding a visual feedback loop to your workflow."
+    }
+  ],
+  "total_price_eur": 2100,
+  "price_display": "€2,100",
+  "savings_vs_individual_eur": 98,
+  "what_you_get_list": [
+    "Arco Studio E61 heat-exchange espresso machine",
+    "Arco Zero competition-grade single-dose grinder",
+    "WDT distribution tool with 0.4mm needles",
+    "Anti-static stainless steel dosing cup",
+    "Pair of graduated borosilicate shot glasses",
+    "Free shipping and consolidated packaging"
+  ],
+  "editorial_body": "The craft barista does not pull shots. They conduct extractions — adjusting variables, reading feedback, and refining until the cup in front of them expresses exactly what the roaster intended. This kit is the workshop for that practice. The Studio's E61 group head is the most proven design in espresso history, and for good reason: the brass thermosyphon circuit delivers a gentle pre-infusion that naturally smooths the opening seconds of extraction, buying forgiveness for minor puck preparation inconsistencies while rewarding precision when you get everything right. The Zero grinder completes the equation. Its 64mm flat burrs produce a particle distribution tight enough to make single-origin light roasts taste clean rather than sour, and true zero retention means every gram you weigh in is every gram that reaches the portafilter. Between them, the WDT tool, dosing cup, and graduated shot glasses close the remaining gaps in the workflow. No step is left to chance, but none of it feels like work — because for the craft barista, this attention is the point.",
+  "related_experience": "craft-barista",
+  "hero_image_alt": "The Craft Barista Kit arranged on a dark stone surface: Arco Studio with walnut panels and brass group head, Zero grinder beside it, WDT tool and dosing cup in the foreground, graduated shot glasses catching the warm light of a workshop-style pendant lamp",
+  "persona_tags": ["craft-barista", "espresso-purist"],
+  "intent_tags": ["decide"],
+  "seo": {
+    "title": "Craft Barista Kit — Studio + Zero Espresso Bundle | Arco",
+    "meta_description": "The Craft Barista Kit pairs the Arco Studio E61 machine with the Zero grinder, WDT tool, dosing cup, and shot glasses. Save €98 at €2,100.",
+    "canonical_url": "/bundles/persona-kits/craft-barista-kit"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "right-for-you-arco-preciso",
+  "slug": "arco-preciso",
+  "product_id": "arco-preciso",
+  "headline": "Is the Arco Preciso right for you?",
+  "intro": "The Preciso is the grinder we recommend most often to people who are serious about espresso but not ready to spend \u20ac700 on the Zero. It sits at a crossroads in the Arco range \u2014 capable enough to satisfy experienced baristas, accessible enough to grow into.",
+  "hero_image_alt": "Arco Preciso grinder in matte black on a dark walnut counter next to an Arco Doppio, a dosing cup catching freshly ground coffee, the stepless adjustment collar clearly visible, a small notebook with grind settings written in pencil nearby, warm focused lighting",
+  "perfect_for": [
+    "You own a Doppio or Studio and want a grinder that matches your machine's capability without becoming the limiting factor in your setup.",
+    "You change beans every week or two and need stepless adjustment to dial in precisely for each new bag without being stuck between settings.",
+    "You want to single-dose with minimal waste \u2014 the Preciso retains less than 0.3 grams, which means almost everything you put in comes out.",
+    "You take espresso seriously but are not yet at the stage where you are measuring extraction yield with a refractometer and optimising particle distribution curves."
+  ],
+  "not_ideal_for": [
+    "You pair it with a Primo or Nano \u2014 the Preciso's resolution exceeds what those machines can express, and the Macinino would serve you just as well at less than half the price.",
+    "You are a competition barista or advanced hobbyist who can taste the difference between 54 mm and 64 mm flat burrs \u2014 the Zero's larger burr set produces a tighter particle distribution that matters at that level.",
+    "You primarily brew filter coffee \u2014 the Preciso's adjustment range is optimised for the espresso end of the spectrum, and the Filtro is a better tool for pour-over and immersion methods."
+  ],
+  "what_you_need_to_know": [
+    "Stepless means infinite adjustment. There are no clicks or numbers \u2014 you turn the collar and the grind changes continuously. This gives you more precision but also means you need to keep notes. Most Preciso owners mark their favourite settings on the collar with a pencil or use the included setting log.",
+    "The 54 mm flat burr set produces a more uniform particle distribution than the Macinino's conical burrs. In the cup, this translates to more clarity and a cleaner finish. Whether you prefer that clarity over the Macinino's richer body is a matter of taste, not objective quality.",
+    "Single-dosing works exceptionally well on the Preciso. Weigh your beans, drop them in, grind, and nearly everything comes out. The sub-0.3g retention means you lose almost nothing between doses and can switch beans without purging."
+  ],
+  "common_objections": [
+    {
+      "objection": "Is the Preciso worth double the Macinino?",
+      "honest_answer": "If you pair it with a Doppio or better, yes. Stepless adjustment, flat burrs, and near-zero retention solve the three biggest problems upgraders face: stuck-between-settings, uneven extraction, and bean waste. If you pair it with a Primo, the Macinino is sufficient. The grinder should match the machine."
+    },
+    {
+      "objection": "Should I stretch my budget and get the Zero?",
+      "honest_answer": "Only if you already own a Studio or Studio Pro and have developed your palate to the point where grind quality is your primary remaining variable. The Preciso covers 90% of the Zero's capability at 43% of the price. The gap matters at competition level. For daily home use, the Preciso is the sweet spot."
+    },
+    {
+      "objection": "Is stepless adjustment harder to use than stepped?",
+      "honest_answer": "It requires more intention but is not harder. Instead of turning to a number, you turn until the grind looks and tastes right. The first week you will overshoot adjustments. By the second week, you will find the collar's feel intuitive. Keep a pencil mark on your current setting and you always have a starting point."
+    }
+  ],
+  "alternative_if_not_right": {
+    "product_id": "arco-macinino",
+    "rationale": "The Macinino at \u20ac129 is a reliable stepped grinder that pairs naturally with entry-level machines and demands less attention to operate."
+  },
+  "persona_match_score": {
+    "morning-minimalist": 2,
+    "upgrader": 5,
+    "craft-barista": 4,
+    "traveller": 1,
+    "non-barista": 1,
+    "office-manager": 3
+  },
+  "persona_tags": ["upgrader", "craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Is the Arco Preciso Right for You? \u2014 Honest Grinder Buying Guide | Arco",
+    "meta_description": "The Arco Preciso (\u20ac299) is a stepless flat burr grinder with near-zero retention. Here's who it's built for, when the Macinino is enough, and when you should consider the Zero."
+  }
+}

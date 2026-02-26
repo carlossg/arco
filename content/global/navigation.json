@@ -1,0 +1,108 @@
+{
+  "primary_nav": [
+    {
+      "label": "Products",
+      "url": "/products/espresso-machines",
+      "children": [
+        { "label": "Espresso Machines", "url": "/products/espresso-machines", "featured": ["arco-primo", "arco-doppio", "arco-studio"] },
+        { "label": "Grinders", "url": "/products/grinders", "featured": ["arco-macinino", "arco-preciso", "arco-zero"] },
+        { "label": "Accessories", "url": "/products/accessories" },
+        { "label": "Compare Products", "url": "/products/comparison/arco-primo-vs-arco-doppio" },
+        { "label": "Bundles", "url": "/bundles/persona-kits/morning-minimalist-kit" }
+      ]
+    },
+    {
+      "label": "Brewing Guides",
+      "url": "/guides/fundamentals/what-is-extraction",
+      "children": [
+        { "label": "Espresso Fundamentals", "url": "/guides/fundamentals/what-is-extraction" },
+        { "label": "Intermediate Technique", "url": "/guides/intermediate/pre-infusion-in-practice" },
+        { "label": "Advanced & Competition", "url": "/guides/advanced/flow-control-profiling" },
+        { "label": "Filter Coffee", "url": "/guides/filter/why-filter-is-having-a-moment" },
+        { "label": "Coffee Sourcing", "url": "/guides/sourcing/how-to-read-a-specialty-coffee-label" },
+        { "label": "Milk & Steaming", "url": "/guides/milk/steaming-technique" }
+      ]
+    },
+    {
+      "label": "Stories",
+      "url": "/blog/brand/a-visit-to-our-workshop",
+      "children": [
+        { "label": "How-To", "url": "/blog/how-to/why-your-grinder-matters-more-than-your-machine" },
+        { "label": "Brand & Culture", "url": "/blog/brand/a-visit-to-our-workshop" },
+        { "label": "Community", "url": "/blog/community/the-architect-who-built-a-coffee-corner" },
+        { "label": "Travel & Destinations", "url": "/blog/travel/espresso-bars-worth-visiting-in-milan" }
+      ]
+    },
+    {
+      "label": "Experiences",
+      "url": "/experiences/core/morning-minimalist",
+      "children": [
+        { "label": "The Morning Minimalist", "url": "/experiences/core/morning-minimalist" },
+        { "label": "The Upgrade Path", "url": "/experiences/core/the-upgrade-path" },
+        { "label": "Craft at Home", "url": "/experiences/core/craft-at-home" },
+        { "label": "Espresso Anywhere", "url": "/experiences/core/espresso-anywhere" },
+        { "label": "The Non-Barista", "url": "/experiences/core/the-non-barista" }
+      ]
+    },
+    {
+      "label": "Tools",
+      "url": "/tools/calculators/espresso-ratio-calculator",
+      "children": [
+        { "label": "Espresso Ratio Calculator", "url": "/tools/calculators/espresso-ratio-calculator" },
+        { "label": "Grinder Setting Guide", "url": "/tools/calculators/grinder-setting-guide" },
+        { "label": "Capsule vs Bean Cost", "url": "/tools/calculators/capsule-to-bean-cost-comparison" },
+        { "label": "Machine Care Calendar", "url": "/tools/maintenance/machine-care-calendar" },
+        { "label": "Compatibility Matrix", "url": "/tools/pairing-guides/grinder-machine-compatibility-matrix" }
+      ]
+    },
+    {
+      "label": "About",
+      "url": "/about"
+    }
+  ],
+  "utility_nav": [
+    { "label": "EN", "url": "/localization/en/specialty-coffee-uk", "type": "language", "options": [
+      { "label": "EN", "url": "/localization/en/specialty-coffee-uk", "hreflang": "en" },
+      { "label": "IT", "url": "/localization/it/italian-espresso-culture-arco", "hreflang": "it" },
+      { "label": "DE", "url": "/localization/de/praezision-trifft-kaffee", "hreflang": "de" }
+    ]},
+    { "label": "Search", "url": "/search", "type": "search" },
+    { "label": "Cart", "url": "/cart", "type": "cart" }
+  ],
+  "cta": {
+    "label": "Find Your Brew Style",
+    "url": "/experiences/core/morning-minimalist"
+  },
+  "persona_overrides": {
+    "morning-minimalist": {
+      "promoted": ["/products/espresso-machines", "/guides/fundamentals/your-first-week-with-a-machine", "/bundles/persona-kits/morning-minimalist-kit"],
+      "demoted": ["/guides/advanced/flow-control-profiling"],
+      "cta": { "label": "Your Morning Setup", "url": "/experiences/core/morning-minimalist" }
+    },
+    "upgrader": {
+      "promoted": ["/products/comparison/arco-primo-vs-arco-doppio", "/guides/intermediate/dialing-in-new-beans", "/bundles/persona-kits/upgrader-kit"],
+      "demoted": ["/guides/fundamentals/tamping-technique"],
+      "cta": { "label": "Find Your Upgrade", "url": "/experiences/core/the-upgrade-path" }
+    },
+    "craft-barista": {
+      "promoted": ["/guides/advanced/flow-control-profiling", "/products/espresso-machines", "/blog/brand/why-arco-chose-brass-for-the-studio-boiler"],
+      "demoted": ["/guides/fundamentals/what-is-extraction"],
+      "cta": { "label": "Pro Setup", "url": "/experiences/core/craft-at-home" }
+    },
+    "traveller": {
+      "promoted": ["/products/espresso-machines", "/blog/travel/espresso-bars-worth-visiting-in-milan", "/bundles/persona-kits/traveller-kit"],
+      "demoted": ["/guides/advanced/flow-control-profiling"],
+      "cta": { "label": "Travel Gear", "url": "/experiences/core/espresso-anywhere" }
+    },
+    "non-barista": {
+      "promoted": ["/products/espresso-machines", "/guides/fundamentals/your-first-week-with-a-machine", "/bundles/persona-kits/non-barista-kit"],
+      "demoted": ["/guides/advanced/tds-and-extraction-yield", "/guides/intermediate/using-a-refractometer"],
+      "cta": { "label": "Easy Setup", "url": "/experiences/core/the-non-barista" }
+    },
+    "office-manager": {
+      "promoted": ["/products/espresso-machines", "/bundles/gift-guides/gift-for-an-office", "/tools/calculators/capsule-to-bean-cost-comparison"],
+      "demoted": ["/guides/advanced/flow-control-profiling"],
+      "cta": { "label": "Office Solutions", "url": "/bundles/persona-kits/upgrader-kit" }
+    }
+  }
+}

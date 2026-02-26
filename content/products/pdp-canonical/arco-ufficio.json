@@ -1,0 +1,94 @@
+{
+  "id": "arco-ufficio",
+  "slug": "arco-ufficio",
+  "name": "Arco Ufficio",
+  "tagline": "The office deserves better than capsules.",
+  "price_eur": 799,
+  "price_display": "€799",
+  "category": "espresso-machine",
+  "hero_image_alt": "Arco Ufficio stainless steel espresso machine in a modern open-plan office kitchen, large 2.5-litre water tank visible through smoked glass, two espresso cups on the drip tray, clean industrial design with brushed metal surfaces, soft overhead lighting reflecting off the steel body",
+  "headline": "Espresso at scale. Quality intact.",
+  "subheadline": "A high-volume dual-boiler machine with a 2.5-litre tank and commercial-grade group head, designed for offices and shared spaces that refuse to compromise on coffee.",
+  "description_short": "A high-volume dual-boiler espresso machine with a 2.5L tank and commercial group head, built for offices and shared spaces.",
+  "description_long": "The Arco Ufficio was designed for the place where most people drink the most coffee — the office. Its 2.5-litre water tank and dual-boiler system handle back-to-back shots without temperature drop, whether you're making five cappuccinos for a morning meeting or pulling espressos throughout the day. The commercial-grade group head and 58mm portafilter mean the coffee itself is indistinguishable from what you'd get at a good café. A removable drip tray, auto-off timer, and easy-access descaling mode keep maintenance straightforward even when no single person is responsible for the machine.",
+  "key_specs": {
+    "dimensions": "32 × 26 × 37 cm",
+    "weight": "14.5 kg",
+    "boiler_type": "Dual boiler (stainless steel)",
+    "brew_boiler_capacity": "400 ml",
+    "steam_boiler_capacity": "800 ml",
+    "group_head": "Commercial-grade 58 mm, chrome-plated brass",
+    "warm_up_time": "5 minutes",
+    "pressure": "Rotary pump, adjustable OPV",
+    "water_tank": "2.5 L removable with low-water indicator",
+    "portafilter": "58 mm spouted (bottomless compatible)",
+    "steam_wand": "Two-hole commercial tip, articulating joint",
+    "auto_off": "Programmable (30 min / 1 hr / 2 hr / 4 hr)",
+    "power": "1800 W",
+    "voltage": "220–240 V",
+    "drip_tray_capacity": "800 ml with full indicator",
+    "cup_warmer": "Passive top-mounted, fits 8 espresso cups"
+  },
+  "whats_in_box": [
+    "Arco Ufficio espresso machine",
+    "58 mm spouted portafilter",
+    "Single and double baskets",
+    "Tamper (58 mm flat base)",
+    "Stainless steel milk pitcher (600 ml)",
+    "Blind basket for backflushing",
+    "Cleaning tablets (20 pack)",
+    "Descaling solution (4 sachets)",
+    "Cleaning brush",
+    "Microfibre cloths (3)",
+    "Wall-mount quick-reference card",
+    "Owner's manual"
+  ],
+  "variants": [
+    { "name": "Stainless Steel", "hex": "#C0C0C0" }
+  ],
+  "use_case_headline": "Perfect for offices, studios, and co-working spaces.",
+  "use_case_body": "The Ufficio handles the volume of a busy office without the flavour compromises of pod machines. Its large tank, easy maintenance, and durable build mean it keeps running — even when 'someone else' was supposed to refill the water.",
+  "pairing_products": [
+    { "product_id": "arco-preciso", "rationale": "A stepless grinder that handles the variety of beans different team members might bring in." },
+    { "product_id": "arco-macinino", "rationale": "A more accessible grinder option for offices that want simplicity." },
+    { "product_id": "maintenance-accessories", "rationale": "Extra cleaning tablets and descaling solution to keep the machine in top shape with heavy use." }
+  ],
+  "experience_tag": "office-manager",
+  "persona_tags": ["office-manager"],
+  "intent_tags": ["discover", "research", "decide"],
+  "related_blog_posts": [
+    "office-espresso-guide",
+    "maintaining-a-shared-machine",
+    "from-capsules-to-real-espresso"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Ufficio",
+    "description": "A high-volume dual-boiler espresso machine with a 2.5L tank and commercial group head, built for offices and shared spaces.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-UFFICIO",
+    "image": "/content/products/images/arco-ufficio-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 799,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-ufficio"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.6,
+      "reviewCount": 78
+    }
+  },
+  "seo": {
+    "title": "Arco Ufficio — Office Espresso Machine | Arco",
+    "meta_description": "The Arco Ufficio is a high-volume dual-boiler espresso machine with a 2.5L tank, built for offices that want real espresso instead of capsules. €799.",
+    "og_image_alt": "Arco Ufficio stainless steel office espresso machine with large water tank",
+    "canonical_url": "/products/arco-ufficio"
+  }
+}

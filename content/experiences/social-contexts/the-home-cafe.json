@@ -1,0 +1,37 @@
+{
+  "id": "exp-sc-007",
+  "slug": "the-home-cafe",
+  "title": "The Home Cafe",
+  "persona_tag": "home-barista",
+  "experience_archetype": "Home Cafe Host",
+  "hero_image_alt": "A warm kitchen with friends gathered around a counter, an Arco Studio machine pulling a shot in the foreground, mismatched ceramic cups arranged on a wooden board, a bag of specialty beans open beside a grinder, natural light streaming through a large window",
+  "hero_headline": "The best cafe in the neighbourhood is your kitchen.",
+  "hero_subtext": "When friends stop suggesting going out for coffee and start suggesting coming to yours.",
+  "editorial_intro": "There was no sign. No grand opening. Nobody applied for a licence or designed a logo. It just happened gradually — friends started coming over for coffee instead of meeting at the cafe down the road. Your kitchen became the place. The coffee was better, the seats were more comfortable, and nobody had to queue. You did not set out to open a home cafe, but you seem to be running one.",
+  "editorial_body": "The first person to call it a cafe was your friend Sarah. She was sitting at the kitchen table on a Saturday morning, both hands wrapped around the flat white you had just made her, and she said, without looking up, 'This is better than anywhere on the high street.' You laughed it off. But the following Saturday she came back, and she brought someone. The Saturday after that, there were four of you.\n\nIt is not a formal thing. There is no schedule, no reservation, no menu. But there is a pattern. Saturday mornings, sometimes Sunday, a few friends drift in between nine and eleven. They sit at the kitchen table or lean against the counter. You make coffee. Sometimes you make eggs, or someone brings pastries from the bakery that opens early. The conversation is unhurried — the kind of talk that only happens when people are comfortable and uncaffeinated enough to be honest before the espresso arrives.\n\nThe Arco Studio is the centre of it. You bought it for yourself, for the craft of it, for the pleasure of pulling precise shots and experimenting with pressure profiles. But it turns out the machine has a second life as a social instrument. When friends are in the kitchen, you become the barista. Not in a pretentious way — you do not give lectures about extraction yields or insist on particular cups. You simply ask what they want and make it.\n\nSarah has a flat white with oat milk. Your neighbour James drinks a double espresso, no sugar, and always comments on the crema. His partner wants a cappuccino, dry, which you have learned to make exactly the way she likes it — the foam stiff enough to hold its shape when you pour. Your friend Alex, who drinks filter coffee at home and claims not to like espresso, has been slowly converted over three months. He started with a latte, graduated to a flat white, and last week drank a straight espresso for the first time and said, very quietly, 'Oh. I understand now.'\n\nThe Arco Macinino handles the volume. For your own morning shots, the single-dose workflow of a higher-end grinder would be ideal. But on a Saturday, when you are making six drinks in thirty minutes, you need speed and consistency. The Macinino's hopper holds enough beans for the session, and the grind quality is good enough that the Studio can do its work without you fussing over distribution. You top up the hopper at the start, set the grind, and the morning runs itself.\n\nYou have developed a system. Milk goes in the fridge the night before — two cartons of whole, one of oat. The cups are already on the warming tray. The beans are weighed and the grinder is dialled in before anyone arrives. By the time the first guest walks in, you are ready. The workflow is smooth enough that you can make coffee and hold a conversation at the same time, which is the real skill — nobody wants to visit a cafe where the barista is too focused to talk.\n\nThe home cafe has changed your friendships in ways you did not expect. There is something about making someone a drink — about knowing their order, remembering how they take it, handing them a cup made specifically for them — that creates a particular kind of intimacy. It is an act of care disguised as hospitality. Your friends do not just come for the coffee. They come because the coffee is the invitation to be present, to sit down, to stay.\n\nSome mornings the conversation is light. Football, work, weekend plans. Other mornings it goes deeper. Last month, over a second round of espressos, James told the table something he had been carrying for weeks, and the room held it gently, and you made another round while the silence did its work.\n\nThe kitchen shows the signs of its double life. There is a knock box beside the sink that your partner tolerates. A shelf of beans — three or four bags at various stages of freshness — sits next to the cookbooks. The steam wand gets wiped more than anything else in the house. The counter around the machine has a faint ring of coffee dust that reappears no matter how often you clean it. These are the marks of a space that is used for something that matters.\n\nYou have thought about upgrading to the Studio Pro for the flow control. You have thought about getting a better grinder. You have thought about buying proper cafe chairs for the kitchen. But the truth is, the setup works. The coffee is good. The friends keep coming. The Saturday mornings have become something you protect in your calendar — not because you have to, but because they are the best part of the week.\n\nThere was no grand opening. There will be no grand closing. The home cafe exists because the coffee is good and the door is open and the people you care about know where to find you on a Saturday morning.\n\nThe kettle clicks. The Studio hums. Someone knocks at the door.\n\nCome in. The usual?",
+  "product_bundle": [
+    { "product_id": "arco-studio", "role": "anchor" },
+    { "product_id": "arco-macinino", "role": "primary" },
+    { "product_id": "arco-tamper", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Home Cafe setup",
+  "bundle_intro": "The setup that turned your kitchen into the best cafe on the street.",
+  "featured_guides": [
+    "guide-making-milk-drinks-for-a-crowd",
+    "guide-dialling-in-espresso",
+    "guide-essential-grind-settings"
+  ],
+  "related_blog_posts": [
+    "blog-hosting-with-coffee",
+    "blog-home-barista-essentials",
+    "blog-milk-texturing-basics"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "home-barista",
+  "persona_tags": ["craft-barista", "morning-minimalist", "home-cafe", "social-coffee"],
+  "intent_tags": ["social", "hosting", "friends", "weekend", "home-setup", "milk-drinks"],
+  "seo": {
+    "title": "The Home Cafe — When Friends Stop Going Out and Start Coming to Yours | Arco Coffee",
+    "meta_description": "Turn your kitchen into the neighbourhood's favourite cafe with the Arco Studio. Saturday mornings, good friends, and coffee that is better than anything on the high street."
+  }
+}

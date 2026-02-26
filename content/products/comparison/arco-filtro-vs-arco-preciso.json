@@ -1,0 +1,69 @@
+{
+  "id": "arco-filtro-vs-arco-preciso",
+  "slug": "arco-filtro-vs-arco-preciso",
+  "title": "Arco Filtro vs Arco Preciso",
+  "products": ["arco-filtro", "arco-preciso"],
+  "comparison_headline": "Filter-first or espresso-first?",
+  "comparison_intro": "Both are stepless grinders built for people who care about what ends up in the cup. The Filtro is optimised for filter brewing methods with a wider grind range and burr geometry tuned for clarity. The Preciso is built for espresso with the fine-resolution adjustment that espresso demands. Choosing between them depends on what you brew most.",
+  "hero_image_alt": "Arco Filtro and Arco Preciso grinders on a wooden countertop, the Filtro next to a Chemex and V60 dripper, the Preciso next to a bottomless portafilter and espresso cup, morning light, clean composition showing their different brewing contexts",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac249",
+      "product_b": "\u20ac299"
+    },
+    "boiler_type": {
+      "product_a": "N/A \u2014 Stepless flat burr grinder optimised for filter (54 mm burrs, filter geometry)",
+      "product_b": "N/A \u2014 Stepless flat burr grinder optimised for espresso (54 mm burrs, espresso geometry)"
+    },
+    "heat_up_time": {
+      "product_a": "Instant on",
+      "product_b": "Instant on"
+    },
+    "pressure_control": {
+      "product_a": "N/A",
+      "product_b": "N/A"
+    },
+    "steam_capability": {
+      "product_a": "N/A",
+      "product_b": "N/A"
+    },
+    "grind_compatibility": {
+      "product_a": "Wide range from medium-fine (Aeropress) to coarse (French Press), with excellent consistency across the full spectrum",
+      "product_b": "Focused range from Turkish-fine to medium, with exceptional resolution in the espresso zone"
+    },
+    "suitable_for": {
+      "product_a": "Pour-over enthusiasts, Aeropress users, French Press brewers, and anyone whose primary method is filter coffee",
+      "product_b": "Espresso-focused home baristas who need micro-adjustability in the fine grind range"
+    },
+    "not_suitable_for": {
+      "product_a": "Dedicated espresso drinkers \u2014 the Filtro can grind fine enough for espresso but lacks the micro-resolution the Preciso offers in that range",
+      "product_b": "Filter-focused brewers \u2014 the Preciso can grind coarse enough for pour-over but the adjustment feel is cramped outside the espresso range"
+    }
+  },
+  "recommendation_by_persona": {
+    "craft-barista": {
+      "recommended_product_id": "arco-preciso",
+      "rationale": "If espresso is your primary focus, the Preciso's resolution in the fine range is where it matters \u2014 the Filtro's broader range comes at the cost of precision where you need it most."
+    },
+    "morning-minimalist": {
+      "recommended_product_id": "arco-filtro",
+      "rationale": "If your morning is a pour-over or an Aeropress, the Filtro is designed for exactly that \u2014 consistent grind across the methods you actually use."
+    },
+    "upgrader": {
+      "recommended_product_id": "arco-preciso",
+      "rationale": "If you are upgrading your espresso setup, the Preciso is the grinder that will make the biggest difference in your cup \u2014 the Filtro is a better second grinder than a first one."
+    }
+  },
+  "verdict": "The Filtro and Preciso are specialist tools, not competitors. The Filtro excels at filter grind consistency across a wide range of methods and is the better choice if pour-over or immersion brewing is your daily ritual. The Preciso excels at the surgical fine adjustments espresso demands. If you brew both espresso and filter regularly, many of our customers end up owning both \u2014 and that is not an upsell, it is genuinely the best solution.",
+  "related_blog_posts": [
+    "grind-size-for-filter",
+    "using-arco-filtro-for-different-methods",
+    "grind-size-explained"
+  ],
+  "persona_tags": ["craft-barista", "morning-minimalist", "upgrader"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Filtro vs Arco Preciso \u2014 Filter-Focused vs Espresso-Focused Grinder | Arco",
+    "meta_description": "The Arco Filtro (\u20ac249) is optimised for pour-over, Aeropress, and French Press. The Arco Preciso (\u20ac299) is built for espresso precision. Here's how to match the grinder to your brewing method."
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "id": "pairing-grinder-machine",
+  "slug": "grinder-machine-compatibility-matrix",
+  "title": "Grinder & Machine Compatibility Matrix",
+  "description": "Find out which Arco grinder pairs best with which Arco machine. Every combination is rated for compatibility, with budget tiers and pairing rationale to help you build the right setup.",
+  "hero_image_alt": "Four Arco grinders lined up beside three espresso machines on a marble countertop, showing scale and pairing combinations",
+  "data": {
+    "grinders": [
+      { "id": "arco-mini-grinder", "label": "Arco Mini Grinder", "price": 149, "burrs": "38mm flat", "tier": "entry" },
+      { "id": "arco-macinino-home", "label": "Arco Macinino Home", "price": 299, "burrs": "50mm flat", "tier": "mid" },
+      { "id": "arco-conico", "label": "Arco Conico", "price": 399, "burrs": "58mm conical", "tier": "prosumer" },
+      { "id": "arco-macinino-pro", "label": "Arco Macinino Pro", "price": 499, "burrs": "64mm flat", "tier": "high-end" }
+    ],
+    "machines": [
+      { "id": "arco-steam", "label": "Arco Steam", "price": 199, "tier": "entry" },
+      { "id": "arco-nano", "label": "Arco Nano", "price": 449, "tier": "entry" },
+      { "id": "arco-automatico", "label": "Arco Automatico", "price": 699, "tier": "mid", "notes": "Has built-in grinder; external grinder optional for single-dose workflow" },
+      { "id": "arco-classica", "label": "Arco Classica", "price": 899, "tier": "mid" },
+      { "id": "arco-barista-pro", "label": "Arco Barista Pro", "price": 1199, "tier": "prosumer" },
+      { "id": "arco-lever", "label": "Arco Lever", "price": 1499, "tier": "prosumer" },
+      { "id": "arco-maestro", "label": "Arco Maestro", "price": 1699, "tier": "high-end" },
+      { "id": "arco-dual-boiler", "label": "Arco Dual Boiler", "price": 2199, "tier": "high-end" }
+    ],
+    "pairings": [
+      { "grinder": "arco-mini-grinder", "machine": "arco-steam", "rating": 5, "rationale": "Perfect budget pairing. The Mini Grinder produces adequate grind for the Steam's pressurized basket.", "budget_tier": "budget" },
+      { "grinder": "arco-mini-grinder", "machine": "arco-nano", "rating": 4, "rationale": "Good starter combination. The Mini Grinder handles the Nano's 53mm portafilter well. Upgrade the grinder first when you outgrow this setup.", "budget_tier": "budget" },
+      { "grinder": "arco-mini-grinder", "machine": "arco-automatico", "rating": 2, "rationale": "Not recommended. The Automatico's built-in grinder outperforms the Mini for convenience and consistency.", "budget_tier": "n/a" },
+      { "grinder": "arco-mini-grinder", "machine": "arco-classica", "rating": 2, "rationale": "The Classica deserves a better grinder. The Mini Grinder's 38mm burrs cannot provide the consistency the Classica's PID system can exploit.", "budget_tier": "n/a" },
+      { "grinder": "arco-mini-grinder", "machine": "arco-barista-pro", "rating": 1, "rationale": "Severe bottleneck. The Barista Pro's capabilities will be wasted with inconsistent grinds from small burrs.", "budget_tier": "n/a" },
+      { "grinder": "arco-mini-grinder", "machine": "arco-lever", "rating": 1, "rationale": "Not recommended. Lever machines demand precise, consistent grind quality.", "budget_tier": "n/a" },
+      { "grinder": "arco-mini-grinder", "machine": "arco-maestro", "rating": 1, "rationale": "Severe mismatch. Invest in the Macinino Pro or Conico instead.", "budget_tier": "n/a" },
+      { "grinder": "arco-mini-grinder", "machine": "arco-dual-boiler", "rating": 1, "rationale": "Do not pair entry-level grinders with high-end machines.", "budget_tier": "n/a" },
+
+      { "grinder": "arco-macinino-home", "machine": "arco-steam", "rating": 3, "rationale": "Overkill for the Steam, but fine if you plan to upgrade the machine later.", "budget_tier": "value" },
+      { "grinder": "arco-macinino-home", "machine": "arco-nano", "rating": 5, "rationale": "Excellent pairing. The Macinino Home elevates the Nano significantly, unlocking its full potential.", "budget_tier": "value" },
+      { "grinder": "arco-macinino-home", "machine": "arco-automatico", "rating": 3, "rationale": "A nice upgrade for single-dosing, but the Automatico's built-in grinder is already quite capable.", "budget_tier": "value" },
+      { "grinder": "arco-macinino-home", "machine": "arco-classica", "rating": 5, "rationale": "The recommended pairing. The 50mm flat burrs deliver the consistency the Classica's PID needs, and the combined price point is excellent.", "budget_tier": "mid-range" },
+      { "grinder": "arco-macinino-home", "machine": "arco-barista-pro", "rating": 4, "rationale": "Solid pairing. The Macinino Home is capable enough for the Barista Pro, though upgrading to the Pro grinder unlocks more potential.", "budget_tier": "mid-range" },
+      { "grinder": "arco-macinino-home", "machine": "arco-lever", "rating": 3, "rationale": "Adequate but not ideal. Lever machines benefit from the larger burrs and lower RPM of the Conico.", "budget_tier": "mid-range" },
+      { "grinder": "arco-macinino-home", "machine": "arco-maestro", "rating": 2, "rationale": "The Maestro deserves the Macinino Pro for grind quality parity.", "budget_tier": "n/a" },
+      { "grinder": "arco-macinino-home", "machine": "arco-dual-boiler", "rating": 2, "rationale": "Underpowered for this machine. The Dual Boiler's temperature precision demands equally precise grind.", "budget_tier": "n/a" },
+
+      { "grinder": "arco-conico", "machine": "arco-steam", "rating": 2, "rationale": "Extreme overkill. Save your money and get the Nano instead.", "budget_tier": "n/a" },
+      { "grinder": "arco-conico", "machine": "arco-nano", "rating": 3, "rationale": "The grinder outclasses the machine, but it means you can upgrade the machine later without changing grinder.", "budget_tier": "future-proof" },
+      { "grinder": "arco-conico", "machine": "arco-automatico", "rating": 3, "rationale": "Specialty pairing for those who want conical burr flavour profiles with automatic convenience.", "budget_tier": "specialty" },
+      { "grinder": "arco-conico", "machine": "arco-classica", "rating": 4, "rationale": "Great match if you prefer the rounder, sweeter flavour profile of conical burrs.", "budget_tier": "mid-range" },
+      { "grinder": "arco-conico", "machine": "arco-barista-pro", "rating": 4, "rationale": "A strong combination. Conical burrs pair well with the Barista Pro's gentle pre-infusion.", "budget_tier": "prosumer" },
+      { "grinder": "arco-conico", "machine": "arco-lever", "rating": 5, "rationale": "The ideal lever pairing. Conical burrs produce a forgiving particle distribution that works beautifully with manual pressure profiling.", "budget_tier": "prosumer" },
+      { "grinder": "arco-conico", "machine": "arco-maestro", "rating": 4, "rationale": "Very capable. Choose this over the Macinino Pro if you prefer traditional Italian espresso flavour.", "budget_tier": "high-end" },
+      { "grinder": "arco-conico", "machine": "arco-dual-boiler", "rating": 3, "rationale": "Capable but the Dual Boiler's precision-focused design pairs better with the surgical accuracy of flat burrs.", "budget_tier": "high-end" },
+
+      { "grinder": "arco-macinino-pro", "machine": "arco-steam", "rating": 1, "rationale": "Absurd mismatch. You would be grinding diamonds to make mud pies.", "budget_tier": "n/a" },
+      { "grinder": "arco-macinino-pro", "machine": "arco-nano", "rating": 2, "rationale": "Significant overkill. The Nano cannot exploit the Pro's precision. Only justified if upgrading the machine soon.", "budget_tier": "n/a" },
+      { "grinder": "arco-macinino-pro", "machine": "arco-automatico", "rating": 3, "rationale": "For the single-dose purist who wants peak grind quality with automatic brewing. Niche but valid.", "budget_tier": "specialty" },
+      { "grinder": "arco-macinino-pro", "machine": "arco-classica", "rating": 4, "rationale": "Future-proof pairing. You will notice the difference in clarity over the Macinino Home.", "budget_tier": "prosumer" },
+      { "grinder": "arco-macinino-pro", "machine": "arco-barista-pro", "rating": 5, "rationale": "Outstanding match. The 64mm flat burrs deliver the clarity and detail the Barista Pro was designed to showcase.", "budget_tier": "prosumer" },
+      { "grinder": "arco-macinino-pro", "machine": "arco-lever", "rating": 4, "rationale": "Excellent if you want bright, complex espresso. Flat burrs highlight origin character more than conicals.", "budget_tier": "high-end" },
+      { "grinder": "arco-macinino-pro", "machine": "arco-maestro", "rating": 5, "rationale": "The flagship pairing. This is Arco's recommended setup for discerning home baristas who want cafe-quality results.", "budget_tier": "high-end" },
+      { "grinder": "arco-macinino-pro", "machine": "arco-dual-boiler", "rating": 5, "rationale": "The ultimate home setup. Both components operate at the highest level, and neither bottlenecks the other.", "budget_tier": "premium" }
+    ]
+  },
+  "persona_tags": ["new-buyer", "upgrader", "home-barista"],
+  "intent_tags": ["compatibility", "pairing", "build-setup", "compare"],
+  "related_products": [
+    "arco-macinino-pro",
+    "arco-macinino-home",
+    "arco-conico",
+    "arco-mini-grinder",
+    "arco-classica",
+    "arco-maestro"
+  ],
+  "cta": {
+    "label": "Build Your Perfect Setup",
+    "url": "/products"
+  },
+  "seo": {
+    "title": "Grinder & Machine Compatibility Matrix | Arco",
+    "meta_description": "Find the best grinder and machine pairing for your Arco setup. Our compatibility matrix rates every combination with budget tiers and expert rationale."
+  }
+}
