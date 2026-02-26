@@ -332,7 +332,7 @@ function getPresetList(): PresetInfo[] {
       requiresEndpoint: false,
     },
     {
-      name: 'llama',
+      name: 'llama-3.3-70b-instruct-maas',
       category: 'pure',
       description: 'Llama 3.3 70B for all roles via Model Garden MaaS',
       roles: {

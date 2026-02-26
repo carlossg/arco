@@ -4,7 +4,7 @@
     "totalDuration": 163670,
     "summary": [
         {
-            "preset": "llama",
+            "preset": "llama-3.3-70b-instruct-maas",
             "category": "pure",
             "classificationMs": 588,
             "classificationModel": "llama-3.3-70b-instruct-maas",
@@ -282,7 +282,7 @@
             "status": "success"
         },
         {
-            "preset": "llama",
+            "preset": "llama-3.3-70b-instruct-maas",
             "category": "pure",
             "timings": {
                 "classification": {

@@ -56,7 +56,7 @@ const MODEL_PRESETS: Record<string, ModelPreset> = {
 	'gemini-2.5-flash-lite': purePreset('google', 'gemini-2.5-flash-lite'),
 	'gemini-2.0-flash':    purePreset('google', 'gemini-2.0-flash'),
 	'gemini-2.0-flash-lite': purePreset('google', 'gemini-2.0-flash-lite'),
-	'llama':               purePreset('model-garden', 'llama-3.3-70b-instruct-maas'),
+	'llama-3.3-70b-instruct-maas': purePreset('model-garden', 'llama-3.3-70b-instruct-maas'),
 
 	// -- Mixed presets (Pro/heavier reasoning + Flash/lighter rest) ───────
 	'gemini-3-mixed':      mixedPreset('google', 'gemini-3-pro-preview',  'google', 'gemini-3-flash-preview'),

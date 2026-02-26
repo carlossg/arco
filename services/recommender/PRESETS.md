@@ -92,7 +92,7 @@ Single model for all 4 roles. Simplest configuration, consistent behavior.
 
 **Benchmark:** ~6.9s | Ultra-low cost. Good for high-volume, cost-sensitive workloads where quality tradeoffs are acceptable.
 
-### `llama`
+### `llama-3.3-70b-instruct-maas`
 
 | Role | Provider | Model | Max Tokens | Temp |
 |------|----------|-------|-----------|------|

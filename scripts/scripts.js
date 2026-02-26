@@ -148,6 +148,20 @@ function loadDelayed() {
 }
 
 /**
+ * Valid recommender presets (must match model-factory-google.ts MODEL_PRESETS)
+ */
+const VALID_PRESETS = [
+  'production',
+  'gemini-3-pro', 'gemini-3-flash',
+  'gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.5-flash-lite',
+  'gemini-2.0-flash', 'gemini-2.0-flash-lite',
+  'llama-3.3-70b-instruct-maas',
+  'gemini-3-mixed', 'gemini-2.5-mixed', 'gemini-2.0-mixed',
+  'llama-3.2-3b', 'mistral-small',
+  'gemma-3-4b', 'gemma-3-12b',
+];
+
+/**
  * Check if this is an Arco Recommender request (has ?q= or ?query= param)
  */
 function isArcoRecommenderRequest() {
@@ -238,6 +252,18 @@ async function renderArcoRecommenderPage() {
   const params = new URLSearchParams(window.location.search);
   const query = params.get('q') || params.get('query');
   const preset = params.get('preset') || 'production';
+
+  // Validate preset
+  if (!VALID_PRESETS.includes(preset)) {
+    main.innerHTML = `
+      <div class="section generation-error">
+        <h2>Unknown preset: &ldquo;${preset}&rdquo;</h2>
+        <p>Try one of: ${VALID_PRESETS.map((p) => `<a href="/?q=${encodeURIComponent(query)}&amp;preset=${p}">${p}</a>`).join(', ')}</p>
+      </div>
+    `;
+    return;
+  }
+
   const slug = generateSlug(query);
 
   // Clear main and show loading state
