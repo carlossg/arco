@@ -274,8 +274,30 @@ interface RawReasoningResponse {
 }
 
 /**
+ * Attempts to repair common JSON issues produced by LLMs:
+ * trailing commas, missing outer braces, unescaped control characters.
+ */
+function repairJSON(text: string): string {
+  let s = text.trim();
+
+  // Wrap in {} if the model omitted the outer braces
+  if (!s.startsWith('{') && s.startsWith('"')) {
+    s = `{${s}}`;
+  }
+
+  // Remove trailing commas before } or ]
+  s = s.replace(/,\s*([}\]])/g, '$1');
+
+  // Remove control characters that break JSON.parse
+  s = s.replace(/[\x00-\x1F\x7F]/g, (ch) => (ch === '\n' || ch === '\r' || ch === '\t' ? ch : ''));
+
+  return s;
+}
+
+/**
  * Parses the raw LLM text output into a structured `ReasoningResult`.
  * Handles markdown-wrapped JSON (```json ... ```) and bare JSON.
+ * Tolerates common LLM mistakes (trailing commas, missing braces).
  */
 export function parseReasoningResponse(raw: string): ReasoningResult {
   // Strip markdown code fences if present
@@ -286,15 +308,26 @@ export function parseReasoningResponse(raw: string): ReasoningResult {
   }
 
   let parsed: RawReasoningResponse;
+
+  // Attempt 1: parse as-is
   try {
     parsed = JSON.parse(cleaned) as RawReasoningResponse;
   } catch {
-    // Last resort: try to extract a JSON object from the string
-    const objectMatch = cleaned.match(/\{[\s\S]*\}/);
-    if (objectMatch) {
-      parsed = JSON.parse(objectMatch[0]) as RawReasoningResponse;
-    } else {
-      throw new Error('Failed to parse reasoning response as JSON');
+    // Attempt 2: repair common issues and retry
+    try {
+      parsed = JSON.parse(repairJSON(cleaned)) as RawReasoningResponse;
+    } catch {
+      // Attempt 3: extract the outermost JSON object
+      const objectMatch = cleaned.match(/\{[\s\S]*\}/);
+      if (objectMatch) {
+        try {
+          parsed = JSON.parse(repairJSON(objectMatch[0])) as RawReasoningResponse;
+        } catch {
+          throw new Error('Failed to parse reasoning response as JSON');
+        }
+      } else {
+        throw new Error('Failed to parse reasoning response as JSON');
+      }
     }
   }
 
