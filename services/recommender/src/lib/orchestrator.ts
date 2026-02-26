@@ -1118,14 +1118,9 @@ function formatProductForPrompt(product: Product): string {
   }
 
   // Include primary image if available
-  if (product.images) {
-    const images = product.images as Record<string, unknown>;
-    if (images.primary) {
-      lines.push(`- Image: ${images.primary}`);
-    }
-    if (Array.isArray(images.remoteUrls) && images.remoteUrls.length > 0) {
-      lines.push(`- Image URL: ${images.remoteUrls[0]}`);
-    }
+  const imageUrl = getProductImageUrl(product);
+  if (imageUrl) {
+    lines.push(`- Image: ${imageUrl}`);
   }
 
   return lines.join('\n');
@@ -1458,13 +1453,15 @@ ${specRows}
  */
 function getProductImageUrl(product: Product): string | null {
   if (!product.images) return null;
+  // Handle array of URLs (actual data format from products.json)
+  if (Array.isArray(product.images) && product.images.length > 0) {
+    return String(product.images[0]);
+  }
+  // Handle object format as fallback
   const images = product.images as Record<string, unknown>;
   if (typeof images.primary === 'string') return images.primary;
   if (Array.isArray(images.remoteUrls) && images.remoteUrls.length > 0) {
     return String(images.remoteUrls[0]);
-  }
-  if (Array.isArray(images.gallery) && images.gallery.length > 0) {
-    return String(images.gallery[0]);
   }
   return null;
 }
