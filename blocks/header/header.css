@@ -200,8 +200,34 @@ header nav .nav-sections ul > li {
   font-weight: 500;
 }
 
+header nav .nav-sections .nav-drop {
+  cursor: pointer;
+}
+
+header nav .nav-sections .nav-drop > a::after {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border: 1.5px solid currentcolor;
+  border-width: 1.5px 1.5px 0 0;
+  transform: rotate(135deg);
+  margin-left: 8px;
+  vertical-align: middle;
+  transition: transform var(--transition);
+}
+
+header nav .nav-sections .nav-drop[aria-expanded='true'] > a::after {
+  transform: rotate(315deg);
+}
+
 header nav .nav-sections ul > li > ul {
   margin-top: 0;
+  display: none;
+}
+
+header nav .nav-sections ul > li[aria-expanded='true'] > ul {
+  display: block;
 }
 
 header nav .nav-sections ul > li > ul > li {
@@ -223,6 +249,10 @@ header nav .nav-sections ul > li > ul > li {
     position: relative;
     padding-right: 16px;
     cursor: pointer;
+  }
+
+  header nav .nav-sections .nav-drop > a::after {
+    display: none;
   }
 
   header nav .nav-sections .nav-drop::after {
