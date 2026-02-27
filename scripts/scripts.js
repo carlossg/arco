@@ -414,12 +414,13 @@ async function renderArcoRecommenderPage() {
   }
 
   // Check for prefetched "For You" data (lower priority than quiz)
-  // Keep data in sessionStorage so repeat visits reuse it until a new prefetch overwrites it.
+  // Only serve if the current query matches the prefetched query.
   try {
     const foryouRaw = sessionStorage.getItem(FORYOU_PREFETCH_KEY);
     if (foryouRaw) {
       const prefetchData = JSON.parse(foryouRaw);
-      if (prefetchData.blocks && prefetchData.blocks.length > 0) {
+      const queryMatches = prefetchData.query && prefetchData.query === query;
+      if (queryMatches && prefetchData.blocks && prefetchData.blocks.length > 0) {
         const age = Date.now() - (prefetchData.timestamp || 0);
         // eslint-disable-next-line no-console
         console.log(`[Recommender] Using prefetched For You data (${prefetchData.blocks.length} blocks, ${(age / 1000).toFixed(1)}s old)`);
