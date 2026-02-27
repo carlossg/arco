@@ -64,7 +64,7 @@ const MODEL_PRESETS: Record<string, ModelPreset> = {
 	'gemini-2.0-mixed':    mixedPreset('google', 'gemini-2.0-flash',      'google', 'gemini-2.0-flash-lite'),
 
 	// -- Production alias (Gemini 3 Pro reasoning + 2.5 Flash Lite rest) ─
-	'production':          mixedPreset('google', 'gemini-3-pro-preview',  'google', 'gemini-2.5-flash-lite'),
+	'production':          mixedPreset('google', 'gemini-2.5-flash-lite', 'google', 'gemini-2.5-flash-lite'),
 
 	// -- Model Garden MaaS presets (serverless open models) ──────────────
 	'llama-3.2-3b':    mixedPreset('google', 'gemini-2.0-flash', 'model-garden', 'llama-3.2-3b-instruct-maas'),

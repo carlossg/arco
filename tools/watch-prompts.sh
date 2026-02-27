@@ -28,16 +28,17 @@ DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
-LOG_FILTER='(\[LLM\]|\[reasoning-engine\]|\[orchestrator\])'
+TAG_PATTERN='\[LLM\]|\[reasoning-engine\]|\[orchestrator\]'
+SEPARATOR_PATTERN='═{3,}|─{3,}'
 
 # ── Colorize output ─────────────────────────────────────────────────────────
 
 colorize() {
   local line="$1"
 
-  if echo "$line" | grep -q '═══'; then
+  if echo "$line" | grep -qE '═{3,}'; then
     echo -e "${CYAN}${line}${RESET}"
-  elif echo "$line" | grep -q '───'; then
+  elif echo "$line" | grep -qE '─{3,}'; then
     echo -e "${DIM}${line}${RESET}"
   elif echo "$line" | grep -qE '\[LLM\] (CLASSIFICATION|REASONING|CONTENT|VALIDATION)'; then
     echo -e "${BOLD}${GREEN}${line}${RESET}"
@@ -60,8 +61,75 @@ colorize() {
   elif echo "$line" | grep -q '\[LLM\]'; then
     echo -e "${DIM}${line}${RESET}"
   else
-    echo "$line"
+    echo -e "${DIM}${line}${RESET}"
   fi
+}
+
+# ── Stateful filter ────────────────────────────────────────────────────────
+# Two modes:
+#   - Inside a ═══ block: print everything (multiline prompt content)
+#   - Outside: only print lines matching our tags
+# This works regardless of whether lines have timestamp prefixes (live tail)
+# or not (history mode).
+
+# History variant: extracts timestamp from "UTC\ttext" format, prepends
+# local time, then applies the same block-tracking filter.
+
+history_filter_and_colorize() {
+  local in_block=0
+  while IFS= read -r raw; do
+    # Raw format: "2026-02-26T19:31:33.870Z\ttext..."
+    utc_ts="${raw%%	*}"
+    line="${raw#*	}"
+
+    # Convert UTC → local timestamp prefix
+    local ts_prefix=""
+    if [ -n "$utc_ts" ]; then
+      epoch=$(TZ=UTC date -j -f "%Y-%m-%dT%H:%M:%S" "${utc_ts%%.*}" "+%s" 2>/dev/null)
+      if [ -n "$epoch" ]; then
+        ts_prefix=$(date -r "$epoch" "+%Y-%m-%d %H:%M:%S")
+      else
+        ts_prefix="$utc_ts"
+      fi
+    fi
+
+    if echo "$line" | grep -qE '═{3,}'; then
+      if [ "$in_block" = "0" ]; then
+        in_block=1
+      else
+        in_block=0
+      fi
+      echo -ne "${DIM}${ts_prefix}${RESET} "
+      colorize "$line"
+    elif [ "$in_block" = "1" ]; then
+      echo -ne "${DIM}${ts_prefix}${RESET} "
+      colorize "$line"
+    elif echo "$line" | grep -qE "${TAG_PATTERN}"; then
+      echo -ne "${DIM}${ts_prefix}${RESET} "
+      colorize "$line"
+    fi
+  done
+}
+
+filter_and_colorize() {
+  local in_block=0
+  while IFS= read -r line; do
+    if echo "$line" | grep -qE '═{3,}'; then
+      # Separator toggles block mode
+      if [ "$in_block" = "0" ]; then
+        in_block=1
+      else
+        in_block=0
+      fi
+      colorize "$line"
+    elif [ "$in_block" = "1" ]; then
+      # Inside a prompt block — print everything (multiline content)
+      colorize "$line"
+    elif echo "$line" | grep -qE "${TAG_PATTERN}"; then
+      # Outside block but tagged line (orchestrator, reasoning-engine)
+      colorize "$line"
+    fi
+  done
 }
 
 # ── Local mode ──────────────────────────────────────────────────────────────
@@ -106,11 +174,7 @@ watch_cloud_tail() {
 
   gcloud beta run services logs tail arco-recommender \
     --project="$PROJECT" \
-    --region=us-central1 2>&1 | while IFS= read -r line; do
-    if echo "$line" | grep -qE '\[LLM\]|\[reasoning-engine\]|\[orchestrator\]'; then
-      colorize "$line"
-    fi
-  done
+    --region=us-central1 2>&1 | filter_and_colorize
 }
 
 # ── Cloud Run: fetch from N minutes ago ────────────────────────────────────
@@ -137,26 +201,11 @@ watch_cloud_history() {
   echo ""
 
   gcloud logging read \
-    "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"arco-recommender\" AND textPayload=~\"${LOG_FILTER}\" AND timestamp>=\"${since}\"" \
+    "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"arco-recommender\" AND timestamp>=\"${since}\"" \
     --project="$PROJECT" \
     --format="value(timestamp,textPayload)" \
     --order=asc \
-    --limit="$limit" | while IFS= read -r raw; do
-    # Raw format: "2026-02-26T19:31:33.870Z\ttext..."
-    # Extract ISO timestamp and convert UTC → local time
-    utc_ts="${raw%%	*}"
-    line="${raw#*	}"
-    if [ -n "$utc_ts" ]; then
-      epoch=$(TZ=UTC date -j -f "%Y-%m-%dT%H:%M:%S" "${utc_ts%%.*}" "+%s" 2>/dev/null)
-      if [ -n "$epoch" ]; then
-        local_ts=$(date -r "$epoch" "+%Y-%m-%d %H:%M:%S")
-      else
-        local_ts="$utc_ts"
-      fi
-      echo -ne "${DIM}${local_ts}${RESET} "
-    fi
-    colorize "$line"
-  done
+    --limit="$limit" | history_filter_and_colorize
 
   # Continue with live tail
   echo ""
@@ -164,11 +213,7 @@ watch_cloud_history() {
   echo ""
   gcloud beta run services logs tail arco-recommender \
     --project="$PROJECT" \
-    --region=us-central1 2>&1 | while IFS= read -r line; do
-    if echo "$line" | grep -qE '\[LLM\]|\[reasoning-engine\]|\[orchestrator\]'; then
-      colorize "$line"
-    fi
-  done
+    --region=us-central1 2>&1 | filter_and_colorize
 }
 
 # ── Main ────────────────────────────────────────────────────────────────────

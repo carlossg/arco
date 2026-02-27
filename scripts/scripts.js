@@ -164,7 +164,9 @@ function loadDelayed() {
 const PREFETCH_KEY = 'arco-quiz-prefetch';
 const PREFETCH_MAX_AGE_MS = 60000;
 const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
-const FORYOU_MAX_AGE_MS = 120000;
+
+// Map LLM-generated block types to existing frontend blocks
+const BLOCK_ALIASES = { 'use-case-cards': 'cards' };
 
 /**
  * Valid recommender presets (must match model-factory-google.ts MODEL_PRESETS)
@@ -298,7 +300,9 @@ async function renderPrefetchedBlocks(prefetchData, query) {
     // Wrap block in wrapper div (EDS pattern)
     const blockEl = section.querySelector('[class]');
     if (blockEl) {
-      const blockName = blockEl.classList[0];
+      const origName = blockEl.classList[0];
+      const blockName = BLOCK_ALIASES[origName] || origName;
+      if (blockName !== origName) blockEl.classList.replace(origName, blockName);
       const wrapper = document.createElement('div');
       wrapper.className = `${blockName}-wrapper`;
       blockEl.parentNode.insertBefore(wrapper, blockEl);
@@ -386,14 +390,13 @@ async function renderArcoRecommenderPage() {
   }
 
   // Check for prefetched "For You" data (lower priority than quiz)
+  // Keep data in sessionStorage so repeat visits reuse it until a new prefetch overwrites it.
   try {
     const foryouRaw = sessionStorage.getItem(FORYOU_PREFETCH_KEY);
-    sessionStorage.removeItem(FORYOU_PREFETCH_KEY);
-    sessionStorage.removeItem('arco-foryou-query');
     if (foryouRaw) {
       const prefetchData = JSON.parse(foryouRaw);
-      const age = Date.now() - (prefetchData.timestamp || 0);
-      if (age < FORYOU_MAX_AGE_MS && prefetchData.blocks && prefetchData.blocks.length > 0) {
+      if (prefetchData.blocks && prefetchData.blocks.length > 0) {
+        const age = Date.now() - (prefetchData.timestamp || 0);
         // eslint-disable-next-line no-console
         console.log(`[Recommender] Using prefetched For You data (${prefetchData.blocks.length} blocks, ${(age / 1000).toFixed(1)}s old)`);
         await renderPrefetchedBlocks(prefetchData, query);
@@ -469,7 +472,9 @@ async function renderArcoRecommenderPage() {
     // Wrap block in wrapper div (EDS pattern)
     const blockEl = section.querySelector('[class]');
     if (blockEl) {
-      const blockName = blockEl.classList[0];
+      const origName = blockEl.classList[0];
+      const blockName = BLOCK_ALIASES[origName] || origName;
+      if (blockName !== origName) blockEl.classList.replace(origName, blockName);
       const wrapper = document.createElement('div');
       wrapper.className = `${blockName}-wrapper`;
       blockEl.parentNode.insertBefore(wrapper, blockEl);
