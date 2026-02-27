@@ -384,6 +384,17 @@ async function renderArcoRecommenderPage() {
   const query = params.get('q') || params.get('query');
   const preset = params.get('preset') || 'production';
 
+  // Validate preset early — before prefetch checks
+  if (!VALID_PRESETS.includes(preset)) {
+    main.innerHTML = `
+      <div class="section generation-error">
+        <h2>Unknown preset: &ldquo;${preset}&rdquo;</h2>
+        <p>Try one of: ${VALID_PRESETS.map((p) => `<a href="/?q=${encodeURIComponent(query)}&amp;preset=${p}">${p}</a>`).join(', ')}</p>
+      </div>
+    `;
+    return;
+  }
+
   // Check for prefetched quiz data (one-time use)
   try {
     const raw = sessionStorage.getItem(PREFETCH_KEY);
@@ -418,17 +429,6 @@ async function renderArcoRecommenderPage() {
     }
   } catch {
     // Parse error or sessionStorage unavailable — fall through to normal SSE flow
-  }
-
-  // Validate preset
-  if (!VALID_PRESETS.includes(preset)) {
-    main.innerHTML = `
-      <div class="section generation-error">
-        <h2>Unknown preset: &ldquo;${preset}&rdquo;</h2>
-        <p>Try one of: ${VALID_PRESETS.map((p) => `<a href="/?q=${encodeURIComponent(query)}&amp;preset=${p}">${p}</a>`).join(', ')}</p>
-      </div>
-    `;
-    return;
   }
 
   const slug = generateSlug(query);

@@ -393,7 +393,7 @@ Generate AEM Edge Delivery Services (EDS) compatible HTML blocks.
      </div>
    </div>
 3. Use semantic HTML: proper headings (h1-h4), paragraphs, lists, links, images.
-4. Links to products should use the product URL from the context data.
+4. Product links MUST use the EXACT URL from the "URL:" field in the product data (e.g. /products/espresso-machines/viaggio). NEVER invent or guess product URLs.
 5. Follow-up suggestion links must use the format: <a href="/?q=encoded+query">suggestion text</a>
 6. Prices must include the currency symbol and use the exact price from context.
 7. Images must use the exact URLs from the product data or the provided hero image URL.
