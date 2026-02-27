@@ -611,6 +611,8 @@ async function renderArcoRecommenderPage() {
   eventSource.addEventListener('error', (e) => {
     if (e.data) {
       const data = JSON.parse(e.data);
+      // eslint-disable-next-line no-console
+      console.error(`[Recommender] Server error: ${data.message} (${data.code || 'unknown'})`);
       loadingState.innerHTML = `
         <h1>Something went wrong</h1>
         <p style="color: #c00;">${data.message}</p>
@@ -622,6 +624,8 @@ async function renderArcoRecommenderPage() {
 
   eventSource.onerror = () => {
     if (eventSource.readyState === EventSource.CLOSED) {
+      // eslint-disable-next-line no-console
+      console.error('[Recommender] EventSource connection closed unexpectedly');
       if (blockCount === 0) {
         loadingState.innerHTML = `
           <h1>Connection failed</h1>

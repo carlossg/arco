@@ -44,10 +44,11 @@ export class VertexAIClient {
 
 	/**
 	 * Determine the correct Vertex AI location for a model.
-	 * Gemini 3 models (preview) are only available in the "global" region.
+	 * Use the global endpoint for all Gemini models to maximize quota availability.
+	 * Fall back to the configured regional endpoint for non-Gemini models (e.g. MaaS).
 	 */
 	private getLocationForModel(model: string): string {
-		if (model.startsWith('gemini-3')) {
+		if (model.startsWith('gemini')) {
 			return 'global';
 		}
 		return this.location;
