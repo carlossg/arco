@@ -165,8 +165,13 @@ const PREFETCH_KEY = 'arco-quiz-prefetch';
 const PREFETCH_MAX_AGE_MS = 60000;
 const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
 
-// Map LLM-generated block types to existing frontend blocks
-const BLOCK_ALIASES = { 'use-case-cards': 'cards' };
+// Map LLM-generated block types to existing frontend blocks.
+// 'false' means strip the block wrapper entirely (render as default content).
+const BLOCK_ALIASES = {
+  'use-case-cards': 'cards',
+  'feature-highlights': 'cards',
+  text: false,
+};
 
 /**
  * Valid recommender presets (must match model-factory-google.ts MODEL_PRESETS)
@@ -280,8 +285,9 @@ async function renderPrefetchedBlocks(prefetchData, query) {
   const content = main.querySelector('#generation-content');
 
   const generatedBlocks = [];
+  const blocksToLoad = [];
 
-  // Render each block sequentially using the same pattern as the SSE handler
+  // Build all sections and append to DOM first
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < prefetchData.blocks.length; i++) {
     const blockData = prefetchData.blocks[i];
@@ -301,14 +307,20 @@ async function renderPrefetchedBlocks(prefetchData, query) {
     const blockEl = section.querySelector('[class]');
     if (blockEl) {
       const origName = blockEl.classList[0];
-      const blockName = BLOCK_ALIASES[origName] || origName;
-      if (blockName !== origName) blockEl.classList.replace(origName, blockName);
-      const wrapper = document.createElement('div');
-      wrapper.className = `${blockName}-wrapper`;
-      blockEl.parentNode.insertBefore(wrapper, blockEl);
-      wrapper.appendChild(blockEl);
-      decorateBlock(blockEl);
-      section.classList.add(`${blockName}-container`);
+      const alias = origName in BLOCK_ALIASES ? BLOCK_ALIASES[origName] : origName;
+      if (alias === false) {
+        // Strip block wrapper — render children as default section content
+        blockEl.replaceWith(...blockEl.children);
+      } else {
+        const blockName = alias;
+        if (blockName !== origName) blockEl.classList.replace(origName, blockName);
+        const wrapper = document.createElement('div');
+        wrapper.className = `${blockName}-wrapper`;
+        blockEl.parentNode.insertBefore(wrapper, blockEl);
+        wrapper.appendChild(blockEl);
+        decorateBlock(blockEl);
+        section.classList.add(`${blockName}-container`);
+      }
     }
 
     decorateButtons(section);
@@ -322,14 +334,15 @@ async function renderPrefetchedBlocks(prefetchData, query) {
     }
 
     const block = section.querySelector('.block');
-    if (block) {
-      // eslint-disable-next-line no-await-in-loop
-      await loadBlock(block);
-    }
+    if (block) blocksToLoad.push({ block, section });
+  }
 
+  // Load all blocks in parallel (CSS + JS)
+  await Promise.all(blocksToLoad.map(async ({ block, section }) => {
+    await loadBlock(block);
     section.dataset.sectionStatus = 'loaded';
     section.style.display = null;
-  }
+  }));
 
   // Update document title
   const h1 = content.querySelector('h1');
@@ -473,14 +486,19 @@ async function renderArcoRecommenderPage() {
     const blockEl = section.querySelector('[class]');
     if (blockEl) {
       const origName = blockEl.classList[0];
-      const blockName = BLOCK_ALIASES[origName] || origName;
-      if (blockName !== origName) blockEl.classList.replace(origName, blockName);
-      const wrapper = document.createElement('div');
-      wrapper.className = `${blockName}-wrapper`;
-      blockEl.parentNode.insertBefore(wrapper, blockEl);
-      wrapper.appendChild(blockEl);
-      decorateBlock(blockEl);
-      section.classList.add(`${blockName}-container`);
+      const alias = origName in BLOCK_ALIASES ? BLOCK_ALIASES[origName] : origName;
+      if (alias === false) {
+        blockEl.replaceWith(...blockEl.children);
+      } else {
+        const blockName = alias;
+        if (blockName !== origName) blockEl.classList.replace(origName, blockName);
+        const wrapper = document.createElement('div');
+        wrapper.className = `${blockName}-wrapper`;
+        blockEl.parentNode.insertBefore(wrapper, blockEl);
+        wrapper.appendChild(blockEl);
+        decorateBlock(blockEl);
+        section.classList.add(`${blockName}-container`);
+      }
     }
 
     decorateButtons(section);
