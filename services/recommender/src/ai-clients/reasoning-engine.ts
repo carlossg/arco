@@ -572,7 +572,7 @@ export async function analyzeAndSelectBlocks(
 
     const rawText = response?.content ?? '';
     if (!rawText) {
-      return getFallbackReasoningResult(userQuery);
+      throw new Error('Reasoning LLM returned empty response');
     }
 
     const result = parseReasoningResponse(rawText);
@@ -583,8 +583,8 @@ export async function analyzeAndSelectBlocks(
 
     return result;
   } catch (error) {
-    console.error('[reasoning-engine] LLM call failed, using fallback:', error);
-    return getFallbackReasoningResult(userQuery);
+    console.error('[reasoning-engine] LLM call failed:', error);
+    throw error;
   }
 }
 
