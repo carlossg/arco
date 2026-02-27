@@ -740,7 +740,7 @@ export interface RAGContext {
 export function buildRAGContext(
   query: string,
   intent?: string,
-  maxProducts = 5,
+  maxProducts = 12,
   maxBrewGuides = 6,
 ): RAGContext {
   const lowerQuery = query.toLowerCase();

@@ -1552,6 +1552,20 @@ export async function orchestrate(
     });
 
     console.log(`[orchestrator] Classifying intent for: "${query}"`);
+    if (sessionContext) {
+      const bh = sessionContext.browsingHistory || [];
+      const pq = sessionContext.previousQueries || [];
+      const ip = sessionContext.inferredProfile;
+      console.log(`[orchestrator] Session context: ${bh.length} pages visited, ${pq.length} previous queries`);
+      if (bh.length > 0) {
+        console.log(`[orchestrator]   Pages: ${bh.slice(-5).map((h) => h.path || 'unknown').join(', ')}`);
+      }
+      if (ip) {
+        const interests = ip.interests?.length ? ip.interests.join(', ') : 'none';
+        const viewed = ip.productsViewed?.length ? ip.productsViewed.join(', ') : 'none';
+        console.log(`[orchestrator]   Profile: interests=[${interests}], products=[${viewed}], stage=${ip.journeyStage || 'unknown'}`);
+      }
+    }
     const intent = await classifyIntent(query, sessionContext, preset, modelOverride);
     context.intent = intent;
 
