@@ -102,6 +102,10 @@ Arco is a premium coffee equipment brand that makes espresso machines, grinders,
 
 Arco product model names: ${ARCO_MODEL_NAMES.join(', ')}
 
+Product categories:
+- Espresso Machines: primo, doppio, nano, studio, studio-pro, ufficio, viaggio, automatico
+- Grinders: filtro, preciso, macinino, zero
+
 ## Intent Types
 - discovery: User is browsing or exploring the product line
 - comparison: User wants to compare products
@@ -135,7 +139,8 @@ Analyse the user query and return a JSON object (no markdown fences, no extra te
   "journeyStage": "<exploring | comparing | deciding>"
 }
 
-Extract ALL Arco model names if mentioned. Be generous with entity extraction.
+Extract ALL Arco model names if mentioned. Only include a model in "products" if the user mentions it by name.
+If the user asks about a category (e.g. "a grinder", "espresso machines"), set the appropriate useCases (e.g. ["grinder"], ["espresso-machine"]) — do NOT guess a specific model.
 If the user mentions competitor brands, still classify normally and note Arco products that are relevant.`;
 
 /**
