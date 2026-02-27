@@ -44,6 +44,8 @@ The repository provides the basic structure, blocks, and configuration needed to
     └── api-config.js       # API endpoint configuration for recommender and analytics services
 ├── fonts/           # Web fonts
 ├── icons/           # SVG icons
+├── tools/           # Developer CLI utilities
+    └── build-embeddings.ts # Generate and upload vector embeddings to Firestore
 ├── head.html        # Global HTML head content
 └── 404.html         # Custom 404 page
 ```
@@ -127,7 +129,7 @@ The site includes an AI-powered recommender that generates personalized pages in
 ```
 Regular Pages                    Recommender Query (/?q=...)
 ─────────────                    ───────────────────────────
-                                 
+
   ┌──────────────────┐           ┌──────────────────────────────────────┐
   │  Delayed Phase   │           │  scripts.js / renderArcoRecommender  │
   │  (3s after load) │           │                                      │
@@ -140,17 +142,23 @@ Regular Pages                    Recommender Query (/?q=...)
   │  • Interactions  │           ┌──────────────────────────────────────┐
   │  • Quiz answers  │           │  Backend Orchestrator                │
   │                  │           │                                      │
-  └────────┬─────────┘           │  1. classifyIntent() — uses browsing │
-           │                     │     context + conversation history   │
-           ▼                     │  2. RAG context lookup               │
-  ┌──────────────────┐           │  3. Deep reasoning (block selection) │
-  │  Session Context │           │  4. Parallel content generation      │
-  │  (sessionStorage)│◄──────────│  5. Follow-up suggestions informed   │
-  │                  │           │     by products viewed & interests   │
-  │  • queries[]     │           └──────────────────────────────────────┘
-  │  • browsingHist[]│
-  │  • inferredProf  │
-  └──────────────────┘
+  └────────┬─────────┘           │  1. classifyIntent()                 │
+           │                     │  2. Hybrid RAG (keyword + semantic)  │
+           ▼                     │  3. Deep reasoning (block selection) │
+  ┌──────────────────┐           │  4. Parallel content generation      │
+  │  Session Context │           │  5. Follow-up suggestions            │
+  │  (sessionStorage)│◄──────────│  6. Fire-and-forget analytics        │
+  │                  │           │     (3-model quality evaluation)     │
+  │  • queries[]     │           └──────────┬───────────────────────────┘
+  │  • browsingHist[]│                      │
+  │  • inferredProf  │                      ▼
+  └──────────────────┘           ┌──────────────────────────────────────┐
+                                 │  Firestore                           │
+                                 │  • product_embeddings (vector search)│
+                                 │  • brewguide_embeddings              │
+                                 │  • faq_embeddings                    │
+                                 │  • analytics_results                 │
+                                 └──────────────────────────────────────┘
 ```
 
 **Key files:**
@@ -161,8 +169,13 @@ Regular Pages                    Recommender Query (/?q=...)
 | `scripts/session-context.js` | Manages `sessionStorage` — stores query history, browsing history (last 15 page visits), and an inferred browsing profile. |
 | `scripts/delayed.js` | Entry point for delayed-phase code. Starts the browsing signal collector. |
 | `scripts/scripts.js` | Main page decoration. On `/?q=` pages, reads session context and streams it to the backend. |
-| `services/recommender/src/lib/orchestrator.ts` | Backend pipeline — uses browsing context for richer intent classification and more targeted follow-up suggestions. |
-| `services/recommender/src/types.ts` | TypeScript interfaces for `BrowsingHistoryItem`, `InferredBrowsingProfile`, and `SessionContext`. |
+| `services/recommender/src/lib/orchestrator.ts` | Backend pipeline — uses browsing context for richer intent classification and more targeted follow-up suggestions. Runs hybrid RAG (keyword + semantic) and fire-and-forget multi-agent analytics. |
+| `services/recommender/src/lib/vector-search.ts` | Firestore native vector search + Vertex AI text-embedding-005 for semantic RAG. |
+| `services/recommender/src/lib/analytics-engine.ts` | Multi-model page quality evaluation (Gemini 2.5 Pro + Flash + Llama 3.3 70B) with consensus scoring. |
+| `services/recommender/src/lib/analytics-prompts.ts` | Evaluation prompt and rubric for the analytics engine. |
+| `services/recommender/src/types.ts` | TypeScript interfaces for `BrowsingHistoryItem`, `InferredBrowsingProfile`, `SessionContext`, and `SSEEvent`. |
+| `blocks/analytics-analysis/` | Client-side block to display multi-agent analytics results (score ring, dimension bars, suggestions). |
+| `tools/build-embeddings.ts` | CLI tool to generate and upload vector embeddings to Firestore. |
 
 **How browsing context flows:**
 

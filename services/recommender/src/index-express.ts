@@ -725,6 +725,91 @@ app.get('/api/benchmark-full', async (req: Request, res: Response) => {
 });
 
 // ============================================
+// Analytics Endpoints
+// ============================================
+
+app.post('/api/analytics/analyze', async (req: Request, res: Response) => {
+  const { html, query, intent } = req.body;
+
+  if (!html || !query || !intent) {
+    res.status(400).json({ error: 'Missing required fields: html, query, intent' });
+    return;
+  }
+
+  try {
+    const { createAnalyticsEngine } = await import('./lib/analytics-engine');
+    const projectId = process.env.GCP_PROJECT_ID || 'arco-recommender';
+    const location = process.env.GCP_LOCATION || 'us-central1';
+    const engine = createAnalyticsEngine(projectId, location);
+
+    const result = await engine.analyzeGeneratedPage(html, query, intent);
+
+    // Store in Firestore
+    const { Firestore } = await import('@google-cloud/firestore');
+    const firestore = new Firestore({ projectId });
+    await firestore.collection('analytics_results').doc(result.pageId).set({
+      ...result,
+      storedAt: new Date(),
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error('[analytics] Analysis error:', error);
+    res.status(500).json({
+      error: 'Analytics analysis failed',
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+app.get('/api/analytics/results/:pageId', async (req: Request, res: Response) => {
+  const pageId = req.params.pageId as string;
+
+  try {
+    const { Firestore } = await import('@google-cloud/firestore');
+    const projectId = process.env.GCP_PROJECT_ID || 'arco-recommender';
+    const firestore = new Firestore({ projectId });
+
+    const doc = await firestore.collection('analytics_results').doc(pageId).get();
+    if (!doc.exists) {
+      res.status(404).json({ error: 'Analytics result not found' });
+      return;
+    }
+
+    res.json(doc.data());
+  } catch (error) {
+    console.error('[analytics] Fetch result error:', error);
+    res.status(500).json({ error: 'Failed to fetch analytics result' });
+  }
+});
+
+app.get('/api/analytics/history', async (req: Request, res: Response) => {
+  const limit = Math.min(parseInt(req.query.limit as string, 10) || 20, 100);
+
+  try {
+    const { Firestore } = await import('@google-cloud/firestore');
+    const projectId = process.env.GCP_PROJECT_ID || 'arco-recommender';
+    const firestore = new Firestore({ projectId });
+
+    const snapshot = await firestore
+      .collection('analytics_results')
+      .orderBy('analyzedAt', 'desc')
+      .limit(limit)
+      .get();
+
+    const results = snapshot.docs.map((doc) => ({
+      pageId: doc.id,
+      ...doc.data(),
+    }));
+
+    res.json({ results, total: results.length });
+  } catch (error) {
+    console.error('[analytics] Fetch history error:', error);
+    res.status(500).json({ error: 'Failed to fetch analytics history' });
+  }
+});
+
+// ============================================
 // GET /health and /healthz - Health check
 // ============================================
 
@@ -758,6 +843,9 @@ app.use((_req: Request, res: Response) => {
       'GET /api/presets',
       'GET /api/benchmark?query=...&presets=...',
       'GET /api/benchmark-full?query=...&presets=...',
+      'POST /api/analytics/analyze',
+      'GET /api/analytics/results/:pageId',
+      'GET /api/analytics/history',
       'GET /health',
     ],
   });

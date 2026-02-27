@@ -244,10 +244,18 @@ export class VertexAIClient {
 	}
 
 	/**
-	 * Generate embeddings using Vertex AI Text Embeddings API
-	 * Used for brew guide semantic search with Firebase Vector Search
+	 * Generate embeddings using Vertex AI Text Embeddings API.
+	 *
+	 * @param texts - Array of texts to embed.
+	 * @param taskType - Optional task type hint for the embedding model.
+	 *   Use `'RETRIEVAL_DOCUMENT'` when indexing content and
+	 *   `'RETRIEVAL_QUERY'` when embedding a search query.
+	 *   Defaults to `'RETRIEVAL_QUERY'`.
 	 */
-	async generateEmbeddings(texts: string[]): Promise<number[][]> {
+	async generateEmbeddings(
+		texts: string[],
+		taskType: 'RETRIEVAL_QUERY' | 'RETRIEVAL_DOCUMENT' = 'RETRIEVAL_QUERY',
+	): Promise<number[][]> {
 		const { PredictionServiceClient } = await import('@google-cloud/aiplatform');
 
 		// Initialize client with ADC
@@ -260,6 +268,7 @@ export class VertexAIClient {
 		try {
 			const instances = texts.map((text) => ({
 				content: text,
+				task_type: taskType,
 			})) as any[];
 
 			const response = await client.predict({

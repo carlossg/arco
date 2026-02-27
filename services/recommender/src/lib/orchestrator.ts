@@ -42,6 +42,7 @@ import {
   getProductsByUseCase,
   getAllReviews,
   getFAQsForQuery,
+  semanticSearch,
   type RAGContext,
   type FAQ,
   type Product,
@@ -1586,14 +1587,23 @@ export async function orchestrate(
       },
     });
 
-    // ── Phase 2: Build RAG Context ──────────────────────────────────────
-    console.log('[orchestrator] Building RAG context...');
-    const ragContext = buildRAGContext(query, intent.intentType);
+    // ── Phase 2: Build RAG Context (Hybrid: Keyword + Semantic) ────────
+    console.log('[orchestrator] Building RAG context (hybrid search)...');
+
+    // Run keyword and semantic search in parallel
+    const [keywordContext, semanticResults] = await Promise.all([
+      Promise.resolve(buildRAGContext(query, intent.intentType)),
+      semanticSearch(query, 10).catch(() => ({ products: [], brewGuides: [], faqs: [] })),
+    ]);
+
+    // Merge semantic results into keyword context (deduplicate by id/name)
+    const ragContext = mergeRAGWithSemantic(keywordContext, semanticResults);
     context.ragContext = ragContext;
 
+    const semanticCount = semanticResults.products.length + semanticResults.brewGuides.length;
     const productNames = (ragContext.relevantProducts || []).map((p) => p.name).join(', ');
     const guideNames = (ragContext.relevantBrewGuides || []).map((g) => g.name).slice(0, 3).join(', ');
-    console.log(`[orchestrator] RAG context: ${ragContext.relevantProducts?.length || 0} products, ${ragContext.relevantBrewGuides?.length || 0} guides`);
+    console.log(`[orchestrator] RAG context: ${ragContext.relevantProducts?.length || 0} products, ${ragContext.relevantBrewGuides?.length || 0} guides (${semanticCount} from semantic search)`);
 
     write({
       event: 'reasoning-step',
@@ -1785,6 +1795,10 @@ export async function orchestrate(
       event: 'complete',
       data: { message: `Generated ${generatedBlocks.length} blocks in ${totalDuration}ms` },
     });
+
+    // ── Fire-and-forget: Multi-Agent Analytics ─────────────────────────
+    const allHtml = generatedBlocks.map((b) => b.html).join('\n');
+    fireAndForgetAnalytics(allHtml, query, intent.intentType, write);
   } catch (error) {
     const duration = Date.now() - startTime;
     console.error('[orchestrator] Pipeline error:', error);
@@ -1948,6 +1962,95 @@ function buildContentGuidanceFromReasoningBlock(
   }
 
   return parts.join('. ') + '.';
+}
+
+/* ========================================================================== */
+/*  9. Hybrid RAG Merging                                                      */
+/* ========================================================================== */
+
+/**
+ * Merge semantic search results into the keyword-based RAG context.
+ * Semantic results that don't already appear in the keyword results are
+ * appended at the end (keyword results retain their position as primary).
+ */
+function mergeRAGWithSemantic(
+  keywordContext: RAGContext,
+  semanticResults: { products: Product[]; brewGuides: BrewGuide[]; faqs: any[] },
+): RAGContext {
+  const existingProductIds = new Set(
+    (keywordContext.relevantProducts || []).map((p) => p.id),
+  );
+  const existingGuideIds = new Set(
+    (keywordContext.relevantBrewGuides || []).map((g) => g.id),
+  );
+
+  const newProducts = semanticResults.products.filter(
+    (p) => !existingProductIds.has(p.id),
+  );
+  const newGuides = semanticResults.brewGuides.filter(
+    (g) => !existingGuideIds.has(g.id),
+  );
+
+  return {
+    ...keywordContext,
+    relevantProducts: [...(keywordContext.relevantProducts || []), ...newProducts],
+    relevantBrewGuides: [...(keywordContext.relevantBrewGuides || []), ...newGuides],
+  };
+}
+
+/* ========================================================================== */
+/*  10. Fire-and-Forget Analytics                                              */
+/* ========================================================================== */
+
+/**
+ * Trigger multi-agent analytics for a generated page.
+ * Runs asynchronously — never blocks the SSE stream.
+ * Errors are logged and swallowed.
+ */
+function fireAndForgetAnalytics(
+  pageHtml: string,
+  query: string,
+  intent: string,
+  write: SSECallback,
+): void {
+  (async () => {
+    try {
+      const { createAnalyticsEngine } = await import('./analytics-engine');
+      const projectId = process.env.GCP_PROJECT_ID || 'arco-recommender';
+      const location = process.env.GCP_LOCATION || 'us-central1';
+      const engine = createAnalyticsEngine(projectId, location);
+
+      const result = await engine.analyzeGeneratedPage(pageHtml, query, intent);
+
+      // Store result in Firestore
+      const { Firestore } = await import('@google-cloud/firestore');
+      const firestore = new Firestore({ projectId });
+      await firestore.collection('analytics_results').doc(result.pageId).set({
+        ...result,
+        storedAt: new Date(),
+      });
+
+      console.log(
+        `[Analytics] Page "${query}" scored ${result.overallScore}/100 `
+        + `(${result.modelResults.filter((m) => m.status === 'success').length}/${result.modelResults.length} models succeeded)`,
+      );
+
+      // Notify client that analytics are available
+      try {
+        write({
+          event: 'analytics-available',
+          data: { pageId: result.pageId, overallScore: result.overallScore },
+        });
+      } catch {
+        // SSE connection may have closed — that's fine
+      }
+    } catch (error) {
+      console.error(
+        '[Analytics] Fire-and-forget analytics failed:',
+        error instanceof Error ? error.message : error,
+      );
+    }
+  })();
 }
 
 /* ========================================================================== */

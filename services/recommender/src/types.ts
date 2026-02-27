@@ -444,6 +444,7 @@ export type SSEEvent =
   | { event: 'block-rationale'; data: { blockType: BlockType; rationale: string } }
   | { event: 'image-ready'; data: { imageId: string; url: string } }
   | { event: 'generation-complete'; data: GenerationCompleteData }
+  | { event: 'analytics-available'; data: { pageId: string; overallScore: number } }
   | { event: 'complete'; data: { message?: string } }
   | { event: 'error'; data: { message: string; code?: string } };
 

@@ -997,6 +997,81 @@ export function buildRAGContext(
 }
 
 // ============================================
+// Semantic Search (Vector Search)
+// ============================================
+
+/**
+ * Semantic search across products, brew guides, and FAQs using vector
+ * embeddings.  Falls back gracefully if embeddings have not been built
+ * (returns empty results instead of throwing).
+ *
+ * @param query - Natural language query to search for.
+ * @param maxResults - Maximum total results across all collections.
+ * @returns Matched products, brew guides, and FAQs ranked by semantic similarity.
+ */
+export async function semanticSearch(
+  query: string,
+  maxResults = 10,
+): Promise<{
+  products: Product[];
+  brewGuides: BrewGuide[];
+  faqs: FAQ[];
+}> {
+  try {
+    const { createVectorSearchService } = await import('../lib/vector-search');
+    const projectId = process.env.GCP_PROJECT_ID || 'arco-recommender';
+    const location = process.env.GCP_LOCATION || 'us-central1';
+    const vectorService = createVectorSearchService(projectId, location);
+
+    // Embed the query
+    const queryEmbedding = await vectorService.embedText(query, 'RETRIEVAL_QUERY');
+
+    // Search all three collections in parallel
+    const perCollection = Math.max(3, Math.ceil(maxResults / 3));
+    const [productResults, guideResults, faqResults] = await Promise.all([
+      vectorService.searchSimilar(queryEmbedding, 'product_embeddings', perCollection),
+      vectorService.searchSimilar(queryEmbedding, 'brewguide_embeddings', perCollection),
+      vectorService.searchSimilar(queryEmbedding, 'faq_embeddings', perCollection),
+    ]);
+
+    // Map vector results back to full content objects
+    const matchedProducts = productResults
+      .map((r) => getProductById(r.id))
+      .filter((p): p is Product => p !== undefined);
+
+    const matchedGuides = guideResults
+      .map((r) => getBrewGuideById(r.id))
+      .filter((g): g is BrewGuide => g !== undefined);
+
+    const matchedFaqs = faqResults
+      .map((r) => {
+        const faq = faqs.find((f) => f.id === r.id);
+        return faq;
+      })
+      .filter((f): f is FAQ => f !== undefined);
+
+    console.log(
+      `[SemanticSearch] Found ${matchedProducts.length} products, `
+      + `${matchedGuides.length} guides, ${matchedFaqs.length} FAQs for: "${query}"`,
+    );
+
+    return {
+      products: matchedProducts,
+      brewGuides: matchedGuides,
+      faqs: matchedFaqs,
+    };
+  } catch (error) {
+    // Graceful degradation — if embeddings are not built or Firestore is
+    // unavailable, return empty results so the keyword pipeline still works.
+    console.warn(
+      '[SemanticSearch] Vector search unavailable, falling back to keyword-only:',
+      error instanceof Error ? error.message : error,
+    );
+    return { products: [], brewGuides: [], faqs: [] };
+  }
+}
+
+// ============================================
 // Default Export
 // ============================================
 
@@ -1059,4 +1134,7 @@ export default {
   // Utilities
   getContentSummary,
   buildRAGContext,
+
+  // Semantic Search
+  semanticSearch,
 };
