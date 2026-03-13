@@ -7,7 +7,8 @@
     "build": "tsc",
     "start": "node dist/index-express.js",
     "dev": "ts-node src/index-express.ts",
-    "types": "tsc --noEmit"
+    "types": "tsc --noEmit",
+    "test:arco": "ts-node ../../tools/test-arco.ts"
   },
   "keywords": ["google-cloud", "cloud-run", "arco", "coffee", "ai", "gemini", "vertex-ai"],
   "author": "",

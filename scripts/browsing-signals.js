@@ -271,11 +271,8 @@ export function collectBrowsingSignals() {
     }));
   }
 
-  // 1. Page signal — immediate
-  const pageSignal = getPageSignal();
-  addSignal(pageSignal);
-
-  // Record the page visit
+  // Record the page visit before firing signals so arco-context-updated
+  // reflects the updated browsingHistory count (needed for "For You" link visibility).
   const { intent, stage } = classifyFromPath(window.location.pathname);
   SessionContextManager.addPageVisit({
     path: window.location.pathname,
@@ -285,6 +282,10 @@ export function collectBrowsingSignals() {
     stage,
     timestamp: Date.now(),
   });
+
+  // 1. Page signal — immediate
+  const pageSignal = getPageSignal();
+  addSignal(pageSignal);
 
   // 2. Scroll depth tracking
   let scrollThrottled = false;
