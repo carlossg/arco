@@ -446,7 +446,8 @@ export type SSEEvent =
   | { event: 'generation-complete'; data: GenerationCompleteData }
   | { event: 'analytics-available'; data: { pageId: string; overallScore: number } }
   | { event: 'complete'; data: { message?: string } }
-  | { event: 'error'; data: { message: string; code?: string } };
+  | { event: 'error'; data: { message: string; code?: string } }
+  | { event: 'cache-hit'; data: { path: string; liveUrl: string; previewUrl: string } };
 
 // Enriched generation-complete event data
 export interface GenerationCompleteData {
