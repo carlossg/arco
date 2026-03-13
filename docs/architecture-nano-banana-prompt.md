@@ -13,6 +13,7 @@ Create an architecture diagram for Arco, an AI-powered coffee e-commerce site. T
 - A signal collector captures page visits, scroll depth, quiz answers, and interactions
 - Signals are stored in sessionStorage as session context (query history, browsing history, inferred profile)
 - A persona cookie personalises the hero banner and product cards
+- A "For You" background prefetch system listens for context changes; after 3+ page visits, it silently pre-generates a personalised page via SSE to the backend, storing the result in sessionStorage. When the user clicks "For You" in the nav, the page renders instantly from the cached prefetch instead of making a live request
 - When a user types a natural language query, the browser streams the session context to the backend via Server-Sent Events (SSE)
 
 **Layer 2 — Cloud Run Backend (arco-recommender)**
@@ -36,8 +37,9 @@ Five-stage pipeline:
 **Key arrows to show:**
 1. Authors publish in DA → AEM CDN → Browser
 2. User browses → signals → sessionStorage → persona cookie → personalised blocks
-3. User query → SSE to Cloud Run → Gemini pipeline → SSE HTML stream → browser renders
-4. Cloud Run → Firestore (vector search + store analytics) → Vertex AI (embeddings + inference)
-5. Analytics results → SSE event → browser displays score
+3. Browsing signals → "For You" prefetch triggers → background SSE to Cloud Run → result cached in sessionStorage → instant render on nav click
+4. User query → SSE to Cloud Run → Gemini pipeline → SSE HTML stream → browser renders
+5. Cloud Run → Firestore (vector search + store analytics) → Vertex AI (embeddings + inference)
+6. Analytics results → SSE event → browser displays score
 
 Use a clean, professional style with rounded boxes, clear labels, and directional arrows. Group related components inside each swim lane. Use colour coding: blue for client, green for backend, orange for GCP services, purple for AEM/CMS.
