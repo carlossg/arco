@@ -1,40 +1,43 @@
-# Napkin AI Prompt — Arco Architecture Diagram
+# Nano Banana Prompt — Arco Architecture Diagram
 
-Use the following text as input to [napkin.ai](https://napkin.ai) to generate a visual architecture diagram.
+Use the following text as input to Nano Banana to generate a visual architecture diagram.
 
 ---
 
 ## Prompt
 
-Arco is an AI-powered e-commerce website built on Adobe Experience Manager Edge Delivery Services. It has three main layers:
+Create an architecture diagram for Arco, an AI-powered coffee e-commerce site. The system has four layers arranged as horizontal swim lanes from top to bottom:
 
-**Browser (Client)**
-The browser loads pages from AEM's CDN. On regular pages, a browsing signal collector passively captures page visits, scroll depth, quiz answers, and interactions, storing them in sessionStorage as a session context (query history, browsing history, inferred profile). A persona cookie drives content personalisation across blocks like the hero banner and product cards.
+**Layer 1 — Browser (Client)**
+- Pages load from AEM CDN
+- A signal collector captures page visits, scroll depth, quiz answers, and interactions
+- Signals are stored in sessionStorage as session context (query history, browsing history, inferred profile)
+- A persona cookie personalises the hero banner and product cards
+- When a user types a natural language query, the browser streams the session context to the backend via Server-Sent Events (SSE)
 
-When a user submits a natural language query (/?q=...), the browser reads the full session context and opens a Server-Sent Events stream to the Cloud Run recommender service.
+**Layer 2 — Cloud Run Backend (arco-recommender)**
+Five-stage pipeline:
+1. Intent classification — Gemini 2.5 Pro classifies the query using browsing context
+2. Hybrid RAG — keyword search against DA content in parallel with semantic vector search across Firestore (product, brew guide, FAQ embeddings)
+3. Reasoning engine — Gemini selects page blocks and plans layout
+4. Page generation — Gemini streams HTML back to the browser as SSE chunks
+5. Async analytics — three AI models (Gemini 2.5 Pro, Gemini 2.5 Flash, Llama 3.3 70B) evaluate page quality in parallel across four dimensions, store results in Firestore, and notify the browser
 
-**Cloud Run — arco-recommender (Backend)**
-The recommender orchestrator runs a sequential pipeline:
-1. Intent classification — Gemini 2.5 Pro reads the query + browsing context to classify intent and identify target products
-2. Hybrid RAG — keyword search against DA content runs in parallel with semantic vector search against Firestore embeddings (Vertex AI text-embedding-005, 768 dimensions, cosine distance) across three collections: product embeddings, brew guide embeddings, FAQ embeddings
-3. Reasoning engine — Gemini selects blocks and plans the page layout from the merged RAG context
-4. Page generation — Gemini streams the final HTML page back to the browser as SSE chunks
-5. Fire-and-forget analytics — three models (Gemini 2.5 Pro, Gemini 2.5 Flash, Llama 3.3 70B) evaluate the generated page in parallel across four dimensions: content quality, layout effectiveness, conversion potential, factual accuracy. Results are stored in Firestore and an analytics-available SSE event is sent to the browser.
+**Layer 3 — Google Cloud Platform**
+- Firestore: vector embeddings (3 collections) + analytics results
+- Vertex AI: Gemini 2.5 Pro/Flash inference + text-embedding-005 for semantic search
+- Secret Manager: DA authentication token
 
-**Google Cloud Platform**
-- Firestore stores vector embeddings (product, brew guide, FAQ) and analytics results
-- Vertex AI hosts Gemini 2.5 Pro and Flash for inference and text-embedding-005 for semantic search
-- Secret Manager stores the DA authentication token
+**Layer 4 — Adobe Experience Manager (AEM)**
+- Document Authoring (da.live): CMS for authors
+- Edge Delivery CDN (aem.page / aem.live): serves all pages
+- GitHub: code sync
 
-**Adobe Experience Manager (AEM)**
-- Document Authoring (da.live) is the CMS where authors create and publish pages
-- AEM Edge Delivery (Franklin CDN) serves all pages at aem.page and aem.live
-- Code is synced from GitHub; content is published from DA
+**Key arrows to show:**
+1. Authors publish in DA → AEM CDN → Browser
+2. User browses → signals → sessionStorage → persona cookie → personalised blocks
+3. User query → SSE to Cloud Run → Gemini pipeline → SSE HTML stream → browser renders
+4. Cloud Run → Firestore (vector search + store analytics) → Vertex AI (embeddings + inference)
+5. Analytics results → SSE event → browser displays score
 
-**Data flows:**
-- Authors publish pages in DA → synced to AEM CDN → served to browser
-- User browses → signals stored in sessionStorage → persona inferred → cookie set
-- User queries → session context sent to Cloud Run → Gemini pipeline → SSE HTML stream → browser renders page
-- Generated page quality evaluated by 3 AI models asynchronously → score displayed in browser
-
-Show this as a clean layered architecture diagram with four swim lanes: Browser, Cloud Run, Google Cloud, and AEM/CDN. Use arrows to show the key data flows described above.
+Use a clean, professional style with rounded boxes, clear labels, and directional arrows. Group related components inside each swim lane. Use colour coding: blue for client, green for backend, orange for GCP services, purple for AEM/CMS.
