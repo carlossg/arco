@@ -18,7 +18,8 @@ import cors from 'cors';
 import type { SessionContext, SSEEvent, IntentClassification } from './types';
 import { orchestrate } from './lib/orchestrator';
 import { persistAndPublish, buildPageHtml, unescapeHtml } from './lib/da-client';
-import { classifyCategory, generateSemanticSlug, buildCategorizedPath } from './lib/category-classifier';
+import { classifyCategory, generateSemanticSlug, buildCategorizedPath, generateDeterministicSlug, buildPresetScopedPath } from './lib/category-classifier';
+import { DAClient } from './lib/da-client';
 import { GoogleModelFactory } from './ai-clients/model-factory-google';
 
 // ============================================
@@ -93,6 +94,36 @@ app.get('/generate', async (req: Request, res: Response) => {
   res.flushHeaders();
 
   const startTime = Date.now();
+  const regen = req.query.regen !== undefined;
+
+  // Compute deterministic path for cache lookup
+  const deterministicSlug = generateDeterministicSlug(query);
+  const cachedPath = buildPresetScopedPath(deterministicSlug, preset);
+
+  // Check DA cache unless ?regen is set
+  if (!regen) {
+    try {
+      const daClient = new DAClient(daEnv as any);
+      const exists = await daClient.exists(cachedPath);
+      if (exists) {
+        const org = daEnv.DA_ORG;
+        const repo = daEnv.DA_REPO;
+        console.log(`[generate] Cache hit: ${cachedPath}`);
+        sendSSE(res, {
+          event: 'cache-hit',
+          data: {
+            path: cachedPath,
+            liveUrl: `https://main--${repo}--${org}.aem.live${cachedPath}`,
+            previewUrl: `https://main--${repo}--${org}.aem.page${cachedPath}`,
+          },
+        });
+        res.end();
+        return;
+      }
+    } catch (err) {
+      console.warn('[generate] Cache check failed, proceeding with generation:', err);
+    }
+  }
 
   try {
     // Create model factory with optional preset override
@@ -135,23 +166,8 @@ app.get('/generate', async (req: Request, res: Response) => {
       preset || undefined,
     );
 
-    // Determine the page path
-    let pagePath: string;
-    if (slug) {
-      pagePath = slug.startsWith('/') ? slug : `/${slug}`;
-    } else if (finalIntent) {
-      const category = classifyCategory(finalIntent, query);
-      const semanticSlug = generateSemanticSlug(query, finalIntent);
-      pagePath = buildCategorizedPath(category, semanticSlug);
-    } else {
-      // Fallback: simple slug from query
-      const fallbackSlug = query
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '')
-        .substring(0, 60);
-      pagePath = `/discover/${fallbackSlug}`;
-    }
+    // Use deterministic path for persistence (enables cache hits on repeat queries)
+    const pagePath = cachedPath;
 
     // Send complete event with path info
     sendSSE(res, {

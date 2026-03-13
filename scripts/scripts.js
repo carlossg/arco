@@ -198,27 +198,54 @@ function isArcoRecommenderRequest() {
 /**
  * Generate a URL-safe slug from a query
  */
-function generateSlug(query) {
-  const slug = query
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .substring(0, 80);
+/**
+ * Common stop words filtered out of slugs
+ */
+const SLUG_STOP_WORDS = new Set([
+  'a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+  'of', 'with', 'by', 'from', 'is', 'it', 'as', 'be', 'this', 'that',
+  'are', 'was', 'were', 'been', 'being', 'have', 'has', 'had', 'do',
+  'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might',
+  'can', 'what', 'how', 'why', 'when', 'where', 'which', 'who',
+  'my', 'your', 'me', 'i', 'we', 'you', 'make', 'get', 'want', 'need',
+  'like', 'best', 'good', 'great', 'some', 'any', 'please', 'help',
+]);
 
+/**
+ * Generate a deterministic URL-safe slug from a query.
+ * Same query always produces the same slug (no Date.now()).
+ */
+function generateSlug(query) {
+  const normalized = query.toLowerCase().trim().replace(/\s+/g, ' ');
+
+  // Extract keywords (mirrors server-side extractKeywords)
+  const keywords = normalized
+    .replace(/[^a-z0-9\s]/g, '')
+    .split(/\s+/)
+    .filter((w) => w.length > 2 && !SLUG_STOP_WORDS.has(w))
+    .slice(0, 4);
+
+  const baseSlug = keywords.join('-').substring(0, 50) || 'query';
+
+  // Deterministic hash (no Date.now())
   let hash = 0;
-  const str = query + Date.now();
-  for (let i = 0; i < str.length; i += 1) {
-    const char = str.charCodeAt(i);
+  for (let i = 0; i < normalized.length; i += 1) {
+    const char = normalized.charCodeAt(i);
     // eslint-disable-next-line no-bitwise
     hash = ((hash << 5) - hash) + char;
     // eslint-disable-next-line no-bitwise
     hash &= hash;
   }
   const hashStr = Math.abs(hash).toString(36).slice(0, 6);
-  return `${slug}-${hashStr}`;
+  return `${baseSlug}-${hashStr}`;
+}
+
+/**
+ * Build a preset-scoped path (mirrors server-side buildPresetScopedPath).
+ */
+function buildPresetPath(slug, preset) {
+  if (!preset || preset === 'production') return `/discover/${slug}`;
+  return `/discover/${preset}/${slug}`;
 }
 
 /**
@@ -352,12 +379,13 @@ async function renderPrefetchedBlocks(prefetchData, query) {
 
   // Save query to session context
   const meta = prefetchData.metadata || {};
+  const prefetchPath = buildPresetPath(slug, new URLSearchParams(window.location.search).get('preset') || 'production');
   SessionContextManager.addQuery({
     query,
     timestamp: Date.now(),
     intent: meta.intent?.intentType || 'general',
     entities: meta.intent?.entities || { products: [], coffeeTerms: [], goals: [] },
-    generatedPath: `/discover/${slug}`,
+    generatedPath: prefetchPath,
     recommendedProducts: meta.recommendations?.products || [],
     recommendedBrewGuides: meta.recommendations?.brewGuides || [],
     blockTypes: meta.recommendations?.blockTypes || [],
@@ -368,7 +396,7 @@ async function renderPrefetchedBlocks(prefetchData, query) {
 
   // Auto-persist to DA
   if (generatedBlocks.length > 0) {
-    persistToDA(query, generatedBlocks, meta.intent, `/discover/${slug}`);
+    persistToDA(query, generatedBlocks, meta.intent, prefetchPath);
   }
 }
 
@@ -433,6 +461,8 @@ async function renderArcoRecommenderPage() {
   }
 
   const slug = generateSlug(query);
+  const regen = params.has('regen');
+  const cachedPath = buildPresetPath(slug, preset);
 
   // Clear main and show loading state
   main.innerHTML = `
@@ -449,11 +479,21 @@ async function renderArcoRecommenderPage() {
 
   // Connect to SSE stream with session context
   const contextParam = SessionContextManager.buildEncodedContextParam();
-  const streamUrl = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&slug=${encodeURIComponent(slug)}&preset=${encodeURIComponent(preset)}&ctx=${contextParam}`;
+  let streamUrl = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&preset=${encodeURIComponent(preset)}&ctx=${contextParam}`;
+  if (regen) streamUrl += '&regen';
   const eventSource = new EventSource(streamUrl);
   let blockCount = 0;
   const generatedBlocks = [];
   const startTime = Date.now();
+
+  // Handle cache hit — redirect to the already-published page
+  eventSource.addEventListener('cache-hit', (e) => {
+    eventSource.close();
+    const data = JSON.parse(e.data);
+    // eslint-disable-next-line no-console
+    console.log(`[Recommender] Cache hit, redirecting to: ${data.liveUrl}`);
+    window.location.replace(data.liveUrl);
+  });
 
   eventSource.addEventListener('block-content', async (e) => {
     const data = JSON.parse(e.data);
@@ -594,7 +634,7 @@ async function renderArcoRecommenderPage() {
       timestamp: Date.now(),
       intent: data.intent?.intentType || 'general',
       entities: data.intent?.entities || { products: [], coffeeTerms: [], goals: [] },
-      generatedPath: `/discover/${slug}`,
+      generatedPath: cachedPath,
       recommendedProducts: data.recommendations?.products || [],
       recommendedBrewGuides: data.recommendations?.brewGuides || [],
       blockTypes: data.recommendations?.blockTypes || [],
@@ -605,7 +645,7 @@ async function renderArcoRecommenderPage() {
 
     // Auto-persist to DA
     if (generatedBlocks.length > 0) {
-      persistToDA(query, generatedBlocks, data.intent, `/discover/${slug}`);
+      persistToDA(query, generatedBlocks, data.intent, cachedPath);
     }
   });
 

@@ -205,3 +205,25 @@ export function buildCategorizedPath(
 ): string {
   return `/${category}/${slug}`;
 }
+
+/**
+ * Generate a deterministic slug from a query string.
+ * Unlike generateSemanticSlug, this always produces the same output for the
+ * same query, enabling cache lookups by path.
+ */
+export function generateDeterministicSlug(query: string): string {
+  const normalized = query.toLowerCase().trim().replace(/\s+/g, ' ');
+  const keywords = extractKeywords(normalized);
+  const baseSlug = keywords.slice(0, 4).join('-').substring(0, 50) || 'query';
+  const hash = simpleHash(normalized).slice(0, 6);
+  return `${baseSlug}-${hash}`;
+}
+
+/**
+ * Build a preset-scoped path for cached pages.
+ * Production preset uses /discover/{slug}, others use /discover/{preset}/{slug}.
+ */
+export function buildPresetScopedPath(slug: string, preset?: string): string {
+  if (!preset || preset === 'production') return `/discover/${slug}`;
+  return `/discover/${preset}/${slug}`;
+}
