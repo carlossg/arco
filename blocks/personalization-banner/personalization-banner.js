@@ -94,20 +94,24 @@ export default async function decorate(block) {
   const actions = document.createElement('div');
   actions.className = 'personalization-banner-actions';
 
-  const retake = document.createElement('a');
-  retake.href = '#quiz';
-  retake.className = 'personalization-banner-retake';
-  retake.textContent = 'Retake Quiz';
-  retake.addEventListener('click', (e) => {
-    e.preventDefault();
-    const quizSection = document.querySelector('.quiz');
-    if (quizSection) {
-      quizSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.href = '/#quiz';
-    }
-  });
-  actions.append(retake);
+  // Only show "Retake Quiz" when this page has a quiz block (e.g. homepage, experience pages)
+  const hasQuizOnPage = document.querySelector('.quiz');
+  if (hasQuizOnPage) {
+    const retake = document.createElement('a');
+    retake.href = '#quiz';
+    retake.className = 'personalization-banner-retake';
+    retake.textContent = 'Retake Quiz';
+    retake.addEventListener('click', (e) => {
+      e.preventDefault();
+      const quizSection = document.querySelector('.quiz');
+      if (quizSection) {
+        quizSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.href = '/#quiz';
+      }
+    });
+    actions.append(retake);
+  }
 
   const dismiss = document.createElement('button');
   dismiss.type = 'button';
