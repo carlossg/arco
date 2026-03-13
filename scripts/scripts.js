@@ -52,6 +52,7 @@ async function loadFonts() {
  * Builds a personalization-banner block and prepends to main if persona cookie exists.
  * @param {Element} main The container element
  */
+// eslint-disable-next-line no-unused-vars
 function buildPersonalizationBanner(main) {
   const hasPersona = document.cookie.match(/(?:^|;\s*)arco_persona=([^;]*)/);
   if (!hasPersona) return;
@@ -87,10 +88,6 @@ function buildAutoBlocks(main) {
     }
 
     buildHeroBlock(main);
-    // Only add personalization banner to the actual page, not fragments (e.g. nav)
-    if (main === document.querySelector('main')) {
-      buildPersonalizationBanner(main);
-    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
