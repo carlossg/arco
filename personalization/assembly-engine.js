@@ -19,7 +19,7 @@ const HERO_VARIANTS = {
   'morning-minimalist': {
     headline: 'One perfect cup. Every morning.',
     subtext: 'The Arco Primo is built for people who want quality without complexity. Heat up in 90 seconds, pull a beautiful shot, and start your day.',
-    cta: { label: 'Meet the Primo', url: '/products/pdp-canonical/arco-primo' },
+    cta: { label: 'Meet the Primo', url: '/products/arco-primo' },
     image_alt: 'A calm kitchen counter at dawn with a single espresso in a white ceramic cup next to the Arco Primo',
   },
   upgrader: {
@@ -31,19 +31,19 @@ const HERO_VARIANTS = {
   'craft-barista': {
     headline: 'Built for the obsessed.',
     subtext: 'The Arco Studio Pro puts pressure profiling, PID temperature control, and competition-grade build quality on your counter.',
-    cta: { label: 'Explore Studio Pro', url: '/products/pdp-canonical/arco-studio-pro' },
+    cta: { label: 'Explore Studio Pro', url: '/products/arco-studio-pro' },
     image_alt: 'Close-up of the Arco Studio Pro pressure gauge and portafilter with a perfectly extracted shot flowing',
   },
   traveller: {
     headline: 'Espresso, everywhere.',
     subtext: 'The Arco Viaggio weighs 340g and pulls genuine espresso from a mountain ledge, a hotel room, or a campervan.',
-    cta: { label: 'Meet the Viaggio', url: '/products/pdp-canonical/arco-viaggio' },
+    cta: { label: 'Meet the Viaggio', url: '/products/arco-viaggio' },
     image_alt: 'The Arco Viaggio portable espresso maker on a granite rock with mountain peaks in soft focus behind',
   },
   'non-barista': {
     headline: 'Great coffee. No barista required.',
     subtext: 'The Arco Automatico grinds, tamps, and brews with one touch. Specialty-grade espresso without the learning curve.',
-    cta: { label: 'See the Automatico', url: '/products/pdp-canonical/arco-automatico' },
+    cta: { label: 'See the Automatico', url: '/products/arco-automatico' },
     image_alt: 'The Arco Automatico with a freshly brewed espresso, simple one-button interface visible',
   },
   'office-manager': {

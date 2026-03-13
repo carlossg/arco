@@ -32,7 +32,7 @@ const HERO_OVERRIDES = {
     headline: 'One perfect cup. Every morning.',
     subtext: 'The Arco Primo is built for people who want quality without complexity. Heat up in 90 seconds, pull a beautiful shot, and start your day.',
     ctaLabel: 'Meet the Primo',
-    ctaUrl: '/products/pdp-canonical/arco-primo',
+    ctaUrl: '/products/arco-primo',
   },
   upgrader: {
     headline: 'Ready for the real thing.',
@@ -44,19 +44,19 @@ const HERO_OVERRIDES = {
     headline: 'Built for the obsessed.',
     subtext: 'The Arco Studio Pro puts pressure profiling, PID temperature control, and competition-grade build quality on your counter.',
     ctaLabel: 'Explore Studio Pro',
-    ctaUrl: '/products/pdp-canonical/arco-studio-pro',
+    ctaUrl: '/products/arco-studio-pro',
   },
   traveller: {
     headline: 'Espresso, everywhere.',
     subtext: 'The Arco Viaggio weighs 340g and pulls genuine espresso from a mountain ledge, a hotel room, or a campervan.',
     ctaLabel: 'Meet the Viaggio',
-    ctaUrl: '/products/pdp-canonical/arco-viaggio',
+    ctaUrl: '/products/arco-viaggio',
   },
   'non-barista': {
     headline: 'Great coffee. No barista required.',
     subtext: 'The Arco Automatico grinds, tamps, and brews with one touch. Specialty-grade espresso without the learning curve.',
     ctaLabel: 'See the Automatico',
-    ctaUrl: '/products/pdp-canonical/arco-automatico',
+    ctaUrl: '/products/arco-automatico',
   },
   'office-manager': {
     headline: 'Office coffee that people actually look forward to.',

@@ -22,7 +22,7 @@
       },
       "hero_message": "One perfect cup. Every morning.",
       "hero_subtext": "The Arco Primo is built for people who want quality without complexity. Heat up in 90 seconds, pull a beautiful shot, and start your day.",
-      "hero_cta": { "label": "Meet the Primo", "url": "/products/pdp-canonical/arco-primo" },
+      "hero_cta": { "label": "Meet the Primo", "url": "/products/arco-primo" },
       "blog_feed_tags": ["how-to", "editorial", "beginner"],
       "excluded_content_types": ["advanced", "competition"]
     },
@@ -74,7 +74,7 @@
       },
       "hero_message": "Built for the obsessed.",
       "hero_subtext": "The Arco Studio Pro puts pressure profiling, PID temperature control, and competition-grade build quality on your kitchen counter. No compromises.",
-      "hero_cta": { "label": "Explore Studio Pro", "url": "/products/pdp-canonical/arco-studio-pro" },
+      "hero_cta": { "label": "Explore Studio Pro", "url": "/products/arco-studio-pro" },
       "blog_feed_tags": ["advanced", "technique", "competition", "science"],
       "excluded_content_types": ["beginner"]
     },
@@ -100,7 +100,7 @@
       },
       "hero_message": "Espresso, everywhere.",
       "hero_subtext": "The Arco Viaggio weighs 340g and pulls genuine espresso from a mountain ledge, a hotel room, or a campervan. No electricity required.",
-      "hero_cta": { "label": "Meet the Viaggio", "url": "/products/pdp-canonical/arco-viaggio" },
+      "hero_cta": { "label": "Meet the Viaggio", "url": "/products/arco-viaggio" },
       "blog_feed_tags": ["travel", "portable", "adventure"],
       "excluded_content_types": ["office"]
     },
@@ -126,7 +126,7 @@
       },
       "hero_message": "Great coffee. No barista required.",
       "hero_subtext": "The Arco Automatico grinds, tamps, and brews with one touch. Specialty-grade espresso without the learning curve.",
-      "hero_cta": { "label": "See the Automatico", "url": "/products/pdp-canonical/arco-automatico" },
+      "hero_cta": { "label": "See the Automatico", "url": "/products/arco-automatico" },
       "blog_feed_tags": ["beginner", "convenience", "how-to"],
       "excluded_content_types": ["advanced", "competition", "science"]
     },
