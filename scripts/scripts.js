@@ -418,7 +418,7 @@ async function renderArcoRecommenderPage() {
     main.innerHTML = `
       <div class="section generation-error">
         <h2>Unknown preset: &ldquo;${preset}&rdquo;</h2>
-        <p>Try one of: ${VALID_PRESETS.map((p) => `<a href="/?q=${encodeURIComponent(query)}&amp;preset=${p}">${p}</a>`).join(', ')}</p>
+        <p>Try one of: ${VALID_PRESETS.map((p) => { const lp = new URLSearchParams(params); lp.set('preset', p); return `<a href="/?${lp.toString()}">${p}</a>`; }).join(', ')}</p>
       </div>
     `;
     return;
