@@ -487,15 +487,13 @@ async function renderArcoRecommenderPage() {
   const generatedBlocks = [];
   const startTime = Date.now();
 
-  // Handle cache hit — redirect to the already-published page (local path on localhost)
+  // Handle cache hit — redirect to the cached page on the same host
   eventSource.addEventListener('cache-hit', (e) => {
     eventSource.close();
     const data = JSON.parse(e.data);
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const redirectUrl = isLocal ? data.path : data.liveUrl;
     // eslint-disable-next-line no-console
-    console.log(`[Recommender] Cache hit, redirecting to: ${redirectUrl}`);
-    window.location.replace(redirectUrl);
+    console.log(`[Recommender] Cache hit, redirecting to: ${data.path}`);
+    window.location.replace(data.path);
   });
 
   eventSource.addEventListener('block-content', async (e) => {
