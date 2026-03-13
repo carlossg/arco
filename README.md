@@ -25,6 +25,16 @@ npm i
 npm run lint
 ```
 
+## Recommender
+
+The site includes an AI-powered recommender at `/?q=...`. Generated pages are cached in DA so repeat queries redirect instantly instead of re-running the LLM pipeline.
+
+| Parameter | Example | Description |
+|-----------|---------|-------------|
+| `q` | `/?q=best+espresso` | Natural language query |
+| `preset` | `/?q=...&preset=gemini-3-pro` | Model preset (default: `production`) |
+| `regen` | `/?q=...&regen` | Force regeneration, skip cache |
+
 ## Local development
 
 1. Create a new repository based on the `aem-boilerplate` template

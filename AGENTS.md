@@ -187,6 +187,25 @@ Regular Pages                    Recommender Query (/?q=...)
 6. The backend `classifyIntent()` prompt includes browsing context (e.g. "User viewed the Primo and Doppio pages, spent 2 minutes on each")
 7. `buildFollowUpSuggestions()` uses products viewed and interests to generate targeted follow-up chips instead of generic ones
 
+**Cache-first page serving:**
+
+Repeat queries are served instantly from DA instead of re-running the full LLM pipeline. Both client and server generate a **deterministic slug** from the query (keyword extraction + stable hash, no `Date.now()`), so the same query always maps to the same DA path. Paths are preset-scoped:
+
+| Preset | Path |
+|--------|------|
+| `production` (default) | `/discover/{deterministic-slug}` |
+| any other preset | `/discover/{preset}/{deterministic-slug}` |
+
+On `GET /generate`, the server checks `DAClient.exists(path)` before starting the pipeline. On a hit it sends a `cache-hit` SSE event with `liveUrl` and `previewUrl`; the client redirects immediately. On a miss (or when `?regen` is present) the normal pipeline runs and persists to the deterministic path.
+
+| URL | Behaviour |
+|-----|-----------|
+| `/?q=best+espresso+machines` | First visit generates; repeat visits redirect to cached page |
+| `/?q=best+espresso+machines&regen` | Skips cache, regenerates and overwrites the existing page |
+| `/?q=best+espresso+machines&preset=gemini-3-pro` | Separate cache slot under `/discover/gemini-3-pro/...` |
+
+Key files for caching: `category-classifier.ts` (`generateDeterministicSlug`, `buildPresetScopedPath`), `index-express.ts` (cache check in `/generate`), `scripts/scripts.js` (deterministic `generateSlug`, `cache-hit` handler).
+
 ## Testing & Quality Assurance
 
 ### Performance
