@@ -419,7 +419,7 @@ if gcloud run deploy "${SERVICE_NAME}" \
   --timeout=3600 \
   --allow-unauthenticated \
   --labels="app=arco,component=recommender" \
-  --set-env-vars="GCP_PROJECT_ID=${PROJECT_ID},GCP_LOCATION=${REGION},MODEL_PRESET=production,DA_ORG=${DA_ORG},DA_REPO=${DA_REPO},LOG_PROMPTS=true" \
+  --set-env-vars="GCP_PROJECT_ID=${PROJECT_ID},GCP_LOCATION=${REGION},MODEL_PRESET=production,DA_ORG=${DA_ORG},DA_REPO=${DA_REPO},LOG_PROMPTS=true,LLM_HERO_COPY=true" \
   --set-secrets="DA_TOKEN=DA_TOKEN:latest" \
   --project="$PROJECT_ID" 2>/dev/null; then
   success "Cloud Run deployment complete."

@@ -772,21 +772,90 @@ function buildFollowUpSuggestions(
 }
 
 /**
- * Generates the hero block using selectHeroImage() for the background image.
+ * Generates custom hero copy via LLM. Returns null on failure so the caller
+ * can fall back to the deterministic copy.
  */
-export function generateHeroBlock(
+async function generateLLMHeroCopy(
   intent: IntentClassification,
   ragContext: RAGContext,
   query: string,
-): GeneratedBlock {
+  preset?: string,
+): Promise<{ headline: string; subtitle: string; ctaText: string; ctaHref: string } | null> {
+  const factory = createModelFactory(preset);
+
+  const products = ragContext.relevantProducts || [];
+  const productContext = products.slice(0, 3).map((p) =>
+    `- ${p.name}: ${p.tagline || p.description || ''}`.trim(),
+  ).join('\n');
+
+  const messages: Message[] = [
+    {
+      role: 'system',
+      content: `You write punchy, concise hero copy for the Arco coffee equipment website.
+Return JSON only: {"headline": "...", "subtitle": "...", "ctaText": "...", "ctaHref": "..."}
+
+Rules:
+- headline: max 10 words, no quotes, no brand name unless comparing products
+- subtitle: max 25 words, one sentence, conversational
+- ctaText: max 5 words, action-oriented verb phrase
+- ctaHref: a relative URL — use /products/arco-{slug} for products, /?q=... for queries, or #comparison-table for comparisons`,
+    },
+    {
+      role: 'user',
+      content: `Query: "${query}"
+Intent: ${intent.intentType} (${intent.journeyStage})
+Products mentioned: ${intent.entities.products.join(', ') || 'none'}
+Use cases: ${intent.entities.useCases.join(', ') || 'none'}
+
+${productContext ? `Top products:\n${productContext}` : ''}
+
+Generate hero copy for this page.`,
+    },
+  ];
+
+  try {
+    const response = await factory.call('classification', messages);
+    const parsed = parseJSONResponse<{
+      headline: string; subtitle: string; ctaText: string; ctaHref: string;
+    }>(response.content);
+    if (parsed.headline && parsed.subtitle) return parsed;
+    return null;
+  } catch (error) {
+    console.warn('[orchestrator] LLM hero copy failed, falling back to deterministic:', error);
+    return null;
+  }
+}
+
+/**
+ * Generates the hero block using selectHeroImage() for the background image.
+ * When LLM_HERO_COPY is enabled (default), starts an LLM call for custom copy
+ * and returns a promise. When disabled, returns synchronously with deterministic copy.
+ */
+export async function generateHeroBlock(
+  intent: IntentClassification,
+  ragContext: RAGContext,
+  query: string,
+  preset?: string,
+): Promise<GeneratedBlock> {
   const heroImageUrl = selectHeroImage(
     intent.intentType,
     intent.entities.useCases,
     query,
   );
 
-  // Determine headline and subtitle based on intent
-  const { headline, subtitle, ctaText, ctaHref } = buildHeroCopy(intent, ragContext, query);
+  const llmHeroEnabled = (process.env.LLM_HERO_COPY ?? 'true') !== 'false';
+
+  // Try LLM copy first if enabled, fall back to deterministic
+  let heroCopy: { headline: string; subtitle: string; ctaText: string; ctaHref: string };
+  if (llmHeroEnabled) {
+    const llmCopy = await generateLLMHeroCopy(intent, ragContext, query, preset);
+    heroCopy = llmCopy || buildHeroCopy(intent, ragContext, query);
+    if (llmCopy) console.log('[orchestrator] Using LLM-generated hero copy');
+  } else {
+    heroCopy = buildHeroCopy(intent, ragContext, query);
+  }
+
+  const { headline, subtitle, ctaText, ctaHref } = heroCopy;
 
   const ctaHtml = ctaText
     ? `\n      <p><a href="${ctaHref}">${ctaText}</a></p>`
@@ -1636,35 +1705,42 @@ export async function orchestrate(
     });
 
     // ── Phase 2b: Stream Early Blocks (hero + follow-up) ────────────────
-    // Hero and follow-up are deterministic (no LLM call). Stream them
-    // immediately so the user sees content in <1s while reasoning runs.
+    // Hero may use an LLM call for custom copy (feature-flagged via LLM_HERO_COPY).
+    // Run hero generation in parallel with reasoning to minimise latency.
     const earlyBlocks: GeneratedBlock[] = [];
 
-    const heroBlock = generateHeroBlock(intent, ragContext, query);
-    earlyBlocks.push(heroBlock);
+    const heroPromise = generateHeroBlock(intent, ragContext, query, preset);
+
+    const followUpBlock = generateFollowUpBlock(intent, ragContext, query, sessionContext);
+    earlyBlocks.push(followUpBlock);
+
+    // ── Phase 3: Deep Reasoning (Block Selection) ───────────────────────
+    // Start reasoning in parallel with hero LLM call
+    console.log('[orchestrator] Running deep reasoning (block selection)...');
+    const reasoningStart = Date.now();
+
+    const [heroBlock, reasoningResult] = await Promise.all([
+      heroPromise,
+      analyzeAndSelectBlocks(
+        { text: query },
+        ragContext,
+        preset,
+      ),
+    ]);
+
+    // Stream hero first, then follow-up
+    earlyBlocks.unshift(heroBlock);
     write({
       event: 'block-content',
       data: { html: heroBlock.html, sectionStyle: heroBlock.sectionStyle },
     });
     console.log('[orchestrator] Streamed early hero block');
 
-    const followUpBlock = generateFollowUpBlock(intent, ragContext, query, sessionContext);
-    earlyBlocks.push(followUpBlock);
     write({
       event: 'block-content',
       data: { html: followUpBlock.html, sectionStyle: followUpBlock.sectionStyle },
     });
     console.log('[orchestrator] Streamed early follow-up block');
-
-    // ── Phase 3: Deep Reasoning (Block Selection) ───────────────────────
-    console.log('[orchestrator] Running deep reasoning (block selection)...');
-    const reasoningStart = Date.now();
-
-    const reasoningResult = await analyzeAndSelectBlocks(
-      { text: query },
-      ragContext,
-      preset,
-    );
     context.reasoningResult = reasoningResult;
 
     const reasoningDuration = Date.now() - reasoningStart;
@@ -1845,7 +1921,7 @@ export async function orchestrate(
       const fallbackIntent = context.intent || fallbackClassifyIntent(query);
       const fallbackRag = context.ragContext || buildRAGContext(query);
 
-      const heroBlock = generateHeroBlock(fallbackIntent, fallbackRag, query);
+      const heroBlock = await generateHeroBlock(fallbackIntent, fallbackRag, query, preset);
       write({
         event: 'block-content',
         data: { html: heroBlock.html, sectionStyle: heroBlock.sectionStyle },
