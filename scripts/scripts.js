@@ -655,9 +655,15 @@ async function renderArcoRecommenderPage() {
       const data = JSON.parse(e.data);
       // eslint-disable-next-line no-console
       console.error(`[Recommender] Server error: ${data.message} (${data.code || 'unknown'})`);
+      const isModelError = data.code === 'MODEL_UNAVAILABLE';
+      const title = isModelError ? 'Model unavailable' : 'Something went wrong';
+      const hint = isModelError
+        ? '<p>The selected model preset could not be loaded. It may not exist or your project does not have access to it. Try a different <code>preset</code> parameter.</p>'
+        : '';
       loadingState.innerHTML = `
-        <h1>Something went wrong</h1>
+        <h1>${title}</h1>
         <p style="color: #c00;">${data.message}</p>
+        ${hint}
         <p><a href="/">Return to homepage</a></p>
       `;
     }

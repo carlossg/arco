@@ -52,6 +52,20 @@ import {
 import { selectHeroImage } from './hero-images';
 
 /* ========================================================================== */
+/*  Error helpers                                                              */
+/* ========================================================================== */
+
+/**
+ * Determines whether an error indicates the configured model is unavailable
+ * (e.g. 404 Not Found, permission denied, unknown publisher model).
+ * These errors are fatal and should NOT be silently swallowed by fallbacks.
+ */
+function isModelUnavailableError(error: unknown): boolean {
+  const msg = error instanceof Error ? error.message : String(error);
+  return /status:\s*404|NOT_FOUND|was not found|does not have access/i.test(msg);
+}
+
+/* ========================================================================== */
 /*  Types                                                                      */
 /* ========================================================================== */
 
@@ -245,6 +259,10 @@ export async function classifyIntent(
     // Validate and normalise the response
     return normaliseIntentClassification(parsed, query);
   } catch (error) {
+    if (isModelUnavailableError(error)) {
+      console.error('[orchestrator] Model unavailable — aborting pipeline:', error);
+      throw error;
+    }
     console.error('[orchestrator] Intent classification failed, using fallback:', error);
     return fallbackClassifyIntent(query);
   }
@@ -584,6 +602,9 @@ export async function generateBlockContent(
       sectionStyle: BLOCK_SECTION_STYLES[blockType] || 'default',
     };
   } catch (error) {
+    if (isModelUnavailableError(error)) {
+      throw error;
+    }
     console.error(`[orchestrator] Block generation failed for "${blockType}":`, error);
     return generateFallbackBlock(blockType, intent, ragContext);
   }
@@ -1803,13 +1824,21 @@ export async function orchestrate(
     const duration = Date.now() - startTime;
     console.error('[orchestrator] Pipeline error:', error);
 
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred during content generation.';
+    const errorCode = isModelUnavailableError(error) ? 'MODEL_UNAVAILABLE' : 'ORCHESTRATION_ERROR';
+
     write({
       event: 'error',
       data: {
-        message: error instanceof Error ? error.message : 'An unexpected error occurred during content generation.',
-        code: 'ORCHESTRATION_ERROR',
+        message: errorMessage,
+        code: errorCode,
       },
     });
+
+    // Don't attempt fallback if the model itself is unavailable
+    if (isModelUnavailableError(error)) {
+      return;
+    }
 
     // Attempt to send a minimal fallback response
     try {
