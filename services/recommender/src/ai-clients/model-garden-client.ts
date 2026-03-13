@@ -20,7 +20,7 @@ export class ModelGardenClient {
 	private location: string;
 
 	// Model Garden endpoints (will be configured after deployment)
-	private readonly LLAMA_33_70B_ENDPOINT = 'llama-3-3-70b-instruct-maas';
+	private readonly LLAMA_33_70B_ENDPOINT = 'llama-3.3-70b-instruct-maas';
 	private readonly MISTRAL_LARGE_ENDPOINT = 'mistral-large-2411';
 
 	constructor(projectId?: string, location: string = 'us-central1') {

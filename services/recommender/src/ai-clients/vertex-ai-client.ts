@@ -99,7 +99,7 @@ export class VertexAIClient {
 
 		// Thinking models (Gemini 3, Gemini 2.5 Pro) need a higher token budget
 		// because thinking tokens count against maxOutputTokens.
-		const isThinkingModel = model.startsWith('gemini-3') || model === 'gemini-2.5-pro';
+		const isThinkingModel = model.startsWith('gemini-3') || model.startsWith('gemini-2.5');
 		const maxOutputTokens = isThinkingModel
 			? Math.max((options.maxTokens ?? 4096) * 4, 8192)
 			: (options.maxTokens ?? 4096);
