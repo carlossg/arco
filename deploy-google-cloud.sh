@@ -72,6 +72,7 @@ done
 # =============================================================================
 # Configuration
 # =============================================================================
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ID="${GCP_PROJECT_ID:-$(gcloud config get-value project 2>/dev/null || true)}"
 REGION="${GCP_REGION:-us-central1}"
 NOTIFICATION_EMAIL="${NOTIFICATION_EMAIL:-}"
