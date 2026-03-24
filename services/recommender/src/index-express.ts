@@ -17,7 +17,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import type { SessionContext, SSEEvent, IntentClassification } from './types';
 import { orchestrate } from './lib/orchestrator';
-import { persistAndPublish, buildPageHtml, unescapeHtml } from './lib/da-client';
+import { persistAndPublish, buildPageHtml, unescapeHtml, AEMAdminClient } from './lib/da-client';
 import { classifyCategory, generateSemanticSlug, buildCategorizedPath, generateDeterministicSlug, buildPresetScopedPath } from './lib/category-classifier';
 import { DAClient } from './lib/da-client';
 import { GoogleModelFactory } from './ai-clients/model-factory-google';
@@ -109,16 +109,30 @@ app.get('/generate', async (req: Request, res: Response) => {
         const org = daEnv.DA_ORG;
         const repo = daEnv.DA_REPO;
         console.log(`[generate] Cache hit: ${cachedPath}`);
-        sendSSE(res, {
-          event: 'cache-hit',
-          data: {
-            path: cachedPath,
-            liveUrl: `https://main--${repo}--${org}.aem.live${cachedPath}`,
-            previewUrl: `https://main--${repo}--${org}.aem.page${cachedPath}`,
-          },
-        });
-        res.end();
-        return;
+
+        // Ensure page is previewed and published before redirecting
+        // (the page may exist in DA source but not yet on aem.page/aem.live)
+        const adminClient = new AEMAdminClient(daEnv as any);
+        const previewResult = await adminClient.preview(cachedPath);
+        if (!previewResult.success) {
+          console.warn(`[generate] Cache hit but preview failed: ${previewResult.error}, regenerating...`);
+        } else {
+          // Fire-and-forget publish to live
+          adminClient.publish(cachedPath).catch((err) => {
+            console.warn(`[generate] Cache hit publish failed:`, err);
+          });
+
+          sendSSE(res, {
+            event: 'cache-hit',
+            data: {
+              path: cachedPath,
+              liveUrl: `https://main--${repo}--${org}.aem.live${cachedPath}`,
+              previewUrl: `https://main--${repo}--${org}.aem.page${cachedPath}`,
+            },
+          });
+          res.end();
+          return;
+        }
       }
     } catch (err) {
       console.warn('[generate] Cache check failed, proceeding with generation:', err);
