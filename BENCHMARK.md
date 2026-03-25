@@ -119,3 +119,33 @@ curl 'https://arco-recommender-642841493686.us-central1.run.app/api/benchmark-fu
 # List all presets
 curl 'https://arco-recommender-642841493686.us-central1.run.app/api/presets'
 ```
+
+---
+
+## Qualitative Benchmark: "Camping in the Middle of the Forest"
+
+**Query:** `best espresso machine for camping in the middle of the forest`
+**Goal:** Evaluate presets on **Content** (depth, accuracy), **Usability** (formatting, blocks used), and **Targeting** (addressing the off-grid constraint).
+
+The ideal response should recommend the **Arco Viaggio** (a manual, electricity-free, 1.2kg lever machine) and highlight its off-grid capabilities.
+
+| Preset | Content Quality | Usability | Targeting | Notes |
+|--------|-----------------|-----------|-----------|-------|
+| `gemini-3-pro` | **Excellent** | **Excellent** | **Perfect** | Specifically calls out "no electricity", "off-grid adventures", and "manual lever power". Great block structure (Hero, Quick Answer, Text, Detail, Features). |
+| `gemini-3-flash` | **Great** | **Excellent** | **Excellent** | Features Viaggio and Nano. Mentions durability and rapid heat-up. Standard UI blocks used well. |
+| `gemini-3-mixed` | **Excellent** | **Excellent** | **Perfect** | Superb text on "Grinding in the Wild". Addresses environmental variables like altitude and humidity perfectly. |
+| `gemini-2.5-pro` | **Excellent** | **Outstanding** | **Perfect** | Included a testimonial, mentioned wild grinding, camping accessories (kettle, mug, scale), and a video embed. Highly engaging and informative. |
+| `gemini-2.5-flash` | **Good** | **Great** | **Great** | Misses the deeper text of the Pro models, but effectively uses a comparison carousel for the Viaggio vs Nano. |
+| `gemini-2.5-mixed` | **Poor** | **Great**| **Fail** | Displayed a nice video and quote, but recommended the **Arco Studio Pro** (a $3,499 heavy, triple-boiler machine)—completely failing the off-grid targeting constraint. |
+| `gemini-2.0-flash-lite` | **Basic** | **Good** | **Good** | Used a Use Case Card which was neat, but missing in-depth reasoning text and feature highlights; very brief. |
+| `gemini-2.0-mixed` | **Good** | **Good** | **Good** | Generated a detailed specification table for the Viaggio, but lacked deeper explanatory text. |
+| `llama-3.3-70b-instruct-maas` | **Fair** | **Good** | **Poor** | Highlighted the Viaggio initially, but hallucinated/mismatched features in the grid, recommending the Studio Pro and Automatico for outdoors. |
+| `mistral-small` | **Fail** | **Basic** | **Fail** | Output generic fallback content ("Explore our range of premium espresso machines..."). Missed the camping context entirely. |
+| `gemma-3-4b` | **Fail** | **Basic** | **Fail** | Output generic fallback text repeated three times. |
+| `gemma-3-12b` | **Fail** | **Basic** | **Fail** | Output generic fallback text. |
+| `llama-3.2-3b` | **Error** | N/A | N/A | Resulted in an HTTP 404 Error (failed to generate). |
+
+### Summary
+* **The `gemini-3-*` and `gemini-2.5-pro` models** dominated this qualitative test, perfectly understanding the constraints of a "forest" environment (no electricity, portability) and recommending the appropriate manual machine (Viaggio) with rich, engaging AEM blocks.
+* **Mixed models** had varying success – `gemini-3-mixed` performed brilliantly with nuanced "grinding in the wild" tips, while `gemini-2.5-mixed` failed the core constraint by suggesting a massive triple-boiler machine.
+* **Smaller/fallback models** completely missed the intent constraint, outputting generic catalog text or hallucinating features.
