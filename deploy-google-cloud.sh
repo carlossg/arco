@@ -247,35 +247,6 @@ fi
 success "Firestore setup complete."
 
 # =============================================================================
-# Step 5: Create Cloud Storage Bucket
-# =============================================================================
-step "Step 5: Setup Cloud Storage"
-
-BUCKET_NAME="${PROJECT_ID}-arco-data"
-
-echo -ne "  ${YELLOW}Creating bucket gs://${BUCKET_NAME}...${NC} "
-if gsutil ls "gs://${BUCKET_NAME}" &>/dev/null; then
-  echo -e "${GREEN}Already exists${NC}"
-else
-  if gsutil mb -p "$PROJECT_ID" -l "$REGION" -b on "gs://${BUCKET_NAME}" 2>/dev/null; then
-    echo -e "${GREEN}Created${NC}"
-  else
-    echo -e "${RED}Failed${NC}"
-    warn "Could not create bucket. It may already exist or the name may be taken."
-  fi
-fi
-
-# Apply labels to bucket
-echo -ne "  ${YELLOW}Setting labels on bucket...${NC} "
-if gsutil label ch -l "app:arco" -l "component:data" "gs://${BUCKET_NAME}" 2>/dev/null; then
-  echo -e "${GREEN}Done${NC}"
-else
-  echo -e "${YELLOW}Skipped (label may already be set)${NC}"
-fi
-
-success "Cloud Storage setup complete."
-
-# =============================================================================
 # Step 6: Setup Secrets (DA_TOKEN)
 # =============================================================================
 step "Step 6: Setup Secrets"
@@ -352,6 +323,8 @@ declare -A MODELS=(
   ["gemini-2.5-flash-lite"]="Google Gemini 2.5 Flash Lite"
   ["gemini-2.0-flash"]="Google Gemini 2.0 Flash"
   ["gemini-2.0-flash-lite"]="Google Gemini 2.0 Flash Lite"
+  ["llama-3.1-405b-instruct-maas"]="Meta Llama 3.1 405B"
+  ["mistral-large-2411"]="Mistral Large 24.11"
 )
 
 PASS_COUNT=0
@@ -365,6 +338,19 @@ for model_id in "${!MODELS[@]}"; do
     -H "Authorization: Bearer $(gcloud auth print-access-token 2>/dev/null)" \
     "https://${REGION}-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/${REGION}/publishers/google/models/${model_id}" \
     2>/dev/null || echo "000")
+
+  if [ "$RESPONSE" = "404" ]; then
+    # Try third-party publisher endpoints for non-Google models
+    for publisher in "meta" "mistralai"; do
+      RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+        -H "Authorization: Bearer $(gcloud auth print-access-token 2>/dev/null)" \
+        "https://${REGION}-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/${REGION}/publishers/${publisher}/models/${model_id}" \
+        2>/dev/null || echo "000")
+      if [ "$RESPONSE" = "200" ]; then
+        break
+      fi
+    done
+  fi
 
   if [ "$RESPONSE" = "200" ]; then
     echo -e "${GREEN}Available${NC}"
@@ -417,10 +403,13 @@ if gcloud run deploy "${SERVICE_NAME}" \
   --cpu=2 \
   --memory=2Gi \
   --max-instances=10 \
+  --concurrency=160 \
   --timeout=3600 \
+  --no-cpu-throttling \
+  --startup-cpu-boost \
   --allow-unauthenticated \
   --labels="app=arco,component=recommender" \
-  --set-env-vars="GCP_PROJECT_ID=${PROJECT_ID},GCP_LOCATION=${REGION},MODEL_PRESET=production,DA_ORG=${DA_ORG},DA_REPO=${DA_REPO},LOG_PROMPTS=true,LLM_HERO_COPY=true" \
+  --set-env-vars="GCP_PROJECT_ID=${PROJECT_ID},GCP_LOCATION=${REGION},NODE_ENV=production,PORT=8080,MODEL_PRESET=production,DA_ORG=${DA_ORG},DA_REPO=${DA_REPO},LOG_PROMPTS=true,LLM_HERO_COPY=true,SECRET_REFRESH=$(date +%s)" \
   --set-secrets="DA_TOKEN=DA_TOKEN:latest" \
   --project="$PROJECT_ID" 2>/dev/null; then
   success "Cloud Run deployment complete."
@@ -461,7 +450,7 @@ if [ -d "$FUNCTIONS_DIR" ]; then
         continue
       fi
 
-      echo -ne "  ${YELLOW}Deploying ${func_name} (entry: ${entry_point})...${NC} "
+      echo -ne "  ${YELLOW}Deploying HTTP function: ${func_name} (entry: ${entry_point})...${NC} "
       if gcloud functions deploy "arco-${func_name}" \
         --gen2 \
         --region="$REGION" \
@@ -477,7 +466,6 @@ if [ -d "$FUNCTIONS_DIR" ]; then
         echo -e "${GREEN}Deployed${NC}"
       else
         echo -e "${RED}Failed${NC}"
-        warn "Function deployment failed. You can deploy manually: cd ${func_dir} && gcloud functions deploy arco-${func_name} ..."
       fi
     fi
   done
@@ -518,7 +506,7 @@ SERVICE_URL=$(gcloud run services describe "${SERVICE_NAME}" \
 
 echo -e "${BOLD}${CYAN}Service URLs:${NC}"
 echo -e "  Recommender API:     ${GREEN}${SERVICE_URL}${NC}"
-echo -e "  Health Check:        ${GREEN}${SERVICE_URL}/health${NC}"
+echo -e "  Health Check:        ${GREEN}${SERVICE_URL}/healthz${NC}"
 echo ""
 
 echo -e "${BOLD}${CYAN}Console URLs:${NC}"
