@@ -51,6 +51,7 @@ echo "Redeploying Cloud Run service '$SERVICE_NAME' to pick up new secret..."
 
 gcloud run services update "$SERVICE_NAME" \
   --region="$REGION" \
-  --project="$PROJECT_ID"
+  --project="$PROJECT_ID" \
+  --update-env-vars="SECRET_REFRESH=$(date +%s)"
 
 echo "Done: Cloud Run service updated."
