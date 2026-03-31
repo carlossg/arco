@@ -94,6 +94,14 @@ function buildAutoBlocks(main) {
   }
 }
 
+// Map LLM-generated block types to existing frontend blocks.
+// 'false' means strip the block wrapper entirely (render as default content).
+const BLOCK_ALIASES = {
+  'use-case-cards': 'cards',
+  'feature-highlights': 'cards',
+  text: false,
+};
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -105,6 +113,18 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+
+  // Remap aliased block names (e.g. LLM-generated blocks served from DA cache)
+  Object.entries(BLOCK_ALIASES).forEach(([alias, target]) => {
+    main.querySelectorAll(`.${alias}`).forEach((el) => {
+      if (target === false) {
+        el.replaceWith(...el.children);
+      } else {
+        el.classList.replace(alias, target);
+      }
+    });
+  });
+
   decorateBlocks(main);
 }
 
@@ -165,14 +185,6 @@ function loadDelayed() {
 const PREFETCH_KEY = 'arco-quiz-prefetch';
 const PREFETCH_MAX_AGE_MS = 60000;
 const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
-
-// Map LLM-generated block types to existing frontend blocks.
-// 'false' means strip the block wrapper entirely (render as default content).
-const BLOCK_ALIASES = {
-  'use-case-cards': 'cards',
-  'feature-highlights': 'cards',
-  text: false,
-};
 
 /**
  * Valid recommender presets (must match model-factory-google.ts MODEL_PRESETS)

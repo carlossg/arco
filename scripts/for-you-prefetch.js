@@ -22,12 +22,48 @@ let lastPrefetchSnapshot = null;
 let activeEventSource = null;
 
 /**
+ * Extract distinctive topic words from the most recent browsing history entries.
+ * Deduplicates across pages and filters out generic section/stop words.
+ */
+function extractTopicWords(browsingHistory) {
+  const sectionPaths = new Set([
+    'stories', 'experiences', 'products', 'about', 'support', 'home', 'discover',
+  ]);
+  const stopWords = new Set([
+    'the', 'a', 'an', 'and', 'or', 'of', 'to', 'in', 'for', 'with',
+    'on', 'is', 'it', 'your', 'our', 'arco', 'guide', 'complete',
+    'recommend', 'equipment', 'based', 'browsing', 'what', 'help',
+  ]);
+
+  const wordCounts = new Map();
+  (browsingHistory || []).slice(-5)
+    // Skip recommender-generated pages (cached under /discover/)
+    .filter((visit) => !(visit.path || '').startsWith('/discover/'))
+    .forEach((visit) => {
+      const segments = (visit.path || '').split('/').filter(Boolean);
+      segments
+        .filter((s) => !sectionPaths.has(s))
+        .flatMap((s) => s.split('-'))
+        .filter((w) => w.length > 2 && !stopWords.has(w))
+        .forEach((w) => wordCounts.set(w, (wordCounts.get(w) || 0) + 1));
+    });
+
+  // Sort by frequency (words appearing across multiple pages are strongest signals),
+  // then return unique words
+  return [...wordCounts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([word]) => word);
+}
+
+/**
  * Synthesize a natural-language query from the inferred browsing profile.
+ * Produces a directive recommendation request so the backend classifies it
+ * as a targeted use-case rather than generic exploration.
  * @param {Object} context - Session context from SessionContextManager
  * @returns {string}
  */
 function synthesizeQuery(context) {
-  const { inferredProfile } = context;
+  const { inferredProfile, browsingHistory } = context;
   if (!inferredProfile) return 'Recommend coffee equipment based on my browsing';
 
   const {
@@ -51,6 +87,13 @@ function synthesizeQuery(context) {
       .map((c) => c.replace(/-/g, ' '))
       .slice(0, 2);
     parts.push(`I'm interested in ${cats.join(' and ')}`);
+  } else if (browsingHistory && browsingHistory.length > 0) {
+    // Build a directive query from the topic words found across visited pages
+    const words = extractTopicWords(browsingHistory);
+    if (words.length > 0) {
+      const topic = words.slice(0, 4).join(' ');
+      parts.push(`Recommend equipment for ${topic}`);
+    }
   }
 
   // Add interest context
@@ -68,7 +111,7 @@ function synthesizeQuery(context) {
     parts.push('help me compare my options');
   } else if (journeyStage === 'deciding') {
     parts.push('help me decide which to choose');
-  } else if (parts.length > 0) {
+  } else if (productsViewed.length > 0 || categoriesViewed.length > 0) {
     parts.push('what do you recommend?');
   }
 

@@ -256,6 +256,9 @@ export function collectBrowsingSignals() {
   const params = new URLSearchParams(window.location.search);
   if (params.has('q') || params.has('query')) return;
 
+  // Skip cached recommender pages served from DA
+  if (window.location.pathname.startsWith('/discover/')) return;
+
   const signals = [];
   pageLoadTime = Date.now();
   scrollDepth = 0;
