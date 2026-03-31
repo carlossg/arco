@@ -4,7 +4,7 @@ Arco is a specialty espresso brand website that demonstrates how Adobe Experienc
 
 ## Demo
 
-![](https://github.com/user-attachments/assets/arco-demo.mp4)
+https://github.com/user-attachments/assets/64f534df-37ed-4c95-8422-9bba7f734d27
 
 The [demo video](build-demo/arco-demo.mp4) walks through Arco's AI-powered personalization features, running on Adobe Experience Manager Edge Delivery Services and Google Cloud.
 
