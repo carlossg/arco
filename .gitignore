@@ -22,3 +22,11 @@ services/recommender/dist/
 # Cloud Functions
 functions/*/node_modules/
 functions/*/dist/
+
+# Demo video build intermediates
+build-demo/audio/
+build-demo/images/
+build-demo/segments/
+build-demo/recordings/
+build-demo/concat.txt
+build-demo/.venv/
