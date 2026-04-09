@@ -1,0 +1,48 @@
+{
+  "id": "my-espresso-tastes-bitter",
+  "slug": "my-espresso-tastes-bitter",
+  "category": "troubleshooting",
+  "title": "My Espresso Tastes Bitter: How to Diagnose and Fix Over-Extraction",
+  "difficulty": "beginner",
+  "read_time_minutes": 8,
+  "persona_tags": ["morning-minimalist", "upgrader", "beginner"],
+  "intent_tags": ["troubleshoot", "own"],
+  "hero_image_alt": "A dark, thick espresso shot in a clear glass demitasse with an almost black crema on top, sitting on a brushed stainless steel drip tray, an Arco Studio espresso machine visible behind with its pressure gauge reading high, dramatic side lighting casting long shadows across a dark marble countertop",
+  "intro": "Bitterness in espresso is often misunderstood. A certain degree of pleasant bitterness is natural to coffee and contributes to its complexity, but when a shot tastes harsh, ashy, or leaves a lingering dryness on your tongue, something has gone wrong. The culprit is almost always over-extraction — the water has spent too long in contact with the coffee and dissolved too many of the heavy, unpleasant compounds that sit at the tail end of the extraction curve. Fixing bitterness is a matter of pulling back: less contact time, less heat, or less surface area.",
+  "body": [
+    {
+      "heading": "What Over-Extraction Tastes and Looks Like",
+      "content": "During extraction, water dissolves compounds from coffee in a roughly predictable order. First come the bright, fruity acids. Then the sugars, caramels, and chocolatey compounds that give espresso its sweetness and body. If extraction continues past the sweet spot, the water begins pulling out heavy, astringent compounds — tannins, dry woody notes, and harsh bitter molecules that overwhelm everything else. An over-extracted shot tastes unmistakably bitter. It often has a drying, astringent sensation similar to over-steeped black tea, and the finish lingers unpleasantly on the back of the tongue. Visually, the shot may start promisingly but then thin out dramatically toward the end, with the stream turning pale and watery — this blonding phase is a sign that the puck has given up everything good and the water is now extracting only the undesirable tail-end compounds. The total shot time is often a giveaway: if your double shot is taking 35 to 45 seconds or longer to reach your target yield, the grind is likely too fine and the water is being forced to spend too much time working through an overly resistant puck. The crema on an over-extracted shot can appear dark and mottled, sometimes with a slightly grayish or burnt tone rather than the warm golden-brown of a well-extracted shot."
+    },
+    {
+      "heading": "Grind Coarser: The Primary Fix",
+      "content": "Just as grinding finer is the first fix for sourness, grinding coarser is the first response to bitterness. When particles are too fine, they pack together tightly, creating enormous resistance. The pump in your Arco machine — whether the vibration pump in the Primo and Nano or the rotary pump in the Studio and Studio Pro — pushes water through at its set pressure, but the flow rate drops because the puck is too dense. The water spends far too long in contact with the coffee and extracts past the point of balance into bitterness. Open up the grind by a small increment. On the Arco Filtro, move one full click coarser. On the Preciso, try two clicks. On the Zero, adjust by three to five microns. Pull another shot with the same dose and yield, and taste the result. You should notice the shot time drop closer to the 25 to 30 second window and the flavor shift from harsh and bitter toward a more balanced, sweeter profile. If one adjustment is not enough, go one more step coarser. As with all espresso dialing, patience and single-variable changes are your best tools. Resist the urge to change grind, dose, and temperature all at once — you will lose track of what actually fixed the problem."
+    },
+    {
+      "heading": "Temperature, Yield, and Contact Time",
+      "content": "If coarsening the grind does not fully resolve the bitterness, look at your brew temperature next. Higher temperatures accelerate extraction, so a machine running too hot will over-extract even with an appropriate grind setting. On the Arco Doppio and Studio, use the PID controller to lower the brew temperature by one to two degrees Celsius — dropping from 95 to 93 degrees, for example. This small reduction slows the rate at which those harsh late-extraction compounds dissolve, giving you a wider margin before the shot tips into bitterness. On machines without adjustable temperature, such as the Primo, make sure you are not inadvertently overheating the group by pulling shots back-to-back in rapid succession. Single-boiler machines need time between shots to stabilize. Wait 30 to 45 seconds after the ready light illuminates before brewing. Yield is another lever. If you are pulling long shots — say a 1:2.5 or 1:3 ratio — you may be extending extraction beyond the sweet spot. Try cutting the shot shorter. With an 18-gram dose, stop at 34 to 36 grams in the cup instead of 45. A shorter ratio concentrates the early, sweeter extraction and leaves the bitter tail-end compounds in the puck where they belong. Timing matters too: if you are using pre-infusion on the Studio Pro, check that the pre-infusion phase is not excessively long, as extended low-pressure saturation increases total contact time."
+    },
+    {
+      "heading": "Equipment Cleanliness and Bean Factors",
+      "content": "Bitterness does not always come from the brewing process itself. Dirty equipment is a surprisingly common cause of persistent bitter, rancid flavors that no amount of grind adjustment will fix. Coffee oils are sticky and turn rancid quickly. If your portafilter basket, group head gasket, and shower screen have not been cleaned recently, old coffee residue is being dissolved into every shot you pull. Back-flush your Arco machine with a blind basket and espresso-safe detergent at least once a week — every day if you are pulling more than four or five shots. Remove the shower screen and scrub it with a nylon brush. Soak your portafilter and basket in hot water with detergent for 15 minutes, then rinse thoroughly. Your grinder also accumulates stale oils. Run grinder-cleaning tablets through your Arco Macinino or Zero once a month to purge old residue from the burr chamber and chute. Bean selection matters as well. Darker roasts have already undergone more caramelization and carbonization during roasting, so they extract faster and tip into bitterness more easily. If you are using a dark roast, grind noticeably coarser, lower your brew temperature, and consider a shorter ratio than you would use for a medium roast. Conversely, if your beans are particularly old — more than five or six weeks past roast — the staling process can produce flat, cardboardy, bitter flavors that no technique adjustment can overcome. Fresh beans, clean equipment, and a well-dialed grind are the three pillars of bitterness-free espresso."
+    }
+  ],
+  "key_takeaways": [
+    "Bitter espresso means over-extraction — the water has dissolved too many harsh, heavy compounds from the coffee.",
+    "Grind coarser first to reduce resistance and shorten contact time between water and coffee.",
+    "Lower brew temperature by one to two degrees to slow the extraction rate on machines with PID control.",
+    "Shorten your yield ratio to cut the shot before bitter tail-end compounds are extracted.",
+    "Clean your machine and grinder regularly — rancid coffee oils produce persistent bitterness that grind changes cannot fix."
+  ],
+  "related_products": ["arco-studio", "arco-doppio", "arco-zero", "arco-macinino"],
+  "related_guides": ["grind-size-explained", "my-espresso-tastes-sour", "descaling-when-and-how"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "Dial In Precisely with the Arco Zero Grinder",
+    "url": "/products/arco-zero"
+  },
+  "seo": {
+    "title": "Why Does My Espresso Taste Bitter? Over-Extraction Fixes | Arco",
+    "meta_description": "Fix bitter espresso by understanding over-extraction. Learn to adjust grind size, temperature, and yield for balanced shots. Troubleshooting guide from Arco."
+  }
+}

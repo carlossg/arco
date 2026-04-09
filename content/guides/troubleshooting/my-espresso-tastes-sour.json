@@ -1,0 +1,48 @@
+{
+  "id": "my-espresso-tastes-sour",
+  "slug": "my-espresso-tastes-sour",
+  "category": "troubleshooting",
+  "title": "My Espresso Tastes Sour: How to Diagnose and Fix Under-Extraction",
+  "difficulty": "beginner",
+  "read_time_minutes": 8,
+  "persona_tags": ["morning-minimalist", "upgrader", "beginner"],
+  "intent_tags": ["troubleshoot", "own"],
+  "hero_image_alt": "A close-up shot of a small white ceramic espresso cup on a walnut saucer, the espresso appearing thin and pale with a watery crema, a digital scale reading 36 grams beside it, soft morning light filtering through a kitchen window, shallow depth of field with an Arco espresso machine blurred in the background",
+  "intro": "Sourness in espresso is one of the most common complaints from home baristas, and it almost always points to the same root cause: under-extraction. When water passes through the coffee puck too quickly or fails to dissolve enough of the soluble compounds, you end up with a sharp, acidic, mouth-puckering shot that lacks sweetness and body. The good news is that sourness is highly fixable. By understanding the handful of variables that contribute to under-extraction, you can systematically work through them and arrive at a balanced, sweet shot within just a few adjustments.",
+  "body": [
+    {
+      "heading": "Understanding Under-Extraction",
+      "content": "Every coffee bean contains roughly 30 percent soluble material — compounds that can be dissolved by water during brewing. In a well-extracted espresso, you dissolve somewhere between 18 and 22 percent of the coffee's total mass. Below that range, the shot is under-extracted: the water has not had enough time, temperature, or contact to pull out the full spectrum of flavors. The first compounds to dissolve during extraction are organic acids and fruity, bright-tasting molecules. These are not inherently bad — they give coffee its liveliness and complexity — but without the sugars, caramels, and chocolatey compounds that dissolve next, those acids dominate and the shot tastes unpleasantly sour. Think of it like biting into a fruit that is not quite ripe: the tartness is there, but the sweetness that should balance it has not yet developed. Under-extracted espresso often looks the part too. The shot runs fast, sometimes finishing in 15 to 20 seconds instead of the target 25 to 30. The stream from the portafilter appears thin, pale, and watery rather than thick and syrupy. The crema, if present at all, is thin and dissipates quickly. If you are seeing these visual cues alongside a sour taste, under-extraction is almost certainly your diagnosis."
+    },
+    {
+      "heading": "Grind Size: The First Variable to Check",
+      "content": "In the vast majority of cases, sour espresso comes down to grind size being too coarse. When particles are too large, the gaps between them allow water to rush through the puck without spending enough time in contact with the coffee to dissolve the sweeter, heavier compounds. The fix is straightforward: grind finer. If you are using an Arco Preciso or Macinino, make a small adjustment — two to three clicks on the Preciso's stepped collar or a quarter-turn on the Macinino's stepless dial — and pull another shot. On the Arco Zero, the digital readout lets you dial in with even more precision, adjusting in single-micron increments until you hit the sweet spot. The key discipline here is to change only one variable at a time. Grind finer, keep your dose and yield the same, and taste the result. If the shot is still sour but slower, grind finer again. If it suddenly tastes bitter and the flow has slowed dramatically, you have gone too far and should back off slightly. This iterative process is what baristas call dialing in, and it typically takes three to five shots to find the right setting for a new bag of coffee. It is worth the beans. Once you are dialed in, that setting will hold for several days before the beans age enough to require another small adjustment."
+    },
+    {
+      "heading": "Temperature, Dose, and Yield",
+      "content": "If adjusting grind size alone does not resolve the sourness, the next variables to examine are brew temperature, dose, and yield. Brew temperature directly affects extraction efficiency: hotter water dissolves solubles faster. If your machine allows temperature adjustment — the Arco Doppio and Studio both offer PID-controlled temperature in one-degree increments — try raising the brew temperature by two degrees Celsius. Moving from 93 to 95 degrees can noticeably increase extraction and push a sour shot toward sweetness. On the Arco Primo, which uses a fixed-temperature thermostat, you can approximate this by running a blank shot through the group head just before brewing to ensure the entire brew path is fully heated. Dose is the amount of dry coffee you put in the basket. A higher dose creates a thicker puck that the water must travel through, increasing contact time and extraction. If you are dosing 17 grams, try moving to 18 or 18.5 grams and see if the sourness diminishes. Yield — the weight of liquid espresso in your cup — also matters. A longer shot pulls more solubles from the coffee. If you are stopping at a 1:1.5 ratio, try extending to 1:2 or even 1:2.2. For example, with an 18-gram dose, let the shot run until you have 38 to 40 grams in the cup instead of stopping at 30. This extra contact time allows the water to reach those sweeter compounds that balance the acidity."
+    },
+    {
+      "heading": "Bean Freshness and Roast Level",
+      "content": "Sometimes the sourness is not about your technique at all — it is about the beans. Coffee that is too fresh, meaning fewer than five days off roast, contains a high volume of carbon dioxide gas. During brewing, that gas actively repels water away from the coffee particles, creating turbulence in the puck and reducing effective extraction. The result is a fizzy, sharp, aggressively sour shot. If you have just received a freshly roasted bag, let it rest for seven to ten days before expecting to pull balanced shots. On the other end, stale beans that are more than four to six weeks past roast have lost much of their volatile aromatic compounds and can taste flat and hollow, which some people perceive as sour because the sweetness has faded. Roast level also plays a role. Lighter roasts are denser and contain more of those bright organic acids. They require higher extraction to taste balanced — finer grinds, higher temperatures, and sometimes longer ratios. If you are new to espresso and finding your shots consistently sour, consider starting with a medium roast, which is more forgiving and easier to extract fully. As your technique improves with your Arco setup, you can experiment with lighter, more complex origins and have the skills to extract them properly."
+    }
+  ],
+  "key_takeaways": [
+    "Sour espresso almost always means under-extraction — the water has not dissolved enough of the coffee's sweet and balanced compounds.",
+    "Grind finer first: this is the most impactful single change you can make to increase extraction.",
+    "Raise brew temperature by one to two degrees if grind adjustment alone is not enough.",
+    "Extend your yield ratio to 1:2 or beyond to give the water more time to extract sweetness.",
+    "Let freshly roasted beans rest seven to ten days before brewing, and use lighter roasts only once your technique is dialed in."
+  ],
+  "related_products": ["arco-preciso", "arco-macinino", "arco-zero", "arco-doppio", "arco-primo"],
+  "related_guides": ["grind-size-explained", "my-espresso-tastes-bitter", "dialing-in-new-beans"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "Explore Arco Grinders for Precision Dialing",
+    "url": "/products/grinders"
+  },
+  "seo": {
+    "title": "Why Does My Espresso Taste Sour? Under-Extraction Fixes | Arco",
+    "meta_description": "Diagnose and fix sour espresso with this step-by-step troubleshooting guide. Learn how grind size, temperature, and dose affect extraction. From Arco."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "the-five-minute-morning-shot",
+  "slug": "the-five-minute-morning-shot",
+  "category": "workflow",
+  "title": "The Five-Minute Morning Shot",
+  "author": {
+    "name": "Luca Bianchi",
+    "role": "Product Specialist",
+    "bio_short": "Luca spent eight years as a barista in Milan before joining Arco's product team. He believes great espresso should never require setting an earlier alarm."
+  },
+  "published_date": "2025-01-14T08:00:00Z",
+  "read_time_minutes": 7,
+  "hero_image_alt": "A kitchen counter at dawn with soft grey light coming through a window, an Arco Primo machine with steam rising from a fresh shot, a hand reaching for the cup, a grinder with the hopper half-full of beans, a phone showing 6:47, everything clean and minimal",
+  "tags": ["morning-routine", "quick-espresso", "weekday", "workflow", "time-saving"],
+  "persona_tags": ["morning-minimalist", "busy-professional"],
+  "intent_tags": ["own", "workflow", "efficiency"],
+  "intro": "You do not have twenty minutes to dial in and experiment on a Tuesday morning. You have five. Maybe six if the shower was fast. The weekday morning shot is not about perfection — it is about consistency, speed, and a cup that makes the commute tolerable. Here is how to build a workflow that delivers excellent espresso in under five minutes, every single weekday, without thinking.",
+  "body": [
+    {
+      "heading": "The Night-Before Setup That Saves Your Morning",
+      "content": "The fastest morning routine starts the night before. Not with anything elaborate — you are not prepping a five-course meal. You are removing decisions from a version of yourself that has not yet had coffee and should not be trusted with them. Before bed, check that the water tank is full. On the Primo, this takes three seconds and eliminates the most common morning delay. Check that the drip tray is not full. Wipe down the portafilter and leave it locked into the group head — this keeps the gasket compressed evenly and, more importantly, means you do not have to find it in the morning. Set out your cup on the drip tray. If you use a scale, set it on the counter with the cup already on it. Lay a towel or mat under the grinder to catch stray grounds. These are small, almost trivial preparations, but they compound. Each one removes a micro-decision or a micro-task from your morning, and mornings are won or lost on micro-tasks. The Automatico owners have it even simpler — fill the hopper, fill the tank, set the cup, and tomorrow morning is a single button press. But even on a semi-automatic like the Primo, the night-before setup turns a ten-step morning into a five-step morning, and that difference is the difference between rushed and relaxed."
+    },
+    {
+      "heading": "The Five-Minute Sequence, Step by Step",
+      "content": "You walk into the kitchen. The machine is already warming — if you have a smart plug on a timer, the Primo has been heating for fifteen minutes before your alarm went off. If not, flick it on as you pass, and it will be ready by the time you have ground and tamped. Step one: grind. The dose was dialed in on Sunday. You know the setting. Grind eighteen grams into the portafilter — the Macinino or Preciso holds the setting all week, so this is a ten-second operation. Step two: distribute and tamp. A few taps on the counter to settle the grounds, a firm tamp with level pressure, and a quick twist to polish the surface. Five seconds. Step three: lock in and pull. Insert the portafilter, place the cup on the scale, tare, start the shot. The Primo's pre-infusion begins automatically. Watch the stream — you are looking for a steady, honey-coloured flow that starts after four to five seconds of pre-infusion. Step four: stop at your target yield. Thirty-six grams in the cup, approximately twenty-five to twenty-eight seconds of extraction. Stop the shot. Step five: drink. No milk to steam, no art to attempt, no audience to impress. A straight double espresso, consumed standing at the counter or carried to the car. Total elapsed time from entering the kitchen: four minutes and change. The Automatico compresses this further — walk in, press the button, walk away, come back to a finished shot. Three minutes including the walk."
+    },
+    {
+      "heading": "Maintaining Consistency Without Daily Dial-In",
+      "content": "The reason this workflow is fast is that you are not making decisions during the week. The dial-in happened on Sunday. You pulled three or four shots, found the sweet spot for this particular bag of beans, wrote down the grind setting, and left the grinder there. Monday through Friday, you replicate. The key to this working is accepting that Wednesday's shot will not be identical to Sunday's. Beans degas. Humidity changes. The grinder's burrs warm up slightly as the week progresses. These variables produce minor drift — perhaps a shot runs two seconds faster by Thursday, or the crema thins slightly by Friday. This is normal and acceptable. You are not competing. You are caffeinating. If the drift becomes noticeable — the shot starts tasting noticeably sour or bitter — make one micro-adjustment to the grinder. One click finer if sour, one click coarser if bitter. Do this once, mid-week, and do not touch it again until Sunday's fresh dial-in. The Primo is forgiving in this regard. Its thermal stability means the water temperature is consistent from shot to shot, which removes one variable from the equation. The pressure is regulated. The pre-infusion is automatic. You are only managing grind size, and grind size only drifts slowly. One adjustment per week is sufficient for excellent weekday coffee."
+    },
+    {
+      "heading": "Building the Habit Until It Becomes Invisible",
+      "content": "The first week of this workflow, you will think about every step. You will check the grind setting, watch the scale carefully, time the shot, taste analytically. That is fine. By the third week, the workflow is muscle memory. You will grind, tamp, and pull without conscious thought — the same way you tie your shoes or start your car. The movements become automatic, and the five minutes compress further because there is no hesitation between steps. This is the goal. Not coffee mastery, not barista-level technique, but an efficient, repeatable routine that produces a genuinely good double espresso without requiring any mental energy. You want the coffee to be the reward for waking up, not a task that demands concentration before your brain is online. The Automatico was designed explicitly for this use case. Its programming stores your preferred dose, yield, and temperature, and delivers them at the press of a button. But the beauty of building the manual workflow on a Primo is that you understand what the machine is doing and why. When you eventually upgrade — and the Doppio or Studio will call to you eventually — you carry that understanding with you, and the upgrade unlocks new capabilities rather than just replacing old habits. The five-minute morning shot is not a ceiling. It is a foundation. It is the daily practice that makes everything else in your coffee journey possible, because it ensures you never skip a day, never settle for bad coffee, and never dread the process of making good coffee."
+    }
+  ],
+  "key_takeaways": [
+    "Prep the night before — full tank, clean portafilter locked in, cup on the tray — to eliminate morning decisions.",
+    "Dial in once on Sunday; replicate all week with at most one mid-week micro-adjustment.",
+    "The full sequence — grind, tamp, pull, drink — takes under five minutes on a Primo and under three on an Automatico.",
+    "The goal is a repeatable habit, not daily perfection. Consistency beats optimization on a Tuesday morning."
+  ],
+  "related_products": ["arco-primo", "arco-automatico", "arco-macinino"],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Shop the Arco Primo",
+    "url": "/products/arco-primo"
+  },
+  "related_posts": ["how-to-dial-in-espresso-in-under-10-minutes", "batch-prep-for-the-work-week", "morning-routine-for-two"],
+  "seo": {
+    "title": "The Five-Minute Morning Shot — Weekday Espresso Workflow | Arco",
+    "meta_description": "A step-by-step weekday workflow for pulling a great double espresso in under five minutes. Prep the night before, dial in on Sunday, and replicate all week on the Arco Primo or Automatico."
+  }
+}

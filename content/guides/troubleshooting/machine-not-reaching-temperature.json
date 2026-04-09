@@ -1,0 +1,48 @@
+{
+  "id": "machine-not-reaching-temperature",
+  "slug": "machine-not-reaching-temperature",
+  "category": "troubleshooting",
+  "title": "My Machine Is Not Reaching Temperature: Heating Issues and Fixes",
+  "difficulty": "intermediate",
+  "read_time_minutes": 9,
+  "persona_tags": ["upgrader", "enthusiast"],
+  "intent_tags": ["troubleshoot", "own"],
+  "hero_image_alt": "An overhead view of an Arco espresso machine group head with a thermometer probe attached to the portafilter, the temperature display showing a low reading, wisps of steam rising faintly from the drip tray, clinical white studio lighting on a clean gray concrete countertop",
+  "intro": "Temperature is one of the three pillars of espresso extraction, alongside grind size and pressure. When your machine cannot reach or maintain its target brew temperature, every shot suffers. Under-heated water fails to dissolve enough solubles, producing thin, sour, lifeless espresso no matter how finely you grind. Heating problems range from simple user-side fixes — like not waiting long enough for warm-up — to component-level issues that may require professional attention. This guide walks through the most common causes across the Arco machine range and tells you when to fix it yourself and when to call for service.",
+  "body": [
+    {
+      "heading": "Warm-Up Time and Thermal Stability",
+      "content": "The most frequent cause of temperature problems is simply not allowing enough warm-up time. Espresso machines contain significant thermal mass — boilers, group heads, portafilters, and brew pathways that all need to reach a stable temperature before you pull a shot. Turning the machine on and brewing immediately will guarantee an under-temperature shot, even if the boiler has reached its set point, because the group head and portafilter are still cold and will absorb heat from the water as it passes through. The Arco Nano, with its compact thermocoil heater, reaches brew readiness in roughly three to four minutes — fast by espresso machine standards, but still not instant. The Arco Primo, which uses a traditional single boiler, needs 15 to 20 minutes of warm-up time for the entire brew path to stabilize. The Arco Doppio and Studio, with their larger dual boilers and heavy brass group heads, can take 25 to 35 minutes to reach full thermal equilibrium. A useful practice is to lock in the portafilter during warm-up so it heats alongside the group head, and to run a blank shot — water only, no coffee — through the group just before brewing. This purges any water that has been sitting in the group and cooled slightly, replacing it with fresh, fully heated water from the boiler. On the Studio Pro, the saturated group head design maintains exceptional thermal stability once warmed, but that warm-up period is non-negotiable. Consider putting your machine on a smart plug timer so it turns on 30 minutes before your morning routine."
+    },
+    {
+      "heading": "Thermostat and PID Issues",
+      "content": "If your machine has had adequate warm-up time and the water still feels or tastes under-temperature — producing consistently sour, thin shots regardless of grind adjustments — the temperature control system may be at fault. On the Arco Primo, temperature is managed by a mechanical thermostat, a simple device that opens and closes a circuit based on temperature. Thermostats can drift over time, losing their calibration and cycling at a lower temperature than intended. Symptoms include the heating light cycling on and off normally but the actual water temperature being five to ten degrees below target. You can verify this with a group head thermometer or by measuring the temperature of water dispensed from the group into an insulated cup. If the reading is consistently below 90 degrees Celsius when the machine indicates ready, the thermostat likely needs replacement — a relatively inexpensive repair that any qualified technician can perform. On PID-equipped machines like the Arco Doppio, Studio, and Studio Pro, the digital controller continuously monitors and adjusts the heating element to maintain a precise target temperature. PID systems are far more accurate than thermostats, but they can develop issues too. If the temperature probe — a small sensor inside or near the boiler — fails or develops a poor connection, the PID receives inaccurate data and regulates to the wrong temperature. Check the PID display: if it shows the target temperature as reached but the actual brew temperature is clearly lower, the probe may need reseating or replacement. A PID that displays erratic, rapidly fluctuating readings is another sign of a failing temperature sensor."
+    },
+    {
+      "heading": "Heating Element and Electrical Problems",
+      "content": "When the machine fails to heat at all or heats extremely slowly, the issue may be with the heating element itself or the electrical supply. Espresso machine heating elements are resistive coils immersed in or wrapped around the boiler. Over time, mineral scale builds up on the element's surface, acting as an insulating layer that reduces heat transfer efficiency. A scaled heating element has to work harder and longer to bring the boiler to temperature, and in severe cases, it may not reach target temperature at all. This is one of the most compelling reasons to descale your machine regularly — not just for water quality but for heating performance. If descaling does not restore normal heating times, the element itself may have partially failed. A heating element with a broken internal coil will produce less heat or none at all. This is not a user-serviceable repair; it requires a technician to access the boiler and replace the element. Before assuming a component failure, check your electrical supply. Espresso machines draw significant power — the Arco Primo draws around 1100 watts, while the Studio Pro can draw up to 2400 watts. If the machine is plugged into a circuit shared with other high-draw appliances — a kettle, a toaster, a microwave — the combined load may cause voltage drop or trip a breaker, preventing the machine from heating fully. The Arco Ufficio, designed for office environments, draws up to 2800 watts and should always be on a dedicated circuit. Plug your machine directly into a wall outlet rather than a power strip, and ensure the circuit is not overloaded."
+    },
+    {
+      "heading": "Single Boiler Limitations and Steam Recovery",
+      "content": "If you own an Arco Primo or Nano — both single-boiler machines — it is important to understand a structural limitation that can mimic a heating problem: steam recovery time. Single-boiler machines share one boiler for both brewing and steaming. To steam milk, the boiler raises its temperature from the brew range of around 93 degrees Celsius to the steam range of around 140 to 155 degrees. After steaming, the boiler must cool back down to brew temperature before you can pull a shot. If you try to brew immediately after steaming, the water will be too hot, producing burnt-tasting espresso. But if you cool the boiler by running water through the group head and overshoot, the machine needs time to heat back up. This recovery cycle can take one to three minutes on the Primo and can feel like the machine is not reaching temperature when it is actually just cycling back from steam mode. The best practice on a single-boiler machine is to brew first, then steam. Pull your shot into the cup, then switch to steam mode, steam your milk, and combine. This avoids the recovery delay entirely. If you frequently make back-to-back milk drinks and find the temperature cycling frustrating, this is the strongest argument for upgrading to a dual-boiler machine like the Arco Doppio, which maintains separate boilers at brew and steam temperatures simultaneously, eliminating recovery time altogether. The Arco Automatico also handles this seamlessly with its integrated thermal system that manages brewing and steaming independently."
+    }
+  ],
+  "key_takeaways": [
+    "Allow full warm-up time before brewing — 15 to 35 minutes depending on your machine — and lock in the portafilter during warm-up.",
+    "Run a blank shot through the group head before brewing to purge cooled water from the brew path.",
+    "If shots are consistently sour despite correct grind, measure actual brew temperature with a thermometer to check for thermostat or PID issues.",
+    "Descale regularly to prevent mineral buildup on the heating element, which insulates it and reduces heating efficiency.",
+    "On single-boiler machines like the Primo and Nano, brew first then steam to avoid temperature recovery delays."
+  ],
+  "related_products": ["arco-primo", "arco-nano", "arco-doppio", "arco-studio", "arco-studio-pro", "arco-ufficio"],
+  "related_guides": ["descaling-when-and-how", "my-espresso-tastes-sour", "steam-wand-not-producing-foam"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "Upgrade to Dual-Boiler Stability with the Arco Doppio",
+    "url": "/products/arco-doppio"
+  },
+  "seo": {
+    "title": "Espresso Machine Not Heating? Temperature Troubleshooting Guide | Arco",
+    "meta_description": "Diagnose why your espresso machine is not reaching brew temperature. Covers warm-up time, thermostat issues, PID problems, and heating elements. From Arco."
+  }
+}

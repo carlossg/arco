@@ -1,0 +1,53 @@
+{
+  "id": "the-monthly-deep-clean",
+  "slug": "the-monthly-deep-clean",
+  "category": "workflow",
+  "title": "The Monthly Deep Clean",
+  "author": {
+    "name": "Marcus Webb",
+    "role": "Barista Trainer",
+    "bio_short": "Marcus trains home baristas through Arco's workshop program. He competed in the UK Barista Championship twice and has a knack for making complex techniques feel simple."
+  },
+  "published_date": "2025-06-17T08:00:00Z",
+  "read_time_minutes": 9,
+  "hero_image_alt": "A kitchen counter with an Arco Studio Pro partially disassembled for cleaning, the shower screen removed and soaking in a bowl, a backflush disc beside the portafilter, descaling solution in a measuring cup, a grinder with the burrs removed and a brush nearby, clean towels laid out",
+  "tags": ["maintenance", "deep-clean", "backflush", "descale", "grinder-cleaning", "workflow"],
+  "persona_tags": ["meticulous-owner", "home-barista"],
+  "intent_tags": ["own", "maintenance", "workflow", "longevity"],
+  "intro": "Your espresso machine is a precision instrument that processes water, pressure, and heat through tight tolerances every day. Like any precision instrument, it accumulates residue, scale, and wear that degrade performance gradually — so gradually that you might not notice until the shot quality has drifted significantly from where it started. The monthly deep clean is the routine that resets everything to factory-fresh and keeps your machine performing at its best for years.",
+  "body": [
+    {
+      "heading": "Backflushing: Cleaning the Brew Path",
+      "content": "If your machine has a three-way solenoid valve — and every Arco machine from the Doppio upward does — backflushing is the most important cleaning task you can perform. The three-way valve releases pressure from the group head after each shot, directing spent water and oils into the drip tray. Over time, coffee oils build up inside this valve and in the passages between the group head and the boiler. These oils turn rancid and impart a stale, bitter taste that contaminates every shot. For the monthly deep clean, you need a blind basket or rubber backflush disc and a commercial espresso machine detergent — not dish soap, not baking soda, but a product specifically formulated to dissolve coffee oils without damaging seals or metal surfaces. Insert the blind basket into the portafilter. Add half a teaspoon of detergent powder. Lock the portafilter into the group head and activate the pump. The pump will build pressure, but the blind basket blocks the flow, forcing water and detergent back through the solenoid valve and into the drip tray. Run the pump for ten seconds, then stop for ten seconds. Repeat this cycle five times. You will see brown, oily water draining into the tray — this is exactly what you are trying to remove. After five cycles with detergent, remove the portafilter, rinse the blind basket, and run five more cycles with clean water only. This rinse step is critical: any detergent residue left in the brew path will taint your next shot. Finish by pulling a blank shot — no coffee, no blind basket — to flush the full path with clean water."
+    },
+    {
+      "heading": "Descaling: Fighting the Invisible Enemy",
+      "content": "Scale is mineral buildup — primarily calcium carbonate — that accumulates inside the boiler, heating elements, and internal tubing whenever hard water passes through the system. You cannot see it without disassembly, but you can feel its effects: slower heating, reduced steam power, and eventually, damage to heating elements and valves that costs more to repair than the descaling ever would to prevent. Descaling frequency depends on your water hardness. If you use filtered or softened water — and you should — once every two to three months is sufficient. If you use unfiltered tap water in a hard-water area, monthly descaling is essential. Use a citric acid-based descaler, following the dilution ratio on the product label. Empty the water tank and fill it with the descaling solution. Run approximately one third of the solution through the group head by activating the brew cycle. Run another third through the steam wand by opening the steam valve. Then leave the remaining third sitting in the boiler for fifteen to twenty minutes to dissolve scale on the heating element and boiler walls. After the soak, run the remaining solution through the group head and steam wand. Refill the tank with fresh water and run the entire tank through the machine — half through the group, half through the steam wand — to rinse. Repeat the rinse with a second full tank. You want zero trace of descaler in the system before pulling your next shot. The Studio Pro and Ufficio have built-in descale reminders based on shot count. Heed them."
+    },
+    {
+      "heading": "Grinder Maintenance: Burrs, Retention, and Alignment",
+      "content": "The grinder is the other half of your espresso setup, and it accumulates residue just as the machine does. Coffee oils coat the burrs, chaff collects in the grinding chamber, and fine particles pack into the exit chute, affecting grind consistency and adding stale flavours. For the monthly deep clean, start by emptying the hopper and running the grinder until no more coffee exits. Remove the upper burr — on the Preciso and Macinino, this requires removing the hopper and twisting the upper burr carrier counterclockwise. On the Zero, the burr removal is tool-free by design. Use a stiff brush — a clean paintbrush or the brush included with the grinder — to sweep all residual coffee from the burr surfaces, the grinding chamber, and the exit chute. Pay particular attention to the threads and channels where fine grounds pack tightly. A wooden toothpick is useful for dislodging compacted particles from tight spaces. Inspect the burrs themselves. Hold them up to the light and look at the cutting edges. Sharp burrs have crisp, defined edges. Dull burrs look rounded or have visible wear marks. Arco burrs are hardened steel and should last twelve to eighteen months of daily home use before needing replacement. If the edges look worn, order a replacement set — continuing to use dull burrs degrades grind consistency and forces you to grind finer to compensate, which masks the real problem. Reassemble the grinder, run a few grams of fresh beans through to season the burrs, and discard the output. Your grinder is now producing clean, consistent grounds again."
+    },
+    {
+      "heading": "Gaskets, Screens, and the Small Parts That Matter",
+      "content": "The group head gasket is the rubber ring that seals the portafilter to the group head. It compresses slightly every time you lock in the portafilter, and over six to twelve months, it hardens, cracks, or deforms enough that the seal weakens. A failing gasket leaks — you will see water seeping from the edges of the portafilter during extraction, and the shot pressure drops. During the monthly deep clean, inspect the gasket. Press it with your fingernail. A healthy gasket is slightly soft and springs back. A gasket that is hard, cracked, or has a permanent groove from the portafilter needs replacing. Arco machines use standard fifty-eight-millimetre gaskets, which are inexpensive and easy to swap — pry the old one out with a flathead screwdriver or a butter knife, and press the new one in with your thumbs. The shower screen sits above the gasket and distributes water evenly across the coffee puck. Remove it monthly — a coin in the center screw, or a twist depending on your machine model — and soak it in hot water with a drop of detergent for ten minutes. Scrub it with a nylon brush, rinse thoroughly, and reinstall. A clean shower screen distributes water evenly. A clogged one creates channels and uneven extraction. Finally, soak the portafilter baskets in hot water with detergent for fifteen minutes, scrub the mesh with a brush, and rinse. Hold the clean basket up to a light — the holes should be clear and uniform. Blocked holes mean uneven flow and inconsistent shots. These small parts are easy to overlook, but they sit at the exact point where water meets coffee, and their condition directly affects every shot you pull."
+    }
+  ],
+  "key_takeaways": [
+    "Backflush monthly with detergent to remove rancid coffee oils from the brew path, followed by thorough rinsing.",
+    "Descale every one to three months depending on water hardness. Use citric acid descaler and rinse with two full tanks of fresh water.",
+    "Disassemble and brush the grinder monthly. Inspect burrs for wear and replace them every twelve to eighteen months.",
+    "Check the group head gasket for hardness or cracks, clean the shower screen, and soak portafilter baskets to maintain even extraction."
+  ],
+  "related_products": ["arco-studio-pro", "arco-doppio", "arco-preciso", "arco-macinino"],
+  "related_experience": "meticulous-owner",
+  "cta": {
+    "label": "Shop Arco Accessories",
+    "url": "/accessories"
+  },
+  "related_posts": ["batch-prep-for-the-work-week", "the-weekend-slow-brew", "how-to-dial-in-espresso-in-under-10-minutes"],
+  "seo": {
+    "title": "The Monthly Deep Clean — Complete Espresso Machine Maintenance | Arco",
+    "meta_description": "A step-by-step monthly maintenance routine: backflush, descale, clean grinder burrs, inspect gaskets, and reset your setup to factory-fresh performance."
+  }
+}

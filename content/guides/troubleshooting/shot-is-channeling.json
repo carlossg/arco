@@ -1,0 +1,48 @@
+{
+  "id": "shot-is-channeling",
+  "slug": "shot-is-channeling",
+  "category": "troubleshooting",
+  "title": "My Shot Is Channeling: Causes, Signs, and Puck Prep Fixes",
+  "difficulty": "intermediate",
+  "read_time_minutes": 9,
+  "persona_tags": ["upgrader", "enthusiast"],
+  "intent_tags": ["troubleshoot", "own"],
+  "hero_image_alt": "A bottomless portafilter during extraction showing uneven flow with one thin fast stream and one slow drip from different parts of the basket, golden-brown liquid against the dark coffee puck, an Arco Doppio machine in soft focus behind, warm studio lighting from the left highlighting the spray pattern",
+  "intro": "Channeling is the single biggest enemy of consistent espresso. It occurs when water finds a path of least resistance through the coffee puck — a crack, a thin spot, or a gap along the basket wall — and rushes through that channel instead of flowing evenly through the entire bed. The result is a shot that is simultaneously over-extracted where the channel is and under-extracted everywhere else, producing a confused, harsh, thin taste that no amount of grind adjustment can fix. Solving channeling requires attention to puck preparation: how you distribute, level, and tamp the coffee before locking in the portafilter.",
+  "body": [
+    {
+      "heading": "How to Identify Channeling",
+      "content": "Channeling can be subtle or obvious, depending on its severity. The most direct way to see it is with a bottomless portafilter, which exposes the underside of the basket during extraction. With a well-prepared puck, you will see the entire basket surface darken evenly and then begin to drip uniformly before the drips merge into a single centered stream. With channeling, you will see one or more thin, fast jets of pale espresso squirting sideways from specific spots on the basket while the rest of the surface is barely flowing. These jets are water that has found a weak point and is blasting through it at high velocity, stripping those grounds of everything they have while the surrounding grounds remain mostly untouched. Even without a bottomless portafilter, you can detect channeling by its effects. Shots that taste simultaneously sour and bitter — an unpleasant, confused flavor profile — are a hallmark. The shot time may be inconsistent: sometimes fast, sometimes slow, even with the same grind setting and dose. You might also notice spurting or uneven flow from the spouts of a standard portafilter, or the shot may start very slowly and then suddenly speed up as a channel opens partway through the extraction. If your shots are unpredictable despite careful grind adjustments, channeling is the most likely explanation."
+    },
+    {
+      "heading": "Distribution and Leveling",
+      "content": "The foundation of channeling prevention is even distribution of the ground coffee in the basket before tamping. When coffee falls from the grinder into the portafilter, it does not land uniformly. Depending on your grinder's exit chute geometry, the grounds may pile up on one side, form a central mound, or create clumps of compressed particles. If you tamp directly on top of this uneven bed, the dense spots will resist water flow while the thin spots become channels. The simplest distribution technique is the Weiss Distribution Technique, or WDT, which involves stirring the grounds in the basket with a fine needle or set of needles to break up clumps and spread the coffee evenly. After grinding into the portafilter, insert a WDT tool — a thin needle or purpose-built multi-needle stirrer — and make gentle circular and cross-hatch motions through the entire depth of the coffee bed, reaching all the way to the bottom of the basket. The goal is to break every clump and fill every gap so the density of the bed is uniform. After WDT, gently tap the portafilter on the counter once or twice to settle the grounds, then level the surface. A distribution tool — a flat, adjustable-depth disc that spins on the surface — can help create a perfectly level top before tamping. The Arco Preciso and Macinino grinders both have low-retention chutes that minimize clumping, but even the best grinder benefits from a few seconds of WDT before tamping."
+    },
+    {
+      "heading": "Tamping Technique",
+      "content": "Tamping serves one purpose: to compress the coffee bed into a uniform, level disc that forces water to flow through it evenly. The most common tamping mistakes are tamping at an angle, tamping with inconsistent pressure, and tamping too lightly. An angled tamp creates a sloped puck surface — thinner on one side, thicker on the other. Water always takes the path of least resistance, so it will preferentially flow through the thin side, creating a channel along the basket wall. To avoid this, rest the portafilter on a flat surface or tamping mat, position your tamper flat on the coffee bed, and press straight down using your arm and shoulder rather than your wrist. You do not need enormous force — about 15 kilograms or 30 pounds of pressure is sufficient. What matters far more than absolute pressure is consistency and levelness. A level tamp at moderate pressure will outperform an aggressive tamp that is slightly off-angle every time. Self-leveling tampers, which have a built-in mechanism to ensure the base remains perfectly flat regardless of your hand angle, are an excellent investment if you find that your tamping technique is inconsistent. After tamping, inspect the puck surface. It should be smooth, flat, and level with no visible cracks or gaps around the edge. If you see the puck pulling away from the basket wall, your dose may be slightly too low for the basket size, leaving room for water to seep down the sides."
+    },
+    {
+      "heading": "Basket, Dose, and Machine Factors",
+      "content": "Even perfect puck prep cannot overcome equipment-related channeling causes. The basket itself matters: precision baskets with laser-cut, uniformly sized and spaced holes produce more even flow than the stamped baskets that ship with many machines. If you are experiencing persistent channeling on your Arco Primo or Nano despite careful distribution and tamping, consider upgrading to a precision basket as your next accessory. Dose relative to basket size is critical. Under-dosing leaves headroom above the puck, allowing water to pool and create turbulence before entering the coffee bed. Over-dosing can cause the puck to contact the shower screen when the portafilter is locked in, creating an impression on the surface that disrupts flow. Your dose should fill the basket so that the tamped puck sits roughly two to three millimeters below the rim. For a standard 58-millimeter double basket, this is usually 17 to 19 grams depending on the specific basket depth. The shower screen and group head gasket also play a role. A clogged shower screen directs water unevenly onto the puck surface, creating channels from above. On the Arco Studio and Studio Pro, the shower screen is held in place by a single screw and takes 30 seconds to remove for cleaning. Make this part of your weekly maintenance routine. Similarly, a worn group head gasket can allow water to leak around the portafilter instead of through the puck, reducing effective brew pressure and creating uneven extraction. Gaskets should be replaced annually or sooner if you notice water seeping from around the portafilter during extraction."
+    }
+  ],
+  "key_takeaways": [
+    "Channeling occurs when water finds a weak spot in the puck and rushes through it, causing simultaneous over- and under-extraction.",
+    "Use a bottomless portafilter to visually diagnose channeling — look for thin, fast jets from specific spots on the basket.",
+    "Distribute grounds evenly with the WDT technique before tamping to eliminate clumps and density variations.",
+    "Tamp level and consistently — angle and evenness matter far more than raw pressure.",
+    "Clean your shower screen weekly, check your dose relative to basket size, and replace worn group head gaskets to prevent equipment-related channeling."
+  ],
+  "related_products": ["arco-doppio", "arco-primo", "arco-studio", "arco-nano", "arco-preciso"],
+  "related_guides": ["grind-size-explained", "my-espresso-tastes-sour", "my-espresso-tastes-bitter"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "Upgrade to the Arco Doppio for Better Extraction Control",
+    "url": "/products/arco-doppio"
+  },
+  "seo": {
+    "title": "Espresso Channeling: How to Diagnose and Fix Puck Prep Issues | Arco",
+    "meta_description": "Learn to identify and fix espresso channeling with better distribution, tamping, and equipment maintenance. Step-by-step troubleshooting from Arco."
+  }
+}

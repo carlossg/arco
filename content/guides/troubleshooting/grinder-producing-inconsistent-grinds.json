@@ -1,0 +1,48 @@
+{
+  "id": "grinder-producing-inconsistent-grinds",
+  "slug": "grinder-producing-inconsistent-grinds",
+  "category": "troubleshooting",
+  "title": "My Grinder Is Producing Inconsistent Grinds: Burrs, Alignment, and Calibration",
+  "difficulty": "intermediate",
+  "read_time_minutes": 9,
+  "persona_tags": ["upgrader", "enthusiast"],
+  "intent_tags": ["troubleshoot", "own"],
+  "hero_image_alt": "A white sheet of paper with two small piles of ground coffee side by side showing visibly different particle sizes, a pair of flat burrs removed from a grinder resting nearby with coffee residue visible on the cutting surfaces, natural window light from above, a magnifying loupe and brush arranged neatly to the right",
+  "intro": "Your grinder is arguably the most important piece of equipment in your espresso setup — more impactful than the machine itself. When it produces inconsistent grinds — a mix of fine powder and coarse boulders, shot-to-shot variation, or unpredictable flow rates despite no changes to settings — the root cause is almost always mechanical: worn or misaligned burrs, excessive retention, or calibration drift. This guide walks through how to diagnose grind inconsistency and restore your grinder to peak performance.",
+  "body": [
+    {
+      "heading": "Recognizing Inconsistent Grinds",
+      "content": "Grind inconsistency manifests in two ways: within a single dose and between doses. Within-dose inconsistency means the grounds from a single grind cycle contain a wide spread of particle sizes — tiny fines mixed with large fragments, sometimes called boulders. You can see this by spreading a dose thinly on a white sheet of paper and examining it closely, or by rubbing a pinch between your fingers. Consistent grounds feel uniformly gritty, like fine sand. Inconsistent grounds feel sandy in spots and powdery in others, with visible larger chunks. In the cup, within-dose inconsistency produces confused, muddled flavors because the fines over-extract while the boulders under-extract simultaneously, not unlike channeling but caused at the grinder rather than in the puck. Between-dose inconsistency means that identical settings produce noticeably different grind outputs from one dose to the next. You might dial in a perfect shot at 10:00 AM, pull another at 10:05 AM with the same setting and dose, and get a dramatically different flow rate and flavor. This is deeply frustrating because it undermines the entire dialing-in process — you cannot dial in a grinder that does not repeat. Between-dose variation is most commonly caused by retention: old grounds from a previous dose being released unpredictably into the next. If your shots are inexplicably erratic despite careful technique, the grinder is the first place to investigate."
+    },
+    {
+      "heading": "Burr Wear and Replacement",
+      "content": "Grinder burrs are precision-machined cutting surfaces, typically made from hardened steel or ceramic. Over time and use, the sharp edges of the burr teeth gradually dull. Dull burrs crush and tear beans rather than cutting them cleanly, producing a wider spread of particle sizes and more fines. The rate of wear depends on material, burr size, and volume of use. Steel burrs in a home grinder like the Arco Filtro or Preciso will typically last 500 to 800 kilograms of coffee before needing replacement — at a typical home consumption rate of 250 grams per week, that is roughly 40 to 60 years of use, so burr wear is rarely the issue for home users. The Arco Macinino and Zero use larger, commercial-grade burrs that last even longer. However, there are exceptions. If you purchased a used grinder, the burr condition is unknown. If the grinder has been used in a commercial setting even briefly, the burrs may be significantly worn. You can inspect burr condition by removing them — all Arco grinders have tool-free burr access for cleaning — and examining the cutting edges under good light. Fresh burrs have sharp, defined edges on each tooth. Worn burrs have rounded, smooth edges that catch light differently. If you suspect wear, a new set of burrs is a straightforward replacement. Another subtle issue is burr seasoning. Brand-new burrs have microscopic machining marks that produce slightly inconsistent grinds until they are broken in. The first one to two kilograms of coffee through a new grinder or new burrs will taste slightly off. Grind through inexpensive beans to season the burrs before dialing in with your good coffee."
+    },
+    {
+      "heading": "Alignment and Calibration",
+      "content": "Burr alignment is the most technically impactful factor in grind consistency. For burrs to produce uniform particles, the two cutting surfaces must be perfectly parallel — every point on one burr must be exactly the same distance from the corresponding point on the other burr. If the burrs are tilted relative to each other, even by a fraction of a millimeter, one side grinds finer than the other, producing a bimodal particle distribution that is impossible to dial in properly. Factory alignment on quality grinders like the Arco lineup is very good, but shipping, vibration over time, or disassembly for cleaning can shift things slightly. If you have cleaned your burrs and notice that grind quality has changed — particularly if the grinder sounds different, higher pitched on one side of the rotation than the other — the burrs may have been reseated slightly off-axis. The Arco Macinino and Zero feature a self-centering burr carrier design that makes misalignment during reassembly nearly impossible, but it is still worth checking if you experience sudden changes in grind quality after cleaning. On the Filtro and Preciso, take care to seat the upper burr fully and evenly into its carrier before tightening. Calibration drift is a related issue. On stepped grinders, the detent mechanism that defines each click can wear, allowing the adjustment collar to settle between positions. On stepless grinders, the collar can gradually shift if the locking mechanism is not tight. After dialing in, verify that your grind setting has not shifted by checking that the collar is firmly in position. The Arco Zero's digital calibration system eliminates this concern entirely by using an electronic sensor to track burr position rather than relying on mechanical detents."
+    },
+    {
+      "heading": "Retention, Static, and Workflow Fixes",
+      "content": "Retention — grounds left behind in the grinder's burr chamber, chute, and exit path after grinding — is the primary cause of between-dose inconsistency. When you grind a fresh dose, the first few grams of coffee that exit the grinder are actually stale grounds retained from the previous session, mixed with the fresh grounds. This changes the effective age, flavor, and particle distribution of the dose in unpredictable ways. Retention is worse in grinders with long exit chutes, large burr chambers, and high static. The Arco Filtro retains approximately 1.5 grams, which is typical for its price class. The Preciso reduces this to roughly 0.8 grams with its redesigned chute. The Macinino, with its short, steep exit path, retains about 0.4 grams. The Arco Zero was designed specifically to minimize retention — its near-vertical burr orientation and polished exit path reduce retention to under 0.2 grams, making it effectively zero-retention for practical purposes. Regardless of your grinder, there are workflow practices that reduce the impact of retention. First, purge a small amount of coffee — two to three grams — before grinding your dose, especially if the grinder has sat unused for more than a few hours. This flushes retained stale grounds. Second, give the grinder a few gentle taps on the side after grinding stops to dislodge grounds clinging to the chute via static. Third, in humid environments, static is worse. Running a single drop of water over the beans before grinding — a technique called the Ross Droplet Technique or RDT — dramatically reduces static cling and helps grounds exit the chute cleanly. The Arco Macinino and Zero both include an anti-static coating on the exit chute, but RDT remains helpful in very humid conditions."
+    }
+  ],
+  "key_takeaways": [
+    "Spread grounds on white paper to visually assess particle size consistency — look for a uniform texture without visible boulders or excessive fines.",
+    "Shot-to-shot variation despite consistent settings usually points to grinder retention mixing stale and fresh grounds.",
+    "Inspect burr sharpness if you bought a used grinder or suspect wear — dull burrs crush rather than cut, widening particle distribution.",
+    "Reseat burrs carefully after cleaning to maintain alignment — the Arco Macinino and Zero feature self-centering designs to prevent misalignment.",
+    "Purge two to three grams before grinding your dose and use the Ross Droplet Technique to reduce static and retention."
+  ],
+  "related_products": ["arco-filtro", "arco-preciso", "arco-macinino", "arco-zero"],
+  "related_guides": ["grind-size-explained", "shot-is-channeling", "my-espresso-tastes-sour", "my-espresso-tastes-bitter"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "Discover Near-Zero Retention with the Arco Zero",
+    "url": "/products/arco-zero"
+  },
+  "seo": {
+    "title": "Grinder Producing Inconsistent Grinds? Burr and Calibration Fixes | Arco",
+    "meta_description": "Diagnose and fix inconsistent espresso grinds. Covers burr wear, alignment, calibration drift, retention, and static. Troubleshooting guide from Arco."
+  }
+}
