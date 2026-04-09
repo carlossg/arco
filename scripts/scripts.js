@@ -15,7 +15,7 @@ import {
   loadCSS,
 } from './aem.js';
 import { SessionContextManager } from './session-context.js';
-import { ARCO_RECOMMENDER_URL } from './api-config.js';
+import { getAPIEndpoint } from './api-config.js';
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -187,20 +187,6 @@ const PREFETCH_MAX_AGE_MS = 60000;
 const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
 
 /**
- * Valid recommender presets (must match model-factory-google.ts MODEL_PRESETS)
- */
-const VALID_PRESETS = [
-  'production',
-  'gemini-3-pro', 'gemini-3-flash',
-  'gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.5-flash-lite',
-  'gemini-2.0-flash', 'gemini-2.0-flash-lite',
-  'llama-3.3-70b-instruct-maas',
-  'gemini-3-mixed', 'gemini-2.5-mixed', 'gemini-2.0-mixed',
-  'llama-3.2-3b', 'mistral-small',
-  'gemma-3-4b', 'gemma-3-12b',
-];
-
-/**
  * Check if this is an Arco Recommender request (has ?q= or ?query= param)
  */
 function isArcoRecommenderRequest() {
@@ -212,106 +198,61 @@ function isArcoRecommenderRequest() {
  * Generate a URL-safe slug from a query
  */
 /**
- * Common stop words filtered out of slugs
+ * Render a streamed section block into the DOM.
+ * @param {Object} data NDJSON section line: { type, html, sectionStyle, blockType }
+ * @param {Element} content The #generation-content container
  */
-const SLUG_STOP_WORDS = new Set([
-  'a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
-  'of', 'with', 'by', 'from', 'is', 'it', 'as', 'be', 'this', 'that',
-  'are', 'was', 'were', 'been', 'being', 'have', 'has', 'had', 'do',
-  'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might',
-  'can', 'what', 'how', 'why', 'when', 'where', 'which', 'who',
-  'my', 'your', 'me', 'i', 'we', 'you', 'make', 'get', 'want', 'need',
-  'like', 'best', 'good', 'great', 'some', 'any', 'please', 'help',
-]);
-
-/**
- * Generate a deterministic URL-safe slug from a query.
- * Same query always produces the same slug (no Date.now()).
- */
-function generateSlug(query) {
-  const normalized = query.toLowerCase().trim().replace(/\s+/g, ' ');
-
-  // Extract keywords (mirrors server-side extractKeywords)
-  const keywords = normalized
-    .replace(/[^a-z0-9\s]/g, '')
-    .split(/\s+/)
-    .filter((w) => w.length > 2 && !SLUG_STOP_WORDS.has(w))
-    .slice(0, 4);
-
-  const baseSlug = keywords.join('-').substring(0, 50) || 'query';
-
-  // Deterministic hash (no Date.now())
-  let hash = 0;
-  for (let i = 0; i < normalized.length; i += 1) {
-    const char = normalized.charCodeAt(i);
-    // eslint-disable-next-line no-bitwise
-    hash = ((hash << 5) - hash) + char;
-    // eslint-disable-next-line no-bitwise
-    hash &= hash;
+async function renderStreamedSection(data, content) {
+  const section = document.createElement('div');
+  section.className = 'section';
+  if (data.sectionStyle && data.sectionStyle !== 'default') {
+    section.classList.add(data.sectionStyle);
   }
-  const hashStr = Math.abs(hash).toString(36).slice(0, 6);
-  return `${baseSlug}-${hashStr}`;
-}
+  section.dataset.sectionStatus = 'initialized';
+  section.innerHTML = data.html;
 
-/**
- * Build a preset-scoped path (mirrors server-side buildPresetScopedPath).
- */
-function buildPresetPath(slug, preset) {
-  if (!preset || preset === 'production') return `/discover/${slug}`;
-  return `/discover/${preset}/${slug}`;
-}
-
-/**
- * Escape special regex characters in a string
- */
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-/**
- * Persist generated page to DA
- */
-async function persistToDA(query, blocks, intent, path) {
-  try {
-    // eslint-disable-next-line no-console
-    console.log('[Recommender] Persisting page to DA...');
-
-    const response = await fetch(`${ARCO_RECOMMENDER_URL}/api/persist`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query, blocks, intent, path,
-      }),
-    });
-
-    const result = await response.json();
-
-    if (result.success && result.urls) {
-      // eslint-disable-next-line no-console
-      console.log('[Recommender] Page published:', result.urls.live);
-
-      window.dispatchEvent(new CustomEvent('page-published', {
-        detail: {
-          url: result.urls.live,
-          path: result.path,
-        },
-      }));
-
-      return result;
+  // Wrap block in wrapper div (EDS pattern)
+  const blockEl = section.querySelector('[class]');
+  if (blockEl) {
+    const origName = blockEl.classList[0];
+    const alias = origName in BLOCK_ALIASES ? BLOCK_ALIASES[origName] : origName;
+    if (alias === false) {
+      blockEl.replaceWith(...blockEl.children);
+    } else {
+      const blockName = alias;
+      if (blockName !== origName) blockEl.classList.replace(origName, blockName);
+      const wrapper = document.createElement('div');
+      wrapper.className = `${blockName}-wrapper`;
+      blockEl.parentNode.insertBefore(wrapper, blockEl);
+      wrapper.appendChild(blockEl);
+      decorateBlock(blockEl);
+      section.classList.add(`${blockName}-container`);
     }
-    // eslint-disable-next-line no-console
-    console.error('[Recommender] Persist failed:', result.error);
-    return null;
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('[Recommender] Persist error:', error);
-    return null;
   }
+
+  decorateButtons(section);
+  decorateIcons(section);
+
+  // Insert before follow-up section so it always stays at the bottom
+  const followUpSection = content.querySelector('.follow-up-container');
+  if (followUpSection) {
+    content.insertBefore(section, followUpSection);
+  } else {
+    content.appendChild(section);
+  }
+
+  // Load the block (CSS + JS)
+  const block = section.querySelector('.block');
+  if (block) {
+    await loadBlock(block);
+  }
+
+  section.dataset.sectionStatus = 'loaded';
+  section.style.display = null;
 }
 
 /**
  * Render pre-collected blocks from a quiz prefetch into the DOM.
- * Reuses the same section/block assembly logic as the SSE block-content handler.
  * @param {Object} prefetchData Parsed prefetch data from sessionStorage
  * @param {string} query The query string
  */
@@ -319,103 +260,30 @@ async function renderPrefetchedBlocks(prefetchData, query) {
   const main = document.querySelector('main');
   if (!main) return;
 
-  const slug = generateSlug(query);
-
   main.innerHTML = '<div id="generation-content"></div>';
   const content = main.querySelector('#generation-content');
 
-  const generatedBlocks = [];
-  const blocksToLoad = [];
-
-  // Build all sections and append to DOM first
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < prefetchData.blocks.length; i++) {
-    const blockData = prefetchData.blocks[i];
-    const blockIdx = generatedBlocks.length;
-    generatedBlocks.push({ html: blockData.html, sectionStyle: blockData.sectionStyle });
-
-    const section = document.createElement('div');
-    section.className = 'section';
-    if (blockData.sectionStyle && blockData.sectionStyle !== 'default') {
-      section.classList.add(blockData.sectionStyle);
-    }
-    section.dataset.sectionStatus = 'initialized';
-    section.dataset.blockIndex = blockIdx;
-    section.innerHTML = blockData.html;
-
-    // Wrap block in wrapper div (EDS pattern)
-    const blockEl = section.querySelector('[class]');
-    if (blockEl) {
-      const origName = blockEl.classList[0];
-      const alias = origName in BLOCK_ALIASES ? BLOCK_ALIASES[origName] : origName;
-      if (alias === false) {
-        // Strip block wrapper — render children as default section content
-        blockEl.replaceWith(...blockEl.children);
-      } else {
-        const blockName = alias;
-        if (blockName !== origName) blockEl.classList.replace(origName, blockName);
-        const wrapper = document.createElement('div');
-        wrapper.className = `${blockName}-wrapper`;
-        blockEl.parentNode.insertBefore(wrapper, blockEl);
-        wrapper.appendChild(blockEl);
-        decorateBlock(blockEl);
-        section.classList.add(`${blockName}-container`);
-      }
-    }
-
-    decorateButtons(section);
-    decorateIcons(section);
-
-    const followUpSection = content.querySelector('.follow-up-container');
-    if (followUpSection) {
-      content.insertBefore(section, followUpSection);
-    } else {
-      content.appendChild(section);
-    }
-
-    const block = section.querySelector('.block');
-    if (block) blocksToLoad.push({ block, section });
+  // eslint-disable-next-line no-restricted-syntax
+  for (const blockData of prefetchData.blocks) {
+    // eslint-disable-next-line no-await-in-loop
+    await renderStreamedSection(blockData, content);
   }
-
-  // Load all blocks in parallel (CSS + JS)
-  await Promise.all(blocksToLoad.map(async ({ block, section }) => {
-    await loadBlock(block);
-    section.dataset.sectionStatus = 'loaded';
-    section.style.display = null;
-  }));
 
   // Update document title
   const h1 = content.querySelector('h1');
-  if (h1) {
-    document.title = `${h1.textContent} | Arco`;
-  }
+  if (h1) document.title = `${h1.textContent} | Arco`;
 
   // Save query to session context
-  const meta = prefetchData.metadata || {};
-  const prefetchPath = buildPresetPath(slug, new URLSearchParams(window.location.search).get('preset') || 'production');
   SessionContextManager.addQuery({
     query,
     timestamp: Date.now(),
-    intent: meta.intent?.intentType || 'general',
-    entities: meta.intent?.entities || { products: [], coffeeTerms: [], goals: [] },
-    generatedPath: prefetchPath,
-    recommendedProducts: meta.recommendations?.products || [],
-    recommendedBrewGuides: meta.recommendations?.brewGuides || [],
-    blockTypes: meta.recommendations?.blockTypes || [],
-    journeyStage: meta.reasoning?.journeyStage || 'exploring',
-    confidence: meta.reasoning?.confidence || 0.5,
-    nextBestAction: meta.reasoning?.nextBestAction || '',
+    intent: 'general',
   });
-
-  // Auto-persist to DA
-  if (generatedBlocks.length > 0) {
-    persistToDA(query, generatedBlocks, meta.intent, prefetchPath);
-  }
 }
 
 /**
- * Render an Arco Recommender page from ?q= or ?query= parameter
- * Uses the recommender service with Gemini reasoning
+ * Render an Arco Recommender page from ?q= or ?query= parameter.
+ * Streams NDJSON from the Cloudflare Worker via fetch + ReadableStream.
  */
 async function renderArcoRecommenderPage() {
   const main = document.querySelector('main');
@@ -423,18 +291,6 @@ async function renderArcoRecommenderPage() {
 
   const params = new URLSearchParams(window.location.search);
   const query = params.get('q') || params.get('query');
-  const preset = params.get('preset') || 'production';
-
-  // Validate preset early — before prefetch checks
-  if (!VALID_PRESETS.includes(preset)) {
-    main.innerHTML = `
-      <div class="section generation-error">
-        <h2>Unknown preset: &ldquo;${preset}&rdquo;</h2>
-        <p>Try one of: ${VALID_PRESETS.map((p) => { const lp = new URLSearchParams(params); lp.set('preset', p); return `<a href="/?${lp.toString()}">${p}</a>`; }).join(', ')}</p>
-      </div>
-    `;
-    return;
-  }
 
   // Check for prefetched quiz data (one-time use)
   try {
@@ -443,39 +299,24 @@ async function renderArcoRecommenderPage() {
     if (raw) {
       const prefetchData = JSON.parse(raw);
       const age = Date.now() - (prefetchData.timestamp || 0);
-      if (age < PREFETCH_MAX_AGE_MS && prefetchData.blocks && prefetchData.blocks.length > 0) {
-        // eslint-disable-next-line no-console
-        console.log(`[Recommender] Using prefetched quiz data (${prefetchData.blocks.length} blocks, ${(age / 1000).toFixed(1)}s old)`);
+      if (age < PREFETCH_MAX_AGE_MS && prefetchData.blocks?.length > 0) {
         await renderPrefetchedBlocks(prefetchData, query);
         return;
       }
     }
-  } catch {
-    // Parse error or sessionStorage unavailable — fall through to normal SSE flow
-  }
+  } catch { /* fall through */ }
 
-  // Check for prefetched "For You" data (lower priority than quiz)
-  // Only serve if the current query matches the prefetched query.
+  // Check for prefetched "For You" data
   try {
     const foryouRaw = sessionStorage.getItem(FORYOU_PREFETCH_KEY);
     if (foryouRaw) {
       const prefetchData = JSON.parse(foryouRaw);
-      const queryMatches = prefetchData.query && prefetchData.query === query;
-      if (queryMatches && prefetchData.blocks && prefetchData.blocks.length > 0) {
-        const age = Date.now() - (prefetchData.timestamp || 0);
-        // eslint-disable-next-line no-console
-        console.log(`[Recommender] Using prefetched For You data (${prefetchData.blocks.length} blocks, ${(age / 1000).toFixed(1)}s old)`);
+      if (prefetchData.query === query && prefetchData.blocks?.length > 0) {
         await renderPrefetchedBlocks(prefetchData, query);
         return;
       }
     }
-  } catch {
-    // Parse error or sessionStorage unavailable — fall through to normal SSE flow
-  }
-
-  const slug = generateSlug(query);
-  const regen = params.has('regen');
-  const cachedPath = buildPresetPath(slug, preset);
+  } catch { /* fall through */ }
 
   // Clear main and show loading state
   main.innerHTML = `
@@ -489,212 +330,121 @@ async function renderArcoRecommenderPage() {
 
   const loadingState = main.querySelector('.generating-container');
   const content = main.querySelector('#generation-content');
-
-  // Connect to SSE stream with session context
-  const contextParam = SessionContextManager.buildEncodedContextParam();
-  let streamUrl = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&preset=${encodeURIComponent(preset)}&ctx=${contextParam}`;
-  if (regen) streamUrl += '&regen';
-  const eventSource = new EventSource(streamUrl);
-  let blockCount = 0;
-  const generatedBlocks = [];
   const startTime = Date.now();
+  let blockCount = 0;
 
-  // Handle cache hit — redirect to the cached page on the same host
-  eventSource.addEventListener('cache-hit', (e) => {
-    eventSource.close();
-    const data = JSON.parse(e.data);
-    // eslint-disable-next-line no-console
-    console.log(`[Recommender] Cache hit, redirecting to: ${data.path}`);
-    window.location.replace(data.path);
-  });
+  // Build session context for POST body
+  const sessionContext = SessionContextManager.buildContextParam();
 
-  eventSource.addEventListener('block-content', async (e) => {
-    const data = JSON.parse(e.data);
-
-    // Hide loading state after first content block
-    if (blockCount === 0) {
-      loadingState.classList.add('done');
-    }
-    blockCount += 1;
-
-    // Store for persistence and track index (DOM order may differ from arrival order)
-    const blockIdx = generatedBlocks.length;
-    generatedBlocks.push({ html: data.html, sectionStyle: data.sectionStyle });
-
-    // Create section and add content
-    const section = document.createElement('div');
-    section.className = 'section';
-    if (data.sectionStyle && data.sectionStyle !== 'default') {
-      section.classList.add(data.sectionStyle);
-    }
-    section.dataset.sectionStatus = 'initialized';
-    section.dataset.blockIndex = blockIdx;
-    section.innerHTML = data.html;
-
-    // Store original src for images
-    section.querySelectorAll('img[data-gen-image]').forEach((img) => {
-      img.dataset.originalSrc = img.getAttribute('src');
+  try {
+    const baseUrl = getAPIEndpoint('recommender');
+    const response = await fetch(`${baseUrl}/api/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query,
+        context: sessionContext,
+      }),
     });
 
-    // Wrap block in wrapper div (EDS pattern)
-    const blockEl = section.querySelector('[class]');
-    if (blockEl) {
-      const origName = blockEl.classList[0];
-      const alias = origName in BLOCK_ALIASES ? BLOCK_ALIASES[origName] : origName;
-      if (alias === false) {
-        blockEl.replaceWith(...blockEl.children);
-      } else {
-        const blockName = alias;
-        if (blockName !== origName) blockEl.classList.replace(origName, blockName);
-        const wrapper = document.createElement('div');
-        wrapper.className = `${blockName}-wrapper`;
-        blockEl.parentNode.insertBefore(wrapper, blockEl);
-        wrapper.appendChild(blockEl);
-        decorateBlock(blockEl);
-        section.classList.add(`${blockName}-container`);
-      }
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
     }
 
-    decorateButtons(section);
-    decorateIcons(section);
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
 
-    // Insert before follow-up section so it always stays at the bottom
-    const followUpSection = content.querySelector('.follow-up-container');
-    if (followUpSection) {
-      content.insertBefore(section, followUpSection);
-    } else {
-      content.appendChild(section);
-    }
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      // eslint-disable-next-line no-await-in-loop
+      const { done, value } = await reader.read();
+      if (done) break;
 
-    // Load the block (CSS + JS)
-    const block = section.querySelector('.block');
-    if (block) {
-      await loadBlock(block);
-    }
+      buffer += decoder.decode(value, { stream: true });
 
-    section.dataset.sectionStatus = 'loaded';
-    section.style.display = null;
-  });
+      // Process complete NDJSON lines
+      const lines = buffer.split('\n');
+      buffer = lines.pop() || '';
 
-  eventSource.addEventListener('block-rationale', (e) => {
-    const data = JSON.parse(e.data);
-    // eslint-disable-next-line no-console
-    console.log(`[Recommender] Block rationale for ${data.blockType}:`, data.rationale);
-  });
+      // eslint-disable-next-line no-restricted-syntax
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue; // eslint-disable-line no-continue
 
-  eventSource.addEventListener('image-ready', (e) => {
-    const data = JSON.parse(e.data);
-    const { imageId, url } = data;
+        let data;
+        try {
+          data = JSON.parse(trimmed);
+        } catch {
+          continue; // eslint-disable-line no-continue
+        }
 
-    let resolvedUrl = url;
-    if (url && url.startsWith('/')) {
-      resolvedUrl = `${ARCO_RECOMMENDER_URL}${url}`;
-    }
+        if (data.type === 'heartbeat') {
+          continue; // eslint-disable-line no-continue
+        }
 
-    const img = content.querySelector(`img[data-gen-image="${imageId}"]`);
-    if (img && resolvedUrl) {
-      const originalUrl = img.dataset.originalSrc;
-      const section = img.closest('.section');
-      const imgParent = img.parentNode;
+        if (data.type === 'section') {
+          if (blockCount === 0) loadingState.classList.add('done');
+          blockCount += 1;
+          // eslint-disable-next-line no-await-in-loop
+          await renderStreamedSection(data, content);
+        }
 
-      const cacheBustUrl = resolvedUrl.includes('?')
-        ? `${resolvedUrl}&_t=${Date.now()}`
-        : `${resolvedUrl}?_t=${Date.now()}`;
+        if (data.type === 'suggestions') {
+          // Render follow-up suggestion chips
+          const followUpSection = document.createElement('div');
+          followUpSection.className = 'section follow-up-container';
+          const followUpBlock = buildBlock('follow-up', []);
+          followUpBlock.dataset.suggestions = JSON.stringify(data.suggestions);
+          followUpSection.appendChild(followUpBlock);
+          content.appendChild(followUpSection);
+          decorateBlock(followUpBlock);
+          // eslint-disable-next-line no-await-in-loop
+          await loadBlock(followUpBlock);
+        }
 
-      const newImg = document.createElement('img');
-      newImg.src = cacheBustUrl;
-      newImg.alt = img.alt || '';
-      newImg.className = img.className;
-      if (img.loading) newImg.loading = img.loading;
-      newImg.dataset.genImage = imageId;
-      newImg.classList.add('loaded');
+        if (data.type === 'done') {
+          const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
+          // eslint-disable-next-line no-console
+          console.log(`[Recommender] Complete in ${totalTime}s`, data.timings || {});
+        }
 
-      if (imgParent) {
-        imgParent.replaceChild(newImg, img);
-      }
-
-      // Update stored HTML using block index (not DOM position, which may differ)
-      if (section && originalUrl) {
-        const bidx = parseInt(section.dataset.blockIndex, 10);
-        if (!Number.isNaN(bidx) && generatedBlocks[bidx]) {
-          generatedBlocks[bidx].html = generatedBlocks[bidx].html.replace(
-            new RegExp(escapeRegExp(originalUrl), 'g'),
-            resolvedUrl,
-          );
+        if (data.type === 'error') {
+          // eslint-disable-next-line no-console
+          console.error('[Recommender] Server error:', data.message);
+          loadingState.innerHTML = `
+            <h1>Something went wrong</h1>
+            <p style="color: #c00;">${data.message || 'Generation failed'}</p>
+            <p><a href="/">Return to homepage</a></p>
+          `;
         }
       }
     }
-  });
 
-  eventSource.addEventListener('generation-complete', (e) => {
-    eventSource.close();
+    // Stream finished
     loadingState.remove();
-    const data = JSON.parse(e.data);
-    const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
-
-    // eslint-disable-next-line no-console
-    console.log(`[Recommender] Complete in ${totalTime}s`, data);
 
     // Update document title
     const h1 = content.querySelector('h1');
-    if (h1) {
-      document.title = `${h1.textContent} | Arco`;
-    }
+    if (h1) document.title = `${h1.textContent} | Arco`;
 
     // Save query to session context
     SessionContextManager.addQuery({
       query,
       timestamp: Date.now(),
-      intent: data.intent?.intentType || 'general',
-      entities: data.intent?.entities || { products: [], coffeeTerms: [], goals: [] },
-      generatedPath: cachedPath,
-      recommendedProducts: data.recommendations?.products || [],
-      recommendedBrewGuides: data.recommendations?.brewGuides || [],
-      blockTypes: data.recommendations?.blockTypes || [],
-      journeyStage: data.reasoning?.journeyStage || 'exploring',
-      confidence: data.reasoning?.confidence || 0.5,
-      nextBestAction: data.reasoning?.nextBestAction || '',
+      intent: 'general',
     });
-
-    // Auto-persist to DA
-    if (generatedBlocks.length > 0) {
-      persistToDA(query, generatedBlocks, data.intent, cachedPath);
-    }
-  });
-
-  eventSource.addEventListener('error', (e) => {
-    if (e.data) {
-      const data = JSON.parse(e.data);
-      // eslint-disable-next-line no-console
-      console.error(`[Recommender] Server error: ${data.message} (${data.code || 'unknown'})`);
-      const isModelError = data.code === 'MODEL_UNAVAILABLE';
-      const title = isModelError ? 'Model unavailable' : 'Something went wrong';
-      const hint = isModelError
-        ? '<p>The selected model preset could not be loaded. It may not exist or your project does not have access to it. Try a different <code>preset</code> parameter.</p>'
-        : '';
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('[Recommender] Fetch error:', error);
+    if (blockCount === 0) {
       loadingState.innerHTML = `
-        <h1>${title}</h1>
-        <p style="color: #c00;">${data.message}</p>
-        ${hint}
+        <h1>Connection failed</h1>
+        <p style="color: #c00;">Unable to connect to the server. Please try again.</p>
         <p><a href="/">Return to homepage</a></p>
       `;
     }
-    eventSource.close();
-  });
-
-  eventSource.onerror = () => {
-    if (eventSource.readyState === EventSource.CLOSED) {
-      // eslint-disable-next-line no-console
-      console.error('[Recommender] EventSource connection closed unexpectedly');
-      if (blockCount === 0) {
-        loadingState.innerHTML = `
-          <h1>Connection failed</h1>
-          <p style="color: #c00;">Unable to connect to the server. Please try again.</p>
-          <p><a href="/">Return to homepage</a></p>
-        `;
-      }
-    }
-  };
+  }
 }
 
 async function loadPage() {

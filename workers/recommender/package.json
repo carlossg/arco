@@ -1,0 +1,14 @@
+{
+  "name": "arco-recommender",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "index-content": "node scripts/index-content.js",
+    "upload-kv": "node scripts/upload-kv.js"
+  },
+  "dependencies": {
+    "@cerebras/cerebras_cloud_sdk": "^1.0.0"
+  }
+}

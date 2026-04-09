@@ -1,0 +1,41 @@
+{
+  "name": "arco-recommender",
+  "account_id": "68e6632adf76183424b251e874663bde",
+  "main": "src/index.js",
+  "compatibility_date": "2024-12-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // KV namespaces
+  "kv_namespaces": [
+    {
+      "binding": "CACHE",
+      "id": "899bd6f2d82544afa1d38a8d64940259"
+    },
+    {
+      "binding": "GUIDES",
+      "id": "eb93a78ab0694f90af29c9634dd76d8a"
+    }
+  ],
+
+  // Workers AI for generating query embeddings
+  "ai": {
+    "binding": "AI"
+  },
+
+  // Vectorize indexes for RAG
+  "vectorize": [
+    {
+      "binding": "CONTENT_INDEX",
+      "index_name": "arco-content"
+    }
+  ],
+
+  // Environment variables (set secrets via `wrangler secret put`)
+  // Required secrets: CEREBRAS_API_KEY
+  // DA secrets: DA_CLIENT_ID, DA_CLIENT_SECRET, DA_SERVICE_TOKEN (or DA_TOKEN as fallback)
+  "vars": {
+    "ENVIRONMENT": "production",
+    "DA_ORG": "froesef",
+    "DA_REPO": "arco"
+  }
+}
