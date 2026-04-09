@@ -46,7 +46,7 @@
         "plumbedIn": false
       },
       "images": [
-        "/media/product-primo.jpeg"
+        "/products/espresso-machines/media_1abbfdb7ccdbc8a53e8e4bba6322c039404608c57.jpg"
       ],
       "variants": [
         {
@@ -119,7 +119,7 @@
         "plumbedIn": false
       },
       "images": [
-        "/media/product-doppio.jpeg"
+        "/products/espresso-machines/media_129f7a09c9849ce111140027cbab651246ab98e7c.jpg"
       ],
       "variants": [
         {
@@ -187,7 +187,7 @@
         "plumbedIn": false
       },
       "images": [
-        "/media/product-nano.jpeg"
+        "/products/espresso-machines/media_1e8fb0b992f25a5f998eee39094b129bc640db7c9.jpg"
       ],
       "variants": [
         {
@@ -260,7 +260,7 @@
         "plumbedIn": true
       },
       "images": [
-        "/media/product-studio.jpeg"
+        "/products/espresso-machines/media_18a4e675acb3d161c38e2bd57b3faa3fb507f6e72.jpg"
       ],
       "variants": [
         {
@@ -338,7 +338,7 @@
         "touchscreen": true
       },
       "images": [
-        "/media/product-studio-pro.jpeg"
+        "/products/espresso-machines/media_19aa1317eb6d1d6c64ea09d5ec801f2de8968c7e4.png"
       ],
       "variants": [
         {
@@ -411,7 +411,7 @@
         "dailyCapacity": "50+ cups"
       },
       "images": [
-        "/media/product-ufficio.jpeg"
+        "/products/espresso-machines/media_11d5b4445610fcf48338ab8d7b4ffa2dbea75626c.jpg"
       ],
       "variants": [
         {
@@ -480,7 +480,7 @@
         "manual": true
       },
       "images": [
-        "/media/product-viaggio.jpeg"
+        "/products/espresso-machines/media_11c9a58cd22b8603a88e88b08bd794b4149f1e19b.jpg"
       ],
       "variants": [
         {
@@ -559,7 +559,7 @@
         "programmableDrinks": 8
       },
       "images": [
-        "/media/product-automatico.jpeg"
+        "/products/espresso-machines/media_1289cb9c93fd3994a51c4ba81db0a659ae6a3d3bd.jpg"
       ],
       "variants": [
         {
@@ -627,7 +627,7 @@
         "singleDose": false
       },
       "images": [
-        "/media/product-filtro.jpeg"
+        "/products/grinders/media_1c984b2e5666bed80e4353f33b51d98cd3de1146a.jpg"
       ],
       "variants": [
         {
@@ -693,7 +693,7 @@
         "singleDose": false
       },
       "images": [
-        "/media/product-preciso.jpeg"
+        "/products/grinders/media_144f526a0d69220229861ea5b122e339c8650b9bc.jpg"
       ],
       "variants": [
         {
@@ -759,7 +759,7 @@
         "singleDose": false
       },
       "images": [
-        "/media/product-macinino.jpeg"
+        "/products/grinders/media_1c771e99d27030dbdebcd37cd7d2fbd80972edb36.jpg"
       ],
       "variants": [
         {
@@ -826,7 +826,7 @@
         "singleDose": true
       },
       "images": [
-        "/media/product-zero.jpeg"
+        "/products/grinders/media_1026deeb7cd992c6f802552d46fc730e08d34c00b.jpg"
       ],
       "variants": [
         {
