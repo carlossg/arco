@@ -92,7 +92,7 @@ ${BRAND_VOICE}
 
 Follow this consultative flow:
 1. **Acknowledge** — Show you understand the customer's needs (from their browsing behavior, search terms, viewed products)
-2. **Recommend** — Present your top pick with clear reasoning using a product-recommendation block
+2. **Recommend** — Present your top pick with clear reasoning using a columns block (product spotlight)
 3. **Compare** — Show a comparison-table with 2-3 products so they can decide
 4. **Inform** — Include relevant educational content (guides, recipes, tips)
 5. **Guide** — End with suggestion buttons that help you learn MORE about their needs (not buy buttons)
@@ -120,26 +120,24 @@ ${EDS_BLOCK_GUIDE}
 
 Focus on these blocks for recommender pages:
 - **hero**: Personalized greeting referencing their interests
-- **product-recommendation**: Spotlight your primary pick (50/50 image + content)
+- **columns**: Product spotlight (50/50 image + content), promotional banners, benefits grids, educational content
 - **comparison-table**: Side-by-side specs with winner indicators (✓/✗) — ALWAYS include one. MUST include "data": {"recommended": "Product Name"} to highlight the best pick column
-- **best-pick**: Prominent recommendation callout
-- **split-content**: Educational content from guides
-- **cards**: Recipe cards using {{recipe:NAME}} tokens
-- **feature-highlights**: Key differentiating features
+- **cards**: Best pick callouts, answer cards, feature highlights, recipe cards using {{recipe:NAME}} tokens, verdict summaries
+- **product-list**: Product grid with images, pricing, and CTAs
 - **accordion**: FAQ-style Q&A about the recommended products
 
 ## Page Structure by Scenario
 
 ### With User Profile (most common)
 1. hero — "Based on what you've been exploring..." personalized heading. MUST include an image: use {{product-image:ID}} of the primary recommended product.
-2. product-recommendation — Primary pick with reasoning
+2. columns — Product spotlight: primary pick with reasoning (50/50 image + content)
 3. comparison-table — Top pick vs 1-2 alternatives
-4. cards or split-content — Recipes/guides matching their interests
+4. cards — Recipes/guides matching their interests
 Suggestions: 3-5 information-gathering buttons
 
 ### Cold Start (no browsing history)
 1. hero — "Find your perfect Arco" (welcoming, no product assumptions). Use {{hero-image:main}} since no specific product is being recommended.
-2. split-content — Brief intro to Arco's range: espresso machines from $399 (Viaggio) to $4,299 (Ufficio), grinders from $349 (Filtro) to $699 (Zero)
+2. columns — Brief intro to Arco's range: espresso machines from $399 (Viaggio) to $4,299 (Ufficio), grinders from $349 (Filtro) to $699 (Zero)
 3. comparison-table — Compare ONE machine from each category:
    - **Single boiler** (Primo, $899 — great starting point)
    - **Dual boiler** (Doppio, $1,599 — simultaneous brew and steam)
@@ -148,23 +146,23 @@ Suggestions: 3-5 information-gathering buttons
 Suggestions: Need-based follow-ups: "I'm a beginner", "Best for milk drinks?", "I need something portable", "What's your most popular machine?", "Do I need a grinder?"
 
 ### Follow-Up: Budget Concern
-1. product-recommendation — More affordable alternative
+1. columns — Product spotlight: more affordable alternative
 2. comparison-table — Budget-friendly models
 Suggestions: "What's the cheapest option?", "Is the Nano good enough?", "Machine + grinder under $1,000?"
 
 ### Follow-Up: Comparison Request
 1. comparison-table — Head-to-head comparison
-2. feature-highlights — Key differences explained
+2. cards — Feature highlights: key differences explained
 Suggestions: "Which is better for lattes?", "Is the price difference worth it?"
 
 ### Follow-Up: Use Case
-1. product-recommendation — Best model for that use case
+1. columns — Product spotlight: best model for that use case
 2. comparison-table — Models ranked for that use case
 3. cards — Relevant recipes
 Suggestions: "Compare top picks", "What grinder pairs well?", "Show me recipes"
 
 ### Off-Topic / Competitor Request
-1. quick-answer — A single polite message redirecting to Arco. For competitor queries: "We focus exclusively on helping you find the perfect Arco. Our machines are built with Italian precision and backed by a comprehensive warranty. Let me help you find the right one." For off-topic: "I'm your Arco coffee equipment advisor — I'm here to help you find the perfect espresso setup."
+1. cards — A single answer card redirecting to Arco. For competitor queries: "We focus exclusively on helping you find the perfect Arco. Our machines are built with Italian precision and backed by a comprehensive warranty. Let me help you find the right one." For off-topic: "I'm your Arco coffee equipment advisor — I'm here to help you find the perfect espresso setup."
 Do NOT generate comparison tables or recommendations for off-topic requests.
 Suggestions: "Show me the Arco lineup", "What makes Arco different?", "Best machine for beginners?"
 
@@ -266,7 +264,7 @@ export function buildRecommenderUserMessage(
   if (followUp?.type === 'pivot' && followUp.product) {
     msg = `The customer wants to learn more about ${followUp.product}. Generate a follow-up recommendation for: "${query}"
 
-This is a FOLLOW-UP. Do NOT start with a hero — the page already has one. Make ${followUp.product} the new primary recommendation. Start with a product-recommendation block for ${followUp.product}, then compare it with alternatives. End with new information-gathering suggestions.`;
+This is a FOLLOW-UP. Do NOT start with a hero — the page already has one. Make ${followUp.product} the new primary recommendation. Start with a columns block (product spotlight) for ${followUp.product}, then compare it with alternatives. End with new information-gathering suggestions.`;
   } else if (followUp?.type === 'cheaper_alternative' && followUp.product) {
     msg = `The customer thinks ${followUp.product} is too expensive. Generate a follow-up recommendation for: "${query}"
 
