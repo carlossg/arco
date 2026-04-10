@@ -258,7 +258,13 @@ ${features.map((f) => `- ${f.name}: ${f.benefit || f.description || ''}`).join('
 /**
  * Builds the recommender user message with behavior analysis.
  */
-export function buildRecommenderUserMessage(query, behaviorAnalysis, previousQueries, followUp) {
+export function buildRecommenderUserMessage(
+  query,
+  behaviorAnalysis,
+  previousQueries,
+  followUp,
+  shownContent,
+) {
   const ba = behaviorAnalysis || { coldStart: true };
   let msg;
 
@@ -312,6 +318,15 @@ Start with a hero that acknowledges what they've been exploring. The hero MUST i
 
   if (previousQueries?.length) {
     msg += `\n\nPrevious queries (avoid repeating): ${previousQueries.join(', ')}`;
+  }
+
+  // Shown content deduplication for keep-exploring sessions
+  if (shownContent?.shownProducts?.length > 0) {
+    msg += `\n\nProducts already shown to the user (do NOT repeat as primary recommendation): ${shownContent.shownProducts.join(', ')}`;
+  }
+  if (shownContent?.shownSections?.length > 0) {
+    const blockTypes = [...new Set(shownContent.shownSections.map((s) => s.blockType))];
+    msg += `\n\nBlock types already on the page (vary your approach, use different blocks): ${blockTypes.join(', ')}`;
   }
 
   msg += '\n\nRemember: output JSON blocks separated by ===. All product links must use the URL from the product data. End with information-gathering suggestions (type "explore" or "compare" only). Every block MUST have meaningful content. ONLY use product names, product IDs, and recipe names that appear in the data above — never invent or guess names.';

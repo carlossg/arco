@@ -8,6 +8,7 @@
 const CONTEXT_KEY = 'arco-session-context';
 const MAX_HISTORY = 10;
 const MAX_BROWSING_HISTORY = 15;
+const MAX_SHOWN_ITEMS = 20;
 
 /**
  * Session Context Manager - handles reading/writing query history for contextual browsing
@@ -36,6 +37,9 @@ export class SessionContextManager {
       queries: [],
       browsingHistory: [],
       inferredProfile: null,
+      shownProducts: [],
+      shownSections: [],
+      generatedQueries: [],
       sessionStart: Date.now(),
       lastUpdated: Date.now(),
       sessionId: crypto.randomUUID(),
@@ -105,6 +109,14 @@ export class SessionContextManager {
     }
     if (context.inferredProfile) {
       param.inferredProfile = context.inferredProfile;
+    }
+
+    // Include shown content for deduplication
+    const shownContent = this.getShownContent();
+    if (shownContent.shownProducts.length > 0
+      || shownContent.shownSections.length > 0
+      || shownContent.generatedQueries.length > 0) {
+      param.shownContent = shownContent;
     }
 
     return param;
@@ -246,6 +258,71 @@ export class SessionContextManager {
     return {
       browsingHistory: context.browsingHistory || [],
       inferredProfile: context.inferredProfile || null,
+    };
+  }
+
+  /**
+   * Record a product ID that has been shown in rendered sections.
+   * @param {string} productId The product ID
+   */
+  static addShownProduct(productId) {
+    const context = this.getContext();
+    if (!context.shownProducts) context.shownProducts = [];
+    if (!context.shownProducts.includes(productId)) {
+      context.shownProducts.push(productId);
+      if (context.shownProducts.length > MAX_SHOWN_ITEMS) {
+        context.shownProducts = context.shownProducts.slice(-MAX_SHOWN_ITEMS);
+      }
+      context.lastUpdated = Date.now();
+      sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+    }
+  }
+
+  /**
+   * Record a section that has been rendered on the page.
+   * @param {Object} section - { blockType, headline }
+   */
+  static addShownSection(section) {
+    const context = this.getContext();
+    if (!context.shownSections) context.shownSections = [];
+    context.shownSections.push({
+      blockType: section.blockType || '',
+      headline: section.headline || '',
+    });
+    if (context.shownSections.length > MAX_SHOWN_ITEMS) {
+      context.shownSections = context.shownSections.slice(-MAX_SHOWN_ITEMS);
+    }
+    context.lastUpdated = Date.now();
+    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+  }
+
+  /**
+   * Record a query that produced a keep-exploring turn.
+   * @param {string} query The generated query
+   */
+  static addGeneratedQuery(query) {
+    const context = this.getContext();
+    if (!context.generatedQueries) context.generatedQueries = [];
+    if (!context.generatedQueries.includes(query)) {
+      context.generatedQueries.push(query);
+      if (context.generatedQueries.length > MAX_SHOWN_ITEMS) {
+        context.generatedQueries = context.generatedQueries.slice(-MAX_SHOWN_ITEMS);
+      }
+    }
+    context.lastUpdated = Date.now();
+    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+  }
+
+  /**
+   * Get shown content data for deduplication in backend requests.
+   * @returns {Object} { shownProducts, shownSections, generatedQueries }
+   */
+  static getShownContent() {
+    const context = this.getContext();
+    return {
+      shownProducts: context.shownProducts || [],
+      shownSections: context.shownSections || [],
+      generatedQueries: context.generatedQueries || [],
     };
   }
 

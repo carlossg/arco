@@ -468,9 +468,20 @@ export async function llmGenerate(ctx, config, env) {
   ctx.ndjsonLines.push(debugLine);
   await ctx.writer.write(ctx.encoder.encode(`${debugLine}\n`));
 
+  // Extract used product IDs from generated sections
+  const imageTokenRe = /\{\{product-image:([^}]+)\}\}/g;
+  const usedProducts = [];
+  const rawJson = JSON.stringify(ctx.llm.rawJsonSections);
+  let tokenMatch = imageTokenRe.exec(rawJson);
+  while (tokenMatch) {
+    const pid = tokenMatch[1].trim();
+    if (!usedProducts.includes(pid)) usedProducts.push(pid);
+    tokenMatch = imageTokenRe.exec(rawJson);
+  }
+
   // Send done
   const title = extractTitle(ctx.llm.sections[0] || '');
-  const doneLine = JSON.stringify({ type: 'done', title });
+  const doneLine = JSON.stringify({ type: 'done', title, usedProducts });
   ctx.ndjsonLines.push(doneLine);
   await ctx.writer.write(ctx.encoder.encode(`${doneLine}\n`));
 }

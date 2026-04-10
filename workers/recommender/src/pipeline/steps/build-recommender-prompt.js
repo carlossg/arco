@@ -33,6 +33,7 @@ export async function buildRecommenderPrompt(ctx) {
     ctx.rag.behaviorAnalysis,
     ctx.request.previousQueries,
     ctx.request.followUp,
+    ctx.request.shownContent,
   );
 
   ctx.timings.prompt = Date.now() - start;

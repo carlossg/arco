@@ -1,5 +1,7 @@
 /* Follow-up Block - Suggestion Chips */
 
+/* === Authored mode (original) === */
+
 .follow-up {
   padding: 32px 0;
 }
@@ -26,6 +28,7 @@
 .follow-up .follow-up-chip {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   padding: 10px 20px;
   border: 1.5px solid var(--accent-color, #b5651d);
   border-radius: 24px;
@@ -33,9 +36,11 @@
   color: var(--accent-color, #b5651d);
   font-size: 14px;
   font-weight: 500;
+  font-family: inherit;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease,
+    border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .follow-up .follow-up-chip:hover {
@@ -48,8 +53,191 @@
   transform: translateY(0);
 }
 
+/* === Keep Exploring mode (streamed suggestions) === */
+
+.follow-up .follow-up-keep-exploring {
+  text-align: center;
+  padding: 8px 0;
+}
+
+.follow-up .follow-up-heading {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--dark-color, #2c2c2c);
+  margin: 0 0 24px;
+  font-style: italic;
+}
+
+/* Chip icon */
+.follow-up .follow-up-chip-icon {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+
+/* AI sparkle */
+.follow-up .follow-up-chip-sparkle {
+  font-size: 10px;
+  opacity: 0.5;
+  margin-left: 2px;
+}
+
+/* === Typed chip variants === */
+
+/* Buy: filled accent */
+.follow-up .follow-up-chip.chip-buy {
+  background-color: var(--accent-color, #b5651d);
+  border-color: var(--accent-color, #b5651d);
+  color: #fff;
+  font-weight: 600;
+}
+
+.follow-up .follow-up-chip.chip-buy:hover {
+  background-color: var(--dark-color, #2c2c2c);
+  border-color: var(--dark-color, #2c2c2c);
+  color: #fff;
+}
+
+/* Compare: blue */
+.follow-up .follow-up-chip.chip-compare {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.follow-up .follow-up-chip.chip-compare:hover {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+/* Explore: default copper (inherits base styles) */
+
+/* === Speculative prefetch states === */
+
+/* Loading: shimmer animation */
+.follow-up .follow-up-chip.chip-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.follow-up .follow-up-chip.chip-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(255 255 255 / 20%) 50%,
+    transparent 100%
+  );
+  animation: follow-up-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes follow-up-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Ready: subtle glow */
+.follow-up .follow-up-chip.chip-ready {
+  box-shadow: 0 0 0 2px rgb(181 101 29 / 25%);
+}
+
+.follow-up .follow-up-chip.chip-compare.chip-ready {
+  box-shadow: 0 0 0 2px rgb(59 130 246 / 25%);
+}
+
+/* === Used state (previous suggestion sets) === */
+
+.follow-up-container.used {
+  pointer-events: none;
+}
+
+.follow-up-container.used .follow-up-chip {
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+
+.follow-up-container.used .follow-up-chip.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === Conversation breadcrumb === */
+
+.follow-up-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 0 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.follow-up-breadcrumb::before,
+.follow-up-breadcrumb::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.follow-up-breadcrumb .breadcrumb-text {
+  font-size: 14px;
+  font-style: italic;
+  color: #999;
+  white-space: nowrap;
+}
+
+/* === Mini loading indicator (inline) === */
+
+.follow-up-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.follow-up-loading-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-color, #b5651d);
+  animation: follow-up-dot-pulse 1.4s ease-in-out infinite;
+}
+
+.follow-up-loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.follow-up-loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes follow-up-dot-pulse {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* === Responsive === */
+
 @media (width >= 600px) {
   .follow-up {
     padding: 48px 0;
+  }
+
+  .follow-up .follow-up-heading {
+    font-size: 24px;
+    margin-bottom: 32px;
   }
 }
