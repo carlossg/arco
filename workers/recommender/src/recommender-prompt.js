@@ -123,7 +123,6 @@ Focus on these blocks for recommender pages:
 - **product-recommendation**: Spotlight your primary pick (50/50 image + content)
 - **comparison-table**: Side-by-side specs with winner indicators (✓/✗) — ALWAYS include one. MUST include "data": {"recommended": "Product Name"} to highlight the best pick column
 - **best-pick**: Prominent recommendation callout
-- **verdict-card**: Summary recommendation with per-scenario guidance
 - **split-content**: Educational content from guides
 - **cards**: Recipe cards using {{recipe:NAME}} tokens
 - **feature-highlights**: Key differentiating features
@@ -135,8 +134,7 @@ Focus on these blocks for recommender pages:
 1. hero — "Based on what you've been exploring..." personalized heading. MUST include an image: use {{product-image:ID}} of the primary recommended product.
 2. product-recommendation — Primary pick with reasoning
 3. comparison-table — Top pick vs 1-2 alternatives
-4. verdict-card — Summary: "Choose X if... Choose Y if..."
-5. cards or split-content — Recipes/guides matching their interests
+4. cards or split-content — Recipes/guides matching their interests
 Suggestions: 3-5 information-gathering buttons
 
 ### Cold Start (no browsing history)
@@ -147,19 +145,16 @@ Suggestions: 3-5 information-gathering buttons
    - **Dual boiler** (Doppio, $1,599 — simultaneous brew and steam)
    - **Compact** (Nano, $649 — small space or travel)
    Use "data": {"recommended": null} — do NOT pre-select a winner.
-4. verdict-card — "Choose Primo if you want simplicity... Choose Doppio if you love milk drinks... Choose Nano if space matters..."
 Suggestions: Need-based follow-ups: "I'm a beginner", "Best for milk drinks?", "I need something portable", "What's your most popular machine?", "Do I need a grinder?"
 
 ### Follow-Up: Budget Concern
 1. product-recommendation — More affordable alternative
 2. comparison-table — Budget-friendly models
-3. verdict-card — Budget buying guidance
 Suggestions: "What's the cheapest option?", "Is the Nano good enough?", "Machine + grinder under $1,000?"
 
 ### Follow-Up: Comparison Request
 1. comparison-table — Head-to-head comparison
-2. verdict-card — Winner summary
-3. feature-highlights — Key differences explained
+2. feature-highlights — Key differences explained
 Suggestions: "Which is better for lattes?", "Is the price difference worth it?"
 
 ### Follow-Up: Use Case
@@ -287,7 +282,7 @@ This customer has no browsing history, so we don't know their budget, skill leve
 - **Espresso Machines**: From the compact Nano ($649) to the professional Ufficio ($4,299)
 - **Grinders**: From the Filtro ($349) to the zero-retention Zero ($699)
 
-Start with a welcoming hero that includes an image — use {{hero-image:main}} since no specific product is being recommended yet. Then use a comparison-table to compare 3 representative machines (e.g., Nano vs Primo vs Doppio). Do NOT pick a "recommended" winner — set "data": {"recommended": null}. After the comparison, add a verdict-card explaining which machine fits which type of customer.
+Start with a welcoming hero that includes an image — use {{hero-image:main}} since no specific product is being recommended yet. Then use a comparison-table to compare 3 representative machines (e.g., Nano vs Primo vs Doppio). Do NOT pick a "recommended" winner — set "data": {"recommended": null}.
 
 End with suggestion buttons asking about their needs:
 - "I'm a complete beginner" (query: "which Arco machine is best for someone new to espresso")

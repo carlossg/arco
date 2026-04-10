@@ -288,13 +288,13 @@ IMPORTANT: NEVER invent image URLs, product URLs, product names, recipe names, o
 
 Vary structure based on what the query needs:
 
-- **Product comparisons** → hero + best-pick + comparison-table + verdict-card
-- **Product recommendations** → hero + product-recommendation + comparison-table + verdict-card
+- **Product comparisons** → hero + best-pick + comparison-table + feature-highlights
+- **Product recommendations** → hero + product-recommendation + comparison-table
 - **Direct question** → hero + quick-answer + (accordion for follow-up FAQs)
 - **Recipe/drink request** → hero + cards (with {{recipe:NAME}} tokens)
 - **Feature showcase** → hero + benefits-grid + feature-highlights + split-content
-- **Grinder questions** → hero + product-recommendation (grinder) + comparison-table (grinders) + verdict-card
-- **Budget questions** → hero + comparison-table sorted by price + verdict-card
+- **Grinder questions** → hero + product-recommendation (grinder) + comparison-table (grinders)
+- **Budget questions** → hero + comparison-table sorted by price
 - **Beginner/getting started** → hero + quick-answer + columns (key concepts) + product-recommendation
 
 Only include product-related blocks when products are genuinely relevant. Prioritize content quality.
