@@ -250,13 +250,17 @@ main > .section:first-of-type {
 }
 
 /* spacing between blocks within the same section */
-main > .section > div > .block + .block {
-  margin-top: 48px;
+main > .section > div > .block {
+  margin-bottom: 48px;
+}
+
+main > .section > div > .block:last-child {
+  margin-bottom: 0;
 }
 
 @media (width >= 900px) {
-  main > .section > div > .block + .block {
-    margin-top: 64px;
+  main > .section > div > .block {
+    margin-bottom: 64px;
   }
 }
 
