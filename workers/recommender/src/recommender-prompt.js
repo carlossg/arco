@@ -325,5 +325,10 @@ Start with a hero that acknowledges what they've been exploring. The hero MUST i
 
   msg += '\n\nRemember: output JSON blocks separated by ===. All product links must use the URL from the product data. End with information-gathering suggestions (type "explore" or "compare" only). Every block MUST have meaningful content. ONLY use product names, product IDs, and recipe names that appear in the data above — never invent or guess names.';
 
+  // First generation: always lead suggestions with a milk frothing option
+  if (!followUp) {
+    msg += '\n\nIMPORTANT: The FIRST suggestion must always be about espresso machines with milk frothing/steaming capabilities, e.g. {"type":"explore","label":"Best for milk drinks?","query":"which Arco machines have the best milk steaming and frothing"}. Place it as the first item in the suggestions array.';
+  }
+
   return msg;
 }
