@@ -38,7 +38,7 @@ Each content item has a "type" field. Available types:
 
 ## Available Blocks
 
-IMPORTANT: You may ONLY use the following block names: hero, cards, columns, accordion, table, comparison-table, product-list, testimonials. No other block names are allowed.
+IMPORTANT: You may ONLY use the following block names: hero, text, cards, columns, accordion, table, comparison-table, product-list, testimonials. No other block names are allowed.
 
 ### hero
 Full-width hero banner. ALWAYS use as the first section.
@@ -60,9 +60,31 @@ IMPORTANT: The hero MUST ALWAYS include an image AND an h1 heading and a p descr
 
 ---
 
+### text
+Plain section content — no card or column styling. Renders as standard headings, paragraphs, lists, and links within a section.
+Use for: summaries, verdicts, direct answers, editorial content, recommendations with bullet points — any prose that should NOT be wrapped in a card grid.
+Structure: one row, one cell with all content items.
+
+**Direct answer:**
+{"block":"text","rows":[
+  [[{"type":"h2","text":"Yes, you need a grinder."},{"type":"p","text":"Pre-ground coffee loses flavor within minutes of grinding. A quality burr grinder is the single biggest upgrade for your espresso."},{"type":"p","text":"The Arco Filtro is a great starting point at $349. For maximum precision, the Zero with zero-retention burrs ensures every gram counts."}]]
+]}
+
+**Best pick summary:**
+{"block":"text","rows":[
+  [[{"type":"p","text":"BEST FOR HOME ESPRESSO"},{"type":"h2","text":"Arco Primo"},{"type":"p","text":"The Primo delivers cafe-quality shots with PID temperature control and a commercial 58mm group head. Simple, reliable, and built to last."},{"type":"p","text":"$899 | 2-Year Warranty"},{"type":"link","text":"View Primo","href":"/products/espresso-machines/primo","style":"primary"}]]
+]}
+
+**Verdict / wrap-up:**
+{"block":"text","rows":[
+  [[{"type":"h2","text":"The Verdict"},{"type":"p","text":"For most home baristas, the Arco Primo offers the best balance of quality, simplicity, and value."},{"type":"ul","items":["Choose Primo if: You want great espresso without complexity.","Choose Doppio if: You make lots of milk drinks and want to brew and steam at the same time.","Choose Nano if: Space or portability is your priority."]}]]
+]}
+
+---
+
 ### cards
 Grid of content cards. Each row = one card. First cell = image, second cell = text.
-Use for: products, recipes, features, answer cards, recommendation summaries, any grid of items.
+Use for: products, recipes, features — any grid of multiple items. Do NOT use for single-item summaries or text-heavy content (use text instead).
 
 **Recipe cards (with tokens):**
 {"block":"cards","rows":[
@@ -81,21 +103,6 @@ Use for: products, recipes, features, answer cards, recommendation summaries, an
   [[{"type":"h3","text":"PID Temperature Control"},{"type":"p","text":"Holds brew temperature within 0.5 degrees for repeatable, consistent shots every morning."}]],
   [[{"type":"h3","text":"E61 Group Head"},{"type":"p","text":"The industry-standard thermosyphon design that keeps the group head at the ideal brewing temperature."}]],
   [[{"type":"h3","text":"Flow Profiling"},{"type":"p","text":"Manual paddle control over flow rate — shape every phase of extraction for nuanced, complex flavors."}]]
-]}
-
-**Direct answer card** (for questions with a short, clear answer):
-{"block":"cards","rows":[
-  [[{"type":"h2","text":"Yes, you need a grinder."},{"type":"p","text":"Pre-ground coffee loses flavor within minutes of grinding. A quality burr grinder is the single biggest upgrade for your espresso."},{"type":"p","text":"The Arco Filtro is a great starting point at $349. For maximum precision, the Zero with zero-retention burrs ensures every gram counts."}]]
-]}
-
-**Best pick callout** (prominent recommendation as a single card):
-{"block":"cards","rows":[
-  [[{"type":"image","token":"{{product-image:primo}}"}],[{"type":"p","text":"BEST FOR HOME ESPRESSO"},{"type":"h2","text":"Arco Primo"},{"type":"p","text":"The Primo delivers cafe-quality shots with PID temperature control and a commercial 58mm group head. Simple, reliable, and built to last."},{"type":"p","text":"$899 | 2-Year Warranty"},{"type":"link","text":"View Primo","href":"/products/espresso-machines/primo","style":"primary"}]]
-]}
-
-**Verdict / summary card** (wrap up a comparison):
-{"block":"cards","rows":[
-  [[{"type":"h2","text":"The Verdict"},{"type":"p","text":"For most home baristas, the Arco Primo offers the best balance of quality, simplicity, and value."},{"type":"ul","items":["Choose Primo if: You want great espresso without complexity.","Choose Doppio if: You make lots of milk drinks and want to brew and steam at the same time.","Choose Nano if: Space or portability is your priority."]}]]
 ]}
 
 Variants: "horizontal", "overlay", "articles"
@@ -243,14 +250,14 @@ IMPORTANT: NEVER invent image URLs, product URLs, product names, recipe names, o
 
 Vary structure based on what the query needs:
 
-- **Product comparisons** → hero + cards (best pick) + comparison-table + cards (feature highlights)
+- **Product comparisons** → hero + text (best pick) + comparison-table + cards (feature highlights)
 - **Product recommendations** → hero + columns (product spotlight) + comparison-table
-- **Direct question** → hero + cards (answer card) + (accordion for follow-up FAQs)
+- **Direct question** → hero + text (answer) + (accordion for follow-up FAQs)
 - **Recipe/drink request** → hero + cards (with {{recipe:NAME}} tokens)
 - **Feature showcase** → hero + columns (benefits grid) + cards (feature highlights) + columns (product spotlight)
 - **Grinder questions** → hero + columns (product spotlight with grinder) + comparison-table (grinders)
-- **Budget questions** → hero + comparison-table sorted by price
-- **Beginner/getting started** → hero + cards (answer card) + columns (key concepts) + columns (product spotlight)
+- **Budget questions** → hero + comparison-table sorted by price + text (verdict)
+- **Beginner/getting started** → hero + text (answer) + columns (key concepts) + columns (product spotlight)
 
 Only include product-related blocks when products are genuinely relevant. Prioritize content quality.
 Mix different block types and patterns for visual variety.
@@ -285,7 +292,7 @@ Suggestion types: "explore", "compare" — NOTHING ELSE.
 - Queries are natural follow-up sentences
 - Tailor to what you DON'T yet know about the user
 
-FINAL CHECK: Before outputting, verify every section has a "block" field from the allowed list (hero, cards, columns, accordion, table, comparison-table, product-list, testimonials), every section is valid JSON, and sections are separated by ===.
+FINAL CHECK: Before outputting, verify every section has a "block" field from the allowed list (hero, text, cards, columns, accordion, table, comparison-table, product-list, testimonials), every section is valid JSON, and sections are separated by ===.
 `;
 
 export default EDS_BLOCK_GUIDE;

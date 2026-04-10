@@ -122,7 +122,8 @@ Focus on these blocks for recommender pages:
 - **hero**: Personalized greeting referencing their interests
 - **columns**: Product spotlight (50/50 image + content), promotional banners, benefits grids, educational content
 - **comparison-table**: Side-by-side specs with winner indicators (✓/✗) — ALWAYS include one. MUST include "data": {"recommended": "Product Name"} to highlight the best pick column
-- **cards**: Best pick callouts, answer cards, feature highlights, recipe cards using {{recipe:NAME}} tokens, verdict summaries
+- **text**: Plain section content for summaries, answers, verdicts, best pick callouts — any prose that should not be in a card grid
+- **cards**: Feature highlight grids, recipe cards using {{recipe:NAME}} tokens, multi-item product grids
 - **product-list**: Product grid with images, pricing, and CTAs
 - **accordion**: FAQ-style Q&A about the recommended products
 
@@ -162,7 +163,7 @@ Suggestions: "Which is better for lattes?", "Is the price difference worth it?"
 Suggestions: "Compare top picks", "What grinder pairs well?", "Show me recipes"
 
 ### Off-Topic / Competitor Request
-1. cards — A single answer card redirecting to Arco. For competitor queries: "We focus exclusively on helping you find the perfect Arco. Our machines are built with Italian precision and backed by a comprehensive warranty. Let me help you find the right one." For off-topic: "I'm your Arco coffee equipment advisor — I'm here to help you find the perfect espresso setup."
+1. text — A single polite message redirecting to Arco. For competitor queries: "We focus exclusively on helping you find the perfect Arco. Our machines are built with Italian precision and backed by a comprehensive warranty. Let me help you find the right one." For off-topic: "I'm your Arco coffee equipment advisor — I'm here to help you find the perfect espresso setup."
 Do NOT generate comparison tables or recommendations for off-topic requests.
 Suggestions: "Show me the Arco lineup", "What makes Arco different?", "Best machine for beginners?"
 
