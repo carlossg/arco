@@ -11,6 +11,9 @@ import accessoriesData from '../../../content/accessories/accessories.json';
 
 const ARCO_BASE = 'https://main--arco--froesef.aem.live';
 
+// Default hero image — used when no specific product is featured
+const HERO_MAIN_IMAGE = '/media_1f7e12f4bd38e8ecf4fdc73dc84ebd9a5fd516521.jpg';
+
 const products = productsData.data || [];
 const recipes = recipesData.data || [];
 const reviews = reviewsData.data || [];
@@ -186,6 +189,15 @@ function resolveAccessoryImageToken(accessoryId) {
   return `<picture><img src="${image}" alt="${accessory?.name || accessoryId}"></picture>`;
 }
 
+/**
+ * Resolve a {{hero-image:main}} token to a <picture> tag.
+ */
+function resolveHeroImageToken() {
+  const image = absoluteImageUrl(HERO_MAIN_IMAGE);
+  if (!image) return '<!-- hero-image:main unavailable -->';
+  return `<picture><img src="${image}" alt="Arco espresso machine brewing a perfect shot on a sunlit kitchen counter"></picture>`;
+}
+
 // Build a set of known valid image URLs from product, recipe, and accessory data
 const knownImageUrls = new Set();
 products.forEach((p) => {
@@ -200,6 +212,7 @@ accessories.forEach((a) => {
   (a.images || []).forEach((img) => knownImageUrls.add(absoluteImageUrl(img)));
   if (a.image) knownImageUrls.add(absoluteImageUrl(a.image));
 });
+knownImageUrls.add(absoluteImageUrl(HERO_MAIN_IMAGE));
 
 /**
  * Remove <picture>/<img> tags with hallucinated image URLs (not from known data).
@@ -271,7 +284,8 @@ export function resolveTokens(html) {
     .replace(/\{\{recipe:([^}]+)\}\}/g, (_, name) => resolveRecipeToken(name.trim()))
     .replace(/\{\{review:([^}]+)\}\}/g, (_, id) => resolveReviewToken(id.trim()))
     .replace(/\{\{accessory:([^}]+)\}\}/g, (_, id) => resolveAccessoryToken(id.trim()))
-    .replace(/\{\{accessory-image:([^}]+)\}\}/g, (_, id) => resolveAccessoryImageToken(id.trim()));
+    .replace(/\{\{accessory-image:([^}]+)\}\}/g, (_, id) => resolveAccessoryImageToken(id.trim()))
+    .replace(/\{\{hero-image:main\}\}/g, () => resolveHeroImageToken());
   resolved = stripUnknownImages(resolved);
   return resolved;
 }

@@ -109,7 +109,7 @@ Follow this consultative flow:
    - Comparison: "Compare Primo vs Doppio"
    - Space: "I need something compact" / "Space is not an issue"
    - Grinder: "Do I need a grinder?" / "Help me pick a grinder"
-5. **NO INVENTED IMAGES**: Use {{product-image:ID}} and {{recipe-image:NAME}} tokens only.
+5. **NO INVENTED IMAGES**: Use {{product-image:ID}}, {{hero-image:main}}, and {{recipe-image:NAME}} tokens only. The hero block MUST always include an image — use {{product-image:ID}} when featuring a product, or {{hero-image:main}} as the default.
 6. **NO HALLUCINATED NAMES**: ONLY use product names, product IDs, recipe names, and review IDs that appear in the data sections below. NEVER invent, guess, or approximate.
 7. **ARCO ONLY**: NEVER compare Arco products with competitor brands (Breville, De'Longhi, Gaggia, La Marzocco, etc.). If the customer asks about competitors, respond with a single polite redirect block.
 8. **GRINDER PAIRING**: When recommending an espresso machine, always mention that a quality grinder matters. Suggest an appropriate Arco grinder pairing when relevant.
@@ -132,7 +132,7 @@ Focus on these blocks for recommender pages:
 ## Page Structure by Scenario
 
 ### With User Profile (most common)
-1. hero — "Based on what you've been exploring..." personalized heading
+1. hero — "Based on what you've been exploring..." personalized heading. MUST include an image: use {{product-image:ID}} of the primary recommended product.
 2. product-recommendation — Primary pick with reasoning
 3. comparison-table — Top pick vs 1-2 alternatives
 4. verdict-card — Summary: "Choose X if... Choose Y if..."
@@ -140,7 +140,7 @@ Focus on these blocks for recommender pages:
 Suggestions: 3-5 information-gathering buttons
 
 ### Cold Start (no browsing history)
-1. hero — "Find your perfect Arco" (welcoming, no product assumptions)
+1. hero — "Find your perfect Arco" (welcoming, no product assumptions). Use {{hero-image:main}} since no specific product is being recommended.
 2. split-content — Brief intro to Arco's range: espresso machines from $399 (Viaggio) to $4,299 (Ufficio), grinders from $349 (Filtro) to $699 (Zero)
 3. comparison-table — Compare ONE machine from each category:
    - **Single boiler** (Primo, $899 — great starting point)
@@ -281,7 +281,7 @@ This customer has no browsing history, so we don't know their budget, skill leve
 - **Espresso Machines**: From the compact Nano ($649) to the professional Ufficio ($4,299)
 - **Grinders**: From the Filtro ($349) to the zero-retention Zero ($699)
 
-Start with a welcoming hero. Then use a comparison-table to compare 3 representative machines (e.g., Nano vs Primo vs Doppio). Do NOT pick a "recommended" winner — set "data": {"recommended": null}. After the comparison, add a verdict-card explaining which machine fits which type of customer.
+Start with a welcoming hero that includes an image — use {{hero-image:main}} since no specific product is being recommended yet. Then use a comparison-table to compare 3 representative machines (e.g., Nano vs Primo vs Doppio). Do NOT pick a "recommended" winner — set "data": {"recommended": null}. After the comparison, add a verdict-card explaining which machine fits which type of customer.
 
 End with suggestion buttons asking about their needs:
 - "I'm a complete beginner" (query: "which Arco machine is best for someone new to espresso")
@@ -291,7 +291,7 @@ Plus 1-2 more like "What's your most popular?", "Do I need a grinder?".`;
   } else {
     msg = `Generate a personalized coffee equipment recommendation page: "${query}"
 
-Start with a hero that acknowledges what they've been exploring. Then recommend your top pick, compare alternatives, and include relevant content.`;
+Start with a hero that acknowledges what they've been exploring. The hero MUST include an image — use {{product-image:ID}} of your primary recommended product, or {{hero-image:main}} if no single product fits. Then recommend your top pick, compare alternatives, and include relevant content.`;
   }
 
   // Add behavior context
