@@ -10,7 +10,7 @@ Use the script at `tools/da-copy.sh` to copy missing DA files between orgs.
 
 ### Configuration
 
-- **DA token**: retrieved from gcloud secret `DA_TOKEN`, or from `.env` as `DA_TOKEN`
+- **DA token**: retrieved from `.env` as `DA_TOKEN`
 - **Script**: `./tools/da-copy.sh`
 
 ### Steps

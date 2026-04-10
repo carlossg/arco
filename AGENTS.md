@@ -44,8 +44,6 @@ The repository provides the basic structure, blocks, and configuration needed to
     └── api-config.js       # API endpoint configuration for recommender and analytics services
 ├── fonts/           # Web fonts
 ├── icons/           # SVG icons
-├── tools/           # Developer CLI utilities
-    └── build-embeddings.ts # Generate and upload vector embeddings to Firestore
 ├── head.html        # Global HTML head content
 └── 404.html         # Custom 404 page
 ```
@@ -135,30 +133,24 @@ Regular Pages                    Recommender Query (/?q=...)
   │  (3s after load) │           │                                      │
   │                  │           │  1. Read session context              │
   │  browsing-       │           │  2. Encode ctx (queries + browsing)  │
-  │  signals.js      │           │  3. SSE stream to backend            │
+  │  signals.js      │           │  3. NDJSON stream to backend         │
   │                  │           └──────────┬───────────────────────────┘
   │  • Page signal   │                      │
   │  • Scroll depth  │                      ▼
   │  • Interactions  │           ┌──────────────────────────────────────┐
-  │  • Quiz answers  │           │  Backend Orchestrator                │
+  │  • Quiz answers  │           │  Cloudflare Worker (Recommender)     │
   │                  │           │                                      │
   └────────┬─────────┘           │  1. classifyIntent()                 │
-           │                     │  2. Hybrid RAG (keyword + semantic)  │
-           ▼                     │  3. Deep reasoning (block selection) │
-  ┌──────────────────┐           │  4. Parallel content generation      │
-  │  Session Context │           │  5. Follow-up suggestions            │
-  │  (sessionStorage)│◄──────────│  6. Fire-and-forget analytics        │
-  │                  │           │     (3-model quality evaluation)     │
-  │  • queries[]     │           └──────────┬───────────────────────────┘
-  │  • browsingHist[]│                      │
-  │  • inferredProf  │                      ▼
-  └──────────────────┘           ┌──────────────────────────────────────┐
-                                 │  Firestore                           │
-                                 │  • product_embeddings (vector search)│
-                                 │  • brewguide_embeddings              │
-                                 │  • faq_embeddings                    │
-                                 │  • analytics_results                 │
-                                 └──────────────────────────────────────┘
+           │                     │  2. RAG (keyword + Vectorize)        │
+           ▼                     │  3. LLM content generation           │
+  ┌──────────────────┐           │  4. Follow-up suggestions            │
+  │  Session Context │           └──────────┬───────────────────────────┘
+  │  (sessionStorage)│◄──────────           │
+  │                  │                      ▼
+  │  • queries[]     │           ┌──────────────────────────────────────┐
+  │  • browsingHist[]│           │  Cloudflare Vectorize                │
+  │  • inferredProf  │           │  • arco-content (vector search)      │
+  └──────────────────┘           └──────────────────────────────────────┘
 ```
 
 **Key files:**
@@ -169,13 +161,10 @@ Regular Pages                    Recommender Query (/?q=...)
 | `scripts/session-context.js` | Manages `sessionStorage` — stores query history, browsing history (last 15 page visits), and an inferred browsing profile. |
 | `scripts/delayed.js` | Entry point for delayed-phase code. Starts the browsing signal collector. |
 | `scripts/scripts.js` | Main page decoration. On `/?q=` pages, reads session context and streams it to the backend. |
-| `services/recommender/src/lib/orchestrator.ts` | Backend pipeline — uses browsing context for richer intent classification and more targeted follow-up suggestions. Runs hybrid RAG (keyword + semantic) and fire-and-forget multi-agent analytics. |
-| `services/recommender/src/lib/vector-search.ts` | Firestore native vector search + Vertex AI text-embedding-005 for semantic RAG. |
-| `services/recommender/src/lib/analytics-engine.ts` | Multi-model page quality evaluation (Gemini 2.5 Pro + Flash + Llama 3.3 70B) with consensus scoring. |
-| `services/recommender/src/lib/analytics-prompts.ts` | Evaluation prompt and rubric for the analytics engine. |
-| `services/recommender/src/types.ts` | TypeScript interfaces for `BrowsingHistoryItem`, `InferredBrowsingProfile`, `SessionContext`, and `SSEEvent`. |
-| `blocks/analytics-analysis/` | Client-side block to display multi-agent analytics results (score ring, dimension bars, suggestions). |
-| `tools/build-embeddings.ts` | CLI tool to generate and upload vector embeddings to Firestore. |
+| `workers/recommender/src/index.js` | Cloudflare Worker entry point — handles `/api/generate` and `/api/persist` endpoints. |
+| `workers/recommender/src/context.js` | Content retrieval — hybrid keyword matching + Vectorize semantic search. |
+| `workers/recommender/src/pipeline/flows.js` | Pipeline flow definitions and step ordering (intent classification, RAG, LLM generation). |
+| `workers/recommender/scripts/index-content.js` | CLI tool to generate and upload vector embeddings to Cloudflare Vectorize. |
 
 **How browsing context flows:**
 
@@ -184,8 +173,8 @@ Regular Pages                    Recommender Query (/?q=...)
 3. A lightweight rule-based classifier infers intent (`discovery`, `product-detail`, `comparison`, etc.) and journey stage (`exploring`, `comparing`, `deciding`)
 4. Signals and the inferred profile are stored in `sessionStorage` via `SessionContextManager`
 5. When the user submits a recommender query (`/?q=...`), the full context (queries + browsing history + inferred profile) is sent to the backend
-6. The backend `classifyIntent()` prompt includes browsing context (e.g. "User viewed the Primo and Doppio pages, spent 2 minutes on each")
-7. `buildFollowUpSuggestions()` uses products viewed and interests to generate targeted follow-up chips instead of generic ones
+6. The backend classifies intent using browsing context (e.g. "User viewed the Primo and Doppio pages, spent 2 minutes on each")
+7. Follow-up suggestions use products viewed and interests to generate targeted chips instead of generic ones
 
 **Cache-first page serving:**
 
@@ -202,9 +191,9 @@ On `GET /generate`, the server checks `DAClient.exists(path)` before starting th
 |-----|-----------|
 | `/?q=best+espresso+machines` | First visit generates; repeat visits redirect to cached page |
 | `/?q=best+espresso+machines&regen` | Skips cache, regenerates and overwrites the existing page |
-| `/?q=best+espresso+machines&preset=gemini-3-pro` | Separate cache slot under `/discover/gemini-3-pro/...` |
+| `/?q=best+espresso+machines&preset=my-preset` | Separate cache slot under `/discover/my-preset/...` |
 
-Key files for caching: `category-classifier.ts` (`generateDeterministicSlug`, `buildPresetScopedPath`), `index-express.ts` (cache check in `/generate`), `scripts/scripts.js` (deterministic `generateSlug`, `cache-hit` handler).
+Key files for caching: `scripts/scripts.js` (deterministic `generateSlug`, `cache-hit` handler), `workers/recommender/src/index.js` (cache check in `/api/generate`).
 
 ## Testing & Quality Assurance
 

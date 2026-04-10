@@ -20,7 +20,7 @@ SOURCE_VIDEO = next(Path("recordings").glob("*.webm"))
 WIDTH, HEIGHT, FPS = 1920, 1080, 25
 
 OUTRO_TITLE = "Arco Espresso"
-OUTRO_SUBTITLE = "Built on AEM Edge Delivery Services + Google Cloud"
+OUTRO_SUBTITLE = "Built on AEM Edge Delivery Services"
 OUTRO_BG = "#1a1a1a"
 
 # ── Talk Track ──────────────────────────────────────────────────────
@@ -30,7 +30,7 @@ OUTRO_BG = "#1a1a1a"
 ACTS = [
     ("homepage", "video", 0, 6,
      "This is Arco, a specialty espresso brand running on Adobe Experience Manager "
-     "Edge Delivery Services and Google Cloud. "
+     "Edge Delivery Services. "
      "As our user browses, the site passively collects signals to build a real-time interest profile."),
 
     ("espresso-anywhere", "video", 6, 16,
@@ -44,22 +44,21 @@ ACTS = [
 
     ("for-you", "video", 26, 45,
      "Back in the navigation, a personalized For You link has appeared. "
-     "Clicking it sends the browsing context to the backend, which uses Gemini models on Vertex AI "
-     "to generate a pre-computed set of recommendations tailored to their travel and outdoor interests. "
-     "The page streams in via server-sent events, built entirely from the user's browsing behavior."),
+     "Clicking it sends the browsing context to the backend, which generates "
+     "a set of recommendations tailored to their travel and outdoor interests. "
+     "The page streams in progressively, built entirely from the user's browsing behavior."),
 
     ("ai-search", "video", 45, 73,
      "Now the user goes further. They type a natural language query: "
      "I'm looking for a coffee machine to use when camping in the middle of the forest. "
-     "The backend runs a hybrid RAG pipeline, combining keyword search with semantic vector search "
-     "powered by Vertex AI text embeddings. A combination of Gemini models and locally hosted models "
-     "on Vertex AI reason over the results and generate a fully personalized page in real time."),
+     "The backend runs a hybrid RAG pipeline, combining keyword search with semantic vector search. "
+     "The LLM reasons over the results and generates a fully personalized page in real time."),
 
     ("cache-and-close", "video", 73, 86,
      "Refreshing the page shows the caching layer in action. "
      "The same query loads instantly from the Edge Delivery cache, no AI pipeline needed. "
      "From passive signal collection to AI-powered generation to instant caching, "
-     "this is Adobe Experience Manager Edge Delivery Services and Google Cloud, working together."),
+     "this is Adobe Experience Manager Edge Delivery Services, powering AI-driven personalization."),
 
     ("outro", "slide", None, None, ""),
 ]

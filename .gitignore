@@ -14,19 +14,12 @@ daTokenService.ts
 !CLAUDE.md
 !AGENTS.md
 
-# Backend service
-services/recommender/node_modules/
-services/recommender/dist/
 .env
 
 # Cloudflare Workers
 workers/*/node_modules/
 workers/*/.wrangler/
 .dev.vars
-
-# Cloud Functions
-functions/*/node_modules/
-functions/*/dist/
 
 # Demo video build intermediates
 build-demo/audio/
