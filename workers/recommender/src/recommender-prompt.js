@@ -81,7 +81,8 @@ function buildAccessoriesList() {
  */
 export function buildRecommenderSystemPrompt(contextData, priceFilter) {
   const {
-    products, guides, experiences, features, faqs, reviews, recipes, persona, useCase,
+    products, guides, experiences, features, faqs, reviews, recipes,
+    comparisons, toolContent, persona, useCase,
   } = contextData;
 
   let prompt = `You are an Arco coffee equipment advisor — knowledgeable, precise, and warm. Your role is to help customers find the perfect espresso machine and grinder through a consultative conversation. You educate, compare, and let the product speak for itself. You NEVER push a sale.
@@ -126,6 +127,7 @@ Focus on these blocks for recommender pages:
 - **cards**: Feature highlight grids, recipe cards using {{recipe:NAME}} tokens, multi-item product grids
 - **product-list**: Product grid with images, pricing, and CTAs
 - **accordion**: FAQ-style Q&A about the recommended products
+- **recipe-steps**: Step-by-step instructions for recipes or maintenance procedures
 
 ## Page Structure by Scenario
 
@@ -236,6 +238,25 @@ ${faqs.map((f) => `- Q: ${f.question} | A: ${(f.answer || '').substring(0, 100)}
     prompt += `
 ### Key Features
 ${features.map((f) => `- ${f.name}: ${f.benefit || f.description || ''}`).join('\n')}
+`;
+  }
+
+  if (comparisons?.length) {
+    prompt += `
+### Pre-Authored Comparisons (use as ground truth when available)
+When a pre-authored comparison matches the user's query, use its verdict and persona recommendations as the basis for your comparison-table rather than inventing new comparisons.
+${comparisons.map((c) => {
+    const verdict = typeof c.verdict === 'string' ? c.verdict.substring(0, 120) : '';
+    return `- "${c.title}" | ${c.slug} | Verdict: "${verdict}..."`;
+  }).join('\n')}
+`;
+  }
+
+  if (toolContent?.length) {
+    prompt += `
+### Relevant Guides & Tools (maintenance, pairing, diagnostics)
+Reference these when the user asks about maintenance, troubleshooting, bean pairing, or equipment compatibility.
+${toolContent.map((t) => `- "${t.title}" | ${t.slug} | Type: ${t.type || t.category || ''}`).join('\n')}
 `;
   }
 

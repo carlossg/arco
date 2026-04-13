@@ -246,14 +246,30 @@ IMPORTANT: NEVER invent image URLs, product URLs, product names, recipe names, o
 
 ---
 
+### recipe-steps
+Step-by-step instructional content for recipes or maintenance procedures.
+Row 1: h2 title + p description. Row 2: label p (e.g. "WHAT YOU NEED") + ul equipment list. Row 3: ol ordered steps. Row 4: label p (e.g. "PRO TIPS") + ul tips.
+
+{"block":"recipe-steps","rows":[
+  [[{"type":"h2","text":"Flat White"},{"type":"p","text":"A velvety milk coffee with a thin microfoam layer over a double ristretto."}]],
+  [[{"type":"p","text":"WHAT YOU NEED"}],[{"type":"ul","items":["Espresso machine with steam wand","Grinder","Scale","Milk pitcher"]}]],
+  [[{"type":"ol","items":["Pull a double ristretto (18g in, 30g out, 25-28 seconds)","Steam 150ml of whole milk to 60-62°C with minimal foam","Pour the milk in a steady stream — the thin microfoam integrates naturally","The finished drink should have a glossy, flat surface"]}]],
+  [[{"type":"p","text":"PRO TIPS"}],[{"type":"ul","items":["Use whole milk for the best microfoam","Less air than a latte — only 1-2 seconds of stretching","A ristretto base makes the espresso flavor shine through the milk"]}]]
+]}
+
+Use for: recipe how-tos, descaling guides, maintenance step-by-step, setup instructions.
+
+---
+
 ## Block Selection Guidelines
 
 Vary structure based on what the query needs:
 
-- **Product comparisons** → hero + text (best pick) + comparison-table + cards (feature highlights)
+- **Product comparisons** → hero + text (best pick) + comparison-table
 - **Product recommendations** → hero + columns (product spotlight) + comparison-table
 - **Direct question** → hero + text (answer) + (accordion for follow-up FAQs)
-- **Recipe/drink request** → hero + cards (with {{recipe:NAME}} tokens)
+- **Recipe/drink request** → hero + recipe-steps
+- **Maintenance/how-to request** → hero + text (answer) + recipe-steps (maintenance steps)
 - **Feature showcase** → hero + columns (benefits grid) + cards (feature highlights) + columns (product spotlight)
 - **Grinder questions** → hero + columns (product spotlight with grinder) + comparison-table (grinders)
 - **Budget questions** → hero + comparison-table sorted by price + text (verdict)
