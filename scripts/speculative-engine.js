@@ -107,6 +107,8 @@ export default function createSpeculativeEngine(config) {
         lastHoverStart: 0,
         hoverTimer200: null,
         got200Points: false,
+        queryGetter: null,
+        onReady: null,
       };
       buttonStates.set(element, state);
     }
@@ -204,6 +206,10 @@ export default function createSpeculativeEngine(config) {
       speculation.resolveReady(true);
       setReadyState(speculation);
 
+      if (speculation.onReady) {
+        speculation.onReady(speculation.query, speculation.responseBuffer);
+      }
+
       if (config.onSpeculationChange) {
         config.onSpeculationChange({
           event: 'ready',
@@ -224,6 +230,12 @@ export default function createSpeculativeEngine(config) {
   function triggerSpeculation(state) {
     if (destroyed) return;
     if (!canSpeculate()) return;
+
+    // Resolve query dynamically if a queryGetter is provided
+    if (state.queryGetter) {
+      const resolved = state.queryGetter();
+      if (resolved) state.query = resolved;
+    }
 
     // Already speculating for this query
     if (activeSpeculation && activeSpeculation.query === state.query) return;
@@ -248,6 +260,7 @@ export default function createSpeculativeEngine(config) {
       readyPromise,
       resolveReady,
       buttonElement: state.element,
+      onReady: state.onReady,
     };
 
     speculativeTimestamps.push(Date.now());
@@ -329,6 +342,34 @@ export default function createSpeculativeEngine(config) {
           [chip, 'touchstart', onChipTouch],
         );
       });
+    },
+
+    /**
+     * Attach hover/touch listeners to a single element with a dynamic query.
+     * Unlike attachToChips, this accepts a queryGetter function that resolves
+     * the query at speculation time, and an onReady callback for persistence.
+     * @param {Element} element The DOM element to attach to
+     * @param {Object} options
+     * @param {Function} options.queryGetter Returns the current query string
+     * @param {Function} [options.onReady] Called with (query, responseBuffer) on success
+     */
+    attachToElement(element, options = {}) {
+      const state = getButtonState(element);
+      state.queryGetter = options.queryGetter || null;
+      state.onReady = options.onReady || null;
+
+      // Avoid duplicate listeners if already attached
+      const alreadyAttached = listeners.some(([el]) => el === element);
+      if (alreadyAttached) return;
+
+      element.addEventListener('mouseenter', onChipEnter);
+      element.addEventListener('mouseleave', onChipLeave);
+      element.addEventListener('touchstart', onChipTouch, { passive: true });
+      listeners.push(
+        [element, 'mouseenter', onChipEnter],
+        [element, 'mouseleave', onChipLeave],
+        [element, 'touchstart', onChipTouch],
+      );
     },
 
     /**

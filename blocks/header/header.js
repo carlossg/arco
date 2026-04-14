@@ -1,7 +1,8 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 import { SessionContextManager } from '../../scripts/session-context.js';
-import { FORYOU_QUERY_KEY } from '../../scripts/for-you-prefetch.js';
+import { FORYOU_PREFETCH_KEY, FORYOU_QUERY_KEY } from '../../scripts/for-you-prefetch.js';
+import { getAPIEndpoint } from '../../scripts/api-config.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -262,7 +263,8 @@ export default async function decorate(block) {
 
 /**
  * Inject a "For You" nav item that links to a pre-generated personalized page.
- * Hidden until the user has visited at least 2 pages.
+ * Hidden until the user has visited at least 2 pages. Uses the speculative
+ * engine for hover-based prefetching and SPA transition on click.
  * @param {Element} navSections The nav-sections element
  */
 function injectForYouLink(navSections) {
@@ -282,20 +284,86 @@ function injectForYouLink(navSections) {
   li.appendChild(p);
   ul.appendChild(li);
 
-  function getForYouHref() {
+  function getForYouQuery() {
     try {
-      const query = sessionStorage.getItem(FORYOU_QUERY_KEY);
-      if (query) {
-        const currentPreset = new URLSearchParams(window.location.search).get('preset');
-        const params = new URLSearchParams({ q: query });
-        if (currentPreset) params.set('preset', currentPreset);
-        return `/?${params.toString()}`;
-      }
+      return sessionStorage.getItem(FORYOU_QUERY_KEY) || null;
     } catch {
-      // sessionStorage unavailable
+      return null;
+    }
+  }
+
+  function getForYouHref(query) {
+    const q = query || getForYouQuery();
+    if (q) {
+      const currentPreset = new URLSearchParams(window.location.search).get('preset');
+      const params = new URLSearchParams({ q });
+      if (currentPreset) params.set('preset', currentPreset);
+      return `/?${params.toString()}`;
     }
     return '/?q=Recommend+coffee+equipment+based+on+my+browsing';
   }
+
+  let engineAttached = false;
+
+  function attachEngine() {
+    if (engineAttached) return;
+    engineAttached = true;
+
+    import('../../scripts/speculative-engine.js').then(({ default: createSpeculativeEngine }) => {
+      if (!window.arcoSpeculativeEngine) {
+        window.arcoSpeculativeEngine = createSpeculativeEngine({
+          apiEndpoint: getAPIEndpoint('recommender'),
+          getSessionContext: () => SessionContextManager.buildContextParam(),
+        });
+      }
+
+      // Import synthesizeQuery from for-you-prefetch for dynamic query generation
+      import('../../scripts/for-you-prefetch.js').then(({ synthesizeQuery }) => {
+        window.arcoSpeculativeEngine.attachToElement(link, {
+          queryGetter: () => {
+            // Prefer existing stored query, fall back to synthesizing one
+            const stored = getForYouQuery();
+            if (stored) return stored;
+            const context = SessionContextManager.getContext();
+            return synthesizeQuery(context);
+          },
+          onReady: (query, buffer) => {
+            try {
+              sessionStorage.setItem(FORYOU_PREFETCH_KEY, JSON.stringify({
+                query,
+                ndjsonLines: buffer,
+                timestamp: Date.now(),
+              }));
+              sessionStorage.setItem(FORYOU_QUERY_KEY, query);
+            } catch { /* sessionStorage unavailable */ }
+            link.href = getForYouHref(query);
+          },
+        });
+      });
+    });
+  }
+
+  // Intercept click for SPA transition
+  link.addEventListener('click', (e) => {
+    if (!window.arcoTransitionToRecommender) return; // fall through to normal navigation
+
+    // Use stored query, or check if speculative engine has an active query
+    let query = getForYouQuery();
+    if (!query) {
+      const specResult = window.arcoSpeculativeEngine?.getResult('');
+      if (specResult) {
+        // Engine is speculating but query wasn't stored yet — read from href
+        const url = new URL(link.href, window.location.origin);
+        query = url.searchParams.get('q');
+      }
+    }
+
+    if (query) {
+      e.preventDefault();
+      window.arcoTransitionToRecommender(query);
+    }
+    // else: fall through to normal navigation
+  });
 
   function updateVisibility() {
     const context = SessionContextManager.getContext();
@@ -304,6 +372,7 @@ function injectForYouLink(navSections) {
     li.setAttribute('aria-hidden', visible ? 'false' : 'true');
     if (visible) {
       link.href = getForYouHref();
+      attachEngine();
     }
   }
 
@@ -315,16 +384,17 @@ function injectForYouLink(navSections) {
     updateVisibility();
   });
 
-  // Loading state — prefetch started
+  // Loading state from background prefetch (for-you-prefetch.js fallback)
   window.addEventListener('arco-foryou-started', () => {
-    li.classList.add('nav-foryou-loading');
-    li.classList.remove('nav-foryou-ready');
+    if (!link.classList.contains('chip-loading') && !link.classList.contains('chip-ready')) {
+      link.classList.add('chip-loading');
+    }
   });
 
-  // Ready state — prefetch complete
+  // Ready state from background prefetch
   window.addEventListener('arco-foryou-ready', () => {
-    li.classList.remove('nav-foryou-loading');
-    li.classList.add('nav-foryou-ready');
+    link.classList.remove('chip-loading');
+    link.classList.add('chip-ready');
     link.href = getForYouHref();
   });
 }

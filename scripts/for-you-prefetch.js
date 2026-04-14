@@ -62,7 +62,7 @@ function extractTopicWords(browsingHistory) {
  * @param {Object} context - Session context from SessionContextManager
  * @returns {string}
  */
-function synthesizeQuery(context) {
+export function synthesizeQuery(context) {
   const { inferredProfile, browsingHistory } = context;
   if (!inferredProfile) return 'Recommend coffee equipment based on my browsing';
 

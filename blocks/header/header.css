@@ -403,16 +403,31 @@ header nav .nav-foryou-link {
   position: relative;
 }
 
-header nav .nav-foryou-loading .nav-foryou-link {
-  animation: foryou-pulse 1.5s ease-in-out infinite;
+/* Loading: shimmer animation (matches follow-up chip style) */
+header nav .nav-foryou-link.chip-loading {
+  overflow: hidden;
 }
 
-@keyframes foryou-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+header nav .nav-foryou-link.chip-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(181 101 29 / 15%) 50%,
+    transparent 100%
+  );
+  animation: foryou-shimmer 1.5s ease-in-out infinite;
 }
 
-header nav .nav-foryou-ready .nav-foryou-link::after {
+@keyframes foryou-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Ready: accent dot indicator */
+header nav .nav-foryou-link.chip-ready::after {
   content: '';
   display: inline-block;
   width: 6px;

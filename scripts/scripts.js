@@ -675,13 +675,14 @@ function initKeepExploring() {
 /**
  * Render an Arco Recommender page from ?q= or ?query= parameter.
  * Streams NDJSON from the Cloudflare Worker via fetch + ReadableStream.
+ * @param {string} [explicitQuery] Optional query override (for SPA transitions)
  */
-async function renderArcoRecommenderPage() {
+async function renderArcoRecommenderPage(explicitQuery) {
   const main = document.querySelector('main');
   if (!main) return;
 
   const params = new URLSearchParams(window.location.search);
-  const query = params.get('q') || params.get('query');
+  const query = explicitQuery || params.get('q') || params.get('query');
 
   // Check for prefetched quiz data (one-time use)
   try {
@@ -691,19 +692,6 @@ async function renderArcoRecommenderPage() {
       const prefetchData = JSON.parse(raw);
       const age = Date.now() - (prefetchData.timestamp || 0);
       if (age < PREFETCH_MAX_AGE_MS && prefetchData.blocks?.length > 0) {
-        await renderPrefetchedBlocks(prefetchData, query);
-        initKeepExploring();
-        return;
-      }
-    }
-  } catch { /* fall through */ }
-
-  // Check for prefetched "For You" data
-  try {
-    const foryouRaw = sessionStorage.getItem(FORYOU_PREFETCH_KEY);
-    if (foryouRaw) {
-      const prefetchData = JSON.parse(foryouRaw);
-      if (prefetchData.query === query && prefetchData.blocks?.length > 0) {
         await renderPrefetchedBlocks(prefetchData, query);
         initKeepExploring();
         return;
@@ -755,6 +743,90 @@ async function renderArcoRecommenderPage() {
   // Initialize keep-exploring event listener
   initKeepExploring();
 }
+
+/**
+ * SPA transition to a recommender page without full page reload.
+ * Used by the "For You" link to render prefetched content in-place.
+ * Checks: speculative engine buffer > sessionStorage > fresh stream.
+ * @param {string} query The query to render
+ */
+async function transitionToRecommender(query) {
+  const main = document.querySelector('main');
+  if (!main || !query) return;
+
+  // Update URL without navigation
+  const urlParams = new URLSearchParams({ q: query });
+  const currentPreset = new URLSearchParams(window.location.search).get('preset');
+  if (currentPreset) urlParams.set('preset', currentPreset);
+  window.history.pushState({ arcoRecommender: true }, '', `/?${urlParams.toString()}`);
+
+  // Enter recommender mode
+  document.body.classList.add('arco-recommender-mode');
+  window.scrollTo(0, 0);
+
+  try {
+    // Check speculative engine for in-memory result
+    const specResult = window.arcoSpeculativeEngine?.getResult(query);
+    if (specResult) {
+      const ready = specResult.ready || await specResult.readyPromise;
+      if (ready && specResult.responseBuffer.length > 0) {
+        main.innerHTML = '<div id="generation-content"></div>';
+        const content = main.querySelector('#generation-content');
+        await replaySpeculativeResult(specResult.responseBuffer, content, { query });
+        const h1 = content.querySelector('h1');
+        if (h1) document.title = `${h1.textContent} | Arco`;
+        initKeepExploring();
+        try { sessionStorage.removeItem(FORYOU_PREFETCH_KEY); } catch { /* ignore */ }
+        return;
+      }
+    }
+
+    // Check sessionStorage for For You prefetch
+    try {
+      const foryouRaw = sessionStorage.getItem(FORYOU_PREFETCH_KEY);
+      if (foryouRaw) {
+        const prefetchData = JSON.parse(foryouRaw);
+        sessionStorage.removeItem(FORYOU_PREFETCH_KEY);
+        if (prefetchData.query === query) {
+          // NDJSON lines from speculative engine (stored via onReady callback)
+          if (prefetchData.ndjsonLines?.length > 0) {
+            main.innerHTML = '<div id="generation-content"></div>';
+            const content = main.querySelector('#generation-content');
+            await replaySpeculativeResult(prefetchData.ndjsonLines, content, { query });
+            const h1 = content.querySelector('h1');
+            if (h1) document.title = `${h1.textContent} | Arco`;
+            initKeepExploring();
+            return;
+          }
+          // Block data from background prefetch (for-you-prefetch.js)
+          if (prefetchData.blocks?.length > 0) {
+            await renderPrefetchedBlocks(prefetchData, query);
+            initKeepExploring();
+            return;
+          }
+        }
+      }
+    } catch { /* fall through */ }
+
+    // No prefetch available — stream fresh
+    await renderArcoRecommenderPage(query);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('[transitionToRecommender] Error:', error);
+    // Fall back to full page navigation
+    window.location.href = `/?${urlParams.toString()}`;
+  }
+}
+
+// Handle back-button navigation from SPA-transitioned recommender pages
+window.addEventListener('popstate', () => {
+  if (document.body.classList.contains('arco-recommender-mode') && !isArcoRecommenderRequest()) {
+    window.location.reload();
+  }
+});
+
+// Expose for header.js to call
+window.arcoTransitionToRecommender = transitionToRecommender;
 
 async function loadPage() {
   // Check if this is an Arco Recommender request (?q= or ?query=)
