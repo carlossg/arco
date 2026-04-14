@@ -92,6 +92,39 @@ function renderKeepExploring(block, suggestions) {
     chipsList.appendChild(chip);
   });
 
+  // Free-text input chip
+  const inputChip = document.createElement('label');
+  inputChip.className = 'follow-up-chip follow-up-chip-input';
+
+  const inputIcon = document.createElement('span');
+  inputIcon.className = 'follow-up-chip-icon';
+  inputIcon.innerHTML = SUGGESTION_ICONS.explore;
+  inputChip.appendChild(inputIcon);
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'follow-up-chip-input-field';
+  input.placeholder = 'Type your own question\u2026';
+  input.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const query = input.value.trim();
+    if (!query) return;
+
+    const parentContainer = block.closest('.follow-up-container');
+    if (parentContainer) parentContainer.classList.add('used');
+
+    window.dispatchEvent(new CustomEvent('arco-keep-exploring', {
+      detail: {
+        query,
+        followUp: { type: 'explore', label: query },
+      },
+    }));
+
+    input.value = '';
+  });
+  inputChip.appendChild(input);
+  chipsList.appendChild(inputChip);
+
   container.appendChild(chipsList);
   block.textContent = '';
   block.appendChild(container);
