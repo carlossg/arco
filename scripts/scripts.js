@@ -16,6 +16,7 @@ import {
 } from './aem.js';
 import { SessionContextManager } from './session-context.js';
 import { getAPIEndpoint } from './api-config.js';
+import showWelcomeModal from './welcome-modal.js';
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -215,6 +216,7 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+  showWelcomeModal();
 }
 
 /**
