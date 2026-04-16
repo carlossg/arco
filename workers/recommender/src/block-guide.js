@@ -216,10 +216,10 @@ Add a "meta" field to any section to apply visual themes:
 {"block":"columns","rows":[...],"meta":{"style":"dark"}}
 
 Available meta options:
-- "style": "dark" (charcoal background, white text) or "light" (off-white background)
+- "style": "dark" (charcoal background, white text)
 - "collapse": "top", "bottom", or "both" (remove spacing between sections)
 
-Use themes to create visual variety — alternate between default, light, and dark sections.
+Use themes to create visual variety — alternate between default and dark sections.
 
 ---
 
@@ -366,7 +366,7 @@ Mix different block types and patterns for visual variety.
 2. Each section is a valid JSON object with a "block" field
 3. Separate sections with === on its own line
 4. Use at least 2-3 different block types for visual variety
-5. Use "meta" to alternate themes (dark/light) for at least one section
+5. Use "meta" to add a dark theme to at least one section for visual variety — never use "light"
 6. **NO HALLUCINATION**: ONLY reference product names, product IDs, recipe names, and review IDs that appear in the data provided to you. NEVER invent, guess, or approximate names or IDs.
 7. Write in the Arco brand voice: knowledgeable, precise, warm — never pretentious, pushy, or verbose. No excessive punctuation.
 8. NEVER invent image URLs or product URLs — use tokens or omit images. Use {{product-link:ID}} for product names in comparison-table headers. The hero block MUST always have an image — use {{product-image:ID}} or {{hero-image:main}}.
