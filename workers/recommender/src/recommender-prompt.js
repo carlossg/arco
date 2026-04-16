@@ -40,7 +40,7 @@ function buildProductCatalog(priceFilter) {
   return filteredProducts
     .map((p) => {
       const profile = Array.isArray(profiles)
-        ? profiles.find((pr) => pr.id === p.id)
+        ? profiles.find((pr) => (pr.productId || pr.id) === p.id)
         : profiles[p.id];
       const topUses = profile?.scores
         ? Object.entries(profile.scores)

@@ -110,10 +110,11 @@ export function getRelevantProducts(query, persona, useCase) {
     }
 
     // Boost by use case score from profiles
-    const profile = profiles[p.id]
-      || (Array.isArray(profiles) ? profiles.find((pr) => pr.id === p.id) : null);
+    const profile = Array.isArray(profiles)
+      ? profiles.find((pr) => (pr.productId || pr.id) === p.id)
+      : profiles[p.id];
     if (useCase && profile?.scores) {
-      score += (profile.scores[useCase.id] || 0) / 2;
+      score += profile.scores[useCase.id] || 0;
     }
 
     // Boost if query mentions product name or series
