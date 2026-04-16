@@ -3,11 +3,7 @@
  * Sets ctx.earlyResponse (429) if limit exceeded.
  */
 
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token, X-Loadtest-Token',
-};
+import { CORS_HEADERS } from '../context.js';
 
 const DEFAULT_WINDOW = 60;
 const DEFAULT_MAX = 30;

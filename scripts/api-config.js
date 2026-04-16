@@ -27,7 +27,8 @@ export const IS_LOCAL = window.location.hostname.includes('localhost');
 // ============================================
 
 /**
- * Get the appropriate API endpoint for the current environment
+ * Get the appropriate API endpoint for the current environment.
+ * Accepts an optional service name argument (currently only 'recommender' exists).
  */
 export function getAPIEndpoint() {
   if (window.ARCO_CONFIG?.RECOMMENDER_URL) {

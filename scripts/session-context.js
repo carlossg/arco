@@ -10,15 +10,29 @@ const MAX_HISTORY = 10;
 const MAX_BROWSING_HISTORY = 15;
 const MAX_SHOWN_ITEMS = 20;
 
+// In-memory write-through cache — avoids redundant JSON parse/stringify on every call
+let contextCache = null;
+
+function saveContext(context) {
+  contextCache = context;
+  try {
+    saveContext(context);
+  } catch {
+    // sessionStorage unavailable (private browsing, storage quota, etc.)
+  }
+}
+
 /**
  * Session Context Manager - handles reading/writing query history for contextual browsing
  */
 export class SessionContextManager {
   /**
-   * Get the current session context from sessionStorage
+   * Get the current session context. Reads from in-memory cache when available,
+   * falling back to sessionStorage on first access.
    * @returns {Object}
    */
   static getContext() {
+    if (contextCache) return contextCache;
     try {
       const stored = sessionStorage.getItem(CONTEXT_KEY);
       if (stored) {
@@ -26,14 +40,14 @@ export class SessionContextManager {
         // Ensure sessionId exists for older sessions
         if (!context.sessionId) {
           context.sessionId = crypto.randomUUID();
-          sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
         }
+        contextCache = context;
         return context;
       }
     } catch (e) {
       // Ignore parse errors, return fresh context
     }
-    return {
+    contextCache = {
       queries: [],
       browsingHistory: [],
       inferredProfile: null,
@@ -44,6 +58,7 @@ export class SessionContextManager {
       lastUpdated: Date.now(),
       sessionId: crypto.randomUUID(),
     };
+    return contextCache;
   }
 
   /**
@@ -81,7 +96,7 @@ export class SessionContextManager {
     }
 
     context.lastUpdated = Date.now();
-    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+    saveContext(context);
   }
 
   /**
@@ -219,7 +234,7 @@ export class SessionContextManager {
     }
 
     context.lastUpdated = Date.now();
-    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+    saveContext(context);
   }
 
   /**
@@ -235,7 +250,7 @@ export class SessionContextManager {
     if (engagement.scrollDepth !== undefined) last.scrollDepth = engagement.scrollDepth;
 
     context.lastUpdated = Date.now();
-    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+    saveContext(context);
   }
 
   /**
@@ -246,7 +261,7 @@ export class SessionContextManager {
     const context = this.getContext();
     context.inferredProfile = profile;
     context.lastUpdated = Date.now();
-    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+    saveContext(context);
   }
 
   /**
@@ -274,7 +289,7 @@ export class SessionContextManager {
         context.shownProducts = context.shownProducts.slice(-MAX_SHOWN_ITEMS);
       }
       context.lastUpdated = Date.now();
-      sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+      saveContext(context);
     }
   }
 
@@ -293,7 +308,7 @@ export class SessionContextManager {
       context.shownSections = context.shownSections.slice(-MAX_SHOWN_ITEMS);
     }
     context.lastUpdated = Date.now();
-    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+    saveContext(context);
   }
 
   /**
@@ -310,7 +325,7 @@ export class SessionContextManager {
       }
     }
     context.lastUpdated = Date.now();
-    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
+    saveContext(context);
   }
 
   /**
@@ -330,6 +345,7 @@ export class SessionContextManager {
    * Clear the session context (useful for testing)
    */
   static clear() {
+    contextCache = null;
     sessionStorage.removeItem(CONTEXT_KEY);
   }
 

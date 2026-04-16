@@ -5,16 +5,10 @@
  */
 
 import { persistAndPublish, buildPageHtml, unescapeHtml } from './da-persist.js';
-import { createContext } from './pipeline/context.js';
+import { createContext, CORS_HEADERS } from './pipeline/context.js';
 import { executeFlow } from './pipeline/executor.js';
 import { resolveFlow } from './pipeline/flows.js';
 import { STEPS } from './pipeline/steps/index.js';
-
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, X-Loadtest-Token, X-Skip-Cerebras, X-Skip-Pipeline',
-};
 
 /**
  * Full pipeline bypass for load testing — skips rate-limit, RAG, intent, and LLM.

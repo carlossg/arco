@@ -309,37 +309,22 @@ export function collectBrowsingSignals() {
     addSignal(getEngagementSignal());
   }, DEEP_ENGAGEMENT_MS);
 
-  // 5. Capture final engagement on page leave
-  const captureOnLeave = () => {
+  // 5. Capture final engagement and send analytics beacon on page leave
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'hidden') return;
+
     const engagement = getEngagementSignal();
     addSignal(engagement);
-
-    // Update the page visit with engagement data
     SessionContextManager.updateLastPageVisit({
       timeSpent: engagement.data.timeSpent,
       scrollDepth: engagement.data.scrollDepth,
     });
-  };
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') captureOnLeave();
-  });
-
-  // 6. Interaction listeners
-  setupInteractionListeners(addSignal);
-
-  // 7. Analytics beacon — send page-view event on leave
-  const sendPageViewBeacon = () => {
     try {
-      // Dynamically import to avoid loading analytics config eagerly
       const analyticsUrl = window.ARCO_CONFIG?.ANALYTICS_URL;
       if (!analyticsUrl) return;
-
-      const sessionId = SessionContextManager.getSessionId();
-      const engagement = getEngagementSignal();
-
       const payload = JSON.stringify({
-        sessionId,
+        sessionId: SessionContextManager.getSessionId(),
         eventType: 'page-view',
         query: '',
         intent: classifyFromPath(window.location.pathname).intent,
@@ -350,18 +335,14 @@ export function collectBrowsingSignals() {
           scrollDepth: engagement.data.scrollDepth,
         },
       });
-
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon(analyticsUrl, payload);
-      }
+      if (navigator.sendBeacon) navigator.sendBeacon(analyticsUrl, payload);
     } catch {
       // Best-effort — silently ignore failures
     }
-  };
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') sendPageViewBeacon();
   });
+
+  // 6. Interaction listeners
+  setupInteractionListeners(addSignal);
 }
 
 export default collectBrowsingSignals;

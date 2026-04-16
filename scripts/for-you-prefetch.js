@@ -19,7 +19,7 @@ const DEBOUNCE_MS = 30000;
 
 let lastPrefetchTime = 0;
 let lastPrefetchSnapshot = null;
-let activeEventSource = null;
+let activeController = null;
 
 /**
  * Extract distinctive topic words from the most recent browsing history entries.
@@ -156,56 +156,57 @@ function hasSignificantChange(current, previous) {
 }
 
 /**
- * Start a background EventSource to pre-generate a "For You" page.
+ * Start a background POST fetch to pre-generate a "For You" page.
+ * Streams NDJSON from /api/generate and saves lines to sessionStorage.
  * @param {string} query - Synthesized query
  */
-function startForYouPrefetch(query) {
-  // Close any existing connection
-  if (activeEventSource) {
-    activeEventSource.close();
-    activeEventSource = null;
+async function startForYouPrefetch(query) {
+  // Abort any in-flight prefetch
+  if (activeController) {
+    activeController.abort();
+    activeController = null;
   }
 
-  const contextParam = SessionContextManager.buildEncodedContextParam();
-  const preset = new URLSearchParams(window.location.search).get('preset') || 'production';
-  const url = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&preset=${encodeURIComponent(preset)}&ctx=${contextParam}`;
+  const controller = new AbortController();
+  activeController = controller;
+
+  const contextParam = SessionContextManager.buildContextParam();
 
   window.dispatchEvent(new CustomEvent('arco-foryou-started'));
 
   try {
-    activeEventSource = new EventSource(url);
-  } catch {
-    activeEventSource = null;
-    return;
-  }
+    const response = await fetch(`${ARCO_RECOMMENDER_URL}/api/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, context: contextParam, speculative: true }),
+      signal: controller.signal,
+    });
 
-  const blocks = [];
-  let metadata = {};
+    if (!response.ok) return;
 
-  activeEventSource.addEventListener('block-content', (e) => {
-    try {
-      const data = JSON.parse(e.data);
-      blocks.push({ html: data.html, sectionStyle: data.sectionStyle });
-    } catch {
-      // ignore parse errors
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    const ndjsonLines = [];
+    let buffer = '';
+
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      // eslint-disable-next-line no-await-in-loop
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() || '';
+      lines.forEach((line) => { if (line.trim()) ndjsonLines.push(line); });
     }
-  });
+    if (buffer.trim()) ndjsonLines.push(buffer.trim());
 
-  activeEventSource.addEventListener('generation-complete', (e) => {
-    try {
-      metadata = JSON.parse(e.data);
-    } catch {
-      // ignore parse errors
-    }
-    activeEventSource.close();
-    activeEventSource = null;
+    if (controller.signal.aborted) return;
 
-    // Save to sessionStorage
     try {
       sessionStorage.setItem(FORYOU_PREFETCH_KEY, JSON.stringify({
         query,
-        blocks,
-        metadata,
+        ndjsonLines,
         isComplete: true,
         timestamp: Date.now(),
       }));
@@ -215,18 +216,13 @@ function startForYouPrefetch(query) {
     }
 
     window.dispatchEvent(new CustomEvent('arco-foryou-ready'));
-  });
-
-  activeEventSource.addEventListener('error', () => {
-    activeEventSource.close();
-    activeEventSource = null;
-  });
-
-  activeEventSource.onerror = () => {
-    if (activeEventSource && activeEventSource.readyState === EventSource.CLOSED) {
-      activeEventSource = null;
+  } catch (err) {
+    if (err.name !== 'AbortError') {
+      // Best-effort background prefetch — failure is non-critical
     }
-  };
+  } finally {
+    if (activeController === controller) activeController = null;
+  }
 }
 
 /**

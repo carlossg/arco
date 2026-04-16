@@ -1,73 +1,123 @@
-# Contributing to Project Helix
+# Contributing to Arco
 
-This project (like almost all of Project Helix) is an Open Development project and welcomes contributions from everyone who finds it useful or lacking.
+This project is an AEM Edge Delivery Services site. It uses vanilla JS/CSS with no build steps.
 
 ## Code Of Conduct
 
-This project adheres to the Adobe [code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to cstaub at adobe dot com.
+This project adheres to the Adobe [code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
-## Contributor License Agreement
+## Before You Contribute
 
-All third-party contributions to this project must be accompanied by a signed contributor license. This gives Adobe permission to redistribute your contributions as part of the project. [Sign our CLA](http://opensource.adobe.com/cla.html)! You only need to submit an Adobe CLA one time, so if you have submitted one previously, you are good to go!
+- Check that there is an existing issue in GitHub issues
+- Check if there are other pull requests that might overlap or conflict with your intended contribution
 
-## Things to Keep in Mind
+---
 
-This project uses a **commit then review** process, which means that for approved maintainers, changes can be merged immediately, but will be reviewed by others.
+## Development Setup
 
-For other contributors, a maintainer of the project has to approve the pull request.
+### Prerequisites
 
-# Before You Contribute
+- Node.js (LTS)
+- AEM CLI: `npm install -g @adobe/aem-cli`
 
-* Check that there is an existing issue in GitHub issues
-* Check if there are other pull requests that might overlap or conflict with your intended contribution
+### Install and Run
 
-# How to Contribute
+```bash
+npm install
+aem up   # starts dev server at http://localhost:3000
+```
 
-1. Fork the repository
-2. Make some changes on a branch on your fork
-3. Create a pull request from your branch
+The dev server serves code from your working copy (including uncommitted changes) and content from the AEM preview backend. Changes auto-reload.
 
-In your pull request, outline:
+### Cloudflare Worker (Recommender)
 
-* What the changes intend
-* How they change the existing code
-* If (and what) they breaks
-* Start the pull request with the GitHub issue ID, e.g. #123
+```bash
+cd workers/recommender
+npm install
+npx wrangler dev   # local worker at http://localhost:8787
+```
 
-Lastly, please follow the [pull request template](.github/pull_request_template.md) when submitting a pull request!
+Secrets are managed via `wrangler secret put` (not committed). Required:
+- `CEREBRAS_API_KEY`
+- `DA_CLIENT_ID`, `DA_CLIENT_SECRET`, `DA_SERVICE_TOKEN`
 
-Each commit message that is not part of a pull request:
+---
 
-* Should contain the issue ID like `#123`
-* Can contain the tag `[trivial]` for trivial changes that don't relate to an issue
+<!-- AUTO-GENERATED -->
+## Available Scripts
 
+| Command | Description |
+|---------|-------------|
+| `npm run lint` | Run ESLint + Stylelint |
+| `npm run lint:js` | Run ESLint only |
+| `npm run lint:css` | Run Stylelint on block and global CSS |
+| `npm run lint:fix` | Auto-fix lint issues |
+| `npm run loadtest` | Run load test against the recommender |
+| `npm run loadtest:quick` | Quick load test (10 requests, 2 parallel) |
+| `npm run loadtest:generate-prompts` | Generate load test prompts |
+<!-- /AUTO-GENERATED -->
 
+---
+
+## How to Contribute
+
+1. Create a feature branch (prefer `git worktree` to keep `main` clean)
+2. Make changes and verify locally at `http://localhost:3000`
+3. Run `npm run lint` before committing — CI will reject lint failures
+4. Open a pull request to `main`
+
+In your PR, include:
+- What the change does and why
+- A link to `https://{branch}--arco--froesef.aem.page/{path}` showing the feature in action — **PRs without a preview URL will be rejected**
+- If no live page exists, create a static draft in `drafts/` and ask for help publishing it
+
+---
 
 ## Coding Styleguides
 
-We enforce a coding styleguide using `eslint`. As part of your build, run `npm run lint` to check if your code is conforming to the style guide. We do the same for every PR in our CI, so PRs will get rejected if they don't follow the style guide.
+### JavaScript
+- ES6+, no transpiling, no bundler
+- Airbnb ESLint rules (configured)
+- Always include `.js` extensions in imports
+- Block JS files export a default `decorate(block)` function
 
-You can fix some of the issues automatically by running `npx eslint . --fix`.
+### CSS
+- Stylelint standard configuration
+- Mobile-first; breakpoints at `600px`, `900px`, `1200px`
+- Scope all selectors to the block: `.blockname .item` not `.item`
+- Avoid `.blockname-container` and `.blockname-wrapper` (reserved by AEM)
 
-## Commit Message Format
+### Commit Messages
+- Reference a GitHub issue where applicable: `Fix product card layout (#42)`
+- Use `[trivial]` for minor changes that don't relate to an issue
 
-This project uses a structured commit changelog format that should be used for every commit. Use `npm run commit` instead of your usual `git commit` to generate commit messages using a wizard.
+---
 
-```bash
-# either add all changed files
-$ git add -A
-# or selectively add files
-$ git add package.json
-# then commit using the wizard
-$ npm run commit
-```
+## Testing
 
-# How Contributions get Reviewed
+There is no automated test suite for the front-end. Test manually:
 
-One of the maintainers will look at the pull request within one week. Feedback on the pull request will be given in writing, in GitHub.
+1. Start the dev server (`aem up`)
+2. Open `http://localhost:3000` in a browser
+3. Test the golden path and edge cases for your feature
+4. Check the browser console for errors
+5. Run `npm run lint` — no errors before opening a PR
 
-# Release Management
+For the recommender worker, integration testing is done via load tests (`npm run loadtest`).
 
-The project's committers will release to the [Adobe organization on npmjs.org](https://www.npmjs.com/org/adobe).
-Please contact the [Adobe Open Source Advisory Board](https://git.corp.adobe.com/OpenSourceAdvisoryBoard/discuss/issues) to get access to the npmjs organization.
+---
 
+## How Contributions Get Reviewed
+
+A maintainer will review pull requests within one week. Feedback is provided in writing on GitHub.
+
+---
+
+## Deployment
+
+See the [AGENTS.md](AGENTS.md) Publishing Process section for full deployment instructions. Summary:
+
+1. Push to a feature branch → available at `https://{branch}--arco--froesef.aem.page/`
+2. Run a PageSpeed Insights check against the feature preview URL (target 100)
+3. Open a PR to `main` with a preview URL
+4. After merge, AEM Code Sync publishes to production automatically

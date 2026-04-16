@@ -417,6 +417,43 @@ async function renderFollowUpSection(items, container) {
 }
 
 /**
+ * Process a single parsed NDJSON event from the recommender stream.
+ * Shared between streamAndAppendContent and replaySpeculativeResult.
+ *
+ * @param {Object} data Parsed NDJSON object
+ * @param {Element} container The #generation-content container
+ * @param {{ blockCount: number }} state Mutable state tracking sections seen
+ * @param {Object} [options] onFirstSection, onError callbacks
+ */
+async function handleNdjsonEvent(data, container, state, options = {}) {
+  if (data.type === 'heartbeat') return;
+
+  if (data.type === 'section') {
+    if (state.blockCount === 0 && options.onFirstSection) options.onFirstSection();
+    state.blockCount += 1;
+    // eslint-disable-next-line no-await-in-loop
+    await renderStreamedSection(data, container);
+    const lastSection = container.querySelector('.section:last-of-type');
+    if (lastSection) trackSectionContent(lastSection);
+  }
+
+  if (data.type === 'suggestions') {
+    // eslint-disable-next-line no-await-in-loop
+    await renderFollowUpSection(data.items || [], container);
+  }
+
+  if (data.type === 'done' && data.usedProducts) {
+    data.usedProducts.forEach((id) => SessionContextManager.addShownProduct(id));
+  }
+
+  if (data.type === 'error') {
+    // eslint-disable-next-line no-console
+    console.error('[Recommender] Server error:', data.message);
+    if (options.onError) options.onError(data.message);
+  }
+}
+
+/**
  * Stream content from the recommender and append sections to a container.
  * Used for both initial page load and keep-exploring follow-ups.
  *
@@ -430,7 +467,7 @@ async function renderFollowUpSection(items, container) {
  */
 async function streamAndAppendContent(query, container, options = {}) {
   const startTime = Date.now();
-  let blockCount = 0;
+  const state = { blockCount: 0 };
 
   const sessionContext = SessionContextManager.buildContextParam();
 
@@ -475,42 +512,14 @@ async function streamAndAppendContent(query, container, options = {}) {
         continue; // eslint-disable-line no-continue
       }
 
-      if (data.type === 'heartbeat') {
-        continue; // eslint-disable-line no-continue
-      }
-
-      if (data.type === 'section') {
-        if (blockCount === 0 && options.onFirstSection) options.onFirstSection();
-        blockCount += 1;
-        // eslint-disable-next-line no-await-in-loop
-        await renderStreamedSection(data, container);
-
-        // Track shown content for deduplication
-        const lastSection = container.querySelector('.section:last-of-type');
-        if (lastSection) trackSectionContent(lastSection);
-      }
-
-      if (data.type === 'suggestions') {
-        // eslint-disable-next-line no-await-in-loop
-        await renderFollowUpSection(data.items || [], container);
-      }
-
       if (data.type === 'done') {
         const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
         // eslint-disable-next-line no-console
         console.log(`[Recommender] Complete in ${totalTime}s`, data.timings || {});
-
-        // Track used products from backend
-        if (data.usedProducts) {
-          data.usedProducts.forEach((id) => SessionContextManager.addShownProduct(id));
-        }
       }
 
-      if (data.type === 'error') {
-        // eslint-disable-next-line no-console
-        console.error('[Recommender] Server error:', data.message);
-        if (options.onError) options.onError(data.message);
-      }
+      // eslint-disable-next-line no-await-in-loop
+      await handleNdjsonEvent(data, container, state, options);
     }
   }
 
@@ -526,7 +535,7 @@ async function streamAndAppendContent(query, container, options = {}) {
  * @param {Object} options Same options as streamAndAppendContent
  */
 async function replaySpeculativeResult(responseBuffer, container, options = {}) {
-  let blockCount = 0;
+  const state = { blockCount: 0 };
   // eslint-disable-next-line no-restricted-syntax
   for (const line of responseBuffer) {
     const trimmed = line.trim();
@@ -539,25 +548,8 @@ async function replaySpeculativeResult(responseBuffer, container, options = {}) 
       continue; // eslint-disable-line no-continue
     }
 
-    if (data.type === 'heartbeat') continue; // eslint-disable-line no-continue
-
-    if (data.type === 'section') {
-      if (blockCount === 0 && options.onFirstSection) options.onFirstSection();
-      blockCount += 1;
-      // eslint-disable-next-line no-await-in-loop
-      await renderStreamedSection(data, container);
-      const lastSection = container.querySelector('.section:last-of-type');
-      if (lastSection) trackSectionContent(lastSection);
-    }
-
-    if (data.type === 'suggestions') {
-      // eslint-disable-next-line no-await-in-loop
-      await renderFollowUpSection(data.items || [], container);
-    }
-
-    if (data.type === 'done' && data.usedProducts) {
-      data.usedProducts.forEach((id) => SessionContextManager.addShownProduct(id));
-    }
+    // eslint-disable-next-line no-await-in-loop
+    await handleNdjsonEvent(data, container, state, options);
   }
 
   SessionContextManager.addQuery({ query: options.query || '', timestamp: Date.now(), intent: 'general' });
