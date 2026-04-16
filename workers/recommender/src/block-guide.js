@@ -80,6 +80,11 @@ Structure: one row, one cell with all content items.
   [[{"type":"h2","text":"The Verdict"},{"type":"p","text":"For most home baristas, the Arco Primo offers the best balance of quality, simplicity, and value."},{"type":"ul","items":["Choose Primo if: You want great espresso without complexity.","Choose Doppio if: You make lots of milk drinks and want to brew and steam at the same time.","Choose Nano if: Space or portability is your priority."]}]]
 ]}
 
+**Hobby tips** (use when user mentions a sport or lifestyle — heading, intro sentence, bullet list of actionable advice):
+{"block":"text","rows":[
+  [[{"type":"h2","text":"Coffee Tips for Runners"},{"type":"p","text":"A good run starts with the right fuel. Espresso can give you a focused caffeine boost without the heaviness of a full breakfast."},{"type":"ul","items":["Drink your espresso 30–45 minutes before you head out — that is when caffeine peaks in the bloodstream.","Choose a light-roasted bean with bright acidity; it is easier on the stomach and provides a clean finish.","Stay hydrated — pair your shot with a glass of water or a low-sugar electrolyte drink.","If you need speed, use a machine that heats up in under a minute or a manual lever model you can fire up on the go."]}]]
+]}
+
 ---
 
 ### cards
@@ -354,6 +359,7 @@ Vary structure based on what the query needs:
 - **Budget questions** → hero + comparison-table sorted by price + text (verdict)
 - **Beginner/getting started** → hero + text (answer) + columns (key concepts) + columns (product spotlight) + article-excerpt (beginner guides)
 - **Persona-matched query** → hero + columns (product spotlight) + comparison-table + experience-cta (matching journey)
+- **Hobby/lifestyle query** → hero + text (hobby tips: heading "Coffee Tips for [Hobby]" + intro + bullet list) + columns (product spotlight) + comparison-table
 
 Only include product-related blocks when products are genuinely relevant. Prioritize content quality.
 Mix different block types and patterns for visual variety.
