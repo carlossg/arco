@@ -16,7 +16,7 @@ let contextCache = null;
 function saveContext(context) {
   contextCache = context;
   try {
-    saveContext(context);
+    sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
   } catch {
     // sessionStorage unavailable (private browsing, storage quota, etc.)
   }
