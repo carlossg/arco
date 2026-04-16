@@ -149,19 +149,22 @@ Suggestions: 3-5 information-gathering buttons
 Suggestions: Need-based follow-ups: "I'm a beginner", "Best for milk drinks?", "I need something portable", "What's your most popular machine?", "Do I need a grinder?"
 
 ### Follow-Up: Budget Concern
-1. columns — Product spotlight: more affordable alternative
-2. comparison-table — Budget-friendly models
+1. hero — Budget-focused headline (e.g. "Great Espresso at the Right Price"). Use {{product-image:ID}} of the most affordable alternative, or {{hero-image:main}}.
+2. columns — Product spotlight: more affordable alternative
+3. comparison-table — Budget-friendly models
 Suggestions: "What's the cheapest option?", "Is the Nano good enough?", "Machine + grinder under $1,000?"
 
 ### Follow-Up: Comparison Request
-1. comparison-table — Head-to-head comparison
-2. cards — Feature highlights: key differences explained
+1. hero — Comparison-focused headline (e.g. "Primo vs Doppio: Which Is Right for You?"). Use {{product-image:ID}} of the most relevant product, or {{hero-image:main}}.
+2. comparison-table — Head-to-head comparison
+3. cards — Feature highlights: key differences explained
 Suggestions: "Which is better for lattes?", "Is the price difference worth it?"
 
 ### Follow-Up: Use Case
-1. columns — Product spotlight: best model for that use case
-2. comparison-table — Models ranked for that use case
-3. cards — Relevant recipes
+1. hero — Use-case headline (e.g. "The Best Machine for Milk Drinks"). Use {{product-image:ID}} of the top pick for that use case.
+2. columns — Product spotlight: best model for that use case
+3. comparison-table — Models ranked for that use case
+4. cards — Relevant recipes
 Suggestions: "Compare top picks", "What grinder pairs well?", "Show me recipes"
 
 ### Off-Topic / Competitor Request
@@ -286,15 +289,15 @@ export function buildRecommenderUserMessage(
   if (followUp?.type === 'pivot' && followUp.product) {
     msg = `The customer wants to learn more about ${followUp.product}. Generate a follow-up recommendation for: "${query}"
 
-This is a FOLLOW-UP. Do NOT start with a hero — the page already has one. Make ${followUp.product} the new primary recommendation. Start with a columns block (product spotlight) for ${followUp.product}, then compare it with alternatives. End with new information-gathering suggestions.`;
+ALWAYS start with a hero using {{product-image:${followUp.product.toLowerCase().replace(/\s+/g, '-')}}} — make the hero headline focused on ${followUp.product} (e.g. "Meet the ${followUp.product}" or a key benefit headline). Then make ${followUp.product} the primary recommendation: columns block (product spotlight), then a comparison-table with alternatives. End with new information-gathering suggestions.`;
   } else if (followUp?.type === 'cheaper_alternative' && followUp.product) {
     msg = `The customer thinks ${followUp.product} is too expensive. Generate a follow-up recommendation for: "${query}"
 
-This is a FOLLOW-UP. Do NOT start with a hero — the page already has one. Show more affordable alternatives. Include a comparison-table showing cheaper options alongside ${followUp.product}. End with new suggestions.`;
+ALWAYS start with a hero — use {{product-image:ID}} of the most affordable alternative you'll recommend, or {{hero-image:main}} if no single product is the focus. Hero headline should acknowledge the budget context (e.g. "Great Espresso at the Right Price"). Then show more affordable alternatives and a comparison-table of budget-friendly options alongside ${followUp.product}. End with new suggestions.`;
   } else if (followUp) {
     msg = `The customer clicked "${followUp.label}" (a ${followUp.type} button). Generate a follow-up recommendation for: "${query}"
 
-This is a FOLLOW-UP. Do NOT start with a hero — the page already has one. Generate 2-3 focused sections. Include a comparison-table if comparing products. End with new suggestions.`;
+ALWAYS start with a hero — choose {{product-image:ID}} of the most relevant product being discussed, or {{hero-image:main}} if no single product is the focus. Hero headline and subtext should directly reflect what the customer is asking about. Then generate 2-3 focused sections. Include a comparison-table if comparing products. End with new suggestions.`;
   } else if (ba.coldStart) {
     msg = `New visitor with no browsing history. Generate a discovery page: "${query}"
 

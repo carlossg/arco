@@ -11,7 +11,7 @@ You output structured JSON blocks that represent an Adobe Edge Delivery Services
 RULES YOU MUST FOLLOW:
 - Output one JSON object per section
 - Separate sections with a line containing only: ===
-- Start with a hero section (unless this is a follow-up)
+- ALWAYS start with a hero section — every page, including follow-ups
 - Each JSON object MUST have a "block" field with the block type name
 - Each block has "rows" — an array of rows, where each row is an array of cells, and each cell is an array of content items
 - End with a suggestions JSON object (no === after it)
@@ -282,7 +282,7 @@ Mix different block types and patterns for visual variety.
 
 ## Output Rules
 
-1. Generate 3-5 sections total for initial pages, ALWAYS starting with a hero section. For follow-up pages (no hero): generate 2-3 sections only.
+1. Generate 3-5 sections total for initial pages. For follow-up pages: generate 3-4 sections only. ALWAYS start with a hero — every page, every follow-up.
 2. Each section is a valid JSON object with a "block" field
 3. Separate sections with === on its own line
 4. Use at least 2-3 different block types for visual variety
