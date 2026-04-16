@@ -1,5 +1,5 @@
 {
-  "total": 12,
+  "total": 13,
   "offset": 0,
   "limit": 12,
   "data": [
@@ -854,6 +854,71 @@
         "Cleaning brush",
         "Burr alignment tool",
         "Grind size reference card"
+      ],
+      "warranty": "2 years"
+    },
+    {
+      "id": "viaggio-grinder",
+      "name": "Viaggio Grinder",
+      "series": "grinders",
+      "category": "travel-grinder",
+      "url": "/products/grinders/viaggio-grinder",
+      "price": 199,
+      "currency": "USD",
+      "tagline": "Precision grinding, anywhere you go",
+      "description": "The Arco Viaggio Grinder delivers café-quality grinds in a palm-sized package. Its 38mm hardened steel conical burrs handle espresso and filter alike, while the fold-out manual handle means no batteries, no charging — just grind. At 320g it slips into any bag, and 24 clicked steps give you repeatable results every time.",
+      "features": [
+        "38mm hardened steel conical burrs",
+        "24-step clicked grind adjustment",
+        "Manual fold-out handle — no power required",
+        "Under 0.3g retention",
+        "25g capacity — perfect for a single dose",
+        "Tool-free disassembly for easy cleaning",
+        "Includes travel pouch",
+        "Espresso to filter range"
+      ],
+      "bestFor": ["travel", "espresso", "pour-over", "beginner"],
+      "specs": {
+        "burrType": "Conical",
+        "burrSize": "38mm",
+        "burrMaterial": "Hardened steel",
+        "grindSettings": "24-step clicked",
+        "dosing": "Manual",
+        "retention": "<0.3g",
+        "hopperCapacity": "25g",
+        "drive": "Manual fold-out handle",
+        "dimensions": "6 x 6 x 18 cm",
+        "weight": "320g",
+        "power": "0W (manual)",
+        "stepless": false,
+        "singleDose": true
+      },
+      "images": [
+        "/products/grinders/media/product-viaggio-grinder.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "viaggio-grinder-black",
+          "color": "Matte Black",
+          "sku": "ARCO-VGG-BLK",
+          "inStock": true
+        },
+        {
+          "id": "viaggio-grinder-slate",
+          "color": "Slate Grey",
+          "sku": "ARCO-VGG-SLT",
+          "inStock": true
+        },
+        {
+          "id": "viaggio-grinder-terracotta",
+          "color": "Terracotta",
+          "sku": "ARCO-VGG-TRC",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Travel pouch",
+        "Cleaning brush"
       ],
       "warranty": "2 years"
     }
