@@ -94,6 +94,16 @@ function classifyType(query) {
     'nano', 'viaggio', 'automatico', 'ufficio', 'preciso', 'macinino', 'filtro', 'zero'];
   PRODUCT_NAMES.forEach((name) => { if (q.includes(name)) scores['product-discovery'] += 3; });
 
+  // Boost comparison when compare keywords AND 2+ product names are present
+  // (product-discovery score would otherwise outweigh comparison for queries like
+  // "compare studio and studio pro" where each product name adds 3 points)
+  if (scores.comparison > 0) {
+    const mentionedProducts = PRODUCT_NAMES.filter((name) => q.includes(name));
+    if (mentionedProducts.length >= 2) {
+      scores.comparison += mentionedProducts.length * 3;
+    }
+  }
+
   let bestType = 'general';
   let bestScore = 0;
   Object.entries(scores).forEach(([type, score]) => {

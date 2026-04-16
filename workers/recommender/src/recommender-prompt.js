@@ -337,6 +337,7 @@ export function buildRecommenderUserMessage(
   previousQueries,
   followUp,
   shownContent,
+  intent,
 ) {
   const ba = behaviorAnalysis || { coldStart: true };
   let msg;
@@ -356,6 +357,18 @@ DO NOT generate a hero block. Start directly with a columns block spotlighting t
     msg = `The customer clicked "${followUp.label}" (a ${followUp.type} button). Generate a focused follow-up for: "${query}"
 
 DO NOT generate a hero block. ${startHint} Generate 2-3 sections that specifically address what the customer is asking about. Include a comparison-table if comparing products. End with new suggestions.${buildConversationHistory(previousQueries, shownContent)}`;
+  } else if (ba.coldStart && intent?.type === 'comparison') {
+    msg = `New visitor explicitly requesting a comparison: "${query}"
+
+The customer has no browsing history, but they have asked to compare specific products. Focus entirely on their comparison request — do NOT redirect to a generic discovery page.
+
+Use the pre-authored comparison data from "Pre-Authored Comparisons" in the context when it matches their query. Start with a hero image using {{product-image:ID}} of the primary product being compared. Include a comparison-table for the specific products they mentioned. Do NOT default to Nano, Primo, and Doppio unless those are the products actually requested.
+
+End with suggestion buttons helping you learn their priorities:
+- "Which is better for beginners?"
+- "Best for milk drinks?"
+- "Is the price difference worth it?"
+Plus 1-2 more tailored to the specific products compared.`;
   } else if (ba.coldStart) {
     msg = `New visitor with no browsing history. Generate a discovery page: "${query}"
 
