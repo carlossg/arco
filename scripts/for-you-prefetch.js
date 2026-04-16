@@ -1,15 +1,14 @@
 /**
- * "For You" Background Prefetch
+ * "For You" Query Synthesis
  *
  * After 2+ page visits, synthesizes a personalized query from the user's
- * browsing context and pre-generates a recommender page in the background.
- * When the user clicks "For You" in the nav, the result renders instantly.
+ * browsing context and stores it in sessionStorage. The speculative engine
+ * in header.js triggers actual generation on hover — not here.
  *
  * Loaded in the delayed phase via delayed.js — zero impact on LCP.
  */
 
 import { SessionContextManager } from './session-context.js';
-import { ARCO_RECOMMENDER_URL } from './api-config.js';
 
 export const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
 export const FORYOU_QUERY_KEY = 'arco-foryou-query';
@@ -19,7 +18,6 @@ const DEBOUNCE_MS = 30000;
 
 let lastPrefetchTime = 0;
 let lastPrefetchSnapshot = null;
-let activeController = null;
 
 /**
  * Extract distinctive topic words from the most recent browsing history entries.
@@ -156,77 +154,8 @@ function hasSignificantChange(current, previous) {
 }
 
 /**
- * Start a background POST fetch to pre-generate a "For You" page.
- * Streams NDJSON from /api/generate and saves lines to sessionStorage.
- * @param {string} query - Synthesized query
- */
-async function startForYouPrefetch(query) {
-  // Abort any in-flight prefetch
-  if (activeController) {
-    activeController.abort();
-    activeController = null;
-  }
-
-  const controller = new AbortController();
-  activeController = controller;
-
-  const contextParam = SessionContextManager.buildContextParam();
-
-  window.dispatchEvent(new CustomEvent('arco-foryou-started'));
-
-  try {
-    const response = await fetch(`${ARCO_RECOMMENDER_URL}/api/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, context: contextParam, speculative: true }),
-      signal: controller.signal,
-    });
-
-    if (!response.ok) return;
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    const ndjsonLines = [];
-    let buffer = '';
-
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      // eslint-disable-next-line no-await-in-loop
-      const { done, value } = await reader.read();
-      if (done) break;
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop() || '';
-      lines.forEach((line) => { if (line.trim()) ndjsonLines.push(line); });
-    }
-    if (buffer.trim()) ndjsonLines.push(buffer.trim());
-
-    if (controller.signal.aborted) return;
-
-    try {
-      sessionStorage.setItem(FORYOU_PREFETCH_KEY, JSON.stringify({
-        query,
-        ndjsonLines,
-        isComplete: true,
-        timestamp: Date.now(),
-      }));
-      sessionStorage.setItem(FORYOU_QUERY_KEY, query);
-    } catch {
-      // sessionStorage unavailable
-    }
-
-    window.dispatchEvent(new CustomEvent('arco-foryou-ready'));
-  } catch (err) {
-    if (err.name !== 'AbortError') {
-      // Best-effort background prefetch — failure is non-critical
-    }
-  } finally {
-    if (activeController === controller) activeController = null;
-  }
-}
-
-/**
- * Attempt a prefetch if conditions are met (enough visits, debounce, significant change).
+ * Synthesize and store the "For You" query if conditions are met
+ * (enough visits, debounce, significant context change).
  */
 function attemptPrefetch() {
   const context = SessionContextManager.getContext();
@@ -254,14 +183,11 @@ function attemptPrefetch() {
   } catch {
     // sessionStorage unavailable
   }
-
-  // eslint-disable-next-line no-console
-  console.log('[ForYou] Starting background prefetch:', query);
-  startForYouPrefetch(query);
 }
 
 /**
- * Initialize the "For You" background prefetch system.
+ * Initialize "For You" query synthesis.
+ * Listens for context updates and keeps the stored query current.
  * Call from delayed.js after collectBrowsingSignals().
  */
 export function initForYouPrefetch() {
