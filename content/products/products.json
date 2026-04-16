@@ -784,6 +784,67 @@
       "warranty": "2 years"
     },
     {
+      "id": "macinino-pro",
+      "name": "Macinino Pro",
+      "series": "grinders",
+      "category": "flat-burr",
+      "url": "/products/grinders/macinino-pro",
+      "price": 799,
+      "currency": "USD",
+      "tagline": "83mm flat burrs. Digital precision. Zero compromise.",
+      "description": "The Arco Macinino Pro pushes flat burr performance to its limit. 83mm Italian flat burrs deliver exceptional uniformity and clarity, while the digital display lets you dial in your grind position with precision. Near-zero retention under 0.2g, programmable dose memory, and a high-torque low-RPM motor make it the natural partner for the Studio Pro.",
+      "features": [
+        "83mm flat Italian burrs",
+        "Digital grind position display",
+        "Programmable dose memory (3 profiles)",
+        "Under 0.2g retention",
+        "High-torque 900 RPM motor",
+        "Portafilter and single-dose compatible",
+        "Anti-static grind chute",
+        "Tool-free burr access"
+      ],
+      "bestFor": [
+        "espresso",
+        "home-barista",
+        "upgrade",
+        "precision"
+      ],
+      "specs": {
+        "burrType": "Flat",
+        "burrSize": "83mm",
+        "burrMaterial": "Italian hardened steel",
+        "grindSettings": "Stepless with digital display",
+        "dosing": "Timer-based with 3 memory profiles",
+        "retention": "<0.2g",
+        "hopperCapacity": "350g",
+        "grindsPerSecond": "2.1g/s",
+        "dimensions": "17 x 22 x 42 cm",
+        "weight": "8.2 kg",
+        "power": "310W",
+        "voltage": "120V / 60Hz",
+        "stepless": true,
+        "singleDose": true
+      },
+      "images": [
+        "/media/product-macinino-pro.jpeg"
+      ],
+      "variants": [
+        {
+          "id": "macinino-pro-black",
+          "color": "Matte Black",
+          "sku": "ARCO-MCP-BLK",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Portafilter holder (54mm and 58mm adapters)",
+        "Single-dose loading funnel",
+        "Cleaning brush",
+        "Burr alignment tool"
+      ],
+      "warranty": "2 years"
+    },
+    {
       "id": "zero",
       "name": "Zero",
       "series": "grinders",
