@@ -292,6 +292,7 @@ export async function searchContent(query, env, config = {}) {
     comparisons: [],
     recipes: [],
     tools: [],
+    heroImages: [],
     timings,
   };
 
@@ -333,6 +334,7 @@ export async function searchContent(query, env, config = {}) {
     // Split by content type
     const guideMatches = matches.filter((m) => m.metadata?.type === 'guide');
     const experienceMatches = matches.filter((m) => m.metadata?.type === 'experience');
+    const heroImageMatches = matches.filter((m) => m.metadata?.type === 'hero-image');
     const comparisonMatches = matches.filter((m) => m.metadata?.type === 'comparison');
     const recipeMatches = matches.filter((m) => m.metadata?.type === 'recipe');
     const toolTypes = new Set(['maintenance', 'diagnostic', 'pairing', 'calculator']);
@@ -346,11 +348,19 @@ export async function searchContent(query, env, config = {}) {
     const recipes = dedupeMatches(recipeMatches, maxRecipes);
     const tools = dedupeMatches([...toolMatches, ...productMatches], maxTools);
 
+    const heroImages = heroImageMatches.slice(0, 5).map((m) => ({
+      id: m.metadata?.id,
+      url: m.metadata?.url,
+      alt: m.metadata?.alt,
+      category: m.metadata?.category,
+      score: m.score,
+    }));
+
     timings.guidesMs = timings.embedding + timings.vectorize;
     timings.experiencesMs = timings.embedding + timings.vectorize;
 
     return {
-      guides, experiences, comparisons, recipes, tools, timings,
+      guides, experiences, comparisons, recipes, tools, heroImages, timings,
     };
   } catch (err) {
     // Propagate timeout errors so they surface as real failures

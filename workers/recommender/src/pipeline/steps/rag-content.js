@@ -2,7 +2,8 @@
  * RAG Content Step — unified content search via Vectorize.
  * Generates one embedding from an enriched query (incorporating session context),
  * queries CONTENT_INDEX, splits by metadata type.
- * Writes ctx.rag.guides, ctx.rag.experiences, ctx.rag.comparisons, ctx.rag.toolContent.
+ * Writes ctx.rag.guides, ctx.rag.experiences, ctx.rag.comparisons,
+ * ctx.rag.toolContent, and ctx.rag.heroImages.
  * Also performs direct comparison lookup when intent is comparison.
  */
 
@@ -58,13 +59,14 @@ export async function ragContent(ctx, config, env) {
   }
 
   const {
-    guides, experiences, comparisons, recipes, tools, timings,
+    guides, experiences, comparisons, recipes, tools, heroImages, timings,
   } = result;
 
   ctx.rag.guides = guides;
   ctx.rag.experiences = experiences;
   ctx.rag.comparisons = comparisons;
   ctx.rag.toolContent = tools;
+  ctx.rag.heroImages = heroImages;
 
   // Merge Vectorize recipe results with any existing bundled recipes
   if (recipes.length) {
@@ -93,6 +95,7 @@ export async function ragContent(ctx, config, env) {
       }
     }
   }
+
 
   ctx.timings.guidesMs = timings.guidesMs;
   ctx.timings.experiencesMs = timings.experiencesMs;

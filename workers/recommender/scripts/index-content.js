@@ -9,7 +9,9 @@
  * Vectorize index.
  *
  * Usage:
- *   node scripts/index-content.js
+ *   node scripts/index-content.js            # index content only
+ *   node scripts/index-content.js --heroes    # index hero images only
+ *   node scripts/index-content.js --all       # index content + hero images
  *
  * Authentication:
  *   Reads the OAuth token from wrangler's config at
@@ -35,6 +37,7 @@ const EMBEDDING_DELAY_MS = 50; // rate-limit courtesy delay between embedding ca
 const MAX_TEXT_CHARS = 2000; // ~500 tokens, fits bge-small context window
 
 const CONTENT_ROOT = resolve(import.meta.dirname, '../../../content');
+const HERO_CATALOG_PATH = join(CONTENT_ROOT, 'hero-image-catalog.json');
 
 // Directories to index (relative to CONTENT_ROOT)
 const INDEX_DIRS = [
@@ -44,6 +47,12 @@ const INDEX_DIRS = [
 
 // Single-file arrays to index (relative to CONTENT_ROOT)
 const INDEX_ARRAYS = ['recipes/recipes.json'];
+
+// CLI flags
+const FLAG_HEROES = process.argv.includes('--heroes');
+const FLAG_ALL = process.argv.includes('--all');
+const INDEX_CONTENT = !FLAG_HEROES || FLAG_ALL;
+const INDEX_HEROES = FLAG_HEROES || FLAG_ALL;
 
 // ── Auth ────────────────────────────────────────────────────────────────────
 
@@ -432,6 +441,33 @@ function chunkContent(filePath) {
   return chunks;
 }
 
+// ── Hero Image Chunking ────────────────────────────────────────────────────
+
+/**
+ * Load hero image catalog and return chunks for vectorization.
+ * Each image becomes one vector with type: 'hero-image' metadata.
+ */
+function chunkHeroImages() {
+  if (!existsSync(HERO_CATALOG_PATH)) {
+    console.error(`Hero catalog not found at ${HERO_CATALOG_PATH}`);
+    console.error('Run: node tools/build-hero-catalog.js');
+    process.exit(1);
+  }
+
+  const data = JSON.parse(readFileSync(HERO_CATALOG_PATH, 'utf-8'));
+  return data.images.map((img) => ({
+    id: `hero:${img.id}`,
+    text: img.embeddingText.slice(0, MAX_TEXT_CHARS),
+    metadata: {
+      type: 'hero-image',
+      id: img.id,
+      url: img.url,
+      alt: img.alt,
+      category: img.category || img.type || '',
+    },
+  }));
+}
+
 // ── Cloudflare API ──────────────────────────────────────────────────────────
 
 async function generateEmbedding(text, token) {
@@ -497,17 +533,27 @@ async function main() {
   console.log(`Index: ${INDEX_NAME} (${EMBEDDING_DIMENSIONS}d, ${EMBEDDING_MODEL})`);
   console.log(`Content root: ${CONTENT_ROOT}\n`);
 
-  // 1. Discover and chunk all content
+  // 1. Discover and chunk content
   const allChunks = [];
-  for (const dir of INDEX_DIRS) {
-    const dirPath = join(CONTENT_ROOT, dir);
-    const files = findJsonFiles(dirPath);
-    console.log(`[${dir}] Found ${files.length} JSON files`);
 
-    for (const file of files) {
-      const chunks = chunkContent(file);
-      allChunks.push(...chunks);
+  if (INDEX_CONTENT) {
+    for (const dir of INDEX_DIRS) {
+      const dirPath = join(CONTENT_ROOT, dir);
+      const files = findJsonFiles(dirPath);
+      console.log(`[${dir}] Found ${files.length} JSON files`);
+
+      for (const file of files) {
+        const chunks = chunkContent(file);
+        allChunks.push(...chunks);
+      }
     }
+    console.log(`Content chunks: ${allChunks.length}`);
+  }
+
+  if (INDEX_HEROES) {
+    const heroChunks = chunkHeroImages();
+    allChunks.push(...heroChunks);
+    console.log(`Hero image chunks: ${heroChunks.length}`);
   }
 
   // 1b. Index single-file arrays (e.g., recipes.json)

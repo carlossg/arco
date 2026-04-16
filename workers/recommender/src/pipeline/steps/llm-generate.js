@@ -8,8 +8,10 @@
 import Cerebras from '@cerebras/cerebras_cloud_sdk';
 import { sectionToHtml } from '../../json-to-eds.js';
 import {
-  resolveTokens, normalizeProductUrls, getProductData, setHeroContext,
+  resolveTokens, normalizeProductUrls, getProductData, setHeroResult,
 } from '../../images.js';
+import { selectHeroImage } from '../../hero-images.js';
+import { extractProductIds } from '../../context.js';
 import sanitizeHTML from '../../sanitize.js';
 import { StreamParser } from '../../stream-parser.js';
 import { unescapeHtml } from '../../da-persist.js';
@@ -256,13 +258,17 @@ async function streamDummyContent(ctx) {
 }
 
 export async function llmGenerate(ctx, config, env) {
-  // Set hero image context so {{hero-image:main}} resolves to a contextual image
-  setHeroContext({
+  // Select hero image using hybrid keyword + vector scoring
+  // Use only explicitly mentioned product IDs for hero selection — not all RAG
+  // products — to avoid boosting generic content-page images that happen to list
+  // many products in their metadata.
+  const heroImage = selectHeroImage({
     query: ctx.request?.query,
     useCases: ctx.rag?.useCase?.useCases,
     intentType: ctx.rag?.intentClassification?.intentType,
-    productIds: (ctx.rag?.products || []).map((p) => p.id),
-  });
+    productIds: extractProductIds(ctx.request?.query || ''),
+  }, ctx.rag?.heroImages || []);
+  setHeroResult(heroImage);
 
   // Load test bypass: skip Cerebras and return dummy content
   // Activated by X-Skip-Cerebras header — all upstream RAG steps still run

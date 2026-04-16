@@ -141,6 +141,49 @@ async function handleGenerate(request, env) {
 }
 
 /**
+ * Debug: search Vectorize and return raw matches as JSON.
+ * GET /api/debug/search?q=your+query[&topK=20][&type=hero-image]
+ */
+async function handleDebugSearch(request, env) {
+  const url = new URL(request.url);
+  const query = url.searchParams.get('q');
+  if (!query) {
+    return new Response(JSON.stringify({ error: 'Missing ?q= parameter' }), {
+      status: 400, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  }
+
+  const topK = Math.min(parseInt(url.searchParams.get('topK') || '20', 10), 100);
+  const typeFilter = url.searchParams.get('type') || null;
+
+  const embeddingResponse = await env.AI.run('@cf/baai/bge-small-en-v1.5', { text: [query] });
+  if (!embeddingResponse?.data?.[0]) {
+    return new Response(JSON.stringify({ error: 'Embedding failed' }), {
+      status: 500, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  }
+
+  const results = await env.CONTENT_INDEX.query(embeddingResponse.data[0], {
+    topK, returnMetadata: 'all',
+  });
+
+  let matches = results.matches || [];
+  if (typeFilter) {
+    matches = matches.filter((m) => m.metadata?.type === typeFilter);
+  }
+
+  const out = matches.map((m) => ({
+    score: m.score,
+    id: m.id,
+    ...m.metadata,
+  }));
+
+  return new Response(JSON.stringify({ query, topK, typeFilter, count: out.length, matches: out }, null, 2), {
+    headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+  });
+}
+
+/**
  * Handle page persistence to DA.
  */
 async function handlePersist(request, env) {
@@ -217,6 +260,10 @@ export default {
 
     if (url.pathname === '/api/persist' && request.method === 'POST') {
       return handlePersist(request, env);
+    }
+
+    if (url.pathname === '/api/debug/search' && request.method === 'GET') {
+      return handleDebugSearch(request, env);
     }
 
     if (url.pathname === '/api/health') {

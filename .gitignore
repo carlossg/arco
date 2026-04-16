@@ -29,6 +29,10 @@ workers/*/node_modules/
 workers/*/.wrangler/
 .dev.vars
 
+# Generated hero images (stored in DA, not git)
+assets/images/heroes/
+drafts/media/
+
 # Local settings
 .claude/settings.local.json
 

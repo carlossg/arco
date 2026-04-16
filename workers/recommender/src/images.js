@@ -9,7 +9,9 @@ import reviewsData from '../../../content/metadata/reviews.json';
 import accessoriesData from '../../../content/accessories/accessories.json';
 /* eslint-enable import/extensions, import/no-relative-packages */
 
-import { selectHeroImage } from './hero-images.js';
+/* eslint-disable import/extensions, import/no-relative-packages */
+import catalogData from '../../../content/hero-image-catalog.json';
+/* eslint-enable import/extensions, import/no-relative-packages */
 
 const ARCO_BASE = 'https://main--arco--froesef.aem.live';
 
@@ -192,25 +194,23 @@ function resolveAccessoryImageToken(accessoryId) {
 }
 
 /**
- * Resolve a {{hero-image:main}} token to a <picture> tag.
- * When heroContext is set (via setHeroContext), uses the annotated catalog
- * to pick a contextually appropriate image. Falls back to the default.
+ * Pre-resolved hero image result for the current request.
+ * Set by the pipeline before resolveTokens() runs.
  */
-let currentHeroContext = null;
+let currentHeroResult = null;
 
 /**
- * Set the hero selection context for the current request.
+ * Set the pre-resolved hero image for the current request.
  * Call this before resolveTokens() so the hero image matches the query.
- * @param {{ query?: string, useCases?: string[], intentType?: string, productIds?: string[] }} ctx
+ * @param {{ url: string, alt: string }} result
  */
-export function setHeroContext(ctx) {
-  currentHeroContext = ctx;
+export function setHeroResult(result) {
+  currentHeroResult = result;
 }
 
 function resolveHeroImageToken() {
-  if (currentHeroContext) {
-    const hero = selectHeroImage(currentHeroContext);
-    return `<picture><img src="${hero.url}" alt="${hero.alt}"></picture>`;
+  if (currentHeroResult) {
+    return `<picture><img src="${currentHeroResult.url}" alt="${currentHeroResult.alt}"></picture>`;
   }
   // Fallback: use the default hero image
   const image = absoluteImageUrl(HERO_MAIN_IMAGE);
@@ -233,8 +233,10 @@ accessories.forEach((a) => {
   if (a.image) knownImageUrls.add(absoluteImageUrl(a.image));
 });
 knownImageUrls.add(absoluteImageUrl(HERO_MAIN_IMAGE));
-// Hero images resolve to real product images or the default hero at runtime,
-// so all valid hero URLs are already in knownImageUrls via product/default entries.
+// Register all hero catalog image URLs so they pass the known-image check
+catalogData.images.forEach((img) => {
+  if (img.url) knownImageUrls.add(img.url);
+});
 
 /**
  * Remove <picture>/<img> tags with hallucinated image URLs (not from known data).
