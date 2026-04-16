@@ -179,10 +179,16 @@ export default async function decorate(block) {
 
   const navBrand = nav.querySelector('.nav-brand');
   if (navBrand) {
-    const brandLink = navBrand.querySelector('.button');
+    const brandLink = navBrand.querySelector('.button') || navBrand.querySelector('a');
     if (brandLink) {
       brandLink.className = '';
-      brandLink.closest('.button-container').className = '';
+      brandLink.closest('.button-container')?.classList.remove('button-container');
+      const logo = document.createElement('img');
+      logo.src = '/icons/arco-logo.png';
+      logo.alt = 'Arco';
+      logo.loading = 'eager';
+      brandLink.textContent = '';
+      brandLink.appendChild(logo);
     }
   }
 
