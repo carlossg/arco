@@ -274,6 +274,44 @@ ${toolContent.map((t) => `- "${t.title}" | ${t.slug} | Type: ${t.type || t.categ
 }
 
 /**
+ * Build a condensed conversation history for follow-up context.
+ * Gives the LLM a clear picture of what was already generated so it can build
+ * on prior content rather than repeating it.
+ *
+ * @param {Array} previousQueries - Array of prior query objects or strings
+ * @param {Object} shownContent - { shownProducts, shownSections, generatedQueries }
+ * @returns {string}
+ */
+function buildConversationHistory(previousQueries, shownContent) {
+  if (!previousQueries?.length && !shownContent?.shownSections?.length) return '';
+
+  let history = '\n\n## Conversation History (what has already been shown)\n';
+
+  if (previousQueries?.length > 0) {
+    history += '\nPrevious queries in this session:\n';
+    previousQueries.forEach((q, i) => {
+      const text = typeof q === 'string' ? q : (q.query || '');
+      if (text) history += `${i + 1}. "${text}"\n`;
+    });
+  }
+
+  if (shownContent?.shownSections?.length > 0) {
+    history += '\nContent already on the page — do NOT repeat these:\n';
+    shownContent.shownSections.forEach((s) => {
+      history += `- ${s.blockType}${s.headline ? `: "${s.headline}"` : ''}\n`;
+    });
+  }
+
+  if (shownContent?.shownProducts?.length > 0) {
+    history += `\nProducts already featured: ${shownContent.shownProducts.join(', ')}\n`;
+  }
+
+  history += '\nThis is a follow-up turn. Build on what came before — provide new angles, go deeper on specifics, or explore what has not been covered yet. Do NOT start with a hero block.';
+
+  return history;
+}
+
+/**
  * Builds the recommender user message with behavior analysis.
  */
 export function buildRecommenderUserMessage(
@@ -289,15 +327,18 @@ export function buildRecommenderUserMessage(
   if (followUp?.type === 'pivot' && followUp.product) {
     msg = `The customer wants to learn more about ${followUp.product}. Generate a follow-up recommendation for: "${query}"
 
-ALWAYS start with a hero using {{product-image:${followUp.product.toLowerCase().replace(/\s+/g, '-')}}} — make the hero headline focused on ${followUp.product} (e.g. "Meet the ${followUp.product}" or a key benefit headline). Then make ${followUp.product} the primary recommendation: columns block (product spotlight), then a comparison-table with alternatives. End with new information-gathering suggestions.`;
+DO NOT generate a hero block. Start directly with a columns block (product spotlight) for ${followUp.product} — make it the primary recommendation with clear reasoning. Then add a comparison-table with 1-2 alternatives. End with new information-gathering suggestions.${buildConversationHistory(previousQueries, shownContent)}`;
   } else if (followUp?.type === 'cheaper_alternative' && followUp.product) {
     msg = `The customer thinks ${followUp.product} is too expensive. Generate a follow-up recommendation for: "${query}"
 
-ALWAYS start with a hero — use {{product-image:ID}} of the most affordable alternative you'll recommend, or {{hero-image:main}} if no single product is the focus. Hero headline should acknowledge the budget context (e.g. "Great Espresso at the Right Price"). Then show more affordable alternatives and a comparison-table of budget-friendly options alongside ${followUp.product}. End with new suggestions.`;
+DO NOT generate a hero block. Start directly with a columns block spotlighting the most affordable alternative. Then add a comparison-table of budget-friendly options alongside ${followUp.product}. End with new suggestions.${buildConversationHistory(previousQueries, shownContent)}`;
   } else if (followUp) {
-    msg = `The customer clicked "${followUp.label}" (a ${followUp.type} button). Generate a follow-up recommendation for: "${query}"
+    const startHint = followUp.type === 'compare'
+      ? 'Start directly with a comparison-table.'
+      : 'Start directly with the most relevant content block (columns, comparison-table, or text).';
+    msg = `The customer clicked "${followUp.label}" (a ${followUp.type} button). Generate a focused follow-up for: "${query}"
 
-ALWAYS start with a hero — choose {{product-image:ID}} of the most relevant product being discussed, or {{hero-image:main}} if no single product is the focus. Hero headline and subtext should directly reflect what the customer is asking about. Then generate 2-3 focused sections. Include a comparison-table if comparing products. End with new suggestions.`;
+DO NOT generate a hero block. ${startHint} Generate 2-3 sections that specifically address what the customer is asking about. Include a comparison-table if comparing products. End with new suggestions.${buildConversationHistory(previousQueries, shownContent)}`;
   } else if (ba.coldStart) {
     msg = `New visitor with no browsing history. Generate a discovery page: "${query}"
 
@@ -334,17 +375,25 @@ Start with a hero that acknowledges what they've been exploring. The hero MUST i
     msg += '\n\nUse this profile to personalize your recommendation. Lead with products matching their price tier and use-case interests.';
   }
 
-  if (previousQueries?.length) {
-    msg += `\n\nPrevious queries (avoid repeating): ${previousQueries.join(', ')}`;
-  }
+  // For follow-ups, conversation history is already embedded in the message above.
+  // For first-generation, add deduplication hints separately.
+  if (!followUp) {
+    if (previousQueries?.length) {
+      const queryStrings = previousQueries
+        .map((q) => (typeof q === 'string' ? q : (q.query || '')))
+        .filter(Boolean);
+      if (queryStrings.length) {
+        msg += `\n\nPrevious queries (avoid repeating): ${queryStrings.join(', ')}`;
+      }
+    }
 
-  // Shown content deduplication for keep-exploring sessions
-  if (shownContent?.shownProducts?.length > 0) {
-    msg += `\n\nProducts already shown to the user (do NOT repeat as primary recommendation): ${shownContent.shownProducts.join(', ')}`;
-  }
-  if (shownContent?.shownSections?.length > 0) {
-    const blockTypes = [...new Set(shownContent.shownSections.map((s) => s.blockType))];
-    msg += `\n\nBlock types already on the page (vary your approach, use different blocks): ${blockTypes.join(', ')}`;
+    if (shownContent?.shownProducts?.length > 0) {
+      msg += `\n\nProducts already shown to the user (do NOT repeat as primary recommendation): ${shownContent.shownProducts.join(', ')}`;
+    }
+    if (shownContent?.shownSections?.length > 0) {
+      const blockTypes = [...new Set(shownContent.shownSections.map((s) => s.blockType))];
+      msg += `\n\nBlock types already on the page (vary your approach, use different blocks): ${blockTypes.join(', ')}`;
+    }
   }
 
   msg += '\n\nRemember: output JSON blocks separated by ===. All product links must use the URL from the product data. End with information-gathering suggestions (type "explore" or "compare" only). Every block MUST have meaningful content. ONLY use product names, product IDs, and recipe names that appear in the data above — never invent or guess names.';

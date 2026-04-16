@@ -348,7 +348,8 @@ export async function llmGenerate(ctx, config, env) {
   const sectionDetails = [];
   let sectionIndex = 0;
   let tokenCount = 0;
-  let heroEnsured = false; // tracks whether first section is/was a hero
+  // Follow-up turns already have a hero from the first generation — skip injecting one
+  let heroEnsured = !!ctx.request.followUp;
 
   try {
     // eslint-disable-next-line no-restricted-syntax
