@@ -23,12 +23,7 @@
         "Drip tray with full indicator",
         "Steam wand for milk texturing"
       ],
-      "bestFor": [
-        "home-barista",
-        "espresso",
-        "beginner",
-        "budget-conscious"
-      ],
+      "bestFor": ["home-barista", "espresso", "beginner", "budget-conscious"],
       "specs": {
         "boilers": "Single",
         "boilerMaterial": "Stainless Steel",
@@ -96,12 +91,7 @@
         "Programmable pre-infusion",
         "Commercial-grade 58mm portafilter"
       ],
-      "bestFor": [
-        "home-barista",
-        "milk-drinks",
-        "espresso",
-        "upgrade"
-      ],
+      "bestFor": ["home-barista", "milk-drinks", "espresso", "upgrade"],
       "specs": {
         "boilers": "Dual",
         "boilerMaterial": "Stainless Steel",
@@ -164,12 +154,7 @@
         "Tool-free maintenance",
         "Travel-friendly size"
       ],
-      "bestFor": [
-        "beginner",
-        "travel",
-        "espresso",
-        "budget-conscious"
-      ],
+      "bestFor": ["beginner", "travel", "espresso", "budget-conscious"],
       "specs": {
         "boilers": "Thermoblock",
         "boilerMaterial": "Aluminum with stainless steel lining",
@@ -237,12 +222,7 @@
         "Shot mirror for bottomless portafilter",
         "Programmable dose presets"
       ],
-      "bestFor": [
-        "home-barista",
-        "espresso",
-        "upgrade",
-        "milk-drinks"
-      ],
+      "bestFor": ["home-barista", "espresso", "upgrade", "milk-drinks"],
       "specs": {
         "boilers": "Dual",
         "boilerMaterial": "Copper with lead-free brass group",
@@ -314,12 +294,7 @@
         "Volumetric dosing",
         "Cool-touch articulating steam wand"
       ],
-      "bestFor": [
-        "home-barista",
-        "espresso",
-        "upgrade",
-        "milk-drinks"
-      ],
+      "bestFor": ["home-barista", "espresso", "upgrade", "milk-drinks"],
       "specs": {
         "boilers": "Triple",
         "boilerMaterial": "Stainless steel with copper heat exchangers",
@@ -387,11 +362,7 @@
         "Service alert system",
         "Stainless steel construction"
       ],
-      "bestFor": [
-        "office",
-        "espresso",
-        "milk-drinks"
-      ],
+      "bestFor": ["office", "espresso", "milk-drinks"],
       "specs": {
         "boilers": "Dual commercial",
         "boilerMaterial": "Copper",
@@ -457,11 +428,7 @@
         "Includes carrying case",
         "Works with any hot water source"
       ],
-      "bestFor": [
-        "travel",
-        "espresso",
-        "beginner"
-      ],
+      "bestFor": ["travel", "espresso", "beginner"],
       "specs": {
         "boilers": "None (manual)",
         "boilerMaterial": "N/A",
@@ -532,12 +499,7 @@
         "Color display with intuitive interface",
         "Bypass doser for pre-ground coffee"
       ],
-      "bestFor": [
-        "beginner",
-        "office",
-        "milk-drinks",
-        "espresso"
-      ],
+      "bestFor": ["beginner", "office", "milk-drinks", "espresso"],
       "specs": {
         "boilers": "Thermoblock",
         "boilerMaterial": "Stainless steel",
@@ -605,11 +567,7 @@
         "Quiet DC motor",
         "Compact footprint"
       ],
-      "bestFor": [
-        "pour-over",
-        "beginner",
-        "home-barista"
-      ],
+      "bestFor": ["pour-over", "beginner", "home-barista"],
       "specs": {
         "burrType": "Flat",
         "burrSize": "48mm",
@@ -670,12 +628,7 @@
         "Quiet low-RPM motor preserves flavor",
         "Portafilter holder included"
       ],
-      "bestFor": [
-        "home-barista",
-        "espresso",
-        "pour-over",
-        "beginner"
-      ],
+      "bestFor": ["home-barista", "espresso", "pour-over", "beginner"],
       "specs": {
         "burrType": "Conical",
         "burrSize": "48mm",
@@ -737,11 +690,7 @@
         "Grind-on-demand timer",
         "Easy burr access for cleaning"
       ],
-      "bestFor": [
-        "espresso",
-        "home-barista",
-        "upgrade"
-      ],
+      "bestFor": ["espresso", "home-barista", "upgrade"],
       "specs": {
         "burrType": "Flat",
         "burrSize": "64mm",
@@ -803,12 +752,7 @@
         "Anti-static grind chute",
         "Tool-free burr access"
       ],
-      "bestFor": [
-        "espresso",
-        "home-barista",
-        "upgrade",
-        "precision"
-      ],
+      "bestFor": ["espresso", "home-barista", "upgrade", "precision"],
       "specs": {
         "burrType": "Flat",
         "burrSize": "83mm",
@@ -826,7 +770,7 @@
         "singleDose": true
       },
       "images": [
-        "/drafts/media/product-macinino-pro.jpeg"
+        "/products/espresso-machines/media_1f17bba668fe467f67ae08dd99eb40c79369a4a95.jpg"
       ],
       "variants": [
         {
@@ -864,12 +808,7 @@
         "Premium fit and finish",
         "Magnetic catch cup"
       ],
-      "bestFor": [
-        "espresso",
-        "home-barista",
-        "upgrade",
-        "pour-over"
-      ],
+      "bestFor": ["espresso", "home-barista", "upgrade", "pour-over"],
       "specs": {
         "burrType": "Flat",
         "burrSize": "83mm",
