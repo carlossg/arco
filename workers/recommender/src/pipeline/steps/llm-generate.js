@@ -122,6 +122,28 @@ function hasContent(html) {
   return html.replace(/<[^>]*>/g, '').trim().length > 0;
 }
 
+/**
+ * Create a fallback hero section JSON when the LLM omits one as the first block.
+ * Uses {{hero-image:main}} which resolves to the pre-selected hero image via images.js.
+ */
+function createFallbackHeroSection(query) {
+  const rawTitle = (query || '').trim().replace(/\?+$/, '');
+  const title = rawTitle
+    ? rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1)
+    : 'Find Your Perfect Espresso Setup';
+  return {
+    block: 'hero',
+    rows: [[
+      [{ type: 'image', token: '{{hero-image:main}}' }],
+      [
+        { type: 'p', text: 'Personalized For You' },
+        { type: 'h1', text: title },
+        { type: 'p', text: 'Here are our best recommendations based on your preferences.' },
+      ],
+    ]],
+  };
+}
+
 const VALID_SUGGESTION_TYPES = ['explore', 'compare', 'recipe', 'buy', 'quiz', 'customize'];
 
 /**
@@ -326,6 +348,7 @@ export async function llmGenerate(ctx, config, env) {
   const sectionDetails = [];
   let sectionIndex = 0;
   let tokenCount = 0;
+  let heroEnsured = false; // tracks whether first section is/was a hero
 
   try {
     // eslint-disable-next-line no-restricted-syntax
@@ -345,6 +368,23 @@ export async function llmGenerate(ctx, config, env) {
 
           // Skip empty blocks
           if (!hasContent(html)) continue; // eslint-disable-line no-continue
+
+          // Guarantee the first block is always a hero
+          if (!heroEnsured) {
+            heroEnsured = true;
+            if (section.block !== 'hero') {
+              const heroHtml = processSection(createFallbackHeroSection(ctx.request?.query));
+              if (hasContent(heroHtml)) {
+                const heroLine = JSON.stringify(
+                  { type: 'section', index: sectionIndex, html: heroHtml },
+                );
+                ctx.ndjsonLines.push(heroLine);
+                // eslint-disable-next-line no-await-in-loop
+                await ctx.writer.write(ctx.encoder.encode(`${heroLine}\n`));
+                sectionIndex += 1;
+              }
+            }
+          }
 
           ctx.llm.rawJsonSections.push(section);
           ctx.llm.sections.push(html);
@@ -387,6 +427,22 @@ export async function llmGenerate(ctx, config, env) {
     const { html, debug: sDebug } = processSectionDetailed(final.section);
 
     if (hasContent(html)) {
+      // Guarantee the first block is always a hero (handles LLMs that buffer all output)
+      if (!heroEnsured) {
+        heroEnsured = true;
+        if (final.section.block !== 'hero') {
+          const heroHtml = processSection(createFallbackHeroSection(ctx.request?.query));
+          if (hasContent(heroHtml)) {
+            const heroLine = JSON.stringify(
+              { type: 'section', index: sectionIndex, html: heroHtml },
+            );
+            ctx.ndjsonLines.push(heroLine);
+            await ctx.writer.write(ctx.encoder.encode(`${heroLine}\n`));
+            sectionIndex += 1;
+          }
+        }
+      }
+
       ctx.llm.rawJsonSections.push(final.section);
       ctx.llm.sections.push(html);
       sectionTimings.push(sDebug.totalMs);
