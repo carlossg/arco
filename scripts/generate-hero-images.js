@@ -14,8 +14,12 @@
  * The hero-images.json `path` field is updated once an image is generated.
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { join, resolve, relative, extname } from 'node:path';
+import {
+  readFileSync, writeFileSync, mkdirSync, existsSync,
+} from 'node:fs';
+import {
+  join, resolve, relative, extname,
+} from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const CATALOG_PATH = join(ROOT, 'content', 'hero-images.json');
@@ -31,8 +35,10 @@ const IMS_SCOPES = 'openid,AdobeID,session,additional_info,read_organizations,fi
 const NEGATIVE_PROMPT = 'blurry, low quality, text, watermark, logo, cartoon, illustration, drawing, painting, sketch, CGI, 3D render, deformed fingers, extra fingers, fused fingers, missing fingers, bad hands, bad anatomy, distorted proportions, extra limbs, unnatural pose, disfigured';
 
 const MIME_TYPES = {
-  '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
-  '.png': 'image/png', '.webp': 'image/webp',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
+  '.webp': 'image/webp',
 };
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -230,7 +236,7 @@ async function main() {
 
   // Load catalog
   const catalog = JSON.parse(readFileSync(CATALOG_PATH, 'utf-8'));
-  const size = catalog._meta.firefly_settings.size;
+  const { size } = catalog._meta.firefly_settings;
 
   // Filter entries
   let entries = catalog.images.filter((img) => !img.path); // only ungenerated
@@ -248,13 +254,13 @@ async function main() {
   }
   if (opts.limit < entries.length) entries = entries.slice(0, opts.limit);
 
-  console.log(`\nArco Hero Image Generator`);
-  console.log(`─────────────────────────`);
+  console.log('\nArco Hero Image Generator');
+  console.log('─────────────────────────');
   console.log(`Pending: ${entries.length} image(s)`);
   console.log(`Size: ${size.width}x${size.height}`);
   if (opts.styleRef) console.log(`Style ref: ${opts.styleRef} (strength: ${opts.styleStrength})`);
   if (opts.variations > 1) console.log(`Variations: ${opts.variations}`);
-  if (opts.dryRun) console.log(`Mode: DRY RUN`);
+  if (opts.dryRun) console.log('Mode: DRY RUN');
   console.log();
 
   // Auth + optional style ref upload
@@ -293,7 +299,7 @@ async function main() {
 
     // Skip if file already exists on disk
     if (existsSync(outPath)) {
-      console.log(`  SKIP (file exists on disk)`);
+      console.log('  SKIP (file exists on disk)');
       console.log();
       continue;
     }
@@ -343,11 +349,11 @@ async function main() {
       }
 
       generated += 1;
-      console.log(`  Done.`);
+      console.log('  Done.');
 
       // Rate limit between API calls
       if (i < entries.length - 1) {
-        console.log(`  Waiting 3s...`);
+        console.log('  Waiting 3s...');
         await delay(3000);
       }
     } catch (err) {
@@ -360,11 +366,11 @@ async function main() {
 
   // Write updated catalog back
   if (!opts.dryRun && generated > 0) {
-    writeFileSync(CATALOG_PATH, JSON.stringify(catalog, null, 2) + '\n', 'utf-8');
+    writeFileSync(CATALOG_PATH, `${JSON.stringify(catalog, null, 2)}\n`, 'utf-8');
     console.log(`Updated hero-images.json with ${generated} new path(s).`);
   }
 
-  console.log(`\n════════════════════════════`);
+  console.log('\n════════════════════════════');
   console.log(`Generated: ${generated}`);
   console.log(`Failed:    ${failed}`);
   console.log(`Total:     ${entries.length}`);

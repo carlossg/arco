@@ -172,7 +172,9 @@ async function handleDebugSearch(request, env) {
     ...m.metadata,
   }));
 
-  return new Response(JSON.stringify({ query, topK, typeFilter, count: out.length, matches: out }, null, 2), {
+  return new Response(JSON.stringify({
+    query, topK, typeFilter, count: out.length, matches: out,
+  }, null, 2), {
     headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
   });
 }

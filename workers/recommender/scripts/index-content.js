@@ -22,7 +22,9 @@
  *   CLOUDFLARE_ACCOUNT_ID — Account ID (defaults to wrangler.jsonc value)
  */
 
-import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
+import {
+  readFileSync, readdirSync, statSync, existsSync,
+} from 'node:fs';
 import { join, resolve } from 'node:path';
 import { homedir } from 'node:os';
 

@@ -96,7 +96,6 @@ export async function ragContent(ctx, config, env) {
     }
   }
 
-
   ctx.timings.guidesMs = timings.guidesMs;
   ctx.timings.experiencesMs = timings.experiencesMs;
   ctx.timings.contentDetail = timings;

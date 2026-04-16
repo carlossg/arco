@@ -27,8 +27,12 @@
  * Rate limited: 3-second delay between API calls.
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync } from 'node:fs';
-import { join, resolve, relative, extname } from 'node:path';
+import {
+  readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync,
+} from 'node:fs';
+import {
+  join, resolve, relative, extname,
+} from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const CONTENT_ROOT = join(ROOT, 'content');
@@ -42,11 +46,11 @@ const FIREFLY_UPLOAD_URL = `${FIREFLY_API_BASE}/v2/storage/image`;
 const IMS_SCOPES = 'openid,AdobeID,session,additional_info,read_organizations,firefly_api,ff_apis';
 
 // Arco brand style (used when no style reference image is provided)
-const BASE_STYLE = `Photorealistic commercial photography. Clean, minimal composition. \
+const BASE_STYLE = 'Photorealistic commercial photography. Clean, minimal composition. \
 Natural light preferred, soft shadows. Color palette: deep slate (#1C2B35), \
 warm cream (#F5F0E8), copper accents (#B5651D). No text overlays. \
 Professional food and product photography aesthetic, \
-similar to Kinfolk magazine or Monocle visual style.`;
+similar to Kinfolk magazine or Monocle visual style.';
 
 const NEGATIVE_PROMPT = 'blurry, low quality, text, watermark, logo, cartoon, illustration, drawing, painting, sketch, CGI, 3D render, deformed fingers, extra fingers, fused fingers, missing fingers, bad hands, bad anatomy, distorted proportions, extra limbs, unnatural pose, disfigured';
 
@@ -165,12 +169,12 @@ function getImageConfig(filePath, data, version) {
   // Firefly supported sizes: 2688x1536, 2688x1512, 2304x1792, 2048x2048,
   // 1792x2304, 1344x768, 1344x756, 1152x896, 1024x1024, 896x1152
   const sizeByCategory = {
-    blog: { width: 2688, height: 1536 },        // ~16:9 landscape
-    guides: { width: 2688, height: 1536 },       // ~16:9 landscape
-    experiences: { width: 2688, height: 1536 },   // ~16:9 landscape
-    bundles: { width: 2304, height: 1792 },       // ~4:3 landscape
-    tools: { width: 2688, height: 1536 },         // ~16:9 landscape
-    stories: { width: 2688, height: 1536 },       // ~16:9 landscape
+    blog: { width: 2688, height: 1536 }, // ~16:9 landscape
+    guides: { width: 2688, height: 1536 }, // ~16:9 landscape
+    experiences: { width: 2688, height: 1536 }, // ~16:9 landscape
+    bundles: { width: 2304, height: 1792 }, // ~4:3 landscape
+    tools: { width: 2688, height: 1536 }, // ~16:9 landscape
+    stories: { width: 2688, height: 1536 }, // ~16:9 landscape
   };
 
   const filename = version ? `hero-${version}.png` : 'hero.png';
@@ -532,8 +536,8 @@ async function main() {
         `Prompt reasoner: ${opts.reasoner}`,
         `Upsampler: ${opts.upsampler}`,
         `Size: ${config.size.width}x${config.size.height}`,
-        `Content class: photo`,
-        `Visual intensity: 4`,
+        'Content class: photo',
+        'Visual intensity: 4',
         `Variations: ${results.length}`,
         `Seeds: ${seeds.join(', ')}`,
         `Style reference: ${opts.styleRef || 'none'}`,
