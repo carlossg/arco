@@ -48,6 +48,12 @@ The site includes an AI-powered recommender at `/?q=...`. Generated pages are ca
 | `preset` | `/?q=...&preset=default` | Model preset |
 | `regen` | `/?q=...&regen` | Force regeneration, skip cache |
 
+## Content (drafts/)
+
+The `drafts/` folder contains the **pre-expansion** page set (38 pages: home, nav, footer, products, stories, experiences). These are the canonical source of truth for DA (`froesef/arco`).
+
+> **Note:** Commit `bf566a152c` (Feb 25 2026) added 239 additional pages (guides, blog, bundles, localization, etc.). Those pages are intentionally not present in `drafts/` — the site runs on the pre-expansion content. If you need to upload or re-publish, use `./tools/upload-to-da.sh --all` followed by `./tools/preview-all.sh` and `./tools/publish-all.sh`.
+
 ## Local development
 
 1. Install dependencies: `npm i`
