@@ -342,6 +342,26 @@ export class SessionContextManager {
   }
 
   /**
+   * Save the quiz persona result to session context.
+   * @param {string} persona The persona tag
+   */
+  static setQuizPersona(persona) {
+    const context = this.getContext();
+    context.quizPersona = persona;
+    context.lastUpdated = Date.now();
+    saveContext(context);
+  }
+
+  /**
+   * Get the quiz persona result from session context.
+   * @returns {string|null}
+   */
+  static getQuizPersona() {
+    const context = this.getContext();
+    return context.quizPersona || null;
+  }
+
+  /**
    * Clear the session context (useful for testing)
    */
   static clear() {

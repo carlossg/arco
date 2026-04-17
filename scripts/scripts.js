@@ -50,13 +50,12 @@ async function loadFonts() {
 }
 
 /**
- * Builds a personalization-banner block and prepends to main if persona cookie exists.
+ * Builds a personalization-banner block and prepends to main if quiz persona exists.
  * @param {Element} main The container element
  */
 // eslint-disable-next-line no-unused-vars
 function buildPersonalizationBanner(main) {
-  const hasPersona = document.cookie.match(/(?:^|;\s*)arco_persona=([^;]*)/);
-  if (!hasPersona) return;
+  if (!SessionContextManager.getQuizPersona()) return;
   // Only add on homepage or pages without an existing banner
   if (main.querySelector('.personalization-banner')) return;
   const section = document.createElement('div');

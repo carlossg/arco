@@ -1,7 +1,7 @@
 /*
  * Quiz Block — 4-Question Persona Identification Quiz
  * Interactive multi-step quiz using the 6-persona scoring system.
- * Sets arco_persona cookie (90 days) and redirects to experience page.
+ * Saves persona to sessionStorage and redirects to experience page.
  * Pre-generates a personalized recommender page in the background after Q2.
  */
 
@@ -131,18 +131,6 @@ function calculatePersona(answers) {
 }
 
 /**
- * Sets a cookie with the given name, value, and expiry in days.
- * @param {string} name Cookie name
- * @param {string} value Cookie value
- * @param {number} days Days until expiry
- */
-function setCookie(name, value, days) {
-  const date = new Date();
-  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-  document.cookie = `${name}=${encodeURIComponent(value)};expires=${date.toUTCString()};path=/;SameSite=Lax`;
-}
-
-/**
  * Renders a single question step into the quiz container.
  * @param {Element} container The quiz inner container
  * @param {object} question The question object { text, options }
@@ -247,19 +235,17 @@ function buildQuery(questions, answerIndices) {
 }
 
 /**
- * Opens a background SSE connection to the recommender to pre-generate blocks.
+ * Opens a background fetch to the recommender to pre-generate blocks via NDJSON streaming.
  * @param {Array<{text: string, options: string[]}>} questions Parsed questions
  * @param {number[]} answerIndices Current answer indices
- * @returns {Object} Handle with { eventSource, blocks, metadata, isComplete, error }
+ * @returns {Object} Handle with { abort, blocks, metadata, isComplete, error }
  */
 function startPrefetch(questions, answerIndices) {
   const query = buildQuery(questions, answerIndices);
-  const contextParam = SessionContextManager.buildEncodedContextParam();
-  const preset = new URLSearchParams(window.location.search).get('preset') || 'production';
-  const url = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&preset=${encodeURIComponent(preset)}&ctx=${contextParam}`;
+  const context = SessionContextManager.buildContextParam();
 
   const handle = {
-    eventSource: null,
+    abort: null,
     blocks: [],
     metadata: {},
     isComplete: false,
@@ -267,42 +253,56 @@ function startPrefetch(questions, answerIndices) {
     query,
   };
 
-  try {
-    handle.eventSource = new EventSource(url);
-  } catch {
-    handle.error = true;
-    return handle;
-  }
+  const controller = new AbortController();
+  handle.abort = () => controller.abort();
 
-  handle.eventSource.addEventListener('block-content', (e) => {
+  (async () => {
     try {
-      const data = JSON.parse(e.data);
-      handle.blocks.push({ html: data.html, sectionStyle: data.sectionStyle });
-    } catch {
-      // ignore parse errors
-    }
-  });
+      const response = await fetch(`${ARCO_RECOMMENDER_URL}/api/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query, context }),
+        signal: controller.signal,
+      });
 
-  handle.eventSource.addEventListener('generation-complete', (e) => {
-    try {
-      handle.metadata = JSON.parse(e.data);
-    } catch {
-      // ignore parse errors
-    }
-    handle.isComplete = true;
-    handle.eventSource.close();
-  });
+      if (!response.ok) {
+        handle.error = true;
+        return;
+      }
 
-  handle.eventSource.addEventListener('error', () => {
-    handle.error = true;
-    handle.eventSource.close();
-  });
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
 
-  handle.eventSource.onerror = () => {
-    if (handle.eventSource.readyState === EventSource.CLOSED && handle.blocks.length === 0) {
-      handle.error = true;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        // eslint-disable-next-line no-await-in-loop
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+        // eslint-disable-next-line no-restricted-syntax
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed) continue; // eslint-disable-line no-continue
+          try {
+            const data = JSON.parse(trimmed);
+            if (data.type === 'section') {
+              handle.blocks.push({ html: data.html, sectionStyle: data.sectionStyle });
+            } else if (data.type === 'done') {
+              handle.metadata = { title: data.title, usedProducts: data.usedProducts };
+              handle.isComplete = true;
+            }
+          } catch {
+            // ignore parse errors
+          }
+        }
+      }
+    } catch (err) {
+      if (err.name !== 'AbortError') handle.error = true;
     }
-  };
+  })();
 
   return handle;
 }
@@ -361,17 +361,11 @@ export default async function decorate(block) {
       } else {
         // Quiz complete — calculate persona using 6-persona scoring
         const persona = calculatePersona(answers);
-        // Set both cookies: the new arco_persona (90 days) and legacy arco-brew-style (30 days)
-        setCookie('arco_persona', persona, 90);
-        setCookie('arco-brew-style', persona, 30);
+        SessionContextManager.setQuizPersona(persona);
 
         // Try to use prefetched recommender page
         if (prefetchHandle && prefetchHandle.blocks.length > 0 && !prefetchHandle.error) {
-          // Close EventSource if still open
-          if (prefetchHandle.eventSource
-            && prefetchHandle.eventSource.readyState !== EventSource.CLOSED) {
-            prefetchHandle.eventSource.close();
-          }
+          if (prefetchHandle.abort && !prefetchHandle.isComplete) prefetchHandle.abort();
           const fullQuery = buildQuery(questions, answers);
           savePrefetchToStorage(prefetchHandle, fullQuery);
           const quizPreset = new URLSearchParams(window.location.search).get('preset');
