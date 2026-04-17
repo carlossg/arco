@@ -253,6 +253,14 @@ export default async function decorate(block) {
         </svg>
       </button>`;
     wrapper.appendChild(form);
+
+    const paper = document.createElement('a');
+    paper.className = 'nav-whitepaper';
+    paper.href = 'https://of1.live';
+    paper.target = '_blank';
+    paper.rel = 'noopener';
+    paper.textContent = 'Audience of One white paper';
+    wrapper.appendChild(paper);
   }
 
   // Inject "For You" personalized link

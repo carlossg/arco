@@ -313,9 +313,36 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* tools — search form */
+/* tools — search form + whitepaper link */
 header nav .nav-tools {
   grid-area: tools;
+}
+
+header nav .nav-tools .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+header nav .nav-whitepaper {
+  display: none;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted-color);
+  text-decoration: none;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition: color var(--transition);
+}
+
+header nav .nav-whitepaper:hover {
+  color: var(--accent-color);
+}
+
+@media (width >= 900px) {
+  header nav .nav-whitepaper {
+    display: block;
+  }
 }
 
 header nav .nav-search-form {
