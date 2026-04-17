@@ -253,8 +253,10 @@ async function renderStats(block, hoursBack = DEFAULT_HOURS) {
   // Summary cards
   block.appendChild(buildSummaryCards(stats.summary || {}));
 
-  // Time-series chart
-  block.appendChild(buildTimeSeries(stats.timeSeries || [], hoursBack));
+  // Time-series chart (only shown when data is available)
+  if (stats.timeSeries && stats.timeSeries.length > 0) {
+    block.appendChild(buildTimeSeries(stats.timeSeries, hoursBack));
+  }
 
   // Two-column bottom section
   const bottom = document.createElement('div');
