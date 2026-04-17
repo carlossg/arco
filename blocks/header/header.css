@@ -24,12 +24,12 @@ header nav {
 }
 
 header nav[aria-expanded='true'] {
+  height: auto;
   grid-template:
     'hamburger brand' var(--nav-height)
-    'sections sections' 1fr
-    'tools tools' var(--nav-height) / auto 1fr;
+    'sections sections' auto
+    'tools tools' auto / auto 1fr;
   overflow-y: auto;
-  min-height: 100dvh;
   background-color: var(--background-color);
 }
 
@@ -198,6 +198,7 @@ header nav .nav-sections ul {
 
 header nav .nav-sections ul > li {
   font-weight: 500;
+  padding: 12px 0;
 }
 
 header nav .nav-sections .nav-drop {
@@ -232,6 +233,7 @@ header nav .nav-sections ul > li[aria-expanded='true'] > ul {
 
 header nav .nav-sections ul > li > ul > li {
   font-weight: 400;
+  padding: 10px 0;
 }
 
 @media (width >= 900px) {
@@ -283,6 +285,8 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li {
     flex: 0 1 auto;
     position: relative;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul {
@@ -325,7 +329,7 @@ header nav .nav-tools .default-content-wrapper {
 }
 
 header nav .nav-whitepaper {
-  display: none;
+  display: block;
   font-family: var(--body-font-family);
   font-size: 11px;
   font-weight: 500;
@@ -348,14 +352,12 @@ header nav .nav-whitepaper:hover {
   box-shadow: none;
 }
 
-@media (width >= 900px) {
-  header nav .nav-whitepaper {
-    display: block;
-  }
+header nav[aria-expanded='true'] .nav-whitepaper {
+  display: none;
 }
 
 header nav .nav-search-form {
-  display: flex;
+  display: none;
   align-items: center;
   border: 1.5px solid var(--border-color);
   border-radius: 999px;
@@ -390,6 +392,24 @@ header nav .nav-search-form input[type="search"]::placeholder {
 header nav .nav-search-form input[type="search"]::-webkit-search-cancel-button,
 header nav .nav-search-form input[type="search"]::-webkit-search-decoration {
   appearance: none;
+}
+
+header nav[aria-expanded='true'] .nav-search-form {
+  display: flex;
+}
+
+header nav[aria-expanded='true'] .nav-tools {
+  padding: 8px 0 28px;
+}
+
+@media (width >= 900px) {
+  header nav .nav-search-form {
+    display: flex;
+  }
+
+  header nav[aria-expanded='true'] .nav-tools {
+    padding: 0;
+  }
 }
 
 /* stylelint-disable-next-line no-descending-specificity */

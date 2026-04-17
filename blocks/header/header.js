@@ -204,6 +204,9 @@ export default async function decorate(block) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
       navSection.addEventListener('click', (e) => {
+        // Let clicks on sub-menu items pass through unmodified
+        if (e.target.closest('li li')) return;
+
         const directLink = navSection.querySelector(':scope > a');
         if (directLink && directLink.contains(e.target)) {
           e.preventDefault();
