@@ -645,7 +645,7 @@ export async function llmGenerate(ctx, config, env) {
     env,
     'generation',
     'recommender',
-    ctx.intent || '',
+    ctx.intent?.type || '',
     '',
     {
       durationMs: Date.now() - ctx.timings.start,
