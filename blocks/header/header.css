@@ -202,29 +202,37 @@ header nav .nav-sections ul > li {
 }
 
 header nav .nav-sections .nav-drop {
+  position: relative;
+  padding-right: 32px;
   cursor: pointer;
 }
 
-header nav .nav-sections .nav-drop > a::after {
+/* Mobile chevron — on the li, right-aligned, sized for touch */
+header nav .nav-sections .nav-drop::after {
   content: '';
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border: 1.5px solid currentcolor;
-  border-width: 1.5px 1.5px 0 0;
-  transform: rotate(135deg);
-  margin-left: 8px;
-  vertical-align: middle;
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid currentcolor;
+  border-radius: 0 1px 0 0;
+  border-width: 2px 2px 0 0;
+  transform: translateY(-50%) rotate(135deg);
   transition: transform var(--transition);
+  opacity: 0.55;
 }
 
-header nav .nav-sections .nav-drop[aria-expanded='true'] > a::after {
-  transform: rotate(315deg);
+header nav .nav-sections .nav-drop[aria-expanded='true']::after {
+  transform: translateY(-50%) rotate(315deg);
 }
 
 header nav .nav-sections ul > li > ul {
-  margin-top: 0;
   display: none;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
 }
 
 header nav .nav-sections ul > li[aria-expanded='true'] > ul {
@@ -233,7 +241,7 @@ header nav .nav-sections ul > li[aria-expanded='true'] > ul {
 
 header nav .nav-sections ul > li > ul > li {
   font-weight: 400;
-  padding: 10px 0;
+  padding: 10px 0 10px 16px;
 }
 
 @media (width >= 900px) {
@@ -253,27 +261,13 @@ header nav .nav-sections ul > li > ul > li {
     cursor: pointer;
   }
 
-  header nav .nav-sections .nav-drop > a::after {
-    display: none;
-  }
-
+  /* Desktop chevron — smaller, tighter */
   header nav .nav-sections .nav-drop::after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    right: 2px;
-    transform: translateY(-50%) rotate(135deg);
     width: 5px;
     height: 5px;
-    border: 1.5px solid currentcolor;
-    border-radius: 0 1px 0 0;
     border-width: 1.5px 1.5px 0 0;
-    transition: transform var(--transition);
-  }
-
-  header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    transform: translateY(-50%) rotate(315deg);
+    right: 2px;
+    opacity: 1;
   }
 
   header nav .nav-sections ul {
@@ -292,6 +286,9 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li > ul {
     display: none;
     position: relative;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
