@@ -10,6 +10,13 @@ import { executeFlow } from './pipeline/executor.js';
 import { resolveFlow } from './pipeline/flows.js';
 import { STEPS } from './pipeline/steps/index.js';
 import { writeEvent, classifyPageType, queryStats } from './analytics.js';
+import { saveGeneration } from './storage.js';
+import {
+  handleAdminSessions,
+  handleAdminSession,
+  handleAdminPage,
+  handleAdminUI,
+} from './admin.js';
 
 /**
  * Full pipeline bypass for load testing — skips rate-limit, RAG, intent, and LLM.
@@ -74,13 +81,16 @@ async function handleGenerate(request, env) {
     });
   }
 
-  const { query } = body;
+  const { query, sessionId } = body;
   if (!query || typeof query !== 'string' || query.length > 500) {
     return new Response(JSON.stringify({ error: 'Invalid query' }), {
       status: 400,
       headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
     });
   }
+
+  // Validate session ID if provided (must be UUID-like, 32–40 chars alphanum+hyphens)
+  const validSessionId = sessionId && /^[a-f0-9-]{32,40}$/i.test(sessionId) ? sessionId : null;
 
   const ctx = createContext(body, request);
   const flow = resolveFlow(body.flow);
@@ -112,6 +122,10 @@ async function handleGenerate(request, env) {
   const streamPromise = (async () => {
     try {
       await executeFlow(remaining, ctx, env);
+      // Persist session + page data after stream completes (fire-and-forget)
+      if (validSessionId) {
+        saveGeneration(ctx, env, validSessionId).catch(() => {});
+      }
     } catch (err) {
       const errorLine = JSON.stringify({ type: 'error', message: err.message || 'Generation failed' });
       await ctx.writer.write(ctx.encoder.encode(`${errorLine}\n`));
@@ -334,6 +348,22 @@ export default {
       return new Response(JSON.stringify({ status: 'ok' }), {
         headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
       });
+    }
+
+    // Admin routes — session browser
+    if (url.pathname === '/admin' && request.method === 'GET') {
+      return handleAdminUI(request, env);
+    }
+    if (url.pathname === '/api/admin/sessions' && request.method === 'GET') {
+      return handleAdminSessions(request, env);
+    }
+    const sessionMatch = url.pathname.match(/^\/api\/admin\/sessions\/([^/]+)$/);
+    if (sessionMatch && request.method === 'GET') {
+      return handleAdminSession(request, env, sessionMatch[1]);
+    }
+    const pageMatch = url.pathname.match(/^\/api\/admin\/pages\/([^/]+)$/);
+    if (pageMatch && request.method === 'GET') {
+      return handleAdminPage(request, env, pageMatch[1]);
     }
 
     return new Response('Not Found', { status: 404, headers: CORS_HEADERS });

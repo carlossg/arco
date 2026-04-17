@@ -14,6 +14,20 @@
     {
       "binding": "GUIDES",
       "id": "eb93a78ab0694f90af29c9634dd76d8a"
+    },
+    {
+      // Stores full page payloads (blocks + debug) keyed by page ID
+      "binding": "SESSION_STORE",
+      "id": "670b87fd2b5f4fe0871c973c93c4b6cd"
+    }
+  ],
+
+  // D1 database for session and page metadata
+  "d1_databases": [
+    {
+      "binding": "SESSIONS_DB",
+      "database_name": "arco-sessions",
+      "database_id": "78439521-136f-4ac8-b3db-5007b6080063"
     }
   ],
 

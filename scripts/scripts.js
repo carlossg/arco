@@ -233,6 +233,22 @@ const PREFETCH_MAX_AGE_MS = 60000;
 const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
 
 /**
+ * Return a stable session ID for this browser, refreshing after 24 hours.
+ * Stored in localStorage so it persists across tabs and page reloads.
+ */
+function getOrCreateSessionId() {
+  const KEY = 'arco-session-id';
+  const EXPIRY_MS = 24 * 60 * 60 * 1000;
+  try {
+    const stored = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (stored && Date.now() - stored.ts < EXPIRY_MS) return stored.id;
+    const id = crypto.randomUUID();
+    localStorage.setItem(KEY, JSON.stringify({ id, ts: Date.now() }));
+    return id;
+  } catch { return null; }
+}
+
+/**
  * Check if this is an Arco Recommender request (has ?q= or ?query= param)
  */
 function isArcoRecommenderRequest() {
@@ -535,7 +551,7 @@ async function streamAndAppendContent(query, container, options = {}) {
   }
 
   const baseUrl = getAPIEndpoint('recommender');
-  const body = { query, context: sessionContext };
+  const body = { query, context: sessionContext, sessionId: getOrCreateSessionId() };
   if (options.followUp) body.followUp = options.followUp;
 
   const response = await fetch(`${baseUrl}/api/generate`, {
