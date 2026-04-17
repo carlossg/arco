@@ -241,6 +241,56 @@ function isArcoRecommenderRequest() {
 }
 
 /**
+ * Check if debug mode is active (?debug=true alongside ?q=)
+ */
+function isDebugMode() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('debug') === 'true';
+}
+
+/**
+ * Insert a debug placeholder section into the container (before follow-up chips if present).
+ * Returns the section element so it can be populated later when the debug event arrives.
+ */
+function createDebugPlaceholder(container) {
+  const section = document.createElement('div');
+  section.className = 'section debug-panel-section';
+  section.dataset.sectionStatus = 'loading';
+  const placeholder = document.createElement('div');
+  placeholder.className = 'debug-panel-loading';
+  placeholder.textContent = 'Collecting debug info\u2026';
+  section.appendChild(placeholder);
+  const followUp = container.querySelector('.follow-up-container');
+  if (followUp) container.insertBefore(section, followUp);
+  else container.appendChild(section);
+  return section;
+}
+
+/**
+ * Populate a debug placeholder section with the rendered debug-panel block.
+ * Called when the debug NDJSON event arrives at the end of a stream.
+ */
+async function renderDebugPanel(debugData, sessionContext, sectionEl) {
+  sectionEl.innerHTML = '';
+  sectionEl.dataset.sectionStatus = 'initialized';
+
+  const blockEl = document.createElement('div');
+  blockEl.className = 'debug-panel block';
+  blockEl.dataset.blockName = 'debug-panel';
+  blockEl.dataset.blockStatus = 'initialized';
+  blockEl.dataset.debugInfo = JSON.stringify({ ...debugData, sessionContext });
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'debug-panel-wrapper';
+  wrapper.appendChild(blockEl);
+  sectionEl.appendChild(wrapper);
+  sectionEl.classList.add('debug-panel-container');
+
+  await loadBlock(blockEl);
+  sectionEl.dataset.sectionStatus = 'loaded';
+}
+
+/**
  * Generate a URL-safe slug from a query
  */
 /**
@@ -450,6 +500,11 @@ async function handleNdjsonEvent(data, container, state, options = {}) {
     data.usedProducts.forEach((id) => SessionContextManager.addShownProduct(id));
   }
 
+  if (data.type === 'debug' && isDebugMode() && state.debugPlaceholder) {
+    // eslint-disable-next-line no-await-in-loop
+    await renderDebugPanel(data, state.sessionContext, state.debugPlaceholder);
+  }
+
   if (data.type === 'error') {
     // eslint-disable-next-line no-console
     console.error('[Recommender] Server error:', data.message);
@@ -471,9 +526,13 @@ async function handleNdjsonEvent(data, container, state, options = {}) {
  */
 async function streamAndAppendContent(query, container, options = {}) {
   const startTime = Date.now();
+  const sessionContext = SessionContextManager.buildContextParam();
   const state = { blockCount: 0 };
 
-  const sessionContext = SessionContextManager.buildContextParam();
+  if (isDebugMode()) {
+    state.sessionContext = sessionContext;
+    state.debugPlaceholder = createDebugPlaceholder(container);
+  }
 
   const baseUrl = getAPIEndpoint('recommender');
   const body = { query, context: sessionContext };
@@ -539,7 +598,11 @@ async function streamAndAppendContent(query, container, options = {}) {
  * @param {Object} options Same options as streamAndAppendContent
  */
 async function replaySpeculativeResult(responseBuffer, container, options = {}) {
-  const state = { blockCount: 0 };
+  const state = {
+    blockCount: 0,
+    sessionContext: options.sessionContext || null,
+    debugPlaceholder: isDebugMode() ? createDebugPlaceholder(container) : null,
+  };
   // eslint-disable-next-line no-restricted-syntax
   for (const line of responseBuffer) {
     const trimmed = line.trim();

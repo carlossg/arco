@@ -6,6 +6,7 @@
 
 // eslint-disable-next-line import/no-unresolved
 import Cerebras from '@cerebras/cerebras_cloud_sdk';
+import { writeEvent } from '../../analytics.js';
 import { sectionToHtml } from '../../json-to-eds.js';
 import {
   resolveTokens, normalizeProductUrls, getProductData, setHeroResult,
@@ -326,6 +327,7 @@ export async function llmGenerate(ctx, config, env) {
       max_tokens: config.maxTokens || 4096,
       temperature: config.temperature ?? 0.7,
       stream: true,
+      stream_options: { include_usage: true },
     }, { signal: abortController.signal });
   } catch (llmErr) {
     clearTimeout(timeoutId);
@@ -637,4 +639,18 @@ export async function llmGenerate(ctx, config, env) {
   const doneLine = JSON.stringify({ type: 'done', title, usedProducts });
   ctx.ndjsonLines.push(doneLine);
   await ctx.writer.write(ctx.encoder.encode(`${doneLine}\n`));
+
+  // Track generation event in Analytics Engine (fire-and-forget)
+  writeEvent(
+    env,
+    'generation',
+    'recommender',
+    ctx.intent || '',
+    '',
+    {
+      durationMs: Date.now() - ctx.timings.start,
+      inputTokens: ctx.llm.usage?.prompt_tokens || 0,
+      outputTokens: ctx.llm.usage?.completion_tokens || 0,
+    },
+  );
 }

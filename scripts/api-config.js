@@ -13,6 +13,10 @@
 export const ARCO_RECOMMENDER_URL = window.ARCO_CONFIG?.RECOMMENDER_URL
   || 'https://arco-recommender.franklin-prod.workers.dev';
 
+// Analytics service — same worker, separate endpoint
+export const ARCO_ANALYTICS_URL = window.ARCO_CONFIG?.ANALYTICS_URL
+  || ARCO_RECOMMENDER_URL;
+
 // ============================================
 // Environment Detection
 // ============================================

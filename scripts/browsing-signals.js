@@ -10,6 +10,7 @@
  */
 
 import { SessionContextManager } from './session-context.js';
+import { ARCO_ANALYTICS_URL } from './api-config.js';
 
 const MAX_SIGNALS = 20;
 const ENGAGEMENT_THRESHOLD_MS = 5000;
@@ -321,7 +322,7 @@ export function collectBrowsingSignals() {
     });
 
     try {
-      const analyticsUrl = window.ARCO_CONFIG?.ANALYTICS_URL;
+      const analyticsUrl = window.ARCO_CONFIG?.ANALYTICS_URL || ARCO_ANALYTICS_URL;
       if (!analyticsUrl) return;
       const payload = JSON.stringify({
         sessionId: SessionContextManager.getSessionId(),
@@ -335,7 +336,7 @@ export function collectBrowsingSignals() {
           scrollDepth: engagement.data.scrollDepth,
         },
       });
-      if (navigator.sendBeacon) navigator.sendBeacon(analyticsUrl, payload);
+      if (navigator.sendBeacon) navigator.sendBeacon(`${analyticsUrl}/api/track`, payload);
     } catch {
       // Best-effort — silently ignore failures
     }

@@ -9,6 +9,7 @@ import { createContext, CORS_HEADERS } from './pipeline/context.js';
 import { executeFlow } from './pipeline/executor.js';
 import { resolveFlow } from './pipeline/flows.js';
 import { STEPS } from './pipeline/steps/index.js';
+import { writeEvent, classifyPageType, queryStats } from './analytics.js';
 
 /**
  * Full pipeline bypass for load testing — skips rate-limit, RAG, intent, and LLM.
@@ -240,6 +241,65 @@ async function handlePersist(request, env) {
   }
 }
 
+/**
+ * Receive client-side analytics events (page views, product views, etc.)
+ * Accepts the sendBeacon payload from browsing-signals.js.
+ * POST /api/track
+ */
+async function handleTrack(request, env) {
+  let body;
+  try {
+    const text = await request.text();
+    body = JSON.parse(text);
+  } catch {
+    return new Response(null, { status: 204, headers: CORS_HEADERS });
+  }
+
+  const {
+    eventType = 'page_view',
+    intent = '',
+    metadata = {},
+  } = body;
+  const path = metadata.path || '';
+  const pageType = classifyPageType(path);
+
+  writeEvent(env, eventType, pageType, intent, path);
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
+}
+
+/**
+ * Return aggregated analytics stats for the dashboard.
+ * GET /api/stats[?hours=24]
+ */
+async function handleStats(request, env) {
+  const url = new URL(request.url);
+  const hours = Math.min(Math.max(parseInt(url.searchParams.get('hours') || '24', 10), 1), 168);
+
+  try {
+    const stats = await queryStats(env, hours);
+    if (!stats) {
+      return new Response(JSON.stringify({
+        error: 'Analytics not configured (CF_API_TOKEN missing)',
+        summary: {},
+        timeSeries: [],
+        topIntents: [],
+        topPaths: [],
+      }), {
+        status: 200,
+        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+      });
+    }
+    return new Response(JSON.stringify(stats), {
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), {
+      status: 500,
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  }
+}
+
 export default {
   async fetch(request, env, ctx) {
     request.ctx = ctx;
@@ -260,6 +320,14 @@ export default {
 
     if (url.pathname === '/api/debug/search' && request.method === 'GET') {
       return handleDebugSearch(request, env);
+    }
+
+    if (url.pathname === '/api/track' && request.method === 'POST') {
+      return handleTrack(request, env);
+    }
+
+    if (url.pathname === '/api/stats' && request.method === 'GET') {
+      return handleStats(request, env);
     }
 
     if (url.pathname === '/api/health') {

@@ -30,8 +30,16 @@
     }
   ],
 
+  // Cloudflare Analytics Engine for usage tracking
+  "analytics_engine_datasets": [
+    {
+      "binding": "ANALYTICS",
+      "dataset": "arco_usage"
+    }
+  ],
+
   // Environment variables (set secrets via `wrangler secret put`)
-  // Required secrets: CEREBRAS_API_KEY
+  // Required secrets: CEREBRAS_API_KEY, CF_API_TOKEN (Analytics Engine read permission)
   // DA secrets: DA_CLIENT_ID, DA_CLIENT_SECRET, DA_SERVICE_TOKEN (or DA_TOKEN as fallback)
   "vars": {
     "ENVIRONMENT": "production",

@@ -1,0 +1,233 @@
+/* Stats block — analytics dashboard */
+
+.stats {
+  font-family: inherit;
+  color: var(--text-color, #1a1a1a);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Time filter ──────────────────────────────────────────── */
+
+.stats .stats-filter {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.stats .stats-filter-btn {
+  padding: 0.35rem 1rem;
+  border: 1px solid currentcolor;
+  border-radius: 2rem;
+  background: transparent;
+  font-size: 0.85rem;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s;
+}
+
+.stats .stats-filter-btn:hover {
+  opacity: 0.85;
+}
+
+.stats .stats-filter-btn[aria-current='true'] {
+  background: var(--link-color, #035fe6);
+  color: #fff;
+  border-color: transparent;
+  opacity: 1;
+}
+
+/* ── Summary cards ────────────────────────────────────────── */
+
+.stats .stats-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.stats .stats-card {
+  padding: 1.25rem 1rem;
+  border-top: 3px solid var(--card-color, #555);
+  background: #f8f8f8;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stats .stats-card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--card-color, #1a1a1a);
+}
+
+.stats .stats-card-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.65;
+}
+
+/* ── Chart section ────────────────────────────────────────── */
+
+.stats .stats-chart-section {
+  margin-bottom: 2.5rem;
+}
+
+.stats .stats-chart-section h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem;
+  opacity: 0.65;
+}
+
+.stats .stats-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.stats .stats-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.stats .stats-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stats .stats-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 160px;
+  overflow: auto hidden;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  scrollbar-width: thin;
+}
+
+.stats .stats-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+  width: 8px;
+  height: 100%;
+  position: relative;
+  gap: 1px;
+}
+
+/* Date label on first column of each day */
+.stats .stats-col[data-date]::after {
+  content: attr(data-date);
+  position: absolute;
+  bottom: -1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  white-space: nowrap;
+  opacity: 0.5;
+}
+
+.stats .stats-bar {
+  width: 100%;
+  min-height: 1px;
+  border-radius: 1px 1px 0 0;
+  transition: opacity 0.1s;
+}
+
+.stats .stats-bar:hover {
+  opacity: 0.75;
+  cursor: default;
+}
+
+/* ── Bottom two-column layout ─────────────────────────────── */
+
+.stats .stats-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (width <= 600px) {
+  .stats .stats-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stats .stats-top-section h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem;
+  opacity: 0.65;
+}
+
+.stats .stats-top-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stats .stats-top-list li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.stats .stats-top-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.85;
+}
+
+.stats .stats-top-bar {
+  display: block;
+  height: 4px;
+  background: var(--link-color, #035fe6);
+  border-radius: 2px;
+  opacity: 0.35;
+  min-width: 2px;
+}
+
+.stats .stats-top-count {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8rem;
+  opacity: 0.55;
+  text-align: right;
+  min-width: 2.5rem;
+}
+
+/* ── State helpers ────────────────────────────────────────── */
+
+.stats .stats-loading,
+.stats .stats-empty,
+.stats .stats-error {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  padding: 2rem 0;
+}
+
+.stats .stats-error {
+  color: #c00;
+  opacity: 1;
+}
