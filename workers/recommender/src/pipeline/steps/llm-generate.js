@@ -161,7 +161,7 @@ function extractPrimaryProduct(rawJsonSections) {
     const match = JSON.stringify(colBlock).match(imageTokenRe);
     if (match) {
       const data = getProductData(match[1].trim());
-      if (data) return { id: data.id, name: data.name };
+      if (data) return { id: data.id, name: data.name, url: data.url };
     }
   }
 
@@ -181,14 +181,14 @@ function extractPrimaryProduct(rawJsonSections) {
       const data = getProductData(id);
       return (data && data.name.toLowerCase().includes(recName)) ? data : null;
     }, null);
-    if (matched) return { id: matched.id, name: matched.name };
+    if (matched) return { id: matched.id, name: matched.name, url: matched.url };
 
     // Fallback: first valid product from the table
     const fallback = allIds.reduce((found, id) => {
       if (found) return found;
       return getProductData(id);
     }, null);
-    if (fallback) return { id: fallback.id, name: fallback.name };
+    if (fallback) return { id: fallback.id, name: fallback.name, url: fallback.url };
   }
 
   return null;
@@ -476,7 +476,7 @@ export async function llmGenerate(ctx, config, env) {
           type: 'buy',
           label: `Buy ${primary.name}`,
           query: primary.id,
-          href: `/us/en_us/products/${primary.id}`,
+          href: primary.url,
         });
       }
     }

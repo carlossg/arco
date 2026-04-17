@@ -435,7 +435,10 @@ async function handleNdjsonEvent(data, container, state, options = {}) {
     // eslint-disable-next-line no-await-in-loop
     await renderStreamedSection(data, container);
     const lastSection = container.querySelector('.section:last-of-type');
-    if (lastSection) trackSectionContent(lastSection);
+    if (lastSection) {
+      trackSectionContent(lastSection);
+      if (options.onSection) options.onSection(lastSection);
+    }
   }
 
   if (data.type === 'suggestions') {
@@ -601,7 +604,11 @@ function initKeepExploring() {
     // Check speculative engine for cached result
     const specResult = window.arcoSpeculativeEngine?.getResult(query);
 
-    // Insert breadcrumb
+    // Remove the current follow-up container so new sections append after the breadcrumb
+    const existingFollowUp = genContent.querySelector('.follow-up-container');
+    if (existingFollowUp) existingFollowUp.remove();
+
+    // Insert breadcrumb so user sees their question before the new content
     const breadcrumb = createBreadcrumb(query);
     genContent.appendChild(breadcrumb);
 
@@ -609,8 +616,25 @@ function initKeepExploring() {
     const loader = createMiniLoader();
     genContent.appendChild(loader);
 
-    // Smooth scroll to breadcrumb
-    breadcrumb.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Wait for layout then scroll breadcrumb to top and record its document position
+    // as the "question max" — the upper bound for auto-scroll as sections stream in.
+    let scrollAnchorY = null;
+    requestAnimationFrame(() => {
+      scrollAnchorY = breadcrumb.offsetTop;
+      breadcrumb.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Called after each section is rendered. Re-scrolls to the breadcrumb so
+    // it stays at the top of the viewport as content fills in below.
+    // Never scrolls past the question — scrollAnchorY is the hard cap.
+    function scrollToStreamedSection() {
+      requestAnimationFrame(() => {
+        const anchor = scrollAnchorY ?? breadcrumb.offsetTop;
+        if (window.scrollY < anchor) {
+          window.scrollTo({ top: anchor, behavior: 'smooth' });
+        }
+      });
+    }
 
     try {
       if (specResult) {
@@ -620,12 +644,14 @@ function initKeepExploring() {
           await replaySpeculativeResult(specResult.responseBuffer, genContent, {
             query,
             onFirstSection: () => loader.remove(),
+            onSection: scrollToStreamedSection,
           });
         } else {
           // Speculative fetch failed, fall back to normal stream
           await streamAndAppendContent(query, genContent, {
             followUp,
             onFirstSection: () => loader.remove(),
+            onSection: scrollToStreamedSection,
             onError: (msg) => {
               const p = document.createElement('p');
               p.style.color = '#c00';
@@ -638,6 +664,7 @@ function initKeepExploring() {
         await streamAndAppendContent(query, genContent, {
           followUp,
           onFirstSection: () => loader.remove(),
+          onSection: scrollToStreamedSection,
           onError: (msg) => {
             const p = document.createElement('p');
             p.style.color = '#c00';
