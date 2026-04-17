@@ -65,6 +65,7 @@ class MouseRingBuffer {
  * @param {Object} config
  * @param {string} config.apiEndpoint - Base URL for the recommender API
  * @param {Function} config.getSessionContext - Returns session context for API body
+ * @param {Function} [config.getSessionId] - Returns the current session ID (optional)
  * @param {Function} [config.onSpeculationChange] - Callback for state changes
  * @returns {Object} Engine public API
  */
@@ -160,10 +161,12 @@ export default function createSpeculativeEngine(config) {
   async function doSpeculativeFetch(speculation) {
     try {
       const sessionContext = config.getSessionContext();
+      const sessionId = config.getSessionId ? config.getSessionId() : null;
       const body = {
         query: speculation.query,
         speculative: true,
         context: sessionContext,
+        ...(sessionId ? { sessionId } : {}),
         ...(speculation.followUp ? { followUp: speculation.followUp } : {}),
       };
 

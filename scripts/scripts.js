@@ -656,6 +656,7 @@ function attachSpeculativeEngine(container) {
     window.arcoSpeculativeEngine = createSpeculativeEngine({
       apiEndpoint: getAPIEndpoint('recommender'),
       getSessionContext: () => SessionContextManager.buildContextParam(),
+      getSessionId: getOrCreateSessionId,
     });
     window.arcoSpeculativeEngine.attachToChips(chips);
   });

@@ -144,10 +144,14 @@ function buildDebugSnapshot(ctx) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export async function saveGeneration(ctx, env, sessionId) {
-  if (!env.SESSIONS_DB || !env.SESSION_STORE) return null;
+  if (!env.SESSIONS_DB || !env.SESSION_STORE) {
+    console.error('[Storage] saveGeneration skipped: missing SESSIONS_DB or SESSION_STORE bindings');
+    return null;
+  }
 
   const pageId = crypto.randomUUID();
   const now = Date.now();
+  console.log(`[Storage] saveGeneration start: sessionId=${sessionId} pageId=${pageId}`);
 
   try {
     const ipHash = await hashIp(ctx.request?.ip);
@@ -158,6 +162,7 @@ export async function saveGeneration(ctx, env, sessionId) {
     // 2. Insert page metadata
     await insertPage(env.SESSIONS_DB, pageId, sessionId, ctx, now);
 
+    console.log('[Storage] session upserted, inserting page metadata'); // eslint-disable-line no-console
     // 3. Store full payload in KV (90-day retention)
     const payload = {
       pageId,
@@ -183,6 +188,7 @@ export async function saveGeneration(ctx, env, sessionId) {
       expirationTtl: 60 * 60 * 24 * 90, // 90 days
     });
 
+    console.log(`[Storage] saveGeneration complete: pageId=${pageId}`);
     return pageId;
   } catch (err) {
     // Storage failures must never break the user-facing response

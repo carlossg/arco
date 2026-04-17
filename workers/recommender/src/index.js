@@ -91,6 +91,7 @@ async function handleGenerate(request, env) {
 
   // Validate session ID if provided (must be UUID-like, 32–40 chars alphanum+hyphens)
   const validSessionId = sessionId && /^[a-f0-9-]{32,40}$/i.test(sessionId) ? sessionId : null;
+  console.log(`[Generate] query="${query.substring(0, 60)}" sessionId=${sessionId || 'none'} validSessionId=${validSessionId || 'null'}`);
 
   const ctx = createContext(body, request);
   const flow = resolveFlow(body.flow);
@@ -122,9 +123,14 @@ async function handleGenerate(request, env) {
   const streamPromise = (async () => {
     try {
       await executeFlow(remaining, ctx, env);
-      // Persist session + page data after stream completes (fire-and-forget)
+      // Persist session + page data after stream completes.
+      // Awaited here so the worker stays alive long enough to finish the writes.
       if (validSessionId) {
-        saveGeneration(ctx, env, validSessionId).catch(() => {});
+        console.log(`[Generate] executeFlow done, calling saveGeneration for session=${validSessionId}`);
+        const pageId = await saveGeneration(ctx, env, validSessionId);
+        console.log(`[Generate] saveGeneration result: pageId=${pageId || 'null'}`);
+      } else {
+        console.log('[Generate] skipping saveGeneration: no validSessionId');
       }
     } catch (err) {
       const errorLine = JSON.stringify({ type: 'error', message: err.message || 'Generation failed' });
