@@ -33,14 +33,20 @@ function formatNumber(n) {
   return String(n || 0);
 }
 
+// bucket is a Unix timestamp in seconds (from intDiv in SQL)
+function toDate(bucket) {
+  const n = Number(bucket);
+  return new Date(n < 1e10 ? n * 1000 : n);
+}
+
 function formatBucket(bucket) {
-  const d = new Date(bucket);
-  if (Number.isNaN(d.getTime())) return bucket;
+  const d = toDate(bucket);
+  if (Number.isNaN(d.getTime())) return String(bucket);
   return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 function formatDate(bucket) {
-  const d = new Date(bucket);
+  const d = toDate(bucket);
   if (Number.isNaN(d.getTime())) return '';
   return d.toLocaleDateString([], { month: 'short', day: 'numeric' });
 }
@@ -225,8 +231,9 @@ async function renderStats(block, hoursBack = DEFAULT_HOURS) {
   let stats;
   try {
     const res = await fetch(`${baseUrl}/api/stats?hours=${hoursBack}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    stats = await res.json();
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error || `HTTP ${res.status}`);
+    stats = json;
   } catch (err) {
     block.innerHTML = '';
     block.appendChild(buildError(`Failed to load analytics: ${err.message}`));

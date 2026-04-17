@@ -87,9 +87,12 @@ export async function queryStats(env, hoursBack = 24) {
   const apiUrl = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/analytics_engine/sql`;
 
   // 15-minute bucket aggregation
+  // Use intDiv for bucketing (avoids toStartOfInterval compatibility issues)
+  // Use toDateTime with a raw Unix timestamp for the time filter (avoids subtractHours)
+  const cutoff = Math.floor(Date.now() / 1000) - Math.round(hoursBack) * 3600;
   const sql = `
     SELECT
-      toStartOfInterval(timestamp, toIntervalMinute(15)) AS bucket,
+      intDiv(toUnixTimestamp(timestamp), 900) * 900 AS bucket,
       blob1 AS event_type,
       blob2 AS page_type,
       blob3 AS intent,
@@ -99,9 +102,11 @@ export async function queryStats(env, hoursBack = 24) {
       avg(double3) AS avg_input_tokens,
       avg(double4) AS avg_output_tokens
     FROM ${DATASET}
-    WHERE timestamp > subtractHours(NOW(), ${Math.round(hoursBack)})
+    WHERE timestamp > toDateTime(${cutoff})
       AND blob1 != ''
-    GROUP BY bucket, event_type, page_type, intent, path
+    GROUP BY
+      intDiv(toUnixTimestamp(timestamp), 900) * 900,
+      blob1, blob2, blob3, blob4
     ORDER BY bucket DESC
     LIMIT 5000
   `;
