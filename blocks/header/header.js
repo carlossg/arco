@@ -254,12 +254,12 @@ export default async function decorate(block) {
       </button>`;
     wrapper.appendChild(form);
 
-    const paper = document.createElement('a');
+    const paper = document.createElement('button');
     paper.className = 'nav-whitepaper';
-    paper.href = 'https://of1.live';
-    paper.target = '_blank';
-    paper.rel = 'noopener';
-    paper.textContent = 'Audience of One white paper';
+    paper.type = 'button';
+    paper.textContent = 'White paper';
+    paper.title = 'Explore more about Audience of One experiences in our white paper.';
+    paper.addEventListener('click', () => window.open('https://of1.live', '_blank', 'noopener'));
     wrapper.appendChild(paper);
   }
 
