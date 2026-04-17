@@ -86,13 +86,14 @@ export async function queryStats(env, hoursBack = 24) {
 
   const apiUrl = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/analytics_engine/sql`;
 
-  // 15-minute bucket aggregation
-  // Use intDiv for bucketing (avoids toStartOfInterval compatibility issues)
-  // Use toDateTime with a raw Unix timestamp for the time filter (avoids subtractHours)
+  // Analytics Engine SQL only allows raw column names in GROUP BY — no expressions.
+  // So we GROUP BY the raw `timestamp` column (minute-level granularity from AE)
+  // plus the raw blob columns, then bucket into 15-min intervals in JS.
+  // Time filter uses toDateTime(unix_int) to avoid unsupported helper functions.
   const cutoff = Math.floor(Date.now() / 1000) - Math.round(hoursBack) * 3600;
   const sql = `
     SELECT
-      intDiv(toUnixTimestamp(timestamp), 900) * 900 AS bucket,
+      toUnixTimestamp(timestamp) AS ts,
       blob1 AS event_type,
       blob2 AS page_type,
       blob3 AS intent,
@@ -104,11 +105,9 @@ export async function queryStats(env, hoursBack = 24) {
     FROM ${DATASET}
     WHERE timestamp > toDateTime(${cutoff})
       AND blob1 != ''
-    GROUP BY
-      intDiv(toUnixTimestamp(timestamp), 900) * 900,
-      blob1, blob2, blob3, blob4
-    ORDER BY bucket DESC
-    LIMIT 5000
+    GROUP BY timestamp, blob1, blob2, blob3, blob4
+    ORDER BY timestamp DESC
+    LIMIT 10000
   `;
 
   const res = await fetch(apiUrl, {
@@ -136,7 +135,7 @@ export async function queryStats(env, hoursBack = 24) {
 
   rows.forEach((row) => {
     const {
-      bucket,
+      ts,
       event_type: eventType,
       intent,
       path,
@@ -150,7 +149,8 @@ export async function queryStats(env, hoursBack = 24) {
     // Running totals
     summary[eventType] = (summary[eventType] || 0) + cnt;
 
-    // 15-min time series (keyed by bucket+event_type)
+    // Bucket into 15-min intervals (900 s) in JS
+    const bucket = Math.floor(Number(ts) / 900) * 900;
     const tsKey = `${bucket}|${eventType}`;
     if (!timeSeriesMap[tsKey]) {
       timeSeriesMap[tsKey] = {
