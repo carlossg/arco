@@ -337,6 +337,7 @@ function injectForYouLink(navSections) {
       // Import synthesizeQuery from for-you-prefetch for dynamic query generation
       import('../../scripts/for-you-prefetch.js').then(({ synthesizeQuery }) => {
         window.arcoSpeculativeEngine.attachToElement(link, {
+          isFollowUp: false,
           queryGetter: () => {
             // Prefer existing stored query, fall back to synthesizing one
             const stored = getForYouQuery();

@@ -164,7 +164,7 @@ export default function createSpeculativeEngine(config) {
         query: speculation.query,
         speculative: true,
         context: sessionContext,
-        followUp: speculation.followUp || { type: 'explore', label: speculation.query },
+        ...(speculation.followUp ? { followUp: speculation.followUp } : {}),
       };
 
       const response = await fetch(`${config.apiEndpoint}/api/generate`, {
@@ -253,7 +253,7 @@ export default function createSpeculativeEngine(config) {
 
     activeSpeculation = {
       query: state.query,
-      followUp: { type: state.type, label: state.label },
+      followUp: state.isFollowUp !== false ? { type: state.type, label: state.label } : null,
       abortController,
       responseBuffer: [],
       ready: false,
@@ -357,6 +357,7 @@ export default function createSpeculativeEngine(config) {
       const state = getButtonState(element);
       state.queryGetter = options.queryGetter || null;
       state.onReady = options.onReady || null;
+      state.isFollowUp = options.isFollowUp !== undefined ? options.isFollowUp : true;
 
       // Avoid duplicate listeners if already attached
       const alreadyAttached = listeners.some(([el]) => el === element);
