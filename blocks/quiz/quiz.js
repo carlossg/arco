@@ -1,14 +1,10 @@
 /*
  * Quiz Block — 4-Question Persona Identification Quiz
  * Interactive multi-step quiz using the 6-persona scoring system.
- * Saves persona to sessionStorage and redirects to experience page.
- * Pre-generates a personalized recommender page in the background after Q2.
+ * Saves persona to sessionStorage and redirects to the recommender page.
  */
 
-import { ARCO_RECOMMENDER_URL } from '../../scripts/api-config.js';
 import { SessionContextManager } from '../../scripts/session-context.js';
-
-const PREFETCH_KEY = 'arco-quiz-prefetch';
 
 /**
  * 6 persona tags matching personalization/persona-profiles.json
@@ -57,18 +53,6 @@ const SCORING = [
     [0, 0, 3, 0, 0, 0], // A proper espresso setup
   ],
 ];
-
-/**
- * Maps persona tag to experience page slug.
- */
-const RESULT_PAGES = {
-  'morning-minimalist': '/experiences/morning-minimalist',
-  upgrader: '/experiences/the-upgrade-path',
-  'craft-barista': '/experiences/craft-at-home',
-  traveller: '/experiences/espresso-anywhere',
-  'non-barista': '/experiences/the-non-barista',
-  'office-manager': '/experiences/the-non-barista',
-};
 
 /**
  * Parses authored block rows into an array of question objects.
@@ -222,111 +206,6 @@ function renderQuestion(container, question, index, total, onAnswer) {
 }
 
 /**
- * Builds a natural-language query string from answered quiz options.
- * @param {Array<{text: string, options: string[]}>} questions Parsed questions
- * @param {number[]} answerIndices Indices of selected options (0-based)
- * @returns {string} Query string for the recommender
- */
-function buildQuery(questions, answerIndices) {
-  const parts = answerIndices
-    .map((optIdx, qIdx) => questions[qIdx]?.options[optIdx])
-    .filter(Boolean);
-  return `Coffee equipment quiz: ${parts.join(', ')}`;
-}
-
-/**
- * Opens a background fetch to the recommender to pre-generate blocks via NDJSON streaming.
- * @param {Array<{text: string, options: string[]}>} questions Parsed questions
- * @param {number[]} answerIndices Current answer indices
- * @returns {Object} Handle with { abort, blocks, metadata, isComplete, error }
- */
-function startPrefetch(questions, answerIndices) {
-  const query = buildQuery(questions, answerIndices);
-  const context = SessionContextManager.buildContextParam();
-
-  const handle = {
-    abort: null,
-    blocks: [],
-    metadata: {},
-    isComplete: false,
-    error: false,
-    query,
-  };
-
-  const controller = new AbortController();
-  handle.abort = () => controller.abort();
-
-  (async () => {
-    try {
-      const response = await fetch(`${ARCO_RECOMMENDER_URL}/api/generate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query, context }),
-        signal: controller.signal,
-      });
-
-      if (!response.ok) {
-        handle.error = true;
-        return;
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      // eslint-disable-next-line no-constant-condition
-      while (true) {
-        // eslint-disable-next-line no-await-in-loop
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() || '';
-        // eslint-disable-next-line no-restricted-syntax
-        for (const line of lines) {
-          const trimmed = line.trim();
-          if (!trimmed) continue; // eslint-disable-line no-continue
-          try {
-            const data = JSON.parse(trimmed);
-            if (data.type === 'section') {
-              handle.blocks.push({ html: data.html, sectionStyle: data.sectionStyle });
-            } else if (data.type === 'done') {
-              handle.metadata = { title: data.title, usedProducts: data.usedProducts };
-              handle.isComplete = true;
-            }
-          } catch {
-            // ignore parse errors
-          }
-        }
-      }
-    } catch (err) {
-      if (err.name !== 'AbortError') handle.error = true;
-    }
-  })();
-
-  return handle;
-}
-
-/**
- * Saves prefetched blocks to sessionStorage for consumption by scripts.js.
- * @param {Object} handle Prefetch handle from startPrefetch()
- * @param {string} fullQuery The complete 4-answer query string
- */
-function savePrefetchToStorage(handle, fullQuery) {
-  try {
-    sessionStorage.setItem(PREFETCH_KEY, JSON.stringify({
-      query: fullQuery,
-      blocks: handle.blocks,
-      metadata: handle.metadata,
-      isComplete: handle.isComplete,
-      timestamp: Date.now(),
-    }));
-  } catch {
-    // sessionStorage unavailable — fall through silently
-  }
-}
-
-/**
  * Loads and decorates the quiz block.
  * @param {Element} block The quiz block element
  */
@@ -345,38 +224,27 @@ export default async function decorate(block) {
 
   const answers = [];
   const total = questions.length;
-  let prefetchHandle = null;
 
   const showQuestion = (index) => {
     renderQuestion(container, questions[index], index, total, (optIdx) => {
       answers.push(optIdx);
 
-      // Start background prefetch after Q2 (index 1 = second answer)
-      if (index === 1 && !prefetchHandle) {
-        prefetchHandle = startPrefetch(questions, answers);
-      }
-
       if (index + 1 < total) {
         showQuestion(index + 1);
       } else {
-        // Quiz complete — calculate persona using 6-persona scoring
+        // Quiz complete — calculate persona and redirect to recommender
         const persona = calculatePersona(answers);
         SessionContextManager.setQuizPersona(persona);
 
-        // Try to use prefetched recommender page
-        if (prefetchHandle && prefetchHandle.blocks.length > 0 && !prefetchHandle.error) {
-          if (prefetchHandle.abort && !prefetchHandle.isComplete) prefetchHandle.abort();
-          const fullQuery = buildQuery(questions, answers);
-          savePrefetchToStorage(prefetchHandle, fullQuery);
-          const quizPreset = new URLSearchParams(window.location.search).get('preset');
-          const quizParams = new URLSearchParams({ q: fullQuery });
-          if (quizPreset) quizParams.set('preset', quizPreset);
-          window.location.href = `/?${quizParams.toString()}`;
-        } else {
-          // Fallback to static experience page
-          const resultUrl = RESULT_PAGES[persona] || '/experiences/morning-minimalist';
-          window.location.href = resultUrl;
-        }
+        const answerTexts = answers
+          .map((i, qIdx) => questions[qIdx]?.options[i])
+          .filter(Boolean);
+        const query = `Please recommend the right products for me. My coffee quiz answers: ${answerTexts.join(', ')}.`;
+
+        const params = new URLSearchParams({ q: query });
+        const preset = new URLSearchParams(window.location.search).get('preset');
+        if (preset) params.set('preset', preset);
+        window.location.href = `/?${params.toString()}`;
       }
     });
   };

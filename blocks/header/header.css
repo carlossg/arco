@@ -229,6 +229,13 @@ header nav .nav-sections .nav-drop[aria-expanded='true']::after {
   transform: translateY(-50%) rotate(315deg);
 }
 
+@media (width < 900px) {
+  header nav .nav-sections .nav-drop[aria-expanded='true']::after {
+    top: 20px;
+    transform: translateY(-50%) rotate(315deg);
+  }
+}
+
 header nav .nav-sections ul > li > ul {
   display: none;
   margin-top: 8px;
