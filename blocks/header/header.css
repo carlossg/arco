@@ -47,6 +47,7 @@ header nav[aria-expanded='true'] {
   }
 
   header nav[aria-expanded='true'] {
+    height: var(--nav-height);
     min-height: 0;
     overflow: visible;
     background-color: transparent;
@@ -402,6 +403,10 @@ header nav[aria-expanded='true'] .nav-tools {
 @media (width >= 900px) {
   header nav .nav-search-form {
     display: flex;
+  }
+
+  header nav[aria-expanded='true'] .nav-whitepaper {
+    display: block;
   }
 
   header nav[aria-expanded='true'] .nav-tools {
