@@ -3,77 +3,136 @@ import { SessionContextManager } from './session-context.js';
 
 const STORAGE_KEY = 'arco-welcome-shown';
 
-const FEATURES = [
+const ALL_TIPS = [
   {
-    title: 'For You',
-    desc: 'Browse products and stories and a personalized "For You" button will appear in the navigation bar — curated picks based on your activity.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74z"/>
-      <circle cx="12" cy="10" r="0"/>
-    </svg>`,
+    id: 'foryou',
+    desktopOnly: true,
+    title: 'Your personalized feed',
+    text: 'Browse a few pages and "For You" becomes active — a personalized feed curated from your activity.',
+    alignRight: false,
+    getTarget: () => document.querySelector('header .nav-foryou'),
+    onActivate() {},
+    onDeactivate() {},
   },
   {
-    title: 'Ask Anything',
-    desc: 'Use the search bar to ask a question about coffee or equipment and get a custom page built just for you.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="11" cy="11" r="8"/>
-      <path d="m21 21-4.35-4.35"/>
-    </svg>`,
-  },
-  {
-    title: 'Keep Exploring',
-    desc: 'On any recommendation page, tap "Keep Exploring" to load more content tailored to your interests.',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="10"/>
-      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-    </svg>`,
+    id: 'search',
+    desktopOnly: false,
+    title: 'Ask anything',
+    text: 'Type a question — like "best grinder for pour-over" — and get a custom page built just for you, with recommendations matched to your interests.',
+    alignRight: true,
+    getTarget: () => document.querySelector('header .nav-search-form'),
+    onActivate() {},
+    onDeactivate() {},
   },
 ];
 
-function createDialog() {
-  const dialog = document.createElement('dialog');
-  dialog.className = 'welcome-modal';
-  dialog.setAttribute('aria-modal', 'true');
-  dialog.setAttribute('aria-label', 'Welcome to Arco');
+function buildCoachMarks(tips) {
+  const scrim = document.createElement('div');
+  scrim.className = 'coach-scrim';
+  document.body.appendChild(scrim);
 
-  const featureItems = FEATURES.map(({ title, desc, icon }) => `
-    <li class="welcome-modal-feature">
-      <div class="welcome-modal-feature-icon">${icon}</div>
-      <p class="welcome-modal-feature-title">${title}</p>
-      <p class="welcome-modal-feature-desc">${desc}</p>
-    </li>
-  `).join('');
+  const dots = [];
+  const tooltips = [];
+  let currentTip = -1;
 
-  dialog.innerHTML = `
-    <div class="welcome-modal-inner">
-      <header class="welcome-modal-header">
-        <p class="welcome-modal-eyebrow">Generative Experience</p>
-        <h2 class="welcome-modal-title">Welcome to Arco</h2>
-        <p class="welcome-modal-subtitle">This site adapts to your interests the more you explore.</p>
-      </header>
-      <ul class="welcome-modal-features">${featureItems}</ul>
-      <div class="welcome-modal-cta">
-        <button type="button">Start Exploring</button>
-      </div>
-    </div>
-  `;
+  const TOOLTIP_WIDTH = 300;
 
-  const btn = dialog.querySelector('.welcome-modal-cta button');
-  btn.addEventListener('click', () => dialog.close());
+  function positionTip(index) {
+    const tip = tips[index];
+    const target = tip.getTarget();
+    if (!target) return;
 
-  dialog.addEventListener('close', () => {
+    const rect = target.getBoundingClientRect();
+    const dot = dots[index];
+    const tooltip = tooltips[index];
+
+    dot.style.left = `${rect.left + rect.width / 2 - 6}px`;
+    dot.style.top = `${rect.bottom + 6}px`;
+
+    let tooltipLeft = tip.alignRight
+      ? Math.max(8, rect.right - TOOLTIP_WIDTH)
+      : Math.max(8, rect.left - 20);
+    tooltipLeft = Math.min(tooltipLeft, window.innerWidth - TOOLTIP_WIDTH - 8);
+
+    tooltip.style.left = `${tooltipLeft}px`;
+    tooltip.style.top = `${rect.bottom + 22}px`;
+    tooltip.style.setProperty('--arrow-offset', `${Math.max(14, rect.left + rect.width / 2 - tooltipLeft - 7)}px`);
+  }
+
+  function dismiss() {
+    if (currentTip >= 0) {
+      tips[currentTip].onDeactivate(tips[currentTip].getTarget());
+    }
+    currentTip = -1;
+    dots.forEach((d) => d.classList.add('hidden'));
+    tooltips.forEach((t) => t.classList.remove('visible'));
+    scrim.classList.remove('active');
     sessionStorage.setItem(STORAGE_KEY, '1');
-    dialog.remove();
+  }
+
+  function showTip(index) {
+    if (currentTip >= 0) {
+      tips[currentTip].onDeactivate(tips[currentTip].getTarget());
+      dots[currentTip].classList.add('hidden');
+      tooltips[currentTip].classList.remove('visible');
+    }
+
+    if (index < 0 || index >= tips.length) {
+      dismiss();
+      return;
+    }
+
+    currentTip = index;
+    const tip = tips[index];
+    tip.onActivate(tip.getTarget());
+    positionTip(index);
+    dots[index].classList.remove('hidden');
+    tooltips[index].classList.add('visible');
+    scrim.classList.add('active');
+  }
+
+  scrim.addEventListener('click', dismiss);
+
+  tips.forEach((tip, index) => {
+    const { isLast } = tip;
+
+    const dot = document.createElement('div');
+    dot.className = 'coach-dot hidden';
+    dot.setAttribute('role', 'button');
+    dot.setAttribute('tabindex', '0');
+    dot.setAttribute('aria-label', `Show tip: ${tip.title}`);
+    dot.addEventListener('click', (e) => { e.stopPropagation(); showTip(index); });
+    document.body.appendChild(dot);
+    dots.push(dot);
+
+    const progressDots = tips.map((_, i) => `<span${i === index ? ' class="active"' : ''}></span>`).join('');
+    const tooltip = document.createElement('div');
+    tooltip.className = 'coach-tooltip';
+    tooltip.innerHTML = `
+      <div class="coach-tooltip-accent"></div>
+      <div class="coach-tooltip-body">
+        <div class="coach-tooltip-step">${tip.step}</div>
+        <div class="coach-tooltip-title">${tip.title}</div>
+        <div class="coach-tooltip-text">${tip.text}</div>
+      </div>
+      <div class="coach-tooltip-footer">
+        <button class="coach-tooltip-dismiss" type="button">Dismiss</button>
+        <div class="coach-tooltip-dots">${progressDots}</div>
+        <button class="coach-tooltip-next" type="button">${isLast ? 'Got it <span aria-hidden="true">✓</span>' : 'Next <span aria-hidden="true">→</span>'}</button>
+      </div>
+    `;
+    tooltip.querySelector('.coach-tooltip-dismiss').addEventListener('click', dismiss);
+    tooltip.querySelector('.coach-tooltip-next').addEventListener('click', () => {
+      if (isLast) dismiss();
+      else showTip(index + 1);
+    });
+    document.body.appendChild(tooltip);
+    tooltips.push(tooltip);
   });
 
-  dialog.addEventListener('click', (e) => {
-    const rect = dialog.getBoundingClientRect();
-    const outside = e.clientX < rect.left || e.clientX > rect.right
-      || e.clientY < rect.top || e.clientY > rect.bottom;
-    if (outside) dialog.close();
-  });
+  window.addEventListener('resize', () => { if (currentTip >= 0) positionTip(currentTip); });
 
-  return dialog;
+  return { showTip };
 }
 
 export default function showWelcomeModal() {
@@ -81,8 +140,13 @@ export default function showWelcomeModal() {
   if (SessionContextManager.hasContext()) return;
 
   loadCSS(`${window.hlx.codeBasePath}/styles/welcome-modal.css`).then(() => {
-    const dialog = createDialog();
-    document.body.appendChild(dialog);
-    dialog.showModal();
+    const isDesktop = window.matchMedia('(min-width: 900px)').matches;
+    const tips = ALL_TIPS
+      .filter((t) => !t.desktopOnly || isDesktop)
+      .map((t, i, arr) => ({ ...t, step: `Tip ${i + 1} of ${arr.length}`, isLast: i === arr.length - 1 }));
+
+    if (!tips.length) return;
+    const marks = buildCoachMarks(tips);
+    setTimeout(() => marks.showTip(0), 800);
   });
 }

@@ -383,13 +383,8 @@ header nav .nav-search-form button:hover {
   }
 }
 
-/* "For You" personalized nav item */
+/* "For You" personalized nav item — always visible, locked until earned */
 header nav .nav-foryou {
-  display: none;
-}
-
-header nav .nav-foryou[aria-hidden='false'] {
-  display: block;
   border-top: 1px solid var(--border-color);
   padding-top: 12px;
   margin-top: 12px;
@@ -399,6 +394,12 @@ header nav .nav-foryou-link {
   color: var(--accent-color);
   font-weight: 600;
   position: relative;
+}
+
+header nav .nav-foryou[aria-hidden='true'] .nav-foryou-link {
+  opacity: 0.38;
+  pointer-events: none;
+  cursor: default;
 }
 
 /* Loading: shimmer animation (matches follow-up chip style) */
@@ -437,8 +438,7 @@ header nav .nav-foryou-link.chip-ready::after {
 }
 
 @media (width >= 900px) {
-  header nav .nav-foryou[aria-hidden='false'] {
-    display: block;
+  header nav .nav-foryou {
     border-top: none;
     padding-top: 0;
     margin-top: 0;
