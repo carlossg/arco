@@ -119,6 +119,10 @@ export class SessionContextManager {
       })),
     };
 
+    if (context.quizPersona) {
+      param.quizPersona = context.quizPersona;
+    }
+
     if (context.browsingHistory && context.browsingHistory.length > 0) {
       param.browsingHistory = context.browsingHistory;
     }

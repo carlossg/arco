@@ -48,12 +48,13 @@ export function matchPersona(query) {
   const lower = query.toLowerCase();
 
   // Derive trigger phrases per persona from their fields
+  // Keys must match persona slugs in content/metadata/personas.json
   const PERSONA_TRIGGERS = {
-    'morning-minimalist': ['quick', 'fast', 'easy', 'simple', 'convenient', 'morning', 'busy', 'no fuss', 'automatic', 'one button', 'consistent', 'reliable'],
-    upgrader: ['upgrade', 'better', 'improve', 'next level', 'step up', 'outgrow', 'replace', 'prosumer', 'more control', 'serious'],
-    'craft-barista': ['craft', 'barista', 'precision', 'extraction', 'dial in', 'pressure profile', 'flow control', 'competition', 'advanced', 'expert', 'latte art', 'microfoam'],
-    traveller: ['travel', 'portable', 'camping', 'hotel', 'carry', 'lightweight', 'compact', 'on the go', 'mobile', 'road'],
-    'non-barista': ['beginner', 'first', 'new to', 'never', 'easy to use', 'simple', 'intimidated', 'not technical', 'pods', 'capsule', 'switching'],
+    'morning-minimalist': ['quick', 'fast', 'easy', 'simple', 'convenient', 'morning', 'busy', 'no fuss', 'automatic', 'one button', 'consistent', 'reliable', 'smart', 'thinking', 'does the thinking', 'one touch', 'fully automatic'],
+    'upgrade-seeker': ['upgrade', 'better', 'improve', 'next level', 'step up', 'outgrow', 'replace', 'prosumer', 'more control', 'serious'],
+    'craft-home-barista': ['craft', 'barista', 'precision', 'extraction', 'dial in', 'pressure profile', 'flow control', 'competition', 'advanced', 'expert', 'latte art', 'microfoam'],
+    'traveling-professional': ['travel', 'portable', 'camping', 'hotel', 'carry', 'lightweight', 'compact', 'on the go', 'mobile', 'road'],
+    'budget-conscious-beginner': ['beginner', 'first', 'new to', 'never', 'easy to use', 'simple', 'intimidated', 'not technical', 'pods', 'capsule', 'switching'],
     'office-manager': ['office', 'commercial', 'team', 'workplace', 'employees', 'staff', 'business', 'volume', 'multiple', 'company'],
   };
 
@@ -74,6 +75,16 @@ export function matchPersona(query) {
   });
 
   return bestMatch;
+}
+
+/**
+ * Look up a persona object by slug.
+ * @param {string} slug The persona slug from content/metadata/personas.json
+ * @returns {Object|null}
+ */
+export function getPersonaBySlug(slug) {
+  const personas = personasData.data || [];
+  return personas.find((p) => p.slug === slug) || null;
 }
 
 /**
@@ -100,13 +111,15 @@ export function getRelevantProducts(query, persona, useCase) {
   const scored = allProducts.map((p) => {
     let score = 0;
 
-    // Boost if recommended by persona
+    // Boost if recommended by persona — position-weighted so the first
+    // entry in recommendedSetup gets a higher score than subsequent ones
     if (persona?.recommendedSetup) {
-      const recommended = [
-        ...(persona.recommendedSetup.machines || []),
-        ...(persona.recommendedSetup.grinders || []),
-      ];
-      if (recommended.includes(p.id)) score += 3;
+      const machines = persona.recommendedSetup.machines || [];
+      const grinders = persona.recommendedSetup.grinders || [];
+      const machineIdx = machines.indexOf(p.id);
+      const grinderIdx = grinders.indexOf(p.id);
+      if (machineIdx >= 0) score += Math.max(1, 5 - machineIdx * 2);
+      if (grinderIdx >= 0) score += Math.max(1, 5 - grinderIdx * 2);
     }
 
     // Boost by use case score from profiles

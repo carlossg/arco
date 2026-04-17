@@ -22,6 +22,7 @@ export function createContext(body, request) {
   const inferredProfile = reqContext?.inferredProfile || null;
   const behaviorProfile = reqContext?.behaviorProfile || null;
   const shownContent = reqContext?.shownContent || null;
+  const quizPersona = reqContext?.quizPersona || null;
 
   return {
     // Immutable request data
@@ -33,6 +34,7 @@ export function createContext(body, request) {
       behaviorProfile,
       followUp,
       shownContent,
+      quizPersona,
       ip,
       speculative,
       headers: request.headers,
