@@ -478,6 +478,234 @@ function renderTimelineTab(container, data) {
   `;
 }
 
+// ── Debug tab helpers ──────────────────────────────────────────────────────
+
+function fmtMs(ms) {
+  if (ms == null) return '—';
+  if (ms >= 1000) return `${(ms / 1000).toFixed(2)}s`;
+  return `${Math.round(ms)}ms`;
+}
+
+function timingTone(ms) {
+  if (ms == null) return 'muted';
+  if (ms < 100) return 'ok';
+  if (ms < 500) return 'warn';
+  return 'accent';
+}
+
+function renderKvList(rows) {
+  return `<dl class="admin-kvs admin-kvs-two">${rows
+    .map(([label, value]) => kv(label, value))
+    .join('')}</dl>`;
+}
+
+function renderRagGroup(label, items) {
+  const body = items?.length
+    ? `<ul class="admin-rag-list">${items.map((i) => `<li>${i}</li>`).join('')}</ul>`
+    : '<span class="admin-muted">none</span>';
+  return `<div class="admin-rag-group">
+    <div class="admin-rag-label">${esc(label)}</div>
+    ${body}
+  </div>`;
+}
+
+function renderOverviewSection(dbg, run) {
+  const intent = dbg.intent
+    ? `${esc(dbg.intent.type)}${dbg.intent.confidence ? ` <span class="admin-muted">(${(dbg.intent.confidence * 100).toFixed(0)}%)</span>` : ''}`
+    : '—';
+  const totalMs = dbg.timings?.total;
+  const llmMs = dbg.timings?.llm;
+  const totalTokens = (dbg.llm?.inputTokens || 0) + (dbg.llm?.outputTokens || 0);
+  const rows = [
+    ['Total time', `<span class="admin-badge admin-badge-${timingTone(totalMs)}">${fmtMs(totalMs)}</span>`],
+    ['LLM time', `<span class="admin-badge admin-badge-${timingTone(llmMs)}">${fmtMs(llmMs)}</span>`],
+    ['First token', fmtMs(dbg.timings?.llmFirstToken)],
+    ['Model', dbg.llm?.model || '—'],
+    ['Flow', run.flow_id || '—'],
+    ['Intent', intent],
+    ['Journey stage', run.journey_stage || '—'],
+    ['Tokens in / out', dbg.llm?.inputTokens != null
+      ? `${dbg.llm.inputTokens} / ${dbg.llm.outputTokens}` : '—'],
+    ['Total tokens', totalTokens || '—'],
+    ['Output chars', (dbg.llm?.rawOutput || '').length || '—'],
+    ['Sections', run.block_count || '—'],
+  ];
+  return `<div class="admin-card-sub">
+    <h4>Overview</h4>
+    <dl class="admin-kvs admin-kvs-two">
+      ${rows.map(([l, v]) => `<div class="admin-kv"><dt>${esc(l)}</dt><dd>${v == null ? '—' : v}</dd></div>`).join('')}
+    </dl>
+  </div>`;
+}
+
+function renderSessionContextSection(request) {
+  if (!request) return '';
+  const prevQueries = request.previousQueries || [];
+  const browsing = request.browsingHistory || [];
+  const profile = request.inferredProfile || null;
+
+  const groups = [];
+  if (prevQueries.length) {
+    groups.push(renderRagGroup(
+      `Previous queries (${prevQueries.length})`,
+      prevQueries.map((q) => {
+        if (typeof q === 'string') return esc(q);
+        return `${esc(q.query || '')} <span class="admin-muted">${esc(q.intent || '')}${q.journeyStage ? ` · ${esc(q.journeyStage)}` : ''}</span>`;
+      }),
+    ));
+  }
+  if (request.quizPersona) {
+    groups.push(renderRagGroup('Quiz persona', [esc(request.quizPersona)]));
+  }
+  if (browsing.length) {
+    groups.push(renderRagGroup(
+      `Browsing history (${browsing.length})`,
+      browsing.map((h) => {
+        if (typeof h === 'string') return esc(h);
+        const timeSpent = h.timeSpent ? `${Math.round(h.timeSpent / 1000)}s` : '';
+        return `${esc(h.path || h.url || '')} <span class="admin-muted">${esc(h.intent || '')}${h.stage ? ` · ${esc(h.stage)}` : ''}${timeSpent ? ` · ${timeSpent}` : ''}</span>`;
+      }),
+    ));
+  }
+  if (request.followUp) {
+    groups.push(renderRagGroup('Follow-up clicked', [
+      `${esc(request.followUp.type || 'explore')} · ${esc(request.followUp.label || request.followUp.query || '')}`,
+    ]));
+  }
+  if (profile) {
+    groups.push(`<div class="admin-rag-group">
+      <div class="admin-rag-label">Inferred profile</div>
+      <pre class="admin-pre admin-pre-sm">${esc(JSON.stringify(profile, null, 2))}</pre>
+    </div>`);
+  }
+
+  if (!groups.length) return '';
+  return `<details class="admin-collapsible" open>
+    <summary>Session context</summary>
+    <div class="admin-card-sub-body">${groups.join('')}</div>
+  </details>`;
+}
+
+function renderBehaviorSection(ba) {
+  if (!ba) return '';
+  const priceRange = ba.catalogPriceRange
+    ? `$${ba.catalogPriceRange.min} – $${ba.catalogPriceRange.max}` : null;
+  return `<details class="admin-collapsible">
+    <summary>Behavior analysis</summary>
+    <div class="admin-card-sub-body">${renderKvList([
+    ['Cold start', ba.coldStart ? 'Yes' : 'No'],
+    ['Price tier', ba.priceTier],
+    ['Price range', priceRange],
+    ['Journey stage', ba.journeyStage],
+    ['Purchase readiness', ba.purchaseReadiness],
+    ['Inferred intent', ba.inferredIntent],
+    ['Use case priorities', (ba.useCasePriorities || []).join(', ')],
+    ['Products viewed', (ba.productsViewed || []).join(', ')],
+    ['Product shortlist', (ba.productShortlist || []).join(', ')],
+  ])}</div>
+  </details>`;
+}
+
+function renderPipelineStepsSection(timings) {
+  const steps = timings?.steps || [];
+  if (!steps.length) return '';
+  return `<details class="admin-collapsible">
+    <summary>Pipeline steps (${steps.length})</summary>
+    <div class="admin-card-sub-body">
+      <div class="admin-steps">
+        ${steps.map((s) => `
+          <div class="admin-step-row">
+            <span class="admin-step-name">${esc(s.step)}${s.gate ? ' <span class="admin-badge admin-badge-muted">gate</span>' : ''}</span>
+            <span class="admin-badge admin-badge-${timingTone(s.ms)}">${fmtMs(s.ms)}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+  </details>`;
+}
+
+function renderRagSection(rag) {
+  if (!rag) return '';
+  const groups = [];
+
+  const products = rag.products || [];
+  groups.push(renderRagGroup(
+    `Products (${products.length})`,
+    products.map((p) => `${esc(p.name || p.id)} <span class="admin-muted">${esc(p.id || '')}${p.score != null ? ` · score ${Number(p.score).toFixed(2)}` : ''}${p.price ? ` · $${esc(p.price)}` : ''}</span>`),
+  ));
+  groups.push(renderRagGroup('Persona', rag.persona?.name ? [esc(rag.persona.name)] : []));
+  groups.push(renderRagGroup('Use case', rag.useCase?.name ? [esc(rag.useCase.name)] : []));
+  const features = rag.features || [];
+  groups.push(renderRagGroup(
+    `Features (${features.length})`,
+    features.map((f) => `${esc(f.name)}${f.benefit ? `: <span class="admin-muted">${esc(f.benefit)}</span>` : ''}`),
+  ));
+  const faqs = rag.faqs || [];
+  groups.push(renderRagGroup(
+    `FAQs (${faqs.length})`,
+    faqs.map((f) => esc(f.question || '')),
+  ));
+  const reviews = rag.reviews || [];
+  groups.push(renderRagGroup(
+    `Reviews (${reviews.length})`,
+    reviews.map((r) => `${esc(r.author || '')} <span class="admin-muted">${esc(r.productId || r.product || '')}</span>`),
+  ));
+  const recipes = rag.recipes || [];
+  groups.push(renderRagGroup(
+    `Recipes (${recipes.length})`,
+    recipes.map((r) => `${esc(r.name)}${r.score != null ? ` <span class="admin-muted">score ${Number(r.score).toFixed(2)}</span>` : ''}`),
+  ));
+  const heroes = rag.heroImages || [];
+  if (heroes.length) {
+    groups.push(renderRagGroup(
+      `Hero images (${heroes.length})`,
+      heroes.map((h) => `${esc(h.id)}${h.score != null ? ` <span class="admin-muted">score ${Number(h.score).toFixed(2)}</span>` : ''}`),
+    ));
+  }
+
+  return `<details class="admin-collapsible" open>
+    <summary>RAG results</summary>
+    <div class="admin-card-sub-body">${groups.join('')}</div>
+  </details>`;
+}
+
+function renderSuggestionsSection(suggestions) {
+  if (!suggestions?.length) return '';
+  return `<details class="admin-collapsible">
+    <summary>Follow-up suggestions shown (${suggestions.length})</summary>
+    <div class="admin-card-sub-body">
+      <div class="admin-followup-chips">
+        ${suggestions.map((s) => `<span class="admin-followup-chip">
+          <span class="admin-followup-type">${esc(s.type || 'explore')}</span>
+          <span class="admin-followup-text">${esc(s.label || s.query || '')}</span>
+        </span>`).join('')}
+      </div>
+    </div>
+  </details>`;
+}
+
+function renderPromptSection(prompt) {
+  if (!prompt || (!prompt.systemPrompt && !prompt.userMessage)) return '';
+  return `<details class="admin-collapsible">
+    <summary>Prompt (${prompt.systemLength || 0} + ${prompt.userLength || 0} chars)</summary>
+    <div class="admin-card-sub-body">
+      <h4>System prompt</h4>
+      <pre class="admin-pre">${esc(prompt.systemPrompt || '(empty)')}</pre>
+      <h4>User message</h4>
+      <pre class="admin-pre">${esc(prompt.userMessage || '(empty)')}</pre>
+    </div>
+  </details>`;
+}
+
+function renderLlmOutputSection(llm) {
+  if (!llm?.rawOutput) return '';
+  return `<details class="admin-collapsible">
+    <summary>Raw LLM output (${llm.rawOutput.length.toLocaleString()} chars)</summary>
+    <div class="admin-card-sub-body">
+      <pre class="admin-pre">${esc(llm.rawOutput)}</pre>
+    </div>
+  </details>`;
+}
+
 function renderDebugTab(container, data) {
   const runs = data.runs || [];
   if (runs.length === 0) {
@@ -486,36 +714,34 @@ function renderDebugTab(container, data) {
   }
 
   container.innerHTML = `
-    <p class="admin-muted">Each run below captures its own intent classification, RAG context, prompt, and LLM output.</p>
+    <p class="admin-muted">Each run below captures its own intent, session context, RAG retrieval, pipeline timings, prompt and LLM output — the same data surfaced by the live <code>?debug=true</code> panel.</p>
     ${runs.map(({ run, payload }, i) => {
     const dbg = payload?.debug;
-    if (!dbg) return `<section class="admin-card"><h3>Run ${i + 1}</h3><p class="admin-empty">No debug info.</p></section>`;
-    const intent = dbg.intent ? `${dbg.intent.type}${dbg.intent.confidence ? ` (${(dbg.intent.confidence * 100).toFixed(0)}%)` : ''}` : null;
+    const request = payload?.request;
+    if (!dbg) {
+      return `<section class="admin-card admin-run-debug">
+        <h3>Run ${run.run_index != null ? run.run_index : i} — ${esc((run.query || '').substring(0, 80))}</h3>
+        <p class="admin-empty">No debug snapshot stored for this run.</p>
+      </section>`;
+    }
+    const label = run.run_index === 0 || (run.run_index == null && i === 0)
+      ? '<span class="admin-badge admin-badge-accent">initial</span>'
+      : `${badge(run.follow_up_type || 'follow-up', 'purple')} <span class="admin-muted">${esc(run.follow_up_label || '')}</span>`;
     return `
-        <section class="admin-card admin-run-debug">
+      <section class="admin-card admin-run-debug">
+        <div class="admin-run-debug-head">
           <h3>Run ${run.run_index != null ? run.run_index : i} — ${esc((run.query || '').substring(0, 80))}</h3>
-          <dl class="admin-kvs admin-kvs-two">
-            ${kv('Intent', intent)}
-            ${kv('Persona', dbg.rag?.persona?.name)}
-            ${kv('Use case', dbg.rag?.useCase?.name)}
-            ${kv('Products', (dbg.rag?.products || []).map((p) => `${p.name} ($${p.price})`).join(', '))}
-            ${kv('Features', (dbg.rag?.features || []).map((f) => f.name).join(', '))}
-            ${kv('Suggestions shown', (dbg.llm?.suggestions || []).map((s) => s.label).join(', '))}
-          </dl>
-
-          ${dbg.prompt ? `<details class="admin-collapsible">
-            <summary>Prompt (${dbg.prompt.systemLength || 0} + ${dbg.prompt.userLength || 0} chars)</summary>
-            <h4>System</h4>
-            <pre class="admin-pre">${esc(dbg.prompt.systemPrompt || '')}</pre>
-            <h4>User</h4>
-            <pre class="admin-pre">${esc(dbg.prompt.userMessage || '')}</pre>
-          </details>` : ''}
-
-          ${dbg.llm?.rawOutput ? `<details class="admin-collapsible">
-            <summary>Raw LLM output (${dbg.llm.rawOutput.length} chars)</summary>
-            <pre class="admin-pre">${esc(dbg.llm.rawOutput)}</pre>
-          </details>` : ''}
-        </section>`;
+          <div class="admin-badges">${label}</div>
+        </div>
+        ${renderOverviewSection(dbg, run)}
+        ${renderSessionContextSection(request)}
+        ${renderBehaviorSection(dbg.behaviorAnalysis)}
+        ${renderPipelineStepsSection(dbg.timings)}
+        ${renderRagSection(dbg.rag)}
+        ${renderSuggestionsSection(dbg.llm?.suggestions)}
+        ${renderPromptSection(dbg.prompt)}
+        ${renderLlmOutputSection(dbg.llm)}
+      </section>`;
   }).join('')}
   `;
 }
