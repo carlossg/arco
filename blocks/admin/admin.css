@@ -1,0 +1,802 @@
+/* Admin block — session & page browser, Arco editorial palette */
+
+.admin {
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--text-color);
+  font-size: var(--body-font-size-s);
+  line-height: 1.55;
+}
+
+.admin .admin-shell {
+  background: var(--light-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+
+.admin .admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--text-color);
+  color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.admin .admin-brand {
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin .admin-brand strong {
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+.admin .admin-header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin .admin-btn {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--accent-color);
+  color: var(--light-color);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.admin .admin-btn:hover {
+  background: var(--link-hover-color);
+}
+
+.admin .admin-btn-ghost {
+  background: transparent;
+  border-color: rgb(255 255 255 / 30%);
+  color: var(--background-color);
+}
+
+.admin .admin-btn-ghost:hover {
+  background: rgb(255 255 255 / 10%);
+  border-color: rgb(255 255 255 / 60%);
+}
+
+/* ── View container ──────────────────────────────────────────── */
+
+.admin .admin-view {
+  padding: 1.5rem;
+}
+
+@media (width >= 900px) {
+  .admin .admin-view {
+    padding: 2rem 2.5rem;
+  }
+}
+
+.admin .admin-crumbs {
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.admin .admin-crumbs a {
+  color: var(--muted-color);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+/* ── Toolbar / header area inside views ──────────────────────── */
+
+.admin .admin-toolbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.admin .admin-toolbar h2 {
+  margin: 0;
+  font-size: var(--heading-font-size-m);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.admin .admin-page-title {
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin .admin-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ── Stat strip ──────────────────────────────────────────────── */
+
+.admin .admin-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.admin .admin-stats-strip {
+  background: var(--background-color);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.admin .admin-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin .admin-stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  line-height: 1.1;
+}
+
+.admin .admin-stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-color);
+}
+
+.admin .admin-toolbar .admin-stat-value {
+  font-size: 0.85rem;
+  color: var(--text-color);
+}
+
+/* ── Tabs ────────────────────────────────────────────────────── */
+
+.admin .admin-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.admin .admin-tabs a {
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--muted-color);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.admin .admin-tabs a:hover {
+  color: var(--text-color);
+}
+
+.admin .admin-tabs a.is-active {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+}
+
+.admin .admin-crumbs a:hover {
+  color: var(--accent-color);
+}
+
+/* ── Cards ───────────────────────────────────────────────────── */
+
+.admin .admin-card {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.admin .admin-card > h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-color);
+  font-weight: 600;
+}
+
+.admin .admin-card > h4 {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-color);
+  font-weight: 600;
+}
+
+.admin .admin-collapsible > summary {
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-color);
+  font-weight: 600;
+  list-style: none;
+}
+
+.admin .admin-collapsible > summary::before {
+  content: '▸ ';
+  display: inline-block;
+  width: 1em;
+  transition: transform var(--transition);
+}
+
+.admin .admin-collapsible[open] > summary::before {
+  content: '▾ ';
+}
+
+.admin .admin-collapsible > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ── Key-value pairs ─────────────────────────────────────────── */
+
+.admin .admin-kvs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.admin .admin-kvs-two {
+  grid-template-columns: 1fr;
+}
+
+@media (width >= 700px) {
+  .admin .admin-kvs-two {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem 2rem;
+  }
+}
+
+.admin .admin-kv {
+  display: grid;
+  grid-template-columns: minmax(120px, 180px) 1fr;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.admin .admin-kv:last-child {
+  border-bottom: none;
+}
+
+.admin .admin-kv dt {
+  color: var(--muted-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.7rem;
+}
+
+.admin .admin-kv dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--text-color);
+}
+
+/* ── Table ───────────────────────────────────────────────────── */
+
+.admin .admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin .admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.admin .admin-table th {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-color);
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.admin .admin-table td {
+  padding: 0.7rem 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
+}
+
+.admin .admin-table tr[data-href] {
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.admin .admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin .admin-table tr[data-href]:hover td {
+  background: var(--background-color);
+}
+
+.admin .admin-mono {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.78rem;
+}
+
+.admin .admin-muted {
+  color: var(--muted-color);
+  font-size: 0.78rem;
+}
+
+.admin .admin-ua {
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted-color);
+  font-size: 0.75rem;
+}
+
+.admin .admin-query {
+  max-width: 340px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin .admin-links {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 1rem;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.admin .admin-links a {
+  font-size: 0.85rem;
+}
+
+.admin .admin-links a:hover {
+  color: var(--accent-color);
+}
+
+/* ── Badges ──────────────────────────────────────────────────── */
+
+.admin .admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+.admin .admin-badge-accent {
+  background: rgb(181 101 29 / 14%);
+  color: var(--accent-color);
+}
+
+.admin .admin-badge-purple {
+  background: rgb(124 58 237 / 14%);
+  color: #7c3aed;
+}
+
+.admin .admin-badge-warn {
+  background: rgb(234 179 8 / 18%);
+  color: #8c6d00;
+}
+
+.admin .admin-badge-ok {
+  background: rgb(34 197 94 / 16%);
+  color: #15803d;
+}
+
+.admin .admin-badge-muted {
+  background: var(--border-color);
+  color: var(--muted-color);
+}
+
+/* ── Blocks tab ──────────────────────────────────────────────── */
+
+.admin .admin-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin .admin-block {
+  background: var(--light-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin .admin-block summary {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  background: var(--background-color);
+  list-style: none;
+}
+
+.admin .admin-block summary::-webkit-details-marker {
+  display: none;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.admin .admin-block summary::before {
+  content: '▾ ';
+  color: var(--muted-color);
+}
+
+.admin .admin-block:not([open]) summary::before {
+  content: '▸ ';
+}
+
+.admin .admin-block-num {
+  font-family: ui-monospace, monospace;
+  color: var(--muted-color);
+  font-size: 0.75rem;
+}
+
+.admin .admin-block-tabs {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.admin .admin-tab-btn {
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.8rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--muted-color);
+  cursor: pointer;
+}
+
+.admin .admin-tab-btn:hover {
+  color: var(--text-color);
+}
+
+.admin .admin-tab-btn.is-active {
+  color: var(--accent-color);
+  border-color: var(--border-color);
+  background: var(--background-color);
+}
+
+.admin .admin-block-render {
+  padding: 1rem;
+  overflow: auto;
+}
+
+.admin .admin-block-source {
+  margin: 0;
+  padding: 1rem;
+  background: #1c2b35;
+  color: #e8e8e8;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 500px;
+  overflow: auto;
+}
+
+/* ── Live preview ────────────────────────────────────────────── */
+
+.admin .admin-preview-stage {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.admin .admin-preview-main {
+  padding: 1.5rem;
+  color: var(--text-color);
+}
+
+/* ── Misc ────────────────────────────────────────────────────── */
+
+.admin .admin-pre {
+  margin: 0.25rem 0;
+  padding: 0.75rem;
+  background: #1c2b35;
+  color: #e8e8e8;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  border-radius: 4px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.admin .admin-timing-steps {
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: var(--muted-color);
+  margin-top: 0.5rem;
+  line-break: anywhere;
+}
+
+.admin .admin-loading,
+.admin .admin-empty,
+.admin .admin-error {
+  padding: 2rem 0;
+  font-size: 0.85rem;
+  color: var(--muted-color);
+  text-align: center;
+}
+
+.admin .admin-error {
+  color: #b00020;
+}
+
+/* ── URL cell ────────────────────────────────────────────────── */
+
+.admin .admin-url {
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted-color);
+  font-size: 0.7rem;
+}
+
+/* ── Reconstruction: run divider ──────────────────────────── */
+
+.admin .admin-run-divider {
+  margin: 2rem 0;
+  padding: 0;
+  position: relative;
+  text-align: center;
+}
+
+.admin .admin-run-divider-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--border-color) 20%, var(--border-color) 80%, transparent 100%);
+  z-index: 0;
+}
+
+.admin .admin-run-divider-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--background-color);
+  padding: 0.35rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  position: relative;
+  z-index: 1;
+  color: var(--muted-color);
+}
+
+.admin .admin-run-divider-type {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: #7c3aed;
+  font-size: 0.68rem;
+}
+
+.admin .admin-run-divider-arrow {
+  color: var(--muted-color);
+}
+
+.admin .admin-run-divider-query {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* ── Follow-up chip markers (inline in reconstruction) ───── */
+
+.admin .admin-followup-marker {
+  margin: 1rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--light-color);
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+}
+
+.admin .admin-followup-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-color);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.admin .admin-followup-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin .admin-followup-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.8rem;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--text-color);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.admin .admin-followup-chip.is-clicked {
+  background: rgb(181 101 29 / 12%);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.admin .admin-followup-type {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.62rem;
+  color: var(--muted-color);
+  font-weight: 600;
+}
+
+.admin .admin-followup-chip.is-clicked .admin-followup-type {
+  color: var(--accent-color);
+}
+
+.admin .admin-followup-text {
+  color: inherit;
+}
+
+.admin .admin-followup-arrow {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.5rem;
+  background: var(--accent-color);
+  color: var(--light-color);
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── Run timeline ────────────────────────────────────────── */
+
+.admin .admin-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin .admin-timeline-item {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.admin .admin-timeline-item:first-child {
+  border-top: none;
+  padding-top: 0.5rem;
+}
+
+.admin .admin-timeline-marker {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--accent-color);
+  color: var(--light-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.admin .admin-timeline-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.admin .admin-timeline-query {
+  margin: 0 0 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.admin .admin-timeline-title {
+  margin: 0 0 0.5rem;
+  font-style: italic;
+}
+
+.admin .admin-timeline-options {
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--background-color);
+  border-radius: 8px;
+}
+
+.admin .admin-timeline-options-label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.68rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin .admin-timeline-details {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.admin .admin-timeline-details summary {
+  cursor: pointer;
+  color: var(--muted-color);
+  list-style: none;
+  font-size: 0.75rem;
+}
+
+.admin .admin-timeline-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin .admin-timeline-details[open] summary {
+  margin-bottom: 0.5rem;
+}
+
+.admin .admin-run-debug h3 {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  font-weight: 600;
+}

@@ -162,11 +162,17 @@ export default function createSpeculativeEngine(config) {
     try {
       const sessionContext = config.getSessionContext();
       const sessionId = config.getSessionId ? config.getSessionId() : null;
+      const pageId = config.getPageId ? config.getPageId() : null;
+      const pageUrl = config.getPageUrl ? config.getPageUrl() : null;
+      const runId = crypto.randomUUID();
       const body = {
         query: speculation.query,
         speculative: true,
         context: sessionContext,
         ...(sessionId ? { sessionId } : {}),
+        ...(pageId ? { pageId } : {}),
+        ...(pageUrl ? { pageUrl } : {}),
+        runId,
         ...(speculation.followUp ? { followUp: speculation.followUp } : {}),
       };
 

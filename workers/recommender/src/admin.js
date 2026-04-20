@@ -1,7 +1,13 @@
 /**
  * Admin Interface — session browser for the Arco recommender demo.
  *
- * Routes (all require HTTP Basic Auth — username: admin, password: ADMIN_TOKEN):
+ * Auth flow:
+ *   1. GET /admin with no cookie → 401 WWW-Authenticate: Basic (browser shows dialog)
+ *   2. Browser retries with Authorization: Basic header → server validates, sets
+ *      HttpOnly session cookie, serves HTML
+ *   3. SPA fetch() calls to /api/admin/* carry the cookie automatically (same-origin)
+ *
+ * Routes:
  *   GET /admin                           → self-contained HTML SPA
  *   GET /api/admin/sessions              → paginated session list
  *   GET /api/admin/sessions/:id          → session detail + all pages
@@ -12,45 +18,73 @@ import { CORS_HEADERS } from './pipeline/context.js';
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
-function checkAuth(request, env) {
-  if (!env.ADMIN_TOKEN) return true; // No token configured → open (dev)
+const COOKIE_NAME = 'arco-admin-session';
+const COOKIE_MAX_AGE = 60 * 60 * 24; // 24 hours
+
+/**
+ * Derive a session token from ADMIN_TOKEN using HMAC-SHA256.
+ * Stateless — recomputed on every check, no storage needed.
+ */
+async function deriveSessionToken(adminToken) {
+  const key = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(adminToken),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  );
+  const msg = new TextEncoder().encode('arco-admin-session-v1');
+  const sig = await crypto.subtle.sign('HMAC', key, msg);
+  return Array.from(new Uint8Array(sig))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+function parseCookies(request) {
+  const header = request.headers.get('cookie') || '';
+  return Object.fromEntries(
+    header.split(';').map((c) => c.trim().split('=')).filter((p) => p.length === 2),
+  );
+}
+
+function checkBasicAuth(request, env) {
+  if (!env.ADMIN_TOKEN) return true;
   const auth = request.headers.get('authorization') || '';
   if (!auth.startsWith('Basic ')) return false;
   let decoded;
-  try {
-    decoded = atob(auth.slice(6));
-  } catch {
-    return false;
-  }
+  try { decoded = atob(auth.slice(6)); } catch { return false; }
   const colon = decoded.indexOf(':');
   if (colon === -1) return false;
-  const username = decoded.slice(0, colon);
-  const password = decoded.slice(colon + 1);
-  return username === 'admin' && password === env.ADMIN_TOKEN;
+  return decoded.slice(0, colon) === 'admin' && decoded.slice(colon + 1) === env.ADMIN_TOKEN;
 }
 
-function unauthorized(forHtml) {
-  const realm = 'Arco Admin';
-  if (forHtml) {
-    return new Response('Unauthorized', {
-      status: 401,
-      headers: { 'WWW-Authenticate': `Basic realm="${realm}"`, 'Content-Type': 'text/plain' },
-    });
-  }
+async function checkCookieAuth(request, env) {
+  if (!env.ADMIN_TOKEN) return true;
+  const cookies = parseCookies(request);
+  const sessionToken = cookies[COOKIE_NAME];
+  if (!sessionToken) return false;
+  const expected = await deriveSessionToken(env.ADMIN_TOKEN);
+  return sessionToken === expected;
+}
+
+function wwwAuthenticate() {
+  return new Response('Unauthorized', {
+    status: 401,
+    headers: { 'WWW-Authenticate': 'Basic realm="Arco Admin"', 'Content-Type': 'text/plain' },
+  });
+}
+
+function unauthorized() {
   return new Response(JSON.stringify({ error: 'Unauthorized' }), {
     status: 401,
-    headers: {
-      ...CORS_HEADERS,
-      'Content-Type': 'application/json',
-      'WWW-Authenticate': `Basic realm="${realm}"`,
-    },
+    headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
   });
 }
 
 // ─── API Handlers ─────────────────────────────────────────────────────────────
 
 export async function handleAdminSessions(request, env) {
-  if (!checkAuth(request, env)) return unauthorized(false);
+  if (!await checkCookieAuth(request, env) && !checkBasicAuth(request, env)) return unauthorized();
   const url = new URL(request.url);
   const limit = Math.min(parseInt(url.searchParams.get('limit') || '50', 10), 200);
   const offset = parseInt(url.searchParams.get('offset') || '0', 10);
@@ -74,8 +108,12 @@ export async function handleAdminSessions(request, env) {
   }), { headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } });
 }
 
+/**
+ * Session detail → returns session metadata plus logical pages (grouped by page_id).
+ * Each page is a URL visit and aggregates its runs (initial + follow-up clicks).
+ */
 export async function handleAdminSession(request, env, sessionId) {
-  if (!checkAuth(request, env)) return unauthorized(false);
+  if (!await checkCookieAuth(request, env) && !checkBasicAuth(request, env)) return unauthorized();
 
   const { results: [session] } = await env.SESSIONS_DB.prepare(
     'SELECT * FROM sessions WHERE id = ?1',
@@ -87,44 +125,134 @@ export async function handleAdminSession(request, env, sessionId) {
     });
   }
 
-  const { results: pages } = await env.SESSIONS_DB.prepare(`
-    SELECT id, query, title, intent_type, journey_stage, flow_id, follow_up_type,
-           block_count, created_at, duration_ms, input_tokens, output_tokens,
-           da_path, preview_url, live_url
+  // Aggregate runs into pages. Rows without page_id (pre-migration) are each
+  // their own single-run page.
+  const { results: rows } = await env.SESSIONS_DB.prepare(`
+    SELECT id, page_id, page_url, run_index, query, title, intent_type,
+           follow_up_type, follow_up_label, block_count, created_at,
+           duration_ms, input_tokens, output_tokens
     FROM generated_pages
     WHERE session_id = ?1
     ORDER BY created_at ASC
   `).bind(sessionId).all();
+
+  const pageMap = new Map();
+  rows.forEach((r) => {
+    const pid = r.page_id || r.id;
+    if (!pageMap.has(pid)) {
+      pageMap.set(pid, {
+        pageId: pid,
+        pageUrl: r.page_url,
+        initialQuery: r.query,
+        initialIntent: r.intent_type,
+        initialTitle: r.title,
+        firstRunAt: r.created_at,
+        lastRunAt: r.created_at,
+        runCount: 0,
+        totalDurationMs: 0,
+        totalInputTokens: 0,
+        totalOutputTokens: 0,
+        runs: [],
+      });
+    }
+    const p = pageMap.get(pid);
+    p.runCount += 1;
+    p.lastRunAt = Math.max(p.lastRunAt, r.created_at);
+    p.totalDurationMs += r.duration_ms || 0;
+    p.totalInputTokens += r.input_tokens || 0;
+    p.totalOutputTokens += r.output_tokens || 0;
+    p.runs.push({
+      runId: r.id,
+      runIndex: r.run_index,
+      query: r.query,
+      title: r.title,
+      intent: r.intent_type,
+      followUpType: r.follow_up_type,
+      followUpLabel: r.follow_up_label,
+      blockCount: r.block_count,
+      durationMs: r.duration_ms,
+      inputTokens: r.input_tokens,
+      outputTokens: r.output_tokens,
+      createdAt: r.created_at,
+    });
+  });
+
+  const pages = [...pageMap.values()].sort((a, b) => b.lastRunAt - a.lastRunAt);
 
   return new Response(JSON.stringify({ session, pages }), {
     headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
   });
 }
 
-export async function handleAdminPage(request, env, pageId) {
-  if (!checkAuth(request, env)) return unauthorized(false);
+/**
+ * Page detail — returns a logical page (grouped by page_id) with all its runs
+ * and the full KV payloads needed to reconstruct the page as the user saw it.
+ */
+export async function handleAdminPageGroup(request, env, pageId) {
+  if (!await checkCookieAuth(request, env) && !checkBasicAuth(request, env)) return unauthorized();
 
-  const { results: [page] } = await env.SESSIONS_DB.prepare(
-    'SELECT * FROM generated_pages WHERE id = ?1',
-  ).bind(pageId).all();
+  // Fetch all runs grouped by page_id. Fall back to runId = pageId for rows
+  // without page_id (legacy data before 0002 migration).
+  const { results: runs } = await env.SESSIONS_DB.prepare(`
+    SELECT *
+    FROM generated_pages
+    WHERE page_id = ?1 OR (page_id IS NULL AND id = ?1)
+    ORDER BY run_index ASC, created_at ASC
+  `).bind(pageId).all();
 
-  if (!page) {
+  if (!runs.length) {
     return new Response(JSON.stringify({ error: 'Page not found' }), {
       status: 404, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
     });
   }
 
-  const kvPayload = await env.SESSION_STORE.get(`page:${pageId}`, 'json');
+  // Fetch each run's KV payload in parallel.
+  const payloads = await Promise.all(
+    runs.map((r) => env.SESSION_STORE.get(`page:${r.id}`, 'json')),
+  );
 
-  return new Response(JSON.stringify({ page, payload: kvPayload }), {
+  const runsWithPayloads = runs.map((r, i) => ({ run: r, payload: payloads[i] }));
+
+  return new Response(JSON.stringify({
+    pageId,
+    sessionId: runs[0].session_id,
+    pageUrl: runs[0].page_url,
+    runs: runsWithPayloads,
+  }), { headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } });
+}
+
+/**
+ * Run detail — individual generation. Equivalent to the legacy
+ * `/api/admin/pages/:id` endpoint.
+ */
+export async function handleAdminRun(request, env, runId) {
+  if (!await checkCookieAuth(request, env) && !checkBasicAuth(request, env)) return unauthorized();
+
+  const { results: [run] } = await env.SESSIONS_DB.prepare(
+    'SELECT * FROM generated_pages WHERE id = ?1',
+  ).bind(runId).all();
+
+  if (!run) {
+    return new Response(JSON.stringify({ error: 'Run not found' }), {
+      status: 404, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+    });
+  }
+
+  const payload = await env.SESSION_STORE.get(`page:${runId}`, 'json');
+
+  return new Response(JSON.stringify({ run, payload }), {
     headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
   });
 }
 
 // ─── Admin SPA HTML ───────────────────────────────────────────────────────────
 
-export function handleAdminUI(request, env) {
-  if (!checkAuth(request, env)) return unauthorized(true);
+export async function handleAdminUI(request, env) {
+  // Check cookie first (subsequent visits), then Basic Auth (first login)
+  const hasCookie = await checkCookieAuth(request, env);
+  if (!hasCookie) {
+    if (!checkBasicAuth(request, env)) return wwwAuthenticate();
+  }
   const url = new URL(request.url);
   const baseUrl = `${url.origin}`;
 
@@ -415,10 +543,10 @@ async function renderSession(el, sessionId) {
 async function renderPage(el, pageId) {
   el.innerHTML = '<div class="loading">Loading page…</div>';
   let data;
-  try { data = await api('/api/admin/pages/' + pageId); }
+  try { data = await api('/api/admin/runs/' + pageId); }
   catch(e) { el.innerHTML = '<div class="loading" style="color:var(--red)">Error: ' + esc(e.message) + '</div>'; return; }
 
-  const p = data.page;
+  const p = data.run || data.page;  // /api/admin/runs/:id returns { run, payload }
   const payload = data.payload;
   el.innerHTML = '';
 
@@ -480,7 +608,7 @@ async function renderPage(el, pageId) {
       item.className = 'block-item';
       const headerId = 'block-body-' + block.index;
       // eslint-disable-next-line no-useless-escape
-      item.innerHTML = '<div class="block-header" onclick="toggleBlock(\'' + headerId + '\')">'
+      item.innerHTML = '<div class="block-header" onclick="toggleBlock(\\'' + headerId + '\\')">'
         + '<span class="block-num">#' + block.index + '</span>'
         + '<span class="block-type">' + badge(block.blockType, 'blue') + '</span>'
         + '<span class="toggle" id="' + headerId + '-arrow">▼</span>'
@@ -494,9 +622,9 @@ async function renderPage(el, pageId) {
       // eslint-disable-next-line no-useless-escape
       body.innerHTML = '<div style="padding:8px 12px;border-bottom:1px solid var(--border);display:flex;gap:8px">'
         // eslint-disable-next-line no-useless-escape
-        + '<button onclick="showTab(\'' + headerId + '\',\'render\')" id="' + headerId + '-tab-render" class="tab-btn active-tab">Rendered</button>'
+        + '<button onclick="showTab(\\'' + headerId + '\\',\\'render\\')" id="' + headerId + '-tab-render" class="tab-btn active-tab">Rendered</button>'
         // eslint-disable-next-line no-useless-escape
-        + '<button onclick="showTab(\'' + headerId + '\',\'source\')" id="' + headerId + '-tab-source" class="tab-btn">HTML Source</button>'
+        + '<button onclick="showTab(\\'' + headerId + '\\',\\'source\\')" id="' + headerId + '-tab-source" class="tab-btn">HTML Source</button>'
         + '</div>'
         + '<div id="' + headerId + '-render" class="block-render">' + block.html + '</div>'
         + '<div id="' + headerId + '-source" style="display:none" class="block-preview"><pre>' + esc(block.html) + '</pre></div>';
@@ -622,13 +750,31 @@ document.head.insertAdjacentHTML('beforeend', '<style>.tab-btn{background:none;b
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
-route();
+try {
+  route();
+} catch(e) {
+  const v = document.getElementById('view');
+  if (v) v.innerHTML = '<div class="loading" style="color:var(--red)">Init error: ' + String(e) + '</div>';
+  console.error('Admin init error:', e);
+}
 </script>
 </body>
 </html>`;
   /* eslint-enable no-useless-escape */
 
-  return new Response(html, {
-    headers: { 'Content-Type': 'text/html;charset=utf-8', 'Cache-Control': 'no-store' },
+  const headers = new Headers({
+    'Content-Type': 'text/html;charset=utf-8',
+    'Cache-Control': 'no-store',
   });
+
+  // Set session cookie when logging in via Basic Auth (not already cookie-authed)
+  if (!hasCookie && env.ADMIN_TOKEN) {
+    const token = await deriveSessionToken(env.ADMIN_TOKEN);
+    headers.set(
+      'Set-Cookie',
+      `${COOKIE_NAME}=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=${COOKIE_MAX_AGE}; Path=/`,
+    );
+  }
+
+  return new Response(html, { headers });
 }

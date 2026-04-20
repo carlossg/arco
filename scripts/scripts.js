@@ -233,20 +233,35 @@ const PREFETCH_MAX_AGE_MS = 60000;
 const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
 
 /**
- * Return a stable session ID for this browser, refreshing after 24 hours.
- * Stored in localStorage so it persists across tabs and page reloads.
+ * Return a stable session ID for this browser tab.
+ * Stored in sessionStorage so each tab/window has its own UUID — a new tab
+ * or window means a fresh session, matching the user's mental model.
  */
 function getOrCreateSessionId() {
   const KEY = 'arco-session-id';
-  const EXPIRY_MS = 24 * 60 * 60 * 1000;
   try {
-    const stored = JSON.parse(localStorage.getItem(KEY) || 'null');
-    if (stored && Date.now() - stored.ts < EXPIRY_MS) return stored.id;
-    const id = crypto.randomUUID();
-    localStorage.setItem(KEY, JSON.stringify({ id, ts: Date.now() }));
+    let id = sessionStorage.getItem(KEY);
+    if (!id) {
+      id = crypto.randomUUID();
+      sessionStorage.setItem(KEY, id);
+    }
     return id;
   } catch { return null; }
 }
+
+// Module-level page id — resets on every new recommender navigation.
+// All runs (initial + follow-up clicks) for a single ?q= visit share this id.
+let currentPageId = null;
+let currentPageUrl = null;
+
+function newPageId(pageUrl) {
+  currentPageId = crypto.randomUUID();
+  currentPageUrl = pageUrl;
+  return currentPageId;
+}
+
+function getCurrentPageId() { return currentPageId; }
+function getCurrentPageUrl() { return currentPageUrl; }
 
 /**
  * Check if this is an Arco Recommender request (has ?q= or ?query= param)
@@ -551,8 +566,17 @@ async function streamAndAppendContent(query, container, options = {}) {
   }
 
   const baseUrl = getAPIEndpoint('recommender');
-  const body = { query, context: sessionContext, sessionId: getOrCreateSessionId() };
+  const runId = crypto.randomUUID();
+  const body = {
+    query,
+    context: sessionContext,
+    sessionId: getOrCreateSessionId(),
+    pageId: getCurrentPageId(),
+    pageUrl: getCurrentPageUrl(),
+    runId,
+  };
   if (options.followUp) body.followUp = options.followUp;
+  if (options.parentRunId) body.parentRunId = options.parentRunId;
 
   const response = await fetch(`${baseUrl}/api/generate`, {
     method: 'POST',
@@ -657,6 +681,8 @@ function attachSpeculativeEngine(container) {
       apiEndpoint: getAPIEndpoint('recommender'),
       getSessionContext: () => SessionContextManager.buildContextParam(),
       getSessionId: getOrCreateSessionId,
+      getPageId: getCurrentPageId,
+      getPageUrl: getCurrentPageUrl,
     });
     window.arcoSpeculativeEngine.attachToChips(chips);
   });
@@ -784,6 +810,9 @@ async function renderArcoRecommenderPage(explicitQuery) {
   const params = new URLSearchParams(window.location.search);
   const query = explicitQuery || params.get('q') || params.get('query');
 
+  // Start a new logical page — shared by the initial run and any follow-up clicks
+  newPageId(window.location.pathname + window.location.search);
+
   // Check for prefetched quiz data (one-time use)
   try {
     const raw = sessionStorage.getItem(PREFETCH_KEY);
@@ -858,7 +887,11 @@ async function transitionToRecommender(query) {
   const urlParams = new URLSearchParams({ q: query });
   const currentPreset = new URLSearchParams(window.location.search).get('preset');
   if (currentPreset) urlParams.set('preset', currentPreset);
-  window.history.pushState({ arcoRecommender: true }, '', `/?${urlParams.toString()}`);
+  const newUrl = `/?${urlParams.toString()}`;
+  window.history.pushState({ arcoRecommender: true }, '', newUrl);
+
+  // New navigation → new logical page
+  newPageId(newUrl);
 
   // Enter recommender mode
   document.body.classList.add('arco-recommender-mode');

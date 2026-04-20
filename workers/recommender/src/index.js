@@ -14,7 +14,8 @@ import { saveGeneration } from './storage.js';
 import {
   handleAdminSessions,
   handleAdminSession,
-  handleAdminPage,
+  handleAdminPageGroup,
+  handleAdminRun,
   handleAdminUI,
 } from './admin.js';
 
@@ -127,8 +128,13 @@ async function handleGenerate(request, env) {
       // Awaited here so the worker stays alive long enough to finish the writes.
       if (validSessionId) {
         console.log(`[Generate] executeFlow done, calling saveGeneration for session=${validSessionId}`);
-        const pageId = await saveGeneration(ctx, env, validSessionId);
-        console.log(`[Generate] saveGeneration result: pageId=${pageId || 'null'}`);
+        const runId = await saveGeneration(ctx, env, validSessionId, {
+          pageId: body.pageId || null,
+          pageUrl: body.pageUrl || null,
+          runId: body.runId || null,
+          parentRunId: body.parentRunId || null,
+        });
+        console.log(`[Generate] saveGeneration result: runId=${runId || 'null'}`);
       } else {
         console.log('[Generate] skipping saveGeneration: no validSessionId');
       }
@@ -369,7 +375,11 @@ export default {
     }
     const pageMatch = url.pathname.match(/^\/api\/admin\/pages\/([^/]+)$/);
     if (pageMatch && request.method === 'GET') {
-      return handleAdminPage(request, env, pageMatch[1]);
+      return handleAdminPageGroup(request, env, pageMatch[1]);
+    }
+    const runMatch = url.pathname.match(/^\/api\/admin\/runs\/([^/]+)$/);
+    if (runMatch && request.method === 'GET') {
+      return handleAdminRun(request, env, runMatch[1]);
     }
 
     return new Response('Not Found', { status: 404, headers: CORS_HEADERS });

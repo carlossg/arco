@@ -195,6 +195,95 @@ On `GET /generate`, the server checks `DAClient.exists(path)` before starting th
 
 Key files for caching: `scripts/scripts.js` (deterministic `generateSlug`, `cache-hit` handler), `workers/recommender/src/index.js` (cache check in `/api/generate`).
 
+### Session Storage & Admin Interface
+
+Every completed recommender generation is persisted to two Cloudflare-managed stores:
+
+**Hierarchy** — three levels:
+
+```
+session (one browser tab — sessionStorage)
+  └─ page (one ?q= URL visit — shared across initial + follow-up runs)
+      └─ run (one /api/generate call — initial or a follow-up click)
+```
+
+**D1 (SQLite) — `arco-sessions` database** — fast, queryable metadata. The `generated_pages` table is the **runs** table:
+
+```sql
+sessions(id, ip_hash, user_agent, first_seen, last_seen, page_count)
+generated_pages(id=runId, session_id, page_id, page_url, run_index, parent_run_id,
+                query, previous_queries, title, intent_type, journey_stage, flow_id,
+                follow_up_type, follow_up_label, follow_up_options, block_count,
+                created_at, duration_ms, input_tokens, output_tokens,
+                da_path, preview_url, live_url)
+```
+
+`page_id` groups all runs belonging to a single URL visit. `run_index` is 0 for the initial run and 1..N for each follow-up click. `follow_up_options` is a JSON array of the chips that were shown to the user on that run.
+
+**KV — `SESSION_STORE` namespace** — full payloads keyed by runId (legacy `page:{id}` prefix kept):
+
+```
+page:{runId}  →  { blocks: [{index, blockType, html}], followUpOptions, followUpClicked, debug, request }
+```
+
+The `debug` snapshot captures intent classification, RAG results (products, features, FAQs, recipes, hero images), behavior analysis, full system/user prompts, timings, LLM model + token counts, and raw LLM output.
+
+**Identifier lifecycle** (all generated client-side in `scripts/scripts.js`):
+- `sessionId` — UUID per browser tab (`sessionStorage`). A new tab/window = a new session.
+- `pageId` — UUID per `?q=` URL visit. Shared by the initial generation and every follow-up click on that page.
+- `runId` — UUID per `/api/generate` call.
+
+All three are sent in every request body along with `pageUrl` and optional `parentRunId` (the run whose follow-up chip was clicked).
+
+**Key storage files:**
+
+| File | Role |
+|------|------|
+| `workers/recommender/src/storage.js` | `saveGeneration(ctx, env, sessionId)` — called after `executeFlow` completes; writes D1 metadata + KV payload |
+| `workers/recommender/src/admin.js` | Admin route handlers + self-contained HTML SPA |
+| `workers/recommender/migrations/0001_sessions.sql` | D1 schema (run once via `wrangler d1 execute`) |
+
+**Admin interface** — `https://arco-recommender.franklin-prod.workers.dev/admin`
+
+Login: HTTP Basic Auth — username `admin`, password = `ADMIN_TOKEN` secret (set via `wrangler secret put ADMIN_TOKEN`).
+
+| View | URL | What it shows |
+|------|-----|---------------|
+| Sessions list | `#/` | All sessions ordered by last-active; session ID, timestamps, run count, user agent |
+| Session detail | `#/sessions/:id` | Pages (grouped by page_id) with initial query, URL, run count, total duration, tokens |
+| Page detail | `#/pages/:id` | Four tabs: **Overview** (metadata + totals), **Full page** (reconstructs every run plus inline follow-up chip markers showing what was presented and which chip was clicked), **Run timeline** (per-run breakdown with options shown + selected), **Debug** (per-run RAG/prompt/LLM output) |
+
+The admin EDS block lives at `blocks/admin/` and is also hosted at `drafts/admin.html` for local testing. The prior `/admin` HTML SPA endpoint on the worker still exists but is superseded by the block.
+
+**Direct API access** (useful for scripting or curl):
+
+```bash
+# All sessions (paginated)
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/sessions?limit=50&offset=0
+
+# Single session + its pages (grouped runs)
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/sessions/{sessionId}
+
+# Page (group of runs) with all KV payloads for reconstruction
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/pages/{pageId}
+
+# Single run detail (KV payload for one generation)
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/runs/{runId}
+```
+
+**Query D1 directly** (for ad-hoc analysis):
+
+```bash
+# Most active sessions
+wrangler d1 execute arco-sessions --command "SELECT id, page_count, first_seen, last_seen FROM sessions ORDER BY page_count DESC LIMIT 10"
+
+# Recent generations with intent and timing
+wrangler d1 execute arco-sessions --command "SELECT query, intent_type, journey_stage, duration_ms, input_tokens, output_tokens FROM generated_pages ORDER BY created_at DESC LIMIT 20"
+
+# Token usage summary
+wrangler d1 execute arco-sessions --command "SELECT SUM(input_tokens) as total_in, SUM(output_tokens) as total_out, COUNT(*) as pages FROM generated_pages"
+```
+
 ## Testing & Quality Assurance
 
 ### Performance
