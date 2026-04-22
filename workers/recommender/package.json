@@ -5,6 +5,10 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "deploy:branch": "./deploy-branch.sh",
+    "cleanup:branch": "./cleanup-branch.sh",
+    "list:branch:live": "node scripts/list-cf-workers.js",
+    "cleanup:merged": "node scripts/cleanup-merged-branches.js",
     "index-content": "node scripts/index-content.js",
     "upload-kv": "node scripts/upload-kv.js"
   },

@@ -323,6 +323,39 @@ With this information, you can construct URLs for the preview environment (same 
 6. A human reviewer will review the code, inspect the provided URL and merge the PR
 7. AEM Code Sync updates the main branch for production
 
+### Branch Workers (Recommender)
+
+When working on a feature branch that changes the recommender worker (`workers/recommender/`), deploy a branch-specific worker version so the feature preview uses your code instead of production.
+
+**How it works:** `wrangler versions upload --preview-alias` creates a new version of `arco-recommender` reachable at `https://{alias}-arco-recommender.franklin-prod.workers.dev`. All secrets and bindings (KV, D1, Vectorize, AI) are inherited from production automatically. The production worker at `arco-recommender.franklin-prod.workers.dev` is never affected.
+
+The frontend (`scripts/api-config.js`) auto-detects `*.aem.page` preview hostnames and routes to the branch worker. `*.aem.live` and `arco.coffee` always use production.
+
+**Commands** (run from `workers/recommender/`):
+
+```bash
+# Deploy current branch as a worker version with preview alias
+npm run deploy:branch
+
+# Deploy a specific branch by name
+./deploy-branch.sh my-branch-name
+
+# List all live branch workers
+npm run list:branch:live
+
+# Release the branch alias when done
+npm run cleanup:branch
+
+# Interactive cleanup of all merged branches (alias + worktree + local branch)
+npm run cleanup:merged
+```
+
+**Branch worker URL pattern:**
+- Branch `my-feature` → `https://my-feature-arco-recommender.franklin-prod.workers.dev`
+- Preview frontend → `https://my-feature--arco--froesef.aem.page/discover`
+
+Only deploy a branch worker when your changes touch `workers/recommender/`. Pure frontend changes don't need one.
+
 ## Troubleshooting
 
 ### Getting Help
