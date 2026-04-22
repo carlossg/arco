@@ -1,0 +1,36 @@
+Codemap Analysis Report — 2026-04-22
+=====================================
+
+Status: INITIAL GENERATION (no previous codemaps existed)
+
+Files Scanned: ~65 source files
+
+Architecture Summary:
+- AEM EDS frontend (vanilla JS/CSS) + Cloudflare Worker backend
+- AI recommender pipeline with 12 pipeline steps
+- Hybrid RAG: keyword matching + Cloudflare Vectorize semantic search
+- LLM: Cerebras gpt-oss-120b via Workers AI
+- Storage: D1 (metadata) + KV (payloads) + DA (generated pages)
+- Admin interface available as both EDS block and worker-hosted SPA
+
+Key Components Mapped:
+- 35 blocks in blocks/
+- 12 scripts in scripts/
+- 29 worker source files in workers/recommender/src/
+- 12 pipeline steps in workers/recommender/src/pipeline/steps/
+
+Notable Architecture Features:
+- Speculative prefetch engine (mouse deceleration heuristic)
+- Cache-first page serving via deterministic DA slugs
+- Session/Page/Run hierarchy (3 levels) tracked in D1
+- Three-phase page loading (eager/lazy/delayed)
+- Parallel pipeline steps for RAG retrieval
+
+Codemaps Generated:
+- docs/CODEMAPS/architecture.md — system diagram, service boundaries, data flow
+- docs/CODEMAPS/frontend.md — scripts, blocks, loading phases, session context
+- docs/CODEMAPS/backend.md — API routes, pipeline steps, worker source files
+- docs/CODEMAPS/data.md — D1 schema, KV structure, sessionStorage keys
+- docs/CODEMAPS/dependencies.md — external services, secrets, integration contracts
+
+Staleness Warnings: N/A (first generation)
