@@ -176,9 +176,14 @@ export default async function decorate(block) {
 
   rows.forEach((row) => {
     const testimonial = parseTestimonial(row);
+    // Skip rows that aren't actual testimonials — e.g. the heading-only Row 1
+    // the recommender block-guide asks for, which otherwise renders as a card
+    // containing just the section label.
+    if (!testimonial.quote && !testimonial.picture) return;
     ul.append(buildCard(testimonial));
   });
 
   block.textContent = '';
+  if (!ul.children.length) return;
   block.append(ul);
 }

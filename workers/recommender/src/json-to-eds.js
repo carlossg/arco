@@ -135,6 +135,66 @@ function sectionMetaToHtml(meta) {
 }
 
 /**
+ * A row is heading-only when its single cell contains only heading items.
+ * The testimonials block-guide tells the LLM to emit such a row as the section
+ * label, but testimonials.js doesn't treat it specially — it becomes a card
+ * with no quote. Stripping these rows prevents that.
+ */
+function isHeadingOnlyRow(row) {
+  if (!Array.isArray(row) || row.length !== 1) return false;
+  const cell = row[0];
+  if (!Array.isArray(cell) || cell.length === 0) return false;
+  return cell.every((item) => item && /^h[1-6]$/.test(item.type));
+}
+
+/**
+ * Is this a substantive quote paragraph? Rating digits (1–5), attribution
+ * lines ("Purchased: …"), and star-only paragraphs are skeleton fragments,
+ * not the actual quote.
+ */
+function isQuoteParagraph(item) {
+  if (!item || item.type !== 'p') return false;
+  const text = (item.text || '').trim();
+  if (!text) return false;
+  if (/^[1-5]$/.test(text)) return false;
+  if (/^[★☆\s]+$/.test(text)) return false;
+  if (/^purchased:/i.test(text)) return false;
+  return true;
+}
+
+/**
+ * Does a testimonial row carry a real quote?
+ */
+function testimonialRowHasQuote(row) {
+  if (!Array.isArray(row)) return false;
+  return row.some((cell) => Array.isArray(cell) && cell.some(isQuoteParagraph));
+}
+
+/**
+ * Strip empty testimonial rows and drop the section entirely when nothing useful
+ * remains. Returns the cleaned section, or null to signal "skip this section".
+ */
+function sanitizeTestimonialsSection(section) {
+  const kept = section.rows.filter((row) => (
+    isHeadingOnlyRow(row) || testimonialRowHasQuote(row)
+  ));
+  const testimonialCount = kept.filter(testimonialRowHasQuote).length;
+  if (testimonialCount === 0) return null;
+  return { ...section, rows: kept };
+}
+
+/**
+ * Post-generation sanity check for block content. Strips malformed rows
+ * (e.g. empty testimonials) and returns null to signal the whole section
+ * should be skipped. Extend per-block as new cases show up.
+ */
+export function sanitizeBlockContent(section) {
+  if (!section || !Array.isArray(section.rows)) return section;
+  if (section.block === 'testimonials') return sanitizeTestimonialsSection(section);
+  return section;
+}
+
+/**
  * Convert a JSON section object to pre-decoration EDS HTML string.
  *
  * Produces the same nested-div structure that AEM's transformer would:

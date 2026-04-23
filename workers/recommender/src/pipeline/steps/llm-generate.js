@@ -7,7 +7,7 @@
 // eslint-disable-next-line import/no-unresolved
 import Cerebras from '@cerebras/cerebras_cloud_sdk';
 import { writeEvent } from '../../analytics.js';
-import { sectionToHtml } from '../../json-to-eds.js';
+import { sectionToHtml, sanitizeBlockContent } from '../../json-to-eds.js';
 import {
   resolveTokens, normalizeProductUrls, getProductData, setHeroResult,
 } from '../../images.js';
@@ -19,9 +19,13 @@ import { unescapeHtml } from '../../da-persist.js';
 
 /**
  * Process a completed JSON section: convert to HTML, resolve tokens, sanitize.
+ * Returns '' when sanitizeBlockContent rejects the section (e.g. testimonials
+ * with no real quotes), letting the hasContent() caller skip it naturally.
  */
 export function processSection(section) {
-  let html = sectionToHtml(section);
+  const cleaned = sanitizeBlockContent(section);
+  if (!cleaned) return '';
+  let html = sectionToHtml(cleaned);
   html = resolveTokens(html);
   html = normalizeProductUrls(html);
   html = sanitizeHTML(html);
@@ -58,9 +62,18 @@ function extractFailedComments(html) {
 export function processSectionDetailed(section) {
   const debug = {};
 
+  // Step 0: block-level content sanitization (e.g. drop empty testimonials).
+  // Returning null here means the caller should skip the section entirely;
+  // we emit '' so the existing hasContent() check does that for us.
+  const cleaned = sanitizeBlockContent(section);
+  if (!cleaned) {
+    debug.skipped = 'empty-block-content';
+    return { html: '', debug };
+  }
+
   // Step 1: JSON → EDS HTML
   let t = Date.now();
-  let html = sectionToHtml(section);
+  let html = sectionToHtml(cleaned);
   debug.jsonToHtmlMs = Date.now() - t;
   const hrefsAfterJson = extractHrefs(html);
   const tokensFound = extractContentTokens(html);
