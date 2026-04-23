@@ -108,7 +108,7 @@ Follow this consultative flow:
 1. **NO BUY BUTTONS**: NEVER use suggestion type "buy". Only use "explore" and "compare" types.
 2. **PRODUCT LINKS**: All product links MUST use the URL from the product data (e.g., /products/espresso-machines/primo, /products/grinders/preciso). NEVER invent URLs.
 2a. **STORY & EXPERIENCE LINKS — TOKENS ONLY**: For article-excerpt, blog-card, and experience-cta blocks, every row MUST be a single {{story:SLUG}} or {{experience:SLUG}} token. NEVER hand-write /stories/..., /experiences/..., or /fragments/... hrefs in these blocks. NEVER invent slugs. Only use slugs that appear EXACTLY in the "Related Articles" / "Related Experiences" lists below. If neither list is provided, DO NOT emit any of these three block types — the post-processor will drop invalid rows and may drop the whole block.
-3. **COMPARISON TABLE**: ALWAYS include at least one comparison-table block comparing 2-3 products.
+3. **COMPARISON TABLE**: ALWAYS include at least one comparison-table block. Compare 2–3 products whose fit to the user's request is genuinely close. If only 1 product fits a specific feature request (see rule 11), compare it vs. the closest alternative and mark the missing feature with ✗ — do NOT pad the table with products that do not match the request.
 4. **INFORMATION GATHERING**: Suggestion buttons should subtly elicit user preferences:
    - Budget: "Show me something under $1,000" / "What's the best value?"
    - Skill level: "I'm a complete beginner" / "I want more control"
@@ -122,6 +122,12 @@ Follow this consultative flow:
 7. **ARCO ONLY**: NEVER compare Arco products with competitor brands (Breville, De'Longhi, Gaggia, La Marzocco, etc.). If the customer asks about competitors, respond with a single polite redirect block.
 8. **GRINDER PAIRING**: When recommending an espresso machine, always mention that a quality grinder matters. Suggest an appropriate Arco grinder pairing when relevant.
 9. **HOBBY TIPS BLOCK**: When the user's query or browsing context mentions a sport, hobby, or lifestyle activity (e.g. running, cycling, yoga, hiking, climbing, photography, gaming, cooking), include a \`text\` block with coffee tips tailored to that activity. Use a heading like "Coffee Tips for Runners", followed by a one-sentence intro paragraph connecting espresso to that hobby, then 3–5 bullet points with actionable, specific advice (e.g. timing, roast choice, hydration, machine speed). This block shows Arco understands their lifestyle, not just their equipment.
+11. **FEATURE-SPECIFIC QUERIES — MATCH BEFORE YOU RECOMMEND**: When the user asks for a specific hardware feature (touchscreen, auto milk frother, built-in grinder, dual/triple boiler, flow control, pressure profiling, plumb-in, manual lever, PID, rotary pump, etc.), FIRST scan the product catalog above and identify which machines actually have that feature. Then:
+   - **Lead with a machine that actually has the feature.** Never recommend a machine that lacks the requested feature as the primary pick.
+   - **Scope the comparison-table to matching machines.** If 2+ machines match, compare only those. If exactly 1 machine matches, make that the hero and use the comparison-table to show it vs. the closest alternative while clearly marking the missing feature with ✗ in the alternative's column — and explain in the hero text that it is the only machine with that feature.
+   - **If zero machines match**, say so directly in a \`text\` block ("No Arco machine currently has feature X") and pivot to the closest capability (e.g. "but the Studio's flow paddle gives you manual control over extraction"). Do not fabricate the feature on a machine that lacks it.
+   - **Be explicit about trade-offs.** A feature request often implies a price point the user has not stated — mention it ("The only touchscreen machines are the Automatico at $1,899 and the Studio Pro at $3,499") so the user can self-select.
+   Known feature availability (source of truth, use the catalog above to verify): Touchscreen → Automatico, Studio Pro. Auto milk frother → Automatico. Built-in grinder → Automatico. Triple boiler → Studio Pro. Dual boiler → Doppio, Studio, Ufficio. Flow control → Studio, Studio Pro. Pressure profiling → Studio Pro. Plumb-in → Studio, Studio Pro, Ufficio. Manual lever → Viaggio.
 
 ${EDS_BLOCK_GUIDE}
 
@@ -179,6 +185,28 @@ Suggestions: "Which is better for lattes?", "Is the price difference worth it?"
 3. comparison-table — Models ranked for that use case
 4. cards — Relevant recipes
 Suggestions: "Compare top picks", "What grinder pairs well?", "Show me recipes"
+
+### Feature-Specific Query (e.g. "machine with touchscreen", "auto milk frother", "plumbed-in")
+Apply CRITICAL RULE 11 first. Build the page around the *set of machines that actually have the feature*, not the whole lineup.
+
+**When exactly ONE machine matches:**
+1. hero — Headline that names the match directly (e.g. "The Automatico: Our Only Touchscreen Machine"). Use {{product-image:ID}} of the matching machine. The hero copy should acknowledge it is the single option and why (what the feature enables, what it replaces).
+2. columns — Product spotlight on the matching machine with the feature called out explicitly.
+3. comparison-table — Matching machine vs. 1–2 closest alternatives. Use ✓ / ✗ for the requested feature so the gap is obvious. Set \`"data": {"recommended": "<matching machine name>"}\`.
+4. text — Brief "If you don't need [feature]" block pointing to the closest alternative for users who might rethink.
+Suggestions: Gather the next priority — "What if I don't need a touchscreen?", "Is the touchscreen worth $1,000 more?", "Do I need an auto milk frother too?", plus a budget probe.
+
+**When 2–3 machines match:**
+1. hero — Headline naming the feature (e.g. "Arco Machines with Touchscreens"). Use {{product-image:ID}} of the best overall pick from the matching set.
+2. columns — Spotlight the best-value match; explain how the others differ (price tier, extra features).
+3. comparison-table — Compare ONLY the matching machines against each other on the features that differentiate them. Do NOT pad with non-matching machines.
+Suggestions: Help the user choose between the matching machines — "Which is better for beginners?", "Is the [higher-priced one] worth it?", plus a feature-adjacent follow-up.
+
+**When ZERO machines match:**
+1. text — Honest answer: "No Arco machine currently has [feature]" followed by the closest capability (e.g. "The Studio's flow paddle gives you manual control over extraction pressure, which is the closest equivalent").
+2. columns — Spotlight the closest-capability machine.
+3. comparison-table — 2–3 machines with the closest capability, ranked.
+Suggestions: Reframe — "What does flow control do?", "Show me machines with the most control", plus a use-case probe.
 
 ### Hobby / Lifestyle Query
 When the query or browsing context mentions a sport, hobby, or lifestyle activity:
@@ -294,6 +322,79 @@ ${toolContent.map((t) => `- "${t.title}" | ${t.slug} | Type: ${t.type || t.categ
   }
 
   return prompt;
+}
+
+/**
+ * Detect hardware feature requests in the query and return the matching
+ * machines from the product catalog. Surfaced to the LLM so it grounds its
+ * recommendation in the actual matching set rather than padding with
+ * non-matching products.
+ *
+ * @param {string} query
+ * @returns {{feature: string, matches: Array<{name: string, id: string, price: number}>} | null}
+ */
+function detectFeatureRequest(query) {
+  const q = (query || '').toLowerCase();
+
+  const FEATURE_MAP = [
+    {
+      label: 'touchscreen',
+      phrases: ['touchscreen', 'touch screen', 'touch-screen', 'touch display'],
+      predicate: (p) => p.specs?.touchscreen === true,
+    },
+    {
+      label: 'auto milk frother',
+      phrases: ['auto milk', 'automatic milk', 'auto frother', 'milk frother', 'one-touch milk', 'automatic frothing'],
+      predicate: (p) => p.specs?.autoMilk === true,
+    },
+    {
+      label: 'built-in grinder',
+      phrases: ['built-in grinder', 'built in grinder', 'integrated grinder', 'machine with grinder', 'all-in-one'],
+      predicate: (p) => p.specs?.builtInGrinder === true,
+    },
+    {
+      label: 'dual boiler',
+      phrases: ['dual boiler', 'double boiler', 'two boilers'],
+      predicate: (p) => /^dual/i.test(p.specs?.boilers || ''),
+    },
+    {
+      label: 'triple boiler',
+      phrases: ['triple boiler', 'three boilers'],
+      predicate: (p) => /^triple/i.test(p.specs?.boilers || ''),
+    },
+    {
+      label: 'flow control',
+      phrases: ['flow control', 'flow profiling', 'flow paddle'],
+      predicate: (p) => p.specs?.flowControl === true,
+    },
+    {
+      label: 'pressure profiling',
+      phrases: ['pressure profiling', 'pressure profile', 'pressure curve'],
+      predicate: (p) => p.specs?.pressureProfiling === true,
+    },
+    {
+      label: 'plumb-in',
+      phrases: ['plumb-in', 'plumb in', 'plumbed-in', 'plumbed in', 'direct water line', 'water line'],
+      predicate: (p) => p.specs?.plumbedIn === true,
+    },
+    {
+      label: 'manual lever',
+      phrases: ['manual lever', 'lever machine', 'hand lever', 'no electricity'],
+      predicate: (p) => p.specs?.manual === true,
+    },
+    {
+      label: 'rotary pump',
+      phrases: ['rotary pump', 'quiet pump'],
+      predicate: (p) => /rotary/i.test(p.specs?.pumpType || ''),
+    },
+  ];
+
+  const hit = FEATURE_MAP.find(({ phrases }) => phrases.some((phrase) => q.includes(phrase)));
+  if (!hit) return null;
+  const matches = allProducts
+    .filter(hit.predicate)
+    .map((p) => ({ name: p.name, id: p.id, price: p.price }));
+  return { feature: hit.label, matches };
 }
 
 /**
@@ -429,6 +530,23 @@ Start with a hero that acknowledges what they've been exploring. The hero MUST i
     if (shownContent?.shownSections?.length > 0) {
       const blockTypes = [...new Set(shownContent.shownSections.map((s) => s.blockType))];
       msg += `\n\nBlock types already on the page (vary your approach, use different blocks): ${blockTypes.join(', ')}`;
+    }
+  }
+
+  // Deterministic feature-match: if the query asks for a specific hardware
+  // feature, tell the LLM exactly which machines have it so it can scope the
+  // recommendation and comparison-table to the matching set.
+  const featureMatch = detectFeatureRequest(query);
+  if (featureMatch) {
+    const { feature, matches } = featureMatch;
+    if (matches.length === 0) {
+      msg += `\n\n## Feature Match — "${feature}"\nZERO machines in the Arco catalog have this feature. Follow the "Feature-Specific Query / When ZERO machines match" scenario: open with a \`text\` block stating this directly, then pivot to the closest-capability machine. Do NOT fabricate the feature on any machine.`;
+    } else if (matches.length === 1) {
+      const only = matches[0];
+      msg += `\n\n## Feature Match — "${feature}"\nEXACTLY ONE machine in the Arco catalog has this feature: **${only.name}** ($${only.price}). Follow the "Feature-Specific Query / When exactly ONE machine matches" scenario. Make ${only.name} the hero. The comparison-table must mark the requested feature with ✗ in any alternative's column and set \`"data": {"recommended": "${only.name}"}\`. State plainly in the hero copy that this is the only Arco machine with ${feature}.`;
+    } else {
+      const list = matches.map((m) => `${m.name} ($${m.price})`).join(', ');
+      msg += `\n\n## Feature Match — "${feature}"\nMachines with this feature: ${list}. Follow the "Feature-Specific Query / When 2–3 machines match" scenario. The comparison-table must include ONLY these machines — do NOT add a non-matching machine to pad the table.`;
     }
   }
 
