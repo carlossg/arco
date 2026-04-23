@@ -21,6 +21,46 @@ import { BRAND_VOICE } from './brand-voice.js';
 
 const allProducts = productsData.data || [];
 const allAccessories = accessoriesData.data || [];
+const productsById = new Map(allProducts.map((p) => [p.id, p]));
+
+/**
+ * Summarize a product ID with the hardware facts that drive follow-up
+ * reasoning: whether it includes a grinder, milk frother, touchscreen, its
+ * boiler type, price, and category. The LLM uses this when answering
+ * "do I need a grinder?", "does it do milk?", etc. in follow-up turns — so
+ * it responds in context instead of answering generically.
+ *
+ * @param {string} id Product ID (slug, e.g. "automatico")
+ * @returns {string} compact "Name ($price, boiler, extras)" line, or the raw id
+ *   when the product is not in the catalog
+ */
+function describeShownProduct(id) {
+  const p = productsById.get(id);
+  if (!p) return id;
+  const s = p.specs || {};
+  const tags = [];
+  if (s.builtInGrinder) tags.push('built-in grinder — no separate grinder needed');
+  if (s.autoMilk) tags.push('auto milk frother');
+  if (s.touchscreen) tags.push('touchscreen');
+  if (s.manual) tags.push('manual lever, no electricity');
+  if (s.plumbedIn) tags.push('plumb-in capable');
+  if (s.flowControl) tags.push('flow control');
+  if (s.pressureProfiling) tags.push('pressure profiling');
+  if (s.singleDose) tags.push('single-dose');
+  if (s.stepless) tags.push('stepless grind');
+  const boiler = s.boilers && s.boilers !== 'None (manual)' ? `${s.boilers} boiler` : '';
+  const parts = [`$${p.price}`, p.category, boiler].filter(Boolean);
+  const suffix = tags.length ? ` — ${tags.join(', ')}` : '';
+  return `${p.name} (${parts.join(', ')}${suffix})`;
+}
+
+/**
+ * Join a list of product IDs as enriched descriptions so follow-up turns
+ * can reason about the specific hardware already in front of the user.
+ */
+function describeShownProducts(ids) {
+  return (ids || []).map(describeShownProduct).join('; ');
+}
 
 /**
  * Build a compact product catalog string for the system prompt.
@@ -120,7 +160,7 @@ Follow this consultative flow:
 6. **NO HALLUCINATED NAMES OR BUNDLES**: ONLY use product names, product IDs, recipe names, and review IDs that appear in the data sections below. NEVER invent, guess, or approximate. NEVER invent product bundles, packages, kits, or combinations — there are no bundles in the Arco catalog. If the user asks about bundles, explain there are none and recommend individual products instead.
 10. **PRODUCT QUERIES REQUIRE BLOCKS**: When the user asks which products fit their needs, requests a product list, or is comparing options, you MUST present matching products using a product-list block or cards block — NEVER list products only in paragraph text. Each product entry must use its real name, real price, and real URL from the catalog.
 7. **ARCO ONLY**: NEVER compare Arco products with competitor brands (Breville, De'Longhi, Gaggia, La Marzocco, etc.). If the customer asks about competitors, respond with a single polite redirect block.
-8. **GRINDER PAIRING**: When recommending an espresso machine, always mention that a quality grinder matters. Suggest an appropriate Arco grinder pairing when relevant.
+8. **GRINDER PAIRING**: When recommending an espresso machine, mention that a quality grinder matters and suggest an appropriate Arco grinder pairing — UNLESS the recommended (or already-featured) machine has a built-in grinder (\`specs.builtInGrinder === true\`, currently only the Automatico). For machines with a built-in grinder, explicitly state the grinder is integrated and do NOT pair it with a standalone grinder. If a follow-up asks "do I need a grinder?" and any shown machine has a built-in grinder, answer for that specific machine ("The Automatico has a built-in conical burr grinder, so no — you don't need a separate grinder") before addressing the others.
 9. **HOBBY TIPS BLOCK**: When the user's query or browsing context mentions a sport, hobby, or lifestyle activity (e.g. running, cycling, yoga, hiking, climbing, photography, gaming, cooking), include a \`text\` block with coffee tips tailored to that activity. Use a heading like "Coffee Tips for Runners", followed by a one-sentence intro paragraph connecting espresso to that hobby, then 3–5 bullet points with actionable, specific advice (e.g. timing, roast choice, hydration, machine speed). This block shows Arco understands their lifestyle, not just their equipment.
 11. **FEATURE-SPECIFIC QUERIES — MATCH BEFORE YOU RECOMMEND**: When the user asks for a specific hardware feature (touchscreen, auto milk frother, built-in grinder, dual/triple boiler, flow control, pressure profiling, plumb-in, manual lever, PID, rotary pump, etc.), FIRST scan the product catalog above and identify which machines actually have that feature. Then:
    - **Lead with a machine that actually has the feature.** Never recommend a machine that lacks the requested feature as the primary pick.
@@ -427,7 +467,8 @@ function buildConversationHistory(previousQueries, shownContent) {
   }
 
   if (shownContent?.shownProducts?.length > 0) {
-    history += `\nProducts already featured: ${shownContent.shownProducts.join(', ')}\n`;
+    history += `\nProducts already featured (with key facts for follow-up reasoning): ${describeShownProducts(shownContent.shownProducts)}\n`;
+    history += '\nIMPORTANT: The follow-up answer MUST be grounded in these specific machines. If the follow-up asks about grinders, milk, touchscreen, plumb-in, boilers, or any hardware capability, answer for THESE machines explicitly — e.g. if a machine listed above has a built-in grinder, say so directly rather than giving a generic answer. Do NOT re-hero a product already featured, but DO reference it by name when the follow-up hinges on its specs.\n';
   }
 
   history += '\nThis is a follow-up turn. Build on what came before — provide new angles, go deeper on specifics, or explore what has not been covered yet. Do NOT start with a hero block.';
@@ -525,7 +566,7 @@ Start with a hero that acknowledges what they've been exploring. The hero MUST i
     }
 
     if (shownContent?.shownProducts?.length > 0) {
-      msg += `\n\nProducts already shown to the user (do NOT repeat as primary recommendation): ${shownContent.shownProducts.join(', ')}`;
+      msg += `\n\nProducts already shown to the user (do NOT repeat as primary recommendation): ${describeShownProducts(shownContent.shownProducts)}`;
     }
     if (shownContent?.shownSections?.length > 0) {
       const blockTypes = [...new Set(shownContent.shownSections.map((s) => s.blockType))];
