@@ -7,6 +7,16 @@
  * recommender queries are better informed.
  *
  * Loaded in the delayed phase — zero impact on LCP.
+ *
+ * NOTE — "intent" overloading: the project has three distinct notions of intent,
+ * all unrelated:
+ *   1. THIS file — rule-based path intent ('product-detail', 'discovery', …)
+ *      emitted per page view into the session browsing history.
+ *   2. workers/recommender/src/pipeline/steps/intent-classify.js — keyword-based
+ *      query intent ('espresso', 'comparison', …) classified server-side and
+ *      written to ctx.intent.
+ *   3. D1 generated_pages.intent_type column — persisted form of (2).
+ * Keep them distinct when reading admin output or debug payloads.
  */
 
 import { SessionContextManager } from './session-context.js';

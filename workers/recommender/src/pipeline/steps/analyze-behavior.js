@@ -79,8 +79,8 @@ function extractUseCasePriorities(interests) {
     .map(([uc]) => uc);
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export async function analyzeBehavior(ctx) {
+// eslint-disable-next-line import/prefer-default-export, no-unused-vars
+export async function analyzeBehavior(ctx, config = {}, env = {}) {
   const start = Date.now();
   const bp = ctx.request.behaviorProfile;
   const inferred = ctx.request.inferredProfile;

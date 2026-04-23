@@ -2,8 +2,7 @@
  * Speculative Prefetch Engine for Keep Exploring
  *
  * Predicts user intent from mouse behavior and prefetches AI content
- * before the user clicks. Adapted from Vitamix's speculative engine
- * for Arco's NDJSON POST-based streaming.
+ * before the user clicks. Designed around Arco's NDJSON POST-based streaming.
  */
 
 const CONFIDENCE_THRESHOLD = 60;

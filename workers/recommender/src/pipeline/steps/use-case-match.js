@@ -5,8 +5,8 @@
 
 import { matchUseCase } from '../../context.js';
 
-// eslint-disable-next-line import/prefer-default-export
-export async function useCaseMatch(ctx) {
+// eslint-disable-next-line import/prefer-default-export, no-unused-vars
+export async function useCaseMatch(ctx, config = {}, env = {}) {
   const start = Date.now();
   ctx.rag.useCase = matchUseCase(ctx.request.query);
   ctx.timings.useCase = Date.now() - start;

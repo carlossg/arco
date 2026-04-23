@@ -1,6 +1,11 @@
 /**
  * Flow Executor — runs a configurable sequence of pipeline steps.
  * Steps are either sequential `{ step, config? }` or concurrent `{ parallel: [...] }`.
+ *
+ * Step contract:
+ *   async (ctx, config = {}, env = {}) => void
+ * All steps accept the same three arguments even if they ignore some — this
+ * keeps the executor call site uniform and makes extension safe.
  */
 
 import { STEPS } from './steps/index.js';

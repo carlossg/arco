@@ -16,6 +16,41 @@
  * naming kept for back-compat) → JSON { blocks, debug, request, followUps }
  */
 
+/**
+ * Convert a `generated_pages` row (snake_case, from D1) to a run DTO
+ * (camelCase, for client JSON). Centralizing this mapping keeps the
+ * admin API handlers free of per-field rename lists and makes column
+ * additions a one-file change.
+ */
+export function rowToRunDto(r) {
+  if (!r) return null;
+  return {
+    id: r.id,
+    sessionId: r.session_id,
+    pageId: r.page_id,
+    pageUrl: r.page_url,
+    runIndex: r.run_index,
+    parentRunId: r.parent_run_id,
+    query: r.query,
+    previousQueries: r.previous_queries,
+    title: r.title,
+    intentType: r.intent_type,
+    journeyStage: r.journey_stage,
+    flowId: r.flow_id,
+    followUpType: r.follow_up_type,
+    followUpLabel: r.follow_up_label,
+    followUpOptions: r.follow_up_options,
+    blockCount: r.block_count,
+    createdAt: r.created_at,
+    durationMs: r.duration_ms,
+    inputTokens: r.input_tokens,
+    outputTokens: r.output_tokens,
+    daPath: r.da_path,
+    previewUrl: r.preview_url,
+    liveUrl: r.live_url,
+  };
+}
+
 async function hashIp(ip) {
   const data = new TextEncoder().encode(ip || 'unknown');
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);

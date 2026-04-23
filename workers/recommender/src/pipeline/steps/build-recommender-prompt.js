@@ -9,8 +9,8 @@ import {
   buildRecommenderUserMessage,
 } from '../../recommender-prompt.js';
 
-// eslint-disable-next-line import/prefer-default-export
-export async function buildRecommenderPrompt(ctx) {
+// eslint-disable-next-line import/prefer-default-export, no-unused-vars
+export async function buildRecommenderPrompt(ctx, config = {}, env = {}) {
   const start = Date.now();
 
   const contextData = {

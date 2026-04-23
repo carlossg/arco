@@ -17,6 +17,7 @@ import {
 import { SessionContextManager } from './session-context.js';
 import { getAPIEndpoint } from './api-config.js';
 import { BLOCK_ALIASES } from './block-aliases.js';
+import { processSectionMetadata } from './section-metadata.js';
 import showWelcomeModal from './welcome-modal.js';
 
 /**
@@ -304,26 +305,7 @@ async function renderStreamedSection(data, content) {
   section.dataset.sectionStatus = 'initialized';
   section.innerHTML = data.html;
 
-  // Process section-metadata block (style -> class, then remove from DOM)
-  const sectionMeta = section.querySelector('div.section-metadata');
-  if (sectionMeta) {
-    [...sectionMeta.querySelectorAll(':scope > div')].forEach((row) => {
-      const cols = [...row.children];
-      if (cols.length >= 2) {
-        const key = cols[0].textContent.trim().toLowerCase();
-        const val = cols[1].textContent.trim();
-        if (key === 'style') {
-          val.split(',').filter(Boolean).forEach((s) => {
-            section.classList.add(s.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-'));
-          });
-        } else {
-          const camel = key.replace(/[^a-z0-9]+/g, '-').replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-          section.dataset[camel] = val;
-        }
-      }
-    });
-    sectionMeta.remove();
-  }
+  processSectionMetadata(section);
 
   // Wrap block in wrapper div (EDS pattern)
   const blockEl = section.querySelector('[class]');

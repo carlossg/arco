@@ -11,6 +11,7 @@
  */
 
 import { ARCO_RECOMMENDER_URL } from '../../scripts/api-config.js';
+import { formatDuration, formatInt as fmtInt } from '../../scripts/formatting.js';
 
 const TOKEN_STORAGE_KEY = 'arco-admin-token';
 
@@ -21,16 +22,7 @@ function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-function dur(ms) {
-  if (ms == null) return '—';
-  if (ms < 1000) return `${ms}ms`;
-  return `${(ms / 1000).toFixed(2)}s`;
-}
-
-function fmtInt(n) {
-  if (n == null) return '—';
-  return Number(n).toLocaleString('en-US');
-}
+const dur = (ms) => formatDuration(ms, 2);
 
 function badge(label, tone = 'muted') {
   if (label === null || label === undefined || label === '') {

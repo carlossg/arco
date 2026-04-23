@@ -15,6 +15,7 @@
  */
 
 import { CORS_HEADERS } from './pipeline/context.js';
+import { rowToRunDto } from './storage.js';
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
@@ -133,29 +134,24 @@ export async function handleAdminSession(request, env, sessionId) {
     });
   }
 
-  // Aggregate runs into pages. Rows without page_id (pre-migration) are each
-  // their own single-run page.
-  const { results: rows } = await env.SESSIONS_DB.prepare(`
-    SELECT id, page_id, page_url, run_index, query, title, intent_type,
-           follow_up_type, follow_up_label, block_count, created_at,
-           duration_ms, input_tokens, output_tokens
-    FROM generated_pages
-    WHERE session_id = ?1
-    ORDER BY created_at ASC
-  `).bind(sessionId).all();
+  // Aggregate runs into pages. All rows have page_id — the pre-0002 fallback
+  // (`page_id || id`) was removed after migration 0002 backfilled existing rows.
+  const { results: rows } = await env.SESSIONS_DB.prepare(
+    'SELECT * FROM generated_pages WHERE session_id = ?1 ORDER BY created_at ASC',
+  ).bind(sessionId).all();
 
   const pageMap = new Map();
-  rows.forEach((r) => {
-    const pid = r.page_id || r.id;
+  rows.map(rowToRunDto).forEach((run) => {
+    const pid = run.pageId;
     if (!pageMap.has(pid)) {
       pageMap.set(pid, {
         pageId: pid,
-        pageUrl: r.page_url,
-        initialQuery: r.query,
-        initialIntent: r.intent_type,
-        initialTitle: r.title,
-        firstRunAt: r.created_at,
-        lastRunAt: r.created_at,
+        pageUrl: run.pageUrl,
+        initialQuery: run.query,
+        initialIntent: run.intentType,
+        initialTitle: run.title,
+        firstRunAt: run.createdAt,
+        lastRunAt: run.createdAt,
         runCount: 0,
         totalDurationMs: 0,
         totalInputTokens: 0,
@@ -165,24 +161,11 @@ export async function handleAdminSession(request, env, sessionId) {
     }
     const p = pageMap.get(pid);
     p.runCount += 1;
-    p.lastRunAt = Math.max(p.lastRunAt, r.created_at);
-    p.totalDurationMs += r.duration_ms || 0;
-    p.totalInputTokens += r.input_tokens || 0;
-    p.totalOutputTokens += r.output_tokens || 0;
-    p.runs.push({
-      runId: r.id,
-      runIndex: r.run_index,
-      query: r.query,
-      title: r.title,
-      intent: r.intent_type,
-      followUpType: r.follow_up_type,
-      followUpLabel: r.follow_up_label,
-      blockCount: r.block_count,
-      durationMs: r.duration_ms,
-      inputTokens: r.input_tokens,
-      outputTokens: r.output_tokens,
-      createdAt: r.created_at,
-    });
+    p.lastRunAt = Math.max(p.lastRunAt, run.createdAt);
+    p.totalDurationMs += run.durationMs || 0;
+    p.totalInputTokens += run.inputTokens || 0;
+    p.totalOutputTokens += run.outputTokens || 0;
+    p.runs.push(run);
   });
 
   const pages = [...pageMap.values()].sort((a, b) => b.lastRunAt - a.lastRunAt);
@@ -199,14 +182,9 @@ export async function handleAdminSession(request, env, sessionId) {
 export async function handleAdminPageGroup(request, env, pageId) {
   if (!await checkCookieAuth(request, env) && !checkBasicAuth(request, env)) return unauthorized();
 
-  // Fetch all runs grouped by page_id. Fall back to runId = pageId for rows
-  // without page_id (legacy data before 0002 migration).
-  const { results: runs } = await env.SESSIONS_DB.prepare(`
-    SELECT *
-    FROM generated_pages
-    WHERE page_id = ?1 OR (page_id IS NULL AND id = ?1)
-    ORDER BY run_index ASC, created_at ASC
-  `).bind(pageId).all();
+  const { results: runs } = await env.SESSIONS_DB.prepare(
+    'SELECT * FROM generated_pages WHERE page_id = ?1 ORDER BY run_index ASC, created_at ASC',
+  ).bind(pageId).all();
 
   if (!runs.length) {
     return new Response(JSON.stringify({ error: 'Page not found' }), {

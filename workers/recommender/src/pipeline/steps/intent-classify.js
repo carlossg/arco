@@ -1,6 +1,11 @@
 /**
  * Intent Classify Step — rule-based query intent classification for coffee equipment.
  * Writes ctx.intent = { type, confidence, journeyStage }.
+ *
+ * This is the *query* intent — distinct from the per-page-view browsing intent
+ * emitted by scripts/browsing-signals.js on regular pages. The value of
+ * `ctx.intent.type` is the source of truth for `generated_pages.intent_type`
+ * in D1. See browsing-signals.js for the full three-layer taxonomy.
  */
 
 const ESPRESSO_KEYWORDS = [
@@ -123,8 +128,8 @@ function classifyJourneyStage(previousQueries, followUp) {
   return 'awareness';
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export async function intentClassify(ctx) {
+// eslint-disable-next-line import/prefer-default-export, no-unused-vars
+export async function intentClassify(ctx, config = {}, env = {}) {
   const start = Date.now();
   const { type, confidence } = classifyType(ctx.request.query);
   const journeyStage = classifyJourneyStage(

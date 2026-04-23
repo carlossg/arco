@@ -21,6 +21,8 @@ import {
 } from '../../scripts/aem.js';
 import { ARCO_RECOMMENDER_URL } from '../../scripts/api-config.js';
 import { BLOCK_ALIASES } from '../../scripts/block-aliases.js';
+import { formatTimestamp as ts, formatDuration } from '../../scripts/formatting.js';
+import { processSectionMetadata } from '../../scripts/section-metadata.js';
 
 const TOKEN_STORAGE_KEY = 'arco-admin-token';
 
@@ -31,18 +33,7 @@ function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-function ts(ms) {
-  if (!ms) return '—';
-  return new Date(ms).toLocaleString('en-US', {
-    month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
-  });
-}
-
-function dur(ms) {
-  if (!ms) return '—';
-  if (ms < 1000) return `${ms}ms`;
-  return `${(ms / 1000).toFixed(1)}s`;
-}
+const dur = (ms) => formatDuration(ms);
 
 function badge(label, tone = 'neutral') {
   if (!label && label !== 0) return '<span class="admin-badge admin-badge-muted">—</span>';
@@ -236,25 +227,7 @@ async function renderStoredSection(blockData, container) {
   section.dataset.sectionStatus = 'initialized';
   section.innerHTML = blockData.html;
 
-  const sectionMeta = section.querySelector('div.section-metadata');
-  if (sectionMeta) {
-    [...sectionMeta.querySelectorAll(':scope > div')].forEach((row) => {
-      const cols = [...row.children];
-      if (cols.length >= 2) {
-        const key = cols[0].textContent.trim().toLowerCase();
-        const val = cols[1].textContent.trim();
-        if (key === 'style') {
-          val.split(',').filter(Boolean).forEach((style) => {
-            section.classList.add(style.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-'));
-          });
-        } else {
-          const camel = key.replace(/[^a-z0-9]+/g, '-').replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-          section.dataset[camel] = val;
-        }
-      }
-    });
-    sectionMeta.remove();
-  }
+  processSectionMetadata(section);
 
   const blockEl = section.querySelector('[class]');
   if (blockEl) {

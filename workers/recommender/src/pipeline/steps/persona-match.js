@@ -18,8 +18,8 @@ const QUIZ_PERSONA_MAP = {
   'office-manager': 'office-manager',
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export async function personaMatch(ctx) {
+// eslint-disable-next-line import/prefer-default-export, no-unused-vars
+export async function personaMatch(ctx, config = {}, env = {}) {
   const start = Date.now();
 
   const quizTag = ctx.request.quizPersona;

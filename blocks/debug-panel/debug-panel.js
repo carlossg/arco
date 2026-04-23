@@ -7,18 +7,9 @@
  * Data is passed via block.dataset.debugInfo (JSON).
  */
 
-function formatMs(ms) {
-  if (ms == null) return '—';
-  if (ms >= 1000) return `${(ms / 1000).toFixed(2)}s`;
-  return `${Math.round(ms)}ms`;
-}
+import { formatDuration, timingClass } from '../../scripts/formatting.js';
 
-function timingClass(ms) {
-  if (ms == null) return '';
-  if (ms < 100) return 'timing-fast';
-  if (ms < 500) return 'timing-med';
-  return 'timing-slow';
-}
+const formatMs = (ms) => formatDuration(ms, 2);
 
 function escapeHtml(str) {
   return String(str ?? '')
