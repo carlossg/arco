@@ -187,7 +187,9 @@ function createFallbackHeroSection(query) {
   };
 }
 
-const VALID_SUGGESTION_TYPES = ['explore', 'compare', 'recipe', 'buy', 'quiz', 'customize'];
+// Only 'explore' and 'compare' may come from the LLM. The 'buy' CTA is injected
+// server-side post-parse (see llmGenerate) against a product the LLM picked.
+const LLM_SUGGESTION_TYPES = ['explore', 'compare'];
 
 /**
  * Extract the primary recommended product from generated JSON sections.
@@ -238,22 +240,15 @@ function extractPrimaryProduct(rawJsonSections) {
 }
 
 /**
- * Enrich buy suggestions with product data.
+ * Filter LLM suggestions to the allowed types and strip content-pushing labels.
+ * A server-injected 'buy' CTA is added later in llmGenerate, not here.
  */
 export function processSuggestions(suggestions) {
   if (!Array.isArray(suggestions)) return [];
-
-  return suggestions
-    .filter((s) => s && s.label && VALID_SUGGESTION_TYPES.includes(s.type))
-    .map((s) => {
-      if (s.type === 'buy') {
-        const productData = getProductData(s.query);
-        if (!productData) return null;
-        return { ...s, productData };
-      }
-      return s;
-    })
-    .filter(Boolean);
+  return suggestions.filter(
+    (s) => s && s.label && LLM_SUGGESTION_TYPES.includes(s.type)
+      && !/^(try |view |read |check out |browse |shop )/i.test(s.label),
+  );
 }
 
 /**
@@ -330,7 +325,7 @@ export async function llmGenerate(ctx, config, env) {
   const heroImage = selectHeroImage({
     query: ctx.request?.query,
     useCases: ctx.rag?.useCase?.useCases,
-    intentType: ctx.rag?.intentClassification?.intentType,
+    intentType: ctx.intent?.type,
     productIds: extractProductIds(ctx.request?.query || ''),
   }, ctx.rag?.heroImages || []);
   setHeroResult(heroImage);
@@ -507,22 +502,16 @@ export async function llmGenerate(ctx, config, env) {
 
   if (final.suggestions) {
     ctx.llm.suggestions = processSuggestions(final.suggestions);
-    // Recommender flow: only explore/compare from LLM, strip content-pushing labels
-    if (ctx.flowId === 'recommender') {
-      ctx.llm.suggestions = ctx.llm.suggestions
-        .filter((s) => s.type === 'explore' || s.type === 'compare')
-        .filter((s) => !/^(try |view |read |check out |browse |shop )/i.test(s.label));
 
-      // Inject buy CTA for the primary recommended product
-      const primary = extractPrimaryProduct(ctx.llm.rawJsonSections);
-      if (primary) {
-        ctx.llm.suggestions.unshift({
-          type: 'buy',
-          label: `Buy ${primary.name}`,
-          query: primary.id,
-          href: primary.url,
-        });
-      }
+    // Inject buy CTA for the primary recommended product (server-authored, not LLM)
+    const primary = extractPrimaryProduct(ctx.llm.rawJsonSections);
+    if (primary) {
+      ctx.llm.suggestions.unshift({
+        type: 'buy',
+        label: `Buy ${primary.name}`,
+        query: primary.id,
+        href: primary.url,
+      });
     }
   }
   ctx.timings.parseEnd = Date.now();
@@ -573,15 +562,50 @@ export async function llmGenerate(ctx, config, env) {
           score: r._score, // eslint-disable-line no-underscore-dangle
         })),
       },
-      articles: {
-        count: ctx.rag.articles?.length || 0,
-        ms: ctx.timings.articles || 0,
-        detail: ctx.timings.articlesDetail || ctx.timings.contentDetail || null,
-        // eslint-disable-next-line no-underscore-dangle
-        items: (ctx.rag.articles || []).map((a) => ({
-          title: a.title,
-          score: a._score, // eslint-disable-line no-underscore-dangle
-          section: a._matchedSection, // eslint-disable-line no-underscore-dangle
+      guides: {
+        count: ctx.rag.guides?.length || 0,
+        ms: ctx.timings.guidesMs || 0,
+        detail: ctx.timings.contentDetail || null,
+        items: (ctx.rag.guides || []).map((g) => ({
+          title: g.title,
+          slug: g.slug,
+          score: g.score,
+        })),
+      },
+      experiences: {
+        count: ctx.rag.experiences?.length || 0,
+        ms: ctx.timings.experiencesMs || 0,
+        detail: ctx.timings.contentDetail || null,
+        items: (ctx.rag.experiences || []).map((e) => ({
+          title: e.title,
+          slug: e.slug,
+          score: e.score,
+        })),
+      },
+      comparisons: {
+        count: ctx.rag.comparisons?.length || 0,
+        ms: ctx.timings.content || 0,
+        items: (ctx.rag.comparisons || []).map((c) => ({
+          title: c.title,
+          slug: c.slug,
+          source: c._source, // eslint-disable-line no-underscore-dangle
+        })),
+      },
+      tools: {
+        count: ctx.rag.toolContent?.length || 0,
+        ms: ctx.timings.content || 0,
+        items: (ctx.rag.toolContent || []).map((t) => ({
+          title: t.title,
+          slug: t.slug,
+          score: t.score,
+        })),
+      },
+      heroImages: {
+        count: ctx.rag.heroImages?.length || 0,
+        items: (ctx.rag.heroImages || []).map((h) => ({
+          id: h.id,
+          score: h.score,
+          category: h.category,
         })),
       },
       products: {

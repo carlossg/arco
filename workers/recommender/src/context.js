@@ -10,8 +10,6 @@ import faqsData from '../../../content/metadata/faqs.json';
 import reviewsData from '../../../content/metadata/reviews.json';
 import useCasesData from '../../../content/metadata/use-cases.json';
 import productProfilesData from '../../../content/metadata/product-profiles.json';
-import recipesData from '../../../content/recipes/recipes.json';
-import accessoriesData from '../../../content/accessories/accessories.json';
 
 // Pre-authored comparisons (bundled for direct lookup)
 import compPrimoVsDoppio from '../../../content/products/comparison/arco-primo-vs-arco-doppio.json';
@@ -240,15 +238,6 @@ export function extractProductIds(query) {
 }
 
 /**
- * Keyword-based guide matching fallback.
- * Guides are in separate JSON files — this is a stub.
- * Real matches come from Vectorize.
- */
-function keywordMatchGuides() {
-  return [];
-}
-
-/**
  * Deduplicate Vectorize matches by slug, returning up to maxCount items.
  */
 function dedupeMatches(matches, maxCount) {
@@ -312,7 +301,6 @@ export async function searchContent(query, env, config = {}) {
 
   if (!env.CONTENT_INDEX) {
     timings.fallback = true;
-    emptyResult.guides = keywordMatchGuides(query).slice(0, maxGuides);
     return emptyResult;
   }
 
@@ -326,11 +314,7 @@ export async function searchContent(query, env, config = {}) {
     timings.embedding = Date.now() - embeddingStart;
 
     if (!embeddingResponse?.data?.[0]) {
-      return {
-        ...emptyResult,
-        guides: keywordMatchGuides(query).slice(0, maxGuides),
-        timings: { ...timings, fallback: true },
-      };
+      return { ...emptyResult, timings: { ...timings, fallback: true } };
     }
 
     const embedding = embeddingResponse.data[0];
@@ -379,11 +363,7 @@ export async function searchContent(query, env, config = {}) {
   } catch (err) {
     // Propagate timeout errors so they surface as real failures
     if (err.message?.includes('timed out')) throw err;
-    return {
-      ...emptyResult,
-      guides: keywordMatchGuides(query).slice(0, maxGuides),
-      timings: { ...timings, fallback: true },
-    };
+    return { ...emptyResult, timings: { ...timings, fallback: true } };
   }
 }
 
@@ -392,18 +372,4 @@ export async function searchContent(query, env, config = {}) {
  */
 export function getAllProducts() {
   return productsData.data || [];
-}
-
-/**
- * Get all recipes for prompt building.
- */
-export function getAllRecipes() {
-  return recipesData.data || [];
-}
-
-/**
- * Get all accessories for prompt building.
- */
-export function getAllAccessories() {
-  return accessoriesData.data || [];
 }

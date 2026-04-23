@@ -128,8 +128,20 @@ function buildDebugSnapshot(ctx) {
       faqs: (ctx.rag?.faqs || []).map((f) => ({ question: f.question?.substring(0, 100) })),
       reviews: (ctx.rag?.reviews || []).map((r) => ({ author: r.author, productId: r.productId })),
       recipes: (ctx.rag?.recipes || []).map((r) => ({
+        name: r.name, slug: r.slug, score: r.score,
+      })),
+      guides: (ctx.rag?.guides || []).map((g) => ({
+        title: g.title, slug: g.slug, score: g.score,
+      })),
+      experiences: (ctx.rag?.experiences || []).map((e) => ({
+        title: e.title, slug: e.slug, score: e.score,
+      })),
+      comparisons: (ctx.rag?.comparisons || []).map((c) => ({
         // eslint-disable-next-line no-underscore-dangle
-        name: r.name, slug: r.slug, score: r._score,
+        title: c.title, slug: c.slug, source: c._source || 'vector',
+      })),
+      tools: (ctx.rag?.toolContent || []).map((t) => ({
+        title: t.title, slug: t.slug, score: t.score,
       })),
       persona: ctx.rag?.persona
         ? { name: ctx.rag.persona.name, slug: ctx.rag.persona.slug } : null,

@@ -654,6 +654,34 @@ function renderRagSection(rag) {
     `Recipes (${recipes.length})`,
     recipes.map((r) => `${esc(r.name)}${r.score != null ? ` <span class="admin-muted">score ${Number(r.score).toFixed(2)}</span>` : ''}`),
   ));
+  const guides = rag.guides || [];
+  if (guides.length) {
+    groups.push(renderRagGroup(
+      `Guides (${guides.length})`,
+      guides.map((g) => `${esc(g.title || g.slug || '')}${g.slug ? ` <span class="admin-muted">${esc(g.slug)}${g.score != null ? ` · score ${Number(g.score).toFixed(2)}` : ''}</span>` : ''}`),
+    ));
+  }
+  const experiences = rag.experiences || [];
+  if (experiences.length) {
+    groups.push(renderRagGroup(
+      `Experiences (${experiences.length})`,
+      experiences.map((e) => `${esc(e.title || e.slug || '')}${e.slug ? ` <span class="admin-muted">${esc(e.slug)}${e.score != null ? ` · score ${Number(e.score).toFixed(2)}` : ''}</span>` : ''}`),
+    ));
+  }
+  const comparisons = rag.comparisons || [];
+  if (comparisons.length) {
+    groups.push(renderRagGroup(
+      `Comparisons (${comparisons.length})`,
+      comparisons.map((c) => `${esc(c.title || c.slug || '')} <span class="admin-muted">${esc(c.source || 'vector')}</span>`),
+    ));
+  }
+  const tools = rag.tools || [];
+  if (tools.length) {
+    groups.push(renderRagGroup(
+      `Tools (${tools.length})`,
+      tools.map((t) => `${esc(t.title || t.slug || '')}${t.score != null ? ` <span class="admin-muted">score ${Number(t.score).toFixed(2)}</span>` : ''}`),
+    ));
+  }
   const heroes = rag.heroImages || [];
   if (heroes.length) {
     groups.push(renderRagGroup(

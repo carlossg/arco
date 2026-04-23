@@ -138,8 +138,24 @@ function renderRagResults(rag) {
       items: rag.reviews?.items?.map((r) => `${escapeHtml(r.author)} · <span class="debug-dim">${escapeHtml(r.product)}</span>`),
     },
     {
-      label: `Articles (${rag.articles?.count ?? 0})`,
-      items: rag.articles?.items?.map((a) => `${escapeHtml(a.title)} <span class="debug-dim">score ${a.score?.toFixed(2) ?? '?'}</span>`),
+      label: `Guides (${rag.guides?.count ?? 0})`,
+      items: rag.guides?.items?.map((g) => `${escapeHtml(g.title)} <span class="debug-dim">${escapeHtml(g.slug ?? '')} · score ${g.score?.toFixed(2) ?? '?'}</span>`),
+    },
+    {
+      label: `Experiences (${rag.experiences?.count ?? 0})`,
+      items: rag.experiences?.items?.map((e) => `${escapeHtml(e.title)} <span class="debug-dim">${escapeHtml(e.slug ?? '')} · score ${e.score?.toFixed(2) ?? '?'}</span>`),
+    },
+    {
+      label: `Comparisons (${rag.comparisons?.count ?? 0})`,
+      items: rag.comparisons?.items?.map((c) => `${escapeHtml(c.title)} <span class="debug-dim">${escapeHtml(c.source ?? 'vector')}</span>`),
+    },
+    {
+      label: `Tools (${rag.tools?.count ?? 0})`,
+      items: rag.tools?.items?.map((t) => `${escapeHtml(t.title)} <span class="debug-dim">score ${t.score?.toFixed(2) ?? '?'}</span>`),
+    },
+    {
+      label: `Hero Images (${rag.heroImages?.count ?? 0})`,
+      items: rag.heroImages?.items?.map((h) => `${escapeHtml(h.id ?? '?')} <span class="debug-dim">${escapeHtml(h.category ?? '')} · score ${h.score?.toFixed(2) ?? '?'}</span>`),
     },
     {
       label: `Recipes (${rag.recipes?.count ?? 0})`,
