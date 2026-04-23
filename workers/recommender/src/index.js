@@ -11,6 +11,7 @@ import { resolveFlow } from './pipeline/flows.js';
 import { STEPS } from './pipeline/steps/index.js';
 import { writeEvent, classifyPageType, queryStats } from './analytics.js';
 import { saveGeneration } from './storage.js';
+import { parseGenerateBody } from './request-schema.js';
 import {
   handleAdminSessions,
   handleAdminSession,
@@ -77,9 +78,9 @@ async function handleGenerate(request, env) {
     return streamDummyPipeline(request);
   }
 
-  let body;
+  let rawBody;
   try {
-    body = await request.json();
+    rawBody = await request.json();
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
       status: 400,
@@ -87,17 +88,16 @@ async function handleGenerate(request, env) {
     });
   }
 
-  const { query, sessionId } = body;
-  if (!query || typeof query !== 'string' || query.length > 500) {
-    return new Response(JSON.stringify({ error: 'Invalid query' }), {
+  const parsed = parseGenerateBody(rawBody);
+  if (!parsed.ok) {
+    return new Response(JSON.stringify({ error: parsed.error }), {
       status: 400,
       headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
     });
   }
-
-  // Validate session ID if provided (must be UUID-like, 32–40 chars alphanum+hyphens)
-  const validSessionId = sessionId && /^[a-f0-9-]{32,40}$/i.test(sessionId) ? sessionId : null;
-  console.log(`[Generate] query="${query.substring(0, 60)}" sessionId=${sessionId || 'none'} validSessionId=${validSessionId || 'null'}`);
+  const body = parsed.payload;
+  const validSessionId = body.sessionId;
+  console.log(`[Generate] query="${body.query.substring(0, 60)}" sessionId=${validSessionId || 'null'}`);
 
   const ctx = createContext(body, request);
   const flow = resolveFlow(body.flow);
@@ -134,10 +134,10 @@ async function handleGenerate(request, env) {
       if (validSessionId) {
         console.log(`[Generate] executeFlow done, calling saveGeneration for session=${validSessionId}`);
         const runId = await saveGeneration(ctx, env, validSessionId, {
-          pageId: body.pageId || null,
-          pageUrl: body.pageUrl || null,
-          runId: body.runId || null,
-          parentRunId: body.parentRunId || null,
+          pageId: body.pageId,
+          pageUrl: body.pageUrl,
+          runId: body.runId,
+          parentRunId: body.parentRunId,
         });
         console.log(`[Generate] saveGeneration result: runId=${runId || 'null'}`);
       } else {

@@ -16,6 +16,7 @@ import {
 } from './aem.js';
 import { SessionContextManager } from './session-context.js';
 import { getAPIEndpoint } from './api-config.js';
+import { BLOCK_ALIASES } from './block-aliases.js';
 import showWelcomeModal from './welcome-modal.js';
 
 /**
@@ -79,15 +80,6 @@ function buildAutoBlocks(main) {
     console.error('Auto Blocking failed', error);
   }
 }
-
-// Map LLM-generated block types to existing frontend blocks.
-// 'false' means strip the block wrapper entirely (render as default content).
-const BLOCK_ALIASES = {
-  'use-case-cards': 'cards',
-  'feature-highlights': 'cards',
-  text: false,
-  'how-to-steps': 'recipe-steps',
-};
 
 // Canonical product URL map: short id → full path
 const PRODUCT_URLS = {
@@ -223,18 +215,6 @@ const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
  * Stored in sessionStorage so each tab/window has its own UUID — a new tab
  * or window means a fresh session, matching the user's mental model.
  */
-function getOrCreateSessionId() {
-  const KEY = 'arco-session-id';
-  try {
-    let id = sessionStorage.getItem(KEY);
-    if (!id) {
-      id = crypto.randomUUID();
-      sessionStorage.setItem(KEY, id);
-    }
-    return id;
-  } catch { return null; }
-}
-
 // Module-level page id — resets on every new recommender navigation.
 // All runs (initial + follow-up clicks) for a single ?q= visit share this id.
 let currentPageId = null;
@@ -556,7 +536,7 @@ async function streamAndAppendContent(query, container, options = {}) {
   const body = {
     query,
     context: sessionContext,
-    sessionId: getOrCreateSessionId(),
+    sessionId: SessionContextManager.getSessionId(),
     pageId: getCurrentPageId(),
     pageUrl: getCurrentPageUrl(),
     runId,
@@ -666,7 +646,7 @@ function attachSpeculativeEngine(container) {
     window.arcoSpeculativeEngine = createSpeculativeEngine({
       apiEndpoint: getAPIEndpoint('recommender'),
       getSessionContext: () => SessionContextManager.buildContextParam(),
-      getSessionId: getOrCreateSessionId,
+      getSessionId: () => SessionContextManager.getSessionId(),
       getPageId: getCurrentPageId,
       getPageUrl: getCurrentPageUrl,
     });

@@ -20,14 +20,9 @@ import {
   decorateBlock, decorateButtons, decorateIcons, loadBlock,
 } from '../../scripts/aem.js';
 import { ARCO_RECOMMENDER_URL } from '../../scripts/api-config.js';
+import { BLOCK_ALIASES } from '../../scripts/block-aliases.js';
 
 const TOKEN_STORAGE_KEY = 'arco-admin-token';
-const BLOCK_ALIASES = {
-  'use-case-cards': 'cards',
-  'feature-highlights': 'cards',
-  text: false,
-  'how-to-steps': 'recipe-steps',
-};
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
