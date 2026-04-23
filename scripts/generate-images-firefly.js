@@ -14,8 +14,10 @@
  *   node scripts/generate-images-firefly.js --style-ref ./path/to/reference.jpg
  *   node scripts/generate-images-firefly.js --style-ref https://main--arco--froesef.aem.live/products/espresso-machines/media_19aa1317eb6d1d6c64ea09d5ec801f2de8968c7e4.png
  *   node scripts/generate-images-firefly.js --style-ref ./ref.jpg --style-strength 80
- *   node scripts/generate-images-firefly.js --version v2      (saves as hero-v2.png instead of hero.png)
- *   node scripts/generate-images-firefly.js --model image5    (image3, image4_standard, image4_ultra, image5)
+ *   node scripts/generate-images-firefly.js --version v2
+ *      (saves as hero-v2.png instead of hero.png)
+ *   node scripts/generate-images-firefly.js --model image5
+ *      (image3, image4_standard, image4_ultra, image5)
  *   node scripts/generate-images-firefly.js --variations 3    (1-4 variations per prompt)
  *   node scripts/generate-images-firefly.js --reasoner speed  (quality or speed)
  *
@@ -46,11 +48,13 @@ const FIREFLY_UPLOAD_URL = `${FIREFLY_API_BASE}/v2/storage/image`;
 const IMS_SCOPES = 'openid,AdobeID,session,additional_info,read_organizations,firefly_api,ff_apis';
 
 // Arco brand style (used when no style reference image is provided)
-const BASE_STYLE = 'Photorealistic commercial photography. Clean, minimal composition. \
-Natural light preferred, soft shadows. Color palette: deep slate (#1C2B35), \
-warm cream (#F5F0E8), copper accents (#B5651D). No text overlays. \
-Professional food and product photography aesthetic, \
-similar to Kinfolk magazine or Monocle visual style.';
+const BASE_STYLE = [
+  'Photorealistic commercial photography. Clean, minimal composition.',
+  'Natural light preferred, soft shadows. Color palette: deep slate (#1C2B35),',
+  'warm cream (#F5F0E8), copper accents (#B5651D). No text overlays.',
+  'Professional food and product photography aesthetic,',
+  'similar to Kinfolk magazine or Monocle visual style.',
+].join(' ');
 
 const NEGATIVE_PROMPT = 'blurry, low quality, text, watermark, logo, cartoon, illustration, drawing, painting, sketch, CGI, 3D render, deformed fingers, extra fingers, fused fingers, missing fingers, bad hands, bad anatomy, distorted proportions, extra limbs, unnatural pose, disfigured';
 

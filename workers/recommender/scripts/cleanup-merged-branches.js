@@ -113,7 +113,9 @@ const branches = mergedBranches.map((branch) => {
 });
 
 const rl = createInterface({ input: process.stdin, output: process.stdout });
-const ask = (q) => new Promise((resolve) => { rl.question(q, (a) => { resolve(a.trim().toLowerCase()); }); });
+const ask = (q) => new Promise((res) => {
+  rl.question(q, (a) => { res(a.trim().toLowerCase()); });
+});
 
 const DIVIDER = '─'.repeat(52);
 const toCleanUp = [];
@@ -157,7 +159,9 @@ if (toCleanUp.length === 0) {
 console.log(DIVIDER);
 console.log(`Cleaning up ${toCleanUp.length} branch${toCleanUp.length === 1 ? '' : 'es'}...\n`);
 
-toCleanUp.forEach(({ branch, alias, worktree, cfWorker }) => {
+toCleanUp.forEach(({
+  branch, alias, worktree, cfWorker,
+}) => {
   console.log(`  ${branch}`);
 
   if (cfWorker) {
