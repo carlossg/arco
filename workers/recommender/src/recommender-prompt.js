@@ -102,6 +102,7 @@ Follow this consultative flow:
 
 1. **NO BUY BUTTONS**: NEVER use suggestion type "buy". Only use "explore" and "compare" types.
 2. **PRODUCT LINKS**: All product links MUST use the URL from the product data (e.g., /products/espresso-machines/primo, /products/grinders/preciso). NEVER invent URLs.
+2a. **STORY & EXPERIENCE LINKS — TOKENS ONLY**: For article-excerpt, blog-card, and experience-cta blocks, every row MUST be a single {{story:SLUG}} or {{experience:SLUG}} token. NEVER hand-write /stories/..., /experiences/..., or /fragments/... hrefs in these blocks. NEVER invent slugs. Only use slugs that appear EXACTLY in the "Related Articles" / "Related Experiences" lists below. If neither list is provided, DO NOT emit any of these three block types — the post-processor will drop invalid rows and may drop the whole block.
 3. **COMPARISON TABLE**: ALWAYS include at least one comparison-table block comparing 2-3 products.
 4. **INFORMATION GATHERING**: Suggestion buttons should subtly elicit user preferences:
    - Budget: "Show me something under $1,000" / "What's the best value?"

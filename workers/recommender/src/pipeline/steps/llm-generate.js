@@ -10,6 +10,7 @@ import { writeEvent } from '../../analytics.js';
 import { sectionToHtml, sanitizeBlockContent } from '../../json-to-eds.js';
 import {
   resolveTokens, normalizeProductUrls, getProductData, setHeroResult,
+  sanitizeContentCards,
 } from '../../images.js';
 import { selectHeroImage } from '../../hero-images.js';
 import { extractProductIds } from '../../context.js';
@@ -19,13 +20,26 @@ import { unescapeHtml } from '../../da-persist.js';
 
 /**
  * Process a completed JSON section: convert to HTML, resolve tokens, sanitize.
- * Returns '' when sanitizeBlockContent rejects the section (e.g. testimonials
- * with no real quotes), letting the hasContent() caller skip it naturally.
+ *
+ * Two block-level filters run first, in order:
+ *   1. sanitizeBlockContent — rejects sections whose content is structurally
+ *      empty (e.g. testimonials with no real quotes).
+ *   2. sanitizeContentCards — on article-excerpt/blog-card/experience-cta,
+ *      drops rows whose slug or href isn't in the bundled stories/experiences
+ *      indices, so invented links never reach the DOM.
+ * Returns '' when either filter rejects the section, letting the hasContent()
+ * caller skip it naturally.
  */
 export function processSection(section) {
   const cleaned = sanitizeBlockContent(section);
   if (!cleaned) return '';
-  let html = sectionToHtml(cleaned);
+  const cardClean = sanitizeContentCards(cleaned);
+  if (Array.isArray(cardClean?.rows)
+      && cardClean.rows.length === 0
+      && cleaned?.rows?.length > 0) {
+    return '';
+  }
+  let html = sectionToHtml(cardClean);
   html = resolveTokens(html);
   html = normalizeProductUrls(html);
   html = sanitizeHTML(html);
@@ -62,7 +76,7 @@ function extractFailedComments(html) {
 export function processSectionDetailed(section) {
   const debug = {};
 
-  // Step 0: block-level content sanitization (e.g. drop empty testimonials).
+  // Step 0a: block-level content sanitization (e.g. drop empty testimonials).
   // Returning null here means the caller should skip the section entirely;
   // we emit '' so the existing hasContent() check does that for us.
   const cleaned = sanitizeBlockContent(section);
@@ -71,9 +85,24 @@ export function processSectionDetailed(section) {
     return { html: '', debug };
   }
 
+  // Step 0b: Strip invented story/experience links on card blocks.
+  // Any article-excerpt / blog-card / experience-cta row whose token slug or
+  // manual href isn't in the bundled stories/experiences index is dropped.
+  const originalRowCount = Array.isArray(cleaned.rows) ? cleaned.rows.length : 0;
+  const cardClean = sanitizeContentCards(cleaned);
+  const cleanRowCount = Array.isArray(cardClean?.rows) ? cardClean.rows.length : 0;
+  debug.cardRowsDropped = originalRowCount - cleanRowCount;
+  if (originalRowCount > 0 && cleanRowCount === 0
+      && (cardClean.block === 'article-excerpt'
+        || cardClean.block === 'blog-card'
+        || cardClean.block === 'experience-cta')) {
+    debug.droppedEmptyCardBlock = true;
+    return { html: '', debug };
+  }
+
   // Step 1: JSON → EDS HTML
   let t = Date.now();
-  let html = sectionToHtml(cleaned);
+  let html = sectionToHtml(cardClean);
   debug.jsonToHtmlMs = Date.now() - t;
   const hrefsAfterJson = extractHrefs(html);
   const tokensFound = extractContentTokens(html);

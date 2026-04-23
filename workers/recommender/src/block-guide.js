@@ -301,23 +301,15 @@ Use sparingly — one per page, between a product spotlight and comparison secti
 
 ### experience-cta
 Teaser cards for curated Arco experience journeys. Each row = one experience.
-Structure per row: two cells — first cell = image (use {{product-image:ID}} of anchor product), second cell = info.
-Info cell: em = archetype label, h3 = headline, p = hook line, a = CTA link.
-Use with {{experience:SLUG}} tokens OR author manually.
+Every row MUST be a single {{experience:SLUG}} token — manual rows with hand-written hrefs are FORBIDDEN and will be dropped. Titles, images, subtext, and the link URL are all filled in by the token resolver from the experiences index.
 
-**Using tokens (recommended):**
+**Only valid form — tokens only:**
 {"block":"experience-cta","rows":[
   [[{"type":"token","value":"{{experience:morning-minimalist}}"}]],
   [[{"type":"token","value":"{{experience:the-upgrade-path}}"}]]
 ]}
 
-**Authoring manually:**
-{"block":"experience-cta","rows":[
-  [
-    [{"type":"image","token":"{{product-image:primo}}"}],
-    [{"type":"p","text":"Morning Minimalist"},{"type":"h3","text":"One cup. No compromise."},{"type":"p","text":"For the person who believes fewer things, done well, is the whole point."},{"type":"link","text":"Explore this journey","href":"/experiences/morning-minimalist"}]
-  ]
-]}
+SLUG must appear EXACTLY in the "Related Experiences" list provided in the context. Never invent slugs, never paraphrase titles into slugs, never hand-write /experiences/... hrefs. If no Related Experiences are provided, DO NOT emit an experience-cta block at all.
 
 Use for: closing a personalized page with the matching experience journey. Best as the final content section before suggestions.
 
@@ -325,14 +317,15 @@ Use for: closing a personalized page with the matching experience journey. Best 
 
 ### blog-card
 Image-heavy editorial cards for blog post previews. Each row = one article.
-Structure per row: two cells — first cell = image, second cell = info (em = tag, h3 = title, p = author/meta, a = link).
-Use with {{story:SLUG}} tokens OR author manually. Best for 2–3 articles.
+Every row MUST be a single {{story:SLUG}} token — manual rows with hand-written hrefs are FORBIDDEN and will be dropped. Best for 2–3 articles.
 
-**Using tokens (recommended):**
+**Only valid form — tokens only:**
 {"block":"blog-card","rows":[
   [[{"type":"token","value":"{{story:how-to-dial-in-espresso-in-under-10-minutes}}"}]],
   [[{"type":"token","value":"{{story:why-your-grinder-matters-more-than-your-machine}}"}]]
 ]}
+
+SLUG must appear EXACTLY in the "Related Articles" list provided in the context. Never invent slugs, never paraphrase titles into slugs, never hand-write /stories/... hrefs. If no Related Articles are provided, DO NOT emit a blog-card block at all.
 
 Use for: "You might also enjoy" sections when the query has an educational angle.
 
@@ -340,24 +333,15 @@ Use for: "You might also enjoy" sections when the query has an educational angle
 
 ### article-excerpt
 Editorial preview cards for RAG-surfaced blog articles. Each row = one article.
-Shows the article's actual excerpt text — more informative than blog-card's image-only format.
-Structure per row: two cells — first cell = image (optional, use {{product-image:ID}} of related product), second cell = info.
-Info cell: em = category, h3 = title, p = excerpt text, p with strong = author/read-time meta, a = link.
-Use with {{story:SLUG}} tokens OR author manually. Best for 1–4 articles.
+Every row MUST be a single {{story:SLUG}} token — manual rows with hand-written titles, excerpts, or hrefs are FORBIDDEN and will be dropped. The token resolver fills in the real image, category, title, excerpt, author, read time, and link URL from the stories index. Best for 1–4 articles.
 
-**Using tokens (recommended):**
+**Only valid form — tokens only:**
 {"block":"article-excerpt","rows":[
   [[{"type":"token","value":"{{story:how-to-dial-in-espresso-in-under-10-minutes}}"}]],
   [[{"type":"token","value":"{{story:calibrating-a-burr-grinder}}"}]]
 ]}
 
-**Authoring manually:**
-{"block":"article-excerpt","rows":[
-  [
-    [{"type":"image","token":"{{product-image:macinino}}"}],
-    [{"type":"p","text":"How-To"},{"type":"h3","text":"How to Dial In Espresso in Under 10 Minutes"},{"type":"p","text":"With a structured approach and a willingness to taste honestly, you can land on a solid recipe in three to five shots — well under ten minutes."},{"type":"p","text":"Marcus Webb · 8 min read"},{"type":"link","text":"Read Article","href":"/stories/how-to-dial-in-espresso-in-under-10-minutes"}]
-  ]
-]}
+SLUG must appear EXACTLY in the "Related Articles" list provided in the context. Never invent slugs, never paraphrase titles into slugs, never hand-write /stories/... hrefs. If no Related Articles are provided, DO NOT emit an article-excerpt block at all.
 
 Use for: when RAG surfaces relevant articles for an educational query. Prefer this over blog-card when you want to show the actual excerpt text.
 

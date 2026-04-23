@@ -278,6 +278,76 @@ function resolveExperienceToken(slug) {
 }
 
 /**
+ * Valid story/experience URLs and slugs, drawn from the bundled index files.
+ * Used by sanitizeContentCards() to drop LLM-invented links on the three
+ * card block types that must be backed by RAG-indexed content.
+ */
+const validStorySlugs = new Set(
+  stories.filter((s) => s.published !== false).map((s) => s.slug),
+);
+const validExperienceSlugs = new Set(
+  experiences.filter((e) => e.published !== false).map((e) => e.slug),
+);
+const validContentUrls = new Set([
+  ...stories.filter((s) => s.published !== false).map((s) => s.url),
+  ...experiences.filter((e) => e.published !== false).map((e) => e.url),
+]);
+
+const CARD_BLOCKS_WITH_STORIES = new Set(['blog-card', 'article-excerpt']);
+const CARD_BLOCKS_WITH_EXPERIENCES = new Set(['experience-cta']);
+
+/**
+ * Drop invalid rows from article-excerpt, blog-card, and experience-cta blocks.
+ * These three blocks may only link to stories/experiences from the bundled
+ * indices; anything else is an LLM hallucination and is removed.
+ *
+ * - Token rows: kept only if the slug resolves against the matching index.
+ * - Manual rows: kept only if every <a href="..."> already points at a valid
+ *   indexed URL. (Invented /stories/foo or /experiences/bar hrefs are dropped.)
+ *
+ * Returns a possibly-modified section. Non-card sections pass through unchanged.
+ * Card sections with zero surviving rows return an empty rows[] — callers
+ * should treat that as "drop the block."
+ */
+export function sanitizeContentCards(section) {
+  if (!section || typeof section !== 'object') return section;
+  const isStoryBlock = CARD_BLOCKS_WITH_STORIES.has(section.block);
+  const isExperienceBlock = CARD_BLOCKS_WITH_EXPERIENCES.has(section.block);
+  if (!isStoryBlock && !isExperienceBlock) return section;
+  if (!Array.isArray(section.rows)) return section;
+
+  const tokenRe = isStoryBlock
+    ? /\{\{story:([^}]+)\}\}/
+    : /\{\{experience:([^}]+)\}\}/;
+  const validSlugs = isStoryBlock ? validStorySlugs : validExperienceSlugs;
+
+  const filtered = section.rows.filter((row) => {
+    if (!Array.isArray(row)) return false;
+    const rowJson = JSON.stringify(row);
+
+    const tokenMatch = rowJson.match(tokenRe);
+    if (tokenMatch) return validSlugs.has(tokenMatch[1].trim());
+
+    // Manual row (no allowed token). Walk every href; every one must be
+    // a valid indexed URL. A row with no href is dropped as malformed.
+    const hrefs = [...rowJson.matchAll(/"href":"([^"]+)"/g)].map((m) => m[1]);
+    if (!hrefs.length) return false;
+    return hrefs.every((h) => validContentUrls.has(h));
+  });
+
+  if (filtered.length !== section.rows.length) {
+    console.warn(
+      '[sanitizeContentCards] Dropped %d/%d rows from %s block',
+      section.rows.length - filtered.length,
+      section.rows.length,
+      section.block,
+    );
+  }
+
+  return { ...section, rows: filtered };
+}
+
+/**
  * Pre-resolved hero image result for the current request.
  * Set by the pipeline before resolveTokens() runs.
  */
