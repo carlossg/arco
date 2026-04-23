@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { attachModalTrigger } from '../modal/modal.js';
 
 /**
  * Article Excerpt Block — editorial preview cards for RAG-surfaced blog articles.
@@ -87,7 +88,7 @@ function buildArticleExcerpt(row) {
     content.append(meta);
   }
 
-  // CTA link
+  // CTA link — opens the authored page as a modal fragment on plain click.
   const link = infoCol.querySelector('a');
   if (link) {
     const cta = document.createElement('a');
@@ -95,6 +96,7 @@ function buildArticleExcerpt(row) {
     cta.className = 'article-excerpt-cta';
     cta.textContent = link.textContent.trim() || 'Read Article';
     cta.setAttribute('aria-label', `Read: ${heading?.textContent.trim() || link.textContent.trim()}`);
+    attachModalTrigger(cta);
     content.append(cta);
   }
 

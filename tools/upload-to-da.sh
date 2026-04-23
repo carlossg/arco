@@ -21,6 +21,8 @@ done
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 DRAFTS_DIR="$PROJECT_DIR/drafts"
+FRAGMENTS_DIR="$PROJECT_DIR/fragments"
+MODALS_DIR="$PROJECT_DIR/modals"
 
 # Read env vars from .env file (|| true to avoid set -e failures on missing keys)
 DA_CLIENT_ID=$(grep "DA_CLIENT_ID" "$PROJECT_DIR/.env" 2>/dev/null | sed 's/DA_CLIENT_ID=//' | tr -d '"' || true)
@@ -63,10 +65,20 @@ upload_file() {
   local plain_file
   plain_file="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
   local progress="${2:-}"
-  local rel_path="${plain_file#$DRAFTS_DIR/}"
-  local da_path="${rel_path%.plain.html}.html"
   local prefix=""
   [ -n "$progress" ] && prefix="[$progress] "
+  local rel_path=""
+  if [[ "$plain_file" == "$DRAFTS_DIR/"* ]]; then
+    rel_path="${plain_file#$DRAFTS_DIR/}"
+  elif [[ "$plain_file" == "$FRAGMENTS_DIR/"* ]]; then
+    rel_path="${plain_file#$PROJECT_DIR/}"
+  elif [[ "$plain_file" == "$MODALS_DIR/"* ]]; then
+    rel_path="${plain_file#$PROJECT_DIR/}"
+  else
+    echo "${prefix}SKIP: $plain_file (unsupported HTML root)"
+    return 1
+  fi
+  local da_path="${rel_path%.plain.html}.html"
 
   # Convert plain HTML to DA format
   local tmp_file
@@ -213,7 +225,13 @@ if [ -n "${1:-}" ] && [[ "$1" != --* ]]; then
 else
   # Upload HTML pages
   if [ "$UPLOAD_HTML" = true ]; then
-    mapfile -t html_files < <(find "$DRAFTS_DIR" -name "*.plain.html" | sort)
+    mapfile -t html_files < <(
+      {
+        find "$DRAFTS_DIR" -name "*.plain.html" 2>/dev/null
+        find "$FRAGMENTS_DIR" -name "*.plain.html" 2>/dev/null
+        find "$MODALS_DIR" -name "*.plain.html" 2>/dev/null
+      } | sort
+    )
     UPLOAD_FN=upload_file
     run_parallel "HTML pages" "${html_files[@]}"
   fi

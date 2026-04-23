@@ -66,6 +66,36 @@ export async function openModal(fragmentUrl) {
     : fragmentUrl;
 
   const fragment = await loadFragment(path);
-  const { showModal } = await createModal(fragment.childNodes);
+
+  // Append a footer with a link to the canonical full page, for sharing /
+  // "give me a real tab" / SEO. Keeps the modal a preview, not a dead end.
+  const footer = document.createElement('p');
+  footer.className = 'modal-open-full';
+  const fullLink = document.createElement('a');
+  fullLink.href = path;
+  fullLink.textContent = 'Open full article ↗';
+  footer.append(fullLink);
+
+  const nodes = [...fragment.childNodes, footer];
+  const { showModal } = await createModal(nodes);
   showModal();
+}
+
+/**
+ * Attach a click handler to an anchor that opens its href as a modal fragment.
+ * Preserves cmd/ctrl/shift/middle-click, right-click, and no-JS navigation by
+ * only intercepting plain left-click. Falls back to normal navigation on error.
+ */
+export function attachModalTrigger(anchor) {
+  anchor.addEventListener('click', async (e) => {
+    if (e.defaultPrevented
+      || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey
+      || e.button !== 0) return;
+    e.preventDefault();
+    try {
+      await openModal(anchor.getAttribute('href'));
+    } catch {
+      window.location.href = anchor.href;
+    }
+  });
 }

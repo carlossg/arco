@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { attachModalTrigger } from '../modal/modal.js';
 
 /**
  * Blog Card Block — blog post preview with hero image, tag, title, author, read time, CTA.
@@ -67,13 +68,14 @@ function buildBlogCard(row) {
     body.append(meta);
   }
 
-  // CTA link
+  // CTA link — opens the authored page as a modal fragment on plain click.
   const link = infoCol.querySelector('a');
   if (link) {
     const cta = document.createElement('a');
     cta.href = link.href;
     cta.className = 'blog-card-cta';
     cta.textContent = link.textContent.trim() || 'Read More';
+    attachModalTrigger(cta);
     body.append(cta);
   }
 

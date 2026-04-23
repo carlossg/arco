@@ -195,6 +195,32 @@ On `GET /generate`, the server checks `DAClient.exists(path)` before starting th
 
 Key files for caching: `scripts/scripts.js` (deterministic `generateSlug`, `cache-hit` handler), `workers/recommender/src/index.js` (cache check in `/api/generate`).
 
+### Article Cards & Modal Fragments
+
+When the recommender surfaces a `{{story:SLUG}}` or `{{experience:SLUG}}` token, it renders a card whose CTA opens the authored page as a **modal fragment** instead of navigating away. This keeps the user in the query flow; the modal footer still carries an "Open full article ↗" link to the canonical page for sharing / SEO.
+
+**Card data** comes from `content/stories-index.json` and `content/experiences-index.json`. Each entry supports three optional fields on top of the existing schema:
+
+| Field | Purpose | Fallback |
+|-------|---------|----------|
+| `excerpt` | 1-sentence teaser shown on the card (~160 chars) | `intro` / `hero_subtext` / `editorial_intro` |
+| `image` | Absolute or `/media_…` path used as card hero | First `related_products[0]` image |
+| `published` | Gates Vectorize indexing + token resolution | `true` (implicit) |
+
+**Seeding & auditing:** `tools/seed-article-cards.js` fills in `excerpt` (first sentence of `intro`), leaves `image` blank, and defaults `published: true`. Run with `--audit` to rewrite `published` against the live sitemap so only slugs that actually exist on `*.aem.live` are marked as publishable.
+
+**Published gate:** `workers/recommender/scripts/index-content.js` reads both index files at startup and skips files whose slug is marked `published: false`. `workers/recommender/src/images.js` short-circuits token resolution with an HTML comment for unpublished slugs as a defense-in-depth layer. After flipping `published` on any entry, re-index:
+
+```bash
+cd workers/recommender && node scripts/index-content.js
+```
+
+**Client:** `blocks/modal/modal.js` exports `attachModalTrigger(anchor)` — attached to card CTAs in `blocks/article-excerpt/`, `blocks/blog-card/`, and `blocks/experience-cta/`. It intercepts plain left-click only; cmd/ctrl/shift/middle-click, right-click, and no-JS all still navigate normally.
+
+### Fragments Folder
+
+Standalone article fragments authored specifically for the recommender modal live under `fragments/recommender/*.plain.html`. `tools/upload-to-da.sh` automatically picks up any `.plain.html` under `fragments/` and `modals/` in addition to `drafts/`, and uploads them to DA under the matching path (so `fragments/recommender/foo.plain.html` → `fragments/recommender/foo.html` on DA, reachable at `/fragments/recommender/foo` on the live site). Use this folder for article-sized content that should exist as a modal-loadable fragment but does not need to be a full navigable page.
+
 ### Session Storage & Admin Interface
 
 Every completed recommender generation is persisted to two Cloudflare-managed stores:

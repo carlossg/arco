@@ -207,10 +207,12 @@ function resolveAccessoryImageToken(accessoryId) {
 function resolveStoryToken(slug) {
   const story = storiesMap.get(slug.trim());
   if (!story) return `<!-- unknown story: ${slug} -->`;
+  if (story.published === false) return `<!-- unpublished story: ${slug} -->`;
 
-  // Try to get an image from the first related product
+  // Prefer the curated image; fall back to the first related-product image.
   const firstProduct = story.related_products?.[0];
-  const imageUrl = firstProduct ? getProductImage(firstProduct) : '';
+  const fallbackImage = firstProduct ? getProductImage(firstProduct) : '';
+  const imageUrl = story.image ? absoluteImageUrl(story.image) : fallbackImage;
   const product = firstProduct ? productsMap.get(firstProduct) : null;
 
   const categoryLabel = story.category
@@ -224,10 +226,11 @@ function resolveStoryToken(slug) {
     ? `<div><picture><img src="${imageUrl}" alt="${product?.name || story.title}"></picture></div>`
     : '';
 
+  const body = story.excerpt || story.intro || '';
   const contentCell = `<div>
       <p><em>${categoryLabel}</em></p>
       <h3>${story.title}</h3>
-      <p>${story.intro || ''}</p>
+      <p>${body}</p>
       ${meta ? `<p><strong>${meta}</strong></p>` : ''}
       <p><a href="${story.url}">Read Article</a></p>
     </div>`;
@@ -246,14 +249,16 @@ function resolveStoryToken(slug) {
 function resolveExperienceToken(slug) {
   const exp = experiencesMap.get(slug.trim());
   if (!exp) return `<!-- unknown experience: ${slug} -->`;
+  if (exp.published === false) return `<!-- unpublished experience: ${slug} -->`;
 
-  // Use the anchor product image for the visual
-  const imageUrl = exp.anchor_product ? getProductImage(exp.anchor_product) : '';
+  // Prefer curated image; fall back to the anchor-product image.
+  const fallbackImage = exp.anchor_product ? getProductImage(exp.anchor_product) : '';
+  const imageUrl = exp.image ? absoluteImageUrl(exp.image) : fallbackImage;
   const product = exp.anchor_product ? productsMap.get(exp.anchor_product) : null;
 
   const archetype = exp.experience_archetype || exp.title;
   const headline = exp.hero_headline || exp.title;
-  const hook = exp.hero_subtext || exp.editorial_intro || '';
+  const hook = exp.excerpt || exp.hero_subtext || exp.editorial_intro || '';
 
   const imageCell = imageUrl
     ? `<div><picture><img src="${imageUrl}" alt="${product?.name || archetype}"></picture></div>`

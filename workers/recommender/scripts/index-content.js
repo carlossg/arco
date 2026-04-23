@@ -40,6 +40,8 @@ const MAX_TEXT_CHARS = 2000; // ~500 tokens, fits bge-small context window
 
 const CONTENT_ROOT = resolve(import.meta.dirname, '../../../content');
 const HERO_CATALOG_PATH = join(CONTENT_ROOT, 'hero-image-catalog.json');
+const STORIES_INDEX_PATH = join(CONTENT_ROOT, 'stories-index.json');
+const EXPERIENCES_INDEX_PATH = join(CONTENT_ROOT, 'experiences-index.json');
 
 // Directories to index (relative to CONTENT_ROOT)
 const INDEX_DIRS = [
@@ -77,6 +79,30 @@ function getApiToken() {
   throw new Error(
     'No API token found. Set CLOUDFLARE_API_TOKEN or log in with `wrangler login`.',
   );
+}
+
+// ── Published Gate ──────────────────────────────────────────────────────────
+
+/**
+ * Build a Set of slugs marked published: false in the story/experience indexes.
+ * Articles flagged unpublished are skipped from Vectorize — the LLM cannot
+ * surface {{story:...}} / {{experience:...}} tokens for slugs that can't be
+ * loaded into the modal.
+ */
+function loadUnpublishedSlugs() {
+  const unpublished = new Set();
+  [STORIES_INDEX_PATH, EXPERIENCES_INDEX_PATH].forEach((path) => {
+    if (!existsSync(path)) return;
+    try {
+      const { data = [] } = JSON.parse(readFileSync(path, 'utf-8'));
+      data
+        .filter((item) => item?.slug && item.published === false)
+        .forEach((item) => unpublished.add(item.slug));
+    } catch {
+      console.warn(`  Could not parse ${path} — all entries treated as published`); // eslint-disable-line no-console
+    }
+  });
+  return unpublished;
 }
 
 // ── File Discovery ──────────────────────────────────────────────────────────
@@ -537,6 +563,11 @@ async function main() {
 
   // 1. Discover and chunk content
   const allChunks = [];
+  const unpublishedSlugs = loadUnpublishedSlugs();
+  let skippedUnpublished = 0;
+  if (unpublishedSlugs.size) {
+    console.log(`Skipping ${unpublishedSlugs.size} unpublished slug(s) from stories/experiences indexes\n`);
+  }
 
   if (INDEX_CONTENT) {
     for (const dir of INDEX_DIRS) {
@@ -546,10 +577,15 @@ async function main() {
 
       for (const file of files) {
         const chunks = chunkContent(file);
-        allChunks.push(...chunks);
+        const slug = chunks[0]?.metadata?.slug;
+        if (chunks.length && unpublishedSlugs.has(slug)) {
+          skippedUnpublished += 1;
+        } else {
+          allChunks.push(...chunks);
+        }
       }
     }
-    console.log(`Content chunks: ${allChunks.length}`);
+    console.log(`Content chunks: ${allChunks.length}${skippedUnpublished ? ` (skipped ${skippedUnpublished} unpublished)` : ''}`);
   }
 
   if (INDEX_HEROES) {

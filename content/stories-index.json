@@ -31,7 +31,10 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/a-visit-to-our-workshop"
+      "url": "/fragments/recommender/stories/a-visit-to-our-workshop",
+      "excerpt": "Arco machines are designed, assembled, and tested in a converted textile mill outside Reggio Emilia, in the heart of Italy's motor valley.",
+      "image": "",
+      "published": true
     },
     {
       "id": "coffee-certifications-explained",
@@ -63,7 +66,10 @@
         "arco-studio"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/coffee-certifications-explained"
+      "url": "/fragments/recommender/stories/coffee-certifications-explained",
+      "excerpt": "The labels on your coffee bag are supposed to tell you something meaningful about how the coffee was grown, traded, and its impact on the people and land that…",
+      "image": "",
+      "published": true
     },
     {
       "id": "qa-with-our-head-of-product",
@@ -95,7 +101,10 @@
         "arco-preciso"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/qa-with-our-head-of-product"
+      "url": "/fragments/recommender/stories/qa-with-our-head-of-product",
+      "excerpt": "Elena Marchetti has led product development at Arco since the company's founding.",
+      "image": "",
+      "published": true
     },
     {
       "id": "story-of-the-e61-group-head",
@@ -125,7 +134,10 @@
         "arco-studio-pro"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/story-of-the-e61-group-head"
+      "url": "/fragments/recommender/stories/story-of-the-e61-group-head",
+      "excerpt": "In 1961, Ernesto Valente of FAEMA introduced a group head design so elegant and effective that it is still manufactured and used in both commercial and home ma…",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-arco-refurbishment-program",
@@ -134,7 +146,7 @@
       "title": "The Arco Refurbishment Program: A Second Life for Every Machine",
       "author": "Priya Sharma",
       "read_time_minutes": 8,
-      "intro": "When you are done with your Arco machine \u2014 because you upgraded, moved, or simply changed how you drink coffee \u2014 we do not want it in a landfill. The Arco Refurbishment Program takes back used machines, rebuilds them to factory standard, and resells them as Arco Renewed units at a lower price. Here ",
+      "intro": "When you are done with your Arco machine — because you upgraded, moved, or simply changed how you drink coffee — we do not want it in a landfill. The Arco Refurbishment Program takes back used machines, rebuilds them to factory standard, and resells them as Arco Renewed units at a lower price. Here ",
       "tags": [
         "refurbishment",
         "sustainability",
@@ -159,7 +171,10 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-arco-refurbishment-program"
+      "url": "/fragments/recommender/stories/the-arco-refurbishment-program",
+      "excerpt": "When you are done with your Arco machine — because you upgraded, moved, or simply changed how you drink coffee — we do not want it in a landfill.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-sustainability-audit",
@@ -168,7 +183,7 @@
       "title": "The Sustainability Audit: Materials, Energy, Packaging, and Where We Stand",
       "author": "Elena Marchetti",
       "read_time_minutes": 10,
-      "intro": "We commissioned an independent lifecycle assessment of our operations and products last year. The results were encouraging in some areas and sobering in others. Rather than cherry-picking the good numbers for a marketing brochure, we are publishing the full picture here \u2014 what we are doing well, whe",
+      "intro": "We commissioned an independent lifecycle assessment of our operations and products last year. The results were encouraging in some areas and sobering in others. Rather than cherry-picking the good numbers for a marketing brochure, we are publishing the full picture here — what we are doing well, whe",
       "tags": [
         "sustainability",
         "materials",
@@ -192,7 +207,10 @@
         "arco-studio-pro"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-sustainability-audit"
+      "url": "/fragments/recommender/stories/the-sustainability-audit",
+      "excerpt": "We commissioned an independent lifecycle assessment of our operations and products last year.",
+      "image": "",
+      "published": true
     },
     {
       "id": "what-our-engineers-drink-at-home",
@@ -201,7 +219,7 @@
       "title": "What Our Engineers Drink at Home: Four Setups, Four Philosophies",
       "author": "Marcus Webb",
       "read_time_minutes": 9,
-      "intro": "We asked four engineers on the Arco team to photograph their home coffee setups and explain why they chose what they chose. The results reveal that the people who design espresso machines have wildly different opinions about how to use them \u2014 and that is exactly the kind of internal debate that make",
+      "intro": "We asked four engineers on the Arco team to photograph their home coffee setups and explain why they chose what they chose. The results reveal that the people who design espresso machines have wildly different opinions about how to use them — and that is exactly the kind of internal debate that make",
       "tags": [
         "team-profiles",
         "home-setups",
@@ -224,7 +242,10 @@
         "arco-zero"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/what-our-engineers-drink-at-home"
+      "url": "/fragments/recommender/stories/what-our-engineers-drink-at-home",
+      "excerpt": "We asked four engineers on the Arco team to photograph their home coffee setups and explain why they chose what they chose.",
+      "image": "",
+      "published": true
     },
     {
       "id": "why-arco-chose-brass-for-the-studio-boiler",
@@ -252,7 +273,10 @@
         "arco-studio-pro"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/why-arco-chose-brass-for-the-studio-boiler"
+      "url": "/fragments/recommender/stories/why-arco-chose-brass-for-the-studio-boiler",
+      "excerpt": "The boiler is the thermal heart of any espresso machine, and the material you build it from shapes everything about how that machine performs.",
+      "image": "",
+      "published": true
     },
     {
       "id": "building-a-home-tasting-group",
@@ -286,7 +310,10 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "url": "/stories/building-a-home-tasting-group"
+      "url": "/fragments/recommender/stories/building-a-home-tasting-group",
+      "excerpt": "You do not need a professional cupping lab or a Q-grader certification to host a meaningful coffee tasting.",
+      "image": "",
+      "published": true
     },
     {
       "id": "coffee-saved-my-commute",
@@ -295,7 +322,7 @@
       "title": "Coffee Saved My Commute: Priya M., Project Manager & Mother of Two, Melbourne",
       "author": "Marcus Webb",
       "read_time_minutes": 7,
-      "intro": "Priya Mehta used to spend thirty minutes every morning in a drive-through coffee line with two kids in car seats behind her. The cafe stop was non-negotiable \u2014 she needed the coffee to function \u2014 but the time cost was brutal. An Arco Automatico on her kitchen counter gave her back two and a half hou",
+      "intro": "Priya Mehta used to spend thirty minutes every morning in a drive-through coffee line with two kids in car seats behind her. The cafe stop was non-negotiable — she needed the coffee to function — but the time cost was brutal. An Arco Automatico on her kitchen counter gave her back two and a half hou",
       "tags": [
         "community-story",
         "morning-routine",
@@ -316,7 +343,10 @@
         "arco-automatico"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/coffee-saved-my-commute"
+      "url": "/fragments/recommender/stories/coffee-saved-my-commute",
+      "excerpt": "Priya Mehta used to spend thirty minutes every morning in a drive-through coffee line with two kids in car seats behind her.",
+      "image": "",
+      "published": true
     },
     {
       "id": "espresso-at-545am",
@@ -343,7 +373,10 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/espresso-at-545am"
+      "url": "/fragments/recommender/stories/espresso-at-545am",
+      "excerpt": "Ravi Kapoor works twelve-hour shifts in the pediatric intensive care unit at a London teaching hospital.",
+      "image": "",
+      "published": true
     },
     {
       "id": "from-capsules-to-craft",
@@ -373,7 +406,10 @@
         "arco-macinino"
       ],
       "related_experience": "upgrader",
-      "url": "/stories/from-capsules-to-craft"
+      "url": "/fragments/recommender/stories/from-capsules-to-craft",
+      "excerpt": "Davide Ferrara spent six years feeding capsules into a pod machine every morning without thinking much about what ended up in his cup.",
+      "image": "",
+      "published": true
     },
     {
       "id": "from-instant-to-arco",
@@ -382,7 +418,7 @@
       "title": "From Instant to Arco: Ben T., Software Developer, Bristol",
       "author": "Marcus Webb",
       "read_time_minutes": 7,
-      "intro": "For twenty-eight years, Ben Travers drank instant coffee and did not think twice about it. Nescaf\u00e9 Gold in a mug, boiling water, a splash of milk. It was caffeine delivery, and it did the job. Then a colleague gave him a bag of specialty beans as a joke birthday present, and the joke turned into an ",
+      "intro": "For twenty-eight years, Ben Travers drank instant coffee and did not think twice about it. Nescafé Gold in a mug, boiling water, a splash of milk. It was caffeine delivery, and it did the job. Then a colleague gave him a bag of specialty beans as a joke birthday present, and the joke turned into an ",
       "tags": [
         "community-story",
         "beginner-journey",
@@ -403,7 +439,10 @@
         "arco-primo"
       ],
       "related_experience": "craft-at-home",
-      "url": "/stories/from-instant-to-arco"
+      "url": "/fragments/recommender/stories/from-instant-to-arco",
+      "excerpt": "For twenty-eight years, Ben Travers drank instant coffee and did not think twice about it.",
+      "image": "",
+      "published": true
     },
     {
       "id": "home-barista-of-the-month-sarah",
@@ -412,7 +451,7 @@
       "title": "Home Barista of the Month: Sarah Lindqvist",
       "author": "Sophie Chen",
       "read_time_minutes": 7,
-      "intro": "Each month we spotlight an Arco owner whose dedication, creativity, or generosity stands out in our community. This month we traveled to Gothenburg, Sweden, to meet Sarah Lindqvist \u2014 a marine biologist who brings the same precision to her espresso as she does to her research, and whose home setup ha",
+      "intro": "Each month we spotlight an Arco owner whose dedication, creativity, or generosity stands out in our community. This month we traveled to Gothenburg, Sweden, to meet Sarah Lindqvist — a marine biologist who brings the same precision to her espresso as she does to her research, and whose home setup ha",
       "tags": [
         "community-spotlight",
         "home-barista-of-the-month",
@@ -432,7 +471,10 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "url": "/stories/home-barista-of-the-month-sarah"
+      "url": "/fragments/recommender/stories/home-barista-of-the-month-sarah",
+      "excerpt": "Each month we spotlight an Arco owner whose dedication, creativity, or generosity stands out in our community.",
+      "image": "",
+      "published": true
     },
     {
       "id": "my-wife-hated-coffee",
@@ -441,7 +483,7 @@
       "title": "My Wife Hated Coffee: Sam & Leah R., Auckland",
       "author": "Marcus Webb",
       "read_time_minutes": 7,
-      "intro": "Sam Reeves bought the Arco Doppio for himself. He is clear about this. It was his purchase, for his espresso habit, justified by his spreadsheet of cafe expenses. His wife Leah \u2014 who, for the first thirty-four years of her life, maintained that she hated coffee \u2014 was not consulted, not interested, a",
+      "intro": "Sam Reeves bought the Arco Doppio for himself. He is clear about this. It was his purchase, for his espresso habit, justified by his spreadsheet of cafe expenses. His wife Leah — who, for the first thirty-four years of her life, maintained that she hated coffee — was not consulted, not interested, a",
       "tags": [
         "community-story",
         "couples",
@@ -462,7 +504,10 @@
         "arco-doppio"
       ],
       "related_experience": "social-host",
-      "url": "/stories/my-wife-hated-coffee"
+      "url": "/fragments/recommender/stories/my-wife-hated-coffee",
+      "excerpt": "Sam Reeves bought the Arco Doppio for himself.",
+      "image": "",
+      "published": true
     },
     {
       "id": "our-community-brew-day-recap",
@@ -496,13 +541,16 @@
         "arco-macinino"
       ],
       "related_experience": "craft-barista",
-      "url": "/stories/our-community-brew-day-recap"
+      "url": "/fragments/recommender/stories/our-community-brew-day-recap",
+      "excerpt": "On the last Saturday of October, forty-six Arco owners and enthusiasts gathered in the courtyard of our Reggio Emilia workshop for the first Arco Community Bre…",
+      "image": "",
+      "published": true
     },
     {
       "id": "retirement-project-latte-art",
       "slug": "retirement-project-latte-art",
       "category": "community",
-      "title": "Retirement Project: Latte Art \u2014 Gerald W., Retired Chemical Engineer, Bath",
+      "title": "Retirement Project: Latte Art — Gerald W., Retired Chemical Engineer, Bath",
       "author": "Marcus Webb",
       "read_time_minutes": 8,
       "intro": "Gerald Whitfield retired from a forty-year career in chemical engineering eighteen months ago and immediately faced the problem that confronts every high-functioning retiree: what to do with the hours. His wife suggested gardening. His daughter suggested travel. Gerald chose latte art, which he appr",
@@ -527,7 +575,10 @@
         "arco-studio"
       ],
       "related_experience": "craft-at-home",
-      "url": "/stories/retirement-project-latte-art"
+      "url": "/fragments/recommender/stories/retirement-project-latte-art",
+      "excerpt": "Gerald Whitfield retired from a forty-year career in chemical engineering eighteen months ago and immediately faced the problem that confronts every high-funct…",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-architect-and-the-nano",
@@ -536,7 +587,7 @@
       "title": "The Architect and the Nano: Ingrid S., Principal Architect, Copenhagen",
       "author": "Sophie Renard",
       "read_time_minutes": 7,
-      "intro": "Ingrid S\u00f8rensen designs buildings for a living. Her studio in N\u00f8rrebro is eighteen square meters \u2014 deliberately small, because she believes constraint produces better work. When she needed an espresso machine for the studio, the selection criteria were the same ones she applies to architecture: it h",
+      "intro": "Ingrid Sørensen designs buildings for a living. Her studio in Nørrebro is eighteen square meters — deliberately small, because she believes constraint produces better work. When she needed an espresso machine for the studio, the selection criteria were the same ones she applies to architecture: it h",
       "tags": [
         "community-story",
         "design",
@@ -557,7 +608,10 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-architect-and-the-nano"
+      "url": "/fragments/recommender/stories/the-architect-and-the-nano",
+      "excerpt": "Ingrid Sørensen designs buildings for a living.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-architect-who-built-a-coffee-corner",
@@ -587,7 +641,10 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "url": "/stories/the-architect-who-built-a-coffee-corner"
+      "url": "/fragments/recommender/stories/the-architect-who-built-a-coffee-corner",
+      "excerpt": "When Beatrice Gallo redesigned her Milan apartment, she gave the coffee corner the same attention her firm gives museum lobbies.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-blind-taster",
@@ -617,7 +674,10 @@
         "arco-primo"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-blind-taster"
+      "url": "/fragments/recommender/stories/the-blind-taster",
+      "excerpt": "James Kincaid lost most of his sight at nineteen to a retinal condition that progressed faster than anyone expected.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-college-dorm-upgrade",
@@ -648,7 +708,10 @@
         "arco-nano"
       ],
       "related_experience": "social-host",
-      "url": "/stories/the-college-dorm-upgrade"
+      "url": "/fragments/recommender/stories/the-college-dorm-upgrade",
+      "excerpt": "Four second-year students at the University of Glasgow pooled one hundred and sixty-two pounds each to buy an Arco Nano for their shared flat.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-digital-nomad-setup",
@@ -657,7 +720,7 @@
       "title": "The Digital Nomad Setup: Katarina P., UX Designer, Everywhere",
       "author": "Sophie Renard",
       "read_time_minutes": 7,
-      "intro": "Katarina Petrovi\u0107 has not had a permanent address in three years. She is a UX designer who works remotely for a fintech company based in Berlin, and she moves every four to eight weeks \u2014 Lisbon, Split, Thessaloniki, Tallinn, wherever the Airbnb prices and weather and WiFi align. She travels with one",
+      "intro": "Katarina Petrović has not had a permanent address in three years. She is a UX designer who works remotely for a fintech company based in Berlin, and she moves every four to eight weeks — Lisbon, Split, Thessaloniki, Tallinn, wherever the Airbnb prices and weather and WiFi align. She travels with one",
       "tags": [
         "community-story",
         "travel",
@@ -680,7 +743,10 @@
         "arco-zero"
       ],
       "related_experience": "on-the-move",
-      "url": "/stories/the-digital-nomad-setup"
+      "url": "/fragments/recommender/stories/the-digital-nomad-setup",
+      "excerpt": "Katarina Petrović has not had a permanent address in three years.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-night-shift-nurse",
@@ -689,7 +755,7 @@
       "title": "The Night Shift Nurse: Adaeze O., ICU Nurse, Birmingham",
       "author": "Sophie Renard",
       "read_time_minutes": 7,
-      "intro": "Adaeze Okonkwo's alarm goes off at 2:30 AM three nights a week. She is an ICU nurse at a hospital in Birmingham, and her night shifts run from midnight to noon. The espresso she makes at 2:47 \u2014 she has timed it \u2014 on her Arco Nano is not a morning ritual. It is a middle-of-the-night anchor in a sched",
+      "intro": "Adaeze Okonkwo's alarm goes off at 2:30 AM three nights a week. She is an ICU nurse at a hospital in Birmingham, and her night shifts run from midnight to noon. The espresso she makes at 2:47 — she has timed it — on her Arco Nano is not a morning ritual. It is a middle-of-the-night anchor in a sched",
       "tags": [
         "community-story",
         "night-shift",
@@ -710,16 +776,19 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-night-shift-nurse"
+      "url": "/fragments/recommender/stories/the-night-shift-nurse",
+      "excerpt": "Adaeze Okonkwo's alarm goes off at 2:30 AM three nights a week.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-remote-island-barista",
       "slug": "the-remote-island-barista",
       "category": "community",
-      "title": "The Remote Island Barista: Tom\u00e1s A., Marine Biologist, Azores",
+      "title": "The Remote Island Barista: Tomás A., Marine Biologist, Azores",
       "author": "Sophie Renard",
       "read_time_minutes": 7,
-      "intro": "Tom\u00e1s Almeida lives on Flores, the westernmost island in the Azores \u2014 a volcanic speck in the mid-Atlantic with a population of around 3,700. The nearest proper cafe is a forty-minute drive over mountain roads. His Arco Viaggio travels with him to whale observation points, research stations, and the",
+      "intro": "Tomás Almeida lives on Flores, the westernmost island in the Azores — a volcanic speck in the mid-Atlantic with a population of around 3,700. The nearest proper cafe is a forty-minute drive over mountain roads. His Arco Viaggio travels with him to whale observation points, research stations, and the",
       "tags": [
         "community-story",
         "remote-living",
@@ -740,7 +809,10 @@
         "arco-viaggio"
       ],
       "related_experience": "on-the-move",
-      "url": "/stories/the-remote-island-barista"
+      "url": "/fragments/recommender/stories/the-remote-island-barista",
+      "excerpt": "Tomás Almeida lives on Flores, the westernmost island in the Azores — a volcanic speck in the mid-Atlantic with a population of around 3,700.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-retired-teacher-who-became-a-barista",
@@ -770,7 +842,10 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "url": "/stories/the-retired-teacher-who-became-a-barista"
+      "url": "/fragments/recommender/stories/the-retired-teacher-who-became-a-barista",
+      "excerpt": "Giuliana Rossi taught mathematics at a liceo in Parma for thirty-four years.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-retired-teacher-who-started-competing",
@@ -799,7 +874,10 @@
         "arco-zero"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-retired-teacher-who-started-competing"
+      "url": "/fragments/recommender/stories/the-retired-teacher-who-started-competing",
+      "excerpt": "Giovanni Basso taught mathematics for thirty-eight years at a liceo in Turin.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-startup-office-upgrade",
@@ -827,7 +905,10 @@
         "arco-ufficio"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-startup-office-upgrade"
+      "url": "/fragments/recommender/stories/the-startup-office-upgrade",
+      "excerpt": "Kenji Matsuda is the operations manager at a thirty-person fintech startup in Amsterdam's Jordaan district.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-surgeon-who-needs-precision",
@@ -836,7 +917,7 @@
       "title": "The Surgeon Who Needs Precision: Dr. Elena V., Neurosurgeon, Zurich",
       "author": "Sophie Renard",
       "read_time_minutes": 8,
-      "intro": "Dr. Elena Vogt operates on brains for a living. She spends her days in a room where a millimeter matters, where tremor is failure, where outcomes depend on controlled variables. When she comes home to her apartment overlooking the Limmat, she makes espresso on her Arco Studio Pro \u2014 and the parallels",
+      "intro": "Dr. Elena Vogt operates on brains for a living. She spends her days in a room where a millimeter matters, where tremor is failure, where outcomes depend on controlled variables. When she comes home to her apartment overlooking the Limmat, she makes espresso on her Arco Studio Pro — and the parallels",
       "tags": [
         "community-story",
         "precision",
@@ -858,7 +939,10 @@
         "arco-preciso"
       ],
       "related_experience": "craft-at-home",
-      "url": "/stories/the-surgeon-who-needs-precision"
+      "url": "/fragments/recommender/stories/the-surgeon-who-needs-precision",
+      "excerpt": "Dr.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-van-lifer-and-the-viaggio",
@@ -867,7 +951,7 @@
       "title": "The Van Lifer and the Viaggio: Lena S., No Fixed Address",
       "author": "Sophie Chen",
       "read_time_minutes": 8,
-      "intro": "Lena Sch\u00e4fer sold her apartment in Hamburg, converted a Volkswagen Crafter into a mobile home, and drove south. That was eighteen months ago. She has since brewed espresso on beaches in Portugal, in mountain passes in the Alps, and beside a frozen lake in Norway \u2014 always with her Arco Viaggio, a por",
+      "intro": "Lena Schäfer sold her apartment in Hamburg, converted a Volkswagen Crafter into a mobile home, and drove south. That was eighteen months ago. She has since brewed espresso on beaches in Portugal, in mountain passes in the Alps, and beside a frozen lake in Norway — always with her Arco Viaggio, a por",
       "tags": [
         "community-story",
         "van-life",
@@ -885,7 +969,10 @@
         "arco-viaggio"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-van-lifer-and-the-viaggio"
+      "url": "/fragments/recommender/stories/the-van-lifer-and-the-viaggio",
+      "excerpt": "Lena Schäfer sold her apartment in Hamburg, converted a Volkswagen Crafter into a mobile home, and drove south.",
+      "image": "",
+      "published": true
     },
     {
       "id": "three-generations-one-machine",
@@ -915,7 +1002,10 @@
         "arco-doppio"
       ],
       "related_experience": "family-kitchen",
-      "url": "/stories/three-generations-one-machine"
+      "url": "/fragments/recommender/stories/three-generations-one-machine",
+      "excerpt": "In the Ferraro household in Toronto's Little Italy, coffee has always been a family language.",
+      "image": "",
+      "published": true
     },
     {
       "id": "two-coffee-people-one-machine",
@@ -944,7 +1034,10 @@
         "arco-preciso"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/two-coffee-people-one-machine"
+      "url": "/fragments/recommender/stories/two-coffee-people-one-machine",
+      "excerpt": "Ana Pereira is a straight-espresso purist who favors light-roast single origins.",
+      "image": "",
+      "published": true
     },
     {
       "id": "weeknight-espresso-martini-club",
@@ -953,7 +1046,7 @@
       "title": "Weeknight Espresso Martini Club: How One Neighborhood Started a Ritual",
       "author": "Marco Bellini",
       "read_time_minutes": 8,
-      "intro": "It started with a Thursday evening, a surplus of espresso beans, and a bottle of vodka that had been sitting in the freezer since Christmas. Within three months it became a standing appointment \u2014 six neighbours, one Arco Doppio, and a weekly ritual that turned a quiet residential street into an unli",
+      "intro": "It started with a Thursday evening, a surplus of espresso beans, and a bottle of vodka that had been sitting in the freezer since Christmas. Within three months it became a standing appointment — six neighbours, one Arco Doppio, and a weekly ritual that turned a quiet residential street into an unli",
       "tags": [
         "espresso-martini",
         "cocktails",
@@ -976,7 +1069,10 @@
         "arco-preciso"
       ],
       "related_experience": "entertainer",
-      "url": "/stories/weeknight-espresso-martini-club"
+      "url": "/fragments/recommender/stories/weeknight-espresso-martini-club",
+      "excerpt": "It started with a Thursday evening, a surplus of espresso beans, and a bottle of vodka that had been sitting in the freezer since Christmas.",
+      "image": "",
+      "published": true
     },
     {
       "id": "10-most-common-beginner-mistakes",
@@ -985,7 +1081,7 @@
       "title": "The 10 Most Common Beginner Espresso Mistakes (and How to Fix Them)",
       "author": "Priya Sharma",
       "read_time_minutes": 11,
-      "intro": "We field thousands of support messages a year, and the same issues come up again and again. None of them are about broken equipment \u2014 they are about small habits and misunderstandings that sabotage otherwise good shots. Here are the ten mistakes we see most often, with real fixes for each one.",
+      "intro": "We field thousands of support messages a year, and the same issues come up again and again. None of them are about broken equipment — they are about small habits and misunderstandings that sabotage otherwise good shots. Here are the ten mistakes we see most often, with real fixes for each one.",
       "tags": [
         "beginner",
         "mistakes",
@@ -1005,7 +1101,10 @@
         "arco-macinino"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/10-most-common-beginner-mistakes"
+      "url": "/fragments/recommender/stories/10-most-common-beginner-mistakes",
+      "excerpt": "We field thousands of support messages a year, and the same issues come up again and again.",
+      "image": "",
+      "published": true
     },
     {
       "id": "blind-tasting-your-espresso",
@@ -1033,7 +1132,10 @@
         "arco-studio-pro"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/blind-tasting-your-espresso"
+      "url": "/fragments/recommender/stories/blind-tasting-your-espresso",
+      "excerpt": "We are all biased by what we see.",
+      "image": "",
+      "published": true
     },
     {
       "id": "calibrating-a-burr-grinder",
@@ -1042,7 +1144,7 @@
       "title": "Calibrating a Burr Grinder: Zero Point and Beyond",
       "author": "Sophie Chen",
       "read_time_minutes": 8,
-      "intro": "Every burr grinder has a zero point \u2014 the setting where the burrs just barely touch. Finding and verifying this reference is the foundation of grinder calibration. If your zero point has drifted, every grind setting you use is slightly off. Here is how to recalibrate and why it matters more than you",
+      "intro": "Every burr grinder has a zero point — the setting where the burrs just barely touch. Finding and verifying this reference is the foundation of grinder calibration. If your zero point has drifted, every grind setting you use is slightly off. Here is how to recalibrate and why it matters more than you",
       "tags": [
         "grinder-calibration",
         "zero-point",
@@ -1062,7 +1164,10 @@
         "arco-zero"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/calibrating-a-burr-grinder"
+      "url": "/fragments/recommender/stories/calibrating-a-burr-grinder",
+      "excerpt": "Every burr grinder has a zero point — the setting where the burrs just barely touch.",
+      "image": "",
+      "published": true
     },
     {
       "id": "descaling-step-by-step",
@@ -1095,7 +1200,10 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/descaling-step-by-step"
+      "url": "/fragments/recommender/stories/descaling-step-by-step",
+      "excerpt": "Scale buildup is the silent enemy of every espresso machine.",
+      "image": "",
+      "published": true
     },
     {
       "id": "how-to-clean-a-group-head",
@@ -1124,7 +1232,10 @@
         "arco-studio"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/how-to-clean-a-group-head"
+      "url": "/fragments/recommender/stories/how-to-clean-a-group-head",
+      "excerpt": "The group head is where water meets coffee, and it accumulates oily residue faster than any other part of your machine.",
+      "image": "",
+      "published": true
     },
     {
       "id": "how-to-dial-in-espresso-in-under-10-minutes",
@@ -1133,7 +1244,7 @@
       "title": "How to Dial In Espresso in Under 10 Minutes",
       "author": "Marcus Webb",
       "read_time_minutes": 8,
-      "intro": "Dialing in a new bag of beans does not have to be a drawn-out, anxiety-inducing ritual that wastes half your coffee. With a structured approach and a willingness to taste honestly, you can land on a solid recipe in three to five shots \u2014 well under ten minutes. Here is the step-by-step method we teac",
+      "intro": "Dialing in a new bag of beans does not have to be a drawn-out, anxiety-inducing ritual that wastes half your coffee. With a structured approach and a willingness to taste honestly, you can land on a solid recipe in three to five shots — well under ten minutes. Here is the step-by-step method we teac",
       "tags": [
         "dial-in",
         "espresso-recipe",
@@ -1153,7 +1264,10 @@
         "arco-macinino"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/how-to-dial-in-espresso-in-under-10-minutes"
+      "url": "/fragments/recommender/stories/how-to-dial-in-espresso-in-under-10-minutes",
+      "excerpt": "Dialing in a new bag of beans does not have to be a drawn-out, anxiety-inducing ritual that wastes half your coffee.",
+      "image": "",
+      "published": true
     },
     {
       "id": "how-to-store-beans-properly",
@@ -1183,7 +1297,10 @@
         "arco-preciso"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/how-to-store-beans-properly"
+      "url": "/fragments/recommender/stories/how-to-store-beans-properly",
+      "excerpt": "You can own the best grinder and machine on the market, but if your beans are stale, none of it matters.",
+      "image": "",
+      "published": true
     },
     {
       "id": "pre-infusion-what-it-is-and-why-arco-uses-it",
@@ -1213,7 +1330,10 @@
         "arco-doppio"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/pre-infusion-what-it-is-and-why-arco-uses-it"
+      "url": "/fragments/recommender/stories/pre-infusion-what-it-is-and-why-arco-uses-it",
+      "excerpt": "Before the full force of nine bars of pressure hits your coffee puck, something quieter and arguably more important happens: pre-infusion.",
+      "image": "",
+      "published": true
     },
     {
       "id": "replacing-a-portafilter-gasket",
@@ -1245,7 +1365,10 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/replacing-a-portafilter-gasket"
+      "url": "/fragments/recommender/stories/replacing-a-portafilter-gasket",
+      "excerpt": "The group gasket is a small rubber ring that seals the connection between your portafilter and the group head.",
+      "image": "",
+      "published": true
     },
     {
       "id": "why-your-grinder-matters-more-than-your-machine",
@@ -1274,7 +1397,10 @@
         "arco-preciso"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/why-your-grinder-matters-more-than-your-machine"
+      "url": "/fragments/recommender/stories/why-your-grinder-matters-more-than-your-machine",
+      "excerpt": "Most people upgrading their home setup instinctively reach for a better espresso machine.",
+      "image": "",
+      "published": true
     },
     {
       "id": "altitude-and-espresso",
@@ -1283,7 +1409,7 @@
       "title": "Altitude and Espresso: The Science of Brewing at Elevation",
       "author": "Sophie Chen",
       "read_time_minutes": 9,
-      "intro": "Water boils at 100 degrees Celsius at sea level. At 2,000 meters, it boils at 93 degrees. At 3,500 meters, it boils at 87 degrees. If you are brewing espresso at altitude \u2014 in a mountain cabin, on a ski trip, or while trekking \u2014 these numbers change everything about your extraction. Here is the phys",
+      "intro": "Water boils at 100 degrees Celsius at sea level. At 2,000 meters, it boils at 93 degrees. At 3,500 meters, it boils at 87 degrees. If you are brewing espresso at altitude — in a mountain cabin, on a ski trip, or while trekking — these numbers change everything about your extraction. Here is the phys",
       "tags": [
         "altitude",
         "brewing-science",
@@ -1304,7 +1430,10 @@
         "arco-viaggio"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/altitude-and-espresso"
+      "url": "/fragments/recommender/stories/altitude-and-espresso",
+      "excerpt": "Water boils at 100 degrees Celsius at sea level.",
+      "image": "",
+      "published": true
     },
     {
       "id": "coffee-culture-in-vienna",
@@ -1313,7 +1442,7 @@
       "title": "Coffee Culture in Vienna: The Kaffeehaus Tradition and What It Means Today",
       "author": "Sophie Chen",
       "read_time_minutes": 14,
-      "intro": "Vienna's coffee house tradition is inscribed on the UNESCO Intangible Cultural Heritage list, and for good reason. The Kaffeehaus is not merely a place to drink coffee \u2014 it is a civic institution, a living room for people who prefer not to be at home, and a space where the act of sitting with a cup ",
+      "intro": "Vienna's coffee house tradition is inscribed on the UNESCO Intangible Cultural Heritage list, and for good reason. The Kaffeehaus is not merely a place to drink coffee — it is a civic institution, a living room for people who prefer not to be at home, and a space where the act of sitting with a cup ",
       "tags": [
         "vienna",
         "kaffeehaus",
@@ -1337,7 +1466,10 @@
         "arco-primo"
       ],
       "related_experience": "the-non-barista",
-      "url": "/stories/coffee-culture-in-vienna"
+      "url": "/fragments/recommender/stories/coffee-culture-in-vienna",
+      "excerpt": "Vienna's coffee house tradition is inscribed on the UNESCO Intangible Cultural Heritage list, and for good reason.",
+      "image": "",
+      "published": true
     },
     {
       "id": "espresso-bars-worth-visiting-in-milan",
@@ -1370,7 +1502,10 @@
         "arco-primo"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/espresso-bars-worth-visiting-in-milan"
+      "url": "/fragments/recommender/stories/espresso-bars-worth-visiting-in-milan",
+      "excerpt": "Milan is not a city that shouts about its coffee.",
+      "image": "",
+      "published": true
     },
     {
       "id": "guide-to-coffee-in-tokyo",
@@ -1379,7 +1514,7 @@
       "title": "Guide to Coffee in Tokyo: Precision, Ritual, and the Third Wave",
       "author": "Elena Marchetti",
       "read_time_minutes": 11,
-      "intro": "Tokyo has been serious about coffee for longer than most Western cities have had specialty shops. Japanese kissaten \u2014 traditional coffee houses \u2014 have practiced meticulous hand-drip brewing since the 1950s, and the city's embrace of third-wave specialty coffee has produced a scene where old-world pr",
+      "intro": "Tokyo has been serious about coffee for longer than most Western cities have had specialty shops. Japanese kissaten — traditional coffee houses — have practiced meticulous hand-drip brewing since the 1950s, and the city's embrace of third-wave specialty coffee has produced a scene where old-world pr",
       "tags": [
         "Tokyo",
         "Japan",
@@ -1396,7 +1531,10 @@
       ],
       "related_products": [],
       "related_experience": "morning-minimalist",
-      "url": "/stories/guide-to-coffee-in-tokyo"
+      "url": "/fragments/recommender/stories/guide-to-coffee-in-tokyo",
+      "excerpt": "Tokyo has been serious about coffee for longer than most Western cities have had specialty shops.",
+      "image": "",
+      "published": true
     },
     {
       "id": "lisbon-coffee-renaissance",
@@ -1405,7 +1543,7 @@
       "title": "Lisbon's Coffee Renaissance: From Bica to Third Wave",
       "author": "Sophie Chen",
       "read_time_minutes": 9,
-      "intro": "Lisbon has one of Europe's oldest coffee-drinking traditions and one of its newest specialty scenes. The city that invented the bica \u2014 a short, intense espresso served in a heated ceramic cup \u2014 is now home to a generation of roasters and baristas who are rewriting what Portuguese coffee can be, with",
+      "intro": "Lisbon has one of Europe's oldest coffee-drinking traditions and one of its newest specialty scenes. The city that invented the bica — a short, intense espresso served in a heated ceramic cup — is now home to a generation of roasters and baristas who are rewriting what Portuguese coffee can be, with",
       "tags": [
         "lisbon",
         "portugal",
@@ -1429,7 +1567,10 @@
         "arco-macinino"
       ],
       "related_experience": "craft-barista",
-      "url": "/stories/lisbon-coffee-renaissance"
+      "url": "/fragments/recommender/stories/lisbon-coffee-renaissance",
+      "excerpt": "Lisbon has one of Europe's oldest coffee-drinking traditions and one of its newest specialty scenes.",
+      "image": "",
+      "published": true
     },
     {
       "id": "melbourne-flat-white-trail",
@@ -1438,7 +1579,7 @@
       "title": "The Melbourne Flat White Trail",
       "author": "Sophie Chen",
       "read_time_minutes": 13,
-      "intro": "Melbourne did not invent the flat white \u2014 that claim is contested between Australia and New Zealand with a fervor that outsiders find entertaining and locals find deadly serious. But Melbourne perfected it, built a coffee culture around it, and exported that culture to cities across the world. We wa",
+      "intro": "Melbourne did not invent the flat white — that claim is contested between Australia and New Zealand with a fervor that outsiders find entertaining and locals find deadly serious. But Melbourne perfected it, built a coffee culture around it, and exported that culture to cities across the world. We wa",
       "tags": [
         "melbourne",
         "australia",
@@ -1464,7 +1605,10 @@
         "arco-macinino"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/melbourne-flat-white-trail"
+      "url": "/fragments/recommender/stories/melbourne-flat-white-trail",
+      "excerpt": "Melbourne did not invent the flat white — that claim is contested between Australia and New Zealand with a fervor that outsiders find entertaining and locals f…",
+      "image": "",
+      "published": true
     },
     {
       "id": "scandinavian-light-roast-revolution",
@@ -1473,7 +1617,7 @@
       "title": "The Scandinavian Light Roast Revolution: Nordic Coffee Culture and What It Means for Espresso",
       "author": "Luca Bianchi",
       "read_time_minutes": 10,
-      "intro": "Scandinavia did not just adopt specialty coffee \u2014 it redefined what coffee could taste like. The Nordic approach to roasting, brewing, and drinking has influenced every serious coffee market on the planet. For espresso lovers trained on Italian dark roasts, visiting Copenhagen, Oslo, or Stockholm is",
+      "intro": "Scandinavia did not just adopt specialty coffee — it redefined what coffee could taste like. The Nordic approach to roasting, brewing, and drinking has influenced every serious coffee market on the planet. For espresso lovers trained on Italian dark roasts, visiting Copenhagen, Oslo, or Stockholm is",
       "tags": [
         "scandinavia",
         "nordic",
@@ -1499,7 +1643,10 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "url": "/stories/scandinavian-light-roast-revolution"
+      "url": "/fragments/recommender/stories/scandinavian-light-roast-revolution",
+      "excerpt": "Scandinavia did not just adopt specialty coffee — it redefined what coffee could taste like.",
+      "image": "",
+      "published": true
     },
     {
       "id": "specialty-coffee-in-new-york-for-europeans",
@@ -1525,7 +1672,10 @@
       ],
       "related_products": [],
       "related_experience": "morning-minimalist",
-      "url": "/stories/specialty-coffee-in-new-york-for-europeans"
+      "url": "/fragments/recommender/stories/specialty-coffee-in-new-york-for-europeans",
+      "excerpt": "New York's specialty coffee scene is vast, competitive, and occasionally bewildering for European visitors accustomed to different norms.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-best-cafes-in-lisbon",
@@ -1534,7 +1684,7 @@
       "title": "The Best Cafes in Lisbon: Specialty Coffee in a Traditional City",
       "author": "Luca Bianchi",
       "read_time_minutes": 9,
-      "intro": "Lisbon's coffee culture has been dominated for decades by Delta and Buondi \u2014 the two Portuguese roasters whose dark-roast blends are served in nearly every traditional cafe in the country. But a quiet revolution is underway. A new generation of roasters and cafe owners is building a specialty scene ",
+      "intro": "Lisbon's coffee culture has been dominated for decades by Delta and Buondi — the two Portuguese roasters whose dark-roast blends are served in nearly every traditional cafe in the country. But a quiet revolution is underway. A new generation of roasters and cafe owners is building a specialty scene ",
       "tags": [
         "Lisbon",
         "Portugal",
@@ -1551,7 +1701,10 @@
       ],
       "related_products": [],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-best-cafes-in-lisbon"
+      "url": "/fragments/recommender/stories/the-best-cafes-in-lisbon",
+      "excerpt": "Lisbon's coffee culture has been dominated for decades by Delta and Buondi — the two Portuguese roasters whose dark-roast blends are served in nearly every tra…",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-espresso-trail-naples-to-turin",
@@ -1560,7 +1713,7 @@
       "title": "The Espresso Trail: Naples to Turin",
       "author": "Elena Marchetti",
       "read_time_minutes": 16,
-      "intro": "Italy is not one coffee culture. It is at least half a dozen, layered over each other along the length of the peninsula. The espresso you drink in Naples \u2014 dense, dark, blisteringly sweet \u2014 bears almost no resemblance to the restrained, lighter shot served in Turin, eight hundred kilometers to the n",
+      "intro": "Italy is not one coffee culture. It is at least half a dozen, layered over each other along the length of the peninsula. The espresso you drink in Naples — dense, dark, blisteringly sweet — bears almost no resemblance to the restrained, lighter shot served in Turin, eight hundred kilometers to the n",
       "tags": [
         "italy",
         "naples",
@@ -1589,7 +1742,10 @@
         "arco-viaggio"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-espresso-trail-naples-to-turin"
+      "url": "/fragments/recommender/stories/the-espresso-trail-naples-to-turin",
+      "excerpt": "Italy is not one coffee culture.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-roasters-of-oslo",
@@ -1616,7 +1772,10 @@
       ],
       "related_products": [],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-roasters-of-oslo"
+      "url": "/fragments/recommender/stories/the-roasters-of-oslo",
+      "excerpt": "Oslo roasts more award-winning specialty coffee per capita than any city in the world.",
+      "image": "",
+      "published": true
     },
     {
       "id": "tokyo-kissaten-and-third-wave",
@@ -1625,7 +1784,7 @@
       "title": "Tokyo's Kissaten and Third Wave: Two Coffee Cultures in One City",
       "author": "Luca Bianchi",
       "read_time_minutes": 15,
-      "intro": "Tokyo may be the most interesting coffee city in the world. It holds two entirely separate coffee traditions in parallel \u2014 the kissaten, a mid-twentieth-century Japanese coffee house built around dark roasts, manual brewing, and meditative silence, and the third-wave specialty scene that arrived in ",
+      "intro": "Tokyo may be the most interesting coffee city in the world. It holds two entirely separate coffee traditions in parallel — the kissaten, a mid-twentieth-century Japanese coffee house built around dark roasts, manual brewing, and meditative silence, and the third-wave specialty scene that arrived in ",
       "tags": [
         "tokyo",
         "japan",
@@ -1651,7 +1810,10 @@
         "arco-nano"
       ],
       "related_experience": "craft-at-home",
-      "url": "/stories/tokyo-kissaten-and-third-wave"
+      "url": "/fragments/recommender/stories/tokyo-kissaten-and-third-wave",
+      "excerpt": "Tokyo may be the most interesting coffee city in the world.",
+      "image": "",
+      "published": true
     },
     {
       "id": "batch-prep-for-the-work-week",
@@ -1684,7 +1846,10 @@
         "arco-zero"
       ],
       "related_experience": "organized-planner",
-      "url": "/stories/batch-prep-for-the-work-week"
+      "url": "/fragments/recommender/stories/batch-prep-for-the-work-week",
+      "excerpt": "The best weekday mornings are the ones where you do not have to think.",
+      "image": "",
+      "published": true
     },
     {
       "id": "morning-routine-for-two",
@@ -1693,7 +1858,7 @@
       "title": "Morning Routine for Two",
       "author": "Elena Rossi",
       "read_time_minutes": 7,
-      "intro": "One of you drinks a double espresso, black, no compromises. The other wants an oat milk latte with a heart on top. Both of you need to leave by seven thirty. This is the workflow for making two different drinks on one machine without turning the morning into a logistics exercise \u2014 or an argument abo",
+      "intro": "One of you drinks a double espresso, black, no compromises. The other wants an oat milk latte with a heart on top. Both of you need to leave by seven thirty. This is the workflow for making two different drinks on one machine without turning the morning into a logistics exercise — or an argument abo",
       "tags": [
         "couples",
         "morning-routine",
@@ -1718,7 +1883,10 @@
         "arco-macinino"
       ],
       "related_experience": "couple",
-      "url": "/stories/morning-routine-for-two"
+      "url": "/fragments/recommender/stories/morning-routine-for-two",
+      "excerpt": "One of you drinks a double espresso, black, no compromises.",
+      "image": "",
+      "published": true
     },
     {
       "id": "my-travel-coffee-kit",
@@ -1750,7 +1918,10 @@
         "arco-viaggio"
       ],
       "related_experience": "frequent-traveller",
-      "url": "/stories/my-travel-coffee-kit"
+      "url": "/fragments/recommender/stories/my-travel-coffee-kit",
+      "excerpt": "Hotel coffee is a problem that the hospitality industry has been failing to solve for decades.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-five-minute-morning-shot",
@@ -1759,7 +1930,7 @@
       "title": "The Five-Minute Morning Shot",
       "author": "Luca Bianchi",
       "read_time_minutes": 7,
-      "intro": "You do not have twenty minutes to dial in and experiment on a Tuesday morning. You have five. Maybe six if the shower was fast. The weekday morning shot is not about perfection \u2014 it is about consistency, speed, and a cup that makes the commute tolerable. Here is how to build a workflow that delivers",
+      "intro": "You do not have twenty minutes to dial in and experiment on a Tuesday morning. You have five. Maybe six if the shower was fast. The weekday morning shot is not about perfection — it is about consistency, speed, and a cup that makes the commute tolerable. Here is how to build a workflow that delivers",
       "tags": [
         "morning-routine",
         "quick-espresso",
@@ -1782,7 +1953,10 @@
         "arco-macinino"
       ],
       "related_experience": "morning-minimalist",
-      "url": "/stories/the-five-minute-morning-shot"
+      "url": "/fragments/recommender/stories/the-five-minute-morning-shot",
+      "excerpt": "You do not have twenty minutes to dial in and experiment on a Tuesday morning.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-monthly-deep-clean",
@@ -1791,7 +1965,7 @@
       "title": "The Monthly Deep Clean",
       "author": "Marcus Webb",
       "read_time_minutes": 9,
-      "intro": "Your espresso machine is a precision instrument that processes water, pressure, and heat through tight tolerances every day. Like any precision instrument, it accumulates residue, scale, and wear that degrade performance gradually \u2014 so gradually that you might not notice until the shot quality has d",
+      "intro": "Your espresso machine is a precision instrument that processes water, pressure, and heat through tight tolerances every day. Like any precision instrument, it accumulates residue, scale, and wear that degrade performance gradually — so gradually that you might not notice until the shot quality has d",
       "tags": [
         "maintenance",
         "deep-clean",
@@ -1817,7 +1991,10 @@
         "arco-macinino"
       ],
       "related_experience": "meticulous-owner",
-      "url": "/stories/the-monthly-deep-clean"
+      "url": "/fragments/recommender/stories/the-monthly-deep-clean",
+      "excerpt": "Your espresso machine is a precision instrument that processes water, pressure, and heat through tight tolerances every day.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-office-coffee-champion",
@@ -1851,7 +2028,10 @@
         "arco-preciso"
       ],
       "related_experience": "office-champion",
-      "url": "/stories/the-office-coffee-champion"
+      "url": "/fragments/recommender/stories/the-office-coffee-champion",
+      "excerpt": "Every office that has a good espresso machine also has a person.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-post-dinner-espresso-ritual",
@@ -1860,7 +2040,7 @@
       "title": "The Post-Dinner Espresso Ritual",
       "author": "Luca Bianchi",
       "read_time_minutes": 8,
-      "intro": "In Italy, dinner does not end with dessert. It ends with espresso. The small cup arrives after the plates are cleared, after the conversation has moved from catching up to settling in, and it signals a shift \u2014 from eating to simply being together. This tradition translates beautifully to the home, a",
+      "intro": "In Italy, dinner does not end with dessert. It ends with espresso. The small cup arrives after the plates are cleared, after the conversation has moved from catching up to settling in, and it signals a shift — from eating to simply being together. This tradition translates beautifully to the home, a",
       "tags": [
         "after-dinner",
         "ristretto",
@@ -1884,7 +2064,10 @@
         "arco-preciso"
       ],
       "related_experience": "entertainer",
-      "url": "/stories/the-post-dinner-espresso-ritual"
+      "url": "/fragments/recommender/stories/the-post-dinner-espresso-ritual",
+      "excerpt": "In Italy, dinner does not end with dessert.",
+      "image": "",
+      "published": true
     },
     {
       "id": "the-weekend-slow-brew",
@@ -1916,7 +2099,10 @@
         "arco-preciso"
       ],
       "related_experience": "weekend-experimenter",
-      "url": "/stories/the-weekend-slow-brew"
+      "url": "/fragments/recommender/stories/the-weekend-slow-brew",
+      "excerpt": "The weekday morning shot is about speed and consistency.",
+      "image": "",
+      "published": true
     }
   ]
 }
