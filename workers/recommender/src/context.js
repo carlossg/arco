@@ -100,11 +100,19 @@ export function matchUseCase(query) {
 
 /**
  * Get relevant products based on persona, use case, and query.
+ *
+ * When `shownProductIds` is provided (follow-up runs), those products are
+ * guaranteed to appear in the candidate set — ranked by their natural score
+ * and force-included if they would otherwise fall outside the top-K. This
+ * keeps the session anchor (e.g. Automatico after an initial touchscreen
+ * query) visible to the LLM on every subsequent run, so the follow-up can
+ * either re-feature it or explicitly reason about why it no longer fits.
  */
-export function getRelevantProducts(query, persona, useCase) {
+export function getRelevantProducts(query, persona, useCase, shownProductIds = []) {
   const lower = query.toLowerCase();
   const profiles = productProfilesData.data || productProfilesData.profiles || {};
   const allProducts = productsData.data || [];
+  const shownSet = new Set(shownProductIds);
 
   const scored = allProducts.map((p) => {
     let score = 0;
@@ -143,10 +151,41 @@ export function getRelevantProducts(query, persona, useCase) {
       if (lower.includes(bf.toLowerCase())) score += 2;
     });
 
+    // Continuity boost: already shown to the user in this session. Significant
+    // enough to keep it competitive on a feature-pivot follow-up, but not so
+    // large that an obviously unfit product dominates.
+    if (shownSet.has(p.id)) score += 4;
+
     return { ...p, score };
   }).sort((a, b) => b.score - a.score);
 
-  return scored.slice(0, 8);
+  const MAX_RESULTS = 8;
+  if (!shownSet.size) return scored.slice(0, MAX_RESULTS);
+
+  // Force-include shown products up to a cap: take top-N by score, then
+  // guarantee shown products are in the result (replacing lowest-scored
+  // non-shown). Limit continuity injections to 2 so new candidates still
+  // get most of the slots.
+  const MAX_CONTINUITY = 2;
+  const top = scored.slice(0, MAX_RESULTS);
+  const topIds = new Set(top.map((p) => p.id));
+  const missingShown = scored
+    .filter((p) => shownSet.has(p.id) && !topIds.has(p.id))
+    .slice(0, MAX_CONTINUITY);
+  if (!missingShown.length) return top;
+
+  const result = [...top];
+  missingShown.forEach((shown) => {
+    for (let i = result.length - 1; i >= 0; i -= 1) {
+      if (!shownSet.has(result[i].id)) {
+        result.splice(i, 1);
+        break;
+      }
+    }
+    if (result.length >= MAX_RESULTS) result.pop();
+    result.push(shown);
+  });
+  return result.sort((a, b) => b.score - a.score);
 }
 
 /**

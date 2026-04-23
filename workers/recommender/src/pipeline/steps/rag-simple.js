@@ -35,7 +35,12 @@ function createSlicingStep({ key, defaultMax, fetch }) {
 export const ragProducts = createSlicingStep({
   key: 'products',
   defaultMax: 8,
-  fetch: (ctx) => getRelevantProducts(ctx.request.query, ctx.rag.persona, ctx.rag.useCase),
+  fetch: (ctx) => getRelevantProducts(
+    ctx.request.query,
+    ctx.rag.persona,
+    ctx.rag.useCase,
+    ctx.request.shownContent?.shownProducts || [],
+  ),
 });
 
 export const ragFeatures = createSlicingStep({
