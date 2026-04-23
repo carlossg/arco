@@ -18,6 +18,11 @@ import {
   handleAdminRun,
   handleAdminUI,
 } from './admin.js';
+import {
+  handleVectorizeStats,
+  handleVectorizeSearch,
+  handleVectorizeItem,
+} from './vectorize-admin.js';
 
 /**
  * Full pipeline bypass for load testing — skips rate-limit, RAG, intent, and LLM.
@@ -380,6 +385,18 @@ export default {
     const runMatch = url.pathname.match(/^\/api\/admin\/runs\/([^/]+)$/);
     if (runMatch && request.method === 'GET') {
       return handleAdminRun(request, env, runMatch[1]);
+    }
+
+    // Admin routes — vectorize browser
+    if (url.pathname === '/api/admin/vectorize/stats' && request.method === 'GET') {
+      return handleVectorizeStats(request, env);
+    }
+    if (url.pathname === '/api/admin/vectorize/search' && request.method === 'GET') {
+      return handleVectorizeSearch(request, env);
+    }
+    const vecItemMatch = url.pathname.match(/^\/api\/admin\/vectorize\/items\/(.+)$/);
+    if (vecItemMatch && request.method === 'GET') {
+      return handleVectorizeItem(request, env, decodeURIComponent(vecItemMatch[1]));
     }
 
     return new Response('Not Found', { status: 404, headers: CORS_HEADERS });

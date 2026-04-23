@@ -74,12 +74,20 @@ function wwwAuthenticate() {
   });
 }
 
-function unauthorized() {
+export function adminUnauthorized() {
   return new Response(JSON.stringify({ error: 'Unauthorized' }), {
     status: 401,
     headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
   });
 }
+
+export async function requireAdminAuth(request, env) {
+  if (await checkCookieAuth(request, env)) return null;
+  if (checkBasicAuth(request, env)) return null;
+  return adminUnauthorized();
+}
+
+const unauthorized = adminUnauthorized;
 
 // ─── API Handlers ─────────────────────────────────────────────────────────────
 
