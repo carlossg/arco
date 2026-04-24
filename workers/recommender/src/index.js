@@ -27,6 +27,12 @@ import {
   handleVectorizeSearch,
   handleVectorizeItem,
 } from './vectorize-admin.js';
+import {
+  handleCreateExperiment,
+  handleListExperiments,
+  handleGetExperiment,
+  handleGetExperimentVariant,
+} from './experiments.js';
 
 /**
  * Full pipeline bypass for load testing — skips rate-limit, RAG, intent, and LLM.
@@ -399,6 +405,20 @@ export default {
     }
     if (url.pathname === '/api/admin/llm-config' && request.method === 'PUT') {
       return handleAdminLlmConfigPut(request, env);
+    }
+
+    // Admin routes — experiments (multi-model A/B)
+    if (url.pathname === '/api/admin/experiments') {
+      if (request.method === 'POST') return handleCreateExperiment(request, env);
+      if (request.method === 'GET') return handleListExperiments(request, env);
+    }
+    const expVarMatch = url.pathname.match(/^\/api\/admin\/experiments\/([^/]+)\/variants\/([^/]+)$/);
+    if (expVarMatch && request.method === 'GET') {
+      return handleGetExperimentVariant(request, env, expVarMatch[1], expVarMatch[2]);
+    }
+    const expMatch = url.pathname.match(/^\/api\/admin\/experiments\/([^/]+)$/);
+    if (expMatch && request.method === 'GET') {
+      return handleGetExperiment(request, env, expMatch[1]);
     }
 
     // Admin routes — vectorize browser

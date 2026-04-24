@@ -301,6 +301,7 @@ Login: HTTP Basic Auth — username `admin`, password = `ADMIN_TOKEN` secret (se
 | Sessions list | `#/` | All sessions ordered by last-active; session ID, timestamps, run count, user agent |
 | Session detail | `#/sessions/:id` | Pages (grouped by page_id) with initial query, URL, run count, total duration, tokens |
 | Page detail | `#/pages/:id` | Four tabs: **Overview** (metadata + totals), **Full page** (reconstructs every run plus inline follow-up chip markers showing what was presented and which chip was clicked), **Run timeline** (per-run breakdown with options shown + selected), **Debug** (per-run RAG/prompt/LLM output) |
+| Experiments | `#/experiments` | Multi-model A/B runner. Creates an **experiment** (1–12 variants) against the same query, fans out the `llm-generate` step in parallel, and renders a side-by-side overview (duration, tokens, temperature, max tokens) plus a flip-through viewer that re-renders each variant's blocks. Upstream RAG + prompt runs **once** per experiment. |
 
 The admin EDS block lives at `blocks/admin/` and is also hosted at `drafts/admin.html` for local testing. The prior `/admin` HTML SPA endpoint on the worker still exists but is superseded by the block.
 
@@ -318,7 +319,34 @@ curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin
 
 # Single run detail (KV payload for one generation)
 curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/runs/{runId}
+
+# List experiments (paginated)
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/experiments?limit=50&offset=0
+
+# Create a new experiment (streams NDJSON; one `section` event per variant, tagged with variantId)
+curl -u admin:TOKEN -N -H 'Content-Type: application/json' \
+  -d '{"query":"best espresso under 1000","variants":[
+    {"provider":"cerebras","model":"gpt-oss-120b","temperature":0.6,"maxTokens":5120},
+    {"provider":"sambanova","model":"DeepSeek-V3.2","temperature":0.6,"maxTokens":5120}]}' \
+  https://arco-recommender.franklin-prod.workers.dev/api/admin/experiments
+
+# Single experiment + its variant summary rows
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/experiments/{experimentId}
+
+# Variant full payload (blocks + debug + prompt) for re-rendering
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/experiments/{experimentId}/variants/{variantId}
 ```
+
+**Experiment storage** (migration `0004_experiments.sql`):
+
+| Table | What it holds |
+|-------|---------------|
+| `experiments` | One row per experiment — query, variant count, status, upstream (`shared_duration_ms`) timing, intent/journey snapshot. |
+| `experiment_variants` | One row per `{provider, model, temperature, max_tokens}` run within an experiment — status, duration, token counts, title, block count, error. Reserves `evaluator_score` / `evaluator_notes` / `evaluator_summary` columns for the phase-2 LLM judge. |
+
+Per-variant full NDJSON payloads (blocks, suggestions, debug snapshot, prompt, raw LLM output) live in `SESSION_STORE` KV under `experiment:{experimentId}:variant:{variantId}` with a 90-day TTL — the same shape as `page:{runId}` so the admin block reuses its existing `renderStoredSection()` helper to re-render any variant.
+
+**Phase 2 — LLM judge (planned)**: an evaluator endpoint will score variants against a rubric using Claude Sonnet or Opus. The key is reserved as `ANTHROPIC_EVAL_API_KEY` (set via `wrangler secret put ANTHROPIC_EVAL_API_KEY`), and the D1 columns above are already in place; no schema change needed when phase 2 ships.
 
 **Query D1 directly** (for ad-hoc analysis):
 

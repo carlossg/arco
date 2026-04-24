@@ -1,7 +1,19 @@
 /**
- * LLM Generate Step — streams AI content via Cerebras, parses sections incrementally.
- * Reads ctx.prompt.*. Writes ctx.llm.*, streams NDJSON to ctx.writer.
- * Token resolution and sanitization happen per-section inside this step.
+ * LLM Generate Step — streams AI content via the selected provider, parses
+ * sections incrementally, token-resolves/sanitizes each section.
+ *
+ * Two entry points:
+ *   llmGenerate(ctx, config, env)
+ *     The flow step. Writes to ctx.llm.* and ctx.timings.*. Emits untagged
+ *     NDJSON events on ctx.writer — contract with /api/generate is byte-identical
+ *     to before the runLlmVariant extraction.
+ *
+ *   runLlmVariant(ctx, env, opts)
+ *     Reusable primitive for both the single-run path (called from llmGenerate)
+ *     and the admin experiments fan-out path. When opts.variantId is set, every
+ *     NDJSON event is tagged with that variantId so a shared stream can carry
+ *     multiple concurrent variants. Writes into opts.out / opts.timings so each
+ *     caller can keep a private state bag.
  */
 
 import { getProvider, findCatalogEntry, catalogAvailability } from '../../providers/index.js';
@@ -70,24 +82,16 @@ function extractFailedComments(html) {
 
 /**
  * Process a section with full debug tracking of each sub-step.
- * Returns { html, debug } with per-step timings, token resolution details,
- * URL normalization changes, and sanitization status.
  */
 export function processSectionDetailed(section) {
   const debug = {};
 
-  // Step 0a: block-level content sanitization (e.g. drop empty testimonials).
-  // Returning null here means the caller should skip the section entirely;
-  // we emit '' so the existing hasContent() check does that for us.
   const cleaned = sanitizeBlockContent(section);
   if (!cleaned) {
     debug.skipped = 'empty-block-content';
     return { html: '', debug };
   }
 
-  // Step 0b: Strip invented story/experience links on card blocks.
-  // Any article-excerpt / blog-card / experience-cta row whose token slug or
-  // manual href isn't in the bundled stories/experiences index is dropped.
   const originalRowCount = Array.isArray(cleaned.rows) ? cleaned.rows.length : 0;
   const cardClean = sanitizeContentCards(cleaned);
   const cleanRowCount = Array.isArray(cardClean?.rows) ? cardClean.rows.length : 0;
@@ -100,14 +104,12 @@ export function processSectionDetailed(section) {
     return { html: '', debug };
   }
 
-  // Step 1: JSON → EDS HTML
   let t = Date.now();
   let html = sectionToHtml(cardClean);
   debug.jsonToHtmlMs = Date.now() - t;
   const hrefsAfterJson = extractHrefs(html);
   const tokensFound = extractContentTokens(html);
 
-  // Step 2: Resolve content tokens ({{product:ID}}, {{recipe:NAME}}, etc.)
   t = Date.now();
   html = resolveTokens(html);
   debug.resolveTokensMs = Date.now() - t;
@@ -122,13 +124,11 @@ export function processSectionDetailed(section) {
     unresolved: unresolvedTokens,
   };
 
-  // Step 3: Normalize product URLs
   t = Date.now();
   html = normalizeProductUrls(html);
   debug.normalizeUrlsMs = Date.now() - t;
   const hrefsAfterNorm = extractHrefs(html);
 
-  // Compute which URLs were changed by normalization
   const urlChanges = [];
   for (let i = 0; i < Math.max(hrefsAfterTokens.length, hrefsAfterNorm.length); i += 1) {
     if (hrefsAfterTokens[i] !== hrefsAfterNorm[i]) {
@@ -137,14 +137,12 @@ export function processSectionDetailed(section) {
   }
   debug.urlChanges = urlChanges;
 
-  // All links at each stage for full visibility
   debug.links = {
     afterJsonToHtml: hrefsAfterJson,
     afterResolveTokens: hrefsAfterTokens,
     afterNormalizeUrls: hrefsAfterNorm,
   };
 
-  // Step 4: Sanitize HTML (XSS protection)
   const preSanitize = html;
   t = Date.now();
   html = sanitizeHTML(html);
@@ -158,17 +156,10 @@ export function processSectionDetailed(section) {
   return { html, debug };
 }
 
-/**
- * Check if section HTML has meaningful content (not just an empty wrapper div).
- */
 function hasContent(html) {
   return html.replace(/<[^>]*>/g, '').trim().length > 0;
 }
 
-/**
- * Create a fallback hero section JSON when the LLM omits one as the first block.
- * Uses {{hero-image:main}} which resolves to the pre-selected hero image via images.js.
- */
 function createFallbackHeroSection(query) {
   const rawTitle = (query || '').trim().replace(/\?+$/, '');
   const title = rawTitle
@@ -188,17 +179,12 @@ function createFallbackHeroSection(query) {
 }
 
 // Only 'explore' and 'compare' may come from the LLM. The 'buy' CTA is injected
-// server-side post-parse (see llmGenerate) against a product the LLM picked.
+// server-side post-parse against a product the LLM picked.
 const LLM_SUGGESTION_TYPES = ['explore', 'compare'];
 
-/**
- * Extract the primary recommended product from generated JSON sections.
- * Checks columns blocks (product spotlights) first, then comparison-table recommended field.
- */
 function extractPrimaryProduct(rawJsonSections) {
   const imageTokenRe = /\{\{product-image:([^}]+)\}\}/;
 
-  // Strategy 1: columns block with product image → extract product ID from token
   const colBlock = rawJsonSections.find(
     (s) => s.block === 'columns' && JSON.stringify(s).includes('{{product-image:'),
   );
@@ -210,7 +196,6 @@ function extractPrimaryProduct(rawJsonSections) {
     }
   }
 
-  // Strategy 2: comparison-table with data.recommended → match against row tokens
   const cmpBlock = rawJsonSections.find(
     (s) => s.block === 'comparison-table' && s.data?.recommended,
   );
@@ -220,7 +205,6 @@ function extractPrimaryProduct(rawJsonSections) {
     const allIds = Array.from(json.matchAll(/\{\{product-image:([^}]+)\}\}/g))
       .map((m) => m[1].trim());
 
-    // Try to match the recommended product name
     const matched = allIds.reduce((found, id) => {
       if (found) return found;
       const data = getProductData(id);
@@ -228,7 +212,6 @@ function extractPrimaryProduct(rawJsonSections) {
     }, null);
     if (matched) return { id: matched.id, name: matched.name, url: matched.url };
 
-    // Fallback: first valid product from the table
     const fallback = allIds.reduce((found, id) => {
       if (found) return found;
       return getProductData(id);
@@ -239,10 +222,6 @@ function extractPrimaryProduct(rawJsonSections) {
   return null;
 }
 
-/**
- * Filter LLM suggestions to the allowed types and strip content-pushing labels.
- * A server-injected 'buy' CTA is added later in llmGenerate, not here.
- */
 export function processSuggestions(suggestions) {
   if (!Array.isArray(suggestions)) return [];
   return suggestions.filter(
@@ -251,9 +230,6 @@ export function processSuggestions(suggestions) {
   );
 }
 
-/**
- * Generate a page title from the first section HTML.
- */
 export function extractTitle(firstSection) {
   const h1Match = firstSection.match(/<h1[^>]*>([^<]+)<\/h1>/i);
   if (h1Match) return unescapeHtml(h1Match[1]);
@@ -262,16 +238,14 @@ export function extractTitle(firstSection) {
   return '';
 }
 
-// eslint-disable-next-line import/prefer-default-export
 /**
- * Dummy LLM bypass — streams pre-canned content without calling Cerebras.
+ * Dummy LLM bypass — streams pre-canned content without calling the provider.
  * Activated by the X-Skip-Cerebras request header (load testing only).
- * All upstream pipeline steps (RAG, Vectorize, embedding) still run normally.
  */
 async function streamDummyContent(ctx) {
   const query = ctx.request?.query || 'your query';
   const dummySections = [
-    `<div class="section"><h1>Results for: ${query}</h1><p>This is dummy content returned by the load test bypass. Cerebras was not called.</p></div>`,
+    `<div class="section"><h1>Results for: ${query}</h1><p>This is dummy content returned by the load test bypass. No LLM was called.</p></div>`,
     '<div class="section"><h2>About this product</h2><p>The Arco Studio Pro is an excellent espresso machine designed for home baristas who demand precision and consistency in every shot.</p></div>',
     '<div class="section"><h2>Key features</h2><ul><li>PID temperature control</li><li>58mm portafilter</li><li>Built-in pressure gauge</li></ul></div>',
   ];
@@ -317,72 +291,112 @@ async function streamDummyContent(ctx) {
   await ctx.writer.write(ctx.encoder.encode(`${doneLine}\n`));
 }
 
-export async function llmGenerate(ctx, config, env) {
-  // Select hero image using hybrid keyword + vector scoring
-  // Use only explicitly mentioned product IDs for hero selection — not all RAG
-  // products — to avoid boosting generic content-page images that happen to list
-  // many products in their metadata.
-  const heroImage = selectHeroImage({
-    query: ctx.request?.query,
-    useCases: ctx.rag?.useCase?.useCases,
-    intentType: ctx.intent?.type,
-    productIds: extractProductIds(ctx.request?.query || ''),
-  }, ctx.rag?.heroImages || []);
-  setHeroResult(heroImage);
+/**
+ * Create a fresh per-variant state bag matching ctx.llm's shape.
+ * Used by the admin experiments fan-out so each variant accumulates
+ * sections / suggestions / usage / fullText in isolation.
+ */
+export function createVariantState() {
+  return {
+    fullText: '',
+    sections: [],
+    rawJsonSections: [],
+    suggestions: [],
+    usage: null,
+    provider: null,
+    model: null,
+    temperature: null,
+    maxTokens: null,
+  };
+}
 
-  // Load test bypass: skip Cerebras and return dummy content
-  // Activated by X-Skip-Cerebras header — all upstream RAG steps still run
-  if (ctx.request.headers?.get('x-skip-cerebras') === 'true') {
-    await streamDummyContent(ctx);
-    return;
-  }
+/**
+ * Run one LLM variant end-to-end. Returns when the stream closes.
+ *
+ * @param {object} ctx Pipeline context (shared upstream RAG/prompt).
+ * @param {object} env Worker env (bindings + secrets).
+ * @param {object} opts
+ *   - variantId?: string   When set, all NDJSON events get a `variantId` field
+ *                          (so the same writer can carry concurrent variants).
+ *                          When null/undefined, events are untagged — byte-
+ *                          identical to the legacy /api/generate contract.
+ *   - provider: string     Provider id ('cerebras' | 'cloudflare' | 'sambanova').
+ *   - model: string
+ *   - temperature: number
+ *   - maxTokens: number
+ *   - out?: object         State bag to populate (default: ctx.llm).
+ *   - timings?: object     Timings bag (default: ctx.timings).
+ *   - emitDebug?: boolean  Whether to emit the big `type: 'debug'` NDJSON line
+ *                          (default: true — matches legacy behaviour).
+ *   - emitDone?: boolean   Whether to emit the terminal `type: 'done'` line
+ *                          (default: true).
+ *   - llmTimeoutMs?: number
+ */
+export async function runLlmVariant(ctx, env, opts) {
+  const {
+    variantId = null,
+    provider: providerId,
+    model,
+    temperature,
+    maxTokens,
+    out = ctx.llm,
+    timings = ctx.timings,
+    emitDebug = true,
+    emitDone = true,
+    llmTimeoutMs,
+  } = opts;
 
-  // Resolve active provider + model from KV, with per-flow config as fallback.
-  const active = await getActiveLlmConfig(env);
-  const resolved = resolveLlmConfig(active, config);
-
-  // Preflight: make sure all env vars the chosen model needs are present.
-  // Fall through with a clear error instead of letting the vendor call fail.
-  const entry = findCatalogEntry(resolved.provider, resolved.model)
-    || { provider: resolved.provider, model: resolved.model };
+  // Preflight — surface a helpful error instead of letting the vendor call fail.
+  const entry = findCatalogEntry(providerId, model)
+    || { provider: providerId, model };
   const { available, missing } = catalogAvailability(entry, env);
   if (!available) {
-    const err = new Error(`Missing configuration for ${resolved.provider}/${resolved.model}: ${missing.join(', ')}. Set the required secrets or pick a different model in Admin → Model Settings.`);
+    const err = new Error(`Missing configuration for ${providerId}/${model}: ${missing.join(', ')}. Set the required secrets or pick a different model in Admin → Model Settings.`);
     err.status = 400;
     throw err;
   }
 
-  const provider = getProvider(resolved.provider);
-  ctx.llm.model = resolved.model;
-  ctx.llm.provider = resolved.provider;
-  ctx.llm.temperature = resolved.temperature;
-  ctx.llm.maxTokens = resolved.maxTokens;
+  const provider = getProvider(providerId);
+  out.model = model;
+  out.provider = providerId;
+  out.temperature = temperature;
+  out.maxTokens = maxTokens;
 
-  // Heartbeat to keep the connection alive while waiting for LLM
+  const tagged = variantId != null;
+  const writeLine = async (obj) => {
+    const line = JSON.stringify(tagged ? { ...obj, variantId } : obj);
+    // Untagged path preserves the legacy NDJSON replay buffer on ctx.
+    if (!tagged) ctx.ndjsonLines.push(line);
+    await ctx.writer.write(ctx.encoder.encode(`${line}\n`));
+  };
+
+  // Heartbeat keeps the connection alive while waiting for the first token.
   const heartbeatInterval = setInterval(async () => {
     try {
-      await ctx.writer.write(ctx.encoder.encode(`${JSON.stringify({ type: 'heartbeat' })}\n`));
+      await ctx.writer.write(
+        ctx.encoder.encode(`${JSON.stringify(tagged ? { type: 'heartbeat', variantId } : { type: 'heartbeat' })}\n`),
+      );
     } catch {
       clearInterval(heartbeatInterval);
     }
   }, 3000);
 
-  const LLM_TIMEOUT_MS = config.llmTimeout || 60_000;
+  const timeoutMs = llmTimeoutMs || 60_000;
   const abortController = new AbortController();
-  const timeoutId = setTimeout(() => abortController.abort(), LLM_TIMEOUT_MS);
+  const timeoutId = setTimeout(() => abortController.abort(), timeoutMs);
 
-  ctx.timings.llmStart = Date.now();
+  timings.llmStart = Date.now();
   let completion;
   try {
     completion = provider.stream({
       env,
-      model: resolved.model,
+      model,
       messages: [
         { role: 'system', content: ctx.prompt.system },
         { role: 'user', content: ctx.prompt.user },
       ],
-      maxTokens: resolved.maxTokens,
-      temperature: resolved.temperature,
+      maxTokens,
+      temperature,
       signal: abortController.signal,
     });
   } catch (llmErr) {
@@ -400,57 +414,48 @@ export async function llmGenerate(ctx, config, env) {
     throw new Error(msg);
   }
 
-  // Incremental streaming: parse JSON blocks as they complete
   const parser = new StreamParser();
   const sectionTimings = [];
   const sectionDetails = [];
   let sectionIndex = 0;
   let tokenCount = 0;
-  // Follow-up turns already have a hero from the first generation — skip injecting one
+  // Follow-up turns already have a hero from the first generation — skip injecting one.
   let heroEnsured = !!ctx.request.followUp;
 
   try {
     // eslint-disable-next-line no-restricted-syntax
     for await (const chunk of completion) {
       if (chunk.type === 'usage') {
-        ctx.llm.usage = chunk.usage;
+        out.usage = chunk.usage;
         continue; // eslint-disable-line no-continue
       }
       const content = chunk.type === 'delta' ? chunk.text : null;
       if (content) {
-        if (!ctx.timings.llmFirstToken) ctx.timings.llmFirstToken = Date.now();
-        ctx.timings.llmLastToken = Date.now();
-        ctx.llm.fullText += content;
+        if (!timings.llmFirstToken) timings.llmFirstToken = Date.now();
+        timings.llmLastToken = Date.now();
+        out.fullText += content;
         tokenCount += 1;
 
-        // Feed to incremental parser
         const completedSections = parser.feed(content);
         // eslint-disable-next-line no-restricted-syntax
         for (const section of completedSections) {
           const { html, debug: sDebug } = processSectionDetailed(section);
-
-          // Skip empty blocks
           if (!hasContent(html)) continue; // eslint-disable-line no-continue
 
-          // Guarantee the first block is always a hero
           if (!heroEnsured) {
             heroEnsured = true;
             if (section.block !== 'hero') {
               const heroHtml = processSection(createFallbackHeroSection(ctx.request?.query));
               if (hasContent(heroHtml)) {
-                const heroLine = JSON.stringify(
-                  { type: 'section', index: sectionIndex, html: heroHtml },
-                );
-                ctx.ndjsonLines.push(heroLine);
                 // eslint-disable-next-line no-await-in-loop
-                await ctx.writer.write(ctx.encoder.encode(`${heroLine}\n`));
+                await writeLine({ type: 'section', index: sectionIndex, html: heroHtml });
                 sectionIndex += 1;
               }
             }
           }
 
-          ctx.llm.rawJsonSections.push(section);
-          ctx.llm.sections.push(html);
+          out.rawJsonSections.push(section);
+          out.sections.push(html);
           sectionTimings.push(sDebug.totalMs);
           sectionDetails.push({
             index: sectionIndex,
@@ -459,11 +464,8 @@ export async function llmGenerate(ctx, config, env) {
             ...sDebug,
           });
 
-          // Stream this section to the client immediately
-          const line = JSON.stringify({ type: 'section', index: sectionIndex, html });
-          ctx.ndjsonLines.push(line);
           // eslint-disable-next-line no-await-in-loop
-          await ctx.writer.write(ctx.encoder.encode(`${line}\n`));
+          await writeLine({ type: 'section', index: sectionIndex, html });
           sectionIndex += 1;
         }
       }
@@ -478,34 +480,28 @@ export async function llmGenerate(ctx, config, env) {
     clearInterval(heartbeatInterval);
   }
 
-  ctx.timings.llmEnd = Date.now();
+  timings.llmEnd = Date.now();
 
-  // Finalize: process remaining buffer (last section + suggestions)
-  ctx.timings.parseStart = Date.now();
+  // Finalize: process trailing buffer (last section + suggestions).
+  timings.parseStart = Date.now();
   const final = parser.finalize();
 
   if (final.section) {
     const { html, debug: sDebug } = processSectionDetailed(final.section);
-
     if (hasContent(html)) {
-      // Guarantee the first block is always a hero (handles LLMs that buffer all output)
       if (!heroEnsured) {
         heroEnsured = true;
         if (final.section.block !== 'hero') {
           const heroHtml = processSection(createFallbackHeroSection(ctx.request?.query));
           if (hasContent(heroHtml)) {
-            const heroLine = JSON.stringify(
-              { type: 'section', index: sectionIndex, html: heroHtml },
-            );
-            ctx.ndjsonLines.push(heroLine);
-            await ctx.writer.write(ctx.encoder.encode(`${heroLine}\n`));
+            await writeLine({ type: 'section', index: sectionIndex, html: heroHtml });
             sectionIndex += 1;
           }
         }
       }
 
-      ctx.llm.rawJsonSections.push(final.section);
-      ctx.llm.sections.push(html);
+      out.rawJsonSections.push(final.section);
+      out.sections.push(html);
       sectionTimings.push(sDebug.totalMs);
       sectionDetails.push({
         index: sectionIndex,
@@ -514,20 +510,16 @@ export async function llmGenerate(ctx, config, env) {
         ...sDebug,
       });
 
-      const line = JSON.stringify({ type: 'section', index: sectionIndex, html });
-      ctx.ndjsonLines.push(line);
-      await ctx.writer.write(ctx.encoder.encode(`${line}\n`));
+      await writeLine({ type: 'section', index: sectionIndex, html });
       sectionIndex += 1;
     }
   }
 
   if (final.suggestions) {
-    ctx.llm.suggestions = processSuggestions(final.suggestions);
-
-    // Inject buy CTA for the primary recommended product (server-authored, not LLM)
-    const primary = extractPrimaryProduct(ctx.llm.rawJsonSections);
+    out.suggestions = processSuggestions(final.suggestions);
+    const primary = extractPrimaryProduct(out.rawJsonSections);
     if (primary) {
-      ctx.llm.suggestions.unshift({
+      out.suggestions.unshift({
         type: 'buy',
         label: `Buy ${primary.name}`,
         query: primary.id,
@@ -535,188 +527,183 @@ export async function llmGenerate(ctx, config, env) {
       });
     }
   }
-  ctx.timings.parseEnd = Date.now();
+  timings.parseEnd = Date.now();
 
-  // Send suggestions
-  if (ctx.llm.suggestions.length) {
-    const sugLine = JSON.stringify({ type: 'suggestions', items: ctx.llm.suggestions });
-    ctx.ndjsonLines.push(sugLine);
-    await ctx.writer.write(ctx.encoder.encode(`${sugLine}\n`));
+  if (out.suggestions.length) {
+    await writeLine({ type: 'suggestions', items: out.suggestions });
   }
 
-  // Send debug timing data
-  // Calculate context time from steps array (accounts for parallel execution)
-  const contextTime = (ctx.timings.steps || [])
-    .filter((s) => !s.gate)
-    .reduce((sum, s) => sum + s.ms, 0);
+  if (emitDebug) {
+    const contextTime = (ctx.timings.steps || [])
+      .filter((s) => !s.gate)
+      .reduce((sum, s) => sum + s.ms, 0);
 
-  const debugLine = JSON.stringify({
-    type: 'debug',
-    timings: {
-      total: Date.now() - ctx.timings.start,
-      context: contextTime,
-      prompt: ctx.timings.prompt || 0,
-      llm: ctx.timings.llmEnd - ctx.timings.llmStart,
-      llmFirstToken: ctx.timings.llmFirstToken
-        ? ctx.timings.llmFirstToken - ctx.timings.llmStart : null,
-      llmLastToken: ctx.timings.llmLastToken
-        ? ctx.timings.llmLastToken - ctx.timings.llmStart : null,
-      llmStreaming: (ctx.timings.llmFirstToken && ctx.timings.llmLastToken)
-        ? ctx.timings.llmLastToken - ctx.timings.llmFirstToken : null,
-      parse: ctx.timings.parseEnd - ctx.timings.parseStart,
-      sectionProcessing: sectionTimings,
-      steps: ctx.timings.steps || [],
-    },
-    pipeline: {
+    await writeLine({
+      type: 'debug',
+      timings: {
+        total: Date.now() - ctx.timings.start,
+        context: contextTime,
+        prompt: ctx.timings.prompt || 0,
+        llm: timings.llmEnd - timings.llmStart,
+        llmFirstToken: timings.llmFirstToken
+          ? timings.llmFirstToken - timings.llmStart : null,
+        llmLastToken: timings.llmLastToken
+          ? timings.llmLastToken - timings.llmStart : null,
+        llmStreaming: (timings.llmFirstToken && timings.llmLastToken)
+          ? timings.llmLastToken - timings.llmFirstToken : null,
+        parse: timings.parseEnd - timings.parseStart,
+        sectionProcessing: sectionTimings,
+        steps: ctx.timings.steps || [],
+      },
+      pipeline: {
+        flow: ctx.flowId || 'default',
+        flowName: ctx.flowName || ctx.flowId || 'default',
+      },
+      behaviorAnalysis: ctx.rag.behaviorAnalysis || null,
+      rag: {
+        recipes: {
+          count: ctx.rag.recipes?.length || 0,
+          ms: ctx.timings.recipes || 0,
+          detail: ctx.timings.recipesDetail || ctx.timings.contentDetail || null,
+          items: (ctx.rag.recipes || []).map((r) => ({
+            name: r.name,
+            slug: r.slug,
+            score: r._score, // eslint-disable-line no-underscore-dangle
+          })),
+        },
+        guides: {
+          count: ctx.rag.guides?.length || 0,
+          ms: ctx.timings.guidesMs || 0,
+          detail: ctx.timings.contentDetail || null,
+          items: (ctx.rag.guides || []).map((g) => ({
+            title: g.title,
+            slug: g.slug,
+            score: g.score,
+          })),
+        },
+        experiences: {
+          count: ctx.rag.experiences?.length || 0,
+          ms: ctx.timings.experiencesMs || 0,
+          detail: ctx.timings.contentDetail || null,
+          items: (ctx.rag.experiences || []).map((e) => ({
+            title: e.title,
+            slug: e.slug,
+            score: e.score,
+          })),
+        },
+        comparisons: {
+          count: ctx.rag.comparisons?.length || 0,
+          ms: ctx.timings.content || 0,
+          items: (ctx.rag.comparisons || []).map((c) => ({
+            title: c.title,
+            slug: c.slug,
+            source: c._source, // eslint-disable-line no-underscore-dangle
+          })),
+        },
+        tools: {
+          count: ctx.rag.toolContent?.length || 0,
+          ms: ctx.timings.content || 0,
+          items: (ctx.rag.toolContent || []).map((t) => ({
+            title: t.title,
+            slug: t.slug,
+            score: t.score,
+          })),
+        },
+        heroImages: {
+          count: ctx.rag.heroImages?.length || 0,
+          items: (ctx.rag.heroImages || []).map((h) => ({
+            id: h.id,
+            score: h.score,
+            category: h.category,
+          })),
+        },
+        products: {
+          count: ctx.rag.products?.length || 0,
+          ms: ctx.timings.products || 0,
+          items: (ctx.rag.products || []).map((p) => ({
+            name: p.name,
+            id: p.id,
+            score: p.score,
+            price: p.price,
+          })),
+        },
+        faqs: {
+          count: ctx.rag.faqs?.length || 0,
+          ms: ctx.timings.faqs || 0,
+          items: (ctx.rag.faqs || []).map((f) => ({
+            question: f.question.substring(0, 80),
+          })),
+        },
+        reviews: {
+          count: ctx.rag.reviews?.length || 0,
+          ms: ctx.timings.reviews || 0,
+          items: (ctx.rag.reviews || []).map((r) => ({
+            author: r.author,
+            product: r.productId,
+          })),
+        },
+        persona: {
+          name: ctx.rag.persona?.name || null,
+          ms: ctx.timings.persona || 0,
+        },
+        useCase: {
+          name: ctx.rag.useCase?.name || null,
+          ms: ctx.timings.useCase || 0,
+        },
+        features: {
+          count: ctx.rag.features?.length || 0,
+          ms: ctx.timings.features || 0,
+          items: (ctx.rag.features || []).map((f) => ({
+            name: f.name,
+            benefit: f.benefit,
+          })),
+        },
+      },
+      prompt: {
+        systemLength: ctx.prompt.system.length,
+        userLength: ctx.prompt.user.length,
+        systemPrompt: ctx.prompt.system,
+        userMessage: ctx.prompt.user,
+        flags: {
+          compact: !!ctx.request.compact,
+          followUp: ctx.request.followUp
+            ? { type: ctx.request.followUp.type, label: ctx.request.followUp.label }
+            : null,
+          interestSignals: !!ctx.request.interestSignals?.hoveredTopics?.length,
+          previousTopics: ctx.request.previousTopics?.length || 0,
+        },
+      },
+      llm: {
+        provider: providerId,
+        model,
+        temperature,
+        maxTokens,
+        inputTokens: out.usage?.prompt_tokens || null,
+        outputTokens: out.usage?.completion_tokens || null,
+        totalTokens: out.usage?.total_tokens || null,
+        chunks: tokenCount,
+        outputLength: out.fullText.length,
+        rawOutput: out.fullText,
+        sections: out.sections.length,
+        jsonSections: out.rawJsonSections,
+      },
+      parser: {
+        outputSections: out.sections.length,
+        sectionLengths: out.sections.map((s) => s.length),
+        suggestionsCount: out.suggestions.length,
+      },
+      sectionDetails,
       flow: ctx.flowId || 'default',
-      flowName: ctx.flowName || ctx.flowId || 'default',
-    },
-    behaviorAnalysis: ctx.rag.behaviorAnalysis || null,
-    rag: {
-      recipes: {
-        count: ctx.rag.recipes?.length || 0,
-        ms: ctx.timings.recipes || 0,
-        detail: ctx.timings.recipesDetail || ctx.timings.contentDetail || null,
-        items: (ctx.rag.recipes || []).map((r) => ({
-          name: r.name,
-          slug: r.slug,
-          score: r._score, // eslint-disable-line no-underscore-dangle
-        })),
-      },
-      guides: {
-        count: ctx.rag.guides?.length || 0,
-        ms: ctx.timings.guidesMs || 0,
-        detail: ctx.timings.contentDetail || null,
-        items: (ctx.rag.guides || []).map((g) => ({
-          title: g.title,
-          slug: g.slug,
-          score: g.score,
-        })),
-      },
-      experiences: {
-        count: ctx.rag.experiences?.length || 0,
-        ms: ctx.timings.experiencesMs || 0,
-        detail: ctx.timings.contentDetail || null,
-        items: (ctx.rag.experiences || []).map((e) => ({
-          title: e.title,
-          slug: e.slug,
-          score: e.score,
-        })),
-      },
-      comparisons: {
-        count: ctx.rag.comparisons?.length || 0,
-        ms: ctx.timings.content || 0,
-        items: (ctx.rag.comparisons || []).map((c) => ({
-          title: c.title,
-          slug: c.slug,
-          source: c._source, // eslint-disable-line no-underscore-dangle
-        })),
-      },
-      tools: {
-        count: ctx.rag.toolContent?.length || 0,
-        ms: ctx.timings.content || 0,
-        items: (ctx.rag.toolContent || []).map((t) => ({
-          title: t.title,
-          slug: t.slug,
-          score: t.score,
-        })),
-      },
-      heroImages: {
-        count: ctx.rag.heroImages?.length || 0,
-        items: (ctx.rag.heroImages || []).map((h) => ({
-          id: h.id,
-          score: h.score,
-          category: h.category,
-        })),
-      },
-      products: {
-        count: ctx.rag.products?.length || 0,
-        ms: ctx.timings.products || 0,
-        items: (ctx.rag.products || []).map((p) => ({
-          name: p.name,
-          id: p.id,
-          score: p.score,
-          price: p.price,
-        })),
-      },
-      faqs: {
-        count: ctx.rag.faqs?.length || 0,
-        ms: ctx.timings.faqs || 0,
-        items: (ctx.rag.faqs || []).map((f) => ({
-          question: f.question.substring(0, 80),
-        })),
-      },
-      reviews: {
-        count: ctx.rag.reviews?.length || 0,
-        ms: ctx.timings.reviews || 0,
-        items: (ctx.rag.reviews || []).map((r) => ({
-          author: r.author,
-          product: r.productId,
-        })),
-      },
-      persona: {
-        name: ctx.rag.persona?.name || null,
-        ms: ctx.timings.persona || 0,
-      },
-      useCase: {
-        name: ctx.rag.useCase?.name || null,
-        ms: ctx.timings.useCase || 0,
-      },
-      features: {
-        count: ctx.rag.features?.length || 0,
-        ms: ctx.timings.features || 0,
-        items: (ctx.rag.features || []).map((f) => ({
-          name: f.name,
-          benefit: f.benefit,
-        })),
-      },
-    },
-    prompt: {
-      systemLength: ctx.prompt.system.length,
-      userLength: ctx.prompt.user.length,
-      systemPrompt: ctx.prompt.system,
-      userMessage: ctx.prompt.user,
-      flags: {
-        compact: !!ctx.request.compact,
-        followUp: ctx.request.followUp
-          ? { type: ctx.request.followUp.type, label: ctx.request.followUp.label }
-          : null,
-        interestSignals: !!ctx.request.interestSignals?.hoveredTopics?.length,
-        previousTopics: ctx.request.previousTopics?.length || 0,
-      },
-    },
-    llm: {
-      provider: resolved.provider,
-      model: resolved.model,
-      temperature: resolved.temperature,
-      maxTokens: resolved.maxTokens,
-      inputTokens: ctx.llm.usage?.prompt_tokens || null,
-      outputTokens: ctx.llm.usage?.completion_tokens || null,
-      totalTokens: ctx.llm.usage?.total_tokens || null,
-      chunks: tokenCount,
-      outputLength: ctx.llm.fullText.length,
-      rawOutput: ctx.llm.fullText,
-      sections: ctx.llm.sections.length,
-      jsonSections: ctx.llm.rawJsonSections,
-    },
-    parser: {
-      outputSections: ctx.llm.sections.length,
-      sectionLengths: ctx.llm.sections.map((s) => s.length),
-      suggestionsCount: ctx.llm.suggestions.length,
-    },
-    sectionDetails,
-    flow: ctx.flowId || 'default',
-    intent: ctx.intent,
-    contentStrategy: ctx.contentStrategy,
-    qualityScore: ctx.qualityScore,
-  });
-  ctx.ndjsonLines.push(debugLine);
-  await ctx.writer.write(ctx.encoder.encode(`${debugLine}\n`));
+      intent: ctx.intent,
+      contentStrategy: ctx.contentStrategy,
+      qualityScore: ctx.qualityScore,
+    });
+  }
 
-  // Extract used product IDs from generated sections
+  // Extract used product IDs from generated sections.
   const imageTokenRe = /\{\{product-image:([^}]+)\}\}/g;
   const usedProducts = [];
-  const rawJson = JSON.stringify(ctx.llm.rawJsonSections);
+  const rawJson = JSON.stringify(out.rawJsonSections);
   let tokenMatch = imageTokenRe.exec(rawJson);
   while (tokenMatch) {
     const pid = tokenMatch[1].trim();
@@ -724,13 +711,55 @@ export async function llmGenerate(ctx, config, env) {
     tokenMatch = imageTokenRe.exec(rawJson);
   }
 
-  // Send done
-  const title = extractTitle(ctx.llm.sections[0] || '');
-  const doneLine = JSON.stringify({ type: 'done', title, usedProducts });
-  ctx.ndjsonLines.push(doneLine);
-  await ctx.writer.write(ctx.encoder.encode(`${doneLine}\n`));
+  const title = extractTitle(out.sections[0] || '');
 
-  // Track generation event in Analytics Engine (fire-and-forget)
+  if (emitDone) {
+    await writeLine({ type: 'done', title, usedProducts });
+  }
+
+  return {
+    title,
+    usedProducts,
+    tokenCount,
+    sectionTimings,
+    sectionDetails,
+  };
+}
+
+export async function llmGenerate(ctx, config, env) {
+  // Pick and pin the hero image for this run (module-global state in images.js).
+  // Safe for single-request paths; the admin experiments fan-out calls this
+  // ONCE before spawning variants so they all see the same hero.
+  const heroImage = selectHeroImage({
+    query: ctx.request?.query,
+    useCases: ctx.rag?.useCase?.useCases,
+    intentType: ctx.intent?.type,
+    productIds: extractProductIds(ctx.request?.query || ''),
+  }, ctx.rag?.heroImages || []);
+  setHeroResult(heroImage);
+
+  // Load test bypass: skip LLM and stream dummy content. RAG still ran upstream.
+  if (ctx.request.headers?.get('x-skip-cerebras') === 'true') {
+    await streamDummyContent(ctx);
+    return;
+  }
+
+  const active = await getActiveLlmConfig(env);
+  const resolved = resolveLlmConfig(active, config);
+
+  await runLlmVariant(ctx, env, {
+    variantId: null,
+    provider: resolved.provider,
+    model: resolved.model,
+    temperature: resolved.temperature,
+    maxTokens: resolved.maxTokens,
+    out: ctx.llm,
+    timings: ctx.timings,
+    emitDebug: true,
+    emitDone: true,
+    llmTimeoutMs: config.llmTimeout,
+  });
+
   writeEvent(
     env,
     'generation',
