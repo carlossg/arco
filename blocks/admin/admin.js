@@ -1541,6 +1541,7 @@ function variantProgressCard(variant) {
           <div class="admin-kv"><dt>max tok</dt><dd>${variant.maxTokens ?? '—'}</dd></div>
           <div class="admin-kv"><dt>sections</dt><dd data-role="sections">0</dd></div>
           <div class="admin-kv"><dt>duration</dt><dd data-role="duration">—</dd></div>
+          <div class="admin-kv"><dt>TTFT</dt><dd data-role="ttft">—</dd></div>
           <div class="admin-kv"><dt>tokens in / out</dt><dd data-role="tokens">—</dd></div>
         </dl>
         <p class="admin-experiment-card-note" data-role="note"></p>
@@ -1747,6 +1748,7 @@ async function renderExperimentCreateForm(root) {
             card.dataset.status = 'complete';
             card.querySelector('[data-role="status"]').textContent = 'complete';
             card.querySelector('[data-role="duration"]').textContent = dur(evt.durationMs);
+            card.querySelector('[data-role="ttft"]').textContent = evt.ttftMs != null ? dur(evt.ttftMs) : '—';
             card.querySelector('[data-role="tokens"]').textContent = evt.inputTokens != null
               ? `${evt.inputTokens}↑ ${evt.outputTokens}↓`
               : '—';
@@ -1796,6 +1798,7 @@ function renderExperimentOverviewTable(experiment, variants) {
       <td>${v.max_tokens ?? '—'}</td>
       <td>${badge(v.status || '—', statusTone)}</td>
       <td>${dur(v.duration_ms)}</td>
+      <td>${v.time_to_first_token_ms != null ? dur(v.time_to_first_token_ms) : '—'}</td>
       <td>${v.input_tokens != null ? v.input_tokens : '—'}</td>
       <td>${v.output_tokens != null ? v.output_tokens : '—'}</td>
       <td class="admin-muted">${tps ? `${tps}/s` : '—'}</td>
@@ -1807,7 +1810,7 @@ function renderExperimentOverviewTable(experiment, variants) {
     <thead><tr>
       <th>#</th><th>Provider</th><th>Model</th>
       <th>Temp</th><th>Max tok</th>
-      <th>Status</th><th>Duration</th>
+      <th>Status</th><th>Duration</th><th>TTFT</th>
       <th>In tok</th><th>Out tok</th><th>Throughput</th>
       <th>Title</th>
     </tr></thead>

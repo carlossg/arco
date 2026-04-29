@@ -136,8 +136,8 @@ async function finalizeVariantRow(db, v) {
   await db.prepare(`
     UPDATE experiment_variants
     SET status = ?1, duration_ms = ?2, input_tokens = ?3, output_tokens = ?4,
-        title = ?5, block_count = ?6, error = ?7
-    WHERE id = ?8
+        title = ?5, block_count = ?6, error = ?7, time_to_first_token_ms = ?8
+    WHERE id = ?9
   `).bind(
     v.status,
     v.durationMs,
@@ -146,6 +146,7 @@ async function finalizeVariantRow(db, v) {
     v.title,
     v.blockCount,
     v.error,
+    v.ttftMs ?? null,
     v.id,
   ).run();
 }
@@ -183,6 +184,7 @@ function buildVariantPayload(ctx, variant) {
         systemPrompt: ctx.prompt?.system || '',
         userMessage: ctx.prompt?.user || '',
       },
+      ttftMs: variant.ttftMs ?? null,
       timings: variant.timings || {},
       llm: {
         provider: variant.provider,
@@ -380,11 +382,15 @@ export async function handleCreateExperiment(request, env) {
           v.status = 'complete';
           v.title = title;
           v.usedProducts = usedProducts;
+          v.ttftMs = (v.timings.llmFirstToken && v.timings.llmStart)
+            ? v.timings.llmFirstToken - v.timings.llmStart
+            : null;
 
           await writeLine({
             type: 'variant-done',
             variantId: v.id,
             durationMs: v.finishedAt - v.startedAt,
+            ttftMs: v.ttftMs,
             inputTokens: v.state.usage?.prompt_tokens || null,
             outputTokens: v.state.usage?.completion_tokens || null,
             totalTokens: v.state.usage?.total_tokens || null,
@@ -422,6 +428,7 @@ export async function handleCreateExperiment(request, env) {
               id: v.id,
               status: v.status,
               durationMs: v.finishedAt && v.startedAt ? v.finishedAt - v.startedAt : null,
+              ttftMs: v.ttftMs ?? null,
               inputTokens: v.state.usage?.prompt_tokens || null,
               outputTokens: v.state.usage?.completion_tokens || null,
               title: v.title || extractTitle(v.state.sections[0] || '') || null,
