@@ -1620,6 +1620,7 @@ async function renderExperimentCreateForm(root) {
         <span data-role="progress-phase">Waiting…</span>
         <span class="admin-muted" data-role="progress-ids"></span>
       </div>
+      <div class="admin-experiment-progress-action" data-role="progress-action"></div>
       <div class="admin-experiment-cards" data-role="cards"></div>
     </section>
   `;
@@ -1634,6 +1635,7 @@ async function renderExperimentCreateForm(root) {
   const progressCard = root.querySelector('[data-role="progress-card"]');
   const progressPhase = root.querySelector('[data-role="progress-phase"]');
   const progressIds = root.querySelector('[data-role="progress-ids"]');
+  const progressAction = root.querySelector('[data-role="progress-action"]');
   const cardsContainer = root.querySelector('[data-role="cards"]');
 
   const rowNodes = () => [...variantsContainer.querySelectorAll('[data-variant-row]')];
@@ -1742,6 +1744,7 @@ async function renderExperimentCreateForm(root) {
     cardsContainer.innerHTML = '';
     progressPhase.textContent = 'Starting…';
     progressIds.textContent = '';
+    progressAction.innerHTML = '';
 
     abortController = new AbortController();
     let experimentId = null;
@@ -1785,10 +1788,20 @@ async function renderExperimentCreateForm(root) {
             card.querySelector('[data-role="note"]').textContent = evt.message || 'variant failed';
           }
         } else if (evt.type === 'experiment-done') {
-          progressPhase.textContent = `Done (${evt.completedCount} / ${evt.variantCount} complete)`;
-          setTimeout(() => {
-            if (experimentId) navigate(`#/experiments/${experimentId}`);
-          }, 800);
+          const hasErrors = evt.completedCount < evt.variantCount;
+          progressPhase.textContent = hasErrors
+            ? `Done — ${evt.completedCount} / ${evt.variantCount} completed, ${evt.variantCount - evt.completedCount} failed`
+            : `Done (${evt.completedCount} / ${evt.variantCount} complete)`;
+          if (hasErrors) {
+            progressAction.innerHTML = '<button type="button" class="admin-btn" data-action="view-results">View results</button>';
+            progressAction.querySelector('[data-action="view-results"]').addEventListener('click', () => {
+              if (experimentId) navigate(`#/experiments/${experimentId}`);
+            });
+          } else {
+            setTimeout(() => {
+              if (experimentId) navigate(`#/experiments/${experimentId}`);
+            }, 1500);
+          }
         } else if (evt.type === 'error') {
           progressPhase.textContent = `Error: ${evt.message || 'unknown'}`;
         }
@@ -1825,7 +1838,7 @@ function renderExperimentOverviewTable(experiment, variants) {
       <td>${v.input_tokens != null ? v.input_tokens : '—'}</td>
       <td>${v.output_tokens != null ? v.output_tokens : '—'}</td>
       <td class="admin-muted">${tps ? `${tps}/s` : '—'}</td>
-      <td class="admin-muted">${esc((v.title || '').substring(0, 60))}</td>
+      <td class="admin-muted">${v.status === 'error' && v.error ? `<span class="admin-error-text">${esc(v.error.substring(0, 120))}</span>` : esc((v.title || '').substring(0, 60))}</td>
     </tr>`;
   }).join('');
 

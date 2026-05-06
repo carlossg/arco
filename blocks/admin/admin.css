@@ -1872,6 +1872,15 @@
   font-size: 0.85rem;
 }
 
+.admin .admin-experiment-progress-action {
+  margin-bottom: 0.75rem;
+}
+
+.admin .admin-error-text {
+  color: #c0392b;
+  font-size: 0.85em;
+}
+
 .admin .admin-experiment-cards {
   display: grid;
   gap: 0.75rem;
