@@ -23,7 +23,10 @@
     .stat .value { font-size: 2rem; font-weight: 700; }
     .stat .label { font-size: 0.8rem; color: #888; margin-top: 4px; }
     table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-    th { text-align: left; padding: 10px 12px; font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 2px solid #f0f0f0; }
+    th { text-align: left; padding: 10px 12px; font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 2px solid #f0f0f0; cursor: pointer; user-select: none; white-space: nowrap; }
+    th:hover { color: #1a1a1a; }
+    th.sort-asc::after { content: ' ▲'; }
+    th.sort-desc::after { content: ' ▼'; }
     td { padding: 10px 12px; border-bottom: 1px solid #f5f5f5; vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #fafafa; }
@@ -64,6 +67,14 @@
     <div id="reasoning" class="panel"><div class="loading">Loading…</div></div>
   </main>
   <script>
+    // sort state per panel: { col: 'rate'|'label'|'tests'|'latency', dir: 1|-1 }
+    const sortState = {
+      classification: { col: 'rate', dir: -1 },
+      reasoning:      { col: 'rate', dir: -1 },
+    };
+    // cached provider stats per panel
+    const panelData = {};
+
     function switchTab(name) {
       document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', ['classification','reasoning'][i] === name));
       document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === name));
@@ -79,35 +90,26 @@
       return ms >= 1000 ? (ms / 1000).toFixed(1) + 's' : ms + 'ms';
     }
 
-    function renderBenchmark(containerId, data, sortFn) {
-      const container = document.getElementById(containerId);
-      const results = data.results.results;
-      const stats = data.results.stats;
-      const ts = new Date(data.results.timestamp).toLocaleString();
+    function sortProviders(providers, col, dir) {
+      return [...providers].sort((a, b) => {
+        let diff;
+        if (col === 'label')   diff = a.label.localeCompare(b.label);
+        else if (col === 'rate')    diff = a.rate - b.rate || a.avgLatency - b.avgLatency;
+        else if (col === 'tests')   diff = a.passed - b.passed;
+        else if (col === 'latency') diff = a.avgLatency - b.avgLatency;
+        else diff = 0;
+        return diff * dir;
+      });
+    }
 
-      // Group by provider
-      const byProvider = {};
-      for (const r of results) {
-        const label = r.provider.label;
-        if (!byProvider[label]) byProvider[label] = [];
-        byProvider[label].push(r);
-      }
+    function renderRows(containerId) {
+      const { providers, total } = panelData[containerId];
+      const { col, dir } = sortState[containerId];
+      const sorted = sortProviders(providers, col, dir);
 
-      // Compute per-provider stats
-      const providerStats = Object.entries(byProvider).map(([label, rows]) => {
-        const passed = rows.filter(r => r.success).length;
-        const total = rows.length;
-        const avgLatency = Math.round(rows.reduce((s, r) => s + (r.latencyMs || 0), 0) / rows.length);
-        const avgScore = rows.reduce((s, r) => s + r.score, 0) / rows.length;
-        return { label, passed, total, rate: passed / total, avgLatency, avgScore, rows };
-      }).sort(sortFn);
-
-      const total = stats.successes + stats.failures;
-      const overallRate = stats.successes / total;
-
-      // Build per-provider test breakdown
-      const providerDetails = providerStats.map((ps, idx) => {
-        const rankClass = idx === 0 ? 'rank-1' : idx === providerStats.length - 1 ? 'rank-last' : '';
+      const tbody = document.querySelector(`#${containerId} tbody`);
+      tbody.innerHTML = sorted.map((ps, idx) => {
+        const rankClass = idx === 0 ? 'rank-1' : idx === sorted.length - 1 ? 'rank-last' : '';
         const failingTests = ps.rows.filter(r => !r.success);
         const failHtml = failingTests.length ? `
           <details>
@@ -133,6 +135,59 @@
           </tr>`;
       }).join('');
 
+      // Update header sort indicators
+      const cols = ['label', 'rate', 'tests', 'latency'];
+      document.querySelectorAll(`#${containerId} thead th`).forEach((th, i) => {
+        th.classList.toggle('sort-asc',  cols[i] === col && dir === 1);
+        th.classList.toggle('sort-desc', cols[i] === col && dir === -1);
+      });
+    }
+
+    function onSort(containerId, col) {
+      const s = sortState[containerId];
+      s.dir = s.col === col ? -s.dir : (col === 'latency' ? 1 : -1);
+      s.col = col;
+      renderRows(containerId);
+    }
+
+    function renderBenchmark(containerId, data) {
+      const container = document.getElementById(containerId);
+      const results = data.results.results;
+      const stats = data.results.stats;
+      const ts = new Date(data.results.timestamp).toLocaleString();
+
+      // Group by provider
+      const byProvider = {};
+      for (const r of results) {
+        const label = r.provider.label;
+        if (!byProvider[label]) byProvider[label] = [];
+        byProvider[label].push(r);
+      }
+
+      // Compute per-provider stats
+      const providers = Object.entries(byProvider).map(([label, rows]) => {
+        const passed = rows.filter(r => r.success).length;
+        const total = rows.length;
+        const avgLatency = Math.round(rows.reduce((s, r) => s + (r.latencyMs || 0), 0) / rows.length);
+        const avgScore = rows.reduce((s, r) => s + r.score, 0) / rows.length;
+        return { label, passed, total, rate: passed / total, avgLatency, avgScore, rows };
+      });
+
+      panelData[containerId] = { providers, total: stats.successes + stats.failures };
+
+      const overallRate = stats.successes / (stats.successes + stats.failures);
+
+      const cols = [
+        { key: 'label',   label: 'Model' },
+        { key: 'rate',    label: 'Pass rate' },
+        { key: 'tests',   label: 'Tests' },
+        { key: 'latency', label: 'Avg latency' },
+      ];
+
+      const theadHtml = cols.map(c =>
+        `<th onclick="onSort('${containerId}','${c.key}')">${escHtml(c.label)}</th>`
+      ).join('');
+
       container.innerHTML = `
         <div class="card">
           <h2>Summary</h2>
@@ -140,36 +195,38 @@
             <div class="stat"><div class="value" style="color:${color(overallRate)}">${(overallRate * 100).toFixed(0)}%</div><div class="label">Overall pass rate</div></div>
             <div class="stat"><div class="value">${stats.successes}</div><div class="label">Passed</div></div>
             <div class="stat"><div class="value">${stats.failures}</div><div class="label">Failed</div></div>
-            <div class="stat"><div class="value">${providerStats.length}</div><div class="label">Models</div></div>
+            <div class="stat"><div class="value">${providers.length}</div><div class="label">Models</div></div>
           </div>
           <div class="timestamp">${ts}</div>
         </div>
         <div class="card">
           <h2>Models</h2>
           <table>
-            <thead><tr><th>Model</th><th>Pass rate</th><th>Tests</th><th>Avg latency</th></tr></thead>
-            <tbody>${providerDetails}</tbody>
+            <thead><tr>${theadHtml}</tr></thead>
+            <tbody></tbody>
           </table>
         </div>`;
+
+      renderRows(containerId);
     }
 
     function escHtml(s) {
       return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
-    async function load(file, containerId, sortFn) {
+    async function load(file, containerId) {
       try {
         const res = await fetch(file);
         if (!res.ok) throw new Error(res.statusText);
         const data = await res.json();
-        renderBenchmark(containerId, data, sortFn);
+        renderBenchmark(containerId, data);
       } catch (e) {
         document.getElementById(containerId).innerHTML = `<div class="error">Failed to load ${file}: ${e.message}</div>`;
       }
     }
 
-    load('classification.json', 'classification', (a, b) => b.rate - a.rate || a.avgLatency - b.avgLatency);
-    load('reasoning.json', 'reasoning', (a, b) => b.rate - a.rate || a.avgLatency - b.avgLatency);
+    load('classification.json', 'classification');
+    load('reasoning.json', 'reasoning');
   </script>
 </body>
 </html>
