@@ -17,6 +17,7 @@ daTokenService.ts
 # Backend service
 services/recommender/node_modules/
 services/recommender/dist/
+services/recommender/benchmark/results/*.json
 .env
 
 # Cloud Functions

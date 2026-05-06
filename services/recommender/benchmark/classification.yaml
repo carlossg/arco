@@ -1,0 +1,205 @@
+description: "Arco intent classification — model comparison"
+
+prompts:
+  - file://prompts/classification.yaml
+
+providers:
+  - id: vertex:gemini-2.5-flash-lite
+    label: gemini-2.5-flash-lite (production)
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-2.5-flash
+    label: gemini-2.5-flash
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-2.5-pro
+    label: gemini-2.5-pro
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-2.0-flash
+    label: gemini-2.0-flash
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-3-flash-preview
+    label: gemini-3-flash-preview
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-3.1-flash-lite-preview
+    label: gemini-3.1-flash-lite-preview
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-3.1-pro-preview
+    label: gemini-3.1-pro-preview
+    config:
+      location: us-central1
+
+defaultTest:
+  options:
+    transform: 'output.replace(/^```(?:json)?\s*/m, "").replace(/\s*```\s*$/m, "").trim()'
+  assert:
+    - type: is-json
+      description: "Output is valid JSON"
+
+    - type: javascript
+      description: "intentType is one of 13 valid values"
+      value: "['discovery','comparison','product-detail','use-case','specs','reviews','price','recommendation','support','gift','beginner','upgrade','technique'].includes(JSON.parse(output).intentType)"
+
+    - type: javascript
+      description: "confidence is a number in [0, 1]"
+      value: "typeof JSON.parse(output).confidence === 'number' && JSON.parse(output).confidence >= 0 && JSON.parse(output).confidence <= 1"
+
+    - type: javascript
+      description: "journeyStage is exploring | comparing | deciding"
+      value: "['exploring','comparing','deciding'].includes(JSON.parse(output).journeyStage)"
+
+    - type: javascript
+      description: "entities.products is an array"
+      value: "Array.isArray(JSON.parse(output).entities?.products)"
+
+tests:
+  - description: "beginner: switching from Nespresso"
+    vars:
+      query: "switching from Nespresso, what Arco machine should I get?"
+    assert:
+      - type: javascript
+        description: "intent = beginner"
+        value: "JSON.parse(output).intentType === 'beginner'"
+
+  - description: "beginner: never made espresso before"
+    vars:
+      query: "I've never made espresso before, where do I start?"
+    assert:
+      - type: javascript
+        description: "intent = beginner"
+        value: "JSON.parse(output).intentType === 'beginner'"
+
+  - description: "comparison: primo vs doppio"
+    vars:
+      query: "primo vs doppio which is better for a home barista?"
+    assert:
+      - type: javascript
+        description: "intent = comparison"
+        value: "JSON.parse(output).intentType === 'comparison'"
+      - type: javascript
+        description: "extracts both primo and doppio as entities"
+        value: "(() => { const p = JSON.parse(output).entities?.products || []; return p.some(x => x.includes('primo')) && p.some(x => x.includes('doppio')); })()"
+
+  - description: "comparison: studio vs studio-pro"
+    vars:
+      query: "what's the difference between the studio and studio-pro?"
+    assert:
+      - type: javascript
+        description: "intent = comparison"
+        value: "JSON.parse(output).intentType === 'comparison'"
+      - type: javascript
+        description: "extracts studio models as entities"
+        value: "(JSON.parse(output).entities?.products || []).some(x => x.includes('studio'))"
+
+  - description: "product-detail: ufficio"
+    vars:
+      query: "tell me everything about the ufficio"
+    assert:
+      - type: javascript
+        description: "intent = product-detail"
+        value: "JSON.parse(output).intentType === 'product-detail'"
+      - type: javascript
+        description: "extracts ufficio as entity"
+        value: "(JSON.parse(output).entities?.products || []).some(x => x.includes('ufficio'))"
+
+  - description: "discovery: browse all machines"
+    vars:
+      query: "show me all your espresso machines"
+    assert:
+      - type: javascript
+        description: "intent = discovery"
+        value: "JSON.parse(output).intentType === 'discovery'"
+
+  - description: "use-case: home office multiple users"
+    vars:
+      query: "best machine for a busy home office with multiple users"
+    assert:
+      - type: javascript
+        description: "intent = use-case"
+        value: "JSON.parse(output).intentType === 'use-case'"
+
+  - description: "specs: studio pro boiler and pressure"
+    vars:
+      query: "what is the boiler size and pressure rating of the studio pro?"
+    assert:
+      - type: javascript
+        description: "intent = specs"
+        value: "JSON.parse(output).intentType === 'specs'"
+      - type: javascript
+        description: "extracts studio-pro as entity"
+        value: "(JSON.parse(output).entities?.products || []).some(x => x.includes('studio'))"
+
+  - description: "reviews: nano customer opinions"
+    vars:
+      query: "what do customers say about the nano?"
+    assert:
+      - type: javascript
+        description: "intent = reviews"
+        value: "JSON.parse(output).intentType === 'reviews'"
+      - type: javascript
+        description: "extracts nano as entity"
+        value: "(JSON.parse(output).entities?.products || []).some(x => x.includes('nano'))"
+
+  - description: "price: student budget"
+    vars:
+      query: "I'm a student, what's the most affordable Arco espresso machine?"
+    assert:
+      - type: javascript
+        description: "intent = price"
+        value: "JSON.parse(output).intentType === 'price'"
+
+  - description: "recommendation: experienced barista"
+    vars:
+      query: "I'm an experienced barista who dials in single origin, what should I get?"
+    assert:
+      - type: javascript
+        description: "intent = recommendation"
+        value: "JSON.parse(output).intentType === 'recommendation'"
+
+  - description: "support: machine tripping breaker"
+    vars:
+      query: "my primo keeps tripping the circuit breaker, help"
+    assert:
+      - type: javascript
+        description: "intent = support"
+        value: "JSON.parse(output).intentType === 'support'"
+      - type: javascript
+        description: "extracts primo as entity"
+        value: "(JSON.parse(output).entities?.products || []).some(x => x.includes('primo'))"
+
+  - description: "gift: birthday present for coffee lover"
+    vars:
+      query: "best espresso machine as a birthday gift for a coffee lover"
+    assert:
+      - type: javascript
+        description: "intent = gift"
+        value: "JSON.parse(output).intentType === 'gift'"
+
+  - description: "upgrade: from primo"
+    vars:
+      query: "I have the primo and want to upgrade, what should I consider?"
+    assert:
+      - type: javascript
+        description: "intent = upgrade"
+        value: "JSON.parse(output).intentType === 'upgrade'"
+      - type: javascript
+        description: "extracts primo as entity"
+        value: "(JSON.parse(output).entities?.products || []).some(x => x.includes('primo'))"
+
+  - description: "technique: milk steaming for latte art"
+    vars:
+      query: "how do I steam milk properly for latte art?"
+    assert:
+      - type: javascript
+        description: "intent = technique"
+        value: "JSON.parse(output).intentType === 'technique'"

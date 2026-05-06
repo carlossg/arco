@@ -1,0 +1,188 @@
+description: "Arco block selection (reasoning) — model comparison"
+
+prompts:
+  - file://prompts/reasoning.yaml
+
+providers:
+  - id: vertex:gemini-2.5-flash-lite
+    label: gemini-2.5-flash-lite (production)
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-2.5-flash
+    label: gemini-2.5-flash
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-2.5-pro
+    label: gemini-2.5-pro
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-2.0-flash
+    label: gemini-2.0-flash
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-3-flash-preview
+    label: gemini-3-flash-preview
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-3.1-flash-lite-preview
+    label: gemini-3.1-flash-lite-preview
+    config:
+      location: us-central1
+
+  - id: vertex:gemini-3.1-pro-preview
+    label: gemini-3.1-pro-preview
+    config:
+      location: us-central1
+
+defaultTest:
+  options:
+    transform: 'output.replace(/^```(?:json)?\s*/m, "").replace(/\s*```\s*$/m, "").trim()'
+  assert:
+    - type: is-json
+      description: "Output is valid JSON"
+
+    - type: javascript
+      description: "blocks is a non-empty array with at least 2 items"
+      value: "Array.isArray(JSON.parse(output).blocks) && JSON.parse(output).blocks.length >= 2"
+
+    - type: javascript
+      description: "follow-up block is always the last block"
+      value: "(() => { const b = JSON.parse(output).blocks; return b[b.length - 1]?.type === 'follow-up'; })()"
+
+    - type: javascript
+      description: "all block types are from the allowed list"
+      value: "JSON.parse(output).blocks.every(b => ['hero','cards','columns','accordion','tabs','table','testimonials','product-detail','product-list','carousel','quote','video','quiz','follow-up','quick-answer','support-triage','budget-breakdown','best-pick','comparison-table','feature-highlights','use-case-cards','text'].includes(b.type))"
+
+    - type: javascript
+      description: "reasoning string is present and non-empty"
+      value: "typeof JSON.parse(output).reasoning === 'string' && JSON.parse(output).reasoning.length > 10"
+
+tests:
+  - description: "beginner: switching from Nespresso"
+    vars:
+      query: "switching from Nespresso, what Arco machine should I get?"
+      comparisonHint: ""
+    assert:
+      - type: javascript
+        description: "hero block present (beginner rule 3)"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'hero')"
+
+  - description: "beginner: never made espresso before"
+    vars:
+      query: "I've never made espresso before, where do I start?"
+      comparisonHint: ""
+    assert:
+      - type: javascript
+        description: "hero block present (beginner rule 3)"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'hero')"
+
+  - description: "comparison: primo vs doppio"
+    vars:
+      query: "primo vs doppio which is better for a home barista?"
+      comparisonHint: "**The user is comparing Arco models: primo, doppio.**\nYou MUST include a `best-pick` block followed by a `comparison-table` block."
+    assert:
+      - type: javascript
+        description: "best-pick block present (comparison rule 13)"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'best-pick')"
+      - type: javascript
+        description: "comparison-table block present (comparison rule 13)"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'comparison-table')"
+
+  - description: "comparison: studio vs studio-pro"
+    vars:
+      query: "what's the difference between the studio and studio-pro?"
+      comparisonHint: "**The user is comparing Arco models: studio, studio-pro.**\nYou MUST include a `best-pick` block followed by a `comparison-table` block."
+    assert:
+      - type: javascript
+        description: "best-pick block present (comparison rule 13)"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'best-pick')"
+      - type: javascript
+        description: "comparison-table block present (comparison rule 13)"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'comparison-table')"
+
+  - description: "product-detail: ufficio deep-dive"
+    vars:
+      query: "tell me everything about the ufficio"
+      comparisonHint: ""
+    assert:
+      - type: javascript
+        description: "product-detail block present"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'product-detail')"
+
+  - description: "discovery: browse all espresso machines"
+    vars:
+      query: "show me all your espresso machines"
+      comparisonHint: ""
+    assert:
+      - type: javascript
+        description: "cards or product-list block present for browsing"
+        value: "(() => { const t = JSON.parse(output).blocks.map(b => b.type); return t.includes('cards') || t.includes('product-list'); })()"
+
+  - description: "use-case: home office multiple users"
+    vars:
+      query: "best machine for a busy home office with multiple users"
+      comparisonHint: ""
+
+  - description: "specs: studio pro boiler and pressure"
+    vars:
+      query: "what is the boiler size and pressure rating of the studio pro?"
+      comparisonHint: ""
+
+  - description: "reviews: nano customer opinions"
+    vars:
+      query: "what do customers say about the nano?"
+      comparisonHint: ""
+    assert:
+      - type: javascript
+        description: "testimonials block present for review query"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'testimonials')"
+
+  - description: "price: student budget"
+    vars:
+      query: "I'm a student, what's the most affordable Arco espresso machine?"
+      comparisonHint: ""
+    assert:
+      - type: javascript
+        description: "budget-breakdown block present (budget rule 4)"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'budget-breakdown')"
+
+  - description: "recommendation: experienced barista"
+    vars:
+      query: "I'm an experienced barista who dials in single origin, what should I get?"
+      comparisonHint: ""
+
+  - description: "support: machine tripping circuit breaker"
+    vars:
+      query: "my primo keeps tripping the circuit breaker, help"
+      comparisonHint: ""
+    assert:
+      - type: javascript
+        description: "support-triage block present (support rule 1)"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'support-triage')"
+      - type: javascript
+        description: "support-triage is the first block"
+        value: "JSON.parse(output).blocks[0]?.type === 'support-triage'"
+
+  - description: "gift: birthday present for coffee lover"
+    vars:
+      query: "best espresso machine as a birthday gift for a coffee lover"
+      comparisonHint: ""
+    assert:
+      - type: javascript
+        description: "hero block present (gift rule 5)"
+        value: "JSON.parse(output).blocks.some(b => b.type === 'hero')"
+
+  - description: "upgrade: from primo to next level"
+    vars:
+      query: "I have the primo and want to upgrade, what should I consider?"
+      comparisonHint: ""
+
+  - description: "technique: milk steaming for latte art"
+    vars:
+      query: "how do I steam milk properly for latte art?"
+      comparisonHint: ""
