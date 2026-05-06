@@ -17,7 +17,7 @@ daTokenService.ts
 # Backend service
 services/recommender/node_modules/
 services/recommender/dist/
-services/recommender/benchmark/results/*.json
+services/recommender/benchmark/results/*.gitkeep
 .env
 
 # Cloud Functions
