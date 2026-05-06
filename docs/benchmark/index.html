@@ -79,7 +79,7 @@
       return ms >= 1000 ? (ms / 1000).toFixed(1) + 's' : ms + 'ms';
     }
 
-    function renderBenchmark(containerId, data) {
+    function renderBenchmark(containerId, data, sortFn) {
       const container = document.getElementById(containerId);
       const results = data.results.results;
       const stats = data.results.stats;
@@ -100,7 +100,7 @@
         const avgLatency = Math.round(rows.reduce((s, r) => s + (r.latencyMs || 0), 0) / rows.length);
         const avgScore = rows.reduce((s, r) => s + r.score, 0) / rows.length;
         return { label, passed, total, rate: passed / total, avgLatency, avgScore, rows };
-      }).sort((a, b) => b.rate - a.rate || a.avgLatency - b.avgLatency);
+      }).sort(sortFn);
 
       const total = stats.successes + stats.failures;
       const overallRate = stats.successes / total;
@@ -157,19 +157,19 @@
       return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
-    async function load(file, containerId) {
+    async function load(file, containerId, sortFn) {
       try {
         const res = await fetch(file);
         if (!res.ok) throw new Error(res.statusText);
         const data = await res.json();
-        renderBenchmark(containerId, data);
+        renderBenchmark(containerId, data, sortFn);
       } catch (e) {
         document.getElementById(containerId).innerHTML = `<div class="error">Failed to load ${file}: ${e.message}</div>`;
       }
     }
 
-    load('classification.json', 'classification');
-    load('reasoning.json', 'reasoning');
+    load('classification.json', 'classification', (a, b) => b.rate - a.rate || a.avgLatency - b.avgLatency);
+    load('reasoning.json', 'reasoning', (a, b) => a.avgLatency - b.avgLatency);
   </script>
 </body>
 </html>
