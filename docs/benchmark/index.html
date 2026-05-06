@@ -92,13 +92,11 @@
 
     function sortProviders(providers, col, dir) {
       return [...providers].sort((a, b) => {
-        let diff;
-        if (col === 'label')   diff = a.label.localeCompare(b.label);
-        else if (col === 'rate')    diff = a.rate - b.rate || a.avgLatency - b.avgLatency;
-        else if (col === 'tests')   diff = a.passed - b.passed;
-        else if (col === 'latency') diff = a.avgLatency - b.avgLatency;
-        else diff = 0;
-        return diff * dir;
+        if (col === 'label')   return a.label.localeCompare(b.label) * dir;
+        if (col === 'rate')    return (a.rate - b.rate) * dir || a.avgLatency - b.avgLatency;
+        if (col === 'tests')   return (a.passed - b.passed) * dir;
+        if (col === 'latency') return (a.avgLatency - b.avgLatency) * dir;
+        return 0;
       });
     }
 
