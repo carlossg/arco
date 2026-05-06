@@ -120,27 +120,24 @@ export const MODEL_CATALOG = [
     label: 'Cloudflare · Alibaba Qwen 3.5 397B A17B',
     requires: ['AI_GATEWAY_ID', 'DASHSCOPE_API_KEY'],
   },
-  // Anthropic on Bedrock
+  // Anthropic on Bedrock — Claude 4.x uses cross-region inference profiles (us.* prefix)
   {
-    provider: 'bedrock', model: 'anthropic.claude-opus-4-7', label: 'Bedrock · Claude Opus 4.7', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+    provider: 'bedrock', model: 'us.anthropic.claude-opus-4-20250514-v1:0', label: 'Bedrock · Claude Opus 4 (4.7)', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
   {
-    provider: 'bedrock', model: 'anthropic.claude-opus-4-6-v1', label: 'Bedrock · Claude Opus 4.6', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+    provider: 'bedrock', model: 'us.anthropic.claude-opus-4-5-20251101-v1:0', label: 'Bedrock · Claude Opus 4.5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
   {
-    provider: 'bedrock', model: 'anthropic.claude-opus-4-5-20251101-v1:0', label: 'Bedrock · Claude Opus 4.5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+    provider: 'bedrock', model: 'us.anthropic.claude-opus-4-1-20250805-v1:0', label: 'Bedrock · Claude Opus 4.1', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
   {
-    provider: 'bedrock', model: 'anthropic.claude-opus-4-1-20250805-v1:0', label: 'Bedrock · Claude Opus 4.1', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+    provider: 'bedrock', model: 'us.anthropic.claude-sonnet-4-20250514-v1:0', label: 'Bedrock · Claude Sonnet 4 (4.6)', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
   {
-    provider: 'bedrock', model: 'anthropic.claude-sonnet-4-6', label: 'Bedrock · Claude Sonnet 4.6', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+    provider: 'bedrock', model: 'us.anthropic.claude-sonnet-4-5-20250929-v1:0', label: 'Bedrock · Claude Sonnet 4.5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
   {
-    provider: 'bedrock', model: 'anthropic.claude-sonnet-4-5-20250929-v1:0', label: 'Bedrock · Claude Sonnet 4.5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'anthropic.claude-haiku-4-5-20251001-v1:0', label: 'Bedrock · Claude Haiku 4.5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+    provider: 'bedrock', model: 'us.anthropic.claude-haiku-4-5-20251001-v1:0', label: 'Bedrock · Claude Haiku 4.5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
   // Amazon Nova on Bedrock
   {
