@@ -1,0 +1,29 @@
+name = "arco-benchmark"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[triggers]
+crons = ["0 6 * * 1"]  # Every Monday at 6am UTC
+
+[[kv_namespaces]]
+binding = "RESULTS_KV"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_KV_NAMESPACE_PREVIEW_ID"
+
+[[r2_buckets]]
+binding = "RESULTS_R2"
+bucket_name = "arco-benchmark-results"
+
+[vars]
+CLOUDFLARE_ACCOUNT_ID = "REPLACE_WITH_ACCOUNT_ID"
+AWS_REGION = "us-east-1"
+GCP_PROJECT_ID = "REPLACE_WITH_GCP_PROJECT_ID"
+GCP_LOCATION = "us-central1"
+
+# Secrets — set via: wrangler secret put <NAME>
+# CLOUDFLARE_API_TOKEN
+# GCP_SERVICE_ACCOUNT_JSON   (base64-encoded service account JSON)
+# CEREBRAS_API_KEY
+# AWS_ACCESS_KEY_ID
+# AWS_SECRET_ACCESS_KEY
