@@ -169,7 +169,7 @@
     }
 
     load('classification.json', 'classification', (a, b) => b.rate - a.rate || a.avgLatency - b.avgLatency);
-    load('reasoning.json', 'reasoning', (a, b) => a.avgLatency - b.avgLatency);
+    load('reasoning.json', 'reasoning', (a, b) => b.rate - a.rate || a.avgLatency - b.avgLatency);
   </script>
 </body>
 </html>
