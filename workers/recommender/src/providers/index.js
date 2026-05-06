@@ -152,7 +152,7 @@ export const MODEL_CATALOG = [
   {
     provider: 'bedrock', model: 'amazon.nova-micro-v1:0', label: 'Bedrock · Amazon Nova Micro', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
-  // Meta on Bedrock (cross-region inference profiles)
+  // Meta on Bedrock (confirmed cross-region inference profiles)
   {
     provider: 'bedrock', model: 'us.meta.llama4-maverick-17b-instruct-v1:0', label: 'Bedrock · Llama 4 Maverick 17B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
@@ -163,123 +163,30 @@ export const MODEL_CATALOG = [
     provider: 'bedrock', model: 'us.meta.llama3-3-70b-instruct-v1:0', label: 'Bedrock · Llama 3.3 70B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
   {
+    provider: 'bedrock', model: 'us.meta.llama3-2-90b-instruct-v1:0', label: 'Bedrock · Llama 3.2 90B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+  },
+  {
+    provider: 'bedrock', model: 'us.meta.llama3-2-11b-instruct-v1:0', label: 'Bedrock · Llama 3.2 11B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+  },
+  {
+    provider: 'bedrock', model: 'us.meta.llama3-2-3b-instruct-v1:0', label: 'Bedrock · Llama 3.2 3B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+  },
+  {
+    provider: 'bedrock', model: 'us.meta.llama3-2-1b-instruct-v1:0', label: 'Bedrock · Llama 3.2 1B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
+  },
+  {
     provider: 'bedrock', model: 'us.meta.llama3-1-70b-instruct-v1:0', label: 'Bedrock · Llama 3.1 70B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
   {
     provider: 'bedrock', model: 'us.meta.llama3-1-8b-instruct-v1:0', label: 'Bedrock · Llama 3.1 8B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
-  // DeepSeek on Bedrock (cross-region inference profiles)
+  // DeepSeek on Bedrock (confirmed cross-region inference profile)
   {
     provider: 'bedrock', model: 'us.deepseek.r1-v1:0', label: 'Bedrock · DeepSeek-R1', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
-  {
-    provider: 'bedrock', model: 'us.deepseek.v3.2', label: 'Bedrock · DeepSeek V3.2', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // OpenAI models on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.openai.gpt-oss-120b-1:0', label: 'Bedrock · GPT OSS 120B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.openai.gpt-oss-20b-1:0', label: 'Bedrock · GPT OSS 20B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // Moonshot AI on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.moonshotai.kimi-k2.5', label: 'Bedrock · Kimi K2.5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.moonshot.kimi-k2-thinking', label: 'Bedrock · Kimi K2 Thinking', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // MiniMax on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.minimax.minimax-m2.5', label: 'Bedrock · MiniMax M2.5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.minimax.minimax-m2', label: 'Bedrock · MiniMax M2', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // Qwen on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.qwen.qwen3-next-80b-a3b', label: 'Bedrock · Qwen3 Next 80B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.qwen.qwen3-vl-235b-a22b', label: 'Bedrock · Qwen3 VL 235B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.qwen.qwen3-coder-next', label: 'Bedrock · Qwen3 Coder Next', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.qwen.qwen3-32b-v1:0', label: 'Bedrock · Qwen3 32B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.qwen.qwen3-coder-30b-a3b-v1:0', label: 'Bedrock · Qwen3-Coder 30B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // Mistral on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.mistral.mistral-large-3-675b-instruct', label: 'Bedrock · Mistral Large 3', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.mistral.devstral-2-123b', label: 'Bedrock · Devstral 2 123B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.mistral.magistral-small-2509', label: 'Bedrock · Magistral Small', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
+  // Mistral on Bedrock (confirmed cross-region inference profile)
   {
     provider: 'bedrock', model: 'us.mistral.pixtral-large-2502-v1:0', label: 'Bedrock · Pixtral Large', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.mistral.ministral-3-14b-instruct', label: 'Bedrock · Ministral 14B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.mistral.ministral-3-8b-instruct', label: 'Bedrock · Ministral 8B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.mistral.ministral-3-3b-instruct', label: 'Bedrock · Ministral 3B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // NVIDIA on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.nvidia.nemotron-super-3-120b', label: 'Bedrock · Nemotron Super 120B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.nvidia.nemotron-nano-3-30b', label: 'Bedrock · Nemotron Nano 30B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.nvidia.nemotron-nano-12b-v2', label: 'Bedrock · Nemotron Nano 12B v2', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.nvidia.nemotron-nano-9b-v2', label: 'Bedrock · Nemotron Nano 9B v2', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // Google on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.google.gemma-3-27b-it', label: 'Bedrock · Gemma 3 27B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.google.gemma-3-12b-it', label: 'Bedrock · Gemma 3 12B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.google.gemma-3-4b-it', label: 'Bedrock · Gemma 3 4B', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // Z.AI on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.zai.glm-5', label: 'Bedrock · GLM 5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.zai.glm-4.7', label: 'Bedrock · GLM 4.7', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.zai.glm-4.7-flash', label: 'Bedrock · GLM 4.7 Flash', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // Writer on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.writer.palmyra-x5-v1:0', label: 'Bedrock · Palmyra X5', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.writer.palmyra-x4-v1:0', label: 'Bedrock · Palmyra X4', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  // AI21 on Bedrock (cross-region inference profiles)
-  {
-    provider: 'bedrock', model: 'us.ai21.jamba-1-5-large-v1:0', label: 'Bedrock · Jamba 1.5 Large', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
-  },
-  {
-    provider: 'bedrock', model: 'us.ai21.jamba-1-5-mini-v1:0', label: 'Bedrock · Jamba 1.5 Mini', requires: ['AWS_BEARER_TOKEN_BEDROCK'],
   },
   {
     provider: 'sambanova',
