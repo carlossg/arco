@@ -17,7 +17,9 @@ daTokenService.ts
 # Backend service
 services/recommender/node_modules/
 services/recommender/dist/
-services/recommender/benchmark/results/*.gitkeep
+
+# arco-benchmark is a separate git repo checked out locally
+arco-benchmark/
 .env
 
 # Cloud Functions

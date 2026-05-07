@@ -3,9 +3,6 @@ name: Benchmark Report Pages
 on:
   push:
     branches: [main]
-    paths:
-      - 'services/recommender/benchmark/results/*.json'
-      - 'docs/benchmark/**'
   workflow_dispatch:
 
 permissions:
@@ -26,12 +23,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Checkout arco-benchmark
+        uses: actions/checkout@v4
+        with:
+          repository: Adobe-AEM-Foundation/arco-benchmark
+          path: arco-benchmark
+
       - name: Assemble pages artifact
         run: |
           mkdir -p _site/benchmark
-          cp docs/benchmark/index.html _site/benchmark/
-          cp services/recommender/benchmark/results/classification.json _site/benchmark/
-          cp services/recommender/benchmark/results/reasoning.json _site/benchmark/
+          cp arco-benchmark/index.html _site/benchmark/
+          cp arco-benchmark/results/classification.json _site/benchmark/
+          cp arco-benchmark/results/reasoning.json _site/benchmark/
           # Redirect root to benchmark report
           echo '<meta http-equiv="refresh" content="0; url=benchmark/">' > _site/index.html
 
