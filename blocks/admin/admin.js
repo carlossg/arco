@@ -24,6 +24,9 @@
  *   #/experiments/new          New experiment form + live run
  *   #/experiments/:id          Experiment detail (flip-through variants)
  *   #/experiments/:id/variants/:variantId  Deep link to a specific variant
+ *   #/evaluations              LLM Evaluation runs (multi-query × multi-model + judge)
+ *   #/evaluations/new          New evaluation form + live run
+ *   #/evaluations/:id          Evaluation detail (matrix view)
  *   #/vectorize                Vectorize overview (index stats + sampled histogram)
  *   #/vectorize/search[?...]   Vectorize similarity search
  *   #/vectorize/items/:id      Vectorize item detail
@@ -157,6 +160,13 @@ function parseRoute() {
   }
   const expMatch = hash.match(/^\/experiments\/([^/]+)$/);
   if (expMatch) return { view: 'experiment', id: expMatch[1] };
+
+  if (hash === '/evaluations') return { view: 'evaluations' };
+  if (hash === '/evaluations/new' || hash.startsWith('/evaluations/new?')) {
+    return { view: 'evaluation-new' };
+  }
+  const evalMatch = hash.match(/^\/evaluations\/([^/]+)$/);
+  if (evalMatch) return { view: 'evaluation', id: evalMatch[1] };
 
   if (hash === '/vectorize' || hash === '/vectorize/overview') return { view: 'vec-overview' };
   if (hash === '/vectorize/search' || hash.startsWith('/vectorize/search?')) return { view: 'vec-search' };
@@ -1989,6 +1999,1158 @@ async function renderExperiment(root, experimentId, activeVariantId) {
   else previewSlot.innerHTML = '<p class="admin-empty">No variants to preview.</p>';
 }
 
+// ── LLM Evaluation ──────────────────────────────────────────────────────────
+
+const EVAL_STATUS_TONE = { complete: 'ok', running: 'warn', error: 'muted' };
+const QUALITY_TONE = (score) => {
+  if (score == null) return 'muted';
+  if (score >= 4) return 'ok';
+  if (score >= 3) return 'warn';
+  return 'muted';
+};
+
+// Pairwise significance hint — flags model pairs whose 95% CIs overlap so the
+// reader doesn't over-interpret a tiny composite-score gap. Sorts by quality
+// descending; reports any pair where |meanA - meanB| <= ci95A + ci95B.
+function renderSignificanceHint(perModel) {
+  const ranked = perModel
+    .filter((m) => m.avgQuality != null && m.qualityCi95 != null && m.qualityN >= 2)
+    .slice()
+    .sort((a, b) => b.avgQuality - a.avgQuality);
+  if (ranked.length < 2) return '';
+  const overlaps = [];
+  for (let i = 0; i < ranked.length - 1; i += 1) {
+    const a = ranked[i];
+    const b = ranked[i + 1];
+    const delta = Math.abs(a.avgQuality - b.avgQuality);
+    const margin = (a.qualityCi95 || 0) + (b.qualityCi95 || 0);
+    if (delta <= margin) {
+      overlaps.push(`${esc(a.label)} vs ${esc(b.label)}: Δ=${delta.toFixed(2)}, CIs overlap (±${margin.toFixed(2)})`);
+    }
+  }
+  if (!overlaps.length) {
+    return '<p class="admin-muted admin-eval-significance">All pairwise composite gaps exceed the combined 95% CIs — rankings are statistically distinguishable.</p>';
+  }
+  return `<p class="admin-muted admin-eval-significance"><strong>Within noise:</strong> ${overlaps.join(' · ')}. Treat these as ties — increase suite size or judge passes per cell to separate them.</p>`;
+}
+
+const QUALITY_RUBRIC_HTML = `
+  <details class="admin-eval-rubric">
+    <summary>How is quality scored?</summary>
+    <div class="admin-eval-rubric-body">
+      <p>Claude grades each generation on seven dimensions, each <strong>1–5</strong>
+        (1 = poor, 5 = excellent). The cell score is the unweighted mean — so the
+        composite ranges from <strong>1.00 (worst)</strong> to <strong>5.00 (best)</strong>.</p>
+      <ul class="admin-eval-rubric-list">
+        <li><strong>Structure</strong> — well-formed EDS blocks, required sections present, no malformed HTML.</li>
+        <li><strong>Intent</strong> — does the page actually answer the query and match the classified intent?</li>
+        <li><strong>Faithfulness</strong> — products, prices, and specs grounded in the RAG context (no hallucinated SKUs or prices).</li>
+        <li><strong>Helpfulness</strong> — editorial polish, tone, hierarchy, useful next steps.</li>
+        <li><strong>Brand voice</strong> — sounds like a knowledgeable, approachable specialty-coffee brand. Penalizes generic AI filler and clichés.</li>
+        <li><strong>Specificity</strong> — concrete coffee details (grams, ratios, temps, grind sizes, named techniques) instead of vague generalities.</li>
+        <li><strong>Visual / asset usage</strong> — hero present, product / story / experience tokens placed where they aid the reader, no missing assets.</li>
+      </ul>
+      <p class="admin-eval-rubric-legend">
+        Color guide:
+        <span class="admin-badge admin-badge-ok">≥ 4.00 strong</span>
+        <span class="admin-badge admin-badge-warn">3.00 – 3.99 mixed</span>
+        <span class="admin-badge admin-badge-muted">&lt; 3.00 weak</span>
+      </p>
+      <p class="admin-muted">
+        The compact <code>4·5·3·4·5·3·4</code> notation under each cell shows the raw per-dimension scores
+        in order: structure · intent · faithfulness · helpfulness · brand voice · specificity · visual.
+      </p>
+      <p class="admin-muted">
+        <strong>Blocker tag:</strong> cells whose <em>faithfulness</em> or <em>structure</em> scores below 3,
+        or whose deterministic assertions fail (broken tokens, unbalanced HTML, off-topic decline expected),
+        get a <span class="admin-eval-cell-blocker">⚠ blocker</span> badge. The score itself is the raw judge
+        composite — the badge is a quality flag, not a score modifier. The per-model summary reports a
+        <em>Blocker rate</em> so a high cell average doesn't mask a high rate of unshippable generations.
+      </p>
+    </div>
+  </details>
+`;
+
+async function consumeNdjson(res, onEvent, fallbackErrorEvent) {
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    if (fallbackErrorEvent) {
+      await onEvent({ ...fallbackErrorEvent, message: `HTTP ${res.status}: ${text || 'request failed'}` });
+    }
+    return;
+  }
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    // eslint-disable-next-line no-await-in-loop
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop() || '';
+    // eslint-disable-next-line no-restricted-syntax
+    for (const line of lines) {
+      if (!line.trim()) continue; // eslint-disable-line no-continue
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await onEvent(JSON.parse(line));
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to parse eval event:', err, line);
+      }
+    }
+  }
+  if (buffer.trim()) {
+    try { await onEvent(JSON.parse(buffer)); } catch { /* ignore */ }
+  }
+}
+
+async function streamPerQuery(token, evalRunId, queryId, onEvent, signal, skipJudge = false) {
+  const res = await fetch(
+    `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/queries`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${btoa(`admin:${token}`)}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ queryId, skipJudge }),
+      signal,
+    },
+  );
+  await consumeNdjson(res, onEvent, { type: 'query-error', queryId });
+}
+
+async function streamJudgePhase(token, evalRunId, onEvent, signal, body = {}) {
+  const res = await fetch(
+    `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/judge`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${btoa(`admin:${token}`)}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+      signal,
+    },
+  );
+  await consumeNdjson(res, onEvent, { type: 'error' });
+}
+
+// Orchestrates an eval run as TWO phases:
+//   Phase 1 — generation: per-query worker pool (skipJudge=true). Cheap to retry,
+//             persists everything to D1+KV so judging can resume after 429s.
+//   Phase 2 — judging: single bulk call to /:id/judge (scope=pending) with low
+//             concurrency. Skipped entirely when body.skipJudge is true.
+// onEvent receives the full union of streamed events from both phases plus the
+// existing run-start / run-done bookends, so the UI code keeps working.
+async function streamEvalRun(body, onEvent, signal) {
+  const skipJudgePhase = body?.skipJudge === true;
+  const token = getAdminToken();
+  if (!token) throw new Error('Admin token required');
+
+  // 1. Create the eval_run row + return queries to drive.
+  const createRes = await fetch(`${ARCO_RECOMMENDER_URL}/api/admin/evaluations`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${btoa(`admin:${token}`)}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    signal,
+  });
+  if (createRes.status === 401) {
+    clearAdminToken();
+    throw new Error('Unauthorized — token cleared. Reload to retry.');
+  }
+  if (!createRes.ok) {
+    throw new Error(`HTTP ${createRes.status}: ${await createRes.text().catch(() => '')}`);
+  }
+  const created = await createRes.json();
+  const {
+    evalRunId, queries, modelCount = (created.models || []).length, variantCount,
+    estimatedCostUsd, queryConcurrency, judgeModel, suiteId, suiteName,
+  } = created;
+
+  await onEvent({
+    type: 'run-start',
+    evalRunId,
+    suiteId,
+    suiteName,
+    judgeModel,
+    queryCount: queries.length,
+    modelCount,
+    variantCount,
+    queryConcurrency,
+    estimatedCostUsd,
+  });
+
+  // 2. Per-query worker pool.
+  let nextIdx = 0;
+  let aborted = false;
+  const onAbort = () => { aborted = true; };
+  if (signal) {
+    if (signal.aborted) aborted = true;
+    else signal.addEventListener('abort', onAbort, { once: true });
+  }
+
+  const worker = async () => {
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      if (aborted) return;
+      const i = nextIdx;
+      nextIdx += 1;
+      if (i >= queries.length) return;
+      const q = queries[i];
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await streamPerQuery(token, evalRunId, q.id, onEvent, signal, true);
+      } catch (err) {
+        if (err.name === 'AbortError') { aborted = true; return; }
+        // eslint-disable-next-line no-await-in-loop
+        await onEvent({ type: 'query-error', queryId: q.id, message: err.message || 'query failed' });
+      }
+    }
+  };
+
+  const concurrency = Math.max(1, Math.min(queryConcurrency || 3, queries.length));
+  await Promise.all(Array.from({ length: concurrency }, () => worker()));
+
+  if (aborted) {
+    const e = new Error('aborted');
+    e.name = 'AbortError';
+    throw e;
+  }
+
+  // 2b. Judge phase — bulk call after all generations have finished. Low
+  // concurrency to avoid Bedrock 429s. Skipped when the user opted to judge later.
+  if (!skipJudgePhase) {
+    await onEvent({ type: 'judge-phase-start', evalRunId });
+    try {
+      await streamJudgePhase(token, evalRunId, onEvent, signal, { scope: 'pending' });
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        aborted = true;
+      } else {
+        await onEvent({ type: 'error', message: err.message || 'judge phase failed' });
+      }
+    }
+    if (aborted) {
+      const e = new Error('aborted');
+      e.name = 'AbortError';
+      throw e;
+    }
+  }
+
+  // 3. Finalize: aggregate from D1, write summary.
+  const finRes = await fetch(
+    `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/finalize`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Basic ${btoa(`admin:${token}`)}` },
+      signal,
+    },
+  );
+  if (!finRes.ok) {
+    await onEvent({
+      type: 'error',
+      message: `Finalize failed: HTTP ${finRes.status}`,
+    });
+    return;
+  }
+  const final = await finRes.json();
+  await onEvent({
+    type: 'run-done',
+    evalRunId,
+    status: final.status || 'complete',
+    summary: final.summary || [],
+    totalInputTokens: final.totalInputTokens || 0,
+    totalOutputTokens: final.totalOutputTokens || 0,
+    judgeInputTokens: final.judgeInputTokens || 0,
+    judgeOutputTokens: final.judgeOutputTokens || 0,
+  });
+}
+
+async function renderEvaluationsList(root) {
+  root.innerHTML = '<p class="admin-loading">Loading evaluations…</p>';
+  let data;
+  try {
+    data = await api('/api/admin/evaluations?limit=100&offset=0');
+  } catch (err) {
+    root.innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
+    return;
+  }
+
+  const runs = data.runs || [];
+  const total = data.total || 0;
+
+  root.innerHTML = `
+    <div class="admin-toolbar">
+      <h2>LLM Evaluation</h2>
+      <div class="admin-header-actions">
+        <a class="admin-btn admin-btn-primary" href="#/evaluations/new">+ New evaluation</a>
+      </div>
+    </div>
+    <p class="admin-muted admin-experiments-hint">
+      Run a fixed coffee query suite across multiple LLMs and let Claude score each
+      generation on seven dimensions: structure, intent alignment, RAG faithfulness,
+      helpfulness, brand voice, specificity, and visual / asset usage. Speed metrics
+      (TTFT, total duration, tokens/sec) come for free from each run.
+    </p>
+    <div class="admin-stats">
+      <span class="admin-stat"><span class="admin-stat-value">${total}</span><span class="admin-stat-label">runs</span></span>
+    </div>
+    ${runs.length === 0
+    ? '<p class="admin-empty">No evaluations yet. Click <strong>New evaluation</strong> to run one.</p>'
+    : `<div class="admin-table-wrap"><table class="admin-table admin-eval-runs-table">
+        <thead><tr>
+          <th>Suite</th><th>Models</th><th>Status</th>
+          <th>Queries</th><th>Quality</th><th>Cost est.</th><th>Created</th>
+        </tr></thead>
+        <tbody>${runs.map((r) => {
+    const status = r.status || 'running';
+    const tone = EVAL_STATUS_TONE[status] || 'muted';
+    let avgQuality = null;
+    try {
+      const summary = r.summary_json ? JSON.parse(r.summary_json) : null;
+      if (summary?.perModel?.length) {
+        const scores = summary.perModel.map((m) => m.avgQuality).filter((s) => s != null);
+        if (scores.length) {
+          avgQuality = Math.round(
+            (scores.reduce((a, b) => a + b, 0) / scores.length) * 100,
+          ) / 100;
+        }
+      }
+    } catch { /* ignore */ }
+    return `<tr data-href="#/evaluations/${esc(r.id)}">
+      <td>${esc(r.suite_name || r.suite_id)}</td>
+      <td>${badge(`${r.model_count}`, 'accent')} <span class="admin-muted">· ${r.variant_count} runs</span></td>
+      <td>${badge(status, tone)}</td>
+      <td>${r.query_count}</td>
+      <td>${avgQuality != null ? `<span class="admin-badge admin-badge-${QUALITY_TONE(avgQuality)}">${avgQuality.toFixed(2)}</span>` : '<span class="admin-muted">—</span>'}</td>
+      <td class="admin-muted">${r.estimated_cost_usd != null ? `$${r.estimated_cost_usd.toFixed(2)}` : '—'}</td>
+      <td class="admin-muted">${ts(r.created_at)}</td>
+    </tr>`;
+  }).join('')}
+        </tbody>
+      </table></div>`}
+  `;
+
+  root.querySelectorAll('tr[data-href]').forEach((tr) => {
+    tr.addEventListener('click', () => { navigate(tr.dataset.href); });
+  });
+}
+
+const MAX_EVAL_MODELS = 8;
+
+function renderEvalModelRow(catalog, preset = {}) {
+  const selectedKey = preset.key || firstAvailableKey(catalog);
+  const temperature = preset.temperature ?? 0.6;
+  const maxTokens = preset.maxTokens ?? 5120;
+  return `
+    <div class="admin-experiment-variant-row" data-variant-row>
+      <span class="admin-experiment-variant-index" data-role="index">#1</span>
+      <label class="admin-experiment-variant-field admin-experiment-variant-model">
+        <span>Model</span>
+        <input type="search" class="admin-model-search" placeholder="Filter models…" autocomplete="off" aria-label="Filter model list">
+        <select name="model" required>
+          ${renderModelOptions(catalog, selectedKey)}
+        </select>
+      </label>
+      <label class="admin-experiment-variant-field">
+        <span>Temp</span>
+        <input type="number" name="temperature" step="0.05" min="0" max="2" value="${esc(temperature)}" required>
+      </label>
+      <label class="admin-experiment-variant-field">
+        <span>Max tok</span>
+        <input type="number" name="maxTokens" step="64" min="256" max="16384" value="${esc(maxTokens)}" required>
+      </label>
+      <div class="admin-experiment-variant-actions">
+        <button type="button" class="admin-experiment-variant-btn" data-action="dup" aria-label="Duplicate this row" title="Duplicate this row">Duplicate</button>
+        <button type="button" class="admin-experiment-variant-btn admin-experiment-variant-btn-remove" data-action="remove" aria-label="Remove this row" title="Remove this row">Remove</button>
+      </div>
+    </div>
+  `;
+}
+
+function collectModelsFromForm(form) {
+  const models = [];
+  form.querySelectorAll('[data-variant-row]').forEach((row) => {
+    const select = row.querySelector('select[name="model"]');
+    const [provider, ...modelParts] = (select.value || '').split('::');
+    const model = modelParts.join('::');
+    if (!provider || !model) return;
+    const temperature = parseFloat(row.querySelector('input[name="temperature"]').value);
+    const maxTokens = parseInt(row.querySelector('input[name="maxTokens"]').value, 10);
+    const label = select.selectedOptions[0]?.textContent?.replace(/\s+—\s+needs.*$/, '')?.trim() || `${provider} · ${model}`;
+    models.push({
+      provider,
+      model,
+      label,
+      temperature: Number.isNaN(temperature) ? null : temperature,
+      maxTokens: Number.isNaN(maxTokens) ? null : maxTokens,
+    });
+  });
+  return models;
+}
+
+async function renderEvaluationCreateForm(root) {
+  root.innerHTML = '<p class="admin-loading">Loading suites and models…</p>';
+  let catalog;
+  let suites;
+  let judgeModels;
+  try {
+    const [catRes, suiteRes] = await Promise.all([
+      api('/api/admin/catalog'),
+      api('/api/admin/eval-suites'),
+    ]);
+    catalog = catRes.catalog || [];
+    suites = suiteRes.suites || [];
+    judgeModels = suiteRes.judgeModels || [];
+  } catch (err) {
+    root.innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
+    return;
+  }
+  if (!suites.length) {
+    root.innerHTML = '<p class="admin-error">No evaluation suites found.</p>';
+    return;
+  }
+
+  const defaultSuite = suites[0];
+  const defaultJudge = judgeModels.find((m) => m.id === 'claude-sonnet-4-6') || judgeModels[0];
+
+  root.innerHTML = `
+    <nav class="admin-crumbs"><a href="#/evaluations">← Evaluations</a></nav>
+    <div class="admin-toolbar">
+      <h2>New evaluation</h2>
+    </div>
+
+    <section class="admin-card">
+      <h3>1. Suite</h3>
+      <p class="admin-muted">A bundled set of coffee queries to run against every model.</p>
+      <form id="admin-eval-form" class="admin-experiment-form">
+        <label class="admin-field admin-field-wide">
+          <span>Suite</span>
+          <select name="suiteId" required>
+            ${suites.map((s) => `<option value="${esc(s.id)}"${s.id === defaultSuite.id ? ' selected' : ''}>${esc(s.name)} · ${s.queryCount} queries</option>`).join('')}
+          </select>
+          <small class="admin-muted" data-role="suite-description">${esc(defaultSuite.description)}</small>
+        </label>
+
+        <h3>2. Models under test</h3>
+        <p class="admin-muted">Up to ${MAX_EVAL_MODELS} models. Each runs against every query in the suite.</p>
+        <div class="admin-experiment-variants" data-role="variants">
+          ${renderEvalModelRow(catalog)}
+        </div>
+        <div class="admin-experiment-variant-footer">
+          <button type="button" class="admin-btn admin-btn-ghost" data-role="add-variant">+ Add model</button>
+        </div>
+
+        <h3>3. Judge</h3>
+        <p class="admin-muted">Claude scores each generation 1–5 on seven dimensions (structure, intent, faithfulness, helpfulness, brand voice, specificity, visual/asset usage); the cell score is the mean (range 1.00–5.00). Cost depends on the model and the suite size.</p>
+        <label class="admin-field">
+          <span>Judge model</span>
+          <select name="judgeModel" required>
+            ${judgeModels.map((m) => `<option value="${esc(m.id)}"${m.id === defaultJudge?.id ? ' selected' : ''}>${esc(m.label)}</option>`).join('')}
+          </select>
+        </label>
+        ${QUALITY_RUBRIC_HTML}
+
+        <h3>4. Parallelism</h3>
+        <p class="admin-muted">How many queries to run in parallel. Higher = faster wall time, but more pressure on the upstream LLM and Vectorize. Within each query, all models still run in parallel.</p>
+        <label class="admin-field">
+          <span>Queries in parallel</span>
+          <input type="number" name="queryConcurrency" min="1" max="6" step="1" value="3" required>
+        </label>
+
+        <label class="admin-field admin-field-checkbox">
+          <input type="checkbox" name="skipJudge">
+          <span>Skip judging — generate now, judge later from the matrix view (use this if Bedrock is throttling).</span>
+        </label>
+
+        <div class="admin-experiment-actions">
+          <button type="submit" class="admin-btn admin-btn-primary" data-role="run">Run evaluation</button>
+          <button type="button" class="admin-btn admin-btn-ghost" data-role="cancel" hidden>Cancel</button>
+          <span class="admin-experiment-summary admin-muted" data-role="summary">${defaultSuite.queryCount} queries × 1 model</span>
+        </div>
+      </form>
+    </section>
+
+    <section class="admin-card admin-experiment-progress" hidden data-role="progress-card">
+      <h3>Progress</h3>
+      <div class="admin-experiment-progress-meta">
+        <span data-role="progress-phase">Waiting…</span>
+        <span class="admin-muted" data-role="progress-ids"></span>
+      </div>
+      <div class="admin-experiment-progress-action" data-role="progress-action"></div>
+      <table class="admin-table admin-eval-progress-table" data-role="progress-table" hidden>
+        <thead><tr><th>Query</th><th>Status</th><th>Done</th><th>Judged</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  `;
+
+  const form = root.querySelector('#admin-eval-form');
+  const summaryEl = form.querySelector('[data-role="summary"]');
+  const runBtn = form.querySelector('[data-role="run"]');
+  const cancelBtn = form.querySelector('[data-role="cancel"]');
+  const variantsContainer = form.querySelector('[data-role="variants"]');
+  const addBtn = form.querySelector('[data-role="add-variant"]');
+  const suiteSelect = form.querySelector('select[name="suiteId"]');
+  const suiteDescEl = form.querySelector('[data-role="suite-description"]');
+  const progressCard = root.querySelector('[data-role="progress-card"]');
+  const progressPhase = root.querySelector('[data-role="progress-phase"]');
+  const progressIds = root.querySelector('[data-role="progress-ids"]');
+  const progressAction = root.querySelector('[data-role="progress-action"]');
+  const progressTable = root.querySelector('[data-role="progress-table"]');
+  const progressTbody = progressTable.querySelector('tbody');
+
+  const rowNodes = () => [...variantsContainer.querySelectorAll('[data-variant-row]')];
+
+  const refreshSummary = () => {
+    const rows = rowNodes();
+    rows.forEach((row, i) => {
+      row.querySelector('[data-role="index"]').textContent = `#${i + 1}`;
+      const removeBtn = row.querySelector('[data-action="remove"]');
+      if (removeBtn) removeBtn.disabled = rows.length === 1;
+    });
+    addBtn.disabled = rows.length >= MAX_EVAL_MODELS;
+    const suite = suites.find((s) => s.id === suiteSelect.value) || suites[0];
+    summaryEl.textContent = `${suite.queryCount} queries × ${rows.length} model${rows.length === 1 ? '' : 's'} = ${suite.queryCount * rows.length} generations`;
+  };
+
+  suiteSelect.addEventListener('change', () => {
+    const suite = suites.find((s) => s.id === suiteSelect.value);
+    if (suite) suiteDescEl.textContent = suite.description || '';
+    refreshSummary();
+  });
+
+  variantsContainer.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const row = btn.closest('[data-variant-row]');
+    if (!row) return;
+    if (btn.dataset.action === 'remove') {
+      if (rowNodes().length > 1) row.remove();
+      refreshSummary();
+    } else if (btn.dataset.action === 'dup') {
+      if (rowNodes().length >= MAX_EVAL_MODELS) return;
+      const select = row.querySelector('select[name="model"]');
+      const temp = row.querySelector('input[name="temperature"]').value;
+      const maxTok = row.querySelector('input[name="maxTokens"]').value;
+      const clone = document.createElement('div');
+      clone.innerHTML = renderEvalModelRow(catalog, {
+        key: select.value, temperature: temp, maxTokens: maxTok,
+      }).trim();
+      row.insertAdjacentElement('afterend', clone.firstElementChild);
+      refreshSummary();
+    }
+  });
+
+  variantsContainer.addEventListener('change', refreshSummary);
+  variantsContainer.addEventListener('input', (e) => {
+    if (e.target.classList.contains('admin-model-search')) {
+      const row = e.target.closest('[data-variant-row]');
+      if (row) filterModelSelect(e.target, row.querySelector('select[name="model"]'), catalog);
+    }
+    refreshSummary();
+  });
+
+  addBtn.addEventListener('click', () => {
+    if (rowNodes().length >= MAX_EVAL_MODELS) return;
+    const last = rowNodes().at(-1);
+    const select = last?.querySelector('select[name="model"]');
+    const temp = last?.querySelector('input[name="temperature"]').value;
+    const maxTok = last?.querySelector('input[name="maxTokens"]').value;
+    const clone = document.createElement('div');
+    clone.innerHTML = renderEvalModelRow(catalog, {
+      key: select?.value, temperature: temp, maxTokens: maxTok,
+    }).trim();
+    variantsContainer.appendChild(clone.firstElementChild);
+    refreshSummary();
+  });
+
+  let abortController = null;
+
+  cancelBtn.addEventListener('click', () => {
+    if (abortController) abortController.abort();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const suiteId = suiteSelect.value;
+    const judgeModel = form.querySelector('select[name="judgeModel"]').value;
+    const queryConcurrencyRaw = parseInt(form.querySelector('input[name="queryConcurrency"]').value, 10);
+    const queryConcurrency = Number.isNaN(queryConcurrencyRaw)
+      ? 3 : Math.max(1, Math.min(6, queryConcurrencyRaw));
+    const skipJudge = form.querySelector('input[name="skipJudge"]')?.checked === true;
+    const models = collectModelsFromForm(form);
+    if (!models.length) { summaryEl.textContent = 'Select at least one model.'; return; }
+
+    runBtn.disabled = true;
+    cancelBtn.hidden = false;
+    progressCard.hidden = false;
+    progressTable.hidden = false;
+    progressTbody.innerHTML = '';
+    progressPhase.textContent = 'Starting…';
+    progressIds.textContent = '';
+    progressAction.innerHTML = '';
+
+    abortController = new AbortController();
+    let evalRunId = null;
+    let queriesTotal = 0;
+    let queriesDone = 0;
+    const queryRowCache = new Map();
+
+    try {
+      await streamEvalRun({
+        suiteId, models, judgeModel, queryConcurrency, skipJudge,
+      }, (evt) => {
+        if (evt.type === 'run-start') {
+          evalRunId = evt.evalRunId;
+          queriesTotal = evt.queryCount;
+          progressIds.textContent = `eval ${evalRunId.substring(0, 8)}… · ${evt.queryCount} queries × ${evt.modelCount} models · est. $${(evt.estimatedCostUsd || 0).toFixed(2)} (judge only)`;
+          progressPhase.textContent = `Running query 1 / ${queriesTotal}…`;
+        } else if (evt.type === 'judge-phase-start') {
+          progressPhase.textContent = 'Judging — phase 2 of 2…';
+        } else if (evt.type === 'judge-start') {
+          progressPhase.textContent = `Judging ${evt.count} variant${evt.count === 1 ? '' : 's'}…`;
+        } else if (evt.type === 'run-judge-done') {
+          progressPhase.textContent = `Judging done — ${evt.count} variant${evt.count === 1 ? '' : 's'}`;
+        } else if (evt.type === 'query-start') {
+          const tr = document.createElement('tr');
+          tr.dataset.queryId = evt.queryId;
+          tr.innerHTML = `<td class="admin-mono">${esc(evt.queryId)}</td><td><span class="admin-badge admin-badge-warn">running</span></td><td data-role="done">0 / ${models.length}</td><td data-role="judged">0 / ${models.length}</td>`;
+          progressTbody.appendChild(tr);
+          queryRowCache.set(evt.queryId, tr);
+          progressPhase.textContent = `Query ${queriesDone + 1} / ${queriesTotal}: ${evt.query.substring(0, 80)}${evt.query.length > 80 ? '…' : ''}`;
+        } else if (evt.type === 'variant-done' || evt.type === 'variant-error') {
+          const tr = queryRowCache.get(evt.queryId);
+          if (tr) {
+            const cell = tr.querySelector('[data-role="done"]');
+            const [doneStr] = (cell.textContent || '0 / 0').split(' / ');
+            const doneN = (parseInt(doneStr, 10) || 0) + 1;
+            cell.textContent = `${doneN} / ${models.length}`;
+          }
+        } else if (evt.type === 'judge-done' || evt.type === 'judge-error') {
+          const tr = queryRowCache.get(evt.queryId);
+          if (tr) {
+            const cell = tr.querySelector('[data-role="judged"]');
+            const [judgedStr] = (cell.textContent || '0 / 0').split(' / ');
+            const judgedN = (parseInt(judgedStr, 10) || 0) + 1;
+            cell.textContent = `${judgedN} / ${models.length}`;
+          }
+        } else if (evt.type === 'query-done') {
+          queriesDone += 1;
+          const tr = queryRowCache.get(evt.queryId);
+          if (tr) {
+            tr.querySelector('td:nth-child(2)').innerHTML = '<span class="admin-badge admin-badge-ok">done</span>';
+          }
+          progressPhase.textContent = `${queriesDone} / ${queriesTotal} queries done`;
+        } else if (evt.type === 'query-error') {
+          const tr = queryRowCache.get(evt.queryId);
+          if (tr) tr.querySelector('td:nth-child(2)').innerHTML = '<span class="admin-badge admin-badge-muted">skipped</span>';
+        } else if (evt.type === 'run-done') {
+          progressPhase.textContent = `Done — ${queriesDone} / ${queriesTotal} queries`;
+          progressAction.innerHTML = '<button type="button" class="admin-btn" data-action="view-results">View results</button>';
+          progressAction.querySelector('[data-action="view-results"]').addEventListener('click', () => {
+            if (evalRunId) navigate(`#/evaluations/${evalRunId}`);
+          });
+          setTimeout(() => {
+            if (evalRunId) navigate(`#/evaluations/${evalRunId}`);
+          }, 2000);
+        } else if (evt.type === 'error') {
+          progressPhase.textContent = `Error: ${evt.message || 'unknown'}`;
+        }
+      }, abortController.signal);
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        progressPhase.textContent = 'Cancelled.';
+      } else {
+        progressPhase.textContent = `Error: ${err.message}`;
+      }
+    } finally {
+      runBtn.disabled = false;
+      cancelBtn.hidden = true;
+      abortController = null;
+    }
+  });
+
+  refreshSummary();
+}
+
+function parseEvaluatorNotes(notesJson) {
+  if (!notesJson) return null;
+  try { return JSON.parse(notesJson); } catch { return null; }
+}
+
+async function renderEvaluation(root, evalRunId) {
+  root.innerHTML = '<p class="admin-loading">Loading evaluation…</p>';
+  let data;
+  try {
+    data = await api(`/api/admin/evaluations/${evalRunId}`);
+  } catch (err) {
+    root.innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
+    return;
+  }
+
+  const { run, suite } = data;
+  const experiments = data.experiments || [];
+  const variants = data.variants || [];
+  const models = (() => {
+    try { return JSON.parse(run.models_json || '[]'); } catch { return []; }
+  })();
+  const summary = (() => {
+    try { return run.summary_json ? JSON.parse(run.summary_json) : null; } catch { return null; }
+  })();
+
+  // Build matrix: queryId -> array of variant rows aligned to models[].
+  const variantsByExp = new Map();
+  variants.forEach((v) => {
+    if (!variantsByExp.has(v.experiment_id)) variantsByExp.set(v.experiment_id, []);
+    variantsByExp.get(v.experiment_id).push(v);
+  });
+
+  const matrix = experiments.map((exp) => {
+    const rows = variantsByExp.get(exp.id) || [];
+    const cells = models.map(
+      (m) => rows.find((v) => v.provider === m.provider && v.model === m.model) || null,
+    );
+    return { exp, cells };
+  });
+
+  const renderQualityCell = (notes, score, tone, judgeError, status) => {
+    if (score != null) {
+      const dims = notes
+        ? `<span class="admin-eval-cell-dims" title="structure / intent / faithfulness / helpfulness / brand voice / specificity / visual">${notes.structure?.score || '—'}·${notes.intent?.score || '—'}·${notes.faithfulness?.score || '—'}·${notes.helpfulness?.score || '—'}·${notes.brandVoice?.score || '—'}·${notes.specificity?.score || '—'}·${notes.visualAssetUsage?.score || '—'}</span>`
+        : '';
+      return `<span class="admin-badge admin-badge-${tone}">${score.toFixed(2)}</span>${dims}`;
+    }
+    if (judgeError) {
+      return `<span class="admin-error-text" title="${esc(judgeError)}">judge err</span>`;
+    }
+    if (status === 'error') {
+      return '<span class="admin-error-text">gen err</span>';
+    }
+    return '<span class="admin-muted">…</span>';
+  };
+
+  const renderBlockerRow = (notes) => {
+    if (!notes) return '';
+    const isBlocker = notes.blocker === true;
+    const reasons = Array.isArray(notes.blocker_reasons) ? notes.blocker_reasons : [];
+    const violations = Array.isArray(notes.assertions?.violations)
+      ? notes.assertions.violations : [];
+    const blockerViolations = violations.filter((v) => v.severity === 'blocker');
+    const warnViolations = violations.filter((v) => v.severity === 'warn');
+    if (!isBlocker && !blockerViolations.length && !warnViolations.length) return '';
+    const tip = [...reasons, ...violations.map((v) => `${v.severity}: ${v.category} — ${v.message}`)]
+      .filter(Boolean).join(' · ');
+    if (isBlocker || blockerViolations.length) {
+      const blockerBadge = `<span class="admin-eval-cell-blocker" title="${esc(tip)}">⚠ blocker${blockerViolations.length ? ` (${blockerViolations.length})` : ''}</span>`;
+      return `<div class="admin-eval-cell-row admin-eval-cell-flags">${blockerBadge}</div>`;
+    }
+    if (warnViolations.length) {
+      return `<div class="admin-eval-cell-row admin-eval-cell-flags"><span class="admin-eval-cell-warn" title="${esc(tip)}">${warnViolations.length} warn</span></div>`;
+    }
+    return '';
+  };
+
+  // Classify a cell so the toolbar counts and retry buttons can act on it.
+  // judged   — score persisted, no error
+  // pending  — generation succeeded, no judge run yet
+  // judgeErr — generation succeeded, but judge call failed
+  // genErr   — generation failed (status='error')
+  // running  — generation in progress (rare in detail view)
+  const classifyCell = (cell) => {
+    if (!cell) return 'empty';
+    const notes = parseEvaluatorNotes(cell.evaluator_notes);
+    if (notes?.judge_error) return 'judgeErr';
+    if (cell.status === 'error') return 'genErr';
+    if (cell.evaluator_score != null) return 'judged';
+    if (cell.status === 'complete') return 'pending';
+    return 'running';
+  };
+
+  const cellHtml = (cell, exp) => {
+    if (!cell) return '<td class="admin-eval-cell admin-eval-cell-empty">—</td>';
+    const notes = parseEvaluatorNotes(cell.evaluator_notes);
+    const { evaluator_score: score, status } = cell;
+    const tone = QUALITY_TONE(score);
+    const tps = (cell.output_tokens && cell.duration_ms)
+      ? Math.round(cell.output_tokens / (cell.duration_ms / 1000))
+      : null;
+    const judgeError = notes?.judge_error;
+    const ttftLabel = cell.time_to_first_token_ms != null
+      ? `TTFT ${dur(cell.time_to_first_token_ms)}`
+      : 'TTFT —';
+    const cellClass = classifyCell(cell);
+    // Both retry actions are always available so the user can regenerate
+    // (full pipeline + judge) or re-judge from KV regardless of cell state.
+    // Re-judge is hidden for genErr cells because there are no blocks in KV
+    // to judge.
+    const showRejudge = cellClass !== 'genErr';
+    return `<td class="admin-eval-cell admin-eval-cell-${status} admin-eval-cell-class-${cellClass}" data-experiment-id="${esc(exp.id)}" data-variant-id="${esc(cell.id)}" data-cell-class="${cellClass}">
+      <div class="admin-eval-cell-retry-group">
+        <button type="button" class="admin-eval-cell-retry" data-action="retry" data-retry-action="regenerate" title="Regenerate — re-run full pipeline + judge">↻ gen</button>
+        ${showRejudge ? '<button type="button" class="admin-eval-cell-retry" data-action="retry" data-retry-action="rejudge" title="Re-judge only — uses persisted blocks (cheap)">↻ judge</button>' : ''}
+      </div>
+      <div class="admin-eval-cell-row admin-eval-cell-speed">
+        <span class="admin-eval-cell-ttft">${ttftLabel}</span>
+        <span class="admin-eval-cell-duration">${dur(cell.duration_ms)}</span>
+        ${tps ? `<span class="admin-eval-cell-tps">${tps}/s</span>` : ''}
+      </div>
+      <div class="admin-eval-cell-row admin-eval-cell-quality">
+        ${renderQualityCell(notes, score, tone, judgeError, status)}
+      </div>
+      ${renderBlockerRow(notes)}
+    </td>`;
+  };
+
+  // Aggregate cell counts for the toolbar — drives Run/Continue judging and
+  // Retry failed cells visibility + N counts.
+  const counts = matrix.reduce((acc, { cells }) => {
+    cells.forEach((c) => {
+      const k = classifyCell(c);
+      acc[k] = (acc[k] || 0) + 1;
+    });
+    return acc;
+  }, {
+    judged: 0, pending: 0, judgeErr: 0, genErr: 0, running: 0, empty: 0,
+  });
+  const totalGenerated = counts.judged + counts.pending + counts.judgeErr;
+  const failedCount = counts.genErr + counts.judgeErr;
+
+  const queryLabel = (exp) => {
+    const def = suite?.queries?.find((q) => q.id === exp.eval_query_id);
+    const label = def?.query || exp.query || '—';
+    const truncated = label.length > 90 ? `${label.substring(0, 90)}…` : label;
+    return `<span class="admin-eval-query-label" title="${esc(label)}">${esc(truncated)}</span><span class="admin-muted admin-eval-query-id">${esc(exp.eval_query_id || '')}</span>`;
+  };
+
+  root.innerHTML = `
+    <nav class="admin-crumbs"><a href="#/evaluations">← Evaluations</a></nav>
+    <div class="admin-toolbar">
+      <h2 class="admin-page-title">${esc(run.suite_name || run.suite_id)}</h2>
+      <div class="admin-badges">
+        ${badge(run.status || '—', EVAL_STATUS_TONE[run.status] || 'muted')}
+        ${badge(`${run.query_count} queries`, 'accent')}
+        ${badge(`${run.model_count} models`, 'purple')}
+        ${badge(run.judge_model || '—', 'warn')}
+      </div>
+    </div>
+
+    <div class="admin-stats admin-stats-strip">
+      <span class="admin-stat"><span class="admin-stat-value">${run.estimated_cost_usd != null ? `$${run.estimated_cost_usd.toFixed(2)}` : '—'}</span><span class="admin-stat-label">judge cost (est.)</span></span>
+      <span class="admin-stat"><span class="admin-stat-value">${fmtInt(run.total_input_tokens || 0)}</span><span class="admin-stat-label">gen tokens in</span></span>
+      <span class="admin-stat"><span class="admin-stat-value">${fmtInt(run.total_output_tokens || 0)}</span><span class="admin-stat-label">gen tokens out</span></span>
+      <span class="admin-stat"><span class="admin-stat-value">${fmtInt((run.judge_input_tokens || 0) + (run.judge_output_tokens || 0))}</span><span class="admin-stat-label">judge tokens</span></span>
+      <span class="admin-stat"><span class="admin-stat-value">${ts(run.created_at)}</span><span class="admin-stat-label">created</span></span>
+    </div>
+
+    ${summary?.perModel?.length
+    ? `<section class="admin-card">
+        <h3>Per-model averages <span class="admin-muted admin-eval-score-hint">· quality scale 1.00 (worst) – 5.00 (best) · ± value is 95% CI half-width</span></h3>
+        ${renderSignificanceHint(summary.perModel)}
+        <div class="admin-table-wrap"><table class="admin-table admin-eval-summary-table">
+          <thead><tr>
+            <th>Model</th><th>Quality</th>
+            <th>Structure</th><th>Intent</th><th>Faithfulness</th><th>Helpfulness</th>
+            <th>Brand voice</th><th>Specificity</th><th>Visual</th>
+            <th>Blockers</th><th>Avg TTFT</th><th>Avg duration</th>
+            <th>Tok in</th><th>Tok out</th><th>Errors</th>
+          </tr></thead>
+          <tbody>${summary.perModel.map((m) => {
+    const qualityCell = m.avgQuality != null
+      ? `<span class="admin-badge admin-badge-${QUALITY_TONE(m.avgQuality)}">${m.avgQuality.toFixed(2)}</span>${m.qualityCi95 != null ? ` <span class="admin-muted admin-eval-ci">± ${m.qualityCi95.toFixed(2)}</span>` : ''}${m.qualityN ? ` <span class="admin-muted admin-eval-n">n=${m.qualityN}</span>` : ''}`
+      : '—';
+    const blockerCell = m.blockerCount > 0
+      ? `<span class="admin-eval-cell-blocker">${m.blockerCount} (${Math.round((m.blockerRate || 0) * 100)}%)</span>`
+      : '<span class="admin-muted">0</span>';
+    const ttftCell = m.avgTtftMs != null
+      ? `${dur(m.avgTtftMs)}${m.ttftCi95 != null ? ` <span class="admin-muted admin-eval-ci">± ${dur(m.ttftCi95)}</span>` : ''}`
+      : '—';
+    const durationCell = m.avgDurationMs != null
+      ? `${dur(m.avgDurationMs)}${m.durationCi95 != null ? ` <span class="admin-muted admin-eval-ci">± ${dur(m.durationCi95)}</span>` : ''}`
+      : '—';
+    return `<tr>
+            <td><strong>${esc(m.label)}</strong><br><span class="admin-muted admin-mono">${esc(m.provider)} · ${esc(m.model)}</span></td>
+            <td>${qualityCell}</td>
+            <td>${m.avgStructure != null ? m.avgStructure.toFixed(2) : '—'}</td>
+            <td>${m.avgIntent != null ? m.avgIntent.toFixed(2) : '—'}</td>
+            <td>${m.avgFaithfulness != null ? m.avgFaithfulness.toFixed(2) : '—'}</td>
+            <td>${m.avgHelpfulness != null ? m.avgHelpfulness.toFixed(2) : '—'}</td>
+            <td>${m.avgBrandVoice != null ? m.avgBrandVoice.toFixed(2) : '—'}</td>
+            <td>${m.avgSpecificity != null ? m.avgSpecificity.toFixed(2) : '—'}</td>
+            <td>${m.avgVisualAssetUsage != null ? m.avgVisualAssetUsage.toFixed(2) : '—'}</td>
+            <td>${blockerCell}</td>
+            <td>${ttftCell}</td>
+            <td>${durationCell}</td>
+            <td>${fmtInt(m.inputTokens || 0)}</td>
+            <td>${fmtInt(m.outputTokens || 0)}</td>
+            <td>${m.errors > 0 ? `<span class="admin-error-text">${m.errors}</span>` : '0'}</td>
+          </tr>`;
+  }).join('')}</tbody>
+        </table></div>
+      </section>`
+    : ''}
+
+    <section class="admin-card">
+      <h3>Matrix · queries × models</h3>
+      <p class="admin-muted">Each cell shows speed (TTFT, duration, tokens/sec) on top and Claude's quality score below (range 1.00 – 5.00). Click any cell to view that variant's generated page. Hover a cell and click ↻ to retry just that cell.</p>
+
+      <div class="admin-eval-toolbar" data-role="eval-toolbar">
+        <div class="admin-eval-counts">
+          <span class="admin-eval-count"><strong>${totalGenerated}</strong> generated</span>
+          <span class="admin-eval-count admin-eval-count-judged"><strong>${counts.judged}</strong> judged</span>
+          <span class="admin-eval-count admin-eval-count-pending"><strong>${counts.pending}</strong> pending</span>
+          <span class="admin-eval-count admin-eval-count-error"><strong>${failedCount}</strong> error${failedCount === 1 ? '' : 's'}</span>
+        </div>
+        <div class="admin-eval-toolbar-actions">
+          ${counts.pending > 0 ? `<button type="button" class="admin-btn admin-btn-primary" data-role="run-judging">${counts.judged > 0 ? 'Continue judging' : 'Run judging'} (${counts.pending})</button>` : ''}
+          ${failedCount > 0 ? `<button type="button" class="admin-btn" data-role="retry-failed">Retry failed cells (${failedCount})</button>` : ''}
+          <button type="button" class="admin-btn admin-btn-ghost" data-role="rejudge-all">Re-judge all</button>
+        </div>
+        <div class="admin-eval-toolbar-status admin-muted" data-role="toolbar-status"></div>
+      </div>
+
+      ${QUALITY_RUBRIC_HTML}
+      <div class="admin-eval-matrix-wrap">
+        <table class="admin-table admin-eval-matrix">
+          <thead><tr>
+            <th>Query</th>
+            ${models.map((m) => `<th><div class="admin-eval-model-head"><strong>${esc(m.label)}</strong><span class="admin-muted admin-mono">${esc(m.provider)} · ${esc(m.model)}</span></div></th>`).join('')}
+          </tr></thead>
+          <tbody>${matrix.map(({ exp, cells }) => `<tr>
+            <th class="admin-eval-query-cell">${queryLabel(exp)}</th>
+            ${cells.map((c) => cellHtml(c, exp)).join('')}
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-card admin-experiment-flipthrough" data-role="preview-card" hidden>
+      <h3>Variant preview</h3>
+      <div class="admin-eval-preview-meta admin-muted" data-role="preview-meta"></div>
+      <div class="admin-experiment-preview-slot" data-role="preview"></div>
+    </section>
+  `;
+
+  const previewCard = root.querySelector('[data-role="preview-card"]');
+  const previewSlot = root.querySelector('[data-role="preview"]');
+  const previewMeta = root.querySelector('[data-role="preview-meta"]');
+  const cache = new Map();
+
+  root.querySelectorAll('.admin-eval-cell[data-variant-id]').forEach((td) => {
+    td.addEventListener('click', async (e) => {
+      // Don't open preview when the user clicks the retry button.
+      if (e.target.closest('[data-action="retry"]')) return;
+      const expId = td.dataset.experimentId;
+      const varId = td.dataset.variantId;
+      previewCard.hidden = false;
+      const exp = experiments.find((ex) => ex.id === expId);
+      const variant = variants.find((v) => v.id === varId);
+      previewMeta.textContent = `${exp?.eval_query_id || ''} · ${variant?.provider || ''} · ${variant?.model || ''} · TTFT ${variant?.time_to_first_token_ms != null ? dur(variant.time_to_first_token_ms) : '—'} · duration ${dur(variant?.duration_ms)} · quality ${variant?.evaluator_score != null ? variant.evaluator_score.toFixed(2) : '—'}`;
+      previewCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      await renderExperimentVariantPreview(previewSlot, expId, varId, cache);
+    });
+  });
+
+  // ── Retry actions ─────────────────────────────────────────────────────────
+  const toolbarStatus = root.querySelector('[data-role="toolbar-status"]');
+  const setToolbarStatus = (txt) => {
+    if (toolbarStatus) toolbarStatus.textContent = txt || '';
+  };
+  const reload = () => renderEvaluation(root, evalRunId);
+
+  const rejudgeOneCell = async (cellEl) => {
+    const { variantId } = cellEl.dataset;
+    const original = cellEl.innerHTML;
+    cellEl.classList.add('admin-eval-cell-busy');
+    cellEl.innerHTML = '<span class="admin-loading">Re-judging…</span>';
+    try {
+      const res = await fetch(
+        `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/variants/${encodeURIComponent(variantId)}/rejudge`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Basic ${btoa(`admin:${getAdminToken()}`)}` },
+        },
+      );
+      if (res.ok) {
+        const result = await res.json().catch(() => ({}));
+        // The endpoint returns { ok: true, result } on success, or
+        // { ok: false, error } when the judge call ran but the model errored,
+        // or { error } when the request itself can't be served.
+        const errMsg = result?.ok === false ? result.error : (result?.error || null);
+        if (errMsg && /not found in KV/i.test(errMsg)) {
+          // KV payload missing — cannot re-judge. Offer to regenerate instead.
+          cellEl.innerHTML = original;
+          cellEl.classList.remove('admin-eval-cell-busy');
+          if (window.confirm(`Re-judge failed: ${errMsg}\n\nRegenerate this cell instead? This re-runs the full pipeline (upstream LLM + judge).`)) {
+            await regenerateOneCell(cellEl); // eslint-disable-line no-use-before-define
+          } else {
+            setToolbarStatus(`Re-judge failed: ${errMsg}`);
+          }
+          return;
+        }
+        if (errMsg) {
+          cellEl.innerHTML = original;
+          cellEl.classList.remove('admin-eval-cell-busy');
+          setToolbarStatus(`Re-judge failed: ${errMsg}`);
+          return;
+        }
+        await reload();
+        return;
+      }
+      throw new Error(`HTTP ${res.status}: ${await res.text().catch(() => '')}`);
+    } catch (err) {
+      cellEl.innerHTML = original;
+      cellEl.classList.remove('admin-eval-cell-busy');
+      setToolbarStatus(`Re-judge failed: ${err.message}`);
+    }
+  };
+
+  const regenerateOneCell = async (cellEl) => {
+    const { variantId } = cellEl.dataset;
+    cellEl.classList.add('admin-eval-cell-busy');
+    cellEl.innerHTML = '<span class="admin-loading">Regenerating…</span>';
+    try {
+      const res = await fetch(
+        `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/variants/${encodeURIComponent(variantId)}/regenerate`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Basic ${btoa(`admin:${getAdminToken()}`)}` },
+        },
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text().catch(() => '')}`);
+      // Drain the NDJSON so the worker actually runs to completion. We don't
+      // need to render the events — we'll just reload the matrix at the end.
+      await consumeNdjson(res, () => {});
+      await reload();
+    } catch (err) {
+      cellEl.classList.remove('admin-eval-cell-busy');
+      setToolbarStatus(`Regenerate failed: ${err.message}`);
+    }
+  };
+
+  root.querySelectorAll('.admin-eval-cell[data-variant-id]').forEach((td) => {
+    td.querySelectorAll('[data-action="retry"]').forEach((btn) => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const { retryAction: action } = btn.dataset;
+        const { cellClass } = td.dataset;
+        if (action === 'regenerate') {
+          if (cellClass === 'judged' && !window.confirm('Regenerate this cell? This re-runs the full pipeline (upstream LLM + judge tokens) and overwrites the existing result.')) return;
+          if (cellClass === 'pending' && !window.confirm('Regenerate this cell? This re-runs the full pipeline including the upstream LLM. Use ↻ judge if you only need to score the existing generation.')) return;
+          await regenerateOneCell(td);
+        } else {
+          if (cellClass === 'judged' && !window.confirm('Re-judge this cell? This overwrites the existing score and uses Bedrock tokens.')) return;
+          await rejudgeOneCell(td);
+        }
+      });
+    });
+  });
+
+  const runBulkJudge = async (scope, label) => {
+    const btn = root.querySelector('[data-role="run-judging"]')
+      || root.querySelector('[data-role="rejudge-all"]');
+    if (btn) btn.disabled = true;
+    setToolbarStatus(`${label}…`);
+    let done = 0;
+    let errs = 0;
+    try {
+      const res = await fetch(
+        `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/judge`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Basic ${btoa(`admin:${getAdminToken()}`)}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ scope }),
+        },
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text().catch(() => '')}`);
+      await consumeNdjson(res, async (evt) => {
+        if (evt.type === 'judge-done') {
+          done += 1;
+          setToolbarStatus(`${label}: ${done} done · ${errs} errors`);
+        } else if (evt.type === 'judge-error') {
+          errs += 1;
+          setToolbarStatus(`${label}: ${done} done · ${errs} errors`);
+        } else if (evt.type === 'judge-start') {
+          setToolbarStatus(`${label}: 0 / ${evt.count}`);
+        }
+      });
+      setToolbarStatus(`${label} complete — ${done} done, ${errs} errors`);
+      await reload();
+    } catch (err) {
+      setToolbarStatus(`${label} failed: ${err.message}`);
+      if (btn) btn.disabled = false;
+    }
+  };
+
+  const runJudgingBtn = root.querySelector('[data-role="run-judging"]');
+  if (runJudgingBtn) {
+    runJudgingBtn.addEventListener('click', () => runBulkJudge('pending', 'Judging pending cells'));
+  }
+  const rejudgeAllBtn = root.querySelector('[data-role="rejudge-all"]');
+  if (rejudgeAllBtn) {
+    rejudgeAllBtn.addEventListener('click', () => {
+      if (!window.confirm('Re-judge ALL completed cells in this run? This will overwrite existing scores and use Bedrock tokens for every cell.')) return;
+      runBulkJudge('all', 'Re-judging all cells');
+    });
+  }
+  const retryFailedBtn = root.querySelector('[data-role="retry-failed"]');
+  if (retryFailedBtn) {
+    retryFailedBtn.addEventListener('click', async () => {
+      // Failed cells split into three groups:
+      //   - genErr: must be regenerated (no blocks at all)
+      //   - judgeErr with KV-missing message: must be regenerated (KV expired
+      //     or pre-dates the rag-context persistence change)
+      //   - judgeErr (other): cheap re-judge from KV is enough
+      // Run regens sequentially (each costs a full pipeline run), then bulk-
+      // rejudge the rest in one streaming call.
+      const variantsById = new Map(variants.map((v) => [v.id, v]));
+      const judgeErrIsKvMissing = (variant) => {
+        const notes = parseEvaluatorNotes(variant?.evaluator_notes);
+        const msg = notes?.judge_error || '';
+        return /not found in KV/i.test(msg);
+      };
+      const genErrCells = [...root.querySelectorAll('.admin-eval-cell-class-genErr')];
+      const judgeErrCells = [...root.querySelectorAll('.admin-eval-cell-class-judgeErr')];
+      const judgeErrKvMissing = judgeErrCells
+        .filter((td) => judgeErrIsKvMissing(variantsById.get(td.dataset.variantId)));
+      const regenCells = [...genErrCells, ...judgeErrKvMissing];
+      const judgeErrCount = judgeErrCells.length - judgeErrKvMissing.length;
+      const failureSummary = `${regenCells.length} regen + ${judgeErrCount} re-judge`;
+      if (!window.confirm(`Retry failed cells: ${failureSummary}? Regenerations cost upstream LLM tokens; re-judges cost Bedrock tokens.${judgeErrKvMissing.length ? `\n\n(${judgeErrKvMissing.length} judge errors will be regenerated because their stored blocks are missing from KV.)` : ''}`)) return;
+      retryFailedBtn.disabled = true;
+      try {
+        if (regenCells.length) {
+          // eslint-disable-next-line no-restricted-syntax
+          for (const td of regenCells) {
+            setToolbarStatus(`Regenerating ${td.dataset.variantId.substring(0, 8)}…`);
+            // eslint-disable-next-line no-await-in-loop
+            await regenerateOneCell(td);
+          }
+        }
+        if (judgeErrCount > 0) {
+          await runBulkJudge('errors', 'Re-judging error cells');
+        } else {
+          await reload();
+        }
+      } catch (err) {
+        setToolbarStatus(`Retry failed: ${err.message}`);
+      } finally {
+        retryFailedBtn.disabled = false;
+      }
+    });
+  }
+}
+
 // ── Entry ───────────────────────────────────────────────────────────────────
 
 function syncHeaderNav(route) {
@@ -1997,13 +3159,15 @@ function syncHeaderNav(route) {
   const isVec = route.view?.startsWith('vec-');
   const isLlm = route.view === 'llm-config';
   const isExp = route.view === 'experiments' || route.view === 'experiment' || route.view === 'experiment-new';
+  const isEval = route.view === 'evaluations' || route.view === 'evaluation' || route.view === 'evaluation-new';
   nav.querySelectorAll('a[data-nav]').forEach((a) => {
     const key = a.dataset.nav;
     let active = false;
     if (key === 'vectorize') active = isVec;
     else if (key === 'llm-config') active = isLlm;
     else if (key === 'experiments') active = isExp;
-    else if (key === 'sessions') active = !isVec && !isLlm && !isExp;
+    else if (key === 'evaluations') active = isEval;
+    else if (key === 'sessions') active = !isVec && !isLlm && !isExp && !isEval;
     a.classList.toggle('is-active', active);
   });
 }
@@ -2023,6 +3187,12 @@ async function render(root) {
     await renderExperimentCreateForm(root);
   } else if (route.view === 'experiment') {
     await renderExperiment(root, route.id, route.variantId);
+  } else if (route.view === 'evaluations') {
+    await renderEvaluationsList(root);
+  } else if (route.view === 'evaluation-new') {
+    await renderEvaluationCreateForm(root);
+  } else if (route.view === 'evaluation') {
+    await renderEvaluation(root, route.id);
   } else if (route.view === 'vec-overview') {
     await renderVectorizeOverview(root);
   } else if (route.view === 'vec-search') {
@@ -2046,6 +3216,7 @@ export default async function decorate(block) {
     <nav class="admin-header-nav">
       <a href="#/" data-nav="sessions">Sessions</a>
       <a href="#/experiments" data-nav="experiments">Experiments</a>
+      <a href="#/evaluations" data-nav="evaluations">LLM Evaluation</a>
       <a href="#/llm-config" data-nav="llm-config">Model Settings</a>
       <a href="#/vectorize" data-nav="vectorize">Vectorize</a>
     </nav>

@@ -2017,3 +2017,364 @@
 .admin .admin-experiment-preview {
   margin: 0;
 }
+
+/* ── LLM Evaluation ───────────────────────────────────────────────────────── */
+
+/* stylelint-disable no-descending-specificity */
+.admin .admin-eval-runs-table td:first-child {
+  font-weight: 500;
+}
+
+.admin .admin-eval-progress-table {
+  margin-top: 0.75rem;
+}
+
+.admin .admin-eval-progress-table th,
+.admin .admin-eval-progress-table td {
+  font-size: 0.78rem;
+}
+
+.admin .admin-eval-summary-table th,
+.admin .admin-eval-summary-table td {
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+/* stylelint-enable no-descending-specificity */
+
+.admin .admin-eval-matrix-wrap {
+  overflow: auto;
+  max-height: 70vh;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--background-color);
+}
+
+.admin .admin-eval-matrix {
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 100%;
+}
+
+.admin .admin-eval-matrix thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--light-color);
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.admin .admin-eval-matrix tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--light-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+  font-weight: 500;
+  vertical-align: top;
+  width: 240px;
+  max-width: 240px;
+  padding: 0.55rem 0.75rem;
+  white-space: normal;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-color);
+  font-size: 0.78rem;
+}
+
+.admin .admin-eval-query-label {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--text-color);
+  overflow-wrap: anywhere;
+}
+
+.admin .admin-eval-query-id {
+  display: block;
+  font-size: 0.68rem;
+  margin-top: 0.2rem;
+  opacity: 0.7;
+}
+
+.admin .admin-eval-model-head strong {
+  display: block;
+  font-size: 0.78rem;
+}
+
+.admin .admin-eval-model-head span {
+  display: block;
+  font-size: 0.68rem;
+  margin-top: 0.15rem;
+}
+
+.admin .admin-eval-cell {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  vertical-align: top;
+  cursor: pointer;
+  min-width: 160px;
+  transition: background var(--transition);
+  position: relative;
+}
+
+.admin .admin-eval-cell:hover {
+  background: var(--light-color);
+}
+
+.admin .admin-eval-cell-empty {
+  cursor: default;
+  color: var(--secondary-color, #888);
+  text-align: center;
+}
+
+.admin .admin-eval-cell-error {
+  background: rgb(239 68 68 / 5%);
+}
+
+.admin .admin-eval-cell-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+}
+
+.admin .admin-eval-cell-row + .admin-eval-cell-row {
+  margin-top: 0.25rem;
+}
+
+.admin .admin-eval-cell-speed {
+  color: var(--secondary-color, #555);
+  font-variant-numeric: tabular-nums;
+}
+
+.admin .admin-eval-cell-quality {
+  flex-wrap: wrap;
+  font-weight: 600;
+}
+
+.admin .admin-eval-cell-dims {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--secondary-color, #777);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.admin .admin-eval-preview-meta {
+  margin-bottom: 0.5rem;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* stylelint-disable no-descending-specificity */
+.admin .admin-eval-rubric {
+  margin: 0.5rem 0 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--background-color);
+  font-size: 0.82rem;
+}
+
+.admin .admin-eval-rubric > summary {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-color);
+  list-style: none;
+}
+
+.admin .admin-eval-rubric > summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin .admin-eval-rubric > summary::before {
+  content: '▸ ';
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.admin .admin-eval-rubric[open] > summary::before {
+  content: '▾ ';
+}
+
+.admin .admin-eval-rubric-body {
+  padding: 0 0.75rem 0.75rem;
+  line-height: 1.55;
+}
+
+.admin .admin-eval-rubric-body p {
+  margin: 0.4rem 0;
+}
+
+.admin .admin-eval-rubric-list {
+  margin: 0.4rem 0 0.4rem 1.1rem;
+  padding: 0;
+}
+
+.admin .admin-eval-rubric-list li {
+  margin: 0.2rem 0;
+}
+
+.admin .admin-eval-rubric-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.admin .admin-eval-score-hint {
+  font-size: 0.78rem;
+  font-weight: 400;
+  margin-left: 0.4rem;
+}
+
+.admin .admin-eval-cell-flags {
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.admin .admin-eval-cell-blocker {
+  display: inline-block;
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  background: rgb(239 68 68 / 12%);
+  color: rgb(176 26 26);
+  font-weight: 600;
+  font-size: 0.7rem;
+  cursor: help;
+}
+
+.admin .admin-eval-cell-warn {
+  display: inline-block;
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  background: rgb(245 158 11 / 12%);
+  color: rgb(146 73 7);
+  font-weight: 500;
+  font-size: 0.7rem;
+  cursor: help;
+}
+
+.admin .admin-eval-ci,
+.admin .admin-eval-n {
+  font-size: 0.7rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  margin-left: 0.2rem;
+}
+
+.admin .admin-eval-significance {
+  font-size: 0.78rem;
+  margin: 0.2rem 0 0.6rem;
+  line-height: 1.5;
+}
+
+.admin .admin-eval-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin: 0.2rem 0 0.8rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgb(0 0 0 / 8%);
+  border-radius: 6px;
+  background: rgb(0 0 0 / 2%);
+}
+
+.admin .admin-eval-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  font-size: 0.82rem;
+}
+
+.admin .admin-eval-count strong {
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.2rem;
+}
+
+.admin .admin-eval-count-judged strong {
+  color: rgb(22 101 52);
+}
+
+.admin .admin-eval-count-pending strong {
+  color: rgb(146 73 7);
+}
+
+.admin .admin-eval-count-error strong {
+  color: rgb(176 26 26);
+}
+
+.admin .admin-eval-toolbar-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.admin .admin-eval-toolbar-status {
+  flex: 1 1 100%;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin .admin-eval-cell-retry-group {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 80ms ease;
+  z-index: 1;
+}
+
+.admin .admin-eval-cell:hover .admin-eval-cell-retry-group,
+.admin .admin-eval-cell-retry-group:focus-within {
+  opacity: 1;
+}
+
+.admin .admin-eval-cell-retry {
+  padding: 1px 5px;
+  font-size: 0.65rem;
+  line-height: 1.3;
+  background: rgb(255 255 255 / 90%);
+  color: rgb(0 0 0 / 70%);
+  border: 1px solid rgb(0 0 0 / 15%);
+  border-radius: 3px;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.admin .admin-eval-cell-retry:hover {
+  background: rgb(255 255 255 / 100%);
+  color: rgb(0 0 0 / 95%);
+  border-color: rgb(0 0 0 / 35%);
+}
+
+.admin .admin-eval-cell-busy {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.admin .admin-field-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.admin .admin-field-checkbox input[type="checkbox"] {
+  margin-top: 0.2rem;
+}
+/* stylelint-enable no-descending-specificity */

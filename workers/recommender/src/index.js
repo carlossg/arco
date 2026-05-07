@@ -33,6 +33,17 @@ import {
   handleGetExperiment,
   handleGetExperimentVariant,
 } from './experiments.js';
+import {
+  handleListEvalSuites,
+  handleCreateEvaluation,
+  handleRunEvalQuery,
+  handleFinalizeEvaluation,
+  handleListEvaluations,
+  handleGetEvaluation,
+  handleJudgeEvaluation,
+  handleRejudgeVariant,
+  handleRegenerateVariant,
+} from './evaluations/admin.js';
 import handleSuggestRequest from './suggest.js';
 
 /**
@@ -424,6 +435,43 @@ export default {
     const expMatch = url.pathname.match(/^\/api\/admin\/experiments\/([^/]+)$/);
     if (expMatch && request.method === 'GET') {
       return handleGetExperiment(request, env, expMatch[1]);
+    }
+
+    // Admin routes — LLM evaluations (suite × models with Claude judge)
+    if (url.pathname === '/api/admin/eval-suites' && request.method === 'GET') {
+      return handleListEvalSuites(request, env);
+    }
+    if (url.pathname === '/api/admin/evaluations') {
+      if (request.method === 'POST') return handleCreateEvaluation(request, env);
+      if (request.method === 'GET') return handleListEvaluations(request, env);
+    }
+    const evalQueriesMatch = url.pathname.match(/^\/api\/admin\/evaluations\/([^/]+)\/queries$/);
+    if (evalQueriesMatch && request.method === 'POST') {
+      return handleRunEvalQuery(request, env, evalQueriesMatch[1]);
+    }
+    const evalJudgeMatch = url.pathname.match(/^\/api\/admin\/evaluations\/([^/]+)\/judge$/);
+    if (evalJudgeMatch && request.method === 'POST') {
+      return handleJudgeEvaluation(request, env, evalJudgeMatch[1]);
+    }
+    const evalRejudgeMatch = url.pathname.match(
+      /^\/api\/admin\/evaluations\/([^/]+)\/variants\/([^/]+)\/rejudge$/,
+    );
+    if (evalRejudgeMatch && request.method === 'POST') {
+      return handleRejudgeVariant(request, env, evalRejudgeMatch[1], evalRejudgeMatch[2]);
+    }
+    const evalRegenMatch = url.pathname.match(
+      /^\/api\/admin\/evaluations\/([^/]+)\/variants\/([^/]+)\/regenerate$/,
+    );
+    if (evalRegenMatch && request.method === 'POST') {
+      return handleRegenerateVariant(request, env, evalRegenMatch[1], evalRegenMatch[2]);
+    }
+    const evalFinalizeMatch = url.pathname.match(/^\/api\/admin\/evaluations\/([^/]+)\/finalize$/);
+    if (evalFinalizeMatch && request.method === 'POST') {
+      return handleFinalizeEvaluation(request, env, evalFinalizeMatch[1]);
+    }
+    const evalMatch = url.pathname.match(/^\/api\/admin\/evaluations\/([^/]+)$/);
+    if (evalMatch && request.method === 'GET') {
+      return handleGetEvaluation(request, env, evalMatch[1]);
     }
 
     // Admin routes — vectorize browser

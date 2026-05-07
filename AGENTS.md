@@ -346,7 +346,89 @@ curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin
 
 Per-variant full NDJSON payloads (blocks, suggestions, debug snapshot, prompt, raw LLM output) live in `SESSION_STORE` KV under `experiment:{experimentId}:variant:{variantId}` with a 90-day TTL — the same shape as `page:{runId}` so the admin block reuses its existing `renderStoredSection()` helper to re-render any variant.
 
-**Phase 2 — LLM judge (planned)**: an evaluator endpoint will score variants against a rubric using Claude Sonnet or Opus. The key is reserved as `ANTHROPIC_EVAL_API_KEY` (set via `wrangler secret put ANTHROPIC_EVAL_API_KEY`), and the D1 columns above are already in place; no schema change needed when phase 2 ships.
+**Phase 2 — LLM judge (shipped)**: the *LLM Evaluation* admin tab runs a fixed coffee query suite across many models and scores each generation with Claude. See the next section.
+
+### LLM Evaluation Tab
+
+`/admin#/evaluations` runs a curated query suite against multiple models in one pass and produces a queries × models matrix scored on speed and quality.
+
+**Speed metrics** (per cell, no extra cost) — TTFT, total duration, tokens/sec. Captured during the existing streaming generation; surfaced from `experiment_variants.time_to_first_token_ms` and `duration_ms`.
+
+**Quality metrics** (per cell, costs Anthropic tokens) — Claude scores the generated page on seven dimensions, each 1–5:
+- *structure* — well-formed EDS blocks, required sections present
+- *intent* — does the page actually answer the query?
+- *faithfulness* — products / prices / specs grounded in the RAG context (no hallucinated SKUs)
+- *helpfulness* — editorial polish, tone, useful next steps
+- *brandVoice* — sounds like a knowledgeable, approachable specialty-coffee brand; penalizes generic AI filler and clichés
+- *specificity* — concrete coffee details (grams, ratios, temps, grind sizes, named techniques) instead of vague generalities
+- *visualAssetUsage* — hero image present, story / experience / product image tokens placed where they aid the reader, no missing assets
+
+The composite score (mean of the seven) lives in `experiment_variants.evaluator_score`. Per-dimension reasoning, judge model, judge token counts, **deterministic-assertion results**, and **blocker-gate metadata** live as JSON in `experiment_variants.evaluator_notes`.
+
+**Deterministic assertions** (`workers/recommender/src/evaluations/assertions.js`) run on every variant alongside the judge. They are cheap, reliable, and catch what the LLM judge often misses:
+
+- *broken-token* — `<!-- unknown story:slug -->` / `<!-- unpublished experience:slug -->` markers left by `images.js` when token resolution fails (always **blocker**)
+- *unbalanced-html* — opening / closing tag mismatch on `<div>`, `<p>`, `<a>`, `<picture>`, list, table tags (always **blocker**)
+- *block-count* — pages with <3 blocks are blockers; >25 blocks is a warn
+- *gold-must-mention-any* — at least one of the per-query `gold.mustMentionAny` substrings must appear (warn)
+- *gold-must-not-mention* — none of `gold.mustNotMention` may appear (blocker — protects against hallucinated SKUs like `Arco MoonRover 9000`)
+- *gold-min-products* / *gold-min-recipes* — minimum count of resolved product/recipe cards (warn)
+- *expected-decline* — for queries tagged `expectedBehavior: "decline"` (off-topic), the page must include decline phrasing AND ≤2 product cards (blocker)
+
+**Blocker tag** — cells are flagged with a `⚠ blocker` badge when any of:
+- `faithfulness` dimension < 3
+- `structure` dimension < 3
+- any deterministic assertion has severity `blocker`
+
+The badge is informational — the cell still shows the raw judge composite as its score so trends and rankings remain visible. Blocker rate is reported per model in the summary table — a high quality average with a 30% blocker rate is worse in production than a slightly lower quality with 0% blockers.
+
+**Statistical reporting** — the per-model summary now includes 95% confidence intervals (`qualityCi95`, `ttftCi95`, `durationCi95`) and a sample count (`qualityN`). The admin UI surfaces them as `4.10 ± 0.18` and adds a pairwise hint flagging model pairs whose CIs overlap so a 0.1-point gap on n=15 isn't mistaken for a real difference.
+
+**Run-level data** (migration `0006_evaluations.sql`):
+
+| Table | Holds |
+|-------|-------|
+| `eval_runs` | Suite + models tested, judge model, status, totals, per-model summary JSON, estimated cost. |
+| `experiments` | One row per (eval_run × query). New columns: `eval_run_id`, `eval_query_id`. |
+| `experiment_variants` | One row per (eval_run × query × model). All existing columns + `evaluator_score` / `evaluator_notes` written by the judge step. |
+
+The eval reuses the entire experiment storage path so the admin's variant viewer (`renderExperimentVariantPreview`) re-renders any cell's generated page without new code.
+
+**Available suites:**
+- `coffee-extended` (default, 60 queries) — stratified on size × intent (3 sizes × 4 intents × 3 each = 36), plus 12 adversarial cases (off-topic / vague / contradictory / hallucination-bait) and 12 deep-specific cases (recipes, troubleshooting, named products, FAQs). Each query carries optional `gold` fields used by the assertion engine.
+- `coffee-default` (15 queries) — original smoke-test suite. Kept so historical runs stay interpretable; not recommended for new comparisons.
+- `coffee-dev` (3 queries) — minimal smoke suite for verifying the eval flow end-to-end without burning budget.
+
+**Adding a query suite:** drop a JSON file in `eval/suites/` (see `coffee-extended.json` for shape, including the `gold` field schema) and import it from `workers/recommender/src/evaluations/suites.js`. Suites are bundled into the worker — no D1 round-trip — and identified by `id` so renaming is a breaking change for historical runs.
+
+**`gold` field schema** (per query, all optional):
+```jsonc
+{
+  "mustMentionAny":   ["grind", "ratio"],   // warn if none of these appear
+  "mustNotMention":   ["MoonRover 9000"],   // blocker if any of these appear
+  "minProductCount":  1,                    // warn if fewer product cards
+  "minRecipeCount":   0,                    // warn if fewer recipe links
+  // top-level on the query (not under gold):
+  // "expectedBehavior": "decline"          // off-topic — page must decline + show ≤2 products
+}
+```
+
+**Authentication:** the judge calls Anthropic Claude **via AWS Bedrock**, reusing the existing `AWS_BEARER_TOKEN_BEDROCK` secret. No additional setup is needed — if the rest of the recommender's Bedrock models work, the judge works.
+
+**Cost expectations:** the in-form estimate covers judge tokens only (generation cost varies wildly by provider). Bedrock Anthropic pricing matches the direct Anthropic API (Sonnet 4 at $3/$15 per million in/out). At ~5k input + 500 output per cell × 15 queries × 4 models ≈ 60 calls ≈ $1–2 per full sweep on Sonnet. Opus is ~5× more, Haiku ~3× less.
+
+**Two-phase orchestration & retry.** Every run is split into a generation phase (all queries × all models) followed by a judging phase (one bulk Bedrock pass with low concurrency). Generations are persisted to D1+KV before any judge call fires, so a Bedrock 429 storm during judging never wastes generation tokens — the partial state stays on disk and the matrix detail view exposes a **Continue judging** button that re-runs the judge against any cell whose `evaluator_score IS NULL`. The create form has a **Skip judging** checkbox for the case when you want to defer judging entirely (e.g. Bedrock is throttled at run time). The matrix toolbar also has **Retry failed cells** (regenerates `status='error'` cells, then re-judges `judge_error` cells in one bulk pass) and **Re-judge all** (overwrites every cell — confirm dialog gates it). Each cell has a hover-revealed `↻` for single-cell retry: full regeneration when the cell failed at generation, cheap KV-only re-judge otherwise. Re-judge does NOT re-run the upstream pipeline — RAG context is persisted at `experiment:{expId}:rag-context` in KV alongside the variant payloads, so the judge can be replayed without paying for retrieval again.
+
+**Admin API** (Basic auth, same `ADMIN_TOKEN` as Sessions/Experiments):
+- `GET /api/admin/eval-suites` → `{ suites: [...], judgeModels: [...] }`
+- `POST /api/admin/evaluations` → start a run; the server creates the eval_run row and returns the suite + queries + models. The client drives per-query generation in a worker pool, then triggers the bulk judge phase, then finalize.
+- `POST /api/admin/evaluations/:id/queries` (body `{ queryId, skipJudge? }`) → run one query, NDJSON stream. With `skipJudge: true` the per-query path stops after assertions and the judge is invoked separately via `/judge`.
+- `POST /api/admin/evaluations/:id/judge` (body `{ scope?: 'pending'\|'errors'\|'all', judgeConcurrency? }`) → bulk judge phase. Default scope `pending` re-judges only cells with `evaluator_score IS NULL`. Default `judgeConcurrency: 2` (max 4) keeps Bedrock under throttling pressure. NDJSON stream.
+- `POST /api/admin/evaluations/:id/variants/:variantId/rejudge` → re-judge a single cell from persisted KV blocks. JSON response.
+- `POST /api/admin/evaluations/:id/variants/:variantId/regenerate` → re-run upstream pipeline + LLM generate + judge for a single cell. NDJSON stream.
+- `POST /api/admin/evaluations/:id/finalize` → recompute summary + close the run.
+- `GET /api/admin/evaluations` → paginated list of runs
+- `GET /api/admin/evaluations/:id` → run + experiments + variants + suite definition (everything needed to render the matrix)
 
 **Query D1 directly** (for ad-hoc analysis):
 
