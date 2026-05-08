@@ -2368,6 +2368,29 @@
   pointer-events: none;
 }
 
+.admin .admin-eval-cell-not-started {
+  background: var(--bg-color, #fafafa);
+  border: 1px dashed var(--border-color, #ccc);
+  color: var(--secondary-color, #888);
+  cursor: default;
+  text-align: center;
+}
+
+.admin .admin-eval-cell-stalled {
+  background: rgb(234 179 8 / 8%);
+}
+
+.admin .admin-eval-cell-error-detail {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--secondary-color, #777);
+  margin-top: 0.15rem;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .admin .admin-field-checkbox {
   display: flex;
   align-items: flex-start;

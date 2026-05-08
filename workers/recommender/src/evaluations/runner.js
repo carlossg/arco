@@ -519,6 +519,9 @@ async function runOneQuery({
         emitDebug: false,
         emitDone: false,
       });
+      if (!v.state.sections.length) {
+        throw new Error('LLM returned no blocks');
+      }
       v.finishedAt = Date.now();
       v.status = 'complete';
       v.title = title || extractTitle(v.state.sections[0] || '');
