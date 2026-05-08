@@ -42,6 +42,10 @@ import { processSectionMetadata } from '../../scripts/section-metadata.js';
 
 const TOKEN_STORAGE_KEY = 'arco-admin-token';
 
+// Event bus for live eval matrix updates. The streamEvalRun worker pool emits
+// events here; the renderEvaluation view subscribes and updates cells in-place.
+const evalBus = new EventTarget();
+
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
 function esc(s) {
@@ -2603,14 +2607,15 @@ async function renderEvaluationCreateForm(root) {
     try {
       // streamEvalRun creates the eval_run row, then runs the worker pool.
       // We intercept run-start to navigate to the live matrix immediately.
-      // The worker pool continues in the background (each query is its own
-      // fetch request that writes to D1/KV). The matrix auto-refreshes.
+      // All events are forwarded to evalBus so the matrix view can update
+      // cells in real-time without polling.
       await streamEvalRun({
         suiteId, models, judgeModel, queryConcurrency, skipJudge,
       }, (evt) => {
         if (evt.type === 'run-start' && evt.evalRunId) {
           navigate(`#/evaluations/${evt.evalRunId}`);
         }
+        evalBus.dispatchEvent(new CustomEvent('eval', { detail: evt }));
       }, abortController.signal);
     } catch (err) {
       if (err.name !== 'AbortError') {
@@ -3209,37 +3214,46 @@ async function renderEvaluation(root, evalRunId) {
     });
   }
 
-  // Auto-refresh: when the run has incomplete work, poll D1 for new results.
+  // Live updates: subscribe to evalBus events from the running streamEvalRun.
+  // When a query completes (query-done), do a full re-render since a new row
+  // needs to be built. For individual variant updates we could do in-place DOM
+  // patches, but a full re-render on query-done is simple and fast enough
+  // (the matrix is small). Debounce so concurrent variant-done events don't
+  // trigger multiple re-renders.
+  let reloadScheduled = false;
+  const scheduleReload = () => {
+    if (reloadScheduled) return;
+    reloadScheduled = true;
+    setTimeout(() => {
+      reloadScheduled = false;
+      if (root.isConnected && root.querySelector('[data-role="eval-toolbar"]')) {
+        reload();
+      }
+    }, 1500);
+  };
+
+  const onEvalEvent = (e) => {
+    const evt = e.detail;
+    if (!evt) return;
+    if (evt.type === 'query-done' || evt.type === 'query-error') {
+      scheduleReload();
+    } else if (evt.type === 'run-done') {
+      scheduleReload();
+      evalBus.removeEventListener('eval', onEvalEvent);
+    }
+  };
+
   const hasIncompleteWork = missingQueries.length > 0 || counts.running > 0 || runIsActive;
   if (hasIncompleteWork) {
-    const refreshInterval = setInterval(async () => {
-      // Stop refreshing if the user navigated away from this view.
+    evalBus.addEventListener('eval', onEvalEvent);
+    // Cleanup when navigating away.
+    const observer = new MutationObserver(() => {
       if (!root.isConnected || !root.querySelector('[data-role="eval-toolbar"]')) {
-        clearInterval(refreshInterval);
-        return;
+        evalBus.removeEventListener('eval', onEvalEvent);
+        observer.disconnect();
       }
-      try {
-        const freshData = await api(`/api/admin/evaluations/${evalRunId}`);
-        const freshExperiments = freshData.experiments || [];
-        const freshVariants = freshData.variants || [];
-        const freshRanIds = new Set(freshExperiments.map((ex) => ex.eval_query_id));
-        const freshMissing = (suite?.queries || []).filter((q) => !freshRanIds.has(q.id));
-        const freshRunning = freshVariants.some((v) => v.status === 'running');
-        // Only re-render if something changed (new experiments or new variant results).
-        if (freshExperiments.length !== experiments.length
-            || freshVariants.length !== variants.length
-            || freshVariants.some((v, i) => v.status !== (variants[i]?.status))
-            || freshVariants.some((v, i) => v.evaluator_score !== (variants[i]?.evaluator_score))) {
-          clearInterval(refreshInterval);
-          await renderEvaluation(root, evalRunId);
-          return;
-        }
-        // Stop polling if everything is complete.
-        if (freshMissing.length === 0 && !freshRunning && freshData.run?.status !== 'running') {
-          clearInterval(refreshInterval);
-        }
-      } catch { /* ignore refresh errors */ }
-    }, 5000);
+    });
+    observer.observe(root, { childList: true });
   }
 }
 
