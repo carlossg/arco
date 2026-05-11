@@ -40,13 +40,19 @@ npm run lint
 
 ## Recommender
 
-The site includes an AI-powered recommender at `/?q=...`. Generated pages are cached in DA so repeat queries redirect instantly instead of re-running the LLM pipeline.
+The site includes an AI-powered recommender at `/?q=...`. Generated pages are cached in DA so repeat queries redirect instantly instead of re-running the LLM pipeline. The backing Cloudflare Worker (`arco-recommender`) supports four LLM providers — Cerebras, Cloudflare Workers AI, SambaNova, and AWS Bedrock — switchable at runtime from the admin UI.
 
 | Parameter | Example | Description |
 |-----------|---------|-------------|
 | `q` | `/?q=best+espresso` | Natural language query |
-| `preset` | `/?q=...&preset=default` | Model preset |
+| `preset` | `/?q=...&preset=default` | Cache-slot preset |
 | `regen` | `/?q=...&regen` | Force regeneration, skip cache |
+
+## Admin
+
+An EDS-hosted admin SPA at `/admin` provides session browsing, multi-model A/B experiments, large LLM evaluation sweeps with a Claude (Bedrock) judge, runtime model selection, Vectorize inspection, and real-user feedback dashboards. Login is HTTP Basic with the `ADMIN_TOKEN` worker secret.
+
+For full documentation see [`docs/ADMIN.md`](docs/ADMIN.md). Architecture references live in [`docs/CODEMAPS/`](docs/CODEMAPS/).
 
 ## Content (drafts/)
 

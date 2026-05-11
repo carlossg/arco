@@ -38,13 +38,23 @@ npx wrangler dev   # local worker at http://localhost:8787
 ```
 
 Secrets are managed via `wrangler secret put` (not committed). Required:
-- `CEREBRAS_API_KEY`
-- `DA_CLIENT_ID`, `DA_CLIENT_SECRET`, `DA_SERVICE_TOKEN`
+- `CEREBRAS_API_KEY` — Cerebras LLM
+- `DA_CLIENT_ID`, `DA_CLIENT_SECRET`, `DA_SERVICE_TOKEN` — DA OAuth / S2S
+- `ADMIN_TOKEN` — HTTP Basic password for `/admin` + `/api/admin/*`
+
+Optional (enable additional LLM providers and operator features):
+- `SAMBANOVA_API_KEY` — SambaNova LLM
+- `AWS_BEARER_TOKEN_BEDROCK` (+ `AWS_REGION` var) — AWS Bedrock LLM + the LLM-judge in `#/evaluations`
+- `CF_API_TOKEN` — Cloudflare Queues + Analytics Engine read; required by `/api/admin/eval-queue/*` diagnostics
+
+For end-to-end admin / evaluations / feedback documentation, see [`docs/ADMIN.md`](docs/ADMIN.md).
 
 ---
 
 <!-- AUTO-GENERATED -->
 ## Available Scripts
+
+Root (`package.json`):
 
 | Command | Description |
 |---------|-------------|
@@ -55,6 +65,19 @@ Secrets are managed via `wrangler secret put` (not committed). Required:
 | `npm run loadtest` | Run load test against the recommender |
 | `npm run loadtest:quick` | Quick load test (10 requests, 2 parallel) |
 | `npm run loadtest:generate-prompts` | Generate load test prompts |
+
+Worker (`workers/recommender/package.json`):
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | `wrangler dev` — local worker at `http://localhost:8787` |
+| `npm run deploy` | `wrangler deploy` — deploy production worker |
+| `npm run deploy:branch` | Deploy current git branch as a Worker version with preview alias |
+| `npm run cleanup:branch` | Release the branch preview alias |
+| `npm run list:branch:live` | List all live branch worker versions |
+| `npm run cleanup:merged` | Interactive cleanup of merged branches (alias + worktree + local branch) |
+| `npm run index-content` | Generate + upload embeddings to Vectorize `arco-content` |
+| `npm run upload-kv` | Upload static guide content to the `GUIDES` KV namespace |
 <!-- /AUTO-GENERATED -->
 
 ---

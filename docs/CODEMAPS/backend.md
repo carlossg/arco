@@ -1,129 +1,228 @@
-<!-- Generated: 2026-04-22 | Files scanned: 20 | Token estimate: ~700 -->
+<!-- Generated: 2026-05-11 | Files scanned: 30+ | Token estimate: ~1100 -->
 
 # Backend Architecture — Cloudflare Worker (Recommender)
 
 ## Entry Point
 
-`workers/recommender/src/index.js` (387 lines) — routes all HTTP requests.
+`workers/recommender/src/index.js` — routes every HTTP request (`fetch`), the CF Queue consumer (`queue`), and the cron scheduled trigger (`scheduled`). Worker name: `arco-recommender`; production URL `https://arco-recommender.franklin-prod.workers.dev`. Branch versions deploy to `https://{alias}-arco-recommender.franklin-prod.workers.dev` via `wrangler versions upload --preview-alias` (see `deploy-branch.sh`).
 
-## API Routes
+## Public HTTP Routes
 
 ```
-POST /api/generate      → handleGenerate()     SSE stream, runs pipeline, saves generation
-POST /api/persist       → handlePersist()      Persist DA page (called after client confirms)
-POST /api/track         → handleTrack()        Analytics event tracking
-GET  /api/stats         → handleStats()        Aggregate analytics stats
-GET  /api/admin/*       → admin.js handlers    Admin SPA API endpoints
-GET  /api/debug-search  → handleDebugSearch()  Debug RAG search results
-POST /api/generate (dummy) → streamDummyPipeline()  Dev/testing dummy responses
+GET  /api/health                 → handleHealth()           healthcheck
+POST /api/generate               → handleGenerate()         SSE stream — runs pipeline, persists run
+POST /api/suggest                → handleSuggest()          keep-exploring follow-up suggestions
+POST /api/persist                → handlePersist()          persist DA page (legacy, called after confirm)
+POST /api/feedback               → handleSubmitFeedback()   public; upserts run_feedback (rating, comment, flags)
+POST /api/track                  → handleTrack()            analytics event capture
+GET  /api/stats                  → handleStats()            aggregate analytics stats
+GET  /api/debug/search           → handleDebugSearch()      RAG search debug (intentionally not auth-gated)
+GET  /admin                      → handleAdminUI()          server-rendered admin SPA (legacy, now superseded by /admin block)
+```
+
+CORS is permissive on public routes; admin routes are gated by HTTP Basic auth against `ADMIN_TOKEN`.
+
+## Admin HTTP Routes (Basic auth)
+
+All require `Authorization: Basic base64("admin:$ADMIN_TOKEN")`.
+
+```
+# Sessions / Pages / Runs
+GET  /api/admin/sessions
+GET  /api/admin/sessions/:id
+GET  /api/admin/pages/:id
+GET  /api/admin/runs/:id
+
+# Model catalog + active model selection
+GET  /api/admin/catalog                              → { catalog, limits }
+GET  /api/admin/llm-config                           → { active }
+PUT  /api/admin/llm-config                           → set {provider, model, temperature, maxTokens}
+
+# Experiments (multi-model A/B for one query, parallel variants)
+GET  /api/admin/experiments                          → list (paginated)
+POST /api/admin/experiments                          → create + stream NDJSON
+GET  /api/admin/experiments/:id                      → exp + variants
+GET  /api/admin/experiments/:id/variants/:variantId  → variant payload (blocks + debug)
+
+# LLM Evaluations (matrix: query suite × model list × Claude judge)
+GET  /api/admin/eval-suites                          → bundled suites + judge models
+GET  /api/admin/evaluations                          → list (paginated)
+POST /api/admin/evaluations                          → create eval_run row only (legacy)
+POST /api/admin/evaluations/start                    → create + publish queue messages (primary entry)
+GET  /api/admin/evaluations/:id                      → run + experiments + variants (?include=feedback)
+GET  /api/admin/evaluations/:id/progress             → lightweight polling payload
+POST /api/admin/evaluations/:id/resume               → re-publish queue messages for missing/failed queries
+POST /api/admin/evaluations/:id/queries              → run one query inline (NDJSON, legacy/cron)
+POST /api/admin/evaluations/:id/judge                → bulk judge inline (NDJSON, legacy/cron)
+POST /api/admin/evaluations/:id/variants/:vid/rejudge    → publish single rejudge message
+POST /api/admin/evaluations/:id/variants/:vid/regenerate → publish single regenerate message
+POST /api/admin/evaluations/:id/finalize             → recompute summary + close run
+
+# Eval Queue ops/diagnostics
+GET  /api/admin/eval-queue                           → backlog stats from CF Queues API
+GET  /api/admin/eval-queue/consumers                 → consumer registration + delivery_paused
+POST /api/admin/eval-queue/purge                     → drop all pending messages
+POST /api/admin/eval-queue/resume-delivery           → un-pause delivery
+POST /api/admin/eval-queue/test-invoke               → synthesize a batch + invoke consumer directly
+
+# Vectorize inspector
+GET  /api/admin/vectorize/stats                      → index stats + sampled histogram
+GET  /api/admin/vectorize/search?q=...&k=N           → k-NN search over arco-content
+
+# Feedback (admin views)
+GET  /api/admin/feedback                             → list with filters (rating/flag/model/q/hasComment/since/until)
+GET  /api/admin/feedback/summary                     → header-strip aggregates + judge↔user divergence
+GET  /api/admin/feedback/run/:runId                  → single-run detail + per-flag/per-product counts
+GET  /api/admin/feedback/export?format=csv|json      → flattened export, streaming
 ```
 
 ## Pipeline Architecture
 
-### Flow Definition (`pipeline/flows.js`)
+### Flow Definition (`src/pipeline/flows.js`)
 
-Single flow: `recommender` (aka `default`)
+Single flow: `recommender` (aka `default`). Each step is sequential or `{ parallel: [...] }`.
 
 ```
-rate-limit (gate)
+safety-gate (rejects off-topic queries before any RAG/LLM)
+  → rate-limit (gate)
   → analyze-behavior
   → intent-classify
-  → [persona-match || use-case-match] (parallel)
+  → [persona-match ‖ use-case-match]
   → rag-products (maxResults: 8)
-  → [rag-content || rag-features || rag-reviews || rag-faqs] (parallel)
+  → [rag-content ‖ rag-features ‖ rag-reviews ‖ rag-faqs]
   → build-recommender-prompt
-  → llm-generate (gpt-oss-120b, maxTokens: 5120, temp: 0.6)
+  → llm-generate  (provider + model + temp + maxTokens from CACHE KV `llm-config:active`)
 ```
 
-### Pipeline Steps (`pipeline/steps/`)
+### Pipeline Steps (`src/pipeline/steps/`)
 
-| Step | File | Purpose |
-|------|------|---------|
-| `rate-limit` | rate-limit.js | Gate — blocks abusive request rates |
-| `analyze-behavior` | analyze-behavior.js | Summarize browsing signals into behavior context |
-| `intent-classify` | intent-classify.js | Classify query intent + journey stage using LLM |
-| `persona-match` | persona-match.js | Match user to a persona from context.js catalog |
-| `use-case-match` | use-case-match.js | Match query to product use case |
-| `rag-products` | rag-products.js | Retrieve relevant products (keyword + Vectorize) |
-| `rag-features` | rag-features.js | Retrieve product features for matched products |
-| `rag-faqs` | rag-faqs.js | Retrieve relevant FAQs |
-| `rag-reviews` | rag-reviews.js | Retrieve product reviews |
-| `rag-content` | rag-content.js | Retrieve guides, experiences, comparisons, recipes, tools |
-| `build-recommender-prompt` | build-recommender-prompt.js | Assemble system + user prompts from retrieved context |
-| `llm-generate` | llm-generate.js | Call Cerebras LLM, stream NDJSON blocks to client |
+| Step | Purpose |
+|------|---------|
+| `safety-gate` | Reject off-topic / harmful queries before pipeline runs |
+| `rate-limit` | Per-IP rate gate |
+| `analyze-behavior` | Summarize browsing signals into behavior context |
+| `intent-classify` | Classify query intent + journey stage |
+| `persona-match` | Match user to a persona from the context catalog |
+| `use-case-match` | Match query to a product use case |
+| `rag-products` | Hybrid keyword + Vectorize product retrieval |
+| `rag-features` | Product features for matched products |
+| `rag-faqs` | Relevant FAQs |
+| `rag-reviews` | Product reviews |
+| `rag-content` | Guides, experiences, comparisons, recipes, tools |
+| `build-recommender-prompt` | Assemble system + user prompts |
+| `llm-generate` | Vendor-agnostic streaming LLM call; emits NDJSON blocks |
 
-### Pipeline Executor (`pipeline/executor.js`, 36 lines)
+### Pipeline Executor / Context
 
-Iterates flow steps. Supports sequential and `{ parallel: [...] }` steps.
+- `pipeline/executor.js` — iterates flow steps, supports sequential and parallel.
+- `pipeline/context.js` — `PipelineContext` holds request params, retrieved content, generated output, timings, token counts, `writer` (the NDJSON sink). Headless eval paths must use `createNoopWriter()` — see runner.js gotcha below.
 
-### Pipeline Context (`pipeline/context.js`, 87 lines)
+## LLM Providers (`src/providers/`)
 
-`PipelineContext` class — holds request params, retrieved content, generated output, timing, token counts. Passed through all steps.
+| Provider | File | Auth |
+|----------|------|------|
+| `cerebras` | cerebras.js | `CEREBRAS_API_KEY` secret |
+| `cloudflare` | cloudflare.js | `AI` binding (Workers AI) |
+| `sambanova` | sambanova.js | `SAMBANOVA_API_KEY` secret |
+| `bedrock` | bedrock.js | `AWS_BEARER_TOKEN_BEDROCK` + `AWS_REGION` |
+
+`providers/index.js` exposes `MODEL_CATALOG` (the selectable list — add a row + redeploy to add a model). Each provider implements an async-iterable contract yielding `{ type: 'delta', text }` chunks and a terminal `{ type: 'usage', usage }` frame. Active provider/model is read from `CACHE` KV (`llm-config:active`) via `src/llm-config.js` — KV wins over per-flow defaults.
+
+## Evaluation Subsystem (`src/evaluations/`)
+
+| File | Role |
+|------|------|
+| `admin.js` | All `/api/admin/evaluations/*` and `/api/admin/eval-queue/*` HTTP handlers |
+| `queue.js` | CF Queue consumer + cron fallback — dispatches `generate`/`judge`/`regenerate`/`rejudge` messages |
+| `runner.js` | `runOneQueryHeadless`, `regenerateOneVariantHeadless`, run finalization, judge helpers |
+| `judge.js` | Bedrock Anthropic judge — 7-dimension rubric, in-process retry, 429 surfaced for queue-level retry |
+| `assertions.js` | Deterministic per-cell assertions (broken-token, unbalanced-html, gold-must-mention, etc.) |
+| `suites.js` | Bundled query suites — `coffee-extended`, `coffee-default`, `coffee-dev` |
+
+**Queue config** (`wrangler.jsonc`): `arco-eval-queries` producer + consumer; `max_concurrency: 3`, `max_batch_size: 1`, `max_retries: 5`, DLQ `arco-eval-dlq`. Bedrock 429s use `msg.retry({delaySeconds})` with backoff `30/60/90/120/150s` to cross the 60s quota window.
+
+**Cron fallback** (`triggers.crons: ["*/5 * * * *"]`): `handleEvalCronFallback` scans for runs stuck in `generating`/`judging` with `last_activity_at` older than 2 min and processes up to 5 stuck runs × 3 pending queries / 3 pending judges per tick.
+
+**Headless writer gotcha:** `runOneQueryHeadless`/`regenerateOneVariantHeadless` must use `createNoopWriter()` (a `WritableStream` with a discarding write handler). A `TransformStream` writer without a reader will buffer-block and deadlock the worker.
+
+## Experiment Subsystem (`src/experiments.js`)
+
+Per-query A/B runner. `handleCreateExperiment` fans out 1–12 `{provider, model, temperature, maxTokens}` variants in parallel, **sharing** the upstream pipeline (`shared_duration_ms`) — only `llm-generate` re-runs per variant. RAG context persists to KV (`experiment:{expId}:rag-context`) so judge re-runs and per-cell regenerates don't re-pay retrieval cost.
+
+## Feedback Subsystem (`src/feedback.js`)
+
+| Handler | Route |
+|---------|-------|
+| `handleSubmitFeedback` | `POST /api/feedback` (public, no auth, 204 on success) |
+| `handleListFeedback` | `GET /api/admin/feedback` (filters: rating/flag/model/q/hasComment/since/until) |
+| `handleRunFeedback` | `GET /api/admin/feedback/run/:runId` |
+| `handleFeedbackSummary` | `GET /api/admin/feedback/summary` |
+| `handleFeedbackExport` | `GET /api/admin/feedback/export?format=csv\|json` |
+| `attachFeedbackToQueries(env, queries)` | Helper used by `?include=feedback` on `/api/admin/evaluations/:id` |
+
+Upserts use `UNIQUE(run_id, session_id)`. Comment is truncated server-side to 1000 chars; flag keys + product slugs validated against allow-lists.
 
 ## Key Source Files
 
-| File | Lines | Purpose |
-|------|-------|---------|
-| `src/index.js` | 387 | Router, CORS, request parsing |
-| `src/context.js` | 409 | Content catalog — products, personas, use cases, features, FAQs, reviews, Vectorize search |
-| `src/recommender-prompt.js` | 437 | System/user prompt templates |
-| `src/block-guide.js` | 419 | EDS block authoring guide injected into LLM prompt |
-| `src/da-persist.js` | 409 | DA API client — create page, trigger preview, publish to live |
-| `src/storage.js` | 234 | `saveGeneration()` — writes D1 metadata + KV payload |
-| `src/admin.js` | 780 | Admin route handlers + sessions/pages/runs API |
-| `src/images.js` | 420 | Image selection and URL resolution |
-| `src/hero-images.js` | 180 | Hero image selection logic |
-| `src/json-to-eds.js` | 201 | Converts LLM JSON output to EDS HTML block markup |
-| `src/analytics.js` | 175 | Analytics event processing and aggregation |
-| `src/stream-parser.js` | 84 | NDJSON SSE stream parser |
-| `src/sanitize.js` | 41 | Input sanitization |
-| `src/brand-voice.js` | 66 | Brand voice guidelines injected into prompts |
+| File | Purpose |
+|------|---------|
+| `src/index.js` | Router + `fetch`/`queue`/`scheduled` exports |
+| `src/admin.js` | Sessions/Pages/Runs/Catalog/LLM-config handlers, server-rendered admin SPA |
+| `src/experiments.js` | `/api/admin/experiments` create/list/get handlers + variant viewer |
+| `src/feedback.js` | All feedback HTTP handlers + eval-matrix attach helper |
+| `src/evaluations/*` | Eval orchestration (queue, judge, runner, assertions, suites) |
+| `src/providers/*` | LLM provider adapters + `MODEL_CATALOG` |
+| `src/llm-config.js` | `getActiveLlmConfig(env)` — read/write `llm-config:active` in CACHE KV |
+| `src/storage.js` | `saveGeneration()` — writes D1 metadata + KV payload |
+| `src/context.js` | Content retrieval — hybrid keyword + Vectorize semantic search |
+| `src/recommender-prompt.js` | System/user prompt templates |
+| `src/block-guide.js` | EDS block authoring guide injected into LLM prompt |
+| `src/brand-voice.js` | Brand voice guidelines injected into prompts |
+| `src/da-persist.js` | DA OAuth + create page + trigger preview + publish-to-live |
+| `src/images.js` | Image selection + `{{story:slug}}` / `{{experience:slug}}` / `{{product:slug}}` resolution |
+| `src/hero-images.js` | Hero image selection logic |
+| `src/json-to-eds.js` | LLM JSON → EDS HTML block markup |
+| `src/analytics.js` | Analytics event processing and aggregation |
+| `src/stream-parser.js` | NDJSON SSE stream parser |
+| `src/sanitize.js` | Input sanitization |
 
 ## Cloudflare Bindings
 
 | Binding | Type | Purpose |
 |---------|------|---------|
-| `SESSIONS_DB` | D1 | Session + run metadata (`sessions`, `generated_pages` tables) |
-| `SESSION_STORE` | KV | Full generation payloads keyed by `page:{runId}` |
-| `CACHE` | KV | HTTP response cache |
-| `GUIDES` | KV | Static guide content |
-| `ANALYTICS` | KV | Analytics event storage |
-| `AI` | Workers AI | Generates query embeddings for Vectorize |
-| `CONTENT_INDEX` | Vectorize | Semantic search index for arco content corpus |
+| `SESSIONS_DB` | D1 | Session/run/experiment/eval/feedback metadata (`arco-sessions`) |
+| `SESSION_STORE` | KV | Run payloads (`page:{runId}`), experiment variant payloads (`experiment:{expId}:variant:{vid}`, `experiment:{expId}:rag-context`) |
+| `CACHE` | KV | HTTP cache + `llm-config:active` |
+| `GUIDES` | KV | Static guide content for RAG |
+| `ANALYTICS` | Analytics Engine | `arco_usage` dataset |
+| `AI` | Workers AI | Query embeddings (`@cf/baai/bge-base-en-v1.5`) + Cloudflare LLM provider |
+| `CONTENT_INDEX` | Vectorize | `arco-content` semantic search index |
+| `EVAL_QUEUE` | Queue producer | `arco-eval-queries` |
+| (consumer) | Queue consumer | `arco-eval-queries`, max_concurrency 3, DLQ `arco-eval-dlq` |
+
+Triggers: `crons: ["*/5 * * * *"]` (eval cron fallback).
 
 ## DA Persistence Flow
 
 ```
 saveGeneration(ctx, env, sessionId)
   → D1: upsertSession() + nextRunIndex() + insertRun()
-  → KV SESSION_STORE: store debug snapshot + blocks keyed by page:{runId}
+  → KV SESSION_STORE: store debug snapshot + blocks at page:{runId}
 
 persistAndPublish(path, html, env)      [da-persist.js]
+  → DA OAuth: exchange client credentials for access token
   → DA API: createPage()
   → DA API: triggerPreview()
-  → waitForPreview() (polls up to 10x with 1s interval)
+  → waitForPreview() (polls up to 10× with 1s interval)
   → DA API: publishToLive()
   → CDN: purgeCache()
 ```
 
-## Admin API
+## Content Retrieval (`src/context.js`)
 
-Routes under `/api/admin/`:
+Hybrid retrieval:
+1. Keyword matching against hardcoded product/feature/FAQ/recipe/story/experience catalogs.
+2. Vectorize semantic search (`CONTENT_INDEX`) for broader content matches via `searchContent()`.
+3. Results merged + deduped; unpublished story/experience slugs are filtered (see `published` field gate in `scripts/index-content.js` and `src/images.js`).
 
-```
-GET /api/admin/sessions          → list all sessions (paginated)
-GET /api/admin/sessions/:id      → session detail + grouped pages
-GET /api/admin/pages/:id         → page group with all KV run payloads
-GET /api/admin/runs/:id          → single run KV payload
-```
-
-Auth: HTTP Basic — username `admin`, password = `ADMIN_TOKEN` secret.
-
-## Content Retrieval (`context.js`)
-
-Hybrid approach:
-1. Keyword matching against hardcoded product/feature/FAQ/recipe catalog
-2. Vectorize semantic search (`CONTENT_INDEX`) for broader content matches
-3. Results merged and deduplicated
-
-Exported: `searchContent()`, `getRelevantProducts()`, `getRelevantFeatures()`, `getRelevantFaqs()`, `matchPersona()`, `matchUseCase()`
+Exports: `searchContent()`, `getRelevantProducts()`, `getRelevantFeatures()`, `getRelevantFaqs()`, `matchPersona()`, `matchUseCase()`.
