@@ -2203,7 +2203,7 @@ const EVAL_MODEL_PRESETS = [
     models: [
       { key: 'cerebras::gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
       { key: 'cloudflare::@cf/openai/gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
-      { key: 'cloudflare::@cf/nvidia/nemotron-3-120b-a12b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'sambanova::gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
     ],
   },
   {
@@ -2217,6 +2217,36 @@ const EVAL_MODEL_PRESETS = [
       { key: 'cloudflare::@cf/moonshotai/kimi-k2.6', temperature: 0.6, maxTokens: 5120 },
       { key: 'bedrock::deepseek.v3.2', temperature: 0.6, maxTokens: 5120 },
       { key: 'bedrock::us.anthropic.claude-sonnet-4-20250514-v1:0', temperature: 0.6, maxTokens: 5120 },
+    ],
+  },
+  {
+    id: 'distinct-families',
+    label: 'Distinct families',
+    description: '8 different model families across Cerebras, Cloudflare and Bedrock',
+    models: [
+      { key: 'cerebras::gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/zai-org/glm-4.7-flash', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/meta/llama-3.3-70b-instruct-fp8-fast', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/moonshotai/kimi-k2.6', temperature: 0.6, maxTokens: 5120 },
+      { key: 'bedrock::us.anthropic.claude-haiku-4-5-20251001-v1:0', temperature: 0.6, maxTokens: 5120 },
+      { key: 'bedrock::google.gemma-3-12b-it', temperature: 0.6, maxTokens: 5120 },
+      { key: 'bedrock::amazon.nova-lite-v1:0', temperature: 0.6, maxTokens: 5120 },
+      { key: 'bedrock::mistral.ministral-3-14b-instruct', temperature: 0.6, maxTokens: 5120 },
+    ],
+  },
+  {
+    id: 'route-latency',
+    label: 'Route latency',
+    description: '4 model pairs — same model on two routes, isolates infrastructure latency',
+    models: [
+      { key: 'cerebras::gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/openai/gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/meta/llama-3.3-70b-instruct-fp8-fast', temperature: 0.6, maxTokens: 5120 },
+      { key: 'bedrock::us.meta.llama3-3-70b-instruct-v1:0', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/google/gemma-3-12b-it', temperature: 0.6, maxTokens: 5120 },
+      { key: 'bedrock::google.gemma-3-12b-it', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/nvidia/nemotron-3-120b-a12b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'bedrock::nvidia.nemotron-super-3-120b', temperature: 0.6, maxTokens: 5120 },
     ],
   },
 ];
