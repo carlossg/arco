@@ -225,6 +225,7 @@ async function triggerInlineGeneration(block, query, label) {
       if (ready && specResult.responseBuffer.length > 0) {
         await replaySpeculativeResult(specResult.responseBuffer, results, {
           query,
+          runId: specResult.runId,
           onFirstSection: () => loader.remove(),
           onSection: scrollToStreamedSection,
         });

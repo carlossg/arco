@@ -164,6 +164,7 @@ export default function createSpeculativeEngine(config) {
       const pageId = config.getPageId ? config.getPageId() : null;
       const pageUrl = config.getPageUrl ? config.getPageUrl() : null;
       const runId = crypto.randomUUID();
+      speculation.runId = runId;
       const body = {
         query: speculation.query,
         speculative: true,
@@ -392,6 +393,7 @@ export default function createSpeculativeEngine(config) {
         ready: activeSpeculation.ready,
         responseBuffer: activeSpeculation.responseBuffer,
         readyPromise: activeSpeculation.readyPromise,
+        runId: activeSpeculation.runId,
       };
     },
 

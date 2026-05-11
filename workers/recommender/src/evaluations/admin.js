@@ -22,6 +22,7 @@ import { CORS_HEADERS } from '../pipeline/context.js';
 import { requireAdminAuth } from '../admin.js';
 import { listSuites, getSuite } from './suites.js';
 import { JUDGE_MODELS } from './judge.js';
+import { attachFeedbackToQueries } from '../feedback.js';
 import {
   validateRunBody, createEvalRun, runEvalQueryStream, finalizeEvalRun,
   loadEvalRunConfig,
@@ -443,8 +444,17 @@ export async function handleGetEvaluation(request, env, evalRunId) {
   // Reuse the suite definition so the matrix knows query order + expected intents.
   const suite = getSuite(run.suite_id);
 
+  // Optional: enrich each experiment with real-user feedback for its query.
+  let feedbackByQuery = null;
+  const url = new URL(request.url);
+  if (url.searchParams.get('include') === 'feedback') {
+    const queries = experiments.map((e) => e.query).filter(Boolean);
+    const map = await attachFeedbackToQueries(env, queries);
+    feedbackByQuery = Object.fromEntries(map);
+  }
+
   return jsonResponse({
-    run, suite, experiments, variants,
+    run, suite, experiments, variants, feedbackByQuery,
   });
 }
 

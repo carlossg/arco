@@ -174,6 +174,11 @@ function parseRoute() {
   const itemMatch = hash.match(/^\/vectorize\/items\/(.+)$/);
   if (itemMatch) return { view: 'vec-item', id: decodeURIComponent(itemMatch[1]) };
 
+  if (hash === '/feedback' || hash.startsWith('/feedback?')) return { view: 'feedback' };
+  const fbRunMatch = hash.match(/^\/feedback\/run\/([^/]+)$/);
+  if (fbRunMatch) return { view: 'feedback-run', id: fbRunMatch[1] };
+  if (hash === '/insights') return { view: 'insights' };
+
   return { view: 'sessions' };
 }
 
@@ -856,6 +861,7 @@ async function renderPage(root, pageId, tab) {
       <a data-tab="reconstruction" href="#/pages/${esc(pageId)}/reconstruction">Full page</a>
       <a data-tab="timeline" href="#/pages/${esc(pageId)}/timeline">Run timeline</a>
       <a data-tab="debug" href="#/pages/${esc(pageId)}/debug">Debug</a>
+      <a data-tab="feedback" href="#/pages/${esc(pageId)}/feedback">Feedback</a>
     </nav>
     <div class="admin-tabpanel" id="admin-tabpanel"></div>
   `;
@@ -871,6 +877,9 @@ async function renderPage(root, pageId, tab) {
     renderTimelineTab(panel, data);
   } else if (tab === 'debug') {
     renderDebugTab(panel, data);
+  } else if (tab === 'feedback') {
+    // eslint-disable-next-line no-use-before-define
+    await renderFeedbackTab(panel, data);
   } else {
     renderOverviewTab(panel, data);
   }
@@ -2518,7 +2527,7 @@ async function renderEvaluation(root, evalRunId) {
   root.innerHTML = '<p class="admin-loading">Loading evaluation…</p>';
   let data;
   try {
-    data = await api(`/api/admin/evaluations/${evalRunId}`);
+    data = await api(`/api/admin/evaluations/${evalRunId}?include=feedback`);
   } catch (err) {
     root.innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
     return;
@@ -2527,6 +2536,7 @@ async function renderEvaluation(root, evalRunId) {
   const { run, suite } = data;
   const experiments = data.experiments || [];
   const variants = data.variants || [];
+  const feedbackByQuery = data.feedbackByQuery || {};
   const models = (() => {
     try { return JSON.parse(run.models_json || '[]'); } catch { return []; }
   })();
@@ -2708,7 +2718,12 @@ async function renderEvaluation(root, evalRunId) {
     const def = suite?.queries?.find((q) => q.id === exp.eval_query_id);
     const label = def?.query || exp.query || '—';
     const truncated = label.length > 90 ? `${label.substring(0, 90)}…` : label;
-    return `<span class="admin-eval-query-label" title="${esc(label)}">${esc(truncated)}</span><span class="admin-muted admin-eval-query-id">${esc(exp.eval_query_id || '')}</span>`;
+    const fb = feedbackByQuery[exp.query || label] || null;
+    let fbChip = '';
+    if (fb && (fb.up > 0 || fb.down > 0)) {
+      fbChip = `<a class="admin-eval-feedback-chip" href="#/feedback?q=${encodeURIComponent(exp.query || label)}" onclick="event.stopPropagation()" title="Real-user feedback for this query">👍 ${esc(fb.up || 0)} 👎 ${esc(fb.down || 0)}</a>`;
+    }
+    return `<span class="admin-eval-query-label" title="${esc(label)}">${esc(truncated)}</span><span class="admin-muted admin-eval-query-id">${esc(exp.eval_query_id || '')}</span>${fbChip}`;
   };
 
   root.innerHTML = `
@@ -3024,11 +3039,17 @@ async function renderEvaluation(root, evalRunId) {
   if (hasIncompleteWork || phase !== 'complete') {
     const refreshMatrix = async () => {
       try {
-        const freshData = await api(`/api/admin/evaluations/${evalRunId}`);
+        const freshData = await api(`/api/admin/evaluations/${evalRunId}?include=feedback`);
         const freshExperiments = freshData.experiments || [];
         const freshVariants = freshData.variants || [];
         const freshRun = freshData.run;
         currentRun = freshRun;
+        // Refresh the closure-captured feedbackByQuery map so chips
+        // re-render with the latest counts on the next poll cycle.
+        if (freshData.feedbackByQuery) {
+          Object.keys(feedbackByQuery).forEach((k) => delete feedbackByQuery[k]);
+          Object.assign(feedbackByQuery, freshData.feedbackByQuery);
+        }
 
         // Rebuild matrix rows
         const freshByExp = new Map();
@@ -3113,6 +3134,310 @@ async function renderEvaluation(root, evalRunId) {
   }
 }
 
+// ── User feedback ────────────────────────────────────────────────────────────
+
+const FEEDBACK_FLAG_LABELS = {
+  'wrong-product': 'Wrong product',
+  'off-topic': 'Off-topic',
+  'inappropriate-tone': 'Off-brand',
+  'harmful-unsafe': 'Harmful',
+};
+
+function feedbackFlagBadges(flags) {
+  if (!flags || !flags.length) return '<span class="admin-muted">—</span>';
+  return flags.map((f) => {
+    const tone = f === 'harmful-unsafe' ? 'warn' : 'accent';
+    const label = FEEDBACK_FLAG_LABELS[f] || f;
+    return badge(label, tone);
+  }).join(' ');
+}
+
+function feedbackRatingChip(rating) {
+  if (rating === 1) return '<span class="admin-badge admin-badge-ok">👍</span>';
+  if (rating === -1) return '<span class="admin-badge admin-badge-warn">👎</span>';
+  return '<span class="admin-badge admin-badge-muted">—</span>';
+}
+
+function buildFeedbackQueryString(filters) {
+  const params = new URLSearchParams();
+  if (filters.rating && filters.rating !== 'all') params.set('rating', filters.rating);
+  if (filters.flag && filters.flag !== 'all') params.set('flag', filters.flag);
+  if (filters.model) params.set('model', filters.model);
+  if (filters.q) params.set('q', filters.q);
+  if (filters.hasComment) params.set('hasComment', 'true');
+  params.set('limit', String(filters.limit || 100));
+  params.set('offset', String(filters.offset || 0));
+  return params.toString();
+}
+
+async function renderFeedbackList(root) {
+  root.innerHTML = '<p class="admin-loading">Loading feedback…</p>';
+
+  const filters = {
+    rating: 'all', flag: 'all', model: '', q: '', hasComment: false, limit: 100, offset: 0,
+  };
+
+  let summary;
+  let listing;
+  let models = [];
+  try {
+    [summary, listing] = await Promise.all([
+      api('/api/admin/feedback/summary'),
+      api(`/api/admin/feedback?${buildFeedbackQueryString(filters)}`),
+    ]);
+    try {
+      const cat = await api('/api/admin/catalog');
+      models = (cat.catalog || []).map((c) => c.model).filter(Boolean);
+    } catch { /* models filter is optional */ }
+  } catch (err) {
+    root.innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
+    return;
+  }
+
+  const modelOpts = ['<option value="">Any model</option>']
+    .concat(models.map((m) => `<option value="${esc(m)}">${esc(m)}</option>`))
+    .join('');
+
+  const topFlag = (summary.topFlags && summary.topFlags[0]) || null;
+
+  root.innerHTML = `
+    <div class="admin-toolbar">
+      <h2>User feedback</h2>
+      <div class="admin-stats">
+        <span class="admin-stat"><span class="admin-stat-value">${esc(summary.total || 0)}</span><span class="admin-stat-label">total</span></span>
+        <span class="admin-stat"><span class="admin-stat-value">${esc(summary.percentPositive || 0)}%</span><span class="admin-stat-label">positive</span></span>
+        <span class="admin-stat"><span class="admin-stat-value">${esc(summary.negative || 0)}</span><span class="admin-stat-label">negative</span></span>
+        <span class="admin-stat"><span class="admin-stat-value">${esc(summary.comments || 0)}</span><span class="admin-stat-label">comments</span></span>
+        <span class="admin-stat"><span class="admin-stat-value">${esc(summary.divergence || 0)}</span><span class="admin-stat-label">judge↔user diverge</span></span>
+      </div>
+    </div>
+
+    ${topFlag ? `<p class="admin-muted">Top flag: <strong>${esc(FEEDBACK_FLAG_LABELS[topFlag.flag] || topFlag.flag)}</strong> — ${esc(topFlag.count)} of ${esc(summary.negative || 0)} downvotes (${esc(topFlag.percent)}%)</p>` : ''}
+
+    <div class="admin-card admin-feedback-filters">
+      <label>Rating
+        <select data-filter="rating">
+          <option value="all">All</option>
+          <option value="up">👍 Positive</option>
+          <option value="down">👎 Negative</option>
+        </select>
+      </label>
+      <label>Flag
+        <select data-filter="flag">
+          <option value="all">Any</option>
+          <option value="wrong-product">Wrong product</option>
+          <option value="off-topic">Off-topic</option>
+          <option value="inappropriate-tone">Off-brand</option>
+          <option value="harmful-unsafe">Harmful</option>
+        </select>
+      </label>
+      <label>Model
+        <select data-filter="model">${modelOpts}</select>
+      </label>
+      <label>Query
+        <input type="search" data-filter="q" placeholder="Substring match…" />
+      </label>
+      <label class="admin-feedback-check">
+        <input type="checkbox" data-filter="hasComment" />
+        Has comment
+      </label>
+      <div class="admin-feedback-export">
+        <a class="admin-btn admin-btn-ghost" data-export="csv" href="${esc(ARCO_RECOMMENDER_URL)}/api/admin/feedback/export?format=csv" target="_blank" rel="noopener">Download CSV</a>
+        <a class="admin-btn admin-btn-ghost" data-export="json" href="${esc(ARCO_RECOMMENDER_URL)}/api/admin/feedback/export?format=json" target="_blank" rel="noopener">Download NDJSON</a>
+      </div>
+    </div>
+
+    <div class="admin-feedback-list" id="feedback-list"></div>
+  `;
+
+  function renderRows(items) {
+    const target = root.querySelector('#feedback-list');
+    if (!items.length) {
+      target.innerHTML = '<p class="admin-empty">No feedback rows match the filters.</p>';
+      return;
+    }
+    target.innerHTML = `
+      <div class="admin-table-wrap"><table class="admin-table admin-feedback-table">
+        <thead><tr>
+          <th>When</th><th>Query</th><th>Rating</th><th>Flags</th>
+          <th>Wrong products</th><th>Comment</th><th>Model</th>
+        </tr></thead>
+        <tbody>${items.map((r) => `
+          <tr data-href="#/feedback/run/${esc(r.run_id)}">
+            <td class="admin-muted">${ts(r.created_at * 1000)}</td>
+            <td class="admin-query"><a href="#/pages/${esc(r.page_id || '')}" onclick="event.stopPropagation()">${esc((r.query || '').substring(0, 80))}</a></td>
+            <td>${feedbackRatingChip(r.rating)}</td>
+            <td>${feedbackFlagBadges(r.flags)}</td>
+            <td class="admin-muted">${esc((r.wrong_products || []).join(', '))}</td>
+            <td class="admin-comment">${esc((r.comment || '').substring(0, 140))}</td>
+            <td class="admin-muted">${esc(r.llm_model || '—')}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+    `;
+    target.querySelectorAll('tr[data-href]').forEach((tr) => {
+      tr.addEventListener('click', () => { navigate(tr.dataset.href); });
+    });
+  }
+
+  renderRows(listing.items || []);
+
+  async function reload() {
+    try {
+      const data = await api(`/api/admin/feedback?${buildFeedbackQueryString(filters)}`);
+      renderRows(data.items || []);
+    } catch (err) {
+      root.querySelector('#feedback-list').innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
+    }
+  }
+
+  function refreshExportLinks() {
+    const exportParams = new URLSearchParams();
+    if (filters.rating && filters.rating !== 'all') exportParams.set('rating', filters.rating);
+    if (filters.flag && filters.flag !== 'all') exportParams.set('flag', filters.flag);
+    const csv = root.querySelector('[data-export="csv"]');
+    const json = root.querySelector('[data-export="json"]');
+    csv.href = `${ARCO_RECOMMENDER_URL}/api/admin/feedback/export?format=csv${exportParams.toString() ? `&${exportParams.toString()}` : ''}`;
+    json.href = `${ARCO_RECOMMENDER_URL}/api/admin/feedback/export?format=json${exportParams.toString() ? `&${exportParams.toString()}` : ''}`;
+  }
+
+  root.querySelectorAll('[data-filter]').forEach((el) => {
+    const key = el.dataset.filter;
+    const event = el.tagName === 'INPUT' && el.type === 'search' ? 'input' : 'change';
+    el.addEventListener(event, () => {
+      filters[key] = key === 'hasComment' ? el.checked : el.value;
+      filters.offset = 0;
+      refreshExportLinks();
+      reload();
+    });
+  });
+}
+
+async function renderFeedbackRun(root, runId) {
+  root.innerHTML = '<p class="admin-loading">Loading feedback…</p>';
+  let data;
+  try {
+    data = await api(`/api/admin/feedback/run/${runId}`);
+  } catch (err) {
+    root.innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
+    return;
+  }
+
+  const run = data.run || {};
+  const feedback = data.feedback || [];
+  const pageLink = run.page_id ? `<a href="#/pages/${esc(run.page_id)}">View generated page</a>` : '';
+
+  root.innerHTML = `
+    <nav class="admin-crumbs"><a href="#/feedback">← All feedback</a></nav>
+    <div class="admin-toolbar">
+      <h2>Feedback for ${esc((run.query || runId).substring(0, 80))}</h2>
+      <div class="admin-badges">
+        ${badge(`${feedback.length} row${feedback.length === 1 ? '' : 's'}`, 'accent')}
+        ${run.llm_model ? badge(run.llm_model, 'muted') : ''}
+        ${run.intent_type ? badge(run.intent_type, intentTone(run.intent_type)) : ''}
+      </div>
+    </div>
+
+    <section class="admin-card">
+      <h3>Run</h3>
+      <dl class="admin-kvs">
+        ${kv('Run ID', runId)}
+        ${kv('Query', run.query)}
+        ${kv('Title', run.title)}
+        ${kv('Intent', run.intent_type)}
+        ${kv('Journey stage', run.journey_stage)}
+        ${kv('LLM', run.llm_provider && run.llm_model ? `${run.llm_provider} / ${run.llm_model}` : '—')}
+        ${kv('Created', run.created_at ? ts(run.created_at * 1000) : '—')}
+      </dl>
+      ${pageLink ? `<p>${pageLink}</p>` : ''}
+    </section>
+
+    <section class="admin-card">
+      <h3>Feedback rows</h3>
+      ${feedback.length === 0
+    ? '<p class="admin-empty">No feedback recorded for this run yet.</p>'
+    : feedback.map((f) => `
+          <div class="admin-feedback-row">
+            <div class="admin-feedback-row-head">
+              ${feedbackRatingChip(f.rating)}
+              <span class="admin-muted">${ts(f.created_at * 1000)}</span>
+              <span class="admin-muted admin-mono">${esc((f.session_id || '').substring(0, 8))}…</span>
+              ${f.dwell_ms ? `<span class="admin-muted">dwell ${dur(f.dwell_ms)}</span>` : ''}
+            </div>
+            <div class="admin-feedback-row-flags">${feedbackFlagBadges(f.flags)}</div>
+            ${f.wrong_products && f.wrong_products.length
+    ? `<div class="admin-feedback-row-products"><strong>Wrong products:</strong> ${esc(f.wrong_products.join(', '))}</div>` : ''}
+            ${f.comment ? `<blockquote class="admin-feedback-comment">${esc(f.comment)}</blockquote>` : ''}
+          </div>
+        `).join('')}
+    </section>
+  `;
+}
+
+async function renderFeedbackTab(panel, pageData) {
+  panel.innerHTML = '<p class="admin-loading">Loading feedback…</p>';
+  const runIds = (pageData.runs || []).map((r) => r.run?.id).filter(Boolean);
+  if (!runIds.length) {
+    panel.innerHTML = '<p class="admin-empty">No runs found for this page.</p>';
+    return;
+  }
+  let results;
+  try {
+    results = await Promise.all(runIds.map((id) => api(`/api/admin/feedback/run/${id}`).catch(() => null)));
+  } catch (err) {
+    panel.innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
+    return;
+  }
+
+  const sections = results.map((r, i) => {
+    if (!r) return '';
+    const runId = runIds[i];
+    const rows = r.feedback || [];
+    if (!rows.length) {
+      return `<section class="admin-card">
+        <h3>Run #${i + 1} <span class="admin-muted admin-mono">${esc(runId.substring(0, 8))}…</span></h3>
+        <p class="admin-empty">No feedback for this run.</p>
+      </section>`;
+    }
+    return `<section class="admin-card">
+      <h3>Run #${i + 1} <span class="admin-muted admin-mono">${esc(runId.substring(0, 8))}…</span></h3>
+      ${rows.map((f) => `
+        <div class="admin-feedback-row">
+          <div class="admin-feedback-row-head">
+            ${feedbackRatingChip(f.rating)}
+            <span class="admin-muted">${ts(f.created_at * 1000)}</span>
+            <span class="admin-muted admin-mono">${esc((f.session_id || '').substring(0, 8))}…</span>
+          </div>
+          <div class="admin-feedback-row-flags">${feedbackFlagBadges(f.flags)}</div>
+          ${f.wrong_products && f.wrong_products.length
+    ? `<div class="admin-feedback-row-products"><strong>Wrong products:</strong> ${esc(f.wrong_products.join(', '))}</div>` : ''}
+          ${f.comment ? `<blockquote class="admin-feedback-comment">${esc(f.comment)}</blockquote>` : ''}
+        </div>
+      `).join('')}
+    </section>`;
+  }).join('');
+
+  panel.innerHTML = sections || '<p class="admin-empty">No feedback collected on this page yet.</p>';
+}
+
+function renderInsightsStub(root) {
+  root.innerHTML = `
+    <div class="admin-toolbar">
+      <h2>Feedback insights</h2>
+    </div>
+    <section class="admin-card admin-insights-stub">
+      <h3>Automated summaries (coming soon)</h3>
+      <p class="admin-muted">
+        This view will summarize accumulated user feedback into actionable
+        improvement suggestions: recurring flag categories, problematic
+        product hallucinations, and judge↔user score divergence.
+      </p>
+      <button type="button" class="admin-btn admin-btn-ghost" disabled
+        title="Coming soon">Generate summary</button>
+    </section>
+  `;
+}
+
 // ── Entry ───────────────────────────────────────────────────────────────────
 
 function syncHeaderNav(route) {
@@ -3122,6 +3447,8 @@ function syncHeaderNav(route) {
   const isLlm = route.view === 'llm-config';
   const isExp = route.view === 'experiments' || route.view === 'experiment' || route.view === 'experiment-new';
   const isEval = route.view === 'evaluations' || route.view === 'evaluation' || route.view === 'evaluation-new';
+  const isFb = route.view === 'feedback' || route.view === 'feedback-run';
+  const isInsights = route.view === 'insights';
   nav.querySelectorAll('a[data-nav]').forEach((a) => {
     const key = a.dataset.nav;
     let active = false;
@@ -3129,7 +3456,9 @@ function syncHeaderNav(route) {
     else if (key === 'llm-config') active = isLlm;
     else if (key === 'experiments') active = isExp;
     else if (key === 'evaluations') active = isEval;
-    else if (key === 'sessions') active = !isVec && !isLlm && !isExp && !isEval;
+    else if (key === 'feedback') active = isFb;
+    else if (key === 'insights') active = isInsights;
+    else if (key === 'sessions') active = !isVec && !isLlm && !isExp && !isEval && !isFb && !isInsights;
     a.classList.toggle('is-active', active);
   });
 }
@@ -3161,6 +3490,12 @@ async function render(root) {
     await renderVectorizeSearch(root);
   } else if (route.view === 'vec-item') {
     await renderVectorizeItem(root, route.id);
+  } else if (route.view === 'feedback') {
+    await renderFeedbackList(root);
+  } else if (route.view === 'feedback-run') {
+    await renderFeedbackRun(root, route.id);
+  } else if (route.view === 'insights') {
+    renderInsightsStub(root);
   } else {
     await renderSessions(root);
   }
@@ -3179,6 +3514,8 @@ export default async function decorate(block) {
       <a href="#/" data-nav="sessions">Sessions</a>
       <a href="#/experiments" data-nav="experiments">Experiments</a>
       <a href="#/evaluations" data-nav="evaluations">LLM Evaluation</a>
+      <a href="#/feedback" data-nav="feedback">Feedback</a>
+      <a href="#/insights" data-nav="insights">Insights</a>
       <a href="#/llm-config" data-nav="llm-config">Model Settings</a>
       <a href="#/vectorize" data-nav="vectorize">Vectorize</a>
     </nav>

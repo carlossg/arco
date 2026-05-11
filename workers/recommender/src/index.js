@@ -21,6 +21,7 @@ import {
   handleAdminCatalog,
   handleAdminLlmConfigGet,
   handleAdminLlmConfigPut,
+  requireAdminAuth,
 } from './admin.js';
 import {
   handleVectorizeStats,
@@ -53,6 +54,13 @@ import {
 } from './evaluations/admin.js';
 import { handleEvalQueue, handleEvalCronFallback } from './evaluations/queue.js';
 import handleSuggestRequest from './suggest.js';
+import {
+  handleSubmitFeedback,
+  handleListFeedback,
+  handleRunFeedback,
+  handleFeedbackSummary,
+  handleFeedbackExport,
+} from './feedback.js';
 
 /**
  * Full pipeline bypass for load testing — skips rate-limit, RAG, intent, and LLM.
@@ -399,6 +407,10 @@ export default {
       return handleTrack(request, env);
     }
 
+    if (url.pathname === '/api/feedback' && request.method === 'POST') {
+      return handleSubmitFeedback(request, env);
+    }
+
     if (url.pathname === '/api/stats' && request.method === 'GET') {
       return handleStats(request, env);
     }
@@ -522,6 +534,25 @@ export default {
     const evalMatch = url.pathname.match(/^\/api\/admin\/evaluations\/([^/]+)$/);
     if (evalMatch && request.method === 'GET') {
       return handleGetEvaluation(request, env, evalMatch[1]);
+    }
+
+    // Admin routes — user feedback (ratings, comments, flags)
+    if (url.pathname.startsWith('/api/admin/feedback')) {
+      const authResp = await requireAdminAuth(request, env);
+      if (authResp) return authResp;
+      if (url.pathname === '/api/admin/feedback' && request.method === 'GET') {
+        return handleListFeedback(request, env);
+      }
+      if (url.pathname === '/api/admin/feedback/summary' && request.method === 'GET') {
+        return handleFeedbackSummary(request, env);
+      }
+      if (url.pathname === '/api/admin/feedback/export' && request.method === 'GET') {
+        return handleFeedbackExport(request, env);
+      }
+      const fbRunMatch = url.pathname.match(/^\/api\/admin\/feedback\/run\/([^/]+)$/);
+      if (fbRunMatch && request.method === 'GET') {
+        return handleRunFeedback(request, env, fbRunMatch[1]);
+      }
     }
 
     // Admin routes — vectorize browser

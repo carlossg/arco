@@ -53,7 +53,7 @@ export function rowToRunDto(r) {
   };
 }
 
-async function hashIp(ip) {
+export async function hashIp(ip) {
   const data = new TextEncoder().encode(ip || 'unknown');
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));

@@ -161,10 +161,17 @@ Regular Pages                    Recommender Query (/?q=...)
 | `scripts/session-context.js` | Manages `sessionStorage` — stores query history, browsing history (last 15 page visits), and an inferred browsing profile. |
 | `scripts/delayed.js` | Entry point for delayed-phase code. Starts the browsing signal collector. |
 | `scripts/scripts.js` | Main page decoration. On `/?q=` pages, reads session context and streams it to the backend. |
-| `workers/recommender/src/index.js` | Cloudflare Worker entry point — handles `/api/generate` and `/api/persist` endpoints. |
+| `workers/recommender/src/index.js` | Cloudflare Worker entry point — exports `fetch`, `queue` (eval queue consumer), and `scheduled` (cron fallback). |
 | `workers/recommender/src/context.js` | Content retrieval — hybrid keyword matching + Vectorize semantic search. |
 | `workers/recommender/src/pipeline/flows.js` | Pipeline flow definitions and step ordering (intent classification, RAG, LLM generation). |
 | `workers/recommender/scripts/index-content.js` | CLI tool to generate and upload vector embeddings to Cloudflare Vectorize. |
+| `workers/recommender/src/evaluations/admin.js` | Admin HTTP handlers — `handleStartEvaluation`, `handleEvalProgress`, `handleResumeEvaluation`, plus eval-queue ops (purge, consumers, resume-delivery, test-invoke). |
+| `workers/recommender/src/evaluations/queue.js` | CF Queue consumer + cron fallback — dispatches `generate`/`judge`/`regenerate`/`rejudge` messages, calls `msg.retry({delaySeconds})` on Bedrock 429. |
+| `workers/recommender/src/evaluations/runner.js` | Eval execution core — `runOneQueryHeadless`, `regenerateOneVariantHeadless`, judge helpers, run finalization. Uses `createNoopWriter()` for headless paths. |
+| `workers/recommender/src/evaluations/judge.js` | Bedrock judge — builds prompt, calls Claude via `AWS_BEARER_TOKEN_BEDROCK`, parses the 7-dimension rubric. |
+| `workers/recommender/src/evaluations/assertions.js` | Deterministic per-cell assertions (broken-token, unbalanced-html, gold-must-mention, etc.). |
+| `workers/recommender/src/evaluations/suites.js` | Bundled query suites (`coffee-extended`, `coffee-default`, `coffee-dev`). |
+| `blocks/admin/admin.js` + `admin.css` | EDS admin block — Sessions, Experiments, LLM Evaluation, Model Settings, Vectorize views. |
 
 **How browsing context flows:**
 
@@ -292,9 +299,12 @@ All three are sent in every request body along with `pageUrl` and optional `pare
 | `workers/recommender/src/admin.js` | Admin route handlers + self-contained HTML SPA |
 | `workers/recommender/migrations/0001_sessions.sql` | D1 schema (run once via `wrangler d1 execute`) |
 
-**Admin interface** — `https://arco-recommender.franklin-prod.workers.dev/admin`
+**Admin interface** — the primary entry point is the EDS-hosted admin block:
+- Production: `https://main--arco--froesef.aem.live/admin`
+- Preview / feature branch: `https://{branch}--arco--froesef.aem.page/admin`
+- Local dev: `http://localhost:3000/admin` (after `aem up`)
 
-Login: HTTP Basic Auth — username `admin`, password = `ADMIN_TOKEN` secret (set via `wrangler secret put ADMIN_TOKEN`).
+Login is gated by HTTP Basic Auth against the recommender worker — username `admin`, password = `ADMIN_TOKEN` secret (set via `wrangler secret put ADMIN_TOKEN`). The block stores the auth header in `localStorage` and clears it via the **Reset Token** button in the header.
 
 | View | URL | What it shows |
 |------|-----|---------------|
@@ -302,8 +312,12 @@ Login: HTTP Basic Auth — username `admin`, password = `ADMIN_TOKEN` secret (se
 | Session detail | `#/sessions/:id` | Pages (grouped by page_id) with initial query, URL, run count, total duration, tokens |
 | Page detail | `#/pages/:id` | Four tabs: **Overview** (metadata + totals), **Full page** (reconstructs every run plus inline follow-up chip markers showing what was presented and which chip was clicked), **Run timeline** (per-run breakdown with options shown + selected), **Debug** (per-run RAG/prompt/LLM output) |
 | Experiments | `#/experiments` | Multi-model A/B runner. Creates an **experiment** (1–12 variants) against the same query, fans out the `llm-generate` step in parallel, and renders a side-by-side overview (duration, tokens, temperature, max tokens) plus a flip-through viewer that re-renders each variant's blocks. Upstream RAG + prompt runs **once** per experiment. |
+| LLM Evaluation list | `#/evaluations` | List of eval runs with status, phase, completed/total queries, judge model, est. cost, created date. **New run** form chooses suite, models (up to 8), judge model, query concurrency, skip-judge toggle; three preset chips (Cerebras only, GPT-OSS providers, Diverse mix) populate the models grid in one click. |
+| LLM Evaluation detail | `#/evaluations/:id` | Live matrix of queries × models. Each cell shows TTFT / duration / tokens-per-sec + Claude quality score + blocker badge. Toolbar: **Resume**, **Re-judge all**. Per-cell hover `↻` for single-cell regenerate/rejudge. Auto-polls `/progress` every 3s while phase is non-terminal. |
+| Model Settings | `#/model-settings` | Picks the active `{provider, model, temperature, maxTokens}` for the main `/api/generate` pipeline. Reads/writes `llm-config:active` in CACHE KV via `GET/PUT /api/admin/llm-config`. |
+| Vectorize browser | `#/vectorize` | Inspect Cloudflare Vectorize index — search by query string (k-NN over `arco-content`) and view embedding stats. |
 
-The admin EDS block lives at `blocks/admin/` and is also hosted at `drafts/admin.html` for local testing. The prior `/admin` HTML SPA endpoint on the worker still exists but is superseded by the block.
+The admin block source lives at `blocks/admin/admin.js` + `blocks/admin/admin.css`. A static `drafts/admin.html` mirrors the EDS markup for local testing without the CMS. The prior server-rendered `/admin` HTML SPA endpoint on the worker still exists but is superseded by the block; new features should be added to the block.
 
 **Direct API access** (useful for scripting or curl):
 
@@ -417,18 +431,42 @@ The eval reuses the entire experiment storage path so the admin's variant viewer
 
 **Cost expectations:** the in-form estimate covers judge tokens only (generation cost varies wildly by provider). Bedrock Anthropic pricing matches the direct Anthropic API (Sonnet 4 at $3/$15 per million in/out). At ~5k input + 500 output per cell × 15 queries × 4 models ≈ 60 calls ≈ $1–2 per full sweep on Sonnet. Opus is ~5× more, Haiku ~3× less.
 
-**Two-phase orchestration & retry.** Every run is split into a generation phase (all queries × all models) followed by a judging phase (one bulk Bedrock pass with low concurrency). Generations are persisted to D1+KV before any judge call fires, so a Bedrock 429 storm during judging never wastes generation tokens — the partial state stays on disk and the matrix detail view exposes a **Continue judging** button that re-runs the judge against any cell whose `evaluator_score IS NULL`. The create form has a **Skip judging** checkbox for the case when you want to defer judging entirely (e.g. Bedrock is throttled at run time). The matrix toolbar also has **Retry failed cells** (regenerates `status='error'` cells, then re-judges `judge_error` cells in one bulk pass) and **Re-judge all** (overwrites every cell — confirm dialog gates it). Each cell has a hover-revealed `↻` for single-cell retry: full regeneration when the cell failed at generation, cheap KV-only re-judge otherwise. Re-judge does NOT re-run the upstream pipeline — RAG context is persisted at `experiment:{expId}:rag-context` in KV alongside the variant payloads, so the judge can be replayed without paying for retrieval again.
+**Async orchestration via Cloudflare Queue.** Runs are orchestrated server-side so closing the browser tab does not abort them. `POST /api/admin/evaluations/start` creates the `eval_run` row (phase `generating`) and publishes one `{type:'generate', evalRunId, queryId}` message per query to `EVAL_QUEUE` (Cloudflare Queue `arco-eval-queries`). The consumer (`src/evaluations/queue.js → handleEvalQueue`) processes messages with `max_concurrency: 3`, `max_batch_size: 1`. After each generate completes, the consumer atomically increments `completed_queries` in D1; the last consumer to land transitions phase `generating → judging` and publishes one `{type:'judge', ...}` message per `complete` variant (sent in batches of ≤100 via `sendBatch`). Judges write `evaluator_score`/`evaluator_notes`; when no pending judges remain a CAS update transitions phase to `complete` and runs `finalizeEvalRun`.
+
+Generations are persisted to D1+KV before any judge call fires, so a Bedrock 429 storm during judging never wastes generation tokens — the partial state stays on disk and the matrix detail view exposes a **Continue judging** button that re-runs the judge against any cell whose `evaluator_score IS NULL`. The create form has a **Skip judging** checkbox for the case when you want to defer judging entirely (e.g. Bedrock is throttled at run time). The matrix toolbar also has **Retry failed cells** and **Re-judge all** (confirm dialog gated). Each cell has a hover-revealed `↻` for single-cell retry: full regeneration when the cell failed at generation, cheap KV-only re-judge otherwise. Re-judge does NOT re-run the upstream pipeline — RAG context is persisted at `experiment:{expId}:rag-context` in KV alongside the variant payloads, so the judge can be replayed without paying for retrieval again.
+
+**Bedrock 429 retry via CF Queues `delaySeconds`.** Bedrock does NOT include a `Retry-After` header on 429s; AWS recommends syncing retries with the 60-second quota refresh cycle. The judge uses two layers of retry: (1) **In-process** (`src/evaluations/judge.js`) — one quick retry at ~500ms for transient blips. (2) **Queue-level** — if the 429 persists, `handleJudge` calls `msg.retry({ delaySeconds })` instead of `msg.ack()`, scheduling redelivery at **30/60/90/120/150s** (stair-stepped, each step crossing the 60s quota window) using `msg.attempts` for backoff. `wrangler.jsonc` sets `max_retries: 5`, so a 429-bound judge cell waits up to ~7.5 minutes before landing in the DLQ. Non-429 errors fall through to `ack` — no infinite retry loops.
+
+**Cron fallback.** `triggers.crons: ["*/5 * * * *"]` runs `handleEvalCronFallback(env)` (`scheduled()` handler in `src/index.js`). It scans `eval_runs` for rows in phase `generating` / `judging` with `last_activity_at` older than 2 minutes and processes up to 5 stuck runs per tick — up to 3 pending queries or 3 pending judge cells per run. The cron's `processGenerating` resets any `running` variants → `error` first (worker died before completing) so the next pass can retry them. Treat the cron as a safety net for queue delivery hiccups, not the primary path.
+
+**Headless writer gotcha (CRITICAL).** `runOneQueryHeadless` and `regenerateOneVariantHeadless` (in `src/evaluations/runner.js`) must use the `createNoopWriter()` helper — a `WritableStream` with a discarding write handler. The LLM step writes sections + 3s heartbeats directly to `ctx.writer`; if `ctx.writer` is a `TransformStream` writer with no reader on the readable side (as it was before the fix), the internal buffer fills (default `highWaterMark: 1`) and `await writer.write(...)` blocks forever. The worker hits its wall-time limit and dies before `msg.ack()`, leaving variants stuck at `running`. **Never** use `new TransformStream().writable.getWriter()` for headless eval paths.
 
 **Admin API** (Basic auth, same `ADMIN_TOKEN` as Sessions/Experiments):
+
+*Run lifecycle:*
 - `GET /api/admin/eval-suites` → `{ suites: [...], judgeModels: [...] }`
-- `POST /api/admin/evaluations` → start a run; the server creates the eval_run row and returns the suite + queries + models. The client drives per-query generation in a worker pool, then triggers the bulk judge phase, then finalize.
-- `POST /api/admin/evaluations/:id/queries` (body `{ queryId, skipJudge? }`) → run one query, NDJSON stream. With `skipJudge: true` the per-query path stops after assertions and the judge is invoked separately via `/judge`.
-- `POST /api/admin/evaluations/:id/judge` (body `{ scope?: 'pending'\|'errors'\|'all', judgeConcurrency? }`) → bulk judge phase. Default scope `pending` re-judges only cells with `evaluator_score IS NULL`. Default `judgeConcurrency: 2` (max 4) keeps Bedrock under throttling pressure. NDJSON stream.
-- `POST /api/admin/evaluations/:id/variants/:variantId/rejudge` → re-judge a single cell from persisted KV blocks. JSON response.
-- `POST /api/admin/evaluations/:id/variants/:variantId/regenerate` → re-run upstream pipeline + LLM generate + judge for a single cell. NDJSON stream.
+- `POST /api/admin/evaluations/start` (body `{ suiteId, models, judgeModel, queryConcurrency, skipJudge }`) → creates `eval_run`, publishes one queue message per query. Returns `{ evalRunId, queryCount, modelCount, variantCount }` immediately. **This is the primary entry point for new runs.**
+- `GET /api/admin/evaluations/:id/progress` → lightweight `{ evalRunId, status, phase, completedQueries, queryCount, modelCount, lastActivityAt }` for polling
+- `POST /api/admin/evaluations/:id/resume` → re-publishes queue messages for queries with no experiment row or all-error variants. Clamps `completed_queries` at 0 (never goes negative).
 - `POST /api/admin/evaluations/:id/finalize` → recompute summary + close the run.
 - `GET /api/admin/evaluations` → paginated list of runs
 - `GET /api/admin/evaluations/:id` → run + experiments + variants + suite definition (everything needed to render the matrix)
+
+*Per-cell operations (publish a single queue message, return immediately):*
+- `POST /api/admin/evaluations/:id/variants/:variantId/rejudge` → publishes `{type:'rejudge'}`. Re-runs judge against persisted KV blocks; does NOT re-run the upstream pipeline.
+- `POST /api/admin/evaluations/:id/variants/:variantId/regenerate` → publishes `{type:'regenerate'}`. Full re-run: upstream pipeline + LLM + assertions + judge.
+
+*Legacy synchronous endpoints (kept for compatibility, used by the cron fallback path):*
+- `POST /api/admin/evaluations` (deprecated, use `/start`) → creates the run row only.
+- `POST /api/admin/evaluations/:id/queries` (body `{ queryId, skipJudge? }`) → run one query inline, NDJSON stream.
+- `POST /api/admin/evaluations/:id/judge` (body `{ scope?: 'pending'\|'errors'\|'all', judgeConcurrency? }`) → bulk judge phase inline. NDJSON stream. Default `judgeConcurrency: 2` (max 4).
+
+*Queue diagnostics & ops:*
+- `GET /api/admin/eval-queue` → backlog stats (`{ messages, age }`) from CF Queues API. Requires `CF_API_TOKEN` secret with `Cloudflare Queues: Edit` + `Account Analytics: Read` permissions.
+- `GET /api/admin/eval-queue/consumers` → consumer registration + `delivery_paused` state for the queue.
+- `POST /api/admin/eval-queue/purge` → drop all pending messages (irreversible). Auto-resumes delivery if previously paused.
+- `POST /api/admin/eval-queue/resume-delivery` → calls CF Queues API to set `delivery_paused: false` on the queue.
+- `POST /api/admin/eval-queue/test-invoke` (body `{ type, evalRunId, ... }`) → directly invoke the queue handler with a synthetic batch. Bypasses CF Queue delivery entirely — useful for diagnosing whether the consumer code works when CF Queue delivery is failing.
 
 **Query D1 directly** (for ad-hoc analysis):
 
@@ -442,6 +480,102 @@ wrangler d1 execute arco-sessions --command "SELECT query, intent_type, journey_
 # Token usage summary
 wrangler d1 execute arco-sessions --command "SELECT SUM(input_tokens) as total_in, SUM(output_tokens) as total_out, COUNT(*) as pages FROM generated_pages"
 ```
+
+### User Feedback (Ratings, Comments, Flags)
+
+Every freshly-generated `/?q=...` run gets a run-level feedback widget anchored above the follow-up chips. End users tap 👍 / 👎, optionally leave a comment, and on negative ratings can flag a category and tick which of the displayed products were wrong. Stored in D1 alongside `generated_pages` so the data is joinable with run metadata (model, intent, query, da_path) for model-level / intent-level aggregates.
+
+**Why it exists:** the LLM-judge in `#/evaluations` scores generations offline against a rubric, but only real users tell you whether a page actually helped. Feeds development three ways — manual review in `#/feedback`, eval cross-check via a per-cell chip on the eval matrix, and a downloadable export for ad-hoc analysis or future fine-tuning.
+
+**Data model** (migration `0008_run_feedback.sql`, auto-applied on next worker boot):
+
+```sql
+run_feedback(id, run_id, page_id, session_id, rating, comment, flags,
+             wrong_products, dwell_ms, user_agent, ip_hash,
+             created_at, updated_at, UNIQUE(run_id, session_id))
+```
+
+`UNIQUE(run_id, session_id)` means a re-submit from the same browser upserts. `flags` and `wrong_products` are JSON arrays. `dwell_ms` is captured by the widget at submit time. IPs are SHA-256 hashed via the same `hashIp()` helper used by `sessions`.
+
+**Flag categories** (closed set, validated client + server):
+
+| Key | Label |
+|-----|-------|
+| `wrong-product` | Wrong product / made-up facts |
+| `off-topic` | Off-topic / didn't answer my question |
+| `inappropriate-tone` | Inappropriate tone / off-brand |
+| `harmful-unsafe` | Harmful or unsafe |
+
+The free-text comment doubles as "other" — no explicit "other" checkbox.
+
+**Widget UX** (`scripts/feedback-widget.js`, `styles/feedback-widget.css`):
+
+1. After streaming completes, `streamAndAppendContent` async-imports the widget and inserts it before `.follow-up-container`.
+2. 👍 fires a single `POST /api/feedback {rating:+1}`, collapses to "Thanks 👍" with an optional `Add a note` chip.
+3. 👎 fires `POST /api/feedback {rating:-1}` immediately (captures the downvote even if the user bails) then expands a form: comment textarea (≤1000 chars), four flag checkboxes, and a product multi-select populated from product links in the run's already-rendered sections.
+4. `Send` upserts comment + flags + wrong-products. `Skip` collapses without a second POST.
+5. `localStorage[arco-feedback:{runId}]` remembers the rating so a page refresh doesn't re-prompt. Server-side dedup is the truth.
+
+The widget only attaches on fresh `/?q=` runs. Cached `/discover/{slug}` pages are out of scope in this iteration (re-running a deterministic-slug query bypasses the cache and triggers a fresh run).
+
+**Section→run mapping:** `renderStreamedSection` stamps `section.dataset.runId = state.runId` so the widget can scope its product detection to "this run's sections" via `[data-run-id="…"] a[href*="/products/"]`. Useful future-proofing for per-section feedback even though the widget is run-level today.
+
+**Admin views:**
+
+| Hash route | What it shows |
+|------------|---------------|
+| `#/feedback` | List with summary strip (totals, %positive, top flag, judge↔user divergence count). Filters: rating, flag, model, query substring, has-comment. `Download CSV` / `Download NDJSON` buttons in the toolbar. |
+| `#/feedback/run/:runId` | Per-run detail — run metadata + every feedback row (rating, flags, wrong products, full comment, dwell, UA, timestamp) + "View generated page" link. |
+| `#/pages/:id` `Feedback` tab | Fifth tab on the page-detail view; lists feedback for every run on that page. |
+| `#/evaluations/:id` | Each query row's label gets a `👍N 👎M` chip when real-user feedback exists for the same query. Click → jumps to `#/feedback?q=…`. Refreshes on the 3s poll. |
+| `#/insights` | Reserved route + disabled `Generate summary` button. LLM-powered feedback summarization is a follow-up spec. |
+
+**Admin API** (Basic-auth, same `ADMIN_TOKEN`):
+
+- `POST /api/feedback` (public, no auth) — upserts. Returns `204 No Content`.
+- `GET /api/admin/feedback?limit&offset&rating&flag&model&q&hasComment&since&until` — paginated list joined with `generated_pages`.
+- `GET /api/admin/feedback/summary?since=` — header-strip aggregates.
+- `GET /api/admin/feedback/run/:runId` — single-run detail + per-flag count + per-product count.
+- `GET /api/admin/feedback/export?format=csv|json&since=&until=` — flattened export, semicolon-joined `flags` and `wrong_products`.
+- `GET /api/admin/evaluations/:id?include=feedback` — opt-in expansion that adds `feedbackByQuery: { "<query>": { up, down, comments } }` to the existing payload.
+
+**Eval cross-check.** When you spot a model the LLM judge rated 4.5 but real users keep flagging — that's the signal you want. The matrix view picks this up via the `?include=feedback` expansion; the admin summary surfaces a `judge↔user diverge` count joining `experiment_variants.evaluator_score ≥ 4` against `run_feedback.rating = -1` over matching `gp.query`.
+
+**Spam / abuse protection (MVP):** the only gate is `UNIQUE(run_id, session_id)` plus server-side `comment ≤ 1000` truncation and flag/product allow-listing. No rate-limit middleware yet — if abuse appears, add an IP-hash cooldown.
+
+**Query D1 directly:**
+
+```bash
+# Recent feedback with model + query
+wrangler d1 execute arco-sessions --command \
+  "SELECT rf.created_at, rf.rating, rf.flags, gp.llm_model, gp.query
+   FROM run_feedback rf JOIN generated_pages gp ON gp.id = rf.run_id
+   ORDER BY rf.created_at DESC LIMIT 20"
+
+# Negative-only by model
+wrangler d1 execute arco-sessions --command \
+  "SELECT gp.llm_model, COUNT(*) as bad
+   FROM run_feedback rf JOIN generated_pages gp ON gp.id = rf.run_id
+   WHERE rf.rating = -1 GROUP BY gp.llm_model ORDER BY bad DESC"
+
+# Flag breakdown
+wrangler d1 execute arco-sessions --command \
+  "SELECT je.value as flag, COUNT(*) as n
+   FROM run_feedback rf, json_each(rf.flags) je
+   GROUP BY je.value ORDER BY n DESC"
+```
+
+**Key files:**
+
+| File | Role |
+|------|------|
+| `workers/recommender/migrations/0008_run_feedback.sql` | Schema + indexes |
+| `workers/recommender/src/feedback.js` | All five handlers + `attachFeedbackToQueries(env, queries)` helper for the eval matrix |
+| `workers/recommender/src/index.js` | Routes for `/api/feedback` (public) and `/api/admin/feedback/*` (admin auth gate) |
+| `workers/recommender/src/evaluations/admin.js` | Patched `handleGetEvaluation` so `?include=feedback` attaches per-query counts |
+| `scripts/feedback-widget.js` + `styles/feedback-widget.css` | DOM widget + scoped styles |
+| `scripts/recommender-stream.js` | Stamps `section.dataset.runId`; attaches widget after each run |
+| `blocks/admin/admin.js` + `blocks/admin/admin.css` | `#/feedback` list, `#/feedback/run/:id` detail, `#/insights` stub, Feedback tab on page detail, eval-matrix per-row chip |
 
 ## Testing & Quality Assurance
 

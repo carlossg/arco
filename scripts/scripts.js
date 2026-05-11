@@ -238,10 +238,12 @@ async function renderPrefetchedBlocks(prefetchData, query) {
   main.innerHTML = '<div id="generation-content"></div>';
   const content = main.querySelector('#generation-content');
 
+  const runId = prefetchData.runId || crypto.randomUUID();
+
   // eslint-disable-next-line no-restricted-syntax
   for (const blockData of prefetchData.blocks) {
     // eslint-disable-next-line no-await-in-loop
-    await renderStreamedSection(blockData, content);
+    await renderStreamedSection(blockData, content, runId);
   }
 
   // Update document title
@@ -254,6 +256,17 @@ async function renderPrefetchedBlocks(prefetchData, query) {
     timestamp: Date.now(),
     intent: 'general',
   });
+
+  if (prefetchData.blocks?.length > 0) {
+    import('./feedback-widget.js').then(({ attachFeedbackWidget }) => {
+      attachFeedbackWidget(content, {
+        runId,
+        pageId: getCurrentPageId(),
+        sessionId: SessionContextManager.getSessionId(),
+        query,
+      });
+    }).catch(() => { /* best-effort */ });
+  }
 }
 
 /**
@@ -342,6 +355,7 @@ function initKeepExploring() {
         if (ready && specResult.responseBuffer.length > 0) {
           await replaySpeculativeResult(specResult.responseBuffer, genContent, {
             query,
+            runId: specResult.runId,
             onFirstSection: () => loader.remove(),
             onSection: scrollToStreamedSection,
           });
@@ -498,7 +512,9 @@ async function transitionToRecommender(query) {
       if (ready && specResult.responseBuffer.length > 0) {
         main.innerHTML = '<div id="generation-content"></div>';
         const content = main.querySelector('#generation-content');
-        await replaySpeculativeResult(specResult.responseBuffer, content, { query });
+        await replaySpeculativeResult(specResult.responseBuffer, content, {
+          query, runId: specResult.runId,
+        });
         const h1 = content.querySelector('h1');
         if (h1) document.title = `${h1.textContent} | Arco`;
         initKeepExploring();
