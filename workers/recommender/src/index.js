@@ -36,6 +36,9 @@ import {
 import {
   handleListEvalSuites,
   handleCreateEvaluation,
+  handleStartEvaluation,
+  handleEvalProgress,
+  handleResumeEvaluation,
   handleRunEvalQuery,
   handleFinalizeEvaluation,
   handleListEvaluations,
@@ -43,7 +46,10 @@ import {
   handleJudgeEvaluation,
   handleRejudgeVariant,
   handleRegenerateVariant,
+  handleEvalQueueStatus,
+  handleEvalQueuePurge,
 } from './evaluations/admin.js';
+import { handleEvalQueue } from './evaluations/queue.js';
 import handleSuggestRequest from './suggest.js';
 
 /**
@@ -353,6 +359,11 @@ async function handleStats(request, env) {
 }
 
 export default {
+  async queue(batch, env) {
+    console.log(`[Queue] received batch of ${batch.messages.length} messages`);
+    await handleEvalQueue(batch, env);
+  },
+
   async fetch(request, env, ctx) {
     request.ctx = ctx;
 
@@ -441,9 +452,26 @@ export default {
     if (url.pathname === '/api/admin/eval-suites' && request.method === 'GET') {
       return handleListEvalSuites(request, env);
     }
+    if (url.pathname === '/api/admin/eval-queue' && request.method === 'GET') {
+      return handleEvalQueueStatus(request, env);
+    }
+    if (url.pathname === '/api/admin/eval-queue/purge' && request.method === 'POST') {
+      return handleEvalQueuePurge(request, env);
+    }
+    if (url.pathname === '/api/admin/evaluations/start' && request.method === 'POST') {
+      return handleStartEvaluation(request, env);
+    }
     if (url.pathname === '/api/admin/evaluations') {
       if (request.method === 'POST') return handleCreateEvaluation(request, env);
       if (request.method === 'GET') return handleListEvaluations(request, env);
+    }
+    const evalProgressMatch = url.pathname.match(/^\/api\/admin\/evaluations\/([^/]+)\/progress$/);
+    if (evalProgressMatch && request.method === 'GET') {
+      return handleEvalProgress(request, env, evalProgressMatch[1]);
+    }
+    const evalResumeMatch = url.pathname.match(/^\/api\/admin\/evaluations\/([^/]+)\/resume$/);
+    if (evalResumeMatch && request.method === 'POST') {
+      return handleResumeEvaluation(request, env, evalResumeMatch[1]);
     }
     const evalQueriesMatch = url.pathname.match(/^\/api\/admin\/evaluations\/([^/]+)\/queries$/);
     if (evalQueriesMatch && request.method === 'POST') {

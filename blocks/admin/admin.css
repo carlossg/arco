@@ -1834,6 +1834,19 @@
   color: #b2472e;
 }
 
+.admin .admin-eval-presets {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0.75rem;
+  flex-wrap: wrap;
+}
+
+.admin .admin-eval-preset-btn {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.65rem;
+}
+
 .admin .admin-experiment-variant-footer {
   display: flex;
   gap: 0.5rem;

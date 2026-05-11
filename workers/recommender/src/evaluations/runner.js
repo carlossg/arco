@@ -1484,6 +1484,263 @@ export async function runEvalQueryStream(request, env, evalRunId, queryId, optio
   });
 }
 
+// ── Headless execution for Queue consumer ────────────────────────────────────
+// No streaming, no request dependency — runs one query synchronously and
+// returns { ok: true } or { ok: false, error: message }.
+
+export async function runOneQueryHeadless(env, evalRunId, queryId) {
+  const cfg = await loadEvalRunConfig(env, evalRunId);
+  if (!cfg) return { ok: false, error: 'Eval run not found' };
+
+  const queryDef = cfg.suite.queries.find((q) => q.id === queryId);
+  if (!queryDef) return { ok: false, error: `Query ${queryId} not in suite ${cfg.suite.id}` };
+
+  // Synthetic request with no-op writer (runOneQuery expects these)
+  const { writable } = new TransformStream();
+  const writer = writable.getWriter();
+  const encoder = new TextEncoder();
+  const request = {
+    headers: new Headers(),
+    evalWriter: writer,
+    evalEncoder: encoder,
+  };
+
+  const writeLine = async () => {};
+
+  try {
+    await runOneQuery({
+      env,
+      request,
+      query: queryDef.query,
+      queryDef,
+      models: cfg.models,
+      evalRunId,
+      judgeModel: cfg.judgeModel,
+      writeLine,
+      skipJudge: true,
+    });
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, error: err.message || 'query failed' };
+  } finally {
+    try { await writer.close(); } catch { /* already closed */ }
+  }
+}
+
+/**
+ * Judge one variant without streaming — used by the queue consumer.
+ * Thin wrapper around judgeOneVariantFromKv that doesn't need a request.
+ */
+export async function judgeOneVariantInternal({ env, variantId, judgeModel }) {
+  return judgeOneVariantFromKv({ env, variantId, judgeModel });
+}
+
+/**
+ * Regenerate a single variant without streaming — used by the queue consumer.
+ * Re-runs upstream pipeline + LLM + assertions + judge for one cell.
+ */
+export async function regenerateOneVariantHeadless(env, evalRunId, variantId) {
+  const cfg = await loadEvalRunConfig(env, evalRunId);
+  if (!cfg) return { ok: false, error: 'Eval run not found' };
+
+  const variantRow = await loadVariantRow(env, variantId);
+  if (!variantRow) return { ok: false, error: 'Variant not found' };
+
+  const expRow = await loadExperimentRow(env, variantRow.experiment_id);
+  if (!expRow || !expRow.eval_query_id) return { ok: false, error: 'Experiment / query not found' };
+
+  const queryDef = cfg.suite.queries.find((q) => q.id === expRow.eval_query_id);
+  if (!queryDef) return { ok: false, error: 'Query not in suite' };
+
+  // Reset variant row
+  if (env.SESSIONS_DB) {
+    await env.SESSIONS_DB.prepare(`
+      UPDATE experiment_variants
+      SET status = 'running', evaluator_score = NULL, evaluator_notes = NULL,
+          duration_ms = NULL, time_to_first_token_ms = NULL,
+          input_tokens = NULL, output_tokens = NULL, title = NULL,
+          block_count = NULL, error = NULL
+      WHERE id = ?1
+    `).bind(variantId).run();
+  }
+
+  // Synthetic request with no-op writer
+  const { writable } = new TransformStream();
+  const writer = writable.getWriter();
+  const encoder = new TextEncoder();
+  const request = { headers: new Headers(), evalWriter: writer, evalEncoder: encoder };
+
+  try {
+    const ctx = createContext({ query: queryDef.query }, request);
+    const flow = resolveFlow('default');
+    ctx.flowId = flow.id;
+    ctx.flowName = flow.name || flow.id;
+    ctx.writer = writer;
+    ctx.encoder = encoder;
+    ctx.timings.steps = [];
+
+    const gateSteps = flow.steps.filter((s) => s.gate);
+    for (let gi = 0; gi < gateSteps.length; gi += 1) {
+      if (ctx.earlyResponse) break;
+      const s = gateSteps[gi];
+      // eslint-disable-next-line no-await-in-loop
+      await STEPS[s.step](ctx, s.config || {}, env);
+    }
+    if (ctx.earlyResponse) return { ok: false, error: 'gated before pipeline' };
+
+    const upstreamSteps = flow.steps.filter((s) => !s.gate && !(s.step === 'llm-generate'));
+    await executeFlow(upstreamSteps, ctx, env);
+
+    const heroImage = selectHeroImage({
+      query: ctx.request?.query,
+      useCases: ctx.rag?.useCase?.useCases,
+      intentType: ctx.intent?.type,
+      productIds: extractProductIds(ctx.request?.query || ''),
+    }, ctx.rag?.heroImages || []);
+    setHeroResult(heroImage);
+
+    // Refresh RAG context in KV
+    if (env.SESSION_STORE) {
+      try {
+        await env.SESSION_STORE.put(
+          RAG_KV_KEY(variantRow.experiment_id),
+          JSON.stringify({
+            rag: ctx.rag || {},
+            intent: ctx.intent || null,
+            journeyStage: ctx.request?.inferredProfile?.journeyStage || null,
+            query: queryDef.query,
+            queryId: queryDef.id,
+          }),
+          { expirationTtl: VARIANT_KV_TTL },
+        );
+      } catch (kvErr) {
+        console.error('[Eval] RAG context KV refresh failed:', kvErr.message);
+      }
+    }
+
+    // Re-run LLM
+    const resolved = resolveLlmConfig(
+      {
+        provider: variantRow.provider,
+        model: variantRow.model,
+        temperature: null,
+        maxTokens: null,
+      },
+      flow.steps.find((s) => s.step === 'llm-generate')?.config || {},
+    );
+    const variant = {
+      id: variantId,
+      experimentId: variantRow.experiment_id,
+      variantIndex: 0,
+      provider: resolved.provider,
+      model: resolved.model,
+      temperature: resolved.temperature,
+      maxTokens: resolved.maxTokens,
+      state: createVariantState(),
+      timings: {},
+      status: 'running',
+      startedAt: Date.now(),
+      finishedAt: null,
+      error: null,
+      ttftMs: null,
+      title: null,
+    };
+
+    try {
+      const { title } = await runLlmVariant(ctx, env, {
+        variantId,
+        provider: variant.provider,
+        model: variant.model,
+        temperature: variant.temperature,
+        maxTokens: variant.maxTokens,
+        out: variant.state,
+        timings: variant.timings,
+        emitDebug: false,
+        emitDone: false,
+      });
+      variant.finishedAt = Date.now();
+      variant.status = 'complete';
+      variant.title = title || extractTitle(variant.state.sections[0] || '');
+      variant.ttftMs = (variant.timings.llmFirstToken && variant.timings.llmStart)
+        ? variant.timings.llmFirstToken - variant.timings.llmStart : null;
+    } catch (err) {
+      variant.finishedAt = Date.now();
+      variant.status = 'error';
+      variant.error = err.message || 'variant failed';
+    }
+
+    // Persist KV payload
+    if (env.SESSION_STORE) {
+      try {
+        const payload = buildVariantPayload(ctx, variant);
+        await env.SESSION_STORE.put(
+          KV_KEY(variantRow.experiment_id, variantId),
+          JSON.stringify(payload),
+          { expirationTtl: VARIANT_KV_TTL },
+        );
+      } catch (kvErr) {
+        console.error(`[Eval] regen KV write failed (${variantId}):`, kvErr.message);
+      }
+    }
+
+    // Finalize variant row in D1
+    if (env.SESSIONS_DB) {
+      await finalizeVariantRow(env.SESSIONS_DB, {
+        id: variantId,
+        status: variant.status,
+        durationMs: variant.finishedAt && variant.startedAt
+          ? variant.finishedAt - variant.startedAt : null,
+        ttftMs: variant.ttftMs ?? null,
+        inputTokens: variant.state.usage?.prompt_tokens || null,
+        outputTokens: variant.state.usage?.completion_tokens || null,
+        title: variant.title,
+        blockCount: variant.state.sections.length,
+        error: variant.error,
+      });
+    }
+
+    if (variant.status !== 'complete') return { ok: false, error: variant.error };
+
+    // Run assertions + judge
+    const blocks = variant.state.sections.map((html, i) => ({
+      index: i,
+      blockType: variant.state.rawJsonSections?.[i]?.block || 'unknown',
+      html,
+    }));
+    const assertions = runAssertions(blocks, queryDef);
+    try {
+      const result = await judgeVariant(env, {
+        judgeModel: cfg.judgeModel,
+        query: queryDef.query,
+        expectedIntent: queryDef.expectedIntent || null,
+        expectedBehavior: queryDef.expectedBehavior || null,
+        classifiedIntent: ctx.intent?.type || null,
+        journeyStage: ctx.request?.inferredProfile?.journeyStage || null,
+        rag: ctx.rag || {},
+        blocks,
+      });
+      const blockerInfo = detectBlocker(result.dims, assertions);
+      if (env.SESSIONS_DB) {
+        await writeVariantJudgeResult(env.SESSIONS_DB, variantId, result, assertions, blockerInfo);
+      }
+    } catch (judgeErr) {
+      if (env.SESSIONS_DB) {
+        try {
+          await writeVariantJudgeError(env.SESSIONS_DB, variantId, judgeErr.message || 'judge failed');
+        } catch { /* ignore */ }
+      }
+    }
+
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, error: err.message || 'regenerate failed' };
+  } finally {
+    try { await writer.close(); } catch { /* already closed */ }
+  }
+}
+
+export { loadEvalRunConfig };
+
 function parseEvalNotes(notesJson) {
   if (!notesJson) return null;
   try { return JSON.parse(notesJson); } catch { return null; }

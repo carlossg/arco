@@ -42,10 +42,6 @@ import { processSectionMetadata } from '../../scripts/section-metadata.js';
 
 const TOKEN_STORAGE_KEY = 'arco-admin-token';
 
-// Event bus for live eval matrix updates. The streamEvalRun worker pool emits
-// events here; the renderEvaluation view subscribes and updates cells in-place.
-const evalBus = new EventTarget();
-
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
 function esc(s) {
@@ -2075,213 +2071,15 @@ const QUALITY_RUBRIC_HTML = `
   </details>
 `;
 
-async function consumeNdjson(res, onEvent, fallbackErrorEvent) {
-  if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    if (fallbackErrorEvent) {
-      await onEvent({ ...fallbackErrorEvent, message: `HTTP ${res.status}: ${text || 'request failed'}` });
-    }
-    return;
-  }
-  const reader = res.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = '';
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    // eslint-disable-next-line no-await-in-loop
-    const { done, value } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split('\n');
-    buffer = lines.pop() || '';
-    // eslint-disable-next-line no-restricted-syntax
-    for (const line of lines) {
-      if (!line.trim()) continue; // eslint-disable-line no-continue
-      try {
-        // eslint-disable-next-line no-await-in-loop
-        await onEvent(JSON.parse(line));
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn('Failed to parse eval event:', err, line);
-      }
-    }
-  }
-  if (buffer.trim()) {
-    try { await onEvent(JSON.parse(buffer)); } catch { /* ignore */ }
-  }
-}
-
-async function streamPerQuery(token, evalRunId, queryId, onEvent, signal, skipJudge = false) {
-  const res = await fetch(
-    `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/queries`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Basic ${btoa(`admin:${token}`)}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ queryId, skipJudge }),
-      signal,
-    },
-  );
-  await consumeNdjson(res, onEvent, { type: 'query-error', queryId });
-}
-
-async function streamJudgePhase(token, evalRunId, onEvent, signal, body = {}) {
-  const res = await fetch(
-    `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/judge`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Basic ${btoa(`admin:${token}`)}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-      signal,
-    },
-  );
-  await consumeNdjson(res, onEvent, { type: 'error' });
-}
-
-// Orchestrates an eval run as TWO phases:
-//   Phase 1 — generation: per-query worker pool (skipJudge=true). Cheap to retry,
-//             persists everything to D1+KV so judging can resume after 429s.
-//   Phase 2 — judging: single bulk call to /:id/judge (scope=pending) with low
-//             concurrency. Skipped entirely when body.skipJudge is true.
-// onEvent receives the full union of streamed events from both phases plus the
-// existing run-start / run-done bookends, so the UI code keeps working.
-async function streamEvalRun(body, onEvent, signal) {
-  const skipJudgePhase = body?.skipJudge === true;
-  const token = getAdminToken();
-  if (!token) throw new Error('Admin token required');
-
-  // 1. Create the eval_run row + return queries to drive.
-  const createRes = await fetch(`${ARCO_RECOMMENDER_URL}/api/admin/evaluations`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${btoa(`admin:${token}`)}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-    signal,
-  });
-  if (createRes.status === 401) {
-    clearAdminToken();
-    throw new Error('Unauthorized — token cleared. Reload to retry.');
-  }
-  if (!createRes.ok) {
-    throw new Error(`HTTP ${createRes.status}: ${await createRes.text().catch(() => '')}`);
-  }
-  const created = await createRes.json();
-  const {
-    evalRunId, queries, modelCount = (created.models || []).length, variantCount,
-    estimatedCostUsd, queryConcurrency, judgeModel, suiteId, suiteName,
-  } = created;
-
-  await onEvent({
-    type: 'run-start',
-    evalRunId,
-    suiteId,
-    suiteName,
-    judgeModel,
-    queryCount: queries.length,
-    modelCount,
-    variantCount,
-    queryConcurrency,
-    estimatedCostUsd,
-  });
-
-  // 2. Per-query worker pool.
-  let nextIdx = 0;
-  let aborted = false;
-  const onAbort = () => { aborted = true; };
-  if (signal) {
-    if (signal.aborted) aborted = true;
-    else signal.addEventListener('abort', onAbort, { once: true });
-  }
-
-  const worker = async () => {
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      if (aborted) return;
-      const i = nextIdx;
-      nextIdx += 1;
-      if (i >= queries.length) return;
-      const q = queries[i];
-      try {
-        // eslint-disable-next-line no-await-in-loop
-        await streamPerQuery(token, evalRunId, q.id, onEvent, signal, true);
-      } catch (err) {
-        if (err.name === 'AbortError') { aborted = true; return; }
-        // eslint-disable-next-line no-await-in-loop
-        await onEvent({ type: 'query-error', queryId: q.id, message: err.message || 'query failed' });
-      }
-    }
-  };
-
-  const concurrency = Math.max(1, Math.min(queryConcurrency || 3, queries.length));
-  await Promise.all(Array.from({ length: concurrency }, () => worker()));
-
-  if (aborted) {
-    const e = new Error('aborted');
-    e.name = 'AbortError';
-    throw e;
-  }
-
-  // 2b. Judge phase — bulk call after all generations have finished. Low
-  // concurrency to avoid Bedrock 429s. Skipped when the user opted to judge later.
-  if (!skipJudgePhase) {
-    await onEvent({ type: 'judge-phase-start', evalRunId });
-    try {
-      await streamJudgePhase(token, evalRunId, onEvent, signal, { scope: 'pending' });
-    } catch (err) {
-      if (err.name === 'AbortError') {
-        aborted = true;
-      } else {
-        await onEvent({ type: 'error', message: err.message || 'judge phase failed' });
-      }
-    }
-    if (aborted) {
-      const e = new Error('aborted');
-      e.name = 'AbortError';
-      throw e;
-    }
-  }
-
-  // 3. Finalize: aggregate from D1, write summary.
-  const finRes = await fetch(
-    `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/finalize`,
-    {
-      method: 'POST',
-      headers: { Authorization: `Basic ${btoa(`admin:${token}`)}` },
-      signal,
-    },
-  );
-  if (!finRes.ok) {
-    await onEvent({
-      type: 'error',
-      message: `Finalize failed: HTTP ${finRes.status}`,
-    });
-    return;
-  }
-  const final = await finRes.json();
-  await onEvent({
-    type: 'run-done',
-    evalRunId,
-    status: final.status || 'complete',
-    summary: final.summary || [],
-    totalInputTokens: final.totalInputTokens || 0,
-    totalOutputTokens: final.totalOutputTokens || 0,
-    judgeInputTokens: final.judgeInputTokens || 0,
-    judgeOutputTokens: final.judgeOutputTokens || 0,
-  });
-}
-
 async function renderEvaluationsList(root) {
   root.innerHTML = '<p class="admin-loading">Loading evaluations…</p>';
   let data;
+  let queueData = null;
   try {
-    data = await api('/api/admin/evaluations?limit=100&offset=0');
+    [data, queueData] = await Promise.all([
+      api('/api/admin/evaluations?limit=100&offset=0'),
+      api('/api/admin/eval-queue').catch(() => null),
+    ]);
   } catch (err) {
     root.innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
     return;
@@ -2289,6 +2087,15 @@ async function renderEvaluationsList(root) {
 
   const runs = data.runs || [];
   const total = data.total || 0;
+  const queueTotal = queueData?.total || 0;
+
+  const queueHtml = queueTotal > 0
+    ? `<span class="admin-stat"><span class="admin-stat-value">${queueTotal}</span><span class="admin-stat-label">queued</span></span>
+       <span class="admin-stat"><span class="admin-stat-value">${queueData.pendingGenerate || 0}</span><span class="admin-stat-label">gen</span></span>
+       <span class="admin-stat"><span class="admin-stat-value">${queueData.pendingJudge || 0}</span><span class="admin-stat-label">judge</span></span>
+       ${queueData.pendingRetries ? `<span class="admin-stat"><span class="admin-stat-value">${queueData.pendingRetries}</span><span class="admin-stat-label">retries</span></span>` : ''}
+       <button type="button" class="admin-btn admin-btn-ghost admin-btn-sm" data-role="purge-queue">Purge queue</button>`
+    : '<span class="admin-stat"><span class="admin-stat-value">0</span><span class="admin-stat-label">queued</span></span>';
 
   root.innerHTML = `
     <div class="admin-toolbar">
@@ -2305,6 +2112,7 @@ async function renderEvaluationsList(root) {
     </p>
     <div class="admin-stats">
       <span class="admin-stat"><span class="admin-stat-value">${total}</span><span class="admin-stat-label">runs</span></span>
+      ${queueHtml}
     </div>
     ${runs.length === 0
     ? '<p class="admin-empty">No evaluations yet. Click <strong>New evaluation</strong> to run one.</p>'
@@ -2314,8 +2122,11 @@ async function renderEvaluationsList(root) {
           <th>Queries</th><th>Quality</th><th>Cost est.</th><th>Created</th>
         </tr></thead>
         <tbody>${runs.map((r) => {
-    const status = r.status || 'running';
-    const tone = EVAL_STATUS_TONE[status] || 'muted';
+    const phase = r.phase || null;
+    const statusLabel = (phase === 'generating' || phase === 'judging')
+      ? `${phase} ${r.completed_queries || 0}/${r.query_count}`
+      : (r.status || 'running');
+    const tone = EVAL_STATUS_TONE[r.status || 'running'] || 'muted';
     let avgQuality = null;
     try {
       const summary = r.summary_json ? JSON.parse(r.summary_json) : null;
@@ -2331,7 +2142,7 @@ async function renderEvaluationsList(root) {
     return `<tr data-href="#/evaluations/${esc(r.id)}">
       <td>${esc(r.suite_name || r.suite_id)}</td>
       <td>${badge(`${r.model_count}`, 'accent')} <span class="admin-muted">· ${r.variant_count} runs</span></td>
-      <td>${badge(status, tone)}</td>
+      <td>${badge(statusLabel, tone)}</td>
       <td>${r.query_count}</td>
       <td>${avgQuality != null ? `<span class="admin-badge admin-badge-${QUALITY_TONE(avgQuality)}">${avgQuality.toFixed(2)}</span>` : '<span class="admin-muted">—</span>'}</td>
       <td class="admin-muted">${r.estimated_cost_usd != null ? `$${r.estimated_cost_usd.toFixed(2)}` : '—'}</td>
@@ -2345,9 +2156,61 @@ async function renderEvaluationsList(root) {
   root.querySelectorAll('tr[data-href]').forEach((tr) => {
     tr.addEventListener('click', () => { navigate(tr.dataset.href); });
   });
+
+  const purgeBtn = root.querySelector('[data-role="purge-queue"]');
+  if (purgeBtn) {
+    purgeBtn.addEventListener('click', async () => {
+      if (!window.confirm('Purge all pending queue messages? Active runs will be marked as errored.')) return;
+      purgeBtn.disabled = true;
+      purgeBtn.textContent = 'Purging…';
+      try {
+        await api('/api/admin/eval-queue/purge', { method: 'POST' });
+        await renderEvaluationsList(root);
+      } catch (err) {
+        purgeBtn.textContent = `Error: ${err.message}`;
+        purgeBtn.disabled = false;
+      }
+    });
+  }
 }
 
 const MAX_EVAL_MODELS = 8;
+
+const EVAL_MODEL_PRESETS = [
+  {
+    id: 'cerebras',
+    label: 'Cerebras only',
+    description: '3 Cerebras models — fast chip inference',
+    models: [
+      { key: 'cerebras::gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cerebras::llama3.1-8b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cerebras::qwen-3-235b-a22b-instruct-2507', temperature: 0.6, maxTokens: 5120 },
+    ],
+  },
+  {
+    id: 'gpt-oss',
+    label: 'GPT-OSS providers',
+    description: 'GPT-OSS 120B on every provider that carries it',
+    models: [
+      { key: 'cerebras::gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/openai/gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/nvidia/nemotron-3-120b-a12b', temperature: 0.6, maxTokens: 5120 },
+    ],
+  },
+  {
+    id: 'diverse',
+    label: 'Diverse mix',
+    description: '6 models across Cerebras, Cloudflare and Bedrock',
+    models: [
+      { key: 'cerebras::gpt-oss-120b', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/meta/llama-3.3-70b-instruct-fp8-fast', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::anthropic/claude-sonnet-4.6', temperature: 0.6, maxTokens: 5120 },
+      { key: 'cloudflare::@cf/moonshotai/kimi-k2.6', temperature: 0.6, maxTokens: 5120 },
+      { key: 'bedrock::deepseek.v3.2', temperature: 0.6, maxTokens: 5120 },
+      { key: 'bedrock::us.anthropic.claude-sonnet-4-20250514-v1:0', temperature: 0.6, maxTokens: 5120 },
+    ],
+  },
+];
 
 function renderEvalModelRow(catalog, preset = {}) {
   const selectedKey = preset.key || firstAvailableKey(catalog);
@@ -2445,6 +2308,10 @@ async function renderEvaluationCreateForm(root) {
 
         <h3>2. Models under test</h3>
         <p class="admin-muted">Up to ${MAX_EVAL_MODELS} models. Each runs against every query in the suite.</p>
+        <div class="admin-eval-presets">
+          <span class="admin-muted">Quick pick:</span>
+          ${EVAL_MODEL_PRESETS.map((p) => `<button type="button" class="admin-btn admin-btn-ghost admin-eval-preset-btn" data-preset="${esc(p.id)}" title="${esc(p.description)}">${esc(p.label)}</button>`).join('')}
+        </div>
         <div class="admin-experiment-variants" data-role="variants">
           ${renderEvalModelRow(catalog)}
         </div>
@@ -2499,7 +2366,6 @@ async function renderEvaluationCreateForm(root) {
   const form = root.querySelector('#admin-eval-form');
   const summaryEl = form.querySelector('[data-role="summary"]');
   const runBtn = form.querySelector('[data-role="run"]');
-  const cancelBtn = form.querySelector('[data-role="cancel"]');
   const variantsContainer = form.querySelector('[data-role="variants"]');
   const addBtn = form.querySelector('[data-role="add-variant"]');
   const suiteSelect = form.querySelector('select[name="suiteId"]');
@@ -2576,10 +2442,14 @@ async function renderEvaluationCreateForm(root) {
     refreshSummary();
   });
 
-  let abortController = null;
-
-  cancelBtn.addEventListener('click', () => {
-    if (abortController) abortController.abort();
+  form.querySelector('.admin-eval-presets').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-preset]');
+    if (!btn) return;
+    const preset = EVAL_MODEL_PRESETS.find((p) => p.id === btn.dataset.preset);
+    if (!preset) return;
+    const rows = preset.models.slice(0, MAX_EVAL_MODELS);
+    variantsContainer.innerHTML = rows.map((m) => renderEvalModelRow(catalog, m)).join('');
+    refreshSummary();
   });
 
   form.addEventListener('submit', async (e) => {
@@ -2594,7 +2464,6 @@ async function renderEvaluationCreateForm(root) {
     if (!models.length) { summaryEl.textContent = 'Select at least one model.'; return; }
 
     runBtn.disabled = true;
-    cancelBtn.hidden = false;
     progressCard.hidden = false;
     progressTable.hidden = true;
     progressTbody.innerHTML = '';
@@ -2602,27 +2471,19 @@ async function renderEvaluationCreateForm(root) {
     progressIds.textContent = '';
     progressAction.innerHTML = '';
 
-    abortController = new AbortController();
-
     try {
-      // streamEvalRun creates the eval_run row, then runs the worker pool.
-      // We intercept run-start to navigate to the live matrix immediately.
-      // All events are forwarded to evalBus so the matrix view can update
-      // cells in real-time without polling.
-      await streamEvalRun({
-        suiteId, models, judgeModel, queryConcurrency, skipJudge,
-      }, (evt) => {
-        if (evt.type === 'run-start' && evt.evalRunId) {
-          navigate(`#/evaluations/${evt.evalRunId}`);
-        }
-        evalBus.dispatchEvent(new CustomEvent('eval', { detail: evt }));
-      }, abortController.signal);
-    } catch (err) {
-      if (err.name !== 'AbortError') {
-        progressPhase.textContent = `Error: ${err.message}`;
-        runBtn.disabled = false;
-        cancelBtn.hidden = true;
+      const result = await api('/api/admin/evaluations/start', {
+        method: 'POST',
+        body: JSON.stringify({
+          suiteId, models, judgeModel, queryConcurrency, skipJudge,
+        }),
+      });
+      if (result.evalRunId) {
+        navigate(`#/evaluations/${result.evalRunId}`);
       }
+    } catch (err) {
+      progressPhase.textContent = `Error: ${err.message}`;
+      runBtn.disabled = false;
     }
   });
 
@@ -2649,6 +2510,11 @@ function categorizeError(message) {
 }
 
 async function renderEvaluation(root, evalRunId) {
+  // Clear any existing poll interval from a previous render
+  if (root.evalPollTimer) {
+    clearInterval(root.evalPollTimer);
+    root.evalPollTimer = null;
+  }
   root.innerHTML = '<p class="admin-loading">Loading evaluation…</p>';
   let data;
   try {
@@ -2702,7 +2568,17 @@ async function renderEvaluation(root, evalRunId) {
     return aIdx - bIdx;
   });
 
-  const renderQualityCell = (notes, score, tone, judgeError, status, genError) => {
+  // Mutable reference so refreshMatrix updates are reflected in cell rendering.
+  let currentRun = run;
+
+  const cellStatusLabel = (cellClass) => {
+    if (cellClass === 'running') return 'generating…';
+    if (cellClass === 'pending') return currentRun.phase === 'judging' ? 'judging…' : 'awaiting judge';
+    if (cellClass === 'notStarted') return 'not started';
+    return '…';
+  };
+
+  const renderQualityCell = (notes, score, tone, judgeError, status, genError, cellClass) => {
     if (score != null) {
       const dims = notes
         ? `<span class="admin-eval-cell-dims" title="structure / intent / faithfulness / helpfulness / brand voice / specificity / visual">${notes.structure?.score || '—'}·${notes.intent?.score || '—'}·${notes.faithfulness?.score || '—'}·${notes.helpfulness?.score || '—'}·${notes.brandVoice?.score || '—'}·${notes.specificity?.score || '—'}·${notes.visualAssetUsage?.score || '—'}</span>`
@@ -2718,7 +2594,7 @@ async function renderEvaluation(root, evalRunId) {
       const preview = (genError || '').substring(0, 40);
       return `<span class="admin-error-text" title="${esc(genError || 'generation failed')}">${esc(cat)}</span><span class="admin-eval-cell-error-detail" title="${esc(genError || '')}">${esc(preview)}</span>`;
     }
-    return '<span class="admin-muted">…</span>';
+    return `<span class="admin-muted">${cellStatusLabel(cellClass)}</span>`;
   };
 
   const renderBlockerRow = (notes) => {
@@ -2750,7 +2626,8 @@ async function renderEvaluation(root, evalRunId) {
   // stalled    — variant row exists with status='running' but the run is no longer active
   // notStarted — cell is null in a missing-query row (query never ran)
   // running    — generation actively in progress
-  const runIsActive = run.status === 'running';
+  const isRunActive = () => currentRun.status === 'running' || currentRun.status === 'skip_judge'
+    || currentRun.phase === 'generating' || currentRun.phase === 'judging';
   const classifyCell = (cell, isMissingRow) => {
     if (!cell) return isMissingRow ? 'notStarted' : 'empty';
     const notes = parseEvaluatorNotes(cell.evaluator_notes);
@@ -2758,7 +2635,7 @@ async function renderEvaluation(root, evalRunId) {
     if (cell.status === 'error') return 'genErr';
     if (cell.evaluator_score != null) return 'judged';
     if (cell.status === 'complete') return 'pending';
-    if (cell.status === 'running' && !runIsActive) return 'stalled';
+    if (cell.status === 'running' && !isRunActive()) return 'stalled';
     return 'running';
   };
 
@@ -2806,7 +2683,7 @@ async function renderEvaluation(root, evalRunId) {
         ${tps ? `<span class="admin-eval-cell-tps">${tps}/s</span>` : ''}
       </div>
       <div class="admin-eval-cell-row admin-eval-cell-quality">
-        ${renderQualityCell(notes, score, tone, judgeError, status, genError)}
+        ${renderQualityCell(notes, score, tone, judgeError, status, genError, cellClass)}
       </div>
       ${renderBlockerRow(notes)}
     </td>`;
@@ -2839,7 +2716,9 @@ async function renderEvaluation(root, evalRunId) {
     <div class="admin-toolbar">
       <h2 class="admin-page-title">${esc(run.suite_name || run.suite_id)}</h2>
       <div class="admin-badges">
-        ${badge(run.status || '—', EVAL_STATUS_TONE[run.status] || 'muted')}
+        ${badge(run.phase && (run.phase === 'generating' || run.phase === 'judging')
+    ? `${run.phase} ${run.completed_queries || 0}/${run.query_count}`
+    : (run.status || '—'), EVAL_STATUS_TONE[run.status] || 'muted')}
         ${badge(`${run.query_count} queries`, 'accent')}
         ${badge(`${run.model_count} models`, 'purple')}
         ${badge(run.judge_model || '—', 'warn')}
@@ -2915,7 +2794,7 @@ async function renderEvaluation(root, evalRunId) {
           <span class="admin-eval-count admin-eval-count-error"><strong>${failedCount}</strong> error${failedCount === 1 ? '' : 's'}</span>
         </div>
         <div class="admin-eval-toolbar-actions">
-          ${missingQueries.length > 0 ? `<button type="button" class="admin-btn admin-btn-primary" data-role="continue-generation">Continue generation (${missingQueries.length} queries)</button>` : ''}
+          ${missingQueries.length > 0 || counts.genErr > 0 ? `<button type="button" class="admin-btn admin-btn-primary" data-role="continue-generation">Resume (${missingQueries.length + counts.genErr} failed/missing)</button>` : ''}
           ${counts.pending > 0 ? `<button type="button" class="admin-btn${missingQueries.length === 0 ? ' admin-btn-primary' : ''}" data-role="run-judging">${counts.judged > 0 ? 'Continue judging' : 'Run judging'} (${counts.pending})</button>` : ''}
           ${failedCount > 0 ? `<button type="button" class="admin-btn" data-role="retry-failed">Retry failed cells (${failedCount})</button>` : ''}
           <button type="button" class="admin-btn admin-btn-ghost" data-role="rejudge-all">Re-judge all</button>
@@ -2974,9 +2853,8 @@ async function renderEvaluation(root, evalRunId) {
 
   const rejudgeOneCell = async (cellEl) => {
     const { variantId } = cellEl.dataset;
-    const original = cellEl.innerHTML;
     cellEl.classList.add('admin-eval-cell-busy');
-    cellEl.innerHTML = '<span class="admin-loading">Re-judging…</span>';
+    cellEl.innerHTML = '<span class="admin-loading">Queued for re-judge…</span>';
     try {
       const res = await fetch(
         `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/variants/${encodeURIComponent(variantId)}/rejudge`,
@@ -2985,35 +2863,9 @@ async function renderEvaluation(root, evalRunId) {
           headers: { Authorization: `Basic ${btoa(`admin:${getAdminToken()}`)}` },
         },
       );
-      if (res.ok) {
-        const result = await res.json().catch(() => ({}));
-        // The endpoint returns { ok: true, result } on success, or
-        // { ok: false, error } when the judge call ran but the model errored,
-        // or { error } when the request itself can't be served.
-        const errMsg = result?.ok === false ? result.error : (result?.error || null);
-        if (errMsg && /not found in KV/i.test(errMsg)) {
-          // KV payload missing — cannot re-judge. Offer to regenerate instead.
-          cellEl.innerHTML = original;
-          cellEl.classList.remove('admin-eval-cell-busy');
-          if (window.confirm(`Re-judge failed: ${errMsg}\n\nRegenerate this cell instead? This re-runs the full pipeline (upstream LLM + judge).`)) {
-            await regenerateOneCell(cellEl); // eslint-disable-line no-use-before-define
-          } else {
-            setToolbarStatus(`Re-judge failed: ${errMsg}`);
-          }
-          return;
-        }
-        if (errMsg) {
-          cellEl.innerHTML = original;
-          cellEl.classList.remove('admin-eval-cell-busy');
-          setToolbarStatus(`Re-judge failed: ${errMsg}`);
-          return;
-        }
-        await reload();
-        return;
-      }
-      throw new Error(`HTTP ${res.status}: ${await res.text().catch(() => '')}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text().catch(() => '')}`);
+      setToolbarStatus('Re-judge queued — polling for result…');
     } catch (err) {
-      cellEl.innerHTML = original;
       cellEl.classList.remove('admin-eval-cell-busy');
       setToolbarStatus(`Re-judge failed: ${err.message}`);
     }
@@ -3022,7 +2874,7 @@ async function renderEvaluation(root, evalRunId) {
   const regenerateOneCell = async (cellEl) => {
     const { variantId } = cellEl.dataset;
     cellEl.classList.add('admin-eval-cell-busy');
-    cellEl.innerHTML = '<span class="admin-loading">Regenerating…</span>';
+    cellEl.innerHTML = '<span class="admin-loading">Queued for regeneration…</span>';
     try {
       const res = await fetch(
         `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/variants/${encodeURIComponent(variantId)}/regenerate`,
@@ -3032,10 +2884,7 @@ async function renderEvaluation(root, evalRunId) {
         },
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text().catch(() => '')}`);
-      // Drain the NDJSON so the worker actually runs to completion. We don't
-      // need to render the events — we'll just reload the matrix at the end.
-      await consumeNdjson(res, () => {});
-      await reload();
+      setToolbarStatus('Regeneration queued — polling for result…');
     } catch (err) {
       cellEl.classList.remove('admin-eval-cell-busy');
       setToolbarStatus(`Regenerate failed: ${err.message}`);
@@ -3065,8 +2914,6 @@ async function renderEvaluation(root, evalRunId) {
       || root.querySelector('[data-role="rejudge-all"]');
     if (btn) btn.disabled = true;
     setToolbarStatus(`${label}…`);
-    let done = 0;
-    let errs = 0;
     try {
       const res = await fetch(
         `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/judge`,
@@ -3080,75 +2927,33 @@ async function renderEvaluation(root, evalRunId) {
         },
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text().catch(() => '')}`);
-      await consumeNdjson(res, async (evt) => {
-        if (evt.type === 'judge-done') {
-          done += 1;
-          setToolbarStatus(`${label}: ${done} done · ${errs} errors`);
-        } else if (evt.type === 'judge-error') {
-          errs += 1;
-          setToolbarStatus(`${label}: ${done} done · ${errs} errors`);
-        } else if (evt.type === 'judge-start') {
-          setToolbarStatus(`${label}: 0 / ${evt.count}`);
-        }
-      });
-      setToolbarStatus(`${label} complete — ${done} done, ${errs} errors`);
-      await reload();
+      const result = await res.json();
+      if (result.queued === 0) {
+        setToolbarStatus('No variants to judge');
+        if (btn) btn.disabled = false;
+      } else {
+        setToolbarStatus(`${label}: ${result.queued} cells queued — polling for progress…`);
+      }
     } catch (err) {
       setToolbarStatus(`${label} failed: ${err.message}`);
       if (btn) btn.disabled = false;
     }
   };
 
-  // ── Continue generation: run missing queries using the same worker pool ──
+  // ── Resume generation: re-publish failed/missing queries to the queue ──
   const continueGenBtn = root.querySelector('[data-role="continue-generation"]');
   if (continueGenBtn) {
     continueGenBtn.addEventListener('click', async () => {
-      const token = getAdminToken();
-      if (!token) { setToolbarStatus('Admin token required'); return; }
       continueGenBtn.disabled = true;
-      const total = missingQueries.length;
-      setToolbarStatus(`Generating 0 / ${total} queries…`);
-
-      let genAborted = false;
-      const genAbort = new AbortController();
-      const concurrency = Math.min(3, total);
-      let sharedIdx = 0;
-      const state = { done: 0, errs: 0 };
-      const onQueryEvent = (evt) => {
-        if (evt.type === 'query-done') {
-          state.done += 1;
-        } else if (evt.type === 'query-error') {
-          state.errs += 1;
-        } else {
-          return;
-        }
-        setToolbarStatus(`Generating ${state.done + state.errs} / ${total} queries… (${state.errs} errors)`);
-      };
-      const poolWorker = async () => {
-        // eslint-disable-next-line no-constant-condition
-        while (true) {
-          if (genAborted) return;
-          const i = sharedIdx;
-          sharedIdx += 1;
-          if (i >= total) return;
-          const q = missingQueries[i];
-          try {
-            // eslint-disable-next-line no-await-in-loop
-            await streamPerQuery(token, evalRunId, q.id, onQueryEvent, genAbort.signal, true);
-          } catch (err) {
-            if (err.name === 'AbortError') { genAborted = true; return; }
-            state.errs += 1;
-            setToolbarStatus(`Generating ${state.done + state.errs} / ${total} queries… (${state.errs} errors)`);
-          }
-        }
-      };
-
+      setToolbarStatus('Resuming…');
       try {
-        await Promise.all(Array.from({ length: concurrency }, () => poolWorker()));
-        setToolbarStatus(`Generation complete — ${state.done} done, ${state.errs} errors`);
-        await reload();
+        const result = await api(`/api/admin/evaluations/${evalRunId}/resume`, {
+          method: 'POST',
+        });
+        setToolbarStatus(`Resumed ${result.resumed} / ${result.total} queries — polling for progress…`);
+        setTimeout(() => reload(), 2000);
       } catch (err) {
-        setToolbarStatus(`Generation failed: ${err.message}`);
+        setToolbarStatus(`Resume failed: ${err.message}`);
       } finally {
         continueGenBtn.disabled = false;
       }
@@ -3194,18 +2999,13 @@ async function renderEvaluation(root, evalRunId) {
       retryFailedBtn.disabled = true;
       try {
         if (regenCells.length) {
-          // eslint-disable-next-line no-restricted-syntax
-          for (const td of regenCells) {
-            setToolbarStatus(`Regenerating ${td.dataset.variantId.substring(0, 8)}…`);
-            // eslint-disable-next-line no-await-in-loop
-            await regenerateOneCell(td);
-          }
+          await Promise.all(regenCells.map((td) => regenerateOneCell(td)));
         }
         if (judgeErrCount > 0) {
           await runBulkJudge('errors', 'Re-judging error cells');
-        } else {
-          await reload();
         }
+        const total = regenCells.length + judgeErrCount;
+        setToolbarStatus(`Retry: ${total} cells queued — polling for progress…`);
       } catch (err) {
         setToolbarStatus(`Retry failed: ${err.message}`);
       } finally {
@@ -3214,42 +3014,98 @@ async function renderEvaluation(root, evalRunId) {
     });
   }
 
-  // Live updates: subscribe to evalBus events from the running streamEvalRun.
-  // When a query completes (query-done), do a full re-render since a new row
-  // needs to be built. For individual variant updates we could do in-place DOM
-  // patches, but a full re-render on query-done is simple and fast enough
-  // (the matrix is small). Debounce so concurrent variant-done events don't
-  // trigger multiple re-renders.
-  let reloadScheduled = false;
-  const scheduleReload = () => {
-    if (reloadScheduled) return;
-    reloadScheduled = true;
-    setTimeout(() => {
-      reloadScheduled = false;
-      if (root.isConnected && root.querySelector('[data-role="eval-toolbar"]')) {
-        reload();
+  // Poll for progress — all operations are async via queues, so always poll
+  // unless the run is finalized with no pending work.
+  const phase = run.phase || null;
+  const isActivePhase = phase === 'generating' || phase === 'judging';
+  const hasIncompleteWork = isActivePhase || counts.running > 0 || counts.notStarted > 0
+    || counts.pending > 0;
+
+  if (hasIncompleteWork || phase !== 'complete') {
+    const refreshMatrix = async () => {
+      try {
+        const freshData = await api(`/api/admin/evaluations/${evalRunId}`);
+        const freshExperiments = freshData.experiments || [];
+        const freshVariants = freshData.variants || [];
+        const freshRun = freshData.run;
+        currentRun = freshRun;
+
+        // Rebuild matrix rows
+        const freshByExp = new Map();
+        freshVariants.forEach((v) => {
+          if (!freshByExp.has(v.experiment_id)) freshByExp.set(v.experiment_id, []);
+          freshByExp.get(v.experiment_id).push(v);
+        });
+        const freshMatrix = freshExperiments.map((exp) => {
+          const rows = freshByExp.get(exp.id) || [];
+          const fCells = models.map(
+            (m) => rows.find((v) => v.provider === m.provider && v.model === m.model) || null,
+          );
+          return { exp, cells: fCells };
+        });
+        const freshRanIds = new Set(freshExperiments.map((e) => e.eval_query_id));
+        const freshMissing = (suite?.queries || []).filter((q) => !freshRanIds.has(q.id));
+        freshMissing.forEach((q) => {
+          freshMatrix.push({
+            exp: {
+              id: null, eval_query_id: q.id, query: q.query, missing: true,
+            },
+            cells: models.map(() => null),
+          });
+        });
+        freshMatrix.sort((a, b) => {
+          const aIdx = suiteOrder.get(a.exp.eval_query_id) ?? 999;
+          const bIdx = suiteOrder.get(b.exp.eval_query_id) ?? 999;
+          return aIdx - bIdx;
+        });
+
+        // Patch the tbody
+        const tbody = root.querySelector('.admin-eval-matrix tbody');
+        if (tbody) {
+          tbody.innerHTML = freshMatrix.map(({ exp: e, cells: cs }) => `<tr>
+            <th class="admin-eval-query-cell">${queryLabel(e)}</th>
+            ${cs.map((c) => cellHtml(c, e)).join('')}
+          </tr>`).join('');
+        }
+
+        // Patch the status badge
+        const badgesEl = root.querySelector('.admin-badges');
+        if (badgesEl) {
+          const p = freshRun.phase || null;
+          const statusText = (p === 'generating' || p === 'judging')
+            ? `${p} ${freshRun.completed_queries || 0}/${freshRun.query_count}`
+            : (freshRun.status || '—');
+          const firstBadge = badgesEl.querySelector('.admin-badge');
+          if (firstBadge) firstBadge.textContent = statusText;
+        }
+
+        return freshRun;
+      } catch { return null; }
+    };
+
+    const poll = async () => {
+      if (!root.isConnected || !root.querySelector('[data-role="eval-toolbar"]')) {
+        clearInterval(root.evalPollTimer);
+        root.evalPollTimer = null;
+        return;
       }
-    }, 1500);
-  };
-
-  const onEvalEvent = (e) => {
-    const evt = e.detail;
-    if (!evt) return;
-    if (evt.type === 'query-done' || evt.type === 'query-error') {
-      scheduleReload();
-    } else if (evt.type === 'run-done') {
-      scheduleReload();
-      evalBus.removeEventListener('eval', onEvalEvent);
-    }
-  };
-
-  const hasIncompleteWork = missingQueries.length > 0 || counts.running > 0 || runIsActive;
-  if (hasIncompleteWork) {
-    evalBus.addEventListener('eval', onEvalEvent);
-    // Cleanup when navigating away.
+      try {
+        const freshRun = await refreshMatrix();
+        if (freshRun) {
+          const freshPhase = freshRun.phase || null;
+          if (freshPhase === 'complete' && !root.querySelector('.admin-eval-cell-busy')) {
+            clearInterval(root.evalPollTimer);
+            root.evalPollTimer = null;
+            reload();
+          }
+        }
+      } catch { /* ignore poll errors */ }
+    };
+    root.evalPollTimer = setInterval(poll, 3000);
     const observer = new MutationObserver(() => {
       if (!root.isConnected || !root.querySelector('[data-role="eval-toolbar"]')) {
-        evalBus.removeEventListener('eval', onEvalEvent);
+        clearInterval(root.evalPollTimer);
+        root.evalPollTimer = null;
         observer.disconnect();
       }
     });
