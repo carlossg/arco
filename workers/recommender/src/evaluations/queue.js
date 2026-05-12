@@ -63,6 +63,18 @@ async function publishJudgeMessages(env, evalRunId) {
 // ── Generate one query ───────────────────────────────────────────────────────
 
 async function handleGenerate(env, { evalRunId, queryId }) {
+  // Short-circuit when the run has already terminated (operator marked it
+  // error, or it completed). Lets pending queue messages drain without
+  // spinning up new generations against a dead run.
+  const { results: runRows } = await env.SESSIONS_DB.prepare(
+    'SELECT phase FROM eval_runs WHERE id = ?1',
+  ).bind(evalRunId).all();
+  const runPhase = runRows?.[0]?.phase;
+  if (!runPhase || (runPhase !== 'generating' && runPhase !== 'judging')) {
+    console.log(`[EvalQueue] skipping generate ${queryId} — run ${evalRunId} phase=${runPhase || 'missing'}`);
+    return;
+  }
+
   try {
     const result = await runOneQueryHeadless(env, evalRunId, queryId);
     if (!result.ok) {

@@ -412,7 +412,30 @@ async function runOneQuery({
 
   const intentType = ctx.intent?.type || null;
   const journeyStage = ctx.request?.inferredProfile?.journeyStage || null;
-  const experimentId = crypto.randomUUID();
+
+  // Idempotent retry: if a previous queue delivery for this (run, query) pair
+  // already created an experiment row, reuse it and reset its variants rather
+  // than minting a fresh experiment + 8 new variant rows on every retry.
+  // Without this, a retry storm produced experiment_count = 43 on a 15-query run.
+  let experimentId = null;
+  let existingVariantIds = null;
+  if (env.SESSIONS_DB) {
+    try {
+      const { results: prior } = await env.SESSIONS_DB.prepare(
+        'SELECT id FROM experiments WHERE eval_run_id = ?1 AND eval_query_id = ?2 LIMIT 1',
+      ).bind(evalRunId, queryDef.id).all();
+      if (prior?.[0]?.id) {
+        experimentId = prior[0].id;
+        const { results: vRows } = await env.SESSIONS_DB.prepare(
+          'SELECT id, provider, model FROM experiment_variants WHERE experiment_id = ?1',
+        ).bind(experimentId).all();
+        existingVariantIds = new Map((vRows || []).map((r) => [`${r.provider}|${r.model}`, r.id]));
+      }
+    } catch (dbErr) {
+      console.error('[Eval] experiment lookup failed:', dbErr.message);
+    }
+  }
+  if (!experimentId) experimentId = crypto.randomUUID();
 
   // Persist RAG context once per experiment so re-judge / re-generate can rebuild
   // the judge prompt without re-running the upstream pipeline (which costs Vectorize +
@@ -445,7 +468,9 @@ async function runOneQuery({
     sharedDurationMs,
   });
 
-  // Build variants for this query.
+  // Build variants for this query. Reuse existing variant IDs when this is a
+  // retry against an existing experiment, so the matrix view (and KV writes)
+  // continue to address the same rows.
   const variants = models.map((m, i) => {
     const resolved = resolveLlmConfig(
       {
@@ -453,8 +478,10 @@ async function runOneQuery({
       },
       flow.steps.find((s) => s.step === 'llm-generate')?.config || {},
     );
+    const reuseKey = `${resolved.provider}|${resolved.model}`;
+    const reuseId = existingVariantIds?.get(reuseKey);
     return {
-      id: crypto.randomUUID(),
+      id: reuseId || crypto.randomUUID(),
       experimentId,
       variantIndex: i,
       provider: resolved.provider,
@@ -474,24 +501,62 @@ async function runOneQuery({
   });
 
   // Persist experiment + variant rows up front so the matrix can render them
-  // even before generation completes.
+  // even before generation completes. On retry we reset the existing variant
+  // rows rather than inserting duplicates.
   if (env.SESSIONS_DB) {
-    try {
-      await insertExperimentRow(env.SESSIONS_DB, {
-        id: experimentId,
-        query,
-        variantCount: variants.length,
-        createdAt: Date.now(),
-        intentType,
-        journeyStage,
-        evalRunId,
-        evalQueryId: queryDef.id,
-      });
-      await Promise.all(variants.map((v) => insertVariantRow(env.SESSIONS_DB, v)));
-    } catch (dbErr) {
-      console.error('[Eval] pre-fanout D1 insert failed:', dbErr.message);
+    if (!existingVariantIds) {
+      try {
+        await insertExperimentRow(env.SESSIONS_DB, {
+          id: experimentId,
+          query,
+          variantCount: variants.length,
+          createdAt: Date.now(),
+          intentType,
+          journeyStage,
+          evalRunId,
+          evalQueryId: queryDef.id,
+        });
+        await Promise.all(variants.map((v) => insertVariantRow(env.SESSIONS_DB, v)));
+      } catch (dbErr) {
+        console.error('[Eval] pre-fanout D1 insert failed:', dbErr.message);
+      }
+    } else {
+      // Reset variants that already exist; insert any new ones (rare —
+      // happens only if models_json changed between retries).
+      try {
+        const ids = [...existingVariantIds.values()];
+        if (ids.length) {
+          const placeholders = ids.map((_, i) => `?${i + 1}`).join(',');
+          await env.SESSIONS_DB.prepare(`
+            UPDATE experiment_variants
+            SET status='running', error=null, evaluator_score=null, evaluator_notes=null,
+                duration_ms=null, time_to_first_token_ms=null,
+                input_tokens=null, output_tokens=null, title=null, block_count=null
+            WHERE id IN (${placeholders})
+          `).bind(...ids).run();
+        }
+        await Promise.all(variants
+          .filter((v) => !existingVariantIds.has(`${v.provider}|${v.model}`))
+          .map((v) => insertVariantRow(env.SESSIONS_DB, v)));
+      } catch (dbErr) {
+        console.error('[Eval] pre-fanout D1 reset failed:', dbErr.message);
+      }
     }
   }
+
+  // Per-variant timeout. A hung provider stream (no chunks, no error) used to
+  // hang Promise.all → wall-time exhaustion → variants left at status='running'.
+  // 4 min is well above the slowest happy-path (~90s) but bails before the
+  // worker dies, so we always reach the finalize step below.
+  const VARIANT_TIMEOUT_MS = 4 * 60 * 1000;
+  const withTimeout = (promise, ms, label) => Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(new Error(`${label} timeout after ${Math.round(ms / 1000)}s`));
+      }, ms);
+    }),
+  ]);
 
   // Fan out variants in parallel.
   await Promise.all(variants.map(async (v) => {
@@ -508,17 +573,21 @@ async function runOneQuery({
       maxTokens: v.maxTokens,
     });
     try {
-      const { title } = await runLlmVariant(ctx, env, {
-        variantId: v.id,
-        provider: v.provider,
-        model: v.model,
-        temperature: v.temperature,
-        maxTokens: v.maxTokens,
-        out: v.state,
-        timings: v.timings,
-        emitDebug: false,
-        emitDone: false,
-      });
+      const { title } = await withTimeout(
+        runLlmVariant(ctx, env, {
+          variantId: v.id,
+          provider: v.provider,
+          model: v.model,
+          temperature: v.temperature,
+          maxTokens: v.maxTokens,
+          out: v.state,
+          timings: v.timings,
+          emitDebug: false,
+          emitDone: false,
+        }),
+        VARIANT_TIMEOUT_MS,
+        `variant ${v.provider}/${v.model}`,
+      );
       if (!v.state.sections.length) {
         throw new Error('LLM returned no blocks');
       }
@@ -558,39 +627,43 @@ async function runOneQuery({
         variantId: v.id,
         message: v.error,
       });
+    } finally {
+      // Always finalize — covers happy-path completion, errors, and timeouts.
+      // Persisting inside the fan-out promise (not in a later Promise.all)
+      // means each variant reaches a terminal D1 state before its slot in
+      // Promise.all resolves, so the worker can't die mid-way and leave
+      // variants stuck at status='running'.
+      if (env.SESSION_STORE) {
+        try {
+          const payload = buildVariantPayload(ctx, v);
+          await env.SESSION_STORE.put(
+            KV_KEY(experimentId, v.id),
+            JSON.stringify(payload),
+            { expirationTtl: VARIANT_KV_TTL },
+          );
+        } catch (kvErr) {
+          console.error(`[Eval] variant KV write failed (${v.id}):`, kvErr.message);
+        }
+      }
+      if (env.SESSIONS_DB) {
+        try {
+          await finalizeVariantRow(env.SESSIONS_DB, {
+            id: v.id,
+            status: v.status,
+            durationMs: v.finishedAt && v.startedAt ? v.finishedAt - v.startedAt : null,
+            ttftMs: v.ttftMs ?? null,
+            inputTokens: v.state.usage?.prompt_tokens || null,
+            outputTokens: v.state.usage?.completion_tokens || null,
+            title: v.title,
+            blockCount: v.state.sections.length,
+            error: v.error,
+          });
+        } catch (dbErr) {
+          console.error(`[Eval] variant D1 finalize failed (${v.id}):`, dbErr.message);
+        }
+      }
     }
   }));
-
-  // Persist KV payloads + finalize variant rows.
-  if (env.SESSION_STORE && env.SESSIONS_DB) {
-    await Promise.all(variants.map(async (v) => {
-      try {
-        const payload = buildVariantPayload(ctx, v);
-        await env.SESSION_STORE.put(
-          KV_KEY(experimentId, v.id),
-          JSON.stringify(payload),
-          { expirationTtl: VARIANT_KV_TTL },
-        );
-      } catch (kvErr) {
-        console.error(`[Eval] variant KV write failed (${v.id}):`, kvErr.message);
-      }
-      try {
-        await finalizeVariantRow(env.SESSIONS_DB, {
-          id: v.id,
-          status: v.status,
-          durationMs: v.finishedAt && v.startedAt ? v.finishedAt - v.startedAt : null,
-          ttftMs: v.ttftMs ?? null,
-          inputTokens: v.state.usage?.prompt_tokens || null,
-          outputTokens: v.state.usage?.completion_tokens || null,
-          title: v.title,
-          blockCount: v.state.sections.length,
-          error: v.error,
-        });
-      } catch (dbErr) {
-        console.error(`[Eval] variant D1 finalize failed (${v.id}):`, dbErr.message);
-      }
-    }));
-  }
 
   // Deterministic assertions — run on every completed variant. Cheap, perfectly
   // reliable, no token cost. Catches structural defects the judge often misses
