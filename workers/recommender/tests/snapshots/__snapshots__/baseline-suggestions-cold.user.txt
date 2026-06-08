@@ -1,0 +1,4 @@
+<pageContext>{"url":"https://arco.coffee/","title":"Arco — Italian Precision Espresso"}</pageContext>
+<profile>{"journeyStage":"","intent":"","categories":[],"interests":[]}</profile>
+<recentlyViewed>[]</recentlyViewed>
+<exclude>[]</exclude>

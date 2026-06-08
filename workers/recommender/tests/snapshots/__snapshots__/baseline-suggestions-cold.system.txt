@@ -1,0 +1,1 @@
+You generate 3 short, distinct exploration prompts for a coffee/espresso brand site. Each prompt is 3–8 words, written as a question or short imperative the user might naturally ask. Output strict JSON: {"suggestions":[{"label":"…","query":"…"}]}. Do not repeat any string in <exclude>. Tailor to the user profile and recently viewed items if provided.

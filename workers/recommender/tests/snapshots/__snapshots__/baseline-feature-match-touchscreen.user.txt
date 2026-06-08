@@ -1,0 +1,21 @@
+Generate a personalized coffee equipment recommendation page: "do you have any machines with a touchscreen?"
+
+Start with a hero that acknowledges what they've been exploring. The hero MUST include an image — use {{product-image:ID}} of your primary recommended product, or {{hero-image:main}} if no single product fits. Then recommend your top pick, compare alternatives, and include relevant content.
+
+## Customer Profile (from browsing behavior)
+
+Use this profile to personalize your recommendation. Lead with products matching their price tier and use-case interests.
+
+## Feature Match — "touchscreen"
+Machines with this feature: Studio Pro ($3499), Automatico ($1899). Follow the "Feature-Specific Query / When 2–3 machines match" scenario. The comparison-table must include ONLY these machines — do NOT add a non-matching machine to pad the table.
+
+## Recommended Products (from RAG — highest relevance to this query)
+- Automatico (automatico) | $1899 | beginner, office, milk-drinks
+- Studio Pro (studio-pro) | $3499 | home-barista, espresso, upgrade
+
+## Intent Classification
+Detected intent: **espresso**
+
+Remember: output JSON blocks separated by ===. All product links must use the URL from the product data. End with information-gathering suggestions (type "explore" or "compare" only). Every block MUST have meaningful content. ONLY use product names, product IDs, and recipe names that appear in the data above — never invent or guess names.
+
+IMPORTANT: The FIRST suggestion must always be about espresso machines with milk frothing/steaming capabilities, e.g. {"type":"explore","label":"Best for milk drinks?","query":"which Arco machines have the best milk steaming and frothing"}. Place it as the first item in the suggestions array.

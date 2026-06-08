@@ -1,0 +1,16 @@
+{
+  "query": "tell me more about the doppio",
+  "intent": { "type": "product-detail" },
+  "behavior": { "coldStart": false, "viewedProducts": ["primo", "doppio"] },
+  "previousQueries": ["comparable espresso machines"],
+  "followUp": { "type": "pivot", "label": "Tell me more about Doppio", "product": "Doppio" },
+  "shownContent": {
+    "shownProducts": ["primo", "doppio"],
+    "shownSections": [{ "blockType": "hero" }, { "blockType": "comparison-table" }]
+  },
+  "contextData": {
+    "products": [
+      { "name": "Doppio", "id": "doppio", "price": 1599, "bestFor": ["home-barista", "milk-drinks", "espresso"] }
+    ]
+  }
+}

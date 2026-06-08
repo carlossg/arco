@@ -1,0 +1,477 @@
+description: "Arco recommender (in-repo) — multi-model benchmark"
+
+prompts:
+  - file://../../src/prompt-loader-node.js:renderForPromptfoo
+
+providers:
+  # ── Google Vertex AI — Gemini ────────────────────────────────────────────────
+  - id: vertex:gemini-2.5-flash-lite
+    label: gemini-2.5-flash-lite (production)
+    config:
+      max_tokens: 8192
+
+  - id: vertex:gemini-2.5-flash
+    label: gemini-2.5-flash
+    config:
+      max_tokens: 8192
+
+  - id: vertex:gemini-2.5-pro
+    label: gemini-2.5-pro
+    config:
+      max_tokens: 8192
+
+  - id: vertex:gemini-2.0-flash
+    label: gemini-2.0-flash
+    config:
+      max_tokens: 8192
+
+  - id: vertex:gemini-3-flash-preview
+    label: gemini-3-flash-preview
+    config:
+      max_tokens: 8192
+
+  - id: vertex:gemini-3.1-flash-lite-preview
+    label: gemini-3.1-flash-lite-preview
+    config:
+      max_tokens: 8192
+
+  - id: vertex:gemini-3.1-pro-preview
+    label: gemini-3.1-pro-preview
+    config:
+      max_tokens: 8192
+
+  # ── Google Vertex AI — Llama (Meta MaaS, serverless) ────────────────────────
+  - id: "openai:chat:meta/llama-4-maverick-17b-128e-instruct-maas"
+    label: vertex/llama-4-maverick
+    config:
+      apiBaseUrl: "https://us-east5-aiplatform.googleapis.com/v1beta1/projects/{{env.VERTEX_PROJECT_ID}}/locations/us-east5/endpoints/openapi"
+      apiKeyEnvar: GCLOUD_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:meta/llama-4-scout-17b-16e-instruct-maas"
+    label: vertex/llama-4-scout
+    config:
+      apiBaseUrl: "https://us-east5-aiplatform.googleapis.com/v1beta1/projects/{{env.VERTEX_PROJECT_ID}}/locations/us-east5/endpoints/openapi"
+      apiKeyEnvar: GCLOUD_TOKEN
+      max_tokens: 8192
+
+  - id: vertex:llama-3.3-70b-instruct-maas
+    label: vertex/llama-3.3-70b
+    config:
+      max_tokens: 8192
+
+  # ── Google Vertex AI — Gemma ─────────────────────────────────────────────────
+  - id: vertex:gemma-3-27b-it
+    label: vertex/gemma-3-27b
+    config:
+      max_tokens: 8192
+
+  - id: vertex:gemma-3-12b-it
+    label: vertex/gemma-3-12b
+    config:
+      max_tokens: 8192
+
+  # ── Google Vertex AI — Mistral ───────────────────────────────────────────────
+  - id: vertex:mistral-medium-3
+    label: vertex/mistral-medium-3
+    config:
+      max_tokens: 8192
+
+  - id: vertex:mistral-small-2503
+    label: vertex/mistral-small-3.1
+    config:
+      max_tokens: 8192
+
+  # ── Cerebras (OpenAI-compatible, ~900 tok/s) ─────────────────────────────────
+  - id: openai:chat:qwen-3-235b-a22b-instruct-2507
+    label: cerebras/qwen-3-235b
+    config:
+      apiBaseUrl: https://api.cerebras.ai/v1
+      apiKeyEnvar: CEREBRAS_API_KEY
+      max_tokens: 8192
+
+  - id: openai:chat:llama3.1-8b
+    label: cerebras/llama-3.1-8b
+    config:
+      apiBaseUrl: https://api.cerebras.ai/v1
+      apiKeyEnvar: CEREBRAS_API_KEY
+      max_tokens: 8192
+
+  - id: openai:chat:gpt-oss-120b
+    label: cerebras/gpt-oss-120b
+    config:
+      apiBaseUrl: https://api.cerebras.ai/v1
+      apiKeyEnvar: CEREBRAS_API_KEY
+      max_tokens: 8192
+
+  - id: openai:chat:zai-glm-4.7
+    label: cerebras/glm-4.7
+    config:
+      apiBaseUrl: https://api.cerebras.ai/v1
+      apiKeyEnvar: CEREBRAS_API_KEY
+      max_tokens: 8192
+
+  # ── Cloudflare Workers AI (OpenAI-compatible, edge inference) ────────────────
+  - id: "openai:chat:@cf/meta/llama-4-scout-17b-16e-instruct"
+    label: cloudflare/llama-4-scout-17b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+    label: cloudflare/llama-3.3-70b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/mistralai/mistral-small-3.1-24b-instruct"
+    label: cloudflare/mistral-small-3.1
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/qwen/qwq-32b"
+    label: cloudflare/qwq-32b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/google/gemma-3-12b-it"
+    label: cloudflare/gemma-3-12b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/google/gemma-4-26b-a4b-it"
+    label: cloudflare/gemma-4-26b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/moonshotai/kimi-k2.6"
+    label: cloudflare/kimi-k2.6
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/nvidia/nemotron-3-120b-a12b"
+    label: cloudflare/nemotron-3-super-120b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/openai/gpt-oss-120b"
+    label: cloudflare/gpt-oss-120b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/openai/gpt-oss-20b"
+    label: cloudflare/gpt-oss-20b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/qwen/qwen3-30b-a3b-fp8"
+    label: cloudflare/qwen3-30b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  - id: "openai:chat:@cf/aisingapore/gemma-sea-lion-v4-27b-it"
+    label: cloudflare/sea-lion-v4-27b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 8192
+
+  # ── Kubernetes — Self-hosted (vLLM, OpenAI-compatible) ──────────────────────
+  # Requires: kubectl port-forward -n gemma-system svc/gemma-4-e4b-server 8000:8000
+  - id: "openai:chat:gemma-4-e4b-it"
+    label: "k8s/gemma-4-e4b-it (nvidia-l4)"
+    config:
+      apiBaseUrl: "http://localhost:8000/v1"
+      apiKey: "none"
+      max_tokens: 8192
+
+  # ── AWS Bedrock — Anthropic ───────────────────────────────────────────────────
+  - id: bedrock:us.anthropic.claude-opus-4-20250514-v1:0
+    label: bedrock/claude-opus-4
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:us.anthropic.claude-sonnet-4-20250514-v1:0
+    label: bedrock/claude-sonnet-4
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:us.anthropic.claude-haiku-4-5-20251001-v1:0
+    label: bedrock/claude-haiku-4.5
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:us.anthropic.claude-3-5-haiku-20241022-v1:0
+    label: bedrock/claude-3-5-haiku
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  # ── AWS Bedrock — Amazon Nova ─────────────────────────────────────────────────
+  - id: bedrock:amazon.nova-micro-v1:0
+    label: bedrock/nova-micro
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:amazon.nova-lite-v1:0
+    label: bedrock/nova-lite
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:amazon.nova-pro-v1:0
+    label: bedrock/nova-pro
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  # ── AWS Bedrock — Meta Llama ──────────────────────────────────────────────────
+  - id: bedrock:us.meta.llama4-maverick-17b-instruct-v1:0
+    label: bedrock/llama-4-maverick
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:us.meta.llama4-scout-17b-instruct-v1:0
+    label: bedrock/llama-4-scout
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:us.meta.llama3-3-70b-instruct-v1:0
+    label: bedrock/llama-3.3-70b
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  # ── AWS Bedrock — Mistral ─────────────────────────────────────────────────────
+  - id: bedrock:mistral.mistral-large-3-675b-instruct
+    label: bedrock/mistral-large-3
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:mistral.ministral-3-8b-instruct
+    label: bedrock/ministral-8b
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  # ── AWS Bedrock — DeepSeek ────────────────────────────────────────────────────
+  - id: bedrock:deepseek.v3.2
+    label: bedrock/deepseek-v3.2
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  # ── AWS Bedrock — Qwen ────────────────────────────────────────────────────────
+  - id: bedrock:qwen.qwen3-32b-v1:0
+    label: bedrock/qwen3-32b
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  # ── AWS Bedrock — fast/small models ──────────────────────────────────────────
+  - id: bedrock:mistral.ministral-3-3b-instruct
+    label: bedrock/ministral-3b
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  # ── AWS Bedrock — NVIDIA Nemotron ─────────────────────────────────────────────
+  - id: bedrock:converse:nvidia.nemotron-nano-9b-v2
+    label: bedrock/nemotron-nano-9b-v2
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:converse:nvidia.nemotron-nano-12b-v2
+    label: bedrock/nemotron-nano-12b-v2
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:converse:nvidia.nemotron-nano-3-30b
+    label: bedrock/nemotron-nano-30b
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+  - id: bedrock:converse:nvidia.nemotron-super-3-120b
+    label: bedrock/nemotron-super-120b
+    config:
+      region: us-east-1
+      max_tokens: 8192
+
+defaultTest:
+  options:
+    # Strip <think>...</think> wrappers and code fences before assertions evaluate.
+    transform: '(output=>{const s=typeof output==="string"?output:output?.content??JSON.stringify(output);return s.replace(/<think>[\s\S]*?<\/think>/g,"").replace(/^```(?:json)?\s*/m,"").replace(/\s*```\s*$/m,"").trim()})(output)'
+  assert:
+    # Tier 1 — Structural integrity (weight 3): page is fundamentally renderable
+    - type: javascript
+      description: "output has at least 2 === separators (3+ blocks)"
+      value: '(output.match(/===/g) || []).length >= 2'
+      weight: 3
+
+    - type: javascript
+      description: "first block is a hero"
+      value: '(() => { try { return JSON.parse(output.split("===")[0].trim()).block === "hero"; } catch(e) { return false; } })()'
+      weight: 3
+
+    - type: javascript
+      description: "hero block contains an image token"
+      value: '(() => { const first = output.split("===")[0]; return first.includes("product-image:") || first.includes("hero-image:"); })()'
+      weight: 3
+
+    - type: javascript
+      description: "suggestions present at the end"
+      value: 'output.includes("\"suggestions\"")'
+      weight: 3
+
+    # Tier 2 — Rule compliance (weight 2): model follows prompt instructions
+    - type: javascript
+      description: "no forbidden buy suggestion type"
+      value: '!/"type"\s*:\s*"buy"/.test(output)'
+      weight: 2
+
+    - type: javascript
+      description: "suggestion types are only explore or compare"
+      value: '(() => { const sugg = output.match(/"suggestions"\s*:\s*(\[[\s\S]*?\])/); if (!sugg) return true; const types = (sugg[1].match(/"type"\s*:\s*"([^"]+)"/g) || []).map(t => t.match(/"type"\s*:\s*"([^"]+)"/)[1]); return types.every(t => t === "explore" || t === "compare"); })()'
+      weight: 2
+
+    - type: javascript
+      description: "all product hrefs use real catalog paths (no invented URLs)"
+      value: '(() => { const hrefs = (output.match(/"href"\s*:\s*"([^"]+)"/g) || []).map(h => h.match(/"href"\s*:\s*"([^"]+)"/)[1]); return hrefs.every(h => h.startsWith("/products/") || h.startsWith("/experiences/") || h.startsWith("/stories/")); })()'
+      weight: 2
+
+    # Tier 3 — Visual variety (weight 1)
+    - type: javascript
+      description: "at least 2 different block types used"
+      value: '(() => { try { const blocks = output.split("===").slice(0,-1).map(s => JSON.parse(s.trim()).block); return new Set(blocks).size >= 2; } catch(e) { return false; } })()'
+      weight: 1
+
+tests:
+  - description: "cold-start: new visitor, no history"
+    threshold: 0.7
+    vars:
+      query: "show me all your espresso machines"
+      intent: { type: product-discovery }
+      behavior: { coldStart: true }
+      rag: {}
+      followUp: null
+    assert:
+      - type: javascript
+        description: "cold start uses hero-image:main"
+        value: "output.split('===')[0].includes('hero-image:main')"
+        weight: 2
+
+  - description: "beginner: switching from Nespresso"
+    threshold: 0.7
+    vars:
+      query: "switching from Nespresso, what Arco machine should I get?"
+      intent: { type: beginner }
+      behavior: { coldStart: true }
+      rag:
+        products:
+          - { name: Primo, id: primo, price: 899, bestFor: [home-barista, beginner, espresso] }
+          - { name: Nano, id: nano, price: 649, bestFor: [beginner, travel, espresso] }
+          - { name: Automatico, id: automatico, price: 1899, bestFor: [beginner, office, milk-drinks] }
+    assert:
+      - type: javascript
+        description: "recommends a beginner-friendly machine"
+        value: "/(primo|nano|automatico)/i.test(output)"
+        weight: 2
+
+  - description: "comparison: primo vs doppio"
+    threshold: 0.7
+    vars:
+      query: "primo vs doppio which is better for a home barista?"
+      intent: { type: comparison }
+      behavior: { coldStart: true }
+      rag:
+        products:
+          - { name: Primo, id: primo, price: 899, bestFor: [home-barista, espresso, beginner] }
+          - { name: Doppio, id: doppio, price: 1599, bestFor: [home-barista, milk-drinks, espresso] }
+    assert:
+      - type: javascript
+        description: "comparison-table block present"
+        value: 'output.includes("\"block\":\"comparison-table\"") || output.includes("\"block\": \"comparison-table\"")'
+        weight: 3
+      - type: javascript
+        description: "mentions both primo and doppio"
+        value: "/primo/i.test(output) && /doppio/i.test(output)"
+        weight: 2
+
+  - description: "feature-match: touchscreen"
+    threshold: 0.7
+    vars:
+      query: "do you have any machines with a touchscreen?"
+      intent: { type: espresso }
+      behavior: { coldStart: false, viewedProducts: [] }
+      rag:
+        products:
+          - { name: Automatico, id: automatico, price: 1899, bestFor: [beginner, office, milk-drinks] }
+          - { name: Studio Pro, id: studio-pro, price: 3499, bestFor: [home-barista, espresso, upgrade] }
+    assert:
+      - type: javascript
+        description: "leads with a touchscreen machine"
+        value: "/(automatico|studio.?pro)/i.test(output.split('===')[0])"
+        weight: 2
+
+  - description: "follow-up: cheaper alternative"
+    threshold: 0.7
+    vars:
+      query: "anything cheaper than the doppio?"
+      intent: { type: budget }
+      behavior: { coldStart: false, priceTier: mid, viewedProducts: [doppio] }
+      followUp: { type: cheaper_alternative, label: "Show me cheaper options", product: Doppio }
+      rag:
+        products:
+          - { name: Primo, id: primo, price: 899, bestFor: [home-barista, beginner, espresso] }
+          - { name: Nano, id: nano, price: 649, bestFor: [beginner, travel, espresso] }
+    assert:
+      - type: javascript
+        description: "recommends a cheaper machine (primo or nano)"
+        value: "/(primo|nano)/i.test(output)"
+        weight: 2
+
+  - description: "follow-up: pivot to doppio"
+    threshold: 0.7
+    vars:
+      query: "tell me more about the doppio"
+      intent: { type: product-detail }
+      behavior: { coldStart: false, viewedProducts: [primo, doppio] }
+      followUp: { type: pivot, label: "Tell me more about Doppio", product: Doppio }
+      rag:
+        products:
+          - { name: Doppio, id: doppio, price: 1599, bestFor: [home-barista, milk-drinks, espresso] }
+    assert:
+      - type: javascript
+        description: "focuses on doppio"
+        value: "/doppio/i.test(output)"
+        weight: 2

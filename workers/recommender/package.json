@@ -3,19 +3,29 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "deploy:branch": "./deploy-branch.sh",
+    "precompile-prompts": "node tools/precompile-prompts.js",
+    "dev": "node tools/precompile-prompts.js && wrangler dev",
+    "deploy": "node tools/precompile-prompts.js && wrangler deploy",
+    "deploy:branch": "node tools/precompile-prompts.js && ./deploy-branch.sh",
     "cleanup:branch": "./cleanup-branch.sh",
     "list:branch:live": "node scripts/list-cf-workers.js",
     "cleanup:merged": "node scripts/cleanup-merged-branches.js",
     "index-content": "node scripts/index-content.js",
-    "upload-kv": "node scripts/upload-kv.js"
+    "upload-kv": "node scripts/upload-kv.js",
+    "test": "node tools/precompile-prompts.js && node --loader ./tools/json-loader.js --test 'tests/snapshots/*.test.js'",
+    "test:capture": "node --loader ./tools/json-loader.js tools/capture-baseline.js",
+    "bench:recommender": "promptfoo eval -c tests/promptfoo/recommender-bench.yaml --max-concurrency 5",
+    "bench:suggestions": "promptfoo eval -c tests/promptfoo/suggestions-bench.yaml --max-concurrency 5",
+    "bench:smoke": "promptfoo eval -c tests/promptfoo/recommender-bench.yaml --filter-pattern 'cold-start' --max-concurrency 3 --no-cache",
+    "bench:view": "promptfoo view"
   },
   "dependencies": {
-    "@cerebras/cerebras_cloud_sdk": "^1.0.0"
+    "@cerebras/cerebras_cloud_sdk": "^1.0.0",
+    "nunjucks": "^3.2.4",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
+    "promptfoo": "^0.121.12",
     "wrangler": "^4.83.0"
   }
 }

@@ -1,0 +1,9 @@
+{
+  "query": "show me all your espresso machines",
+  "intent": { "type": "product-discovery" },
+  "behavior": { "coldStart": true },
+  "previousQueries": [],
+  "followUp": null,
+  "shownContent": {},
+  "contextData": {}
+}

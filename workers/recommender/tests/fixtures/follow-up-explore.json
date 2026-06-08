@@ -1,0 +1,17 @@
+{
+  "query": "best for milk drinks?",
+  "intent": { "type": "use-case" },
+  "behavior": { "coldStart": false, "viewedProducts": ["primo"] },
+  "previousQueries": ["what arco machine should I get"],
+  "followUp": { "type": "explore", "label": "Best for milk drinks?" },
+  "shownContent": {
+    "shownProducts": ["primo"],
+    "shownSections": [{ "blockType": "hero" }, { "blockType": "comparison-table" }, { "blockType": "columns" }]
+  },
+  "contextData": {
+    "products": [
+      { "name": "Doppio", "id": "doppio", "price": 1599, "bestFor": ["home-barista", "milk-drinks"] },
+      { "name": "Automatico", "id": "automatico", "price": 1899, "bestFor": ["beginner", "office", "milk-drinks"] }
+    ]
+  }
+}

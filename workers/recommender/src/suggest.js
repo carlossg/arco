@@ -10,6 +10,7 @@
 import { CORS_HEADERS } from './pipeline/context.js';
 import { getProvider, catalogAvailability, MODEL_CATALOG } from './providers/index.js';
 import { writeEvent } from './analytics.js';
+import { renderPrompt } from './prompt-loader.js';
 
 const DEFAULT_PROVIDER = 'cerebras';
 const DEFAULT_MODEL = 'llama3.1-8b';
@@ -18,14 +19,6 @@ const FALLBACK_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 const CACHE_TTL_SECONDS = 300; // 5 min
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 30; // per-IP per minute (loose; calls are cheap)
-
-const SYSTEM_PROMPT = (count) => (
-  `You generate ${count} short, distinct exploration prompts for a coffee/espresso brand site. `
-  + 'Each prompt is 3–8 words, written as a question or short imperative the user might naturally ask. '
-  + 'Output strict JSON: {"suggestions":[{"label":"…","query":"…"}]}. '
-  + 'Do not repeat any string in <exclude>. '
-  + 'Tailor to the user profile and recently viewed items if provided.'
-);
 
 function jsonResponse(obj, status = 200) {
   return new Response(JSON.stringify(obj), {
@@ -60,23 +53,6 @@ async function buildCacheKey(body) {
     count: body.count,
   });
   return `suggest:v1:${await sha256Hex(sig)}`;
-}
-
-/**
- * Compact user-prompt builder — keeps prompt small + cache stable.
- */
-function buildUserPrompt(body) {
-  const profile = body?.context?.inferredProfile || {};
-  const recentlyViewed = (profile.productsViewed || []).slice(-5);
-  const interests = (profile.interests || []).slice(0, 5);
-  const categories = (profile.categoriesViewed || []).slice(0, 5);
-  const exclude = body.excludeQueries || [];
-  return [
-    `<pageContext>{"url":${JSON.stringify(body.pageUrl || '')},"title":${JSON.stringify(body.pageTitle || '')}}</pageContext>`,
-    `<profile>{"journeyStage":${JSON.stringify(profile.journeyStage || '')},"intent":${JSON.stringify(profile.inferredIntent || '')},"categories":${JSON.stringify(categories)},"interests":${JSON.stringify(interests)}}</profile>`,
-    `<recentlyViewed>${JSON.stringify(recentlyViewed)}</recentlyViewed>`,
-    `<exclude>${JSON.stringify(exclude)}</exclude>`,
-  ].join('\n');
 }
 
 /**
@@ -240,14 +216,29 @@ export default async function handleSuggestRequest(request, env) {
   let usage = null;
   try {
     const provider = getProvider(resolved.provider);
+    const profile = body?.context?.inferredProfile || {};
+    const { system, user } = renderPrompt('suggestions', {
+      count,
+      pageUrl: body.pageUrl || '',
+      pageTitle: body.pageTitle || '',
+      userProfile: {
+        journeyStage: profile.journeyStage,
+        inferredIntent: profile.inferredIntent,
+        categories: (profile.categoriesViewed || []).slice(0, 5),
+        interests: (profile.interests || []).slice(0, 5),
+      },
+      recentlyViewed: (profile.productsViewed || []).slice(-5),
+      excludeQueries: body.excludeQueries || [],
+    });
+
     const result = await collectStream(provider, {
       env,
       model: resolved.model,
       temperature: 0.7,
       maxTokens: 256,
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT(count) },
-        { role: 'user', content: buildUserPrompt(body) },
+        { role: 'system', content: system },
+        { role: 'user', content: user },
       ],
     });
     usage = result.usage;

@@ -1,10 +1,4 @@
-/**
- * EDS Block Guide — shared block schema reference for LLM prompts.
- * Adapted for the Arco coffee equipment domain.
- */
-
-const EDS_BLOCK_GUIDE = `
-## MANDATORY: Structured JSON Block Output
+{% raw %}## MANDATORY: Structured JSON Block Output
 
 You output structured JSON blocks that represent an Adobe Edge Delivery Services (EDS) page. Each block is a JSON object describing a visual section. The system converts your JSON into the exact HTML that EDS expects.
 
@@ -398,6 +392,4 @@ Suggestion types: "explore", "compare" — NOTHING ELSE.
 - Tailor to what you DON'T yet know about the user
 
 FINAL CHECK: Before outputting, verify every section has a "block" field from the allowed list (hero, text, cards, columns, accordion, table, comparison-table, product-list, testimonials, quote, experience-cta, blog-card, article-excerpt, recipe-steps), every section is valid JSON, and sections are separated by ===. Also verify: (1) no invented bundles or packages appear anywhere, and (2) any list of products that fit the user's needs is rendered in a product-list or cards block, not as plain text.
-`;
-
-export default EDS_BLOCK_GUIDE;
+{% endraw %}

@@ -1,0 +1,35 @@
+Generate a personalized coffee equipment recommendation page: "I'm an experienced barista who dials in single origin, what should I get?"
+
+Start with a hero that acknowledges what they've been exploring. The hero MUST include an image — use {{product-image:ID}} of your primary recommended product, or {{hero-image:main}} if no single product fits. Then recommend your top pick, compare alternatives, and include relevant content.
+
+## Customer Profile (from browsing behavior)
+- Budget range: $2299–$3499 (from viewed products)
+- Price sensitivity: premium tier
+- Skill level: experienced
+- Viewed products: studio, studio-pro
+- Interested in: espresso, precision
+
+Use this profile to personalize your recommendation. Lead with products matching their price tier and use-case interests.
+
+**Price guidance:** Focus your primary recommendation and comparison-table on products within the $2299–$3499 range. You may include one stretch option outside this range if it's a compelling upgrade, but do not lead with it.
+
+Previous queries (avoid repeating): what grinders do you have
+
+Products already shown to the user (do NOT repeat as primary recommendation): Studio ($2299, prosumer, Dual boiler — plumb-in capable, flow control); Studio Pro ($3499, commercial, Triple boiler — touchscreen, plumb-in capable, flow control, pressure profiling)
+
+Block types already on the page (vary your approach, use different blocks): hero, comparison-table
+
+## Recommended Products (from RAG — highest relevance to this query)
+- Studio Pro (studio-pro) | $3499 | home-barista, espresso, upgrade
+- Studio (studio) | $2299 | home-barista, espresso, upgrade
+- Macinino Pro (macinino-pro) | $799 | espresso, home-barista, precision
+
+## Key Features
+- Flow Control: Manual control over extraction pressure mid-shot
+
+## Intent Classification
+Detected intent: **espresso** | Journey stage: deciding
+
+Remember: output JSON blocks separated by ===. All product links must use the URL from the product data. End with information-gathering suggestions (type "explore" or "compare" only). Every block MUST have meaningful content. ONLY use product names, product IDs, and recipe names that appear in the data above — never invent or guess names.
+
+IMPORTANT: The FIRST suggestion must always be about espresso machines with milk frothing/steaming capabilities, e.g. {"type":"explore","label":"Best for milk drinks?","query":"which Arco machines have the best milk steaming and frothing"}. Place it as the first item in the suggestions array.

@@ -1,0 +1,17 @@
+{
+  "query": "anything cheaper than the doppio?",
+  "intent": { "type": "budget" },
+  "behavior": { "coldStart": false, "priceTier": "mid", "viewedProducts": ["doppio"] },
+  "previousQueries": ["best espresso machine for home"],
+  "followUp": { "type": "cheaper_alternative", "label": "Show me cheaper options", "product": "Doppio" },
+  "shownContent": {
+    "shownProducts": ["doppio"],
+    "shownSections": [{ "blockType": "hero" }, { "blockType": "columns" }, { "blockType": "comparison-table" }]
+  },
+  "contextData": {
+    "products": [
+      { "name": "Primo", "id": "primo", "price": 899, "bestFor": ["home-barista", "beginner", "espresso"] },
+      { "name": "Nano", "id": "nano", "price": 649, "bestFor": ["beginner", "travel", "espresso"] }
+    ]
+  }
+}
