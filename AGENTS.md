@@ -204,15 +204,18 @@ Key files for caching: `scripts/scripts.js` (deterministic `generateSlug`, `cach
 
 ### LLM Providers & Model Switching
 
-The recommender's one LLM call (`llm-generate` step) is vendor-agnostic. Three providers ship today:
+The recommender's one LLM call (`llm-generate` step) is vendor-agnostic. Six providers ship today:
 
-| Provider | Binding / Secret | Access |
-|----------|------------------|--------|
-| `cerebras`   | `CEREBRAS_API_KEY` secret   | `@cerebras/cerebras_cloud_sdk` |
-| `cloudflare` | `AI` binding (Workers AI)   | `env.AI.run(model, { messages, stream: true, ... })` |
-| `sambanova`  | `SAMBANOVA_API_KEY` secret  | OpenAI-compatible REST to `api.sambanova.ai` |
+| Provider | Binding / Secret | Access | Where it runs |
+|----------|------------------|--------|---------------|
+| `cerebras`   | `CEREBRAS_API_KEY` secret   | `@cerebras/cerebras_cloud_sdk` | prod + local |
+| `cloudflare` | `AI` binding **or** `CF_ACCOUNT_ID`+`CLOUDFLARE_API_TOKEN` (REST) | Workers AI binding, or REST `api.cloudflare.com/.../ai/run` | prod + local |
+| `sambanova`  | `SAMBANOVA_API_KEY` secret  | OpenAI-compatible REST to `api.sambanova.ai` | prod + local |
+| `bedrock`    | `AWS_BEARER_TOKEN_BEDROCK` secret | AWS Bedrock `converse-stream` | prod + local |
+| `ollama`     | `OLLAMA_BASE_URL` var       | native `/api/chat` streaming | **local dev only** (see below) |
+| `vllm`       | `VLLM_BASE_URL` var         | OpenAI-compatible `/v1/chat/completions` | **local dev only** (see below) |
 
-Each implements the same async-iterable contract in `workers/recommender/src/providers/*.js` — yielding `{ type: 'delta', text }` chunks and a terminal `{ type: 'usage', usage }` frame. The selectable `{provider, model}` pairs are a hardcoded catalog in `workers/recommender/src/providers/index.js` (`MODEL_CATALOG`). Add a model by adding a row and redeploying.
+Each implements the same async-iterable contract in `workers/recommender/src/providers/*.js` — yielding `{ type: 'delta', text }` chunks and a terminal `{ type: 'usage', usage }` frame. The selectable `{provider, model}` pairs are a hardcoded catalog in `workers/recommender/src/providers/index.js` (`MODEL_CATALOG`); `ollama`/`vllm` additionally synthesize a catalog entry for *any* served model name, so you don't edit the catalog per model. Add a cloud model by adding a row and redeploying.
 
 **Active selection** is stored in the `CACHE` KV under `llm-config:active` (`{provider, model, temperature, maxTokens, updatedAt}`). Read via `getActiveLlmConfig(env)` from `workers/recommender/src/llm-config.js`; KV wins over the per-flow defaults in `flows.js`. If the stored entry drops out of the catalog, the worker warns and falls back to the catalog default.
 
@@ -221,9 +224,49 @@ Each implements the same async-iterable contract in `workers/recommender/src/pro
 Admin API:
 - `GET /api/admin/catalog` → `{ catalog: [{ provider, model, label, available }], limits }`
 - `GET /api/admin/llm-config` → `{ active: {provider, model, temperature, maxTokens, updatedAt} | null }`
-- `PUT /api/admin/llm-config` → validates against the catalog and clamps `temperature` to `[0, 2]`, `maxTokens` to `[256, 16384]`.
+- `PUT /api/admin/llm-config` → validates against the catalog and clamps `temperature` to `[0, 2]`, `maxTokens` to `[256, 16384]`. Also accepts `thinking` (tri-state: `true` = force reasoning on, `false` = off, `null`/omitted = model default) — see the reasoning toggle below.
 
 There is **no** automatic provider fallback — errors from the selected vendor surface as usual (401 → "AI authentication failed", 429 → "rate limit reached", 5xx → "temporarily overloaded"). This keeps experiments honest.
+
+**Reasoning toggle.** Reasoning ("thinking") models can be controlled per active-config via the `thinking` field (Model Settings → *Reasoning*, or the `thinking` key on `PUT /api/admin/llm-config`). It maps to `think` (Ollama) and `chat_template_kwargs.enable_thinking` (Cloudflare/vLLM). For the recommender's large RAG prompt, leaving reasoning **on** usually wastes the token budget thinking (delayed/empty pages); **off** is the better default for page generation. Env fallbacks: `OLLAMA_THINK` / `CF_THINK` / `VLLM_THINK` (`=false` to disable when no KV config is set).
+
+#### Local LLM providers — Ollama & vLLM (local dev only)
+
+`ollama` and `vllm` let you run the recommender against **local or self-hosted** models during development. **They only work under `wrangler dev`** — a *deployed* Cloudflare Worker runs on CF's edge and cannot reach `localhost`, an SSH tunnel, or a private host. To use them in production you would have to expose the model server on a public, authenticated URL and set the corresponding `*_BASE_URL` as a deployed secret; otherwise treat these two as local-only.
+
+Configure them in `workers/recommender/.dev.vars` (gitignored; see `.dev.vars.example`), then run `npm run dev` (which is `wrangler dev`). Setting `OLLAMA_MODEL` / `VLLM_BASE_URL` makes that provider the default active model with no admin click; the admin Model Settings KV entry still overrides it.
+
+**Ollama** (native `/api/chat`):
+```bash
+# .dev.vars
+OLLAMA_BASE_URL=http://localhost:11434      # local Ollama, or an SSH-forwarded remote
+OLLAMA_MODEL=nemotron-3-nano:30b            # any `ollama pull`ed model (selects it as default)
+OLLAMA_MAX_TOKENS=16384                      # output budget (default 16384)
+OLLAMA_NUM_CTX=32768                         # MUST exceed the ~15k-token RAG prompt or Ollama
+                                             # silently truncates it (default 32768; Ollama's own
+                                             # default is often 4096 -> empty/garbled pages)
+OLLAMA_THINK=false                           # disable reasoning (recommended for page gen)
+# OLLAMA_TIMEOUT_MS=300000                   # LLM timeout for slow/large models (default 300000)
+```
+
+**vLLM** (OpenAI-compatible `/v1/chat/completions`):
+```bash
+# .dev.vars
+VLLM_BASE_URL=http://localhost:8000/v1       # vLLM server, or SSH-forwarded remote
+# VLLM_API_KEY=...                           # only if vLLM was started with --api-key
+# VLLM_THINK=false                           # disable reasoning (or use Model Settings)
+```
+vLLM's served model id comes from `GET {VLLM_BASE_URL}/models`; select it in Model Settings (any id works via the synthesize path). Reasoning split (`reasoning_content`) requires vLLM started with `--reasoning-parser`; otherwise reasoning text leaks into `content`. Rich aggregate timing (TTFT, decode tok/s) is on vLLM's Prometheus `/metrics`, not in the API response.
+
+**Remote model server over SSH** (e.g. an EC2 box) — forward its ports to localhost, then point the `*_BASE_URL` at the forwarded port:
+```bash
+ssh -N -L 11434:localhost:11434 -L 8000:localhost:8000 user@your-host
+# then OLLAMA_BASE_URL=http://localhost:11434  and  VLLM_BASE_URL=http://localhost:8000/v1
+```
+
+**Cloudflare via REST (local-dev convenience).** `wrangler dev --local` disables the `AI` binding ("needs to be run remotely"), and the remote-binding proxy needs a Workers-Scripts-scoped token. To use Cloudflare models locally without that, set `CF_ACCOUNT_ID` + `CLOUDFLARE_API_TOKEN` (Workers AI: Read+Edit scope) in `.dev.vars` — the provider then calls the REST API directly. In production the `AI` binding is used and needs none of this.
+
+`LLM_TIMEOUT_MS` overrides the per-call LLM timeout for **any** provider (default 60s; Ollama defaults to 300s) — useful for slow local reasoning models.
 
 ### Article Cards & Modal Fragments
 

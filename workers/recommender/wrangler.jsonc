@@ -5,12 +5,6 @@
   "compatibility_date": "2024-12-01",
   "compatibility_flags": ["nodejs_compat"],
 
-  // Local dev: 8787 is taken by `llmfit serve`, so bind wrangler dev to 8788.
-  // The frontend (scripts/api-config.js) points localhost at this same port.
-  "dev": {
-    "port": 8788
-  },
-
   // KV namespaces
   "kv_namespaces": [
     {
@@ -42,15 +36,11 @@
     "binding": "AI"
   },
 
-  // Vectorize indexes for RAG.
-  // `remote: true` makes `wrangler dev` (local mode) proxy this binding to the
-  // real production index instead of an empty local stub, so local runs get
-  // faithful RAG. It is a dev-only concept and is ignored by `wrangler deploy`.
+  // Vectorize indexes for RAG
   "vectorize": [
     {
       "binding": "CONTENT_INDEX",
-      "index_name": "arco-content",
-      "remote": true
+      "index_name": "arco-content"
     }
   ],
 

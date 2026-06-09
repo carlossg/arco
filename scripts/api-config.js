@@ -11,11 +11,6 @@
 
 const PRODUCTION_WORKER = 'https://arco-recommender.franklin-prod.workers.dev';
 
-// Local worker started via `wrangler dev` (port 8788; 8787 is taken by llmfit).
-// Used when the page is served from `aem up` on localhost so the EDS frontend
-// streams from the local recommender (e.g. for the Ollama local-runtime setup).
-const LOCAL_WORKER = 'http://localhost:8788';
-
 /**
  * Detect EDS branch preview hostname: {branch}--{repo}--{owner}.aem.page
  * On a non-main branch preview, rewrite the worker URL to the branch alias version.
@@ -25,9 +20,6 @@ function resolveBranchWorkerURL() {
   if (window.ARCO_CONFIG?.RECOMMENDER_URL) return window.ARCO_CONFIG.RECOMMENDER_URL;
 
   const { hostname } = window.location;
-  // Local `aem up` dev server → talk to the local `wrangler dev` worker.
-  if (hostname === 'localhost' || hostname === '127.0.0.1') return LOCAL_WORKER;
-
   const match = hostname.match(/^(.+)--[^.]+--[^.]+\.aem\.page$/);
   if (!match || match[1] === 'main') return PRODUCTION_WORKER;
 
