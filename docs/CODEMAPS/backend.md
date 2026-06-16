@@ -1,4 +1,4 @@
-<!-- Generated: 2026-05-11 | Files scanned: 30+ | Token estimate: ~1100 -->
+<!-- Generated: 2026-06-12 | Files scanned: 30+ | Token estimate: ~1100 -->
 
 # Backend Architecture — Cloudflare Worker (Recommender)
 
@@ -122,11 +122,13 @@ safety-gate (rejects off-topic queries before any RAG/LLM)
 | Provider | File | Auth |
 |----------|------|------|
 | `cerebras` | cerebras.js | `CEREBRAS_API_KEY` secret |
-| `cloudflare` | cloudflare.js | `AI` binding (Workers AI) |
+| `cloudflare` | cloudflare.js | `AI` binding (Workers AI) or `CF_ACCOUNT_ID`+`CLOUDFLARE_API_TOKEN` (REST) |
 | `sambanova` | sambanova.js | `SAMBANOVA_API_KEY` secret |
 | `bedrock` | bedrock.js | `AWS_BEARER_TOKEN_BEDROCK` + `AWS_REGION` |
+| `ollama` | ollama.js | `OLLAMA_BASE_URL` var — **local dev only** (`wrangler dev`) |
+| `vllm` | vllm.js | `VLLM_BASE_URL` var (OpenAI-compatible) — **local dev only**; also serves local DiffusionGemma via mlx-vlm (`start-diffusion-gemma.sh`) |
 
-`providers/index.js` exposes `MODEL_CATALOG` (the selectable list — add a row + redeploy to add a model). Each provider implements an async-iterable contract yielding `{ type: 'delta', text }` chunks and a terminal `{ type: 'usage', usage }` frame. Active provider/model is read from `CACHE` KV (`llm-config:active`) via `src/llm-config.js` — KV wins over per-flow defaults.
+`providers/index.js` exposes `MODEL_CATALOG` (the static cloud list — add a row + redeploy to add a model) and `getCatalog(env)`, which resolves local providers live: when `VLLM_BASE_URL`/`OLLAMA_BASE_URL` is set it queries the server (`/v1/models`, `/api/tags`) and replaces the placeholder rows with the real served model ids (falls back to the placeholder if unreachable). The admin picker (`GET /api/admin/catalog`) uses `getCatalog`. Each provider implements an async-iterable contract yielding `{ type: 'delta', text }` chunks and a terminal `{ type: 'usage', usage }` frame. Active provider/model is read from `CACHE` KV (`llm-config:active`) via `src/llm-config.js` — KV wins over per-flow defaults.
 
 ## Evaluation Subsystem (`src/evaluations/`)
 
@@ -183,7 +185,7 @@ Upserts use `UNIQUE(run_id, session_id)`. Comment is truncated server-side to 10
 | `src/hero-images.js` | Hero image selection logic |
 | `src/json-to-eds.js` | LLM JSON → EDS HTML block markup |
 | `src/analytics.js` | Analytics event processing and aggregation |
-| `src/stream-parser.js` | NDJSON SSE stream parser |
+| `src/stream-parser.js` | Splits LLM output on `===` into JSON blocks; tolerates ```` ```json ```` fences + stray prose |
 | `src/sanitize.js` | Input sanitization |
 
 ## Cloudflare Bindings
