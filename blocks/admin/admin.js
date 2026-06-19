@@ -530,6 +530,43 @@ function renderTimelineTab(container, data) {
 
 // ── Debug tab helpers ──────────────────────────────────────────────────────
 
+function buildLlmExport(run, payload) {
+  const dbg = payload?.debug || {};
+  const prompt = dbg.prompt || {};
+  return {
+    _meta: {
+      exported_from: 'arco-admin',
+      exported_at: new Date().toISOString(),
+      run_id: run.id,
+      query: run.query,
+      source_provider: dbg.llm?.provider,
+      source_model: dbg.llm?.model,
+      temperature: dbg.llm?.temperature,
+      max_tokens: dbg.llm?.maxTokens,
+      timings_ms: dbg.timings,
+      tokens: { input: dbg.llm?.inputTokens, output: dbg.llm?.outputTokens },
+    },
+    request: {
+      model: dbg.llm?.model || 'claude-sonnet-4-6',
+      max_tokens: dbg.llm?.maxTokens || 8192,
+      temperature: dbg.llm?.temperature ?? 0.7,
+      system: prompt.systemPrompt || '',
+      messages: [{ role: 'user', content: prompt.userMessage || '' }],
+    },
+    reference_output: dbg.llm?.rawOutput || '',
+  };
+}
+
+function downloadJson(data, filename) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 function fmtMs(ms) {
   if (ms == null) return '—';
   if (ms >= 1000) return `${(ms / 1000).toFixed(2)}s`;
@@ -798,6 +835,7 @@ function renderDebugTab(container, data) {
     return;
   }
 
+  const runsData = runs;
   container.innerHTML = `
     <p class="admin-muted">Each run below captures its own intent, session context, RAG retrieval, pipeline timings, prompt and LLM output — the same data surfaced by the live <code>?debug=true</code> panel.</p>
     ${runs.map(({ run, payload }, i) => {
@@ -816,7 +854,10 @@ function renderDebugTab(container, data) {
       <section class="admin-card admin-run-debug">
         <div class="admin-run-debug-head">
           <h3>Run ${run.run_index != null ? run.run_index : i} — ${esc((run.query || '').substring(0, 80))}</h3>
-          <div class="admin-badges">${label}</div>
+          <div class="admin-run-debug-head-right">
+            <div class="admin-badges">${label}</div>
+            ${dbg?.prompt?.systemPrompt ? `<button type="button" class="admin-btn admin-btn-ghost" data-export-run="${i}">Export for LLM</button>` : ''}
+          </div>
         </div>
         ${renderOverviewSection(dbg, run)}
         ${renderSessionContextSection(request)}
@@ -829,6 +870,16 @@ function renderDebugTab(container, data) {
       </section>`;
   }).join('')}
   `;
+
+  container.querySelectorAll('[data-export-run]').forEach((btn) => {
+    const idx = parseInt(btn.dataset.exportRun, 10);
+    const { run, payload } = runsData[idx];
+    btn.addEventListener('click', () => {
+      const exportData = buildLlmExport(run, payload);
+      const slug = (run.query || 'run').replace(/[^a-z0-9]+/gi, '-').toLowerCase().substring(0, 40);
+      downloadJson(exportData, `arco-llm-export-${slug}.json`);
+    });
+  });
 }
 
 async function renderPage(root, pageId, tab) {

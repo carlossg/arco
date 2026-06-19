@@ -825,6 +825,13 @@
   margin: 0;
 }
 
+.admin .admin-run-debug-head-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 .admin .admin-run-debug > details,
 .admin .admin-run-debug > .admin-card-sub {
   margin-top: 0.75rem;
