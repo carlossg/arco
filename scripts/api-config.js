@@ -14,7 +14,7 @@ const PRODUCTION_WORKER = 'https://arco-recommender.franklin-prod.workers.dev';
 // Local `wrangler dev` worker (run `npm run dev` in workers/recommender).
 // Wrangler picks 8787 by default but increments when ports are taken; this repo's
 // dev worker comes up on 8789. Override via the mechanisms below if yours differs.
-const LOCAL_WORKER = 'http://localhost:8789';
+const LOCAL_WORKER = 'http://localhost:8787';
 
 /**
  * Resolve the recommender worker URL for the current environment.

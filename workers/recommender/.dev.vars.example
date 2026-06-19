@@ -47,3 +47,12 @@ OLLAMA_NUM_CTX=32768
 # DA_* are intentionally omitted locally: /api/generate never writes to DA, and
 # leaving DA tokens unset keeps the page-caching /api/persist path from touching
 # the production content store.
+
+# Google Vertex AI Model Garden (vLLM dedicated endpoint — works in both wrangler dev and deployed).
+# Token expires in 1h — refresh with: wrangler secret put VERTEX_AI_TOKEN $(gcloud auth print-access-token)
+# VERTEX_AI_TOKEN=your-gcloud-bearer-token    # `gcloud auth print-access-token`
+# VERTEX_AI_ENDPOINT=https://mg-endpoint-ID.REGION-PROJECT.prediction.vertexai.goog/v1/projects/PROJECT/locations/REGION/endpoints/ENDPOINT_ID
+# DiffusionGemma: controls the number of diffusion refinement steps sent as
+# `num_diffusion_steps` in the request body. Fewer steps = faster generation
+# at the cost of some quality. Model default is typically 64–128; try 16–32.
+# VERTEX_AI_DIFFUSION_STEPS=32

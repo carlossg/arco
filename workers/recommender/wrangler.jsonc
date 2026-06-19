@@ -54,6 +54,7 @@
 
   // Environment variables (set secrets via `wrangler secret put`)
   // LLM provider secrets: CEREBRAS_API_KEY, SAMBANOVA_API_KEY (Cloudflare AI uses the AI binding above)
+  // Vertex AI secrets: VERTEX_AI_TOKEN (bearer token, 1h expiry — refresh via gcloud), VERTEX_AI_ENDPOINT
   // AWS Bedrock secrets: AWS_BEARER_TOKEN_BEDROCK
   // AWS Bedrock region var: AWS_REGION (default: us-east-1, can be a var or secret)
   // Analytics: CF_API_TOKEN (Analytics Engine read permission)
