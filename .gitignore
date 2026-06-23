@@ -14,9 +14,6 @@ daTokenService.ts
 !CLAUDE.md
 !AGENTS.md
 
-# arco-benchmark is a separate git repo checked out locally
-arco-benchmark/
-
 .env
 
 # Build output and caches
