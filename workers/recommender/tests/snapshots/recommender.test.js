@@ -40,12 +40,8 @@ for (const file of fixtures) {
       fx.contextData || {},
     );
 
-    const expectedSystem = await readFile(
-      path.join(SNAPSHOTS_DIR, `baseline-${name}.system.txt`), 'utf8',
-    );
-    const expectedUser = await readFile(
-      path.join(SNAPSHOTS_DIR, `baseline-${name}.user.txt`), 'utf8',
-    );
+    const expectedSystem = await readFile(path.join(SNAPSHOTS_DIR, `baseline-${name}.system.txt`), 'utf8');
+    const expectedUser = await readFile(path.join(SNAPSHOTS_DIR, `baseline-${name}.user.txt`), 'utf8');
 
     assert.equal(system, expectedSystem, `system prompt diverged for ${name}`);
     assert.equal(user, expectedUser, `user prompt diverged for ${name}`);

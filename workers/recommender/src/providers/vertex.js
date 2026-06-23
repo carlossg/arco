@@ -75,7 +75,9 @@ async function* stream({
 
   // DiffusionGemma: fewer steps = faster generation (fewer refinement passes).
   // Model default is typically 64–128; 16–32 is a good speed/quality trade-off.
-  const diffusionSteps = env.VERTEX_AI_DIFFUSION_STEPS ? Number(env.VERTEX_AI_DIFFUSION_STEPS) : null;
+  const diffusionSteps = env.VERTEX_AI_DIFFUSION_STEPS
+    ? Number(env.VERTEX_AI_DIFFUSION_STEPS)
+    : null;
   if (diffusionSteps !== null && !Number.isNaN(diffusionSteps)) {
     body.num_diffusion_steps = diffusionSteps;
   }
@@ -92,11 +94,11 @@ async function* stream({
   });
 
   if (!response.ok) {
-    const body = await response.text().catch(() => '');
+    const errorBody = await response.text().catch(() => '');
     const hint = response.status === 401
       ? ' Token may be expired — refresh: wrangler secret put VERTEX_AI_TOKEN $(gcloud auth print-access-token)'
       : '';
-    const err = new Error(`Vertex AI request failed (${response.status}): ${body.slice(0, 200)}${hint}`);
+    const err = new Error(`Vertex AI request failed (${response.status}): ${errorBody.slice(0, 200)}${hint}`);
     err.status = response.status;
     throw err;
   }

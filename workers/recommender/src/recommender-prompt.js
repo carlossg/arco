@@ -238,8 +238,8 @@ export function buildRecommenderUserMessage(
 
   const normalizedPreviousQueries = previousQueries?.length
     ? previousQueries
-        .map((q) => (typeof q === 'string' ? q : (q.query || '')))
-        .filter(Boolean)
+      .map((q) => (typeof q === 'string' ? q : (q.query || '')))
+      .filter(Boolean)
     : null;
 
   return renderPrompt('recommender', {
