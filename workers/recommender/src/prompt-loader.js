@@ -108,10 +108,10 @@ export function enrichCatalogForPrompt(products, profiles) {
     const profile = profileLookup.get(p.id);
     const topUsesStr = profile?.scores
       ? Object.entries(profile.scores)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 3)
-          .map(([uc, score]) => `${uc}(${score})`)
-          .join(', ')
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([uc, score]) => `${uc}(${score})`)
+        .join(', ')
       : '';
 
     const specials = [];

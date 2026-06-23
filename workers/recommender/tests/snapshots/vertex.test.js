@@ -102,7 +102,9 @@ test('vertex — passes messages as-is (no conversion)', async () => {
 test('vertex — passes temperature and max_tokens', async () => {
   let body;
   globalThis.fetch = async (_, opts) => { body = JSON.parse(opts.body); return makeSse([CHUNK_DONE]); };
-  await collect(vertex.stream({ env: BASE_ENV, ...BASE_ARGS, temperature: 0.3, maxTokens: 2048 }));
+  await collect(vertex.stream({
+    env: BASE_ENV, ...BASE_ARGS, temperature: 0.3, maxTokens: 2048,
+  }));
   assert.equal(body.temperature, 0.3);
   assert.equal(body.max_tokens, 2048);
 });
