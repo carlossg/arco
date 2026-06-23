@@ -1,0 +1,41 @@
+The customer clicked "Best for milk drinks?" (a explore button). Generate a focused follow-up for: "best for milk drinks?"
+
+DO NOT generate a hero block. Start directly with the most relevant content block (columns, comparison-table, or text). Generate 2-3 sections that specifically address what the customer is asking about. Include a comparison-table if comparing products. End with new suggestions.
+
+## Conversation History (what has already been shown)
+
+Previous queries in this session:
+1. "what arco machine should I get"
+
+Content already on the page — do NOT repeat these:
+- hero
+- comparison-table
+- columns
+
+Products already featured (with key facts for follow-up reasoning): Primo ($899, single-boiler, Single boiler)
+
+IMPORTANT — session continuity: the machines listed above are the anchor for this conversation. The user has already invested attention in them, so they are the FIRST candidates for the follow-up answer, not a blocklist. Apply this rule:
+
+1. **Check fit first.** Look at the hardware facts above and ask: does any already-featured machine still satisfy the follow-up? (e.g. follow-up about milk steaming → a machine with an auto milk frother or steam wand still fits; follow-up about touchscreen → only a machine with `touchscreen` still fits.)
+
+2. **If a featured machine still fits → keep it as the primary recommendation.** Open the first content block (columns or comparison-table) with that same machine and explain *why* it still fits this new angle (e.g. "The Automatico is still your pick here — its automatic milk system steams and froths in one touch"). Continuity beats novelty; do not switch picks just because the query changed.
+
+3. **If NO featured machine fits → add a short `text` block first explaining why the earlier pick no longer applies** (1–2 sentences, e.g. "The Automatico is brilliant for one-touch convenience, but it can't deliver true latte-art microfoam — for that you want a real steam wand."), then pivot to the machine that does fit. Reference the earlier pick by name so the user sees a reasoned handoff, not a contradictory recommendation.
+
+Either way, the comparison-table should include at least one already-featured machine alongside the new candidate so the user can see the tradeoff side-by-side.
+
+This is a follow-up turn. Build on what came before — provide new angles, go deeper on specifics, or explore what has not been covered yet. Do NOT start with a hero block.
+
+## Customer Profile (from browsing behavior)
+- Viewed products: primo
+
+Use this profile to personalize your recommendation. Lead with products matching their price tier and use-case interests.
+
+## Recommended Products (from RAG — highest relevance to this query)
+- Doppio (doppio) | $1599 | home-barista, milk-drinks
+- Automatico (automatico) | $1899 | beginner, office, milk-drinks
+
+## Intent Classification
+Detected intent: **use-case**
+
+Remember: output JSON blocks separated by ===. All product links must use the URL from the product data. End with information-gathering suggestions (type "explore" or "compare" only). Every block MUST have meaningful content. ONLY use product names, product IDs, and recipe names that appear in the data above — never invent or guess names.

@@ -1,0 +1,48 @@
+{
+  "id": "water-leaking-from-group-head",
+  "slug": "water-leaking-from-group-head",
+  "category": "troubleshooting",
+  "title": "Water Leaking from the Group Head: Gasket and Seal Maintenance",
+  "difficulty": "intermediate",
+  "read_time_minutes": 8,
+  "persona_tags": ["upgrader", "enthusiast"],
+  "intent_tags": ["troubleshoot", "own", "maintain"],
+  "hero_image_alt": "A close-up of an espresso machine group head with a portafilter partially locked in, a thin stream of water visibly dripping from the gap between the portafilter and group, the rubber gasket visible as a dark ring inside the group head, sharp macro detail with clinical white lighting from above",
+  "intro": "Water leaking from around the group head — dripping from the joint where the portafilter meets the machine during brewing — is one of the most visible and common maintenance issues on any espresso machine. It usually means the group head gasket has worn out, hardened, or been compromised by coffee buildup, and it no longer creates a proper seal between the portafilter and the group. Left unaddressed, a leaking gasket reduces effective brew pressure, causes uneven extraction, makes a mess on your counter, and can lead to more serious corrosion or damage to the group head itself. The good news is that gasket replacement is one of the simplest maintenance tasks you can perform at home.",
+  "body": [
+    {
+      "heading": "Diagnosing the Leak Source",
+      "content": "Before replacing anything, confirm where the water is actually coming from. Not all group head drips indicate a gasket problem. Water from the group head area can originate from several sources, and misdiagnosing the leak will lead you to replace parts that do not need replacing while the real issue persists. Start by locking in the portafilter without any coffee and running the pump. Watch carefully from below and from the sides. If water seeps out from the ring where the portafilter ears meet the group head — dripping from the chrome collar — the gasket is the likely culprit. If water drips from the center of the shower screen with the portafilter removed, this is normal drainage and not a leak. If water appears to come from above the group head, behind it, or from the body of the machine, the issue is likely an internal fitting, hose connection, or boiler seal, which is a more serious repair. On the Arco Primo, Nano, and Doppio, the group head gasket is an accessible rubber or silicone ring that sits in a groove inside the group. It compresses against the portafilter rim when you lock the handle in, creating a watertight seal. Over time, heat cycling — the repeated heating and cooling of the machine with each use — causes the rubber to harden, shrink slightly, and lose its elasticity. A hardened gasket cannot compress enough to fill the gap, and water finds its way through. If you notice that the portafilter handle has gradually become easier to lock in over months — requiring less resistance to turn into position — the gasket is almost certainly worn and flattened."
+    },
+    {
+      "heading": "Replacing the Group Head Gasket",
+      "content": "Gasket replacement is a 10-minute job that requires no special tools on most Arco machines. First, let the machine cool completely — the group head retains heat for a long time and can cause burns. Remove the portafilter. Using a flathead screwdriver or the group head tool included with your Arco machine, unscrew the shower screen retaining screw. Lift out the shower screen, then the dispersion plate behind it. With these removed, the gasket is visible as a thick rubber ring seated in a groove at the top of the group cavity. Use a blunt tool — a wooden chopstick, a plastic pick, or a gasket removal hook — to carefully pry the old gasket out of its groove. Avoid using sharp metal tools that could scratch the aluminum or brass group head surface, as scratches create uneven sealing surfaces. Clean the groove thoroughly with a nylon brush and espresso machine detergent to remove all residue and hardened coffee oils. Inspect the groove for any pitting or corrosion. Insert the new gasket by pressing it evenly into the groove with your thumbs, making sure it seats flat without any twists or bulges. The Arco Primo and Nano use a standard 8-millimeter silicone gasket compatible with E61-style groups. The Arco Doppio, Studio, and Studio Pro use a proprietary gasket — order directly from Arco or an authorized dealer to ensure the correct fit. Reassemble the dispersion plate and shower screen, and tighten the retaining screw snugly but not aggressively. Lock in the portafilter — you should feel firm, positive resistance as the fresh gasket compresses. Run a test shot and inspect for leaks. The new gasket may feel noticeably tighter than the old one; this is normal and will ease slightly over the first few days of use."
+    },
+    {
+      "heading": "Shower Screen and Dispersion Plate Maintenance",
+      "content": "While you have the group head disassembled for a gasket change, take the opportunity to thoroughly clean and inspect the shower screen and dispersion plate. These components work together to distribute water evenly across the surface of the coffee puck, and their condition directly impacts extraction quality. The shower screen is a fine mesh or perforated metal disc that sits at the bottom of the group head, facing the puck. Over time, coffee oils, fine grounds, and mineral deposits clog the holes, causing uneven water distribution that can contribute to channeling and inconsistent extraction. Soak the shower screen in hot water with espresso machine detergent for 20 minutes, then scrub both sides with a nylon brush. Hold it up to the light — you should see daylight through every hole. If some holes remain blocked after scrubbing, use a fine needle or pin to clear them individually. Replace the screen if it is warped, corroded, or if the holes have enlarged from repeated cleaning. The dispersion plate, which sits between the shower screen and the group head, spreads the incoming water from the machine's brew circuit across the full diameter of the shower screen. It is a simpler component but can accumulate scale and residue. Clean it the same way as the shower screen. On the Arco Studio and Studio Pro, the dispersion plate is a precision-machined brass component — handle it carefully to avoid denting or warping. Reassemble in the correct order: gasket in the groove first, then dispersion plate, then shower screen, then retaining screw. Getting this order wrong can cause leaks or uneven water distribution."
+    },
+    {
+      "heading": "Prevention and Maintenance Schedule",
+      "content": "A proactive maintenance schedule prevents gasket failures and leaks before they start. The single most impactful habit is back-flushing, which forces water and detergent backward through the group head, cleaning the gasket, shower screen, and internal brew circuit. On machines with three-way solenoid valves — the Arco Doppio, Studio, Studio Pro, and Ufficio — you can back-flush by inserting a blind basket into the portafilter, adding a small amount of espresso machine detergent, and running the brew cycle for 10 seconds, then stopping for 10 seconds, repeating five to six times. The pressurized water forces detergent through the group internals and out through the solenoid drain, carrying dissolved oils and residue with it. Finish by back-flushing five more times with plain water to rinse. Perform this weekly, or after every five to seven uses in a busy household. The Arco Primo and Nano do not have three-way valves, so traditional back-flushing is not possible. Instead, remove the shower screen weekly and scrub it and the group head cavity with a dedicated group head brush and detergent. Wipe the gasket with a damp cloth to remove surface residue. Replace group head gaskets proactively rather than waiting for leaks. Silicone gaskets last approximately 12 to 18 months with regular use; rubber gaskets may need replacement every 6 to 12 months. If you use your machine daily, replace the gasket annually as standard maintenance. Keep a spare gasket on hand — it is a low-cost consumable that prevents a frustrating morning when the old one finally fails."
+    }
+  ],
+  "key_takeaways": [
+    "Water leaking from around the portafilter during brewing almost always indicates a worn or hardened group head gasket.",
+    "A portafilter that has become easier to lock in over time is an early warning sign that the gasket is flattening and losing its seal.",
+    "Gasket replacement is a simple 10-minute job — remove the shower screen, pry out the old gasket, clean the groove, and press in a new one.",
+    "Clean the shower screen and dispersion plate whenever you replace the gasket to restore even water distribution.",
+    "Back-flush weekly on machines with three-way valves and replace the gasket proactively every 12 to 18 months."
+  ],
+  "related_products": ["arco-primo", "arco-nano", "arco-doppio", "arco-studio", "arco-studio-pro", "arco-ufficio"],
+  "related_guides": ["descaling-when-and-how", "shot-is-channeling", "machine-not-reaching-temperature"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "Shop Arco Maintenance Accessories",
+    "url": "/accessories"
+  },
+  "seo": {
+    "title": "Water Leaking from Group Head? Gasket Replacement Guide | Arco",
+    "meta_description": "Fix water leaks from your espresso machine group head with this step-by-step gasket replacement and maintenance guide. Troubleshooting from Arco."
+  }
+}

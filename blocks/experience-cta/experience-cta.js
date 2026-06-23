@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { attachModalTrigger } from '../modal/modal.js';
 
 /**
  * Experience CTA Block — teaser for collateral experience pages.
@@ -61,13 +62,14 @@ function buildExperienceCTA(row) {
     overlay.append(hook);
   }
 
-  // CTA
+  // CTA — opens the authored page as a modal fragment on plain click.
   const link = infoCol.querySelector('a');
   if (link) {
     const cta = document.createElement('a');
     cta.href = link.href;
     cta.className = 'experience-cta-link';
     cta.textContent = link.textContent.trim() || 'Explore';
+    attachModalTrigger(cta);
     overlay.append(cta);
   }
 

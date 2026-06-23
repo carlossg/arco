@@ -1,0 +1,14 @@
+{
+  "query": "do you have any machines with a touchscreen?",
+  "intent": { "type": "espresso" },
+  "behavior": { "coldStart": false, "viewedProducts": [] },
+  "previousQueries": [],
+  "followUp": null,
+  "shownContent": {},
+  "contextData": {
+    "products": [
+      { "name": "Automatico", "id": "automatico", "price": 1899, "bestFor": ["beginner", "office", "milk-drinks"] },
+      { "name": "Studio Pro", "id": "studio-pro", "price": 3499, "bestFor": ["home-barista", "espresso", "upgrade"] }
+    ]
+  }
+}

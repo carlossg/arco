@@ -1,0 +1,14 @@
+{
+  "query": "primo vs doppio which is better for a home barista?",
+  "intent": { "type": "comparison" },
+  "behavior": { "coldStart": true },
+  "previousQueries": [],
+  "followUp": null,
+  "shownContent": {},
+  "contextData": {
+    "products": [
+      { "name": "Primo", "id": "primo", "price": 899, "bestFor": ["home-barista", "espresso", "beginner"] },
+      { "name": "Doppio", "id": "doppio", "price": 1599, "bestFor": ["home-barista", "milk-drinks", "espresso"] }
+    ]
+  }
+}

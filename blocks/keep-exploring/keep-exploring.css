@@ -1,0 +1,208 @@
+/* Keep-Exploring Block — drop-in panel for entering the recommender flow */
+
+.keep-exploring {
+  padding: 32px 0;
+}
+
+.keep-exploring .keep-exploring-panel {
+  text-align: center;
+  padding: 8px 0;
+}
+
+.keep-exploring .keep-exploring-heading {
+  font-size: 20px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--dark-color, #2c2c2c);
+  margin: 0 0 24px;
+}
+
+.keep-exploring .keep-exploring-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.keep-exploring .keep-exploring-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1.5px solid var(--accent-color, #b5651d);
+  border-radius: 24px;
+  background: transparent;
+  color: var(--accent-color, #b5651d);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease,
+    border-color 0.2s ease, opacity 0.3s ease;
+}
+
+.keep-exploring .keep-exploring-chip:hover {
+  background-color: var(--accent-color, #b5651d);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.keep-exploring .keep-exploring-chip:active {
+  transform: translateY(0);
+}
+
+.keep-exploring .keep-exploring-chip-sparkle {
+  font-size: 10px;
+  opacity: 0.5;
+  margin-left: 2px;
+}
+
+/* Dynamic chips share the same look but get a sparkle for AI provenance */
+
+/* Skeleton chips while /api/suggest is in flight */
+.keep-exploring .keep-exploring-chip.skeleton {
+  pointer-events: none;
+  cursor: default;
+  border-color: rgb(0 0 0 / 8%);
+  background: rgb(0 0 0 / 4%);
+  min-width: 120px;
+  min-height: 38px;
+  position: relative;
+  overflow: hidden;
+}
+
+.keep-exploring .keep-exploring-chip-skeleton-bar {
+  display: block;
+  width: 80%;
+  height: 10px;
+  border-radius: 4px;
+  background: rgb(0 0 0 / 8%);
+  animation: keep-exploring-skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes keep-exploring-skeleton-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Used / active states after click */
+.keep-exploring .keep-exploring-panel.used .keep-exploring-chip {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.keep-exploring .keep-exploring-panel.used .keep-exploring-chip.active {
+  opacity: 1;
+  background-color: var(--accent-color, #b5651d);
+  color: #fff;
+}
+
+.keep-exploring-error {
+  color: #c00;
+  text-align: center;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Speculative prefetch states (added by speculative-engine.js on hover) */
+.keep-exploring .keep-exploring-chip.chip-loading {
+  position: relative;
+  overflow: hidden;
+  cursor: wait;
+}
+
+.keep-exploring .keep-exploring-chip.chip-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(255 255 255 / 20%) 50%,
+    transparent 100%
+  );
+  animation: keep-exploring-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes keep-exploring-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.keep-exploring .keep-exploring-chip.chip-ready {
+  box-shadow: 0 0 0 2px rgb(181 101 29 / 25%);
+}
+
+/* Scope breadcrumb / loader styles to streamed content section so they show
+   even on pages that don't import the follow-up block CSS. */
+.keep-exploring-content .follow-up-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 0 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.keep-exploring-content .follow-up-breadcrumb::before,
+.keep-exploring-content .follow-up-breadcrumb::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.keep-exploring-content .follow-up-breadcrumb .breadcrumb-text {
+  font-size: 14px;
+  font-style: italic;
+  color: #999;
+  white-space: nowrap;
+}
+
+.keep-exploring-content .follow-up-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 0;
+}
+
+.keep-exploring-content .follow-up-loading-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-color, #b5651d);
+  animation: keep-exploring-dot-pulse 1.4s ease-in-out infinite;
+}
+
+.keep-exploring-content .follow-up-loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.keep-exploring-content .follow-up-loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes keep-exploring-dot-pulse {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (width >= 600px) {
+  .keep-exploring {
+    padding: 48px 0;
+  }
+
+  .keep-exploring .keep-exploring-heading {
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
+}

@@ -44,8 +44,6 @@ The repository provides the basic structure, blocks, and configuration needed to
     └── api-config.js       # API endpoint configuration for recommender and analytics services
 ├── fonts/           # Web fonts
 ├── icons/           # SVG icons
-├── tools/           # Developer CLI utilities
-    └── build-embeddings.ts # Generate and upload vector embeddings to Firestore
 ├── head.html        # Global HTML head content
 └── 404.html         # Custom 404 page
 ```
@@ -135,30 +133,24 @@ Regular Pages                    Recommender Query (/?q=...)
   │  (3s after load) │           │                                      │
   │                  │           │  1. Read session context              │
   │  browsing-       │           │  2. Encode ctx (queries + browsing)  │
-  │  signals.js      │           │  3. SSE stream to backend            │
+  │  signals.js      │           │  3. NDJSON stream to backend         │
   │                  │           └──────────┬───────────────────────────┘
   │  • Page signal   │                      │
   │  • Scroll depth  │                      ▼
   │  • Interactions  │           ┌──────────────────────────────────────┐
-  │  • Quiz answers  │           │  Backend Orchestrator                │
+  │  • Quiz answers  │           │  Cloudflare Worker (Recommender)     │
   │                  │           │                                      │
   └────────┬─────────┘           │  1. classifyIntent()                 │
-           │                     │  2. Hybrid RAG (keyword + semantic)  │
-           ▼                     │  3. Deep reasoning (block selection) │
-  ┌──────────────────┐           │  4. Parallel content generation      │
-  │  Session Context │           │  5. Follow-up suggestions            │
-  │  (sessionStorage)│◄──────────│  6. Fire-and-forget analytics        │
-  │                  │           │     (3-model quality evaluation)     │
-  │  • queries[]     │           └──────────┬───────────────────────────┘
-  │  • browsingHist[]│                      │
-  │  • inferredProf  │                      ▼
-  └──────────────────┘           ┌──────────────────────────────────────┐
-                                 │  Firestore                           │
-                                 │  • product_embeddings (vector search)│
-                                 │  • brewguide_embeddings              │
-                                 │  • faq_embeddings                    │
-                                 │  • analytics_results                 │
-                                 └──────────────────────────────────────┘
+           │                     │  2. RAG (keyword + Vectorize)        │
+           ▼                     │  3. LLM content generation           │
+  ┌──────────────────┐           │  4. Follow-up suggestions            │
+  │  Session Context │           └──────────┬───────────────────────────┘
+  │  (sessionStorage)│◄──────────           │
+  │                  │                      ▼
+  │  • queries[]     │           ┌──────────────────────────────────────┐
+  │  • browsingHist[]│           │  Cloudflare Vectorize                │
+  │  • inferredProf  │           │  • arco-content (vector search)      │
+  └──────────────────┘           └──────────────────────────────────────┘
 ```
 
 **Key files:**
@@ -169,13 +161,17 @@ Regular Pages                    Recommender Query (/?q=...)
 | `scripts/session-context.js` | Manages `sessionStorage` — stores query history, browsing history (last 15 page visits), and an inferred browsing profile. |
 | `scripts/delayed.js` | Entry point for delayed-phase code. Starts the browsing signal collector. |
 | `scripts/scripts.js` | Main page decoration. On `/?q=` pages, reads session context and streams it to the backend. |
-| `services/recommender/src/lib/orchestrator.ts` | Backend pipeline — uses browsing context for richer intent classification and more targeted follow-up suggestions. Runs hybrid RAG (keyword + semantic) and fire-and-forget multi-agent analytics. |
-| `services/recommender/src/lib/vector-search.ts` | Firestore native vector search + Vertex AI text-embedding-005 for semantic RAG. |
-| `services/recommender/src/lib/analytics-engine.ts` | Multi-model page quality evaluation (Gemini 2.5 Pro + Flash + Llama 3.3 70B) with consensus scoring. |
-| `services/recommender/src/lib/analytics-prompts.ts` | Evaluation prompt and rubric for the analytics engine. |
-| `services/recommender/src/types.ts` | TypeScript interfaces for `BrowsingHistoryItem`, `InferredBrowsingProfile`, `SessionContext`, and `SSEEvent`. |
-| `blocks/analytics-analysis/` | Client-side block to display multi-agent analytics results (score ring, dimension bars, suggestions). |
-| `tools/build-embeddings.ts` | CLI tool to generate and upload vector embeddings to Firestore. |
+| `workers/recommender/src/index.js` | Cloudflare Worker entry point — exports `fetch`, `queue` (eval queue consumer), and `scheduled` (cron fallback). |
+| `workers/recommender/src/context.js` | Content retrieval — hybrid keyword matching + Vectorize semantic search. |
+| `workers/recommender/src/pipeline/flows.js` | Pipeline flow definitions and step ordering (intent classification, RAG, LLM generation). |
+| `workers/recommender/scripts/index-content.js` | CLI tool to generate and upload vector embeddings to Cloudflare Vectorize. |
+| `workers/recommender/src/evaluations/admin.js` | Admin HTTP handlers — `handleStartEvaluation`, `handleEvalProgress`, `handleResumeEvaluation`, plus eval-queue ops (purge, consumers, resume-delivery, test-invoke). |
+| `workers/recommender/src/evaluations/queue.js` | CF Queue consumer + cron fallback — dispatches `generate`/`judge`/`regenerate`/`rejudge` messages, calls `msg.retry({delaySeconds})` on Bedrock 429. |
+| `workers/recommender/src/evaluations/runner.js` | Eval execution core — `runOneQueryHeadless`, `regenerateOneVariantHeadless`, judge helpers, run finalization. Uses `createNoopWriter()` for headless paths. |
+| `workers/recommender/src/evaluations/judge.js` | Bedrock judge — builds prompt, calls Claude via `AWS_BEARER_TOKEN_BEDROCK`, parses the 7-dimension rubric. |
+| `workers/recommender/src/evaluations/assertions.js` | Deterministic per-cell assertions (broken-token, unbalanced-html, gold-must-mention, etc.). |
+| `workers/recommender/src/evaluations/suites.js` | Bundled query suites (`coffee-extended`, `coffee-default`, `coffee-dev`). |
+| `blocks/admin/admin.js` + `admin.css` | EDS admin block — Sessions, Experiments, LLM Evaluation, Model Settings, Vectorize views. |
 
 **How browsing context flows:**
 
@@ -184,8 +180,8 @@ Regular Pages                    Recommender Query (/?q=...)
 3. A lightweight rule-based classifier infers intent (`discovery`, `product-detail`, `comparison`, etc.) and journey stage (`exploring`, `comparing`, `deciding`)
 4. Signals and the inferred profile are stored in `sessionStorage` via `SessionContextManager`
 5. When the user submits a recommender query (`/?q=...`), the full context (queries + browsing history + inferred profile) is sent to the backend
-6. The backend `classifyIntent()` prompt includes browsing context (e.g. "User viewed the Primo and Doppio pages, spent 2 minutes on each")
-7. `buildFollowUpSuggestions()` uses products viewed and interests to generate targeted follow-up chips instead of generic ones
+6. The backend classifies intent using browsing context (e.g. "User viewed the Primo and Doppio pages, spent 2 minutes on each")
+7. Follow-up suggestions use products viewed and interests to generate targeted chips instead of generic ones
 
 **Cache-first page serving:**
 
@@ -202,9 +198,427 @@ On `GET /generate`, the server checks `DAClient.exists(path)` before starting th
 |-----|-----------|
 | `/?q=best+espresso+machines` | First visit generates; repeat visits redirect to cached page |
 | `/?q=best+espresso+machines&regen` | Skips cache, regenerates and overwrites the existing page |
-| `/?q=best+espresso+machines&preset=gemini-3-pro` | Separate cache slot under `/discover/gemini-3-pro/...` |
+| `/?q=best+espresso+machines&preset=my-preset` | Separate cache slot under `/discover/my-preset/...` |
 
-Key files for caching: `category-classifier.ts` (`generateDeterministicSlug`, `buildPresetScopedPath`), `index-express.ts` (cache check in `/generate`), `scripts/scripts.js` (deterministic `generateSlug`, `cache-hit` handler).
+Key files for caching: `scripts/scripts.js` (deterministic `generateSlug`, `cache-hit` handler), `workers/recommender/src/index.js` (cache check in `/api/generate`).
+
+### LLM Providers & Model Switching
+
+The recommender's one LLM call (`llm-generate` step) is vendor-agnostic. Six providers ship today:
+
+| Provider | Binding / Secret | Access | Where it runs |
+|----------|------------------|--------|---------------|
+| `cerebras`   | `CEREBRAS_API_KEY` secret   | `@cerebras/cerebras_cloud_sdk` | prod + local |
+| `cloudflare` | `AI` binding **or** `CF_ACCOUNT_ID`+`CLOUDFLARE_API_TOKEN` (REST) | Workers AI binding, or REST `api.cloudflare.com/.../ai/run` | prod + local |
+| `sambanova`  | `SAMBANOVA_API_KEY` secret  | OpenAI-compatible REST to `api.sambanova.ai` | prod + local |
+| `bedrock`    | `AWS_BEARER_TOKEN_BEDROCK` secret | AWS Bedrock `converse-stream` | prod + local |
+| `ollama`     | `OLLAMA_BASE_URL` var       | native `/api/chat` streaming | **local dev only** (see below) |
+| `vllm`       | `VLLM_BASE_URL` var         | OpenAI-compatible `/v1/chat/completions` | **local dev only** (see below) |
+
+Each implements the same async-iterable contract in `workers/recommender/src/providers/*.js` — yielding `{ type: 'delta', text }` chunks and a terminal `{ type: 'usage', usage }` frame. The selectable `{provider, model}` pairs are a hardcoded catalog in `workers/recommender/src/providers/index.js` (`MODEL_CATALOG`); `ollama`/`vllm` additionally synthesize a catalog entry for *any* served model name, so you don't edit the catalog per model. Add a cloud model by adding a row and redeploying.
+
+**Active selection** is stored in the `CACHE` KV under `llm-config:active` (`{provider, model, temperature, maxTokens, updatedAt}`). Read via `getActiveLlmConfig(env)` from `workers/recommender/src/llm-config.js`; KV wins over the per-flow defaults in `flows.js`. If the stored entry drops out of the catalog, the worker warns and falls back to the catalog default.
+
+**Switching models at runtime** — open `/admin` (backed by `blocks/admin/admin.js`) → *Model Settings*. Pick a provider/model, adjust temperature and max tokens, save. The next `/api/generate` call picks up the change. D1 records `llm_provider` / `llm_model` on every run (`migrations/0003_llm_vendor.sql`) so per-model comparisons via `wrangler d1 execute` are one query away.
+
+Admin API:
+- `GET /api/admin/catalog` → `{ catalog: [{ provider, model, label, available }], limits }`
+- `GET /api/admin/llm-config` → `{ active: {provider, model, temperature, maxTokens, updatedAt} | null }`
+- `PUT /api/admin/llm-config` → validates against the catalog and clamps `temperature` to `[0, 2]`, `maxTokens` to `[256, 16384]`. Also accepts `thinking` (tri-state: `true` = force reasoning on, `false` = off, `null`/omitted = model default) — see the reasoning toggle below.
+
+There is **no** automatic provider fallback — errors from the selected vendor surface as usual (401 → "AI authentication failed", 429 → "rate limit reached", 5xx → "temporarily overloaded"). This keeps experiments honest.
+
+**Reasoning toggle.** Reasoning ("thinking") models can be controlled per active-config via the `thinking` field (Model Settings → *Reasoning*, or the `thinking` key on `PUT /api/admin/llm-config`). It maps to `think` (Ollama) and `chat_template_kwargs.enable_thinking` (Cloudflare/vLLM). For the recommender's large RAG prompt, leaving reasoning **on** usually wastes the token budget thinking (delayed/empty pages); **off** is the better default for page generation. Env fallbacks: `OLLAMA_THINK` / `CF_THINK` / `VLLM_THINK` (`=false` to disable when no KV config is set).
+
+#### Local LLM providers — Ollama & vLLM (local dev only)
+
+`ollama` and `vllm` let you run the recommender against **local or self-hosted** models during development. **They only work under `wrangler dev`** — a *deployed* Cloudflare Worker runs on CF's edge and cannot reach `localhost`, an SSH tunnel, or a private host. To use them in production you would have to expose the model server on a public, authenticated URL and set the corresponding `*_BASE_URL` as a deployed secret; otherwise treat these two as local-only.
+
+Configure them in `workers/recommender/.dev.vars` (gitignored; see `.dev.vars.example`), then run `npm run dev` (which is `wrangler dev`). Setting `OLLAMA_MODEL` / `VLLM_BASE_URL` makes that provider the default active model with no admin click; the admin Model Settings KV entry still overrides it.
+
+**Ollama** (native `/api/chat`):
+```bash
+# .dev.vars
+OLLAMA_BASE_URL=http://localhost:11434      # local Ollama, or an SSH-forwarded remote
+OLLAMA_MODEL=nemotron-3-nano:30b            # any `ollama pull`ed model (selects it as default)
+OLLAMA_MAX_TOKENS=16384                      # output budget (default 16384)
+OLLAMA_NUM_CTX=32768                         # MUST exceed the ~15k-token RAG prompt or Ollama
+                                             # silently truncates it (default 32768; Ollama's own
+                                             # default is often 4096 -> empty/garbled pages)
+OLLAMA_THINK=false                           # disable reasoning (recommended for page gen)
+# OLLAMA_TIMEOUT_MS=300000                   # LLM timeout for slow/large models (default 300000)
+```
+
+**vLLM** (OpenAI-compatible `/v1/chat/completions`):
+```bash
+# .dev.vars
+VLLM_BASE_URL=http://localhost:8000/v1       # vLLM server, or SSH-forwarded remote
+# VLLM_API_KEY=...                           # only if vLLM was started with --api-key
+# VLLM_THINK=false                           # disable reasoning (or use Model Settings)
+```
+vLLM's served model id comes from `GET {VLLM_BASE_URL}/models`; select it in Model Settings (any id works via the synthesize path). Reasoning split (`reasoning_content`) requires vLLM started with `--reasoning-parser`; otherwise reasoning text leaks into `content`. Rich aggregate timing (TTFT, decode tok/s) is on vLLM's Prometheus `/metrics`, not in the API response.
+
+**Remote model server over SSH** (e.g. an EC2 box) — forward its ports to localhost, then point the `*_BASE_URL` at the forwarded port:
+```bash
+ssh -N -L 11434:localhost:11434 -L 8000:localhost:8000 user@your-host
+# then OLLAMA_BASE_URL=http://localhost:11434  and  VLLM_BASE_URL=http://localhost:8000/v1
+```
+
+**Cloudflare via REST (local-dev convenience).** `wrangler dev --local` disables the `AI` binding ("needs to be run remotely"), and the remote-binding proxy needs a Workers-Scripts-scoped token. To use Cloudflare models locally without that, set `CF_ACCOUNT_ID` + `CLOUDFLARE_API_TOKEN` (Workers AI: Read+Edit scope) in `.dev.vars` — the provider then calls the REST API directly. In production the `AI` binding is used and needs none of this.
+
+`LLM_TIMEOUT_MS` overrides the per-call LLM timeout for **any** provider (default 60s; Ollama defaults to 300s) — useful for slow local reasoning models.
+
+### Article Cards & Modal Fragments
+
+When the recommender surfaces a `{{story:SLUG}}` or `{{experience:SLUG}}` token, it renders a card whose CTA opens the authored page as a **modal fragment** instead of navigating away. This keeps the user in the query flow; the modal footer still carries an "Open full article ↗" link to the canonical page for sharing / SEO.
+
+**Card data** comes from `content/stories-index.json` and `content/experiences-index.json`. Each entry supports three optional fields on top of the existing schema:
+
+| Field | Purpose | Fallback |
+|-------|---------|----------|
+| `excerpt` | 1-sentence teaser shown on the card (~160 chars) | `intro` / `hero_subtext` / `editorial_intro` |
+| `image` | Absolute or `/media_…` path used as card hero | First `related_products[0]` image |
+| `published` | Gates Vectorize indexing + token resolution | `true` (implicit) |
+
+**Seeding & auditing:** `tools/seed-article-cards.js` fills in `excerpt` (first sentence of `intro`), leaves `image` blank, and defaults `published: true`. Run with `--audit` to rewrite `published` against the live sitemap so only slugs that actually exist on `*.aem.live` are marked as publishable.
+
+**Published gate:** `workers/recommender/scripts/index-content.js` reads both index files at startup and skips files whose slug is marked `published: false`. `workers/recommender/src/images.js` short-circuits token resolution with an HTML comment for unpublished slugs as a defense-in-depth layer. After flipping `published` on any entry, re-index:
+
+```bash
+cd workers/recommender && node scripts/index-content.js
+```
+
+**Client:** `blocks/modal/modal.js` exports `attachModalTrigger(anchor)` — attached to card CTAs in `blocks/article-excerpt/`, `blocks/blog-card/`, and `blocks/experience-cta/`. It intercepts plain left-click only; cmd/ctrl/shift/middle-click, right-click, and no-JS all still navigate normally.
+
+### Fragments Folder
+
+Standalone article fragments authored specifically for the recommender modal live under `fragments/recommender/*.plain.html`. `tools/upload-to-da.sh` automatically picks up any `.plain.html` under `fragments/` and `modals/` in addition to `drafts/`, and uploads them to DA under the matching path (so `fragments/recommender/foo.plain.html` → `fragments/recommender/foo.html` on DA, reachable at `/fragments/recommender/foo` on the live site). Use this folder for article-sized content that should exist as a modal-loadable fragment but does not need to be a full navigable page.
+
+### Session Storage & Admin Interface
+
+Every completed recommender generation is persisted to two Cloudflare-managed stores:
+
+**Hierarchy** — three levels:
+
+```
+session (one browser tab — sessionStorage)
+  └─ page (one ?q= URL visit — shared across initial + follow-up runs)
+      └─ run (one /api/generate call — initial or a follow-up click)
+```
+
+**D1 (SQLite) — `arco-sessions` database** — fast, queryable metadata. The `generated_pages` table is the **runs** table:
+
+```sql
+sessions(id, ip_hash, user_agent, first_seen, last_seen, page_count)
+generated_pages(id=runId, session_id, page_id, page_url, run_index, parent_run_id,
+                query, previous_queries, title, intent_type, journey_stage, flow_id,
+                follow_up_type, follow_up_label, follow_up_options, block_count,
+                created_at, duration_ms, input_tokens, output_tokens,
+                da_path, preview_url, live_url)
+```
+
+`page_id` groups all runs belonging to a single URL visit. `run_index` is 0 for the initial run and 1..N for each follow-up click. `follow_up_options` is a JSON array of the chips that were shown to the user on that run.
+
+**KV — `SESSION_STORE` namespace** — full payloads keyed by runId (legacy `page:{id}` prefix kept):
+
+```
+page:{runId}  →  { blocks: [{index, blockType, html}], followUpOptions, followUpClicked, debug, request }
+```
+
+The `debug` snapshot captures intent classification, RAG results (products, features, FAQs, recipes, hero images), behavior analysis, full system/user prompts, timings, LLM model + token counts, and raw LLM output.
+
+**Identifier lifecycle** (all generated client-side in `scripts/scripts.js`):
+- `sessionId` — UUID per browser tab (`sessionStorage`). A new tab/window = a new session.
+- `pageId` — UUID per `?q=` URL visit. Shared by the initial generation and every follow-up click on that page.
+- `runId` — UUID per `/api/generate` call.
+
+All three are sent in every request body along with `pageUrl` and optional `parentRunId` (the run whose follow-up chip was clicked).
+
+**Key storage files:**
+
+| File | Role |
+|------|------|
+| `workers/recommender/src/storage.js` | `saveGeneration(ctx, env, sessionId)` — called after `executeFlow` completes; writes D1 metadata + KV payload |
+| `workers/recommender/src/admin.js` | Admin route handlers + self-contained HTML SPA |
+| `workers/recommender/migrations/0001_sessions.sql` | D1 schema (run once via `wrangler d1 execute`) |
+
+**Admin interface** — the primary entry point is the EDS-hosted admin block:
+- Production: `https://main--arco--froesef.aem.live/admin`
+- Preview / feature branch: `https://{branch}--arco--froesef.aem.page/admin`
+- Local dev: `http://localhost:3000/admin` (after `aem up`)
+
+Login is gated by HTTP Basic Auth against the recommender worker — username `admin`, password = `ADMIN_TOKEN` secret (set via `wrangler secret put ADMIN_TOKEN`). The block stores the auth header in `localStorage` and clears it via the **Reset Token** button in the header.
+
+| View | URL | What it shows |
+|------|-----|---------------|
+| Sessions list | `#/` | All sessions ordered by last-active; session ID, timestamps, run count, user agent |
+| Session detail | `#/sessions/:id` | Pages (grouped by page_id) with initial query, URL, run count, total duration, tokens |
+| Page detail | `#/pages/:id` | Four tabs: **Overview** (metadata + totals), **Full page** (reconstructs every run plus inline follow-up chip markers showing what was presented and which chip was clicked), **Run timeline** (per-run breakdown with options shown + selected), **Debug** (per-run RAG/prompt/LLM output) |
+| Experiments | `#/experiments` | Multi-model A/B runner. Creates an **experiment** (1–12 variants) against the same query, fans out the `llm-generate` step in parallel, and renders a side-by-side overview (duration, tokens, temperature, max tokens) plus a flip-through viewer that re-renders each variant's blocks. Upstream RAG + prompt runs **once** per experiment. |
+| LLM Evaluation list | `#/evaluations` | List of eval runs with status, phase, completed/total queries, judge model, est. cost, created date. **New run** form chooses suite, models (up to 8), judge model, query concurrency, skip-judge toggle; three preset chips (Cerebras only, GPT-OSS providers, Diverse mix) populate the models grid in one click. |
+| LLM Evaluation detail | `#/evaluations/:id` | Live matrix of queries × models. Each cell shows TTFT / duration / tokens-per-sec + Claude quality score + blocker badge. Toolbar: **Resume**, **Re-judge all**. Per-cell hover `↻` for single-cell regenerate/rejudge. Auto-polls `/progress` every 3s while phase is non-terminal. |
+| Model Settings | `#/model-settings` | Picks the active `{provider, model, temperature, maxTokens}` for the main `/api/generate` pipeline. Reads/writes `llm-config:active` in CACHE KV via `GET/PUT /api/admin/llm-config`. |
+| Vectorize browser | `#/vectorize` | Inspect Cloudflare Vectorize index — search by query string (k-NN over `arco-content`) and view embedding stats. |
+
+The admin block source lives at `blocks/admin/admin.js` + `blocks/admin/admin.css`. A static `drafts/admin.html` mirrors the EDS markup for local testing without the CMS. The prior server-rendered `/admin` HTML SPA endpoint on the worker still exists but is superseded by the block; new features should be added to the block.
+
+**Direct API access** (useful for scripting or curl):
+
+```bash
+# All sessions (paginated)
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/sessions?limit=50&offset=0
+
+# Single session + its pages (grouped runs)
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/sessions/{sessionId}
+
+# Page (group of runs) with all KV payloads for reconstruction
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/pages/{pageId}
+
+# Single run detail (KV payload for one generation)
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/runs/{runId}
+
+# List experiments (paginated)
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/experiments?limit=50&offset=0
+
+# Create a new experiment (streams NDJSON; one `section` event per variant, tagged with variantId)
+curl -u admin:TOKEN -N -H 'Content-Type: application/json' \
+  -d '{"query":"best espresso under 1000","variants":[
+    {"provider":"cerebras","model":"gpt-oss-120b","temperature":0.6,"maxTokens":5120},
+    {"provider":"sambanova","model":"DeepSeek-V3.2","temperature":0.6,"maxTokens":5120}]}' \
+  https://arco-recommender.franklin-prod.workers.dev/api/admin/experiments
+
+# Single experiment + its variant summary rows
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/experiments/{experimentId}
+
+# Variant full payload (blocks + debug + prompt) for re-rendering
+curl -u admin:TOKEN https://arco-recommender.franklin-prod.workers.dev/api/admin/experiments/{experimentId}/variants/{variantId}
+```
+
+**Experiment storage** (migration `0004_experiments.sql`):
+
+| Table | What it holds |
+|-------|---------------|
+| `experiments` | One row per experiment — query, variant count, status, upstream (`shared_duration_ms`) timing, intent/journey snapshot. |
+| `experiment_variants` | One row per `{provider, model, temperature, max_tokens}` run within an experiment — status, duration, token counts, title, block count, error. Reserves `evaluator_score` / `evaluator_notes` / `evaluator_summary` columns for the phase-2 LLM judge. |
+
+Per-variant full NDJSON payloads (blocks, suggestions, debug snapshot, prompt, raw LLM output) live in `SESSION_STORE` KV under `experiment:{experimentId}:variant:{variantId}` with a 90-day TTL — the same shape as `page:{runId}` so the admin block reuses its existing `renderStoredSection()` helper to re-render any variant.
+
+**Phase 2 — LLM judge (shipped)**: the *LLM Evaluation* admin tab runs a fixed coffee query suite across many models and scores each generation with Claude. See the next section.
+
+### LLM Evaluation Tab
+
+`/admin#/evaluations` runs a curated query suite against multiple models in one pass and produces a queries × models matrix scored on speed and quality.
+
+**Speed metrics** (per cell, no extra cost) — TTFT, total duration, tokens/sec. Captured during the existing streaming generation; surfaced from `experiment_variants.time_to_first_token_ms` and `duration_ms`.
+
+**Quality metrics** (per cell, costs Anthropic tokens) — Claude scores the generated page on seven dimensions, each 1–5:
+- *structure* — well-formed EDS blocks, required sections present
+- *intent* — does the page actually answer the query?
+- *faithfulness* — products / prices / specs grounded in the RAG context (no hallucinated SKUs)
+- *helpfulness* — editorial polish, tone, useful next steps
+- *brandVoice* — sounds like a knowledgeable, approachable specialty-coffee brand; penalizes generic AI filler and clichés
+- *specificity* — concrete coffee details (grams, ratios, temps, grind sizes, named techniques) instead of vague generalities
+- *visualAssetUsage* — hero image present, story / experience / product image tokens placed where they aid the reader, no missing assets
+
+The composite score (mean of the seven) lives in `experiment_variants.evaluator_score`. Per-dimension reasoning, judge model, judge token counts, **deterministic-assertion results**, and **blocker-gate metadata** live as JSON in `experiment_variants.evaluator_notes`.
+
+**Deterministic assertions** (`workers/recommender/src/evaluations/assertions.js`) run on every variant alongside the judge. They are cheap, reliable, and catch what the LLM judge often misses:
+
+- *broken-token* — `<!-- unknown story:slug -->` / `<!-- unpublished experience:slug -->` markers left by `images.js` when token resolution fails (always **blocker**)
+- *unbalanced-html* — opening / closing tag mismatch on `<div>`, `<p>`, `<a>`, `<picture>`, list, table tags (always **blocker**)
+- *block-count* — pages with <3 blocks are blockers; >25 blocks is a warn
+- *gold-must-mention-any* — at least one of the per-query `gold.mustMentionAny` substrings must appear (warn)
+- *gold-must-not-mention* — none of `gold.mustNotMention` may appear (blocker — protects against hallucinated SKUs like `Arco MoonRover 9000`)
+- *gold-min-products* / *gold-min-recipes* — minimum count of resolved product/recipe cards (warn)
+- *expected-decline* — for queries tagged `expectedBehavior: "decline"` (off-topic), the page must include decline phrasing AND ≤2 product cards (blocker)
+
+**Blocker tag** — cells are flagged with a `⚠ blocker` badge when any of:
+- `faithfulness` dimension < 3
+- `structure` dimension < 3
+- any deterministic assertion has severity `blocker`
+
+The badge is informational — the cell still shows the raw judge composite as its score so trends and rankings remain visible. Blocker rate is reported per model in the summary table — a high quality average with a 30% blocker rate is worse in production than a slightly lower quality with 0% blockers.
+
+**Statistical reporting** — the per-model summary now includes 95% confidence intervals (`qualityCi95`, `ttftCi95`, `durationCi95`) and a sample count (`qualityN`). The admin UI surfaces them as `4.10 ± 0.18` and adds a pairwise hint flagging model pairs whose CIs overlap so a 0.1-point gap on n=15 isn't mistaken for a real difference.
+
+**Run-level data** (migration `0006_evaluations.sql`):
+
+| Table | Holds |
+|-------|-------|
+| `eval_runs` | Suite + models tested, judge model, status, totals, per-model summary JSON, estimated cost. |
+| `experiments` | One row per (eval_run × query). New columns: `eval_run_id`, `eval_query_id`. |
+| `experiment_variants` | One row per (eval_run × query × model). All existing columns + `evaluator_score` / `evaluator_notes` written by the judge step. |
+
+The eval reuses the entire experiment storage path so the admin's variant viewer (`renderExperimentVariantPreview`) re-renders any cell's generated page without new code.
+
+**Available suites:**
+- `coffee-extended` (default, 60 queries) — stratified on size × intent (3 sizes × 4 intents × 3 each = 36), plus 12 adversarial cases (off-topic / vague / contradictory / hallucination-bait) and 12 deep-specific cases (recipes, troubleshooting, named products, FAQs). Each query carries optional `gold` fields used by the assertion engine.
+- `coffee-default` (15 queries) — original smoke-test suite. Kept so historical runs stay interpretable; not recommended for new comparisons.
+- `coffee-dev` (3 queries) — minimal smoke suite for verifying the eval flow end-to-end without burning budget.
+
+**Adding a query suite:** drop a JSON file in `eval/suites/` (see `coffee-extended.json` for shape, including the `gold` field schema) and import it from `workers/recommender/src/evaluations/suites.js`. Suites are bundled into the worker — no D1 round-trip — and identified by `id` so renaming is a breaking change for historical runs.
+
+**`gold` field schema** (per query, all optional):
+```jsonc
+{
+  "mustMentionAny":   ["grind", "ratio"],   // warn if none of these appear
+  "mustNotMention":   ["MoonRover 9000"],   // blocker if any of these appear
+  "minProductCount":  1,                    // warn if fewer product cards
+  "minRecipeCount":   0,                    // warn if fewer recipe links
+  // top-level on the query (not under gold):
+  // "expectedBehavior": "decline"          // off-topic — page must decline + show ≤2 products
+}
+```
+
+**Authentication:** the judge calls Anthropic Claude **via AWS Bedrock**, reusing the existing `AWS_BEARER_TOKEN_BEDROCK` secret. No additional setup is needed — if the rest of the recommender's Bedrock models work, the judge works.
+
+**Cost expectations:** the in-form estimate covers judge tokens only (generation cost varies wildly by provider). Bedrock Anthropic pricing matches the direct Anthropic API (Sonnet 4 at $3/$15 per million in/out). At ~5k input + 500 output per cell × 15 queries × 4 models ≈ 60 calls ≈ $1–2 per full sweep on Sonnet. Opus is ~5× more, Haiku ~3× less.
+
+**Async orchestration via Cloudflare Queue.** Runs are orchestrated server-side so closing the browser tab does not abort them. `POST /api/admin/evaluations/start` creates the `eval_run` row (phase `generating`) and publishes one `{type:'generate', evalRunId, queryId}` message per query to `EVAL_QUEUE` (Cloudflare Queue `arco-eval-queries`). The consumer (`src/evaluations/queue.js → handleEvalQueue`) processes messages with `max_concurrency: 3`, `max_batch_size: 1`. After each generate completes, the consumer atomically increments `completed_queries` in D1; the last consumer to land transitions phase `generating → judging` and publishes one `{type:'judge', ...}` message per `complete` variant (sent in batches of ≤100 via `sendBatch`). Judges write `evaluator_score`/`evaluator_notes`; when no pending judges remain a CAS update transitions phase to `complete` and runs `finalizeEvalRun`.
+
+Generations are persisted to D1+KV before any judge call fires, so a Bedrock 429 storm during judging never wastes generation tokens — the partial state stays on disk and the matrix detail view exposes a **Continue judging** button that re-runs the judge against any cell whose `evaluator_score IS NULL`. The create form has a **Skip judging** checkbox for the case when you want to defer judging entirely (e.g. Bedrock is throttled at run time). The matrix toolbar also has **Retry failed cells** and **Re-judge all** (confirm dialog gated). Each cell has a hover-revealed `↻` for single-cell retry: full regeneration when the cell failed at generation, cheap KV-only re-judge otherwise. Re-judge does NOT re-run the upstream pipeline — RAG context is persisted at `experiment:{expId}:rag-context` in KV alongside the variant payloads, so the judge can be replayed without paying for retrieval again.
+
+**Bedrock 429 retry via CF Queues `delaySeconds`.** Bedrock does NOT include a `Retry-After` header on 429s; AWS recommends syncing retries with the 60-second quota refresh cycle. The judge uses two layers of retry: (1) **In-process** (`src/evaluations/judge.js`) — one quick retry at ~500ms for transient blips. (2) **Queue-level** — if the 429 persists, `handleJudge` calls `msg.retry({ delaySeconds })` instead of `msg.ack()`, scheduling redelivery at **30/60/90/120/150s** (stair-stepped, each step crossing the 60s quota window) using `msg.attempts` for backoff. `wrangler.jsonc` sets `max_retries: 5`, so a 429-bound judge cell waits up to ~7.5 minutes before landing in the DLQ. Non-429 errors fall through to `ack` — no infinite retry loops.
+
+**Cron fallback.** `triggers.crons: ["*/5 * * * *"]` runs `handleEvalCronFallback(env)` (`scheduled()` handler in `src/index.js`). It scans `eval_runs` for rows in phase `generating` / `judging` with `last_activity_at` older than 2 minutes and processes up to 5 stuck runs per tick — up to 3 pending queries or 3 pending judge cells per run. The cron's `processGenerating` resets any `running` variants → `error` first (worker died before completing) so the next pass can retry them. Treat the cron as a safety net for queue delivery hiccups, not the primary path.
+
+**Headless writer gotcha (CRITICAL).** `runOneQueryHeadless` and `regenerateOneVariantHeadless` (in `src/evaluations/runner.js`) must use the `createNoopWriter()` helper — a `WritableStream` with a discarding write handler. The LLM step writes sections + 3s heartbeats directly to `ctx.writer`; if `ctx.writer` is a `TransformStream` writer with no reader on the readable side (as it was before the fix), the internal buffer fills (default `highWaterMark: 1`) and `await writer.write(...)` blocks forever. The worker hits its wall-time limit and dies before `msg.ack()`, leaving variants stuck at `running`. **Never** use `new TransformStream().writable.getWriter()` for headless eval paths.
+
+**Admin API** (Basic auth, same `ADMIN_TOKEN` as Sessions/Experiments):
+
+*Run lifecycle:*
+- `GET /api/admin/eval-suites` → `{ suites: [...], judgeModels: [...] }`
+- `POST /api/admin/evaluations/start` (body `{ suiteId, models, judgeModel, queryConcurrency, skipJudge }`) → creates `eval_run`, publishes one queue message per query. Returns `{ evalRunId, queryCount, modelCount, variantCount }` immediately. **This is the primary entry point for new runs.**
+- `GET /api/admin/evaluations/:id/progress` → lightweight `{ evalRunId, status, phase, completedQueries, queryCount, modelCount, lastActivityAt }` for polling
+- `POST /api/admin/evaluations/:id/resume` → re-publishes queue messages for queries with no experiment row or all-error variants. Clamps `completed_queries` at 0 (never goes negative).
+- `POST /api/admin/evaluations/:id/finalize` → recompute summary + close the run.
+- `GET /api/admin/evaluations` → paginated list of runs
+- `GET /api/admin/evaluations/:id` → run + experiments + variants + suite definition (everything needed to render the matrix)
+
+*Per-cell operations (publish a single queue message, return immediately):*
+- `POST /api/admin/evaluations/:id/variants/:variantId/rejudge` → publishes `{type:'rejudge'}`. Re-runs judge against persisted KV blocks; does NOT re-run the upstream pipeline.
+- `POST /api/admin/evaluations/:id/variants/:variantId/regenerate` → publishes `{type:'regenerate'}`. Full re-run: upstream pipeline + LLM + assertions + judge.
+
+*Legacy synchronous endpoints (kept for compatibility, used by the cron fallback path):*
+- `POST /api/admin/evaluations` (deprecated, use `/start`) → creates the run row only.
+- `POST /api/admin/evaluations/:id/queries` (body `{ queryId, skipJudge? }`) → run one query inline, NDJSON stream.
+- `POST /api/admin/evaluations/:id/judge` (body `{ scope?: 'pending'\|'errors'\|'all', judgeConcurrency? }`) → bulk judge phase inline. NDJSON stream. Default `judgeConcurrency: 2` (max 4).
+
+*Queue diagnostics & ops:*
+- `GET /api/admin/eval-queue` → backlog stats (`{ messages, age }`) from CF Queues API. Requires `CF_API_TOKEN` secret with `Cloudflare Queues: Edit` + `Account Analytics: Read` permissions.
+- `GET /api/admin/eval-queue/consumers` → consumer registration + `delivery_paused` state for the queue.
+- `POST /api/admin/eval-queue/purge` → drop all pending messages (irreversible). Auto-resumes delivery if previously paused.
+- `POST /api/admin/eval-queue/resume-delivery` → calls CF Queues API to set `delivery_paused: false` on the queue.
+- `POST /api/admin/eval-queue/test-invoke` (body `{ type, evalRunId, ... }`) → directly invoke the queue handler with a synthetic batch. Bypasses CF Queue delivery entirely — useful for diagnosing whether the consumer code works when CF Queue delivery is failing.
+
+**Query D1 directly** (for ad-hoc analysis):
+
+```bash
+# Most active sessions
+wrangler d1 execute arco-sessions --command "SELECT id, page_count, first_seen, last_seen FROM sessions ORDER BY page_count DESC LIMIT 10"
+
+# Recent generations with intent and timing
+wrangler d1 execute arco-sessions --command "SELECT query, intent_type, journey_stage, duration_ms, input_tokens, output_tokens FROM generated_pages ORDER BY created_at DESC LIMIT 20"
+
+# Token usage summary
+wrangler d1 execute arco-sessions --command "SELECT SUM(input_tokens) as total_in, SUM(output_tokens) as total_out, COUNT(*) as pages FROM generated_pages"
+```
+
+### User Feedback (Ratings, Comments, Flags)
+
+Every freshly-generated `/?q=...` run gets a run-level feedback widget anchored above the follow-up chips. End users tap 👍 / 👎, optionally leave a comment, and on negative ratings can flag a category and tick which of the displayed products were wrong. Stored in D1 alongside `generated_pages` so the data is joinable with run metadata (model, intent, query, da_path) for model-level / intent-level aggregates.
+
+**Why it exists:** the LLM-judge in `#/evaluations` scores generations offline against a rubric, but only real users tell you whether a page actually helped. Feeds development three ways — manual review in `#/feedback`, eval cross-check via a per-cell chip on the eval matrix, and a downloadable export for ad-hoc analysis or future fine-tuning.
+
+**Data model** (migration `0008_run_feedback.sql`, auto-applied on next worker boot):
+
+```sql
+run_feedback(id, run_id, page_id, session_id, rating, comment, flags,
+             wrong_products, dwell_ms, user_agent, ip_hash,
+             created_at, updated_at, UNIQUE(run_id, session_id))
+```
+
+`UNIQUE(run_id, session_id)` means a re-submit from the same browser upserts. `flags` and `wrong_products` are JSON arrays. `dwell_ms` is captured by the widget at submit time. IPs are SHA-256 hashed via the same `hashIp()` helper used by `sessions`.
+
+**Flag categories** (closed set, validated client + server):
+
+| Key | Label |
+|-----|-------|
+| `wrong-product` | Wrong product / made-up facts |
+| `off-topic` | Off-topic / didn't answer my question |
+| `inappropriate-tone` | Inappropriate tone / off-brand |
+| `harmful-unsafe` | Harmful or unsafe |
+
+The free-text comment doubles as "other" — no explicit "other" checkbox.
+
+**Widget UX** (`scripts/feedback-widget.js`, `styles/feedback-widget.css`):
+
+1. After streaming completes, `streamAndAppendContent` async-imports the widget and inserts it before `.follow-up-container`.
+2. 👍 fires a single `POST /api/feedback {rating:+1}`, collapses to "Thanks 👍" with an optional `Add a note` chip.
+3. 👎 fires `POST /api/feedback {rating:-1}` immediately (captures the downvote even if the user bails) then expands a form: comment textarea (≤1000 chars), four flag checkboxes, and a product multi-select populated from product links in the run's already-rendered sections.
+4. `Send` upserts comment + flags + wrong-products. `Skip` collapses without a second POST.
+5. `localStorage[arco-feedback:{runId}]` remembers the rating so a page refresh doesn't re-prompt. Server-side dedup is the truth.
+
+The widget only attaches on fresh `/?q=` runs. Cached `/discover/{slug}` pages are out of scope in this iteration (re-running a deterministic-slug query bypasses the cache and triggers a fresh run).
+
+**Section→run mapping:** `renderStreamedSection` stamps `section.dataset.runId = state.runId` so the widget can scope its product detection to "this run's sections" via `[data-run-id="…"] a[href*="/products/"]`. Useful future-proofing for per-section feedback even though the widget is run-level today.
+
+**Admin views:**
+
+| Hash route | What it shows |
+|------------|---------------|
+| `#/feedback` | List with summary strip (totals, %positive, top flag, judge↔user divergence count). Filters: rating, flag, model, query substring, has-comment. `Download CSV` / `Download NDJSON` buttons in the toolbar. |
+| `#/feedback/run/:runId` | Per-run detail — run metadata + every feedback row (rating, flags, wrong products, full comment, dwell, UA, timestamp) + "View generated page" link. |
+| `#/pages/:id` `Feedback` tab | Fifth tab on the page-detail view; lists feedback for every run on that page. |
+| `#/evaluations/:id` | Each query row's label gets a `👍N 👎M` chip when real-user feedback exists for the same query. Click → jumps to `#/feedback?q=…`. Refreshes on the 3s poll. |
+| `#/insights` | Reserved route + disabled `Generate summary` button. LLM-powered feedback summarization is a follow-up spec. |
+
+**Admin API** (Basic-auth, same `ADMIN_TOKEN`):
+
+- `POST /api/feedback` (public, no auth) — upserts. Returns `204 No Content`.
+- `GET /api/admin/feedback?limit&offset&rating&flag&model&q&hasComment&since&until` — paginated list joined with `generated_pages`.
+- `GET /api/admin/feedback/summary?since=` — header-strip aggregates.
+- `GET /api/admin/feedback/run/:runId` — single-run detail + per-flag count + per-product count.
+- `GET /api/admin/feedback/export?format=csv|json&since=&until=` — flattened export, semicolon-joined `flags` and `wrong_products`.
+- `GET /api/admin/evaluations/:id?include=feedback` — opt-in expansion that adds `feedbackByQuery: { "<query>": { up, down, comments } }` to the existing payload.
+
+**Eval cross-check.** When you spot a model the LLM judge rated 4.5 but real users keep flagging — that's the signal you want. The matrix view picks this up via the `?include=feedback` expansion; the admin summary surfaces a `judge↔user diverge` count joining `experiment_variants.evaluator_score ≥ 4` against `run_feedback.rating = -1` over matching `gp.query`.
+
+**Spam / abuse protection (MVP):** the only gate is `UNIQUE(run_id, session_id)` plus server-side `comment ≤ 1000` truncation and flag/product allow-listing. No rate-limit middleware yet — if abuse appears, add an IP-hash cooldown.
+
+**Query D1 directly:**
+
+```bash
+# Recent feedback with model + query
+wrangler d1 execute arco-sessions --command \
+  "SELECT rf.created_at, rf.rating, rf.flags, gp.llm_model, gp.query
+   FROM run_feedback rf JOIN generated_pages gp ON gp.id = rf.run_id
+   ORDER BY rf.created_at DESC LIMIT 20"
+
+# Negative-only by model
+wrangler d1 execute arco-sessions --command \
+  "SELECT gp.llm_model, COUNT(*) as bad
+   FROM run_feedback rf JOIN generated_pages gp ON gp.id = rf.run_id
+   WHERE rf.rating = -1 GROUP BY gp.llm_model ORDER BY bad DESC"
+
+# Flag breakdown
+wrangler d1 execute arco-sessions --command \
+  "SELECT je.value as flag, COUNT(*) as n
+   FROM run_feedback rf, json_each(rf.flags) je
+   GROUP BY je.value ORDER BY n DESC"
+```
+
+**Key files:**
+
+| File | Role |
+|------|------|
+| `workers/recommender/migrations/0008_run_feedback.sql` | Schema + indexes |
+| `workers/recommender/src/feedback.js` | All five handlers + `attachFeedbackToQueries(env, queries)` helper for the eval matrix |
+| `workers/recommender/src/index.js` | Routes for `/api/feedback` (public) and `/api/admin/feedback/*` (admin auth gate) |
+| `workers/recommender/src/evaluations/admin.js` | Patched `handleGetEvaluation` so `?include=feedback` attaches per-query counts |
+| `scripts/feedback-widget.js` + `styles/feedback-widget.css` | DOM widget + scoped styles |
+| `scripts/recommender-stream.js` | Stamps `section.dataset.runId`; attaches widget after each run |
+| `blocks/admin/admin.js` + `blocks/admin/admin.css` | `#/feedback` list, `#/feedback/run/:id` detail, `#/insights` stub, Feedback tab on page detail, eval-matrix per-row chip |
 
 ## Testing & Quality Assurance
 
@@ -244,6 +658,39 @@ With this information, you can construct URLs for the preview environment (same 
 5. use `gh pr checks` to verify the status of code synchronization, linting, and performance tests
 6. A human reviewer will review the code, inspect the provided URL and merge the PR
 7. AEM Code Sync updates the main branch for production
+
+### Branch Workers (Recommender)
+
+When working on a feature branch that changes the recommender worker (`workers/recommender/`), deploy a branch-specific worker version so the feature preview uses your code instead of production.
+
+**How it works:** `wrangler versions upload --preview-alias` creates a new version of `arco-recommender` reachable at `https://{alias}-arco-recommender.franklin-prod.workers.dev`. All secrets and bindings (KV, D1, Vectorize, AI) are inherited from production automatically. The production worker at `arco-recommender.franklin-prod.workers.dev` is never affected.
+
+The frontend (`scripts/api-config.js`) auto-detects `*.aem.page` preview hostnames and routes to the branch worker. `*.aem.live` and `arco.coffee` always use production.
+
+**Commands** (run from `workers/recommender/`):
+
+```bash
+# Deploy current branch as a worker version with preview alias
+npm run deploy:branch
+
+# Deploy a specific branch by name
+./deploy-branch.sh my-branch-name
+
+# List all live branch workers
+npm run list:branch:live
+
+# Release the branch alias when done
+npm run cleanup:branch
+
+# Interactive cleanup of all merged branches (alias + worktree + local branch)
+npm run cleanup:merged
+```
+
+**Branch worker URL pattern:**
+- Branch `my-feature` → `https://my-feature-arco-recommender.franklin-prod.workers.dev`
+- Preview frontend → `https://my-feature--arco--froesef.aem.page/discover`
+
+Only deploy a branch worker when your changes touch `workers/recommender/`. Pure frontend changes don't need one.
 
 ## Troubleshooting
 

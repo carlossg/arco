@@ -1,0 +1,770 @@
+{
+  "_meta": {
+    "description": "Hero image catalog for the Arco recommender. Each entry defines a lifestyle scenario with a Firefly generation prompt, topic keywords for query matching, and a path field that gets populated once the image is generated and uploaded.",
+    "firefly_settings": {
+      "model": "image5",
+      "size": {
+        "width": 2688,
+        "height": 1536
+      },
+      "content_class": "photo",
+      "visual_intensity": 4,
+      "reasoner": "quality",
+      "negative_prompt": "blurry, low quality, text, watermark, logo, cartoon, illustration, drawing, painting, sketch, CGI, 3D render, deformed fingers, extra fingers, fused fingers, missing fingers, bad hands, bad anatomy, distorted proportions, extra limbs, unnatural pose, disfigured"
+    },
+    "brand_style": "Photorealistic commercial photography. Clean, minimal composition. Natural light preferred, soft shadows. Color palette: deep slate (#1C2B35), warm cream (#F5F0E8), copper accents (#B5651D). No text overlays. Professional food and product photography aesthetic, similar to Kinfolk magazine or Monocle visual style."
+  },
+  "images": [
+    {
+      "id": "life-commute-rush",
+      "category": "morning-routines",
+      "scenario": "Morning commute rush",
+      "filename": "life-commute-rush.jpeg",
+      "path": "assets/images/heroes/life-commute-rush/hero.png",
+      "alt": "A person grabbing a stainless steel travel mug of espresso from a marble kitchen counter while picking up keys and a messenger bag, early morning grey-blue light through a hallway window",
+      "topics": [
+        "commute",
+        "morning",
+        "rush",
+        "work",
+        "busy",
+        "routine",
+        "travel-mug"
+      ],
+      "prompt": "A person grabbing a stainless steel travel mug of espresso from a marble kitchen counter while picking up keys and a messenger bag, early morning grey-blue light through a hallway window, coat rack with jacket in the background, focused and purposeful energy. Photorealistic commercial photography, clean minimal composition, natural light, soft shadows."
+    },
+    {
+      "id": "life-commute-train",
+      "category": "morning-routines",
+      "scenario": "Train platform coffee",
+      "filename": "life-commute-train.jpeg",
+      "path": "assets/images/heroes/life-commute-train/hero.png",
+      "alt": "A hand holding a double-wall glass cup of espresso on a modern train station platform at dawn, blurred commuter train arriving in the background",
+      "topics": [
+        "commute",
+        "train",
+        "travel",
+        "morning",
+        "city",
+        "routine"
+      ],
+      "prompt": "A hand holding a double-wall glass cup of espresso on a modern train station platform at dawn, blurred commuter train arriving in the background, warm golden light cutting through the station canopy, architectural steel and glass. Photorealistic commercial photography, Kinfolk magazine aesthetic, natural light."
+    },
+    {
+      "id": "life-predawn-ritual",
+      "category": "morning-routines",
+      "scenario": "Pre-dawn early riser",
+      "filename": "life-predawn-ritual.jpeg",
+      "path": "assets/images/heroes/life-predawn-ritual/hero.png",
+      "alt": "A kitchen in pre-dawn blue light with a single espresso cup steaming on a wooden counter, the only warm light from an espresso machine's copper-accented power indicator",
+      "topics": [
+        "morning",
+        "early",
+        "predawn",
+        "ritual",
+        "quiet",
+        "routine",
+        "espresso"
+      ],
+      "prompt": "A kitchen in pre-dawn blue light, a single espresso cup steaming on a wooden counter, the only warm light coming from an espresso machine's copper-accented power indicator, silhouette of a person reaching for the cup, quiet contemplative atmosphere. Photorealistic commercial photography, moody natural light, minimal composition."
+    },
+    {
+      "id": "life-family-morning",
+      "category": "morning-routines",
+      "scenario": "Busy parent morning",
+      "filename": "life-family-morning.jpeg",
+      "path": "assets/images/heroes/life-family-morning/hero.png",
+      "alt": "A sunlit family kitchen with a parent pulling an espresso shot while a child reaches for cereal across the table, school backpacks on the floor",
+      "topics": [
+        "family",
+        "morning",
+        "parent",
+        "kids",
+        "busy",
+        "kitchen",
+        "routine"
+      ],
+      "prompt": "A sunlit family kitchen with a parent pulling an espresso shot while a child's hand reaches for cereal across the table, school backpacks on the floor, a wall clock showing 7:15, cheerful morning chaos with warm natural light. Photorealistic commercial photography, authentic and unposed, natural light."
+    },
+    {
+      "id": "life-couple-morning",
+      "category": "morning-routines",
+      "scenario": "Couple morning ritual",
+      "filename": "life-couple-morning.jpeg",
+      "path": "assets/images/heroes/life-couple-morning/hero.png",
+      "alt": "Two people in a bright modern kitchen, one operating an espresso machine with copper accents while the other reads a tablet at the counter, two ceramic cups ready",
+      "topics": [
+        "couple",
+        "morning",
+        "ritual",
+        "together",
+        "kitchen",
+        "romance"
+      ],
+      "prompt": "Two people in a bright modern kitchen, one operating an espresso machine with copper accents while the other reads a tablet at the counter, two ceramic cups ready, soft morning light through large windows, relaxed weekend intimacy. Photorealistic commercial photography, warm tones, Kinfolk aesthetic."
+    },
+    {
+      "id": "life-first-sip",
+      "category": "morning-routines",
+      "scenario": "First coffee of the day",
+      "filename": "life-first-sip.jpeg",
+      "path": "assets/images/heroes/life-first-sip/hero.png",
+      "alt": "Close-up of hands wrapped around a warm ceramic espresso cup at a windowsill, soft early morning light illuminating steam rising from the cup",
+      "topics": [
+        "morning",
+        "first-coffee",
+        "waking-up",
+        "ritual",
+        "simple",
+        "beginning"
+      ],
+      "prompt": "Close-up of hands wrapped around a warm ceramic espresso cup at a windowsill, soft early morning light illuminating steam rising from the cup, a rumpled linen blanket visible on a chair behind, the quiet moment before the day begins. Photorealistic commercial photography, intimate close-up, natural light, warm cream and copper tones."
+    },
+    {
+      "id": "life-home-office",
+      "category": "work-productivity",
+      "scenario": "Home office focus",
+      "filename": "life-home-office.jpeg",
+      "path": "assets/images/heroes/life-home-office/hero.png",
+      "alt": "A minimalist home office desk with a laptop, notebook, and a freshly made cappuccino in a ceramic cup on a small copper tray, midmorning light through wooden blinds",
+      "topics": [
+        "home-office",
+        "work",
+        "remote",
+        "productivity",
+        "focus",
+        "desk"
+      ],
+      "prompt": "A minimalist home office desk with a laptop, notebook, and a freshly made cappuccino in a ceramic cup on a small copper tray, midmorning light through wooden blinds casting striped shadows, a potted plant on the desk corner, focused calm atmosphere. Photorealistic commercial photography, clean composition, natural light."
+    },
+    {
+      "id": "life-office-break",
+      "category": "work-productivity",
+      "scenario": "Office break room",
+      "filename": "life-office-break.jpeg",
+      "path": "assets/images/heroes/life-office-break/hero.png",
+      "alt": "A modern bright office kitchen with two colleagues at a counter, one operating a matte black espresso machine while the other laughs mid-conversation",
+      "topics": [
+        "office",
+        "workplace",
+        "team",
+        "break",
+        "colleagues",
+        "social"
+      ],
+      "prompt": "A modern bright office kitchen with two colleagues standing at a counter, one operating a matte black espresso machine while the other laughs mid-conversation, white mugs on open shelving, large windows showing a city view, casual professional atmosphere. Photorealistic commercial photography, candid feel, natural light."
+    },
+    {
+      "id": "life-creative-studio",
+      "category": "work-productivity",
+      "scenario": "Creative studio",
+      "filename": "life-creative-studio.jpeg",
+      "path": "assets/images/heroes/life-creative-studio/hero.png",
+      "alt": "An architect's studio table with blueprints, material swatches, and a double espresso in a clear glass beside a copper mechanical pencil",
+      "topics": [
+        "creative",
+        "studio",
+        "artist",
+        "design",
+        "workspace",
+        "inspiration"
+      ],
+      "prompt": "An architect's or designer's studio table with blueprints, material swatches, and a double espresso in a clear glass beside a copper mechanical pencil, a matte black espresso machine visible on a credenza in the background, large industrial windows with diffused light. Photorealistic commercial photography, editorial style, natural light."
+    },
+    {
+      "id": "life-study-session",
+      "category": "work-productivity",
+      "scenario": "Study session",
+      "filename": "life-study-session.jpeg",
+      "path": "assets/images/heroes/life-study-session/hero.png",
+      "alt": "A university student studying at a wooden desk with open textbooks, highlighted notes, and a small espresso cup on a ceramic saucer, laptop open beside the books",
+      "topics": [
+        "student",
+        "study",
+        "university",
+        "learning",
+        "books",
+        "focus",
+        "dorm"
+      ],
+      "prompt": "A university student studying at a wooden library-style desk with open textbooks, highlighted notes, and a small espresso cup on a ceramic saucer, laptop open beside the books, warm desk lamp light mixing with daylight from a nearby window. Photorealistic commercial photography, warm academic atmosphere, natural light."
+    },
+    {
+      "id": "life-late-night-work",
+      "category": "work-productivity",
+      "scenario": "Late night deadline",
+      "filename": "life-late-night-work.jpeg",
+      "path": "assets/images/heroes/life-late-night-work/hero.png",
+      "alt": "A desk at night illuminated by a monitor's glow and a warm desk lamp, a fresh double espresso in a double-wall glass beside a keyboard, city lights through a window",
+      "topics": [
+        "night",
+        "deadline",
+        "work",
+        "focus",
+        "late",
+        "productivity"
+      ],
+      "prompt": "A desk at night illuminated by a monitor's glow and a warm desk lamp, a fresh double espresso in a double-wall glass beside a keyboard, city lights visible through a window behind, papers and a notebook scattered around, focused late-night energy. Photorealistic commercial photography, moody warm lighting, minimal composition."
+    },
+    {
+      "id": "life-cycling",
+      "category": "sports-fitness",
+      "scenario": "Pre-ride cycling coffee",
+      "filename": "life-cycling.jpeg",
+      "path": "assets/images/heroes/life-cycling/hero.png",
+      "alt": "A road bicycle leaning against a sunlit stone wall beside a small cafe table with a double espresso in a ceramic cup, cycling gloves and sunglasses on the table",
+      "topics": [
+        "cycling",
+        "sport",
+        "fitness",
+        "pre-ride",
+        "energy",
+        "outdoor",
+        "bike"
+      ],
+      "prompt": "A road bicycle leaning against a sunlit stone wall beside a small cafe table with a double espresso in a ceramic cup, cycling gloves and sunglasses on the table, golden morning light on a quiet European village street, anticipation of the ride ahead. Photorealistic commercial photography, warm natural light, Monocle magazine aesthetic."
+    },
+    {
+      "id": "life-running",
+      "category": "sports-fitness",
+      "scenario": "Post-run recovery espresso",
+      "filename": "life-running.jpeg",
+      "path": "assets/images/heroes/life-running/hero.png",
+      "alt": "A runner leaning against a kitchen counter in running shoes and athletic wear, drinking espresso from a small ceramic cup, a smartwatch visible on their wrist",
+      "topics": [
+        "running",
+        "sport",
+        "fitness",
+        "post-run",
+        "recovery",
+        "morning",
+        "energy"
+      ],
+      "prompt": "A runner leaning against a kitchen counter in running shoes and athletic wear, drinking espresso from a small ceramic cup, a smartwatch visible on their wrist, morning sunlight streaming through the kitchen window, trainers slightly muddy, the reward after the effort. Photorealistic commercial photography, authentic candid feel, natural light."
+    },
+    {
+      "id": "life-gym",
+      "category": "sports-fitness",
+      "scenario": "Pre-gym espresso",
+      "filename": "life-gym.jpeg",
+      "path": "assets/images/heroes/life-gym/hero.png",
+      "alt": "A gym bag packed and ready on a kitchen floor, a compact espresso machine on the counter above pouring a shot into a small cup, car keys and wireless earbuds beside the cup",
+      "topics": [
+        "gym",
+        "workout",
+        "fitness",
+        "pre-workout",
+        "energy",
+        "morning"
+      ],
+      "prompt": "A gym bag packed and ready on a kitchen floor, a compact espresso machine on the counter above pouring a shot into a small cup, car keys and wireless earbuds beside the cup, pre-dawn blue light through the window, disciplined morning energy. Photorealistic commercial photography, clean composition, cool-warm light contrast."
+    },
+    {
+      "id": "life-yoga-morning",
+      "category": "sports-fitness",
+      "scenario": "Yoga and meditation morning",
+      "filename": "life-yoga-morning.jpeg",
+      "path": "assets/images/heroes/life-yoga-morning/hero.png",
+      "alt": "A rolled yoga mat on a wooden floor beside a low wooden bench holding a ceramic cup of espresso, soft morning light through sheer curtains",
+      "topics": [
+        "yoga",
+        "meditation",
+        "wellness",
+        "mindful",
+        "calm",
+        "morning",
+        "routine"
+      ],
+      "prompt": "A rolled yoga mat on a wooden floor beside a low wooden bench holding a ceramic cup of espresso, soft morning light through sheer curtains, a potted monstera plant in the corner, peaceful and intentional atmosphere, the pause between practice and the day. Photorealistic commercial photography, minimal serene composition, warm natural light."
+    },
+    {
+      "id": "life-skiing",
+      "category": "sports-fitness",
+      "scenario": "Apres-ski warming espresso",
+      "filename": "life-skiing.jpeg",
+      "path": "assets/images/heroes/life-skiing/hero.png",
+      "alt": "Hands in fingerless gloves wrapping around a steaming espresso cup on a rustic wooden table at a mountain lodge terrace, snow-covered peaks in the background",
+      "topics": [
+        "skiing",
+        "winter-sports",
+        "mountain",
+        "cold",
+        "warming",
+        "apres-ski",
+        "outdoor"
+      ],
+      "prompt": "Hands in fingerless gloves wrapping around a steaming espresso cup on a rustic wooden table at a mountain lodge terrace, snow-covered peaks and pine forests in the background, ski goggles pushed up on a beanie, bright winter sunshine, the warmth of coffee against crisp alpine air. Photorealistic commercial photography, vivid natural light, outdoor editorial style."
+    },
+    {
+      "id": "life-hiking",
+      "category": "sports-fitness",
+      "scenario": "Hiking trail coffee break",
+      "filename": "life-hiking.jpeg",
+      "path": "assets/images/heroes/life-hiking/hero.png",
+      "alt": "A portable hand-powered espresso maker and a small cup on a flat rock at a mountain overlook, a hiking backpack leaning against the rock, panoramic valley view",
+      "topics": [
+        "hiking",
+        "outdoor",
+        "nature",
+        "break",
+        "trail",
+        "adventure",
+        "portable"
+      ],
+      "prompt": "A portable hand-powered espresso maker and a small cup on a flat rock at a mountain overlook, a hiking backpack leaning against the rock, panoramic valley view with morning mist, wildflowers in the foreground, the earned moment of pause. Photorealistic commercial photography, epic natural light, adventure editorial style."
+    },
+    {
+      "id": "life-road-trip",
+      "category": "travel",
+      "scenario": "Road trip pit stop",
+      "filename": "life-road-trip.jpeg",
+      "path": "assets/images/heroes/life-road-trip/hero.png",
+      "alt": "A portable espresso setup on the tailgate of a car at a scenic overlook, two cups ready, a winding road disappearing into rolling hills behind",
+      "topics": [
+        "road-trip",
+        "car",
+        "travel",
+        "adventure",
+        "drive",
+        "morning"
+      ],
+      "prompt": "A portable espresso setup on the tailgate of a car at a scenic overlook, two cups ready, a winding road disappearing into rolling hills behind, soft golden hour light, a blanket draped over the tailgate, spontaneous freedom of the open road. Photorealistic commercial photography, warm cinematic light, travel editorial."
+    },
+    {
+      "id": "life-van-life",
+      "category": "travel",
+      "scenario": "Van life camper coffee",
+      "filename": "life-van-life.jpeg",
+      "path": "assets/images/heroes/life-van-life/hero.png",
+      "alt": "A compact portable espresso maker on a fold-out wooden shelf inside the open side door of a converted camper van, Mediterranean coastline visible through the doorframe",
+      "topics": [
+        "van-life",
+        "camper",
+        "nomad",
+        "travel",
+        "outdoor",
+        "adventure",
+        "freedom"
+      ],
+      "prompt": "A compact portable espresso maker on a fold-out wooden shelf inside the open side door of a converted camper van, Mediterranean coastline visible through the doorframe, morning light on turquoise water, enamel cups and a hand grinder beside the maker, bohemian adventure atmosphere. Photorealistic commercial photography, warm natural light, aspirational travel style."
+    },
+    {
+      "id": "life-airport",
+      "category": "travel",
+      "scenario": "Airport departure lounge",
+      "filename": "life-airport.jpeg",
+      "path": "assets/images/heroes/life-airport/hero.png",
+      "alt": "A business traveler at an airport window seat holding an espresso cup while watching aircraft on the tarmac through floor-to-ceiling windows",
+      "topics": [
+        "airport",
+        "travel",
+        "business",
+        "flying",
+        "lounge",
+        "departure"
+      ],
+      "prompt": "A business traveler at an airport window seat with a small carry-on beside them, holding an espresso cup while watching aircraft on the tarmac through floor-to-ceiling windows, soft overcast light, a boarding pass and passport on the armrest, calm before departure. Photorealistic commercial photography, clean modern composition, diffused natural light."
+    },
+    {
+      "id": "life-hotel-morning",
+      "category": "travel",
+      "scenario": "Boutique hotel morning espresso",
+      "filename": "life-hotel-morning.jpeg",
+      "path": "assets/images/heroes/life-hotel-morning/hero.png",
+      "alt": "A boutique hotel room with a small espresso machine on a marble console, a freshly made espresso beside French doors opening onto a balcony with a city rooftop view",
+      "topics": [
+        "hotel",
+        "travel",
+        "vacation",
+        "morning",
+        "away-from-home"
+      ],
+      "prompt": "A boutique hotel room with a small espresso machine on a marble console, a freshly made espresso beside French doors opening onto a balcony with a city rooftop view, white linen curtains billowing slightly, warm morning light, the luxury of coffee in an unfamiliar place. Photorealistic commercial photography, editorial hotel style, natural light."
+    },
+    {
+      "id": "life-beach-house",
+      "category": "travel",
+      "scenario": "Beach house morning",
+      "filename": "life-beach-house.jpeg",
+      "path": "assets/images/heroes/life-beach-house/hero.png",
+      "alt": "A weathered wooden deck of a beach house with a ceramic cup of espresso on the railing, the ocean visible in soft morning haze",
+      "topics": [
+        "beach",
+        "coastal",
+        "vacation",
+        "summer",
+        "morning",
+        "relaxation"
+      ],
+      "prompt": "A weathered wooden deck of a beach house with a ceramic cup of espresso on the railing, the ocean visible in the soft morning haze, a linen throw draped over a deck chair, bare footprints on the wood, salt-air tranquility. Photorealistic commercial photography, soft coastal light, warm muted tones, Kinfolk magazine style."
+    },
+    {
+      "id": "life-dinner-party",
+      "category": "social",
+      "scenario": "After-dinner espresso service",
+      "filename": "life-dinner-party.jpeg",
+      "path": "assets/images/heroes/life-dinner-party/hero.png",
+      "alt": "A candlelit dining table with dessert plates and wine glasses, a host carrying a tray of small white espresso cups from the kitchen",
+      "topics": [
+        "dinner-party",
+        "entertaining",
+        "guests",
+        "evening",
+        "social",
+        "hosting"
+      ],
+      "prompt": "A candlelit dining table with dessert plates and wine glasses, a host carrying a tray of small white espresso cups from the kitchen, warm amber light, guests' hands visible reaching for cups, intimate evening dinner party atmosphere. Photorealistic commercial photography, warm moody lighting, editorial entertaining style."
+    },
+    {
+      "id": "life-brunch",
+      "category": "social",
+      "scenario": "Weekend brunch with friends",
+      "filename": "life-brunch.jpeg",
+      "path": "assets/images/heroes/life-brunch/hero.png",
+      "alt": "A sunlit brunch table with pastries, fresh fruit, and avocado toast, four different coffee drinks visible, friends' hands reaching across the table",
+      "topics": [
+        "brunch",
+        "weekend",
+        "friends",
+        "social",
+        "food",
+        "gathering"
+      ],
+      "prompt": "A sunlit brunch table with pastries, fresh fruit, and avocado toast, four different coffee drinks visible — an espresso, a latte, a cappuccino, and a filter coffee — friends' hands reaching across the table, flowers in a simple vase, relaxed weekend abundance. Photorealistic commercial photography, bright warm natural light, overhead angle."
+    },
+    {
+      "id": "life-coffee-date",
+      "category": "social",
+      "scenario": "Coffee date",
+      "filename": "life-coffee-date.jpeg",
+      "path": "assets/images/heroes/life-coffee-date/hero.png",
+      "alt": "Two people sitting across from each other at a small marble cafe table, two espresso cups between them, one person gesturing mid-conversation",
+      "topics": [
+        "date",
+        "romantic",
+        "couple",
+        "cafe",
+        "social",
+        "conversation"
+      ],
+      "prompt": "Two people sitting across from each other at a small marble cafe table, two espresso cups between them, one person's hand gesturing mid-conversation, soft afternoon light through a cafe window, the intimacy of undivided attention. Photorealistic commercial photography, candid warmth, natural light, shallow depth of field feel."
+    },
+    {
+      "id": "life-casual-visit",
+      "category": "social",
+      "scenario": "Neighbor dropping by",
+      "filename": "life-casual-visit.jpeg",
+      "path": "assets/images/heroes/life-casual-visit/hero.png",
+      "alt": "A kitchen counter with two freshly made cappuccinos and a plate of homemade biscotti, two people leaning against the counter in relaxed conversation",
+      "topics": [
+        "neighbor",
+        "friend",
+        "casual",
+        "welcome",
+        "hospitality",
+        "conversation"
+      ],
+      "prompt": "A kitchen counter with two freshly made cappuccinos and a plate of homemade biscotti, two people leaning against the counter in relaxed conversation, a bright modern kitchen with open shelving, midmorning light, effortless hospitality. Photorealistic commercial photography, authentic and warm, natural light."
+    },
+    {
+      "id": "life-backyard-gathering",
+      "category": "social",
+      "scenario": "Summer backyard gathering",
+      "filename": "life-backyard-gathering.jpeg",
+      "path": "assets/images/heroes/life-backyard-gathering/hero.png",
+      "alt": "A garden table under string lights at dusk with espresso cups among scattered dessert plates, friends around a barbecue in the background",
+      "topics": [
+        "garden",
+        "outdoor",
+        "summer",
+        "party",
+        "social",
+        "barbecue",
+        "friends"
+      ],
+      "prompt": "A garden table under string lights at dusk with espresso cups among scattered dessert plates, a group of friends in the background around a barbecue, warm golden hour light fading into blue hour, lanterns on the table, summer evening conviviality. Photorealistic commercial photography, warm ambient light, editorial lifestyle style."
+    },
+    {
+      "id": "life-rainy-day",
+      "category": "seasonal",
+      "scenario": "Cozy rainy day indoors",
+      "filename": "life-rainy-day.jpeg",
+      "path": "assets/images/heroes/life-rainy-day/hero.png",
+      "alt": "A window seat with rain streaming down the glass, a ceramic cup of espresso on the wide wooden sill beside an open book and a wool blanket",
+      "topics": [
+        "rainy",
+        "cozy",
+        "indoor",
+        "comfort",
+        "autumn",
+        "reading",
+        "warm"
+      ],
+      "prompt": "A window seat with rain streaming down the glass, a ceramic cup of espresso on the wide wooden sill beside an open book and a wool blanket, grey-green garden visible through the rain, warm interior light against the cool exterior, perfect indoor comfort. Photorealistic commercial photography, moody atmospheric light, warm interior tones."
+    },
+    {
+      "id": "life-summer-terrace",
+      "category": "seasonal",
+      "scenario": "Summer terrace iced espresso",
+      "filename": "life-summer-terrace.jpeg",
+      "path": "assets/images/heroes/life-summer-terrace/hero.png",
+      "alt": "A sunlit terrace table with a tall glass of iced espresso tonic, condensation on the glass, a straw hat and sunglasses beside it",
+      "topics": [
+        "summer",
+        "terrace",
+        "outdoor",
+        "warm",
+        "sunshine",
+        "iced-coffee",
+        "patio"
+      ],
+      "prompt": "A sunlit terrace table with a tall glass of iced espresso tonic, condensation on the glass, lemon wedge on the rim, a straw hat and sunglasses beside it, terracotta pots with herbs in the background, Mediterranean summer light casting sharp shadows. Photorealistic commercial photography, bright warm natural light, aspirational summer editorial."
+    },
+    {
+      "id": "life-winter-fireside",
+      "category": "seasonal",
+      "scenario": "Winter fireside espresso",
+      "filename": "life-winter-fireside.jpeg",
+      "path": "assets/images/heroes/life-winter-fireside/hero.png",
+      "alt": "A small espresso cup on a thick wooden side table beside a crackling fireplace, a wool throw on a leather armchair, snow visible through a window",
+      "topics": [
+        "winter",
+        "cozy",
+        "fireplace",
+        "warm",
+        "evening",
+        "comfort",
+        "cold"
+      ],
+      "prompt": "A small espresso cup on a thick wooden side table beside a crackling fireplace, a wool throw on a leather armchair, a book spine-down on the armrest, warm firelight and soft shadows, snow visible through a window, the deep comfort of winter indoors. Photorealistic commercial photography, warm amber firelight, intimate composition."
+    },
+    {
+      "id": "life-autumn-morning",
+      "category": "seasonal",
+      "scenario": "Autumn morning walk with coffee",
+      "filename": "life-autumn-morning.jpeg",
+      "path": "assets/images/heroes/life-autumn-morning/hero.png",
+      "alt": "A travel mug of coffee held by a hand in a knit sweater sleeve, walking along a tree-lined path covered in golden and amber leaves, soft morning fog",
+      "topics": [
+        "autumn",
+        "fall",
+        "morning",
+        "walk",
+        "outdoor",
+        "crisp",
+        "leaves"
+      ],
+      "prompt": "A travel mug of coffee held by a hand in a knit sweater sleeve, walking along a tree-lined path covered in golden and amber leaves, soft morning fog, warm autumn light filtering through the canopy, a quiet contemplative walk. Photorealistic commercial photography, warm golden tones, atmospheric natural light."
+    },
+    {
+      "id": "life-spring-fresh",
+      "category": "seasonal",
+      "scenario": "Spring fresh start",
+      "filename": "life-spring-fresh.jpeg",
+      "path": "assets/images/heroes/life-spring-fresh/hero.png",
+      "alt": "A bright kitchen with the back door open to a garden in bloom, a freshly made espresso on the counter near the open door, cherry blossoms visible outside",
+      "topics": [
+        "spring",
+        "fresh",
+        "new",
+        "morning",
+        "garden",
+        "renewal",
+        "bright"
+      ],
+      "prompt": "A bright kitchen with the back door open to a garden in bloom, a freshly made espresso on the counter near the open door, cherry blossoms visible outside, fresh herbs in small pots on the windowsill, clean bright spring morning light, the optimism of a new season. Photorealistic commercial photography, bright airy natural light, fresh tones."
+    },
+    {
+      "id": "life-reading",
+      "category": "hobbies-leisure",
+      "scenario": "Afternoon reading with espresso",
+      "filename": "life-reading.jpeg",
+      "path": "assets/images/heroes/life-reading/hero.png",
+      "alt": "An armchair scene with an open hardcover book resting on the arm, a ceramic espresso cup on a small side table, reading glasses beside the cup",
+      "topics": [
+        "reading",
+        "books",
+        "relaxation",
+        "quiet",
+        "leisure",
+        "afternoon"
+      ],
+      "prompt": "An armchair scene with an open hardcover book resting on the arm, a ceramic espresso cup on a small side table, reading glasses beside the cup, warm afternoon light from a floor lamp and a window, bookshelves in soft focus behind, the pleasure of deep reading. Photorealistic commercial photography, warm library light, Kinfolk aesthetic."
+    },
+    {
+      "id": "life-cooking",
+      "category": "hobbies-leisure",
+      "scenario": "Weekend baking with coffee",
+      "filename": "life-cooking.jpeg",
+      "path": "assets/images/heroes/life-cooking/hero.png",
+      "alt": "A kitchen counter dusted with flour beside a bowl of dough, a small espresso cup positioned to the side, fresh-baked bread cooling on a wire rack",
+      "topics": [
+        "cooking",
+        "baking",
+        "kitchen",
+        "food",
+        "hobby",
+        "weekend"
+      ],
+      "prompt": "A kitchen counter dusted with flour beside a bowl of dough, a small espresso cup positioned safely to the side, fresh-baked bread cooling on a wire rack, copper measuring cups hanging above, warm kitchen light, the joy of weekend baking with good coffee. Photorealistic commercial photography, warm natural light, food photography aesthetic."
+    },
+    {
+      "id": "life-gardening",
+      "category": "hobbies-leisure",
+      "scenario": "Gardening break espresso",
+      "filename": "life-gardening.jpeg",
+      "path": "assets/images/heroes/life-gardening/hero.png",
+      "alt": "Gardening gloves and pruning shears on a wooden potting bench beside a ceramic cup of espresso, terracotta pots with seedlings around",
+      "topics": [
+        "gardening",
+        "outdoor",
+        "hobby",
+        "break",
+        "nature",
+        "calm"
+      ],
+      "prompt": "A pair of gardening gloves and pruning shears on a wooden potting bench beside a ceramic cup of espresso, terracotta pots with seedlings around, a garden visible in warm afternoon light, soil on the bench, the earned pause between planting. Photorealistic commercial photography, warm natural garden light, rustic editorial style."
+    },
+    {
+      "id": "life-music-vinyl",
+      "category": "hobbies-leisure",
+      "scenario": "Vinyl listening session",
+      "filename": "life-music-vinyl.jpeg",
+      "path": "assets/images/heroes/life-music-vinyl/hero.png",
+      "alt": "A turntable playing a vinyl record beside an espresso in a double-wall glass on a credenza, album covers leaning against the wall, warm lamp light",
+      "topics": [
+        "music",
+        "vinyl",
+        "records",
+        "hobby",
+        "listening",
+        "relaxation",
+        "evening"
+      ],
+      "prompt": "A turntable playing a vinyl record beside an espresso in a double-wall glass on a credenza, album covers leaning against the wall, warm lamp light, a comfortable sofa arm visible in the corner, the ritual of music and coffee together. Photorealistic commercial photography, warm moody interior light, mid-century modern aesthetic."
+    },
+    {
+      "id": "life-photography",
+      "category": "hobbies-leisure",
+      "scenario": "Photography and coffee",
+      "filename": "life-photography.jpeg",
+      "path": "assets/images/heroes/life-photography/hero.png",
+      "alt": "A camera body and lens on a wooden desk beside contact sheets and a freshly pulled espresso in a small ceramic cup, a window showing a cityscape",
+      "topics": [
+        "photography",
+        "creative",
+        "hobby",
+        "camera",
+        "art",
+        "inspiration"
+      ],
+      "prompt": "A camera body and lens on a wooden desk beside contact sheets and a freshly pulled espresso in a small ceramic cup, a window behind showing a cityscape, soft directional afternoon light, the creative process fueled by coffee. Photorealistic commercial photography, natural light, editorial workspace style."
+    },
+    {
+      "id": "life-weekend-newspaper",
+      "category": "hobbies-leisure",
+      "scenario": "Lazy Sunday with the newspaper",
+      "filename": "life-weekend-newspaper.jpeg",
+      "path": "assets/images/heroes/life-weekend-newspaper/hero.png",
+      "alt": "A person at a wooden kitchen table on a lazy Sunday morning with a broadsheet newspaper spread wide, a half-finished cappuccino with latte art in a wide ceramic cup",
+      "topics": [
+        "weekend",
+        "newspaper",
+        "lazy",
+        "slow",
+        "relaxation",
+        "sunday",
+        "morning"
+      ],
+      "prompt": "A person at a wooden kitchen table on a lazy Sunday morning with a broadsheet newspaper spread wide, a half-finished cappuccino with latte art in a wide ceramic cup, croissant crumbs on a plate, strong morning sunlight through large windows, unhurried weekend luxury. Photorealistic commercial photography, bright warm natural light, editorial lifestyle."
+    },
+    {
+      "id": "life-first-apartment",
+      "category": "life-moments",
+      "scenario": "First apartment — unpacking the espresso machine",
+      "filename": "life-first-apartment.jpeg",
+      "path": "assets/images/heroes/life-first-apartment/hero.png",
+      "alt": "A compact kitchen in a bright small apartment with moving boxes in the background, a brand-new compact espresso machine on the counter as the first thing unpacked",
+      "topics": [
+        "first-apartment",
+        "young",
+        "new-home",
+        "moving",
+        "beginning",
+        "setup"
+      ],
+      "prompt": "A compact kitchen in a bright small apartment with moving boxes in the background, a brand-new compact espresso machine on the counter as the first thing unpacked, a single espresso cup beside it, afternoon light through uncurtained windows, the excitement of a first real home. Photorealistic commercial photography, bright natural light, authentic editorial style."
+    },
+    {
+      "id": "life-gift-unwrapping",
+      "category": "life-moments",
+      "scenario": "Unwrapping an espresso machine gift",
+      "filename": "life-gift-unwrapping.jpeg",
+      "path": "assets/images/heroes/life-gift-unwrapping/hero.png",
+      "alt": "Hands unwrapping an espresso machine from a matte black gift box with copper tissue paper, a ribbon on the table beside a birthday card",
+      "topics": [
+        "gift",
+        "present",
+        "surprise",
+        "birthday",
+        "christmas",
+        "unboxing",
+        "joy"
+      ],
+      "prompt": "Hands unwrapping an espresso machine from a matte black gift box with copper tissue paper, a ribbon on the table beside a birthday card, warm indoor light, the recipient's surprised expression partially visible, the delight of receiving something special. Photorealistic commercial photography, warm festive light, authentic emotion."
+    },
+    {
+      "id": "life-retirement",
+      "category": "life-moments",
+      "scenario": "Retirement — learning a new craft",
+      "filename": "life-retirement.jpeg",
+      "path": "assets/images/heroes/life-retirement/hero.png",
+      "alt": "An older person's hands carefully tamping espresso grounds into a portafilter at a sunlit kitchen counter, reading glasses beside an open espresso guidebook",
+      "topics": [
+        "retirement",
+        "empty-nest",
+        "senior",
+        "slow",
+        "learning",
+        "new-hobby"
+      ],
+      "prompt": "An older person's hands carefully tamping espresso grounds into a portafilter at a sunlit kitchen counter, reading glasses beside an open espresso guidebook, a timer and precision scale nearby, unhurried patience and new learning, warm morning light. Photorealistic commercial photography, warm intimate natural light, dignified and aspirational."
+    },
+    {
+      "id": "life-balcony",
+      "category": "life-moments",
+      "scenario": "City balcony morning ritual",
+      "filename": "life-balcony.jpeg",
+      "path": "assets/images/heroes/life-balcony/hero.png",
+      "alt": "A small city apartment balcony with a single espresso cup on the railing, rooftops and church spires visible in soft morning light",
+      "topics": [
+        "balcony",
+        "apartment",
+        "city",
+        "view",
+        "morning",
+        "urban",
+        "small-space"
+      ],
+      "prompt": "A small city apartment balcony with a single espresso cup on the railing, rooftops and church spires visible in soft morning light, a small herb pot and a folded newspaper on a bistro chair, the private morning ritual above the waking city. Photorealistic commercial photography, soft golden morning light, European urban aesthetic."
+    },
+    {
+      "id": "life-cabin",
+      "category": "life-moments",
+      "scenario": "Cabin retreat weekend",
+      "filename": "life-cabin.jpeg",
+      "path": "assets/images/heroes/life-cabin/hero.png",
+      "alt": "A rustic wooden cabin kitchen with a compact espresso machine on a thick butcher-block counter, a window showing a pine forest with morning mist",
+      "topics": [
+        "cabin",
+        "countryside",
+        "retreat",
+        "nature",
+        "escape",
+        "weekend",
+        "cozy"
+      ],
+      "prompt": "A rustic wooden cabin kitchen with a compact espresso machine on a thick butcher-block counter, a ceramic mug beside it, a window showing a pine forest with morning mist, a woolen sweater draped over a chair, the simplicity of coffee away from everything. Photorealistic commercial photography, warm natural light, cabin editorial style."
+    }
+  ]
+}

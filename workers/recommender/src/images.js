@@ -1,0 +1,495 @@
+/**
+ * Resolve content tokens (products, recipes, reviews, accessories) to real HTML with images.
+ */
+
+/* eslint-disable import/extensions, import/no-relative-packages */
+import productsData from '../../../content/products/products.json';
+import recipesData from '../../../content/recipes/recipes.json';
+import reviewsData from '../../../content/metadata/reviews.json';
+import accessoriesData from '../../../content/accessories/accessories.json';
+import storiesData from '../../../content/stories-index.json';
+import experiencesData from '../../../content/experiences-index.json';
+/* eslint-enable import/extensions, import/no-relative-packages */
+
+/* eslint-disable import/extensions, import/no-relative-packages */
+import catalogData from '../../../content/hero-image-catalog.json';
+/* eslint-enable import/extensions, import/no-relative-packages */
+
+const ARCO_BASE = 'https://main--arco--froesef.aem.live';
+
+// Default hero image — used when no specific product is featured
+const HERO_MAIN_IMAGE = '/media_1f7e12f4bd38e8ecf4fdc73dc84ebd9a5fd516521.jpg';
+
+const products = productsData.data || [];
+const recipes = recipesData.data || [];
+const reviews = reviewsData.data || [];
+const accessories = accessoriesData.data || [];
+const stories = storiesData.data || [];
+const experiences = experiencesData.data || [];
+
+const productsMap = new Map(products.map((p) => [p.id, p]));
+const reviewsMap = new Map(reviews.map((r) => [r.id, r]));
+const accessoriesMap = new Map(accessories.map((a) => [a.id, a]));
+const storiesMap = new Map(stories.map((s) => [s.slug, s]));
+const experiencesMap = new Map(experiences.map((e) => [e.slug, e]));
+
+/**
+ * Ensure an image URL is absolute.
+ */
+function absoluteImageUrl(url) {
+  if (!url) return '';
+  if (url.startsWith('http')) return url;
+  return `${ARCO_BASE}${url.startsWith('/') ? '' : '/'}${url}`;
+}
+
+/**
+ * Get the best image URL for a product.
+ */
+function getProductImage(productId) {
+  const product = productsMap.get(productId);
+  if (!product) return '';
+  const img = product.images?.[0] || product.image || '';
+  return absoluteImageUrl(img);
+}
+
+/**
+ * Get the best image URL for an accessory.
+ */
+function getAccessoryImage(accessoryId) {
+  const accessory = accessoriesMap.get(accessoryId);
+  if (!accessory) return '';
+  const img = accessory.images?.[0] || accessory.image || '';
+  return absoluteImageUrl(img);
+}
+
+/**
+ * Resolve a {{product:ID}} token to a product card HTML.
+ */
+function resolveProductToken(productId) {
+  const product = productsMap.get(productId);
+  if (!product) return `<!-- unknown product: ${productId} -->`;
+
+  const image = getProductImage(productId);
+  const price = product.price ? `$${product.price}` : '';
+  const url = product.url || `/products/espresso-machines/${productId}`;
+
+  return `<div>
+      <div>${image ? `<picture><img src="${image}" alt="${product.name}"></picture>` : ''}</div>
+      <div>
+        <p><strong>${product.name}</strong></p>
+        <p>${price}</p>
+        <p>${product.tagline || product.description?.substring(0, 120) || ''}</p>
+        <p><a href="${url}">View Details</a></p>
+      </div>
+    </div>`;
+}
+
+/**
+ * Find a recipe by name (case-insensitive partial match).
+ */
+function findRecipe(name) {
+  const lower = name.toLowerCase();
+  return recipes.find((r) => (r.name || '').toLowerCase() === lower)
+    || recipes.find((r) => (r.name || '').toLowerCase().includes(lower));
+}
+
+/**
+ * Resolve a {{recipe-image:NAME}} token to a <picture> tag.
+ */
+function resolveRecipeImageToken(recipeName) {
+  const recipe = findRecipe(recipeName);
+  if (!recipe) return `<!-- unknown recipe image: ${recipeName} -->`;
+  const image = absoluteImageUrl(recipe.image || recipe.imageUrl || '');
+  if (!image) return '';
+  return `<picture><img src="${image}" alt="${recipe.name}"></picture>`;
+}
+
+/**
+ * Resolve a {{recipe:NAME}} token to a recipe card HTML.
+ */
+function resolveRecipeToken(recipeName) {
+  const recipe = findRecipe(recipeName);
+  if (!recipe) return `<!-- unknown recipe: ${recipeName} -->`;
+
+  const image = absoluteImageUrl(recipe.image || recipe.imageUrl || '');
+  const url = recipe.url || `/recipes/${recipe.id}`;
+
+  return `<div>
+      <div>${image ? `<picture><img src="${image}" alt="${recipe.name}"></picture>` : ''}</div>
+      <div>
+        <p><strong>${recipe.name}</strong></p>
+        <p>${recipe.description?.substring(0, 120) || ''}</p>
+        <p><a href="${url}">View Recipe</a></p>
+      </div>
+    </div>`;
+}
+
+/**
+ * Resolve a {{review:ID}} token to a blockquote HTML.
+ */
+function resolveReviewToken(reviewId) {
+  const review = reviewsMap.get(reviewId);
+  if (!review) return `<!-- unknown review: ${reviewId} -->`;
+
+  return `<blockquote>
+      <p>${review.content || review.body || ''}</p>
+      <p><strong>${review.author || 'Customer'}</strong>${review.productId ? `, ${review.productId}` : ''}</p>
+    </blockquote>`;
+}
+
+/**
+ * Resolve a {{product-image:ID}} token to a <picture> tag.
+ */
+function resolveProductImageToken(productId) {
+  const imageUrl = getProductImage(productId.trim());
+  const product = productsMap.get(productId.trim());
+  if (!imageUrl) return `<!-- unknown product image: ${productId} -->`;
+  return `<picture><img src="${imageUrl}" alt="${product?.name || productId}"></picture>`;
+}
+
+/**
+ * Resolve a {{recipe-link:NAME}} token to an anchor tag.
+ */
+function resolveRecipeLinkToken(recipeName) {
+  const recipe = findRecipe(recipeName);
+  if (!recipe) return `<!-- unknown recipe: ${recipeName} -->`;
+  const url = recipe.url || `/recipes/${recipe.id}`;
+  return `<a href="${url}">${recipe.name}</a>`;
+}
+
+/**
+ * Resolve a {{product-link:ID}} token to an anchor tag.
+ */
+function resolveProductLinkToken(productId) {
+  const product = productsMap.get(productId.trim());
+  if (!product) return `<!-- unknown product link: ${productId} -->`;
+  const url = product.url || `/products/espresso-machines/${product.id}`;
+  return `<a href="${url}">${product.name}</a>`;
+}
+
+/**
+ * Resolve a {{accessory:ID}} token to an accessory card HTML.
+ */
+function resolveAccessoryToken(accessoryId) {
+  const accessory = accessoriesMap.get(accessoryId);
+  if (!accessory) return `<!-- unknown accessory: ${accessoryId} -->`;
+
+  const image = getAccessoryImage(accessoryId);
+  const price = accessory.price ? `$${accessory.price}` : '';
+  const url = accessory.url || `/accessories/${accessoryId}`;
+
+  return `<div>
+      <div>${image ? `<picture><img src="${image}" alt="${accessory.name}"></picture>` : ''}</div>
+      <div>
+        <p><strong>${accessory.name}</strong></p>
+        <p>${price}</p>
+        <p>${accessory.description?.substring(0, 120) || ''}</p>
+        <p><a href="${url}">View Details</a></p>
+      </div>
+    </div>`;
+}
+
+/**
+ * Resolve a {{accessory-image:ID}} token to a <picture> tag.
+ */
+function resolveAccessoryImageToken(accessoryId) {
+  const image = getAccessoryImage(accessoryId.trim());
+  const accessory = accessoriesMap.get(accessoryId.trim());
+  if (!image) return `<!-- unknown accessory image: ${accessoryId} -->`;
+  return `<picture><img src="${image}" alt="${accessory?.name || accessoryId}"></picture>`;
+}
+
+/**
+ * Resolve a {{story:SLUG}} token to an article-excerpt row HTML.
+ * Produces a two-cell row: product image (from first related product) + article content.
+ * Falls back to a single-cell row if no related product image is available.
+ */
+function resolveStoryToken(slug) {
+  const story = storiesMap.get(slug.trim());
+  if (!story) return `<!-- unknown story: ${slug} -->`;
+  if (story.published === false) return `<!-- unpublished story: ${slug} -->`;
+
+  // Prefer the curated image; fall back to the first related-product image.
+  const firstProduct = story.related_products?.[0];
+  const fallbackImage = firstProduct ? getProductImage(firstProduct) : '';
+  const imageUrl = story.image ? absoluteImageUrl(story.image) : fallbackImage;
+  const product = firstProduct ? productsMap.get(firstProduct) : null;
+
+  const categoryLabel = story.category
+    ? story.category.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+    : 'Article';
+  const readTime = story.read_time_minutes ? `${story.read_time_minutes} min read` : '';
+  const metaParts = [story.author, readTime].filter(Boolean);
+  const meta = metaParts.join(' · ');
+
+  const imageCell = imageUrl
+    ? `<div><picture><img src="${imageUrl}" alt="${product?.name || story.title}"></picture></div>`
+    : '';
+
+  const body = story.excerpt || story.intro || '';
+  const contentCell = `<div>
+      <p><em>${categoryLabel}</em></p>
+      <h3>${story.title}</h3>
+      <p>${body}</p>
+      ${meta ? `<p><strong>${meta}</strong></p>` : ''}
+      <p><a href="${story.url}">Read Article</a></p>
+    </div>`;
+
+  return `<div>
+    ${imageCell}
+    ${contentCell}
+  </div>`;
+}
+
+/**
+ * Resolve a {{experience:SLUG}} token to an experience-cta row HTML.
+ * Produces a two-cell row: anchor product image + experience info overlay.
+ * Falls back to text-only row if no anchor product image is available.
+ */
+function resolveExperienceToken(slug) {
+  const exp = experiencesMap.get(slug.trim());
+  if (!exp) return `<!-- unknown experience: ${slug} -->`;
+  if (exp.published === false) return `<!-- unpublished experience: ${slug} -->`;
+
+  // Prefer curated image; fall back to the anchor-product image.
+  const fallbackImage = exp.anchor_product ? getProductImage(exp.anchor_product) : '';
+  const imageUrl = exp.image ? absoluteImageUrl(exp.image) : fallbackImage;
+  const product = exp.anchor_product ? productsMap.get(exp.anchor_product) : null;
+
+  const archetype = exp.experience_archetype || exp.title;
+  const headline = exp.hero_headline || exp.title;
+  const hook = exp.excerpt || exp.hero_subtext || exp.editorial_intro || '';
+
+  const imageCell = imageUrl
+    ? `<div><picture><img src="${imageUrl}" alt="${product?.name || archetype}"></picture></div>`
+    : '';
+
+  const contentCell = `<div>
+      <p><em>${archetype}</em></p>
+      <h3>${headline}</h3>
+      <p>${hook}</p>
+      <p><a href="${exp.url}">Explore this journey</a></p>
+    </div>`;
+
+  return `<div>
+    ${imageCell}
+    ${contentCell}
+  </div>`;
+}
+
+/**
+ * Valid story/experience URLs and slugs, drawn from the bundled index files.
+ * Used by sanitizeContentCards() to drop LLM-invented links on the three
+ * card block types that must be backed by RAG-indexed content.
+ */
+const validStorySlugs = new Set(
+  stories.filter((s) => s.published !== false).map((s) => s.slug),
+);
+const validExperienceSlugs = new Set(
+  experiences.filter((e) => e.published !== false).map((e) => e.slug),
+);
+const validContentUrls = new Set([
+  ...stories.filter((s) => s.published !== false).map((s) => s.url),
+  ...experiences.filter((e) => e.published !== false).map((e) => e.url),
+]);
+
+const CARD_BLOCKS_WITH_STORIES = new Set(['blog-card', 'article-excerpt']);
+const CARD_BLOCKS_WITH_EXPERIENCES = new Set(['experience-cta']);
+
+/**
+ * Drop invalid rows from article-excerpt, blog-card, and experience-cta blocks.
+ * These three blocks may only link to stories/experiences from the bundled
+ * indices; anything else is an LLM hallucination and is removed.
+ *
+ * - Token rows: kept only if the slug resolves against the matching index.
+ * - Manual rows: kept only if every <a href="..."> already points at a valid
+ *   indexed URL. (Invented /stories/foo or /experiences/bar hrefs are dropped.)
+ *
+ * Returns a possibly-modified section. Non-card sections pass through unchanged.
+ * Card sections with zero surviving rows return an empty rows[] — callers
+ * should treat that as "drop the block."
+ */
+export function sanitizeContentCards(section) {
+  if (!section || typeof section !== 'object') return section;
+  const isStoryBlock = CARD_BLOCKS_WITH_STORIES.has(section.block);
+  const isExperienceBlock = CARD_BLOCKS_WITH_EXPERIENCES.has(section.block);
+  if (!isStoryBlock && !isExperienceBlock) return section;
+  if (!Array.isArray(section.rows)) return section;
+
+  const tokenRe = isStoryBlock
+    ? /\{\{story:([^}]+)\}\}/
+    : /\{\{experience:([^}]+)\}\}/;
+  const validSlugs = isStoryBlock ? validStorySlugs : validExperienceSlugs;
+
+  const filtered = section.rows.filter((row) => {
+    if (!Array.isArray(row)) return false;
+    const rowJson = JSON.stringify(row);
+
+    const tokenMatch = rowJson.match(tokenRe);
+    if (tokenMatch) return validSlugs.has(tokenMatch[1].trim());
+
+    // Manual row (no allowed token). Walk every href; every one must be
+    // a valid indexed URL. A row with no href is dropped as malformed.
+    const hrefs = [...rowJson.matchAll(/"href":"([^"]+)"/g)].map((m) => m[1]);
+    if (!hrefs.length) return false;
+    return hrefs.every((h) => validContentUrls.has(h));
+  });
+
+  if (filtered.length !== section.rows.length) {
+    console.warn(
+      '[sanitizeContentCards] Dropped %d/%d rows from %s block',
+      section.rows.length - filtered.length,
+      section.rows.length,
+      section.block,
+    );
+  }
+
+  return { ...section, rows: filtered };
+}
+
+/**
+ * Pre-resolved hero image result for the current request.
+ * Set by the pipeline before resolveTokens() runs.
+ */
+let currentHeroResult = null;
+
+/**
+ * Set the pre-resolved hero image for the current request.
+ * Call this before resolveTokens() so the hero image matches the query.
+ * @param {{ url: string, alt: string }} result
+ */
+export function setHeroResult(result) {
+  currentHeroResult = result;
+}
+
+function resolveHeroImageToken() {
+  if (currentHeroResult) {
+    return `<picture><img src="${currentHeroResult.url}" alt="${currentHeroResult.alt}"></picture>`;
+  }
+  // Fallback: use the default hero image
+  const image = absoluteImageUrl(HERO_MAIN_IMAGE);
+  if (!image) return '<!-- hero-image:main unavailable -->';
+  return `<picture><img src="${image}" alt="Arco espresso machine brewing a perfect shot on a sunlit kitchen counter"></picture>`;
+}
+
+// Build a set of known valid image URLs from product, recipe, and accessory data
+const knownImageUrls = new Set();
+products.forEach((p) => {
+  (p.images || []).forEach((img) => knownImageUrls.add(absoluteImageUrl(img)));
+  if (p.image) knownImageUrls.add(absoluteImageUrl(p.image));
+});
+recipes.forEach((r) => {
+  if (r.image) knownImageUrls.add(absoluteImageUrl(r.image));
+  if (r.imageUrl) knownImageUrls.add(absoluteImageUrl(r.imageUrl));
+});
+accessories.forEach((a) => {
+  (a.images || []).forEach((img) => knownImageUrls.add(absoluteImageUrl(img)));
+  if (a.image) knownImageUrls.add(absoluteImageUrl(a.image));
+});
+knownImageUrls.add(absoluteImageUrl(HERO_MAIN_IMAGE));
+// Register all hero catalog image URLs so they pass the known-image check
+catalogData.images.forEach((img) => {
+  if (img.url) knownImageUrls.add(img.url);
+});
+
+/**
+ * Remove <picture>/<img> tags with hallucinated image URLs (not from known data).
+ */
+function stripUnknownImages(html) {
+  let cleaned = html.replace(/<picture>\s*<img\s+[^>]*src=["']([^"']+)["'][^>]*>\s*<\/picture>/gi, (match, src) => {
+    const absolute = absoluteImageUrl(src);
+    if (knownImageUrls.has(absolute)) return match;
+    console.warn('[Images] Stripped unknown image URL: %s', src);
+    return '';
+  });
+  cleaned = cleaned.replace(/<img\s+[^>]*src=["']([^"']+)["'][^>]*>/gi, (match, src) => {
+    const absolute = absoluteImageUrl(src);
+    if (knownImageUrls.has(absolute)) return match;
+    console.warn('[Images] Stripped unknown standalone img URL: %s', src);
+    return '';
+  });
+  return cleaned;
+}
+
+/**
+ * Normalize product URLs in HTML.
+ * Strips external domains, ensures product URLs use the correct path structure.
+ */
+export function normalizeProductUrls(html) {
+  let out = html;
+  // Safety net: strip non-Arco external domain URLs in href attributes.
+  // Allows arco site URLs, relative URLs.
+  out = out.replace(/href="(https?:\/\/[^"]+)"/gi, (match, url) => {
+    try {
+      const hostname = new URL(url).hostname.toLowerCase();
+      if (hostname.endsWith('aem.live')
+        || hostname.endsWith('aem.page')
+        || hostname.endsWith('da.live')) {
+        return match;
+      }
+    } catch { /* invalid URL */ }
+    console.warn('[Images] Stripped external URL: %s', url);
+    return 'href="#"';
+  });
+  return out;
+}
+
+/**
+ * Get story index entries for use in the prompt (filtered by tags).
+ * @param {string[]} [tags] - optional tag filter
+ * @returns {object[]}
+ */
+export function getStoriesForPrompt(tags) {
+  if (!tags || !tags.length) return stories;
+  return stories.filter((s) => tags.some(
+    (t) => s.tags?.includes(t) || s.persona_tags?.includes(t) || s.intent_tags?.includes(t),
+  ));
+}
+
+/**
+ * Get experience index entries for use in the prompt (filtered by tags).
+ * @param {string[]} [tags] - optional tag filter
+ * @returns {object[]}
+ */
+export function getExperiencesForPrompt(tags) {
+  if (!tags || !tags.length) return experiences;
+  return experiences.filter(
+    (e) => tags.some((t) => e.persona_tags?.includes(t) || e.intent_tags?.includes(t)),
+  );
+}
+
+/**
+ * Get product data for enrichment (used by llm-generate for suggestions).
+ */
+export function getProductData(productId) {
+  const product = productsMap.get(productId);
+  if (!product) return null;
+  return {
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    image: getProductImage(productId),
+    url: product.url,
+  };
+}
+
+/**
+ * Resolve all content tokens and fix image URLs in an HTML string.
+ */
+export function resolveTokens(html) {
+  let resolved = html
+    .replace(/\{\{product:([^}]+)\}\}/g, (_, id) => resolveProductToken(id.trim()))
+    .replace(/\{\{product-image:([^}]+)\}\}/g, (_, id) => resolveProductImageToken(id.trim()))
+    .replace(/\{\{recipe-image:([^}]+)\}\}/g, (_, name) => resolveRecipeImageToken(name.trim()))
+    .replace(/\{\{recipe-link:([^}]+)\}\}/g, (_, name) => resolveRecipeLinkToken(name.trim()))
+    .replace(/\{\{product-link:([^}]+)\}\}/g, (_, id) => resolveProductLinkToken(id.trim()))
+    .replace(/\{\{recipe:([^}]+)\}\}/g, (_, name) => resolveRecipeToken(name.trim()))
+    .replace(/\{\{review:([^}]+)\}\}/g, (_, id) => resolveReviewToken(id.trim()))
+    .replace(/\{\{accessory:([^}]+)\}\}/g, (_, id) => resolveAccessoryToken(id.trim()))
+    .replace(/\{\{accessory-image:([^}]+)\}\}/g, (_, id) => resolveAccessoryImageToken(id.trim()))
+    .replace(/\{\{story:([^}]+)\}\}/g, (_, slug) => resolveStoryToken(slug.trim()))
+    .replace(/\{\{experience:([^}]+)\}\}/g, (_, slug) => resolveExperienceToken(slug.trim()))
+    .replace(/\{\{hero-image:main\}\}/g, () => resolveHeroImageToken());
+  resolved = stripUnknownImages(resolved);
+  return resolved;
+}

@@ -1,0 +1,20 @@
+New visitor with no browsing history. Generate a discovery page: "show me all your espresso machines"
+
+This customer has no browsing history, so we don't know their budget, skill level, or preferences yet. Instead of recommending a specific product, introduce them to the Arco range:
+- **Espresso Machines**: From the compact Nano ($649) to the professional Ufficio ($4,299)
+- **Grinders**: From the Filtro ($349) to the zero-retention Zero ($699)
+
+Start with a welcoming hero that includes an image — use {{hero-image:main}} since no specific product is being recommended yet. Then use a comparison-table to compare 3 representative machines (e.g., Nano vs Primo vs Doppio). Do NOT pick a "recommended" winner — set "data": {"recommended": null}.
+
+End with suggestion buttons asking about their needs:
+- "I'm a complete beginner" (query: "which Arco machine is best for someone new to espresso")
+- "Best for milk drinks?" (query: "which Arco machine is best for lattes and cappuccinos")
+- "I need something compact" (query: "which Arco machine fits in a small kitchen")
+Plus 1-2 more like "What's your most popular?", "Do I need a grinder?".
+
+## Intent Classification
+Detected intent: **product-discovery**
+
+Remember: output JSON blocks separated by ===. All product links must use the URL from the product data. End with information-gathering suggestions (type "explore" or "compare" only). Every block MUST have meaningful content. ONLY use product names, product IDs, and recipe names that appear in the data above — never invent or guess names.
+
+IMPORTANT: The FIRST suggestion must always be about espresso machines with milk frothing/steaming capabilities, e.g. {"type":"explore","label":"Best for milk drinks?","query":"which Arco machines have the best milk steaming and frothing"}. Place it as the first item in the suggestions array.

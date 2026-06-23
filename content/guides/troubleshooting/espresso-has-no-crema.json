@@ -1,0 +1,48 @@
+{
+  "id": "espresso-has-no-crema",
+  "slug": "espresso-has-no-crema",
+  "category": "troubleshooting",
+  "title": "My Espresso Has No Crema: Bean Freshness, Grind, and Temperature Causes",
+  "difficulty": "beginner",
+  "read_time_minutes": 7,
+  "persona_tags": ["morning-minimalist", "beginner", "upgrader"],
+  "intent_tags": ["troubleshoot", "own"],
+  "hero_image_alt": "Two espresso shots side by side in matching white ceramic cups on a dark slate surface, the left cup showing a bare dark liquid with no crema, the right cup showing a thick golden-brown crema layer, an Arco Primo machine softly blurred in the background, overhead natural light casting soft shadows",
+  "intro": "Crema — the golden-brown, velvety layer of emulsified oils and CO2 that sits atop a well-pulled espresso — is often the first visual indicator that something is right or wrong with your shot. While crema alone does not determine espresso quality, its absence usually signals an underlying issue with bean freshness, grind, temperature, or pressure. If your shots are coming out dark and flat with no crema layer, this guide will help you systematically identify and fix the cause.",
+  "body": [
+    {
+      "heading": "What Crema Is and Why It Forms",
+      "content": "Crema is not simply foam. It is a complex emulsion created by the unique conditions of espresso brewing: hot water forced through finely ground coffee at high pressure. When freshly roasted coffee is ground and exposed to pressurized hot water, the CO2 gas that has been trapped inside the bean cells since roasting is rapidly released. Under the nine bars of pressure in the brew chamber, this CO2 dissolves into the water. When the liquid exits the portafilter and returns to atmospheric pressure, the dissolved CO2 comes out of solution as tiny bubbles. These bubbles are stabilized by the coffee's natural oils and surfactant compounds, creating the persistent, creamy layer we call crema. The color of crema comes from melanoidins — brown polymers formed during the Maillard reaction in roasting — that are emulsified into the foam. Good crema is typically golden-brown to hazelnut in color, two to three millimeters thick, and persists for one to two minutes before slowly dissipating. Its texture should be fine and uniform, like the surface of a well-made cappuccino foam, not bubbly or coarse. Crema contributes a slight bitterness and a rich, aromatic mouthfeel to the first sips of espresso. While some world-class espresso from very light roasts may produce less crema naturally, a complete absence of crema on a medium or dark roast is a clear signal that something in your process needs attention."
+    },
+    {
+      "heading": "Bean Freshness: The Most Common Cause",
+      "content": "By far the most frequent reason for absent crema is stale coffee. The CO2 that creates crema begins escaping from roasted beans immediately — a process called degassing. Whole beans retain their CO2 reasonably well for three to four weeks after roasting when stored in a sealed, valved bag. Ground coffee loses its CO2 within hours, which is why pre-ground coffee rarely produces good crema and why grinding fresh for each shot is essential. If your beans are more than four to five weeks past their roast date, they may have lost enough CO2 that crema production is minimal regardless of your technique and equipment. Check the roast date on your bag. If there is no roast date — only a best-before date months in the future — the beans may have been sitting in a warehouse for weeks or months before reaching you. Specialty roasters always print the roast date prominently. For best crema and flavor, use beans between seven and twenty-one days after roasting. Before seven days, the beans are still degassing heavily and the excess CO2 can disrupt extraction, creating an unstable, bubbly crema that dissipates quickly. After 21 days, crema production gradually declines. Storage matters too. Keep beans in an opaque, airtight container at room temperature. Avoid the refrigerator — the moisture and temperature cycling accelerates staling. If you buy in bulk, portion your beans into weekly amounts and store the extras in a freezer-safe, vacuum-sealed bag. Frozen beans retain their CO2 and freshness remarkably well and can be ground directly from frozen."
+    },
+    {
+      "heading": "Grind Size and Extraction Pressure",
+      "content": "Even with perfectly fresh beans, a grind that is too coarse will produce thin or absent crema. Coarse grounds allow water to pass through the puck too quickly, reducing the contact time and pressure differential needed to dissolve CO2 into the water and emulsify oils. The shot runs fast — under 20 seconds — and the liquid pours out thin and watery without the resistance needed to create crema. If your shot time is well below 25 seconds, grind finer until the flow slows to the target range. On the Arco Filtro and Preciso, this means moving the adjustment collar to a finer setting in small increments. The Arco Zero's digital display makes it easy to track exactly how much finer you are going with each adjustment. Pressure is the other half of the equation. Espresso machines are designed to brew at approximately nine bars of pressure, and this pressure is essential for crema formation. If your machine's pump is not generating adequate pressure — due to age, wear, or a descaling issue — crema will suffer even with correct grind and fresh beans. The Arco Doppio and Studio both have pressure gauges on the front panel that let you monitor real-time brew pressure. During extraction, the gauge should read close to nine bars. If it reads significantly lower — six bars or below — there may be a pump issue or a leak in the brew circuit that is bleeding off pressure. On machines without a gauge, like the Primo, a consistently fast shot despite a fine grind is a sign that pressure may be low. The Arco Viaggio portable machine uses a manual lever, so pressure depends entirely on your hand force — aim for a firm, steady press and a shot time of 25 to 30 seconds."
+    },
+    {
+      "heading": "Temperature, Water Quality, and Cup Preparation",
+      "content": "Brew temperature affects crema in two ways. Water that is too cool extracts less efficiently and dissolves less CO2, reducing crema volume and richness. Water that is too hot can scorch the coffee oils that stabilize crema, producing a darker, thinner, less persistent layer. The target range of 90 to 96 degrees Celsius is the sweet spot for most coffees. If you suspect temperature issues, refer to the warm-up procedures for your specific Arco machine — the Primo needs 15 to 20 minutes, the Doppio 25 to 30, the Studio and Studio Pro 30 to 35. Water quality plays a subtle but real role. Very soft water — low in minerals — produces less crema than moderately hard water because certain minerals help stabilize the emulsion. Conversely, very hard water can produce a thin, dark crema with off-flavors due to excess mineral content interfering with extraction. If you are using heavily filtered or reverse-osmosis water, consider adding a mineral supplement designed for espresso. Most municipal tap water, if it tastes good to drink, works well for espresso. Arco recommends water with a total dissolved solids reading of 75 to 150 parts per million for optimal extraction and crema. Finally, check your cup. A cold cup rapidly cools the espresso on contact, collapsing the crema. Warm your cups by placing them on the machine's cup warmer — available on the Doppio, Studio, Studio Pro, and Ufficio — or by rinsing them with hot water before pulling the shot. A warm cup preserves crema for noticeably longer and keeps the espresso at a pleasant drinking temperature."
+    }
+  ],
+  "key_takeaways": [
+    "Stale beans are the most common cause of missing crema — use coffee between 7 and 21 days off roast for best results.",
+    "Grind fresh for every shot and never use pre-ground coffee if crema matters to you.",
+    "Grind finer if your shot runs too fast — insufficient pressure and contact time prevent crema formation.",
+    "Check brew pressure if grind adjustments do not help — machines with gauges like the Doppio and Studio let you verify nine-bar pressure during extraction.",
+    "Warm your cups before pulling a shot to preserve crema and maintain espresso temperature."
+  ],
+  "related_products": ["arco-primo", "arco-doppio", "arco-studio", "arco-filtro", "arco-zero", "arco-viaggio"],
+  "related_guides": ["grind-size-explained", "my-espresso-tastes-sour", "machine-not-reaching-temperature"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "Start Fresh with the Arco Primo Espresso Machine",
+    "url": "/products/arco-primo"
+  },
+  "seo": {
+    "title": "Why Does My Espresso Have No Crema? Causes and Fixes | Arco",
+    "meta_description": "Fix missing espresso crema by addressing bean freshness, grind size, brew temperature, and pressure. Complete troubleshooting guide from Arco."
+  }
+}

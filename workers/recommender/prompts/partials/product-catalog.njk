@@ -1,0 +1,7 @@
+{%- for p in catalog %}
+- **{{ p.name }}** (ID: {{ p.id }}) | ${{ p.price }} | Series: {{ p.series }} | Category: {{ p.category }}
+  Specs: {{ p._boiler }} boiler, {{ p._group }}, {{ p._pump }}, {{ p._power }}{% if p._specials %} | {{ p._specials }}{% endif %}
+  Best for: {{ p._bestFor }} | Warranty: {{ p._warranty }}
+  {% if p._topUses %}Top use-cases: {{ p._topUses }} | {% endif %}Heat-up: {{ p._heatUp }}
+  Link: {{ p.url }}
+{%- endfor -%}

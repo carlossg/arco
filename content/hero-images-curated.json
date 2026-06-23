@@ -1,0 +1,276 @@
+{
+  "images": [
+    {
+      "id": "hero-main",
+      "type": "general",
+      "path": "/hero-main.jpeg",
+      "alt": "Arco espresso machine brewing a fresh shot into a ceramic cup on a sunlit marble kitchen counter",
+      "topics": ["espresso", "home", "welcome", "discovery", "general", "brewing", "kitchen"],
+      "productIds": []
+    },
+    {
+      "id": "about-arco",
+      "type": "general",
+      "path": "/about-arco.jpeg",
+      "alt": "Arco brand collage — espresso machine with copper pour-over, disassembled copper components, and a craftsman hand-assembling a machine in an Italian workshop",
+      "topics": ["brand", "about", "craftsmanship", "design", "italian", "heritage", "quality", "story"],
+      "productIds": []
+    },
+    {
+      "id": "about-workshop",
+      "type": "general",
+      "path": "/about-workshop.jpeg",
+      "alt": "Close-up of a craftsman in a leather apron hand-assembling a brass boiler with copper tubing and precision tools on a workshop bench",
+      "topics": ["craftsmanship", "engineering", "quality", "boiler", "build", "heritage", "repair", "maintenance", "support"],
+      "productIds": []
+    },
+    {
+      "id": "sustainability",
+      "type": "general",
+      "path": "/sustainability.jpeg",
+      "alt": "Open coffee table book showing Arco espresso machines alongside a misty sunrise over lush green coffee plantation hills",
+      "topics": ["sustainability", "origin", "coffee-farm", "environment", "story", "brand", "beans", "sourcing"],
+      "productIds": []
+    },
+    {
+      "id": "exp-craft-at-home",
+      "type": "experience",
+      "path": "/exp-craft-at-home.jpeg",
+      "alt": "Home barista station with Arco espresso machine and grinder on a marble counter, hands pouring latte art into a ceramic cup in a cozy kitchen",
+      "topics": ["home-barista", "craft", "latte-art", "milk-drinks", "setup", "kitchen", "espresso", "grinder"],
+      "productIds": ["doppio"]
+    },
+    {
+      "id": "exp-espresso-anywhere",
+      "type": "experience",
+      "path": "/exp-espresso-anywhere.jpeg",
+      "alt": "Arco Viaggio portable espresso maker and hand grinder on a weathered wooden table at dawn, misty mountain lake and pine forest in the background",
+      "topics": ["travel", "portable", "outdoor", "adventure", "camping", "nature", "morning"],
+      "productIds": ["viaggio"]
+    },
+    {
+      "id": "exp-morning-minimalist",
+      "type": "experience",
+      "path": "/exp-morning-minimalist.jpeg",
+      "alt": "Minimalist espresso setup — Arco machine with a freshly pulled shot in a double-wall glass on a clean marble counter against a warm neutral wall",
+      "topics": ["minimalist", "morning", "simple", "clean", "espresso", "routine", "beginner"],
+      "productIds": []
+    },
+    {
+      "id": "exp-non-barista",
+      "type": "experience",
+      "path": "/exp-non-barista.jpeg",
+      "alt": "Hand pressing the one-touch button on an Arco Automatico coffee machine as fresh coffee brews into a glass carafe on a bright kitchen counter",
+      "topics": ["automatic", "easy", "one-touch", "beginner", "non-barista", "simple", "convenience"],
+      "productIds": ["automatico"]
+    },
+    {
+      "id": "exp-upgrade-path",
+      "type": "experience",
+      "path": "/exp-upgrade-path.jpeg",
+      "alt": "Two Arco espresso machines side by side — compact entry-level on the left, larger prosumer dual-boiler on the right — illustrating the upgrade journey",
+      "topics": ["upgrade", "comparison", "side-by-side", "journey", "progression", "choosing"],
+      "productIds": []
+    },
+    {
+      "id": "story-bean-to-cup",
+      "type": "story",
+      "path": "/story-bean-to-cup.jpeg",
+      "alt": "The coffee journey from cherry to cup — fresh red cherries, green beans, roasted beans, ground coffee, and a finished espresso with an Arco machine in the background",
+      "topics": ["beans", "origin", "roasting", "process", "coffee-journey", "education", "freshness", "single-origin", "blends"],
+      "productIds": []
+    },
+    {
+      "id": "story-cleaning-machine",
+      "type": "story",
+      "path": "/story-cleaning-machine.jpeg",
+      "alt": "Hands in gloves cleaning an Arco espresso machine group head with a brush, water rinsing through the portafilter during a backflush cycle",
+      "topics": ["cleaning", "maintenance", "care", "backflush", "support", "longevity", "descaling", "troubleshooting"],
+      "productIds": []
+    },
+    {
+      "id": "story-dialing-in",
+      "type": "story",
+      "path": "/story-dialing-in.jpeg",
+      "alt": "Overhead flat lay of espresso tools — portafilter, precision scale, grinder, notebook with brewing notes, timer, and cup on a marble surface",
+      "topics": ["dialing-in", "technique", "precision", "recipe", "extraction", "tools", "accessories", "learning", "beginner"],
+      "productIds": []
+    },
+    {
+      "id": "story-flat-vs-conical",
+      "type": "story",
+      "path": "/story-flat-vs-conical.jpeg",
+      "alt": "Close-up of a flat burr and a conical burr side by side on a marble surface, showing the copper-tipped cutting geometry of each design",
+      "topics": ["grinder", "burr", "flat-burr", "conical-burr", "comparison", "grind", "technical", "education"],
+      "productIds": []
+    },
+    {
+      "id": "story-milk-steaming",
+      "type": "story",
+      "path": "/story-milk-steaming.jpeg",
+      "alt": "Close-up of an Arco copper-tipped steam wand creating a silky milk vortex in a stainless steel pitcher, steam rising",
+      "topics": ["milk", "steaming", "microfoam", "latte", "cappuccino", "flat-white", "cortado", "latte-art", "milk-drinks", "technique"],
+      "productIds": []
+    },
+    {
+      "id": "story-morning-routines",
+      "type": "story",
+      "path": "/story-morning-routines.jpeg",
+      "alt": "Person pulling an espresso shot on an Arco machine in a warm sunlit kitchen with a Tuscan landscape visible through the window",
+      "topics": ["morning", "routine", "lifestyle", "home", "espresso", "ritual", "daily", "kitchen"],
+      "productIds": []
+    },
+    {
+      "id": "story-pressure-profiling",
+      "type": "story",
+      "path": "/story-pressure-profiling.jpeg",
+      "alt": "Close-up of an Arco espresso machine pressure gauge reading 9 bars with a copper bezel, espresso streaming into a cup below",
+      "topics": ["pressure", "profiling", "extraction", "technical", "espresso", "advanced", "flow-control", "bars", "specs"],
+      "productIds": []
+    },
+    {
+      "id": "story-single-origin-vs-blends",
+      "type": "story",
+      "path": "/story-single-origin-vs-blends.jpeg",
+      "alt": "Two piles of coffee beans — light single-origin and dark roast blend — on a marble counter beside a ceramic pour-over dripper and gooseneck kettle",
+      "topics": ["beans", "single-origin", "blends", "roast", "pour-over", "filter", "coffee", "education", "flavor"],
+      "productIds": []
+    },
+    {
+      "id": "story-travel-espresso",
+      "type": "story",
+      "path": "/story-travel-espresso.jpeg",
+      "alt": "Arco Viaggio portable espresso maker and hand grinder on a wooden table with golden mountain scenery at sunset",
+      "topics": ["travel", "portable", "outdoor", "viaggio", "camping", "hiking", "adventure"],
+      "productIds": ["viaggio"]
+    },
+    {
+      "id": "story-water-chemistry",
+      "type": "story",
+      "path": "/story-water-chemistry.jpeg",
+      "alt": "Hand pouring filtered water from a glass jug into an Arco compact espresso machine reservoir on a clean kitchen counter",
+      "topics": ["water", "chemistry", "filtration", "quality", "maintenance", "setup", "beginner", "preparation"],
+      "productIds": []
+    },
+    {
+      "id": "product-primo",
+      "type": "product",
+      "path": "/product-primo.jpeg",
+      "alt": "Two Arco Primo espresso machines in matte black with copper and walnut accents, showcasing the single-boiler design with pressure gauge",
+      "topics": ["primo", "espresso", "single-boiler", "beginner", "entry-level", "home", "first-machine", "budget"],
+      "productIds": ["primo"]
+    },
+    {
+      "id": "product-doppio",
+      "type": "product",
+      "path": "/product-doppio.jpeg",
+      "alt": "Arco Doppio dual-boiler espresso machine in brushed silver with E61 group head, dual pressure gauges and copper accents beside an espresso cup",
+      "topics": ["doppio", "dual-boiler", "e61", "prosumer", "upgrade", "espresso", "simultaneous-brewing"],
+      "productIds": ["doppio"]
+    },
+    {
+      "id": "product-nano",
+      "type": "product",
+      "path": "/product-nano.jpeg",
+      "alt": "Compact Arco Nano espresso machine in matte black with copper dials on a marble board beside a small espresso cup and coffee books",
+      "topics": ["nano", "compact", "small", "space-saving", "beginner", "budget", "apartment", "lightweight"],
+      "productIds": ["nano"]
+    },
+    {
+      "id": "product-studio",
+      "type": "product",
+      "path": "/product-studio.jpeg",
+      "alt": "Arco Studio prosumer espresso machine with walnut side panels, digital display, and flow-control paddle on a kitchen counter",
+      "topics": ["studio", "prosumer", "flow-control", "advanced", "saturated-group", "serious", "home-barista"],
+      "productIds": ["studio"]
+    },
+    {
+      "id": "product-studio-pro",
+      "type": "product",
+      "path": "/product-studio-pro.jpeg",
+      "alt": "Arco Studio Pro espresso machine in matte black with walnut accents, dual group heads with touchscreen display in a rustic-modern cafe setting",
+      "topics": ["studio-pro", "professional", "commercial", "touchscreen", "triple-boiler", "pressure-profiling", "high-end"],
+      "productIds": ["studio-pro"]
+    },
+    {
+      "id": "product-ufficio",
+      "type": "product",
+      "path": "/product-ufficio.jpeg",
+      "alt": "Arco Ufficio commercial dual-group espresso machine in matte black with copper accents in a bright office kitchen",
+      "topics": ["ufficio", "office", "commercial", "dual-group", "high-volume", "workplace", "team"],
+      "productIds": ["ufficio"]
+    },
+    {
+      "id": "product-viaggio",
+      "type": "product",
+      "path": "/product-viaggio.jpeg",
+      "alt": "Arco Viaggio portable lever espresso maker in brushed aluminum next to a passport, leather wallet, and espresso cup on a sunlit counter",
+      "topics": ["viaggio", "travel", "portable", "manual", "lever", "compact", "lightweight", "adventure"],
+      "productIds": ["viaggio"]
+    },
+    {
+      "id": "product-automatico",
+      "type": "product",
+      "path": "/product-automatico.jpeg",
+      "alt": "Arco Automatico bean-to-cup machine in matte black with built-in grinder, touchscreen, copper dials, and automatic milk frother",
+      "topics": ["automatico", "automatic", "bean-to-cup", "one-touch", "easy", "beginner", "convenience", "milk-drinks"],
+      "productIds": ["automatico"]
+    },
+    {
+      "id": "product-zero",
+      "type": "product",
+      "path": "/product-zero.jpeg",
+      "alt": "Arco Zero single-dose grinder in matte black with copper adjustment dial and bellows system, coffee beans in a small bowl beside it",
+      "topics": ["zero", "grinder", "single-dose", "zero-retention", "bellows", "flat-burr", "precision", "espresso-grinder"],
+      "productIds": ["zero"]
+    },
+    {
+      "id": "product-macinino",
+      "type": "product",
+      "path": "/product-macinino.jpeg",
+      "alt": "Arco Macinino flat-burr grinder in matte black with walnut hopper and copper accents, next to a pour-over dripper and brewed filter coffee",
+      "topics": ["macinino", "grinder", "flat-burr", "64mm", "espresso-grinder", "stepless", "clarity"],
+      "productIds": ["macinino"]
+    },
+    {
+      "id": "product-macinino-pro",
+      "type": "product",
+      "path": "/product-macinino-pro.jpeg",
+      "alt": "Arco Macinino Pro commercial grinder in matte black with large hopper, copper adjustment knob, and digital display dispensing into a stainless steel dosing cup",
+      "topics": ["macinino-pro", "grinder", "commercial", "professional", "high-volume", "office"],
+      "productIds": ["macinino"]
+    },
+    {
+      "id": "product-preciso",
+      "type": "product",
+      "path": "/product-preciso.jpeg",
+      "alt": "Arco Preciso conical-burr grinder in matte black with copper top and adjustment collar, espresso machine visible in the background",
+      "topics": ["preciso", "grinder", "conical-burr", "versatile", "espresso", "pour-over", "all-rounder"],
+      "productIds": ["preciso"]
+    },
+    {
+      "id": "product-filtro",
+      "type": "product",
+      "path": "/product-filtro.jpeg",
+      "alt": "Arco Filtro compact filter grinder in matte black with copper accent ring on a marble kitchen island, pour-over dripper in the background",
+      "topics": ["filtro", "grinder", "filter", "pour-over", "drip", "french-press", "compact", "beginner"],
+      "productIds": ["filtro"]
+    },
+    {
+      "id": "product-viaggio-grinder",
+      "type": "product",
+      "path": "/product-viaggio-grinder.jpeg",
+      "alt": "Arco Viaggio hand grinder in brushed stainless steel with copper crank handle beside scattered coffee beans on a marble counter",
+      "topics": ["viaggio-grinder", "hand-grinder", "manual", "travel", "portable", "compact"],
+      "productIds": []
+    },
+    {
+      "id": "product-milk-pitcher",
+      "type": "product",
+      "path": "/product-milk-pitcher.jpeg",
+      "alt": "Arco stainless steel milk pitcher with copper ring handle next to a latte with tulip art, espresso machine in the background",
+      "topics": ["milk-pitcher", "latte-art", "milk-drinks", "steaming", "cappuccino", "latte", "accessory"],
+      "productIds": []
+    }
+  ]
+}

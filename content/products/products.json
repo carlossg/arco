@@ -1,5 +1,5 @@
 {
-  "total": 12,
+  "total": 13,
   "offset": 0,
   "limit": 12,
   "data": [
@@ -23,12 +23,7 @@
         "Drip tray with full indicator",
         "Steam wand for milk texturing"
       ],
-      "bestFor": [
-        "home-barista",
-        "espresso",
-        "beginner",
-        "budget-conscious"
-      ],
+      "bestFor": ["home-barista", "espresso", "beginner", "budget-conscious"],
       "specs": {
         "boilers": "Single",
         "boilerMaterial": "Stainless Steel",
@@ -46,7 +41,7 @@
         "plumbedIn": false
       },
       "images": [
-        "/media/product-primo.jpeg"
+        "/products/espresso-machines/media_1abbfdb7ccdbc8a53e8e4bba6322c039404608c57.jpg"
       ],
       "variants": [
         {
@@ -96,12 +91,7 @@
         "Programmable pre-infusion",
         "Commercial-grade 58mm portafilter"
       ],
-      "bestFor": [
-        "home-barista",
-        "milk-drinks",
-        "espresso",
-        "upgrade"
-      ],
+      "bestFor": ["home-barista", "milk-drinks", "espresso", "upgrade"],
       "specs": {
         "boilers": "Dual",
         "boilerMaterial": "Stainless Steel",
@@ -119,7 +109,7 @@
         "plumbedIn": false
       },
       "images": [
-        "/media/product-doppio.jpeg"
+        "/products/espresso-machines/media_129f7a09c9849ce111140027cbab651246ab98e7c.jpg"
       ],
       "variants": [
         {
@@ -164,12 +154,7 @@
         "Tool-free maintenance",
         "Travel-friendly size"
       ],
-      "bestFor": [
-        "beginner",
-        "travel",
-        "espresso",
-        "budget-conscious"
-      ],
+      "bestFor": ["beginner", "travel", "espresso", "budget-conscious"],
       "specs": {
         "boilers": "Thermoblock",
         "boilerMaterial": "Aluminum with stainless steel lining",
@@ -187,7 +172,7 @@
         "plumbedIn": false
       },
       "images": [
-        "/media/product-nano.jpeg"
+        "/products/espresso-machines/media_1e8fb0b992f25a5f998eee39094b129bc640db7c9.jpg"
       ],
       "variants": [
         {
@@ -237,12 +222,7 @@
         "Shot mirror for bottomless portafilter",
         "Programmable dose presets"
       ],
-      "bestFor": [
-        "home-barista",
-        "espresso",
-        "upgrade",
-        "milk-drinks"
-      ],
+      "bestFor": ["home-barista", "espresso", "upgrade", "milk-drinks"],
       "specs": {
         "boilers": "Dual",
         "boilerMaterial": "Copper with lead-free brass group",
@@ -260,7 +240,7 @@
         "plumbedIn": true
       },
       "images": [
-        "/media/product-studio.jpeg"
+        "/products/espresso-machines/media_18a4e675acb3d161c38e2bd57b3faa3fb507f6e72.jpg"
       ],
       "variants": [
         {
@@ -314,12 +294,7 @@
         "Volumetric dosing",
         "Cool-touch articulating steam wand"
       ],
-      "bestFor": [
-        "home-barista",
-        "espresso",
-        "upgrade",
-        "milk-drinks"
-      ],
+      "bestFor": ["home-barista", "espresso", "upgrade", "milk-drinks"],
       "specs": {
         "boilers": "Triple",
         "boilerMaterial": "Stainless steel with copper heat exchangers",
@@ -338,7 +313,7 @@
         "touchscreen": true
       },
       "images": [
-        "/media/product-studio-pro.jpeg"
+        "/products/espresso-machines/media_1f17bba668fe467f67ae08dd99eb40c79369a4a95.png"
       ],
       "variants": [
         {
@@ -387,11 +362,7 @@
         "Service alert system",
         "Stainless steel construction"
       ],
-      "bestFor": [
-        "office",
-        "espresso",
-        "milk-drinks"
-      ],
+      "bestFor": ["office", "espresso", "milk-drinks"],
       "specs": {
         "boilers": "Dual commercial",
         "boilerMaterial": "Copper",
@@ -411,7 +382,7 @@
         "dailyCapacity": "50+ cups"
       },
       "images": [
-        "/media/product-ufficio.jpeg"
+        "/products/espresso-machines/media_11d5b4445610fcf48338ab8d7b4ffa2dbea75626c.jpg"
       ],
       "variants": [
         {
@@ -457,11 +428,7 @@
         "Includes carrying case",
         "Works with any hot water source"
       ],
-      "bestFor": [
-        "travel",
-        "espresso",
-        "beginner"
-      ],
+      "bestFor": ["travel", "espresso", "beginner"],
       "specs": {
         "boilers": "None (manual)",
         "boilerMaterial": "N/A",
@@ -480,7 +447,7 @@
         "manual": true
       },
       "images": [
-        "/media/product-viaggio.jpeg"
+        "/products/espresso-machines/media_11c9a58cd22b8603a88e88b08bd794b4149f1e19b.jpg"
       ],
       "variants": [
         {
@@ -529,15 +496,10 @@
         "Adjustable drink strength and volume",
         "Auto-rinse and descale programs",
         "Removable brew group for easy cleaning",
-        "Color display with intuitive interface",
+        "Color touchscreen display with intuitive interface",
         "Bypass doser for pre-ground coffee"
       ],
-      "bestFor": [
-        "beginner",
-        "office",
-        "milk-drinks",
-        "espresso"
-      ],
+      "bestFor": ["beginner", "office", "milk-drinks", "espresso"],
       "specs": {
         "boilers": "Thermoblock",
         "boilerMaterial": "Stainless steel",
@@ -555,11 +517,11 @@
         "plumbedIn": false,
         "builtInGrinder": true,
         "autoMilk": true,
-        "touchscreen": false,
+        "touchscreen": true,
         "programmableDrinks": 8
       },
       "images": [
-        "/media/product-automatico.jpeg"
+        "/products/espresso-machines/media_1289cb9c93fd3994a51c4ba81db0a659ae6a3d3bd.jpg"
       ],
       "variants": [
         {
@@ -605,11 +567,7 @@
         "Quiet DC motor",
         "Compact footprint"
       ],
-      "bestFor": [
-        "pour-over",
-        "beginner",
-        "home-barista"
-      ],
+      "bestFor": ["pour-over", "beginner", "home-barista"],
       "specs": {
         "burrType": "Flat",
         "burrSize": "48mm",
@@ -627,7 +585,7 @@
         "singleDose": false
       },
       "images": [
-        "/media/product-filtro.jpeg"
+        "/products/grinders/media_1c984b2e5666bed80e4353f33b51d98cd3de1146a.jpg"
       ],
       "variants": [
         {
@@ -670,12 +628,7 @@
         "Quiet low-RPM motor preserves flavor",
         "Portafilter holder included"
       ],
-      "bestFor": [
-        "home-barista",
-        "espresso",
-        "pour-over",
-        "beginner"
-      ],
+      "bestFor": ["home-barista", "espresso", "pour-over", "beginner"],
       "specs": {
         "burrType": "Conical",
         "burrSize": "48mm",
@@ -693,7 +646,7 @@
         "singleDose": false
       },
       "images": [
-        "/media/product-preciso.jpeg"
+        "/products/grinders/media_144f526a0d69220229861ea5b122e339c8650b9bc.jpg"
       ],
       "variants": [
         {
@@ -737,11 +690,7 @@
         "Grind-on-demand timer",
         "Easy burr access for cleaning"
       ],
-      "bestFor": [
-        "espresso",
-        "home-barista",
-        "upgrade"
-      ],
+      "bestFor": ["espresso", "home-barista", "upgrade"],
       "specs": {
         "burrType": "Flat",
         "burrSize": "64mm",
@@ -759,7 +708,7 @@
         "singleDose": false
       },
       "images": [
-        "/media/product-macinino.jpeg"
+        "/products/grinders/media_1c771e99d27030dbdebcd37cd7d2fbd80972edb36.jpg"
       ],
       "variants": [
         {
@@ -784,6 +733,62 @@
       "warranty": "2 years"
     },
     {
+      "id": "macinino-pro",
+      "name": "Macinino Pro",
+      "series": "grinders",
+      "category": "flat-burr",
+      "url": "/products/grinders/macinino-pro",
+      "price": 799,
+      "currency": "USD",
+      "tagline": "83mm flat burrs. Digital precision. Zero compromise.",
+      "description": "The Arco Macinino Pro pushes flat burr performance to its limit. 83mm Italian flat burrs deliver exceptional uniformity and clarity, while the digital display lets you dial in your grind position with precision. Near-zero retention under 0.2g, programmable dose memory, and a high-torque low-RPM motor make it the natural partner for the Studio Pro.",
+      "features": [
+        "83mm flat Italian burrs",
+        "Digital grind position display",
+        "Programmable dose memory (3 profiles)",
+        "Under 0.2g retention",
+        "High-torque 900 RPM motor",
+        "Portafilter and single-dose compatible",
+        "Anti-static grind chute",
+        "Tool-free burr access"
+      ],
+      "bestFor": ["espresso", "home-barista", "upgrade", "precision"],
+      "specs": {
+        "burrType": "Flat",
+        "burrSize": "83mm",
+        "burrMaterial": "Italian hardened steel",
+        "grindSettings": "Stepless with digital display",
+        "dosing": "Timer-based with 3 memory profiles",
+        "retention": "<0.2g",
+        "hopperCapacity": "350g",
+        "grindsPerSecond": "2.1g/s",
+        "dimensions": "17 x 22 x 42 cm",
+        "weight": "8.2 kg",
+        "power": "310W",
+        "voltage": "120V / 60Hz",
+        "stepless": true,
+        "singleDose": true
+      },
+      "images": [
+        "/products/grinders/media_19c236f641f7072fce950228b96bc7321ef5ec983.jpg"
+      ],
+      "variants": [
+        {
+          "id": "macinino-pro-black",
+          "color": "Matte Black",
+          "sku": "ARCO-MCP-BLK",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Portafilter holder (54mm and 58mm adapters)",
+        "Single-dose loading funnel",
+        "Cleaning brush",
+        "Burr alignment tool"
+      ],
+      "warranty": "2 years"
+    },
+    {
       "id": "zero",
       "name": "Zero",
       "series": "grinders",
@@ -803,12 +808,7 @@
         "Premium fit and finish",
         "Magnetic catch cup"
       ],
-      "bestFor": [
-        "espresso",
-        "home-barista",
-        "upgrade",
-        "pour-over"
-      ],
+      "bestFor": ["espresso", "home-barista", "upgrade", "pour-over"],
       "specs": {
         "burrType": "Flat",
         "burrSize": "83mm",
@@ -826,7 +826,7 @@
         "singleDose": true
       },
       "images": [
-        "/media/product-zero.jpeg"
+        "/products/grinders/media_1026deeb7cd992c6f802552d46fc730e08d34c00b.jpg"
       ],
       "variants": [
         {
@@ -854,6 +854,71 @@
         "Cleaning brush",
         "Burr alignment tool",
         "Grind size reference card"
+      ],
+      "warranty": "2 years"
+    },
+    {
+      "id": "viaggio-grinder",
+      "name": "Viaggio Grinder",
+      "series": "grinders",
+      "category": "travel-grinder",
+      "url": "/products/grinders/viaggio-grinder",
+      "price": 199,
+      "currency": "USD",
+      "tagline": "Precision grinding, anywhere you go",
+      "description": "The Arco Viaggio Grinder delivers café-quality grinds in a palm-sized package. Its 38mm hardened steel conical burrs handle espresso and filter alike, while the fold-out manual handle means no batteries, no charging — just grind. At 320g it slips into any bag, and 24 clicked steps give you repeatable results every time.",
+      "features": [
+        "38mm hardened steel conical burrs",
+        "24-step clicked grind adjustment",
+        "Manual fold-out handle — no power required",
+        "Under 0.3g retention",
+        "25g capacity — perfect for a single dose",
+        "Tool-free disassembly for easy cleaning",
+        "Includes travel pouch",
+        "Espresso to filter range"
+      ],
+      "bestFor": ["travel", "espresso", "pour-over", "beginner"],
+      "specs": {
+        "burrType": "Conical",
+        "burrSize": "38mm",
+        "burrMaterial": "Hardened steel",
+        "grindSettings": "24-step clicked",
+        "dosing": "Manual",
+        "retention": "<0.3g",
+        "hopperCapacity": "25g",
+        "drive": "Manual fold-out handle",
+        "dimensions": "6 x 6 x 18 cm",
+        "weight": "320g",
+        "power": "0W (manual)",
+        "stepless": false,
+        "singleDose": true
+      },
+      "images": [
+        "/products/grinders/media_1d1ae104d3d3a002d0e44b7fd1224ed7543bd305f.jpg"
+      ],
+      "variants": [
+        {
+          "id": "viaggio-grinder-black",
+          "color": "Matte Black",
+          "sku": "ARCO-VGG-BLK",
+          "inStock": true
+        },
+        {
+          "id": "viaggio-grinder-slate",
+          "color": "Slate Grey",
+          "sku": "ARCO-VGG-SLT",
+          "inStock": true
+        },
+        {
+          "id": "viaggio-grinder-terracotta",
+          "color": "Terracotta",
+          "sku": "ARCO-VGG-TRC",
+          "inStock": true
+        }
+      ],
+      "includedAccessories": [
+        "Travel pouch",
+        "Cleaning brush"
       ],
       "warranty": "2 years"
     }

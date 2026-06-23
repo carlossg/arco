@@ -1,0 +1,7 @@
+{%- if accessories | length == 0 -%}
+(none)
+{%- else -%}
+{%- for a in accessories %}
+- **{{ a.name }}** (ID: {{ a.id }}) | ${{ a.price or '?' }} | {{ a._description }}
+{%- endfor -%}
+{%- endif -%}

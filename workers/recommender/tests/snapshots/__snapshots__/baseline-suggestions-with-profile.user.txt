@@ -1,0 +1,4 @@
+<pageContext>{"url":"https://arco.coffee/products/espresso-machines/primo","title":"Primo — Arco"}</pageContext>
+<profile>{"journeyStage":"comparing","intent":"product-detail","categories":["espresso-machines"],"interests":["beginner","milk-drinks"]}</profile>
+<recentlyViewed>["primo","doppio"]</recentlyViewed>
+<exclude>["best espresso machines"]</exclude>

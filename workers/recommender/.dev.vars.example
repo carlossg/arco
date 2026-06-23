@@ -1,0 +1,58 @@
+# Local dev secrets/vars for `wrangler dev` (copy to .dev.vars — gitignored).
+#
+# Ollama (local runtime). Point at your SSH-forwarded EC2 Ollama server:
+#   ssh -N -L 11434:localhost:11434 user@your-ec2-host
+OLLAMA_BASE_URL=http://localhost:11434/v1
+# Any model you've `ollama pull`ed on the server. Setting this makes the local
+# worker default to Ollama with no admin clicks (admin Model Settings overrides).
+OLLAMA_MODEL=llama3.1:8b
+# Output token budget (default 16384). Reasoning models spend part of it on a
+# thinking phase before emitting content — keep it generous to avoid empty pages.
+OLLAMA_MAX_TOKENS=16384
+# Context window sent to Ollama (default 32768). Must exceed the ~15k-token RAG
+# prompt or the server silently truncates it (dropping schema rules -> empty
+# pages). Ollama's own default is often just 4096.
+OLLAMA_NUM_CTX=32768
+# Optional — set to "false" to disable the thinking phase on reasoning models
+# (much faster TTFT, fewer tokens).
+# OLLAMA_THINK=false
+# Optional — LLM timeout in ms for Ollama (default 300000). Reasoning models with
+# a large OLLAMA_MAX_TOKENS can run minutes; raise if you still hit timeouts.
+# OLLAMA_TIMEOUT_MS=300000
+# Optional — LLM timeout in ms for ANY provider (default per-provider). Useful
+# for slow cloud reasoning models under `--local`.
+# LLM_TIMEOUT_MS=300000
+
+# Cloudflare Workers AI via REST (no remote-binding proxy needed — works under
+# `wrangler dev --local`). Set both to enable the cloudflare provider locally.
+# The token needs the "Workers AI: Read + Edit" permission.
+# CF_ACCOUNT_ID=your-account-id
+# CLOUDFLARE_API_TOKEN=your-workers-ai-token   # or CF_AI_TOKEN
+# Optional — disable the thinking phase on CF reasoning models (Nemotron etc.).
+# The Model Settings "Reasoning" control overrides this per-config.
+# CF_THINK=false
+
+# (Cloudflare auth for the remote Vectorize/AI *bindings* is separate — taken
+# from `wrangler login` / a Workers-scoped token, only needed in non-local mode.)
+
+# vLLM (OpenAI-compatible server — local or SSH-forwarded). Set the base URL to
+# enable the vllm provider; the model name is whatever vLLM is serving.
+# Also used for a local DiffusionGemma server (MLX or vLLM) — start it with
+# `npm run model:diffusion-gemma` (see README) and point VLLM_BASE_URL here.
+# VLLM_BASE_URL=http://localhost:8000/v1
+# VLLM_API_KEY=                 # only if vLLM was started with --api-key
+# CF_THINK-style toggle for vLLM reasoning models (Model Settings overrides it):
+# VLLM_THINK=false
+
+# DA_* are intentionally omitted locally: /api/generate never writes to DA, and
+# leaving DA tokens unset keeps the page-caching /api/persist path from touching
+# the production content store.
+
+# Google Vertex AI Model Garden (vLLM dedicated endpoint — works in both wrangler dev and deployed).
+# Token expires in 1h — refresh with: wrangler secret put VERTEX_AI_TOKEN $(gcloud auth print-access-token)
+# VERTEX_AI_TOKEN=your-gcloud-bearer-token    # `gcloud auth print-access-token`
+# VERTEX_AI_ENDPOINT=https://mg-endpoint-ID.REGION-PROJECT.prediction.vertexai.goog/v1/projects/PROJECT/locations/REGION/endpoints/ENDPOINT_ID
+# DiffusionGemma: controls the number of diffusion refinement steps sent as
+# `num_diffusion_steps` in the request body. Fewer steps = faster generation
+# at the cost of some quality. Model default is typically 64–128; try 16–32.
+# VERTEX_AI_DIFFUSION_STEPS=32

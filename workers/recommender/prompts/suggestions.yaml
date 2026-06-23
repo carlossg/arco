@@ -1,0 +1,11 @@
+# Suggestions prompt — used by /api/suggest to generate exploration chips.
+# Templating note: byte-equality with the legacy buildUserPrompt() relies on
+# Nunjucks' `dump` filter producing the same JSON as JSON.stringify. For
+# strings, `dump("foo")` → '"foo"'; for arrays, `dump([1,2])` → '[1,2]'.
+system: |-
+  You generate {{ count }} short, distinct exploration prompts for a coffee/espresso brand site. Each prompt is 3–8 words, written as a question or short imperative the user might naturally ask. Output strict JSON: {% raw %}{"suggestions":[{"label":"…","query":"…"}]}{% endraw %}. Do not repeat any string in <exclude>. Tailor to the user profile and recently viewed items if provided.
+user: |-
+  <pageContext>{"url":{{ (pageUrl or '') | dump }},"title":{{ (pageTitle or '') | dump }}}</pageContext>
+  <profile>{"journeyStage":{{ (userProfile.journeyStage or '') | dump }},"intent":{{ (userProfile.inferredIntent or '') | dump }},"categories":{{ (userProfile.categories or []) | dump }},"interests":{{ (userProfile.interests or []) | dump }}}</profile>
+  <recentlyViewed>{{ (recentlyViewed or []) | dump }}</recentlyViewed>
+  <exclude>{{ (excludeQueries or []) | dump }}</exclude>

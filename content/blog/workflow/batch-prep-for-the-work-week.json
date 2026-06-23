@@ -1,0 +1,53 @@
+{
+  "id": "batch-prep-for-the-work-week",
+  "slug": "batch-prep-for-the-work-week",
+  "category": "workflow",
+  "title": "Batch Prep for the Work Week",
+  "author": {
+    "name": "Marcus Webb",
+    "role": "Barista Trainer",
+    "bio_short": "Marcus trains home baristas through Arco's workshop program. He competed in the UK Barista Championship twice and has a knack for making complex techniques feel simple."
+  },
+  "published_date": "2025-03-11T08:00:00Z",
+  "read_time_minutes": 8,
+  "hero_image_alt": "A Sunday afternoon kitchen scene with an Arco Preciso grinder and a row of small glass containers each holding pre-weighed coffee doses, a portafilter drying on a towel, cleaning supplies neatly arranged, afternoon sunlight filtering through blinds",
+  "tags": ["batch-prep", "weekly-routine", "maintenance", "workflow", "organization"],
+  "persona_tags": ["morning-minimalist", "organized-planner"],
+  "intent_tags": ["own", "workflow", "efficiency", "maintenance"],
+  "intro": "The best weekday mornings are the ones where you do not have to think. No fumbling with the grinder, no discovering an empty water tank, no realizing the machine needs descaling mid-shot. Sunday is the day you invest thirty minutes to make Monday through Friday effortless. Here is the batch-prep routine that turns your coffee workflow into a frictionless system.",
+  "body": [
+    {
+      "heading": "The Sunday Audit: Machine, Grinder, Supplies",
+      "content": "Start with a walk-through. It takes two minutes and prevents every foreseeable problem. Check the water tank — fill it completely. On the Primo, this gives you roughly ten to twelve double shots before refilling. On the Doppio or Studio, the larger reservoir stretches further. Empty the drip tray and wipe it clean. Check the knock box or waste container — if it is more than half full, empty it now. Pull out the portafilter and inspect the basket. Coffee oils build up on the mesh over the week, and a quick scrub with a nylon brush under hot water restores flow. Check the shower screen on the group head: if there is visible buildup, remove it with a coin or the provided tool and rinse it under the tap. This takes sixty seconds and meaningfully improves extraction consistency. Next, the grinder. Open the hopper and check the bean level. If you are using the Preciso or Macinino, top up the hopper with enough beans for the week — roughly one hundred and thirty grams for five days of double shots at eighteen grams each, plus a small buffer for any guests or second cups. If you single-dose, weigh out five individual portions into small containers or bags. The point of this audit is simple: identify anything that would interrupt a weekday morning and resolve it now, when you have time and patience."
+    },
+    {
+      "heading": "Calibrating the Grinder for the Week Ahead",
+      "content": "Beans change over the course of a week. If you opened a fresh bag on Sunday, the beans are at their most gassy and will need a slightly different grind setting than they will by Friday. The standard approach is to dial in on Sunday afternoon — pull two or three shots, find the sweet spot, and note the grind setting. This is your Monday setting. By mid-week, the beans will have degassed slightly, and extraction will speed up marginally. Plan for one grind adjustment on Wednesday or Thursday: one click finer on the Preciso, or a small nudge on the Macinino's dial. You can even leave a sticky note on the grinder — 'Wednesday: one click finer' — so your groggy future self does not have to think about it. If you single-dose and store pre-weighed portions in airtight containers, the degassing is slowed slightly, buying you an extra day before adjustment is needed. The Zero grinder, with its zero-retention design, is particularly well-suited to single-dosing because each dose is ground fresh with no leftover grounds from previous sessions mixing in. Whatever your approach, the principle is the same: do the thinking on Sunday, execute on autopilot during the week. The grinder calibration is the single most impactful prep task because grind size is the variable that most affects shot quality day to day."
+    },
+    {
+      "heading": "Pre-Weighing Doses: The Single-Dose Advantage",
+      "content": "This step is optional but transformative for weekday speed. Weigh out five individual doses — eighteen grams each, or whatever your recipe calls for — and store them in small airtight containers or resealable bags with the air pressed out. Label them Monday through Friday if you want to feel particularly organized. Each morning, you open a container, pour the beans into the grinder, grind, and go. No scale needed at the grinder. No measuring, no spilling, no sweeping stray beans off the counter at six forty-five in the morning. The time savings per morning is only about thirty seconds, but the cognitive savings are larger. You are removing a measurement task from the least precise part of your day. The beans stay fresh enough in sealed containers for five days — the flavor difference between Monday's dose and Friday's dose is minimal and far smaller than the difference between freshly ground and pre-ground coffee. Some purists will object to pre-weighing. They want to weigh every dose at the moment of grinding. That is valid for weekend experimentation, but for weekday efficiency, the pre-weighed approach is a practical compromise that costs almost nothing in quality and saves real friction every morning. The containers stack neatly beside the grinder, and the visual cue of seeing five doses lined up on Sunday afternoon is surprisingly satisfying — it looks like readiness, like the week is handled before it has begun."
+    },
+    {
+      "heading": "The Quick Clean That Keeps Standards High",
+      "content": "The final Sunday task is a light clean. Not the monthly deep clean — that is a separate, more involved routine — but a weekly maintenance pass that prevents buildup from becoming a problem. Run a blank shot through the machine: lock in the portafilter without coffee and run water through the group for ten seconds. This flushes oils and fine particles from the shower screen and the internal passages. On machines with a three-way solenoid valve — the Doppio, Studio, and Studio Pro — perform a quick backflush. Insert a blind basket or a rubber backflush disc, add a small amount of espresso machine cleaner, run the pump for ten seconds, stop for ten seconds, and repeat three times. Then run two clean-water backflush cycles to rinse. Total time: three minutes. Wipe down all exterior surfaces with a damp cloth. Clean the steam wand if you used it during the week — soak the tip in hot water for a minute if milk residue has built up, then wipe clean. Run a few grams of beans through the grinder to purge any stale grounds from the burrs. These tasks are individually small, but collectively they maintain the machine and grinder in a state where Monday morning's first shot is as good as Sunday afternoon's last. The batch-prep routine is not about obsession. It is about systems. Thirty minutes on Sunday buys you five effortless mornings, and the compound effect over months is a coffee setup that runs smoothly, tastes consistently excellent, and never surprises you at the worst possible moment."
+    }
+  ],
+  "key_takeaways": [
+    "Sunday audit: fill the tank, empty the drip tray, clean the basket and shower screen, top up beans.",
+    "Dial in the grinder on Sunday; plan one mid-week micro-adjustment as beans degas.",
+    "Pre-weigh five individual doses in airtight containers for grab-and-grind weekday mornings.",
+    "A quick weekly clean — blank shot, backflush, wipe down — prevents buildup and keeps Monday's shot excellent."
+  ],
+  "related_products": ["arco-preciso", "arco-primo", "arco-zero"],
+  "related_experience": "organized-planner",
+  "cta": {
+    "label": "Shop the Arco Preciso",
+    "url": "/products/arco-preciso"
+  },
+  "related_posts": ["the-five-minute-morning-shot", "the-monthly-deep-clean", "the-weekend-slow-brew"],
+  "seo": {
+    "title": "Batch Prep for the Work Week — Sunday Coffee Routine | Arco",
+    "meta_description": "A thirty-minute Sunday routine that makes every weekday morning effortless. Audit your setup, calibrate the grinder, pre-weigh doses, and do a quick clean for five perfect mornings."
+  }
+}

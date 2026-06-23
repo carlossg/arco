@@ -1,0 +1,16 @@
+Codemap update — 2026-06-12 (branch worktree-gemma-diffusion)
+
+Modified:
+- backend.md     : added `ollama` + `vllm` provider rows (local-dev-only; vllm path
+                   also serves local DiffusionGemma via mlx-vlm/start-diffusion-gemma.sh).
+                   Clarified `cloudflare` REST auth. Updated stream-parser.js role
+                   (now tolerates ```json fences + stray prose around JSON blocks).
+- frontend.md    : api-config.js now routes localhost -> local wrangler dev worker
+                   (8789); documented ARCO_CONFIG / localStorage overrides.
+- dependencies.md: added local LLM runtime row (Ollama / vLLM / mlx-vlm, dev-only).
+
+New files this branch:
+- workers/recommender/start-diffusion-gemma.sh  (MLX/vLLM launcher for DiffusionGemma)
+
+Architecture changes: none (no new routes/services). Local-model option + parser
+hardening only. Estimated codemap delta < 10%; updated in place.

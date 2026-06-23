@@ -1,0 +1,28 @@
+{
+  "query": "I'm an experienced barista who dials in single origin, what should I get?",
+  "intent": { "type": "espresso", "journeyStage": "deciding" },
+  "behavior": {
+    "coldStart": false,
+    "priceTier": "premium",
+    "skillLevel": "experienced",
+    "viewedProducts": ["studio", "studio-pro"],
+    "useCasePriorities": ["espresso", "precision"],
+    "catalogPriceRange": { "min": 2299, "max": 3499 }
+  },
+  "previousQueries": ["what grinders do you have"],
+  "followUp": null,
+  "shownContent": {
+    "shownProducts": ["studio", "studio-pro"],
+    "shownSections": [{ "blockType": "hero" }, { "blockType": "comparison-table" }]
+  },
+  "contextData": {
+    "products": [
+      { "name": "Studio Pro", "id": "studio-pro", "price": 3499, "bestFor": ["home-barista", "espresso", "upgrade"] },
+      { "name": "Studio", "id": "studio", "price": 2299, "bestFor": ["home-barista", "espresso", "upgrade"] },
+      { "name": "Macinino Pro", "id": "macinino-pro", "price": 799, "bestFor": ["espresso", "home-barista", "precision"] }
+    ],
+    "features": [
+      { "name": "Flow Control", "benefit": "Manual control over extraction pressure mid-shot" }
+    ]
+  }
+}

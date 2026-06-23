@@ -1,0 +1,94 @@
+{
+  "name": "arco-recommender",
+  "account_id": "68e6632adf76183424b251e874663bde",
+  "main": "src/index.js",
+  "compatibility_date": "2024-12-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // KV namespaces
+  "kv_namespaces": [
+    {
+      "binding": "CACHE",
+      "id": "899bd6f2d82544afa1d38a8d64940259"
+    },
+    {
+      "binding": "GUIDES",
+      "id": "eb93a78ab0694f90af29c9634dd76d8a"
+    },
+    {
+      // Stores full page payloads (blocks + debug) keyed by page ID
+      "binding": "SESSION_STORE",
+      "id": "670b87fd2b5f4fe0871c973c93c4b6cd"
+    }
+  ],
+
+  // D1 database for session and page metadata
+  "d1_databases": [
+    {
+      "binding": "SESSIONS_DB",
+      "database_name": "arco-sessions",
+      "database_id": "78439521-136f-4ac8-b3db-5007b6080063"
+    }
+  ],
+
+  // Workers AI for generating query embeddings
+  "ai": {
+    "binding": "AI"
+  },
+
+  // Vectorize indexes for RAG
+  "vectorize": [
+    {
+      "binding": "CONTENT_INDEX",
+      "index_name": "arco-content"
+    }
+  ],
+
+  // Cloudflare Analytics Engine for usage tracking
+  "analytics_engine_datasets": [
+    {
+      "binding": "ANALYTICS",
+      "dataset": "arco_usage"
+    }
+  ],
+
+  // Environment variables (set secrets via `wrangler secret put`)
+  // LLM provider secrets: CEREBRAS_API_KEY, SAMBANOVA_API_KEY (Cloudflare AI uses the AI binding above)
+  // Vertex AI secrets: VERTEX_AI_TOKEN (bearer token, 1h expiry — refresh via gcloud), VERTEX_AI_ENDPOINT
+  // AWS Bedrock secrets: AWS_BEARER_TOKEN_BEDROCK
+  // AWS Bedrock region var: AWS_REGION (default: us-east-1, can be a var or secret)
+  // Analytics: CF_API_TOKEN (Analytics Engine read permission)
+  // DA secrets: DA_CLIENT_ID, DA_CLIENT_SECRET, DA_SERVICE_TOKEN (or DA_TOKEN as fallback)
+  // Admin: ADMIN_TOKEN (Basic Auth password for /admin + /api/admin/*)
+  // Queues for async eval orchestration
+  "queues": {
+    "producers": [{ "binding": "EVAL_QUEUE", "queue": "arco-eval-queries" }],
+    "consumers": [{
+      "queue": "arco-eval-queries",
+      "max_batch_size": 1,
+      "max_concurrency": 3,
+      "max_retries": 5,
+      "dead_letter_queue": "arco-eval-dlq"
+    }]
+  },
+
+  // Cron fallback: scan for stuck eval runs every minute and process directly
+  // (resilience layer in case CF Queue delivery fails)
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  },
+
+  "vars": {
+    "ENVIRONMENT": "production",
+    "DA_ORG": "froesef",
+    "DA_REPO": "arco"
+  },
+
+  // Bundle YAML prompt templates and Nunjucks partials as text imports.
+  "rules": [
+    { "type": "Text", "globs": ["**/*.yaml", "**/*.yml", "**/*.njk"], "fallthrough": true }
+  ]
+  // CPU/wall-time: this worker is on the Unbound usage model, which already
+  // permits up to 30 minutes of wall clock per invocation — long enough for
+  // a full LLM eval. Don't set `limits.cpu_ms` here; Unbound rejects it.
+}

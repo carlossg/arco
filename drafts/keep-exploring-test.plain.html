@@ -1,0 +1,51 @@
+<body>
+  <header></header>
+  <main>
+    <div>
+      <h1>Keep Exploring Block — Test Fixture</h1>
+      <p>This page demonstrates the new <code>keep-exploring</code> block. Two variants below: one with only authored chips, and one that also fetches dynamic LLM-suggested chips.</p>
+    </div>
+
+    <div>
+      <h2>Variant 1: Authored chips only</h2>
+      <p>No <code>suggested-items</code> config — only the three authored rows render.</p>
+      <div class="keep-exploring">
+        <div>
+          <div>Best espresso machines under $1000</div>
+        </div>
+        <div>
+          <div>How do I dial in an espresso shot?</div>
+        </div>
+        <div>
+          <div>Compare manual vs automatic</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Variant 2: Authored + 3 dynamic chips</h2>
+      <p>The <code>suggested-items</code> config row triggers a /api/suggest call. Three skeleton chips render immediately and are replaced with LLM-generated suggestions when the call returns.</p>
+      <div class="keep-exploring">
+        <div>
+          <div>heading</div>
+          <div>What else interests you?</div>
+        </div>
+        <div>
+          <div>suggested-items</div>
+          <div>3</div>
+        </div>
+        <div>
+          <div>Best grinders for home espresso</div>
+        </div>
+        <div>
+          <div>Top accessories every barista needs</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p>Original page content below the block stays in place. Streamed content from clicking a chip appears between this paragraph and the block above.</p>
+    </div>
+  </main>
+  <footer></footer>
+</body>

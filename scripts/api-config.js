@@ -1,29 +1,66 @@
 /**
- * Arco - API Configuration (Google Cloud)
+ * Arco - API Configuration (Cloudflare Worker)
  *
  * Central configuration for all API endpoints.
- * Uses Cloud Run and Cloud Functions on Google Cloud.
+ * Recommender runs on Cloudflare Workers with Cerebras LLM inference.
  */
 
 // ============================================
-// Google Cloud Run Endpoints
+// Cloudflare Worker Endpoints
 // ============================================
 
-// Google Cloud project ID (override via window.ARCO_CONFIG?.GCP_PROJECT_ID)
-export const GCP_PROJECT_ID = window.ARCO_CONFIG?.GCP_PROJECT_ID
-  || 'api-project-642841493686';
+const PRODUCTION_WORKER = 'https://arco-recommender.franklin-prod.workers.dev';
 
-// Main recommender service (Cloud Run)
-export const ARCO_RECOMMENDER_URL = window.ARCO_CONFIG?.RECOMMENDER_URL
-  || 'https://arco-recommender-642841493686.us-central1.run.app';
+// Local `wrangler dev` worker (run `npm run dev` in workers/recommender).
+// Wrangler picks 8787 by default but increments when ports are taken; this repo's
+// dev worker comes up on 8789. Override via the mechanisms below if yours differs.
+const LOCAL_WORKER = 'http://localhost:8787';
 
-// Analytics service (Cloud Function Gen2)
-export const ARCO_ANALYTICS_URL = window.ARCO_CONFIG?.ANALYTICS_URL
-  || `https://us-central1-${GCP_PROJECT_ID}.cloudfunctions.net/trackEvent`;
+/**
+ * Resolve the recommender worker URL for the current environment.
+ *
+ * Priority:
+ *   1. window.ARCO_CONFIG.RECOMMENDER_URL  — explicit global override
+ *   2. localStorage['arco-recommender-url'] — runtime toggle, no code edit:
+ *        localStorage.setItem('arco-recommender-url', 'http://localhost:8787')
+ *        localStorage.setItem('arco-recommender-url', '<prod url>')  // force prod locally
+ *        localStorage.removeItem('arco-recommender-url')             // back to default
+ *   3. localhost / 127.0.0.1 → the local `wrangler dev` worker (LOCAL_WORKER)
+ *   4. {branch}--{repo}--{owner}.aem.page → that branch's worker version
+ *   5. everything else → production
+ */
+function resolveRecommenderURL() {
+  if (window.ARCO_CONFIG?.RECOMMENDER_URL) return window.ARCO_CONFIG.RECOMMENDER_URL;
 
-// Recipe embeddings service (Cloud Function Gen2)
-export const ARCO_EMBEDDINGS_URL = window.ARCO_CONFIG?.EMBEDDINGS_URL
-  || `https://us-central1-${GCP_PROJECT_ID}.cloudfunctions.net/searchRecipes`;
+  try {
+    const stored = window.localStorage?.getItem('arco-recommender-url');
+    if (stored) return stored;
+  } catch { /* localStorage may be unavailable (private mode / sandbox) */ }
+
+  const { hostname } = window.location;
+
+  // Local dev: point at the local worker so /api/generate uses locally-served
+  // models (e.g. DiffusionGemma via mlx-vlm). Override via the above to use prod.
+  if (hostname === 'localhost' || hostname === '127.0.0.1') return LOCAL_WORKER;
+
+  // EDS branch preview: rewrite to the branch alias worker version.
+  const match = hostname.match(/^(.+)--[^.]+--[^.]+\.aem\.page$/);
+  if (!match || match[1] === 'main') return PRODUCTION_WORKER;
+
+  const alias = match[1]
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  return `https://${alias}-arco-recommender.franklin-prod.workers.dev`;
+}
+
+// Main recommender service (Cloudflare Worker)
+export const ARCO_RECOMMENDER_URL = resolveRecommenderURL();
+
+// Analytics service — same worker, separate endpoint
+export const ARCO_ANALYTICS_URL = window.ARCO_CONFIG?.ANALYTICS_URL || ARCO_RECOMMENDER_URL;
 
 // ============================================
 // Environment Detection
@@ -39,32 +76,11 @@ export const IS_LOCAL = window.location.hostname.includes('localhost');
 // ============================================
 
 /**
- * Get the appropriate API endpoint for the current environment
+ * Get the appropriate API endpoint for the current environment.
+ * Accepts an optional service name argument (currently only 'recommender' exists).
  */
-export function getAPIEndpoint(service = 'recommender') {
-  if (window.ARCO_CONFIG) {
-    switch (service) {
-      case 'recommender':
-        return window.ARCO_CONFIG.RECOMMENDER_URL || ARCO_RECOMMENDER_URL;
-      case 'analytics':
-        return window.ARCO_CONFIG.ANALYTICS_URL || ARCO_ANALYTICS_URL;
-      case 'embeddings':
-        return window.ARCO_CONFIG.EMBEDDINGS_URL || ARCO_EMBEDDINGS_URL;
-      default:
-        break;
-    }
-  }
-
-  switch (service) {
-    case 'recommender':
-      return ARCO_RECOMMENDER_URL;
-    case 'analytics':
-      return ARCO_ANALYTICS_URL;
-    case 'embeddings':
-      return ARCO_EMBEDDINGS_URL;
-    default:
-      return ARCO_RECOMMENDER_URL;
-  }
+export function getAPIEndpoint() {
+  return ARCO_RECOMMENDER_URL;
 }
 
 /**
@@ -72,32 +88,8 @@ export function getAPIEndpoint(service = 'recommender') {
  */
 if (IS_LOCAL) {
   // eslint-disable-next-line no-console
-  console.log('[Arco] API Configuration (Google Cloud):', {
+  console.log('[Arco] API Configuration:', {
     recommender: ARCO_RECOMMENDER_URL,
-    analytics: ARCO_ANALYTICS_URL,
-    embeddings: ARCO_EMBEDDINGS_URL,
     environment: IS_PRODUCTION ? 'production' : 'development',
   });
-}
-
-/**
- * Configuration instructions for deployment (local dev only)
- */
-if (IS_LOCAL) {
-  window.ARCO_CONFIG_HELP = `
-To configure API endpoints for your deployment:
-
-1. Override URLs or project:
-   window.ARCO_CONFIG = {
-     GCP_PROJECT_ID: 'your-project-id',
-     RECOMMENDER_URL: 'https://arco-recommender-xxx-uc.a.run.app',
-     ANALYTICS_URL: 'https://us-central1-YOUR_PROJECT.cloudfunctions.net/trackEvent',
-     EMBEDDINGS_URL: 'https://us-central1-YOUR_PROJECT.cloudfunctions.net/searchRecipes',
-   };
-
-2. Add this to your head.html or page template before loading scripts.
-
-3. For local development with Cloud Run:
-   window.ARCO_CONFIG = { RECOMMENDER_URL: 'http://localhost:8080' };
-`;
 }

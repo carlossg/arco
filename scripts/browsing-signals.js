@@ -7,9 +7,20 @@
  * recommender queries are better informed.
  *
  * Loaded in the delayed phase — zero impact on LCP.
+ *
+ * NOTE — "intent" overloading: the project has three distinct notions of intent,
+ * all unrelated:
+ *   1. THIS file — rule-based path intent ('product-detail', 'discovery', …)
+ *      emitted per page view into the session browsing history.
+ *   2. workers/recommender/src/pipeline/steps/intent-classify.js — keyword-based
+ *      query intent ('espresso', 'comparison', …) classified server-side and
+ *      written to ctx.intent.
+ *   3. D1 generated_pages.intent_type column — persisted form of (2).
+ * Keep them distinct when reading admin output or debug payloads.
  */
 
 import { SessionContextManager } from './session-context.js';
+import { ARCO_ANALYTICS_URL } from './api-config.js';
 
 const MAX_SIGNALS = 20;
 const ENGAGEMENT_THRESHOLD_MS = 5000;
@@ -309,37 +320,22 @@ export function collectBrowsingSignals() {
     addSignal(getEngagementSignal());
   }, DEEP_ENGAGEMENT_MS);
 
-  // 5. Capture final engagement on page leave
-  const captureOnLeave = () => {
+  // 5. Capture final engagement and send analytics beacon on page leave
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'hidden') return;
+
     const engagement = getEngagementSignal();
     addSignal(engagement);
-
-    // Update the page visit with engagement data
     SessionContextManager.updateLastPageVisit({
       timeSpent: engagement.data.timeSpent,
       scrollDepth: engagement.data.scrollDepth,
     });
-  };
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') captureOnLeave();
-  });
-
-  // 6. Interaction listeners
-  setupInteractionListeners(addSignal);
-
-  // 7. Analytics beacon — send page-view event on leave
-  const sendPageViewBeacon = () => {
     try {
-      // Dynamically import to avoid loading analytics config eagerly
-      const analyticsUrl = window.ARCO_CONFIG?.ANALYTICS_URL;
+      const analyticsUrl = window.ARCO_CONFIG?.ANALYTICS_URL || ARCO_ANALYTICS_URL;
       if (!analyticsUrl) return;
-
-      const sessionId = SessionContextManager.getSessionId();
-      const engagement = getEngagementSignal();
-
       const payload = JSON.stringify({
-        sessionId,
+        sessionId: SessionContextManager.getSessionId(),
         eventType: 'page-view',
         query: '',
         intent: classifyFromPath(window.location.pathname).intent,
@@ -350,18 +346,14 @@ export function collectBrowsingSignals() {
           scrollDepth: engagement.data.scrollDepth,
         },
       });
-
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon(analyticsUrl, payload);
-      }
+      if (navigator.sendBeacon) navigator.sendBeacon(`${analyticsUrl}/api/track`, payload);
     } catch {
       // Best-effort — silently ignore failures
     }
-  };
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') sendPageViewBeacon();
   });
+
+  // 6. Interaction listeners
+  setupInteractionListeners(addSignal);
 }
 
 export default collectBrowsingSignals;

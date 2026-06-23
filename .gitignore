@@ -1,7 +1,7 @@
 .hlx/*
 coverage/*
 logs/*
-node_modules/*
+node_modules
 
 helix-importer-ui
 .DS_Store
@@ -14,17 +14,30 @@ daTokenService.ts
 !CLAUDE.md
 !AGENTS.md
 
-# Backend service
-services/recommender/node_modules/
-services/recommender/dist/
-
 # arco-benchmark is a separate git repo checked out locally
 arco-benchmark/
+
 .env
 
-# Cloud Functions
-functions/*/node_modules/
-functions/*/dist/
+# Build output and caches
+dist
+build
+.cache
+.next
+.turbo
+.wrangler
+
+# Cloudflare Workers
+workers/*/node_modules/
+workers/*/.wrangler/
+.dev.vars
+
+# Generated hero images (stored in DA, not git)
+assets/images/heroes/
+drafts/media/
+
+# Local settings
+.claude/settings.local.json
 
 # Demo video build intermediates
 build-demo/audio/
@@ -33,3 +46,6 @@ build-demo/segments/
 build-demo/recordings/
 build-demo/concat.txt
 build-demo/.venv/
+
+# Load test results
+tools/loadtest/results/

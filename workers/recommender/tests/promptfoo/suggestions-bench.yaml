@@ -1,0 +1,72 @@
+description: "Arco suggestions — multi-model benchmark"
+
+prompts:
+  - file://../../src/prompt-loader-node.js:renderForPromptfoo
+
+providers:
+  # Smaller, faster models — suggestions are 3-8 word phrases.
+  - id: openai:chat:llama3.1-8b
+    label: cerebras/llama-3.1-8b
+    config:
+      apiBaseUrl: https://api.cerebras.ai/v1
+      apiKeyEnvar: CEREBRAS_API_KEY
+      max_tokens: 256
+
+  - id: "openai:chat:@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+    label: cloudflare/llama-3.3-70b
+    config:
+      apiBaseUrl: "https://api.cloudflare.com/client/v4/accounts/{{env.CLOUDFLARE_ACCOUNT_ID}}/ai/v1"
+      apiKeyEnvar: CLOUDFLARE_API_TOKEN
+      max_tokens: 256
+
+  - id: bedrock:us.anthropic.claude-haiku-4-5-20251001-v1:0
+    label: bedrock/claude-haiku-4.5
+    config:
+      region: us-east-1
+      max_tokens: 256
+
+defaultTest:
+  options:
+    transform: '(output=>{const s=typeof output==="string"?output:output?.content??JSON.stringify(output);return s.replace(/<think>[\s\S]*?<\/think>/g,"").replace(/^```(?:json)?\s*/m,"").replace(/\s*```\s*$/m,"").trim()})(output)'
+  assert:
+    - type: is-json
+      weight: 3
+    - type: javascript
+      description: "has a `suggestions` array"
+      value: '(() => { try { const j = JSON.parse(output); return Array.isArray(j.suggestions); } catch { return false; } })()'
+      weight: 3
+    - type: javascript
+      description: "each suggestion has label and query"
+      value: '(() => { try { const j = JSON.parse(output); return j.suggestions.every(s => s.label && s.query); } catch { return false; } })()'
+      weight: 2
+    - type: javascript
+      description: "label is 3-8 words"
+      value: '(() => { try { const j = JSON.parse(output); return j.suggestions.every(s => { const n = s.label.trim().split(/\s+/).length; return n >= 2 && n <= 10; }); } catch { return false; } })()'
+      weight: 1
+
+tests:
+  - description: "cold homepage — no profile"
+    threshold: 0.7
+    vars:
+      prompt: suggestions
+      count: 3
+      pageUrl: "https://arco.coffee/"
+      pageTitle: "Arco — Italian Precision Espresso"
+      userProfile: {}
+      recentlyViewed: []
+      excludeQueries: []
+
+  - description: "product page — comparing profile"
+    threshold: 0.7
+    vars:
+      prompt: suggestions
+      count: 3
+      pageUrl: "https://arco.coffee/products/espresso-machines/primo"
+      pageTitle: "Primo — Arco"
+      userProfile:
+        journeyStage: comparing
+        inferredIntent: product-detail
+        categories: [espresso-machines]
+        interests: [beginner, milk-drinks]
+      recentlyViewed: [primo, doppio]
+      excludeQueries: ["best espresso machines"]

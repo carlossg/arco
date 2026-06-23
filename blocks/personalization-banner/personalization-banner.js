@@ -1,11 +1,13 @@
 /**
  * Personalization Banner Block — slim top-of-page banner showing current persona.
- * Hidden for users without arco_persona cookie. Dismissible with session persistence.
+ * Hidden for users without a quiz persona in sessionStorage. Dismissible with session persistence.
  *
- * Authored content is ignored — the block auto-generates content from the persona cookie.
+ * Authored content is ignored — the block auto-generates content from the quiz persona.
  * If the block has authored rows, they can override the persona display labels:
  *   Row N: Col 1 = persona-tag, Col 2 = display label
  */
+
+import { SessionContextManager } from '../../scripts/session-context.js';
 
 const PERSONA_LABELS = {
   'morning-minimalist': 'The Morning Minimalist',
@@ -25,13 +27,8 @@ const PERSONA_TAGLINES = {
   'office-manager': 'Volume equipment and ROI tools, tailored for your team.',
 };
 
-/**
- * Reads the arco_persona cookie.
- * @returns {string|null}
- */
 function getPersona() {
-  const match = document.cookie.match(/(?:^|;\s*)arco_persona=([^;]*)/);
-  return match ? decodeURIComponent(match[1]) : null;
+  return SessionContextManager.getQuizPersona();
 }
 
 /**

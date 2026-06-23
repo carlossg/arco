@@ -1,15 +1,14 @@
 /**
- * "For You" Background Prefetch
+ * "For You" Query Synthesis
  *
  * After 2+ page visits, synthesizes a personalized query from the user's
- * browsing context and pre-generates a recommender page in the background.
- * When the user clicks "For You" in the nav, the result renders instantly.
+ * browsing context and stores it in sessionStorage. The speculative engine
+ * in header.js triggers actual generation on hover — not here.
  *
  * Loaded in the delayed phase via delayed.js — zero impact on LCP.
  */
 
 import { SessionContextManager } from './session-context.js';
-import { ARCO_RECOMMENDER_URL } from './api-config.js';
 
 export const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
 export const FORYOU_QUERY_KEY = 'arco-foryou-query';
@@ -19,7 +18,6 @@ const DEBOUNCE_MS = 30000;
 
 let lastPrefetchTime = 0;
 let lastPrefetchSnapshot = null;
-let activeEventSource = null;
 
 /**
  * Extract distinctive topic words from the most recent browsing history entries.
@@ -62,7 +60,7 @@ function extractTopicWords(browsingHistory) {
  * @param {Object} context - Session context from SessionContextManager
  * @returns {string}
  */
-function synthesizeQuery(context) {
+export function synthesizeQuery(context) {
   const { inferredProfile, browsingHistory } = context;
   if (!inferredProfile) return 'Recommend coffee equipment based on my browsing';
 
@@ -156,81 +154,8 @@ function hasSignificantChange(current, previous) {
 }
 
 /**
- * Start a background EventSource to pre-generate a "For You" page.
- * @param {string} query - Synthesized query
- */
-function startForYouPrefetch(query) {
-  // Close any existing connection
-  if (activeEventSource) {
-    activeEventSource.close();
-    activeEventSource = null;
-  }
-
-  const contextParam = SessionContextManager.buildEncodedContextParam();
-  const preset = new URLSearchParams(window.location.search).get('preset') || 'production';
-  const url = `${ARCO_RECOMMENDER_URL}/generate?query=${encodeURIComponent(query)}&preset=${encodeURIComponent(preset)}&ctx=${contextParam}`;
-
-  window.dispatchEvent(new CustomEvent('arco-foryou-started'));
-
-  try {
-    activeEventSource = new EventSource(url);
-  } catch {
-    activeEventSource = null;
-    return;
-  }
-
-  const blocks = [];
-  let metadata = {};
-
-  activeEventSource.addEventListener('block-content', (e) => {
-    try {
-      const data = JSON.parse(e.data);
-      blocks.push({ html: data.html, sectionStyle: data.sectionStyle });
-    } catch {
-      // ignore parse errors
-    }
-  });
-
-  activeEventSource.addEventListener('generation-complete', (e) => {
-    try {
-      metadata = JSON.parse(e.data);
-    } catch {
-      // ignore parse errors
-    }
-    activeEventSource.close();
-    activeEventSource = null;
-
-    // Save to sessionStorage
-    try {
-      sessionStorage.setItem(FORYOU_PREFETCH_KEY, JSON.stringify({
-        query,
-        blocks,
-        metadata,
-        isComplete: true,
-        timestamp: Date.now(),
-      }));
-      sessionStorage.setItem(FORYOU_QUERY_KEY, query);
-    } catch {
-      // sessionStorage unavailable
-    }
-
-    window.dispatchEvent(new CustomEvent('arco-foryou-ready'));
-  });
-
-  activeEventSource.addEventListener('error', () => {
-    activeEventSource.close();
-    activeEventSource = null;
-  });
-
-  activeEventSource.onerror = () => {
-    if (activeEventSource && activeEventSource.readyState === EventSource.CLOSED) {
-      activeEventSource = null;
-    }
-  };
-}
-
-/**
- * Attempt a prefetch if conditions are met (enough visits, debounce, significant change).
+ * Synthesize and store the "For You" query if conditions are met
+ * (enough visits, debounce, significant context change).
  */
 function attemptPrefetch() {
   const context = SessionContextManager.getContext();
@@ -258,14 +183,11 @@ function attemptPrefetch() {
   } catch {
     // sessionStorage unavailable
   }
-
-  // eslint-disable-next-line no-console
-  console.log('[ForYou] Starting background prefetch:', query);
-  startForYouPrefetch(query);
 }
 
 /**
- * Initialize the "For You" background prefetch system.
+ * Initialize "For You" query synthesis.
+ * Listens for context updates and keeps the stored query current.
  * Call from delayed.js after collectBrowsingSignals().
  */
 export function initForYouPrefetch() {
