@@ -51,6 +51,11 @@ export const MODEL_CATALOG = [
     label: 'Cerebras · Z.ai GLM 4.7 (1000 tokens/s)',
   },
   {
+    provider: 'cerebras',
+    model: 'gemma-4-31b-trial',
+    label: 'Cerebras · Gemma 4 31B (1500 tokens/s)',
+  },
+  {
     provider: 'cloudflare',
     model: '@cf/openai/gpt-oss-120b',
     label: 'Cloudflare · GPT-OSS 120B',
