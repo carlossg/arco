@@ -11,7 +11,7 @@ This project uses DA as the content source. Content must be explicitly previewed
 ### Configuration
 
 - **org**: `carlossg`, **repo**: `arco`, **ref**: `main`
-- **DA token**: stored in `.env` as `DA_TOKEN`
+- **DA token**: preferred source is the AEM CLI login token at `.hlx/.da-token.json` (`.access_token`, auto-refreshed by `aem up`); falls back to `.env` `DA_TOKEN`/`DA_BEARER_TOKEN`
 - **Auth header**: `Authorization: Bearer $DA_TOKEN` (do NOT use `x-auth-token`)
 - **DA list API**: `https://admin.da.live/list/carlossg/arco{path}`
 - **DA source API**: `https://admin.da.live/source/carlossg/arco/{path}.html`
