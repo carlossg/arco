@@ -348,28 +348,23 @@ export function sanitizeContentCards(section) {
 }
 
 /**
- * Pre-resolved hero image result for the current request.
- * Set by the pipeline before resolveTokens() runs.
- */
-let currentHeroResult = null;
-
-/**
  * Set the pre-resolved hero image for the current request.
- * Call this before resolveTokens() so the hero image matches the query.
- * @param {{ url: string, alt: string }} result
+ *
+ * Currently a no-op: hero images are suppressed (see resolveHeroImageToken).
+ * Kept as an exported no-op so existing callers in the pipeline, experiments,
+ * and eval runner don't need to change while the hero assets are unpublished.
  */
-export function setHeroResult(result) {
-  currentHeroResult = result;
+export function setHeroResult() {
+  // intentionally ignored — hero images are suppressed.
 }
 
 function resolveHeroImageToken() {
-  if (currentHeroResult) {
-    return `<picture><img src="${currentHeroResult.url}" alt="${currentHeroResult.alt}"></picture>`;
-  }
-  // Fallback: use the default hero image
-  const image = absoluteImageUrl(HERO_MAIN_IMAGE);
-  if (!image) return '<!-- hero-image:main unavailable -->';
-  return `<picture><img src="${image}" alt="Arco espresso machine brewing a perfect shot on a sunlit kitchen counter"></picture>`;
+  // Hero images are currently suppressed: the hero-image-catalog URLs point at
+  // the DA authoring origin (content.da.live), which is auth-gated (401) and not
+  // publicly servable, so every selected hero would render broken. Until the
+  // assets are published to a public delivery path, resolve the token to nothing
+  // so no hero <picture> is emitted. Product/story/recipe images are unaffected.
+  return '';
 }
 
 // Build a set of known valid image URLs from product, recipe, and accessory data
