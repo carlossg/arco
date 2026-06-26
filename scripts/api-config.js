@@ -11,10 +11,10 @@
 
 const PRODUCTION_WORKER = 'https://arco-recommender.franklin-prod.workers.dev';
 
-// Local `wrangler dev` worker (run `npm run dev` in workers/recommender).
-// Wrangler picks 8787 by default but increments when ports are taken; this repo's
-// dev worker comes up on 8789. Override via the mechanisms below if yours differs.
-const LOCAL_WORKER = 'http://localhost:8787';
+// Isolated worker for the carlossg fork (deployed from wrangler.carlossg.jsonc).
+// Reuses the shared CF account's AI binding + Vectorize, but its own D1, KV
+// session store, queues, and DA_ORG=carlossg.
+const CARLOSSG_WORKER = 'https://arco-recommender-carlossg.franklin-prod.workers.dev';
 
 /**
  * Resolve the recommender worker URL for the current environment.
@@ -22,12 +22,13 @@ const LOCAL_WORKER = 'http://localhost:8787';
  * Priority:
  *   1. window.ARCO_CONFIG.RECOMMENDER_URL  — explicit global override
  *   2. localStorage['arco-recommender-url'] — runtime toggle, no code edit:
- *        localStorage.setItem('arco-recommender-url', 'http://localhost:8787')
+ *        localStorage.setItem('arco-recommender-url', 'http://localhost:8787')  // local wrangler dev
  *        localStorage.setItem('arco-recommender-url', '<prod url>')  // force prod locally
  *        localStorage.removeItem('arco-recommender-url')             // back to default
- *   3. localhost / 127.0.0.1 → the local `wrangler dev` worker (LOCAL_WORKER)
- *   4. {branch}--{repo}--{owner}.aem.page → that branch's worker version
- *   5. everything else → production
+ *   3. localhost / 127.0.0.1 → the isolated carlossg worker (this branch default)
+ *   4. *--arco--carlossg.aem.{page,live} → the isolated carlossg worker
+ *   5. {branch}--{repo}--{owner}.aem.page → that branch's worker version
+ *   6. everything else → production
  */
 function resolveRecommenderURL() {
   if (window.ARCO_CONFIG?.RECOMMENDER_URL) return window.ARCO_CONFIG.RECOMMENDER_URL;
@@ -39,9 +40,18 @@ function resolveRecommenderURL() {
 
   const { hostname } = window.location;
 
-  // Local dev: point at the local worker so /api/generate uses locally-served
-  // models (e.g. DiffusionGemma via mlx-vlm). Override via the above to use prod.
-  if (hostname === 'localhost' || hostname === '127.0.0.1') return LOCAL_WORKER;
+  // Local dev (this branch): default to the isolated carlossg worker so
+  // `aem up` exercises the same backend the carlossg site uses. To target a
+  // local `wrangler dev` instead, set:
+  //   localStorage.setItem('arco-recommender-url', 'http://localhost:8787')
+  if (hostname === 'localhost' || hostname === '127.0.0.1') return CARLOSSG_WORKER;
+
+  // carlossg fork: its own isolated worker (own D1/SESSION_STORE/queues, DA_ORG).
+  // Matches any {branch}--arco--carlossg.{aem.page,aem.live} host. The shared
+  // froesef stack is never reached from a carlossg-owned site.
+  if (/--arco--carlossg\.aem\.(page|live)$/.test(hostname)) {
+    return CARLOSSG_WORKER;
+  }
 
   // EDS branch preview: rewrite to the branch alias worker version.
   const match = hostname.match(/^(.+)--[^.]+--[^.]+\.aem\.page$/);

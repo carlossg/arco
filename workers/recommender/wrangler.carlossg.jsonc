@@ -1,0 +1,116 @@
+{
+  // ──────────────────────────────────────────────────────────────────────────
+  // Isolated worker config for the carlossg fork.
+  //
+  // Deploy with:  wrangler deploy --config wrangler.carlossg.jsonc
+  //
+  // Strategy: MINIMAL ISOLATION on a SHARED Cloudflare account (68e6632a…).
+  // Resource NAMES are the only isolation boundary, so anything that holds
+  // user/session data gets a `-carlossg` suffix; stateless or read-only shared
+  // resources (AI binding, Vectorize content corpus, caches) are reused.
+  //
+  //   ISOLATED (own copy):   worker name, D1, SESSION_STORE KV, eval queues, DA_ORG
+  //   REUSED  (froesef's):   AI binding, Vectorize arco-content (read-only RAG),
+  //                          CACHE + GUIDES KV
+  //
+  // The shared wrangler.jsonc is intentionally left untouched.
+  // ──────────────────────────────────────────────────────────────────────────
+  "name": "arco-recommender-carlossg",
+  "account_id": "68e6632adf76183424b251e874663bde",
+  "main": "src/index.js",
+  "compatibility_date": "2024-12-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // KV namespaces
+  "kv_namespaces": [
+    {
+      // REUSED from froesef — read/write cache, low blast radius.
+      "binding": "CACHE",
+      "id": "899bd6f2d82544afa1d38a8d64940259"
+    },
+    {
+      // REUSED from froesef — guides cache.
+      "binding": "GUIDES",
+      "id": "eb93a78ab0694f90af29c9634dd76d8a"
+    },
+    {
+      // ISOLATED — per-run page payloads (blocks + debug). Must NOT mix with
+      // froesef's session data.
+      "binding": "SESSION_STORE",
+      "id": "cd54d95892ad4f03b64bdbba4d0bb5cb"
+    }
+  ],
+
+  // D1 database — ISOLATED. Sessions, runs, experiments, eval, feedback.
+  "d1_databases": [
+    {
+      "binding": "SESSIONS_DB",
+      "database_name": "arco-sessions-carlossg",
+      "database_id": "d3edcbc8-3688-44b3-8959-2c20133197bf"
+    }
+  ],
+
+  // Workers AI — REUSED (account-implicit, stateless). Embeddings + CF models.
+  "ai": {
+    "binding": "AI"
+  },
+
+  // Vectorize — REUSED read-only. RAG retrieval only reads arco-content.
+  // Switch index_name to arco-content-carlossg + run index-content.js only if
+  // you want your own content corpus.
+  "vectorize": [
+    {
+      "binding": "CONTENT_INDEX",
+      "index_name": "arco-content"
+    }
+  ],
+
+  // Analytics Engine — ISOLATED dataset name so metrics don't intermix.
+  "analytics_engine_datasets": [
+    {
+      "binding": "ANALYTICS",
+      "dataset": "arco_usage_carlossg"
+    }
+  ],
+
+  // Environment variables (set secrets via `wrangler secret put --config wrangler.carlossg.jsonc`)
+  // LLM provider secrets: CEREBRAS_API_KEY, SAMBANOVA_API_KEY (Cloudflare AI uses the AI binding above)
+  // Vertex AI secrets: VERTEX_AI_TOKEN, VERTEX_AI_ENDPOINT
+  // AWS Bedrock secrets: AWS_BEARER_TOKEN_BEDROCK (+ AWS_REGION var, default us-east-1)
+  // Analytics: CF_API_TOKEN (Analytics Engine read permission)
+  // DA secrets: DA_CLIENT_ID, DA_CLIENT_SECRET, DA_SERVICE_TOKEN (or DA_TOKEN as fallback)
+  // Admin: ADMIN_TOKEN (Basic Auth password for /admin + /api/admin/*)
+
+  // Queues for async eval orchestration — ISOLATED pair.
+  // TODO: create `arco-eval-queries-carlossg` and `arco-eval-dlq-carlossg` first.
+  "queues": {
+    "producers": [{ "binding": "EVAL_QUEUE", "queue": "arco-eval-queries-carlossg" }],
+    "consumers": [{
+      "queue": "arco-eval-queries-carlossg",
+      "max_batch_size": 1,
+      "max_concurrency": 3,
+      "max_retries": 5,
+      "dead_letter_queue": "arco-eval-dlq-carlossg"
+    }]
+  },
+
+  // Cron fallback: scan for stuck eval runs and process directly.
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  },
+
+  "vars": {
+    "ENVIRONMENT": "production",
+    // ISOLATED — cache-first pages persist + publish to YOUR DA, and the
+    // cache-hit redirect points at carlossg URLs (fixes the cross-wired redirect).
+    "DA_ORG": "carlossg",
+    "DA_REPO": "arco"
+  },
+
+  // Bundle YAML prompt templates and Nunjucks partials as text imports.
+  "rules": [
+    { "type": "Text", "globs": ["**/*.yaml", "**/*.yml", "**/*.njk"], "fallthrough": true }
+  ]
+  // CPU/wall-time: Unbound usage model (up to 30 min wall clock). Do not set
+  // limits.cpu_ms — Unbound rejects it.
+}

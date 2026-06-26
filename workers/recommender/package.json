@@ -8,6 +8,7 @@
     "bench:ollama": "node tools/bench-ollama.js",
     "model:diffusion-gemma": "./start-diffusion-gemma.sh",
     "deploy": "node tools/precompile-prompts.js && wrangler deploy",
+    "deploy:carlossg": "node tools/precompile-prompts.js && wrangler deploy --config wrangler.carlossg.jsonc",
     "deploy:branch": "node tools/precompile-prompts.js && ./deploy-branch.sh",
     "cleanup:branch": "./cleanup-branch.sh",
     "list:branch:live": "node scripts/list-cf-workers.js",
