@@ -348,23 +348,34 @@ export function sanitizeContentCards(section) {
 }
 
 /**
- * Set the pre-resolved hero image for the current request.
- *
- * Currently a no-op: hero images are suppressed (see resolveHeroImageToken).
- * Kept as an exported no-op so existing callers in the pipeline, experiments,
- * and eval runner don't need to change while the hero assets are unpublished.
+ * Pre-resolved hero image result for the current request.
+ * Set by the pipeline before resolveTokens() runs.
  */
-export function setHeroResult() {
-  // intentionally ignored — hero images are suppressed.
+let currentHeroResult = null;
+
+/**
+ * Set the pre-resolved hero image for the current request.
+ * Call this before resolveTokens() so the hero image matches the query.
+ * @param {{ url: string, alt: string }} result
+ */
+export function setHeroResult(result) {
+  currentHeroResult = result;
 }
 
 function resolveHeroImageToken() {
-  // Hero images are currently suppressed: the hero-image-catalog URLs point at
-  // the DA authoring origin (content.da.live), which is auth-gated (401) and not
-  // publicly servable, so every selected hero would render broken. Until the
-  // assets are published to a public delivery path, resolve the token to nothing
-  // so no hero <picture> is emitted. Product/story/recipe images are unaffected.
-  return '';
+  // Use the selected hero only when it is a publicly servable URL. The
+  // hero-image-catalog entries point at the DA authoring origin
+  // (content.da.live), which is auth-gated (401) and not public — those would
+  // render broken, so skip them and fall back to the default hero image, which
+  // lives on the delivery host and resolves fine. Product-image heroes
+  // ({{product-image:ID}}) go through resolveProductImageToken and are
+  // unaffected.
+  if (currentHeroResult?.url && !currentHeroResult.url.includes('content.da.live')) {
+    return `<picture><img src="${currentHeroResult.url}" alt="${currentHeroResult.alt}"></picture>`;
+  }
+  const image = absoluteImageUrl(HERO_MAIN_IMAGE);
+  if (!image) return '<!-- hero-image:main unavailable -->';
+  return `<picture><img src="${image}" alt="Arco espresso machine brewing a perfect shot on a sunlit kitchen counter"></picture>`;
 }
 
 // Build a set of known valid image URLs from product, recipe, and accessory data
