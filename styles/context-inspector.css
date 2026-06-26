@@ -1,0 +1,199 @@
+/**
+ * Browsing Context Inspector — floating transparency widget.
+ * Scoped under #arco-context-inspector so it never collides with page styles.
+ */
+
+#arco-context-inspector {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 9000;
+  font-family: var(--body-font-family, sans-serif);
+}
+
+#arco-context-inspector .ci-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--text-color, #131313);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 25%);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#arco-context-inspector .ci-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 30%);
+}
+
+#arco-context-inspector .ci-panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 12px);
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  background: #fff;
+  color: var(--text-color, #131313);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 25%);
+  padding: 0;
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+#arco-context-inspector.ci-open .ci-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+#arco-context-inspector .ci-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 12px;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+#arco-context-inspector .ci-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+#arco-context-inspector .ci-close {
+  border: none;
+  background: none;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  color: #888;
+  padding: 0 4px;
+}
+
+#arco-context-inspector .ci-close:hover {
+  color: var(--text-color, #131313);
+}
+
+#arco-context-inspector .ci-body {
+  padding: 14px 18px 18px;
+}
+
+#arco-context-inspector .ci-section {
+  margin-bottom: 16px;
+}
+
+#arco-context-inspector .ci-section h4 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #888;
+  font-weight: 700;
+}
+
+#arco-context-inspector .ci-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  padding: 12px;
+  background: #f6f6f4;
+  border-radius: 10px;
+}
+
+#arco-context-inspector .ci-kv {
+  display: flex;
+  flex-direction: column;
+}
+
+#arco-context-inspector .ci-kv span {
+  font-size: 11px;
+  color: #888;
+}
+
+#arco-context-inspector .ci-kv strong {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+#arco-context-inspector .ci-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#arco-context-inspector .ci-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #ece9e2;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+#arco-context-inspector .ci-empty {
+  font-size: 12px;
+  color: #aaa;
+  font-style: italic;
+}
+
+#arco-context-inspector .ci-history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#arco-context-inspector .ci-history li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 12px;
+}
+
+#arco-context-inspector .ci-history li:last-child {
+  border-bottom: none;
+}
+
+#arco-context-inspector .ci-path {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#arco-context-inspector .ci-meta {
+  color: #999;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+#arco-context-inspector .ci-foryou .ci-query {
+  margin: 0;
+  padding: 10px 12px;
+  background: #f6f6f4;
+  border-radius: 10px;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+#arco-context-inspector .ci-note {
+  margin: 0;
+  font-size: 11px;
+  color: #aaa;
+  line-height: 1.4;
+}
