@@ -2553,3 +2553,17 @@
   background: rgb(0 0 0 / 12%);
 }
 /* stylelint-enable no-descending-specificity */
+
+/* stylelint-disable no-descending-specificity */
+
+/* Model Settings: let grid tracks shrink below content so no field overflows the card. */
+.admin .admin-llm-form .admin-field {
+  min-width: 0;
+}
+
+.admin .admin-llm-form .admin-field input,
+.admin .admin-llm-form .admin-field select {
+  width: 100%;
+  box-sizing: border-box;
+}
+/* stylelint-enable no-descending-specificity */
