@@ -9,6 +9,8 @@ import java.net.URLEncoder
 
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.webkit.WebChromeClient
+import android.webkit.ConsoleMessage
 import android.webkit.WebSettings
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -24,6 +26,9 @@ class DiscoveryActivity : ComponentActivity() {
 
         webView = WebView(this)
         setContentView(webView)
+
+        // Enable remote inspection via chrome://inspect during development
+        WebView.setWebContentsDebuggingEnabled(true)
 
         webView.webViewClient = object : WebViewClient() {
             override fun onReceivedError(
@@ -45,6 +50,32 @@ class DiscoveryActivity : ComponentActivity() {
                 // WARNING: In production, you should handle this more carefully
                 Log.w(TAG, "SSL Error ignored: ${error?.toString()}")
                 handler?.proceed()
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                Log.d(TAG, "Page finished: $url")
+                // Probe the EDS reveal state: body gets the `appear` class once
+                // scripts.js completes. If it never appears we render blank.
+                view?.evaluateJavascript(
+                    "JSON.stringify({" +
+                        "cls: document.body ? document.body.className : 'no-body'," +
+                        "children: document.body ? document.body.childElementCount : -1," +
+                        "title: document.title" +
+                    "})"
+                ) { result -> Log.d(TAG, "DOM state: $result") }
+            }
+        }
+
+        // Surface JS console output (and uncaught errors) to logcat
+        webView.webChromeClient = object : WebChromeClient() {
+            override fun onConsoleMessage(message: ConsoleMessage): Boolean {
+                Log.d(
+                    TAG,
+                    "console [${message.messageLevel()}] ${message.message()} " +
+                        "(${message.sourceId()}:${message.lineNumber()})"
+                )
+                return true
             }
         }
         val settings: WebSettings = webView.settings
