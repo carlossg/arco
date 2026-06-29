@@ -1,0 +1,17 @@
+# Demo-video build is reproducible from build.py + make_slides.py.
+# Commit only the final voice-demo.mp4 and the scripts; ignore the rest.
+
+.DS_Store
+.demovenv/
+
+# Regenerable build artifacts
+build-demo/source.mp4
+build-demo/segments/
+build-demo/images/
+build-demo/audio/
+build-demo/concat.txt
+build-demo/arco-tv-demo.mp4
+build-demo/result_still.png
+
+# Logo is a copy of icons/arco-logo.png — make_slides.py reads it from there
+build-demo/arco-logo.png
