@@ -37,6 +37,7 @@ export async function buildRecommenderPrompt(ctx, config = {}, env = {}) {
     ctx.request.shownContent,
     ctx.intent,
     contextData,
+    { tv: ctx.tv === true },
   );
 
   ctx.timings.prompt = Date.now() - start;

@@ -95,6 +95,7 @@ export function parseGenerateBody(body) {
     runId: uuidOrNull(body.runId),
     parentRunId: uuidOrNull(body.parentRunId),
     speculative: body.speculative === true,
+    tv: body.tv === true,
     flow: stringOrNull(body.flow, 32),
     followUp: parseFollowUp(body.followUp),
     context: parseContext(body.context),

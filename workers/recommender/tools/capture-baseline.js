@@ -78,6 +78,7 @@ async function main() {
       fx.shownContent || {},
       fx.intent,
       fx.contextData || {},
+      fx.options || {},
     );
 
     await writeFile(

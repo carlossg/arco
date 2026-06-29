@@ -197,7 +197,9 @@ Either way, the comparison-table should include at least one already-featured ma
   return history;
 }
 
-function pickScenario(behavior, followUp, intent) {
+function pickScenario(behavior, followUp, intent, tv) {
+  // TV (10-foot) mode wins over everything — a single 3-product comparison.
+  if (tv) return 'tv-comparison';
   if (followUp?.type === 'pivot' && followUp.product) return 'follow-up-pivot';
   if (followUp?.type === 'cheaper_alternative' && followUp.product) return 'follow-up-cheaper';
   if (followUp) return 'follow-up';
@@ -224,9 +226,10 @@ export function buildRecommenderUserMessage(
   shownContent,
   intent,
   contextData,
+  options = {},
 ) {
   const ba = behaviorAnalysis || { coldStart: true };
-  const scenario = pickScenario(ba, followUp, intent);
+  const scenario = pickScenario(ba, followUp, intent, options.tv === true);
   const featureMatch = detectFeatureRequest(query);
   const history = followUp ? buildConversationHistory(previousQueries, shownContent) : '';
   const shownProductsLine = shownContent?.shownProducts?.length

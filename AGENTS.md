@@ -183,24 +183,28 @@ Regular Pages                    Recommender Query (/?q=...)
 6. The backend classifies intent using browsing context (e.g. "User viewed the Primo and Doppio pages, spent 2 minutes on each")
 7. Follow-up suggestions use products viewed and interests to generate targeted chips instead of generic ones
 
-**Cache-first page serving:**
+**Page serving (no query cache yet):**
 
-Repeat queries are served instantly from DA instead of re-running the full LLM pipeline. Both client and server generate a **deterministic slug** from the query (keyword extraction + stable hash, no `Date.now()`), so the same query always maps to the same DA path. Paths are preset-scoped:
+Every `/?q=...` visit runs the full LLM pipeline and streams a fresh page — there is currently **no deterministic-slug cache-first read path**. `POST /api/persist` (`handlePersist` in `workers/recommender/src/index.js`) can write a generated page to DA under `/discover/{pageId}` (random id, not a query-derived slug), but `/api/generate` does not check DA before generating and the client does not redirect to a cached page. A deterministic-slug cache (client+server `generateSlug`, `DAClient.exists()` gate, `cache-hit` SSE event, `&regen` override) is **planned but not implemented** — do not assume repeat queries are cached.
 
-| Preset | Path |
-|--------|------|
-| `production` (default) | `/discover/{deterministic-slug}` |
-| any other preset | `/discover/{preset}/{deterministic-slug}` |
+### TV (10-foot) Mode
 
-On `GET /generate`, the server checks `DAClient.exists(path)` before starting the pipeline. On a hit it sends a `cache-hit` SSE event with `liveUrl` and `previewUrl`; the client redirects immediately. On a miss (or when `?regen` is present) the normal pipeline runs and persists to the deterministic path.
+The Google TV app (`google-tv/`) is a WebView shell that loads the live Arco site and forwards voice queries / deep links as `?q=...&tv=1` searches (`google-tv/app/src/main/java/com/arco/tv/ui/DiscoveryActivity.kt`; it also appends an `ArcoTV/1.0` user-agent). On a TV, the recommender renders **just a single 3-product comparison** — no hero, no intro, no follow-up chips, no feedback widget — a lean-back experience navigable by remote.
 
-| URL | Behaviour |
-|-----|-----------|
-| `/?q=best+espresso+machines` | First visit generates; repeat visits redirect to cached page |
-| `/?q=best+espresso+machines&regen` | Skips cache, regenerates and overwrites the existing page |
-| `/?q=best+espresso+machines&preset=my-preset` | Separate cache slot under `/discover/my-preset/...` |
+**Detection** (either signal triggers TV mode):
+- URL param `?tv=1` or `?tv=true` (also testable in any desktop browser)
+- `ArcoTV` in the user-agent
 
-Key files for caching: `scripts/scripts.js` (deterministic `generateSlug`, `cache-hit` handler), `workers/recommender/src/index.js` (cache check in `/api/generate`).
+The client detects it in `scripts/scripts.js → isTvMode()`; the worker re-detects it from the body flag, the UA, and the request `?tv=` param in `createContext` (`workers/recommender/src/pipeline/context.js`) so the constraint holds even if the client omits the flag.
+
+**Flow:**
+1. `isTvMode()` (client) adds `body.arco-tv-mode`, sends `{ tv: true }` in the `/api/generate` body (`scripts/recommender-stream.js`), skips `initKeepExploring()`, and suppresses the feedback widget.
+2. `createContext` sets `ctx.tv`. `handleGenerate` resolves the **`tv-comparison`** flow (`workers/recommender/src/pipeline/flows.js`) — identical RAG steps to the default recommender so the table stays grounded in real catalog products.
+3. The prompt uses the **`tv-comparison`** scenario (`pickScenario` in `recommender-prompt.js`, branch in `prompts/recommender.yaml`) instructing the LLM to emit exactly one `comparison-table` (3 products; 2 only when fewer genuinely qualify) with `"data": {"recommended": "<best pick>"}` and no other blocks/suggestions.
+4. `llm-generate.js` enforces this server-side as defense-in-depth: in TV mode it drops any non-`comparison-table` section, never injects the fallback hero, and clears suggestions.
+5. CSS (`styles/lazy-styles.css`) hides `.follow-up-container` / `.feedback-widget` under `.arco-tv-mode`.
+
+No query cache today means TV and desktop never cross-contaminate. Snapshot fixture: `workers/recommender/tests/fixtures/tv-comparison.json` (sets `options.tv: true`).
 
 ### LLM Providers & Model Switching
 
@@ -559,7 +563,7 @@ The free-text comment doubles as "other" — no explicit "other" checkbox.
 4. `Send` upserts comment + flags + wrong-products. `Skip` collapses without a second POST.
 5. `localStorage[arco-feedback:{runId}]` remembers the rating so a page refresh doesn't re-prompt. Server-side dedup is the truth.
 
-The widget only attaches on fresh `/?q=` runs. Cached `/discover/{slug}` pages are out of scope in this iteration (re-running a deterministic-slug query bypasses the cache and triggers a fresh run).
+The widget only attaches on fresh `/?q=` runs (every `?q=` run is fresh today — there is no query cache; see "Page serving" above). It is also suppressed on TV (see "TV (10-foot) Mode").
 
 **Section→run mapping:** `renderStreamedSection` stamps `section.dataset.runId = state.runId` so the widget can scope its product detection to "this run's sections" via `[data-run-id="…"] a[href*="/products/"]`. Useful future-proofing for per-section feedback even though the widget is run-level today.
 

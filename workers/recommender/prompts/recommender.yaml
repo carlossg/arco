@@ -161,7 +161,16 @@ system: |
   {% include "partials/accessories.njk" %}
 
 user: |-
-  {%- if scenario == 'follow-up-pivot' -%}
+  {%- if scenario == 'tv-comparison' -%}
+  This page is being viewed on a TV (a 10-foot lean-back experience). Generate a recommendation for: "{{ query }}"
+
+  Output EXACTLY ONE block: a single `comparison-table` and NOTHING ELSE.
+  - DO NOT generate a hero, intro text, columns, story/experience cards, FAQ, or any other block.
+  - DO NOT generate follow-up suggestion buttons.
+  - The table MUST compare 3 products whose fit to the query is genuinely close. Only drop to 2 when fewer than 3 products genuinely qualify (e.g. a narrow feature request).
+  - Set {% raw %}"data": {"recommended": "<best pick name>"}{% endraw %} to highlight the single best column. Pick the strongest match for the query — do not leave it null.
+  - Choose only products that actually appear in the catalog / RAG context below. Do not invent SKUs, prices, or specs.
+  {%- elif scenario == 'follow-up-pivot' -%}
   The customer wants to learn more about {{ followUp.product }}. Generate a follow-up recommendation for: "{{ query }}"
 
   DO NOT generate a hero block. Start directly with a columns block (product spotlight) for {{ followUp.product }} — make it the primary recommendation with clear reasoning. Then add a comparison-table with 2 alternatives (3 products total, drop to 2 alternatives only if a third genuine alternative doesn't exist). End with new information-gathering suggestions.{{ history }}

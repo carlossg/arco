@@ -430,7 +430,8 @@ export async function runLlmVariant(ctx, env, opts) {
   let sectionIndex = 0;
   let tokenCount = 0;
   // Follow-up turns already have a hero from the first generation — skip injecting one.
-  let heroEnsured = !!ctx.request.followUp;
+  // TV mode is a single comparison-table only, so never inject a fallback hero.
+  let heroEnsured = !!ctx.request.followUp || ctx.tv === true;
 
   try {
     // eslint-disable-next-line no-restricted-syntax
@@ -449,6 +450,11 @@ export async function runLlmVariant(ctx, env, opts) {
         const completedSections = parser.feed(content);
         // eslint-disable-next-line no-restricted-syntax
         for (const section of completedSections) {
+          // TV mode: emit ONLY the comparison-table, drop any other block the
+          // LLM produced. Guarantees the "just a 3-product comparison" contract.
+          if (ctx.tv === true && section.block !== 'comparison-table') {
+            continue; // eslint-disable-line no-continue
+          }
           const { html, debug: sDebug } = processSectionDetailed(section);
           if (!hasContent(html)) continue; // eslint-disable-line no-continue
 
@@ -496,7 +502,7 @@ export async function runLlmVariant(ctx, env, opts) {
   timings.parseStart = Date.now();
   const final = parser.finalize();
 
-  if (final.section) {
+  if (final.section && !(ctx.tv === true && final.section.block !== 'comparison-table')) {
     const { html, debug: sDebug } = processSectionDetailed(final.section);
     if (hasContent(html)) {
       if (!heroEnsured) {
@@ -538,6 +544,10 @@ export async function runLlmVariant(ctx, env, opts) {
     }
   }
   timings.parseEnd = Date.now();
+
+  // TV mode is a lean-back single comparison — never emit follow-up chips,
+  // even if the LLM produced suggestions despite the prompt instruction.
+  if (ctx.tv === true) out.suggestions = [];
 
   if (out.suggestions.length) {
     await writeLine({ type: 'suggestions', items: out.suggestions });

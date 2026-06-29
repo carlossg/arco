@@ -34,9 +34,21 @@ const RECOMMENDER_FLOW = {
   ],
 };
 
+// TV (10-foot) flow — same RAG retrieval as the recommender, but the prompt
+// is constrained (via the `tv-comparison` scenario) to emit a single
+// 3-product comparison-table and nothing else. Reuses every upstream step so
+// the table stays grounded in real catalog products.
+const TV_COMPARISON_FLOW = {
+  ...RECOMMENDER_FLOW,
+  id: 'tv-comparison',
+  name: 'TV 3-Product Comparison',
+  description: 'Single 3-product comparison-table for the Google TV 10-foot experience.',
+};
+
 export const STATIC_FLOWS = {
   default: RECOMMENDER_FLOW,
   recommender: RECOMMENDER_FLOW,
+  'tv-comparison': TV_COMPARISON_FLOW,
 };
 
 /**

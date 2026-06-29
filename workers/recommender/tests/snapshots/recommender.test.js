@@ -38,6 +38,7 @@ for (const file of fixtures) {
       fx.shownContent || {},
       fx.intent,
       fx.contextData || {},
+      fx.options || {},
     );
 
     const expectedSystem = await readFile(path.join(SNAPSHOTS_DIR, `baseline-${name}.system.txt`), 'utf8');

@@ -14,8 +14,18 @@ export const CORS_HEADERS = {
  */
 export function createContext(body, request) {
   const {
-    query, context: reqContext, followUp, speculative,
+    query, context: reqContext, followUp, speculative, tv,
   } = body;
+  // TV (10-foot) mode — also detect the Google TV WebView's user-agent and a
+  // `tv` query param on the request URL, so the constraint holds even if the
+  // client omits the body flag.
+  const ua = request.headers.get('user-agent') || '';
+  let tvParam = false;
+  try {
+    const tvQs = new URL(request.url).searchParams.get('tv');
+    tvParam = tvQs === '1' || tvQs === 'true';
+  } catch { /* request.url may be relative in tests */ }
+  const tvMode = tv === true || /ArcoTV/i.test(ua) || tvParam;
   const ip = request.headers.get('cf-connecting-ip') || 'unknown';
   const previousQueries = reqContext?.previousQueries || [];
   const browsingHistory = reqContext?.browsingHistory || [];
@@ -37,8 +47,12 @@ export function createContext(body, request) {
       quizPersona,
       ip,
       speculative,
+      tv: tvMode,
       headers: request.headers,
     },
+
+    // TV (10-foot) mode — drives the `tv-comparison` flow + prompt scenario.
+    tv: tvMode,
 
     // Flow metadata
     flowId: null,

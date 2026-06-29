@@ -261,6 +261,8 @@ async function handleNdjsonEvent(data, container, state, options = {}) {
  * @param {Object} [options]
  * @param {Object} [options.followUp] Follow-up context { type, label }
  * @param {string} [options.parentRunId] Parent runId for follow-up attribution
+ * @param {boolean} [options.tv] TV mode — sends `tv:true` to the worker (single
+ *   3-product comparison) and suppresses the feedback widget
  * @param {Function} [options.onFirstSection] Callback when first section arrives
  * @param {Function} [options.onSection] Callback after each section is rendered
  * @param {Function} [options.onSuggestions] Callback when suggestions event arrives
@@ -288,6 +290,7 @@ export async function streamAndAppendContent(query, container, options = {}) {
   };
   if (options.followUp) body.followUp = options.followUp;
   if (options.parentRunId) body.parentRunId = options.parentRunId;
+  if (options.tv) body.tv = true;
 
   const response = await fetch(`${baseUrl}/api/generate`, {
     method: 'POST',
@@ -341,8 +344,9 @@ export async function streamAndAppendContent(query, container, options = {}) {
   SessionContextManager.addGeneratedQuery(query);
 
   // Attach the run-level feedback widget. Loaded async so it never delays
-  // first paint or the streaming loop.
-  if (state.blockCount > 0) {
+  // first paint or the streaming loop. Suppressed on TV — the 10-foot
+  // lean-back experience has no fine-grained feedback interactions.
+  if (state.blockCount > 0 && !options.tv) {
     import('./feedback-widget.js').then(({ attachFeedbackWidget }) => {
       attachFeedbackWidget(container, {
         runId,

@@ -137,7 +137,8 @@ async function handleGenerate(request, env) {
   console.log(`[Generate] query="${body.query.substring(0, 60)}" sessionId=${validSessionId || 'null'}`);
 
   const ctx = createContext(body, request);
-  const flow = resolveFlow(body.flow);
+  // TV mode forces the single-comparison flow regardless of any requested flow.
+  const flow = resolveFlow(ctx.tv ? 'tv-comparison' : body.flow);
   ctx.flowId = flow.id;
   ctx.flowName = flow.name || flow.id;
 

@@ -1,0 +1,36 @@
+This page is being viewed on a TV (a 10-foot lean-back experience). Generate a recommendation for: "best espresso machine for a small kitchen"
+
+Output EXACTLY ONE block: a single `comparison-table` and NOTHING ELSE.
+- DO NOT generate a hero, intro text, columns, story/experience cards, FAQ, or any other block.
+- DO NOT generate follow-up suggestion buttons.
+- The table MUST compare 3 products whose fit to the query is genuinely close. Only drop to 2 when fewer than 3 products genuinely qualify (e.g. a narrow feature request).
+- Set "data": {"recommended": "<best pick name>"} to highlight the single best column. Pick the strongest match for the query — do not leave it null.
+- Choose only products that actually appear in the catalog / RAG context below. Do not invent SKUs, prices, or specs.
+
+## Customer Profile (from browsing behavior)
+- Budget range: $649–$1499 (from viewed products)
+- Price sensitivity: mid tier
+- Viewed products: nano, primo
+
+Use this profile to personalize your recommendation. Lead with products matching their price tier and use-case interests.
+
+**Price guidance:** Focus your primary recommendation and comparison-table on products within the $649–$1499 range. You may include one stretch option outside this range if it's a compelling upgrade, but do not lead with it.
+
+Products already shown to the user (do NOT repeat as primary recommendation): Nano ($649, compact, Thermoblock boiler); Primo ($899, single-boiler, Single boiler)
+
+Block types already on the page (vary your approach, use different blocks): comparison-table
+
+## Recommended Products (from RAG — highest relevance to this query)
+- Nano (nano) | $649 | compact, beginner, espresso
+- Primo (primo) | $999 | compact, home-barista, espresso
+- Doppio (doppio) | $1499 | home-barista, espresso, milk
+
+## Key Features
+- Compact Footprint: Fits under standard cabinets
+
+## Intent Classification
+Detected intent: **comparison** | Journey stage: comparing
+
+Remember: output JSON blocks separated by ===. All product links must use the URL from the product data. End with information-gathering suggestions (type "explore" or "compare" only). Every block MUST have meaningful content. ONLY use product names, product IDs, and recipe names that appear in the data above — never invent or guess names.
+
+IMPORTANT: The FIRST suggestion must always be about espresso machines with milk frothing/steaming capabilities, e.g. {"type":"explore","label":"Best for milk drinks?","query":"which Arco machines have the best milk steaming and frothing"}. Place it as the first item in the suggestions array.

@@ -199,6 +199,14 @@ img[data-gen-image].loaded {
   padding-top: 0;
 }
 
+/* TV (10-foot) mode — single 3-product comparison, no follow-up chips or
+   feedback widget. JS already skips initializing these on TV; this is
+   defense-in-depth in case a stray instance renders. */
+.arco-tv-mode .follow-up-container,
+.arco-tv-mode .feedback-widget {
+  display: none;
+}
+
 #generation-content {
   max-width: 1200px;
   margin: 0 auto;

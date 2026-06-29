@@ -1,0 +1,27 @@
+{
+  "query": "best espresso machine for a small kitchen",
+  "options": { "tv": true },
+  "intent": { "type": "comparison", "journeyStage": "comparing" },
+  "behavior": {
+    "coldStart": false,
+    "priceTier": "mid",
+    "viewedProducts": ["nano", "primo"],
+    "catalogPriceRange": { "min": 649, "max": 1499 }
+  },
+  "previousQueries": [],
+  "followUp": null,
+  "shownContent": {
+    "shownProducts": ["nano", "primo"],
+    "shownSections": [{ "blockType": "comparison-table" }]
+  },
+  "contextData": {
+    "products": [
+      { "name": "Nano", "id": "nano", "price": 649, "bestFor": ["compact", "beginner", "espresso"] },
+      { "name": "Primo", "id": "primo", "price": 999, "bestFor": ["compact", "home-barista", "espresso"] },
+      { "name": "Doppio", "id": "doppio", "price": 1499, "bestFor": ["home-barista", "espresso", "milk"] }
+    ],
+    "features": [
+      { "name": "Compact Footprint", "benefit": "Fits under standard cabinets" }
+    ]
+  }
+}
