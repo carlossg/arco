@@ -600,13 +600,18 @@ window.arcoTransitionToRecommender = transitionToRecommender;
 async function loadPage() {
   // Check if this is an Arco Recommender request (?q= or ?query=)
   if (isArcoRecommenderRequest()) {
+    const tvMode = isTvMode();
     document.documentElement.lang = 'en';
     decorateTemplateAndTheme();
     document.body.classList.add('appear', 'arco-recommender-mode');
+    if (tvMode) document.body.classList.add('arco-tv-mode');
     loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
     loadFonts();
-    loadHeader(document.querySelector('header'));
-    loadFooter(document.querySelector('footer'));
+    // TV is a chrome-free 10-foot experience — skip the site header/footer.
+    if (!tvMode) {
+      loadHeader(document.querySelector('header'));
+      loadFooter(document.querySelector('footer'));
+    }
     await renderArcoRecommenderPage();
     return;
   }

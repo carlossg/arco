@@ -199,9 +199,12 @@ img[data-gen-image].loaded {
   padding-top: 0;
 }
 
-/* TV (10-foot) mode — single 3-product comparison, no follow-up chips or
-   feedback widget. JS already skips initializing these on TV; this is
-   defense-in-depth in case a stray instance renders. */
+/* TV (10-foot) mode — chrome-free single 3-product comparison. The site
+   header/footer aren't loaded on TV (see loadPage), and follow-up chips /
+   feedback widget aren't initialized; these rules hide the leftover shells
+   as defense-in-depth. */
+.arco-tv-mode header,
+.arco-tv-mode footer,
 .arco-tv-mode .follow-up-container,
 .arco-tv-mode .feedback-widget {
   display: none;
