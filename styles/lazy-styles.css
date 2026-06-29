@@ -225,15 +225,25 @@ img[data-gen-image].loaded {
   margin-bottom: 0;
 }
 
-/* TV uses the full screen — drop the 1200px reading-width cap and remove the
-   per-section bottom margin so the single showcase fills the panel. */
+/* TV uses the full screen — drop the 1200px reading-width cap and center the
+   single showcase section within the viewport so it fills the whole panel
+   instead of hugging the top-left. */
 .arco-tv-mode #generation-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 100vh;
   max-width: none;
-  padding: clamp(16px, 3vh, 48px) clamp(24px, 3vw, 64px);
+  padding: 3vh 3vw;
 }
 
 .arco-tv-mode #generation-content > .section {
   margin-bottom: 0;
+}
+
+.arco-tv-mode #generation-content > .section.tv-products-container {
+  width: 100%;
 }
 
 @media (width >= 900px) {

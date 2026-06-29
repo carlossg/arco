@@ -132,41 +132,56 @@
   }
 }
 
-/* ── TV: 2–3 cards on one 16:9 screen, no scrolling ───────────────────────────
-   loadPage pins a 1280px CSS layout viewport on TV, so these are concrete
-   sizes tuned for 1280 wide; the panel scales the whole page up to fill 4K. */
+/* ── TV: 2–3 cards fill one 16:9 screen, centered, no scrolling ──────────────
+   The row fills the full width (no reading-width cap) and is centered in the
+   viewport height, so the cards occupy the whole panel instead of hugging the
+   top-left. Card images grow to take up the vertical slack. */
 .arco-tv-mode .tv-products {
+  width: 100%;
   max-width: none;
 }
 
-/* Cap the row height to the viewport so all cards fit without scrolling. */
-.arco-tv-mode .tv-products .tv-products-grid {
-  gap: 24px;
-  max-height: 84vh;
+.arco-tv-mode .tv-products .tv-products-grid,
+.arco-tv-mode .tv-products .tv-products-grid[data-count="2"],
+.arco-tv-mode .tv-products .tv-products-grid[data-count="1"] {
+  gap: 2vw;
+  max-width: none;
+  height: 90vh;
+}
+
+/* Each card fills the row height; the image area takes the slack so the
+   bottom of the screen isn't left empty. */
+.arco-tv-mode .tv-products .tv-products-card {
+  height: 100%;
 }
 
 .arco-tv-mode .tv-products .tv-products-media {
-  aspect-ratio: 16 / 10;
+  flex: 1;
+  aspect-ratio: auto;
+  min-height: 0;
 }
 
 .arco-tv-mode .tv-products .tv-products-body {
-  padding: 24px 28px 28px;
-  gap: 8px;
+  flex: 0 0 auto;
+  padding: 2vh 1.8vw;
+  gap: 1vh;
 }
 
 .arco-tv-mode .tv-products .tv-products-body h1,
 .arco-tv-mode .tv-products .tv-products-body h2,
 .arco-tv-mode .tv-products .tv-products-body h3,
 .arco-tv-mode .tv-products .tv-products-body h4 {
-  font-size: 32px;
+  font-size: 2.6vw;
 }
 
 .arco-tv-mode .tv-products .tv-products-body p {
-  font-size: 20px;
+  font-size: 1.6vw;
 }
 
 /* Bump the recommended badge for 10-foot legibility. */
 .arco-tv-mode .tv-products .tv-products-badge {
-  font-size: 20px;
-  padding: 10px 22px;
+  top: 2vh;
+  left: 1.2vw;
+  font-size: 1.5vw;
+  padding: 0.8vh 1.4vw;
 }
