@@ -132,16 +132,17 @@
   }
 }
 
-/* ── TV: fit 2–3 cards on one 16:9 screen, no scrolling ───────────────────── */
+/* ── TV: 2–3 cards on one 16:9 screen, no scrolling ───────────────────────────
+   loadPage pins a 1280px CSS layout viewport on TV, so these are concrete
+   sizes tuned for 1280 wide; the panel scales the whole page up to fill 4K. */
 .arco-tv-mode .tv-products {
   max-width: none;
 }
 
-/* Constrain total height to the viewport so all cards fit without scrolling.
-   A shorter image area + tighter body keeps a 3-up row inside 100vh. */
+/* Cap the row height to the viewport so all cards fit without scrolling. */
 .arco-tv-mode .tv-products .tv-products-grid {
-  gap: clamp(16px, 2vw, 32px);
-  max-height: 88vh;
+  gap: 24px;
+  max-height: 84vh;
 }
 
 .arco-tv-mode .tv-products .tv-products-media {
@@ -149,18 +150,23 @@
 }
 
 .arco-tv-mode .tv-products .tv-products-body {
-  padding: clamp(16px, 1.6vw, 28px) clamp(18px, 1.8vw, 32px);
-  gap: 6px;
+  padding: 24px 28px 28px;
+  gap: 8px;
 }
 
-/* Scale type to viewport width so 3 cards never overflow horizontally. */
 .arco-tv-mode .tv-products .tv-products-body h1,
 .arco-tv-mode .tv-products .tv-products-body h2,
 .arco-tv-mode .tv-products .tv-products-body h3,
 .arco-tv-mode .tv-products .tv-products-body h4 {
-  font-size: clamp(22px, 2.4vw, 40px);
+  font-size: 32px;
 }
 
 .arco-tv-mode .tv-products .tv-products-body p {
-  font-size: clamp(15px, 1.5vw, 26px);
+  font-size: 20px;
+}
+
+/* Bump the recommended badge for 10-foot legibility. */
+.arco-tv-mode .tv-products .tv-products-badge {
+  font-size: 20px;
+  padding: 10px 22px;
 }

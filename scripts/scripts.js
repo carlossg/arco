@@ -604,7 +604,15 @@ async function loadPage() {
     document.documentElement.lang = 'en';
     decorateTemplateAndTheme();
     document.body.classList.add('appear', 'arco-recommender-mode');
-    if (tvMode) document.body.classList.add('arco-tv-mode');
+    if (tvMode) {
+      document.body.classList.add('arco-tv-mode');
+      // Pin a fixed CSS layout width so sizing is deterministic regardless of
+      // the panel's density/resolution (a 4K TV may report anywhere from ~960
+      // to 3840 CSS px). At 1280 the WebView scales the page up to fill the
+      // screen, giving large, couch-readable type and a reliable 3-up row.
+      const vp = document.querySelector('meta[name="viewport"]');
+      if (vp) vp.setAttribute('content', 'width=1280, initial-scale=1, viewport-fit=cover');
+    }
     loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
     loadFonts();
     // TV is a chrome-free 10-foot experience — skip the site header/footer.
