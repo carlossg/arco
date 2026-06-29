@@ -106,25 +106,61 @@
   transform: scale(1.03);
 }
 
-/* On smaller screens (testing in a browser), stack the cards. */
+/* On small screens stack the cards — but ONLY when NOT on a TV. A TV WebView
+   can report a narrow CSS viewport (high-DPI 720/1080p panels), yet the cards
+   must always sit side-by-side there. The :not(.arco-tv-mode) guard keeps the
+   stack behavior for ordinary phone/desktop browser testing only. */
 @media (width < 900px) {
-  .tv-products .tv-products-grid,
-  .tv-products .tv-products-grid[data-count="2"] {
+  body:not(.arco-tv-mode) .tv-products .tv-products-grid,
+  body:not(.arco-tv-mode) .tv-products .tv-products-grid[data-count="2"] {
     grid-template-columns: 1fr;
   }
 
-  .tv-products .tv-products-recommended {
+  body:not(.arco-tv-mode) .tv-products .tv-products-recommended {
     transform: none;
   }
 
-  .tv-products .tv-products-body h1,
-  .tv-products .tv-products-body h2,
-  .tv-products .tv-products-body h3,
-  .tv-products .tv-products-body h4 {
+  body:not(.arco-tv-mode) .tv-products .tv-products-body h1,
+  body:not(.arco-tv-mode) .tv-products .tv-products-body h2,
+  body:not(.arco-tv-mode) .tv-products .tv-products-body h3,
+  body:not(.arco-tv-mode) .tv-products .tv-products-body h4 {
     font-size: 30px;
   }
 
-  .tv-products .tv-products-body p {
+  body:not(.arco-tv-mode) .tv-products .tv-products-body p {
     font-size: 20px;
   }
+}
+
+/* ── TV: fit 2–3 cards on one 16:9 screen, no scrolling ───────────────────── */
+.arco-tv-mode .tv-products {
+  max-width: none;
+}
+
+/* Constrain total height to the viewport so all cards fit without scrolling.
+   A shorter image area + tighter body keeps a 3-up row inside 100vh. */
+.arco-tv-mode .tv-products .tv-products-grid {
+  gap: clamp(16px, 2vw, 32px);
+  max-height: 88vh;
+}
+
+.arco-tv-mode .tv-products .tv-products-media {
+  aspect-ratio: 16 / 10;
+}
+
+.arco-tv-mode .tv-products .tv-products-body {
+  padding: clamp(16px, 1.6vw, 28px) clamp(18px, 1.8vw, 32px);
+  gap: 6px;
+}
+
+/* Scale type to viewport width so 3 cards never overflow horizontally. */
+.arco-tv-mode .tv-products .tv-products-body h1,
+.arco-tv-mode .tv-products .tv-products-body h2,
+.arco-tv-mode .tv-products .tv-products-body h3,
+.arco-tv-mode .tv-products .tv-products-body h4 {
+  font-size: clamp(22px, 2.4vw, 40px);
+}
+
+.arco-tv-mode .tv-products .tv-products-body p {
+  font-size: clamp(15px, 1.5vw, 26px);
 }

@@ -225,6 +225,17 @@ img[data-gen-image].loaded {
   margin-bottom: 0;
 }
 
+/* TV uses the full screen — drop the 1200px reading-width cap and remove the
+   per-section bottom margin so the single showcase fills the panel. */
+.arco-tv-mode #generation-content {
+  max-width: none;
+  padding: clamp(16px, 3vh, 48px) clamp(24px, 3vw, 64px);
+}
+
+.arco-tv-mode #generation-content > .section {
+  margin-bottom: 0;
+}
+
 @media (width >= 900px) {
   #generation-content > .section {
     margin-bottom: 64px;
