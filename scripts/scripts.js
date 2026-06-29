@@ -606,12 +606,14 @@ async function loadPage() {
     document.body.classList.add('appear', 'arco-recommender-mode');
     if (tvMode) {
       document.body.classList.add('arco-tv-mode');
-      // Pin a fixed CSS layout width so sizing is deterministic regardless of
-      // the panel's density/resolution (a 4K TV may report anywhere from ~960
-      // to 3840 CSS px). At 1280 the WebView scales the page up to fill the
-      // screen, giving large, couch-readable type and a reliable 3-up row.
+      // Force layout width == visible width. The TV WebView's *visual* viewport
+      // can be narrower than a custom layout width (e.g. it renders a 1280px
+      // layout but only ~960px is on-screen, clipping the right edge). Pinning
+      // to device-width keeps the laid-out width equal to what's visible, so all
+      // three cards fit. Sizes below scale to the viewport, so the exact CSS px
+      // (≈960 on a 4K/dpr-4 panel) don't matter.
       const vp = document.querySelector('meta[name="viewport"]');
-      if (vp) vp.setAttribute('content', 'width=1280, initial-scale=1, viewport-fit=cover');
+      if (vp) vp.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover');
     }
     loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
     loadFonts();

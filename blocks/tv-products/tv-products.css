@@ -168,17 +168,17 @@
 .arco-tv-mode .tv-products .tv-products-body h2,
 .arco-tv-mode .tv-products .tv-products-body h3,
 .arco-tv-mode .tv-products .tv-products-body h4 {
-  font-size: 2.6vw;
+  font-size: 3.4vw;
 }
 
 .arco-tv-mode .tv-products .tv-products-body p {
-  font-size: 1.6vw;
+  font-size: 2.1vw;
 }
 
 /* Bump the recommended badge for 10-foot legibility. */
 .arco-tv-mode .tv-products .tv-products-badge {
   top: 2vh;
-  left: 1.2vw;
-  font-size: 1.5vw;
-  padding: 0.8vh 1.4vw;
+  left: 1.4vw;
+  font-size: 2vw;
+  padding: 0.8vh 1.6vw;
 }
