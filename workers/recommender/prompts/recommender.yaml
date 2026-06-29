@@ -164,12 +164,13 @@ user: |-
   {%- if scenario == 'tv-comparison' -%}
   This page is being viewed on a TV (a 10-foot lean-back experience). Generate a recommendation for: "{{ query }}"
 
-  Output EXACTLY ONE block: a single `comparison-table` and NOTHING ELSE.
-  - DO NOT generate a hero, intro text, columns, story/experience cards, FAQ, or any other block.
+  Output EXACTLY ONE block: a single `tv-products` block and NOTHING ELSE.
+  - DO NOT generate a hero, intro text, columns, comparison-table, story/experience cards, FAQ, or any other block.
   - DO NOT generate follow-up suggestion buttons.
-  - The table MUST compare 3 products whose fit to the query is genuinely close. Only drop to 2 when fewer than 3 products genuinely qualify (e.g. a narrow feature request).
-  - Set {% raw %}"data": {"recommended": "<best pick name>"}{% endraw %} to highlight the single best column. Pick the strongest match for the query — do not leave it null.
-  - Choose only products that actually appear in the catalog / RAG context below. Do not invent SKUs, prices, or specs.
+  - Show 3 products whose fit to the query is genuinely close. Only drop to 2 when fewer than 3 products genuinely qualify (e.g. a narrow feature request).
+  - Each product is one row with two cells: an image cell using {% raw %}{{product-image:ID}}{% endraw %}, and an info cell with the product name (h3), the price (p), and ONE short reason it fits the query (p, ≤8 words — readable from across a room).
+  - Set {% raw %}"data": {"recommended": "<best pick name>"}{% endraw %} to highlight the single best product. Pick the strongest match for the query — do not leave it null.
+  - Use only products that actually appear in the catalog / RAG context below, with their real {% raw %}{{product-image:ID}}{% endraw %} tokens. Do not invent SKUs, prices, or images.
   {%- elif scenario == 'follow-up-pivot' -%}
   The customer wants to learn more about {{ followUp.product }}. Generate a follow-up recommendation for: "{{ query }}"
 

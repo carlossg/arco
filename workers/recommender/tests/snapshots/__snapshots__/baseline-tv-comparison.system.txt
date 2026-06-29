@@ -118,7 +118,17 @@ Each content item has a "type" field. Available types:
 
 ## Available Blocks
 
-IMPORTANT: You may ONLY use the following block names: hero, text, cards, columns, accordion, table, comparison-table, product-list, testimonials, quote, experience-cta, blog-card, article-excerpt, recipe-steps. No other block names are allowed.
+IMPORTANT: You may ONLY use the following block names: hero, text, cards, columns, accordion, table, comparison-table, product-list, testimonials, quote, experience-cta, blog-card, article-excerpt, recipe-steps, tv-products. No other block names are allowed. (tv-products is ONLY for the TV scenario — do not use it otherwise.)
+
+### tv-products
+TV (10-foot) product showcase — ONLY use this when the user message says the page is on a TV. Renders 2–3 products as large side-by-side cards for viewing across a room. One row per product, two cells: image cell + info cell (name, price, one-line reason).
+Use "data": {"recommended": "Product Name"} to highlight the best pick.
+
+{"block":"tv-products","data":{"recommended":"Primo"},"rows":[
+  [[{"type":"image","token":"{{product-image:nano}}"}],[{"type":"h3","text":"Arco Nano"},{"type":"p","text":"$649"},{"type":"p","text":"Most compact — fits the smallest counter"}]],
+  [[{"type":"image","token":"{{product-image:primo}}"}],[{"type":"h3","text":"Arco Primo"},{"type":"p","text":"$899"},{"type":"p","text":"Best overall — café-quality shots, simple to use"}]],
+  [[{"type":"image","token":"{{product-image:viaggio}}"}],[{"type":"h3","text":"Arco Viaggio"},{"type":"p","text":"$399"},{"type":"p","text":"Manual lever — full control, no electricity"}]]
+]}
 
 ### hero
 Full-width hero banner. ALWAYS use as the first section.

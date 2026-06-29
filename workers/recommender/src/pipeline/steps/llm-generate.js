@@ -450,9 +450,9 @@ export async function runLlmVariant(ctx, env, opts) {
         const completedSections = parser.feed(content);
         // eslint-disable-next-line no-restricted-syntax
         for (const section of completedSections) {
-          // TV mode: emit ONLY the comparison-table, drop any other block the
-          // LLM produced. Guarantees the "just a 3-product comparison" contract.
-          if (ctx.tv === true && section.block !== 'comparison-table') {
+          // TV mode: emit ONLY the tv-products showcase, drop any other block
+          // the LLM produced. Guarantees the "just a 3-product showcase" contract.
+          if (ctx.tv === true && section.block !== 'tv-products') {
             continue; // eslint-disable-line no-continue
           }
           const { html, debug: sDebug } = processSectionDetailed(section);
@@ -502,7 +502,7 @@ export async function runLlmVariant(ctx, env, opts) {
   timings.parseStart = Date.now();
   const final = parser.finalize();
 
-  if (final.section && !(ctx.tv === true && final.section.block !== 'comparison-table')) {
+  if (final.section && !(ctx.tv === true && final.section.block !== 'tv-products')) {
     const { html, debug: sDebug } = processSectionDetailed(final.section);
     if (hasContent(html)) {
       if (!heroEnsured) {
