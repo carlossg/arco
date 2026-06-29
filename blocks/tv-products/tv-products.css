@@ -146,23 +146,20 @@
 .arco-tv-mode .tv-products .tv-products-grid[data-count="1"] {
   gap: 2vw;
   max-width: none;
-  height: 90vh;
+  align-items: stretch;
 }
 
-/* Each card fills the row height; the image area takes the slack so the
-   bottom of the screen isn't left empty. */
-.arco-tv-mode .tv-products .tv-products-card {
-  height: 100%;
-}
-
+/* Image is a fixed proportion of card width — NOT flex:1, which would grow it
+   to fill the viewport and push the name/price below the screen. The image
+   height tracks column width, so 3 cards always leave room for the text. */
 .arco-tv-mode .tv-products .tv-products-media {
-  flex: 1;
-  aspect-ratio: auto;
+  flex: 0 0 auto;
+  aspect-ratio: 4 / 3;
   min-height: 0;
 }
 
 .arco-tv-mode .tv-products .tv-products-body {
-  flex: 0 0 auto;
+  flex: 1;
   padding: 2vh 1.8vw;
   gap: 1vh;
 }
