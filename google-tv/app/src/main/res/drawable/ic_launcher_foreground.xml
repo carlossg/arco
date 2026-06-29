@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Safe zone is 72dp (36dp from center in each direction) -->
+    <!-- Arco coffee-bean glyph, centered, drawn in the brand cream colour -->
+    <group
+        android:translateX="54"
+        android:translateY="54">
+
+        <!-- Bean outline (ellipse) -->
+        <path
+            android:strokeColor="#F5F0E8"
+            android:strokeWidth="4"
+            android:fillColor="#00000000"
+            android:pathData="M0,-26 C16,-26 26,-12 26,0 C26,12 16,26 0,26 C-16,26 -26,12 -26,0 C-26,-12 -16,-26 0,-26 Z" />
+
+        <!-- Center crease (the bean's signature S-curve) -->
+        <path
+            android:strokeColor="#F5F0E8"
+            android:strokeWidth="4"
+            android:strokeLineCap="round"
+            android:fillColor="#00000000"
+            android:pathData="M-6,-24 C8,-14 -8,14 6,24" />
+    </group>
+</vector>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TV banner (320x180dp): Arco logo centered on the brand background colour -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/arco_background" />
+    <item
+        android:drawable="@drawable/arco_logo"
+        android:gravity="center"
+        android:width="260dp"
+        android:height="122dp" />
+</layer-list>

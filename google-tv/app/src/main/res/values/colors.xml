@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Legacy Material palette (kept so any stray references still resolve) -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Arco brand palette (mirrors styles/styles.css custom properties) -->
+    <color name="arco_background">#FFF5F0E8</color>
+    <color name="arco_light">#FFFFFFFF</color>
+    <color name="arco_dark">#FF5C6B73</color>
+    <color name="arco_text">#FF1C2B35</color>
+    <color name="arco_accent">#FFB5651D</color>
+    <color name="arco_accent_hover">#FF8E4E14</color>
+    <color name="arco_border">#FFD4CFC5</color>
+</resources>

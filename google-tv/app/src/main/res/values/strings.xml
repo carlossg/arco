@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Arco</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- URL Configuration -->
+    <string name="label_select_environment">Select Environment</string>
+    <string name="label_arco_url">Custom URL</string>
+    <string name="hint_arco_url">https://...</string>
+
+    <!-- Environment Options -->
+    <string name="option_default">Default (Production)</string>
+    <string name="option_custom">Custom URL</string>
+
+    <!-- Buttons -->
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_test">Test Connection</string>
+
+    <!-- Messages -->
+    <string name="msg_url_saved">URL saved successfully</string>
+    <string name="msg_invalid_url">Please enter a valid URL starting with http:// or https://</string>
+    <string name="msg_testing_url">Testing connection...</string>
+
+    <!-- Help Text -->
+    <string name="help_text_settings">Select an environment or enter a custom URL. Use the Test button to verify connectivity before saving. Press MENU button to access settings.</string>
+</resources>

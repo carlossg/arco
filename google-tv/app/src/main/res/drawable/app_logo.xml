@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- App logo shown in the leanback launcher; Arco wordmark on the brand background -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/arco_background" />
+    <item
+        android:drawable="@drawable/arco_logo"
+        android:gravity="center" />
+</layer-list>

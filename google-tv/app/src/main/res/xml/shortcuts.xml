@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <capability android:name="actions.intent.OPEN_APP_FEATURE">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.arco.tv.ui.DiscoveryActivity"
+            android:targetPackage="com.arco.tv">
+            <parameter
+                android:name="feature"
+                android:key="q"
+                android:mimeType="text/*" />
+        </intent>
+        <app:queryPatterns>
+            <!-- Primary patterns with app name -->
+            <item>$feature on Arco</item>
+            <item>$feature in Arco</item>
+            <item>$feature using Arco</item>
+        </app:queryPatterns>
+    </capability>
+
+    <capability android:name="actions.intent.SEARCH">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.arco.tv.ui.DiscoveryActivity"
+            android:targetPackage="com.arco.tv">
+            <parameter
+                android:name="query"
+                android:key="q"
+                android:mimeType="text/*" />
+        </intent>
+        <app:queryPatterns>
+            <!-- Search patterns -->
+            <item>search for $query</item>
+            <item>find $query</item>
+            <item>look up $query</item>
+            <item>show me $query</item>
+        </app:queryPatterns>
+    </capability>
+</shortcuts>

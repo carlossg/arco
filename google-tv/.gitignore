@@ -1,0 +1,16 @@
+# Gradle files
+.gradle/
+build/
+
+# Android Studio files
+.idea/
+*.iml
+local.properties
+
+# Output files
+build_output.txt
+app/build/
+capture/
+
+# System files
+.DS_Store
