@@ -30,8 +30,8 @@ head.html → scripts/aem.js              (core EDS decoration, DO NOT MODIFY)
 | `scripts/browsing-signals.js` | Passive signal collector + local rule-based intent classifier |
 | `scripts/recommender-stream.js` | NDJSON SSE parser; renders sections progressively; stamps `data-run-id` per section |
 | `scripts/feedback-widget.js` | Run-level feedback widget (👍 / 👎, comment, flag categories, wrong-product chips) |
-| `scripts/speculative-engine.js` | Mouse-deceleration heuristic for prefetching follow-up chips |
-| `scripts/for-you-prefetch.js` | Background prefetch for personalized "For You" query |
+| `scripts/speculative-engine.js` | Mouse-trajectory/deceleration heuristic; speculatively generates on hover/predicted hover for follow-up chips and the "For You" link |
+| `scripts/for-you-prefetch.js` | Synthesizes the personalized "For You" query from browsing context (no generation — the speculative engine in `header.js` generates on hover/predicted hover) |
 | `scripts/api-config.js` | `ARCO_RECOMMENDER_URL` — routes `localhost`→local `wrangler dev` worker (8789), `*.aem.page`→branch worker version, else prod. Overridable via `ARCO_CONFIG.RECOMMENDER_URL` or `localStorage['arco-recommender-url']` |
 | `scripts/delayed.js` | Kicks off `collectBrowsingSignals()` |
 | `scripts/block-aliases.js` | Block-name aliases for author-friendly variants |
@@ -140,7 +140,7 @@ scripts.js  →  reads SessionContextManager  →  encodes ctx  →
 
 ## Speculative Prefetch
 
-`speculative-engine.js` watches mouse deceleration toward follow-up chips. When confidence threshold is reached → fires a `speculative: true` prefetch request to `/api/generate`. Result cached in sessionStorage so `replaySpeculativeResult()` plays back NDJSON instantly on click.
+`speculative-engine.js` watches mouse movement toward follow-up chips **and the "For You" nav link** (attached in `header.js`). On hover or predicted hover (cursor trajectory projected onto the target, confidence ≥ threshold, rate-limited) → fires a `speculative: true` prefetch request to `/api/generate`. Result cached in sessionStorage so `replaySpeculativeResult()` plays back NDJSON instantly on click. For "For You", the synthesized query comes from `for-you-prefetch.js`.
 
 ## CSS Structure
 
