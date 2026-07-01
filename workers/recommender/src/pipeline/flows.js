@@ -29,7 +29,7 @@ const RECOMMENDER_FLOW = {
     { step: 'build-recommender-prompt' },
     {
       step: 'llm-generate',
-      config: { model: 'gemma-4-31b-trial', maxTokens: 5120, temperature: 0.6 },
+      config: { model: 'gemma-4-31b', maxTokens: 5120, temperature: 0.6 },
     },
   ],
 };
