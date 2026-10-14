@@ -1,0 +1,200 @@
+{
+  "id": "pairing-bean-machine",
+  "slug": "bean-to-machine-pairing",
+  "title": "Bean-to-Machine Pairing Guide",
+  "description": "Match your favourite coffee origin and roast level to the ideal Arco machine and grind setting. Different beans have different extraction needs — this guide ensures you get the best out of every bag.",
+  "hero_image_alt": "A world map made of coffee beans with different roast levels, small Arco machines positioned at key coffee-growing regions",
+  "data": {
+    "origins": [
+      {
+        "id": "ethiopian-natural",
+        "label": "Ethiopian Natural",
+        "flavour_profile": "Blueberry, strawberry, wine, floral. Intensely fruity with heavy body.",
+        "density": "high",
+        "typical_roast": "light to medium-light"
+      },
+      {
+        "id": "ethiopian-washed",
+        "label": "Ethiopian Washed",
+        "flavour_profile": "Jasmine, bergamot, lemon, tea-like. Delicate and complex.",
+        "density": "high",
+        "typical_roast": "light"
+      },
+      {
+        "id": "kenyan",
+        "label": "Kenyan AA/AB",
+        "flavour_profile": "Blackcurrant, tomato, grapefruit, brown sugar. Bright acidity with juicy body.",
+        "density": "high",
+        "typical_roast": "light to medium"
+      },
+      {
+        "id": "colombian",
+        "label": "Colombian",
+        "flavour_profile": "Caramel, red apple, milk chocolate, nutty. Clean and balanced.",
+        "density": "medium",
+        "typical_roast": "medium"
+      },
+      {
+        "id": "brazilian",
+        "label": "Brazilian",
+        "flavour_profile": "Chocolate, hazelnut, low acidity, creamy body. A classic espresso base.",
+        "density": "medium-low",
+        "typical_roast": "medium to medium-dark"
+      },
+      {
+        "id": "guatemalan",
+        "label": "Guatemalan",
+        "flavour_profile": "Dark chocolate, spice, orange zest, toffee. Complex sweetness.",
+        "density": "medium-high",
+        "typical_roast": "medium"
+      },
+      {
+        "id": "costa-rican",
+        "label": "Costa Rican",
+        "flavour_profile": "Honey, plum, bright citrus, clean finish. Well-balanced.",
+        "density": "medium-high",
+        "typical_roast": "medium-light to medium"
+      },
+      {
+        "id": "sumatran",
+        "label": "Sumatran / Indonesian",
+        "flavour_profile": "Earthy, tobacco, dark chocolate, cedar. Full body, low acidity.",
+        "density": "low",
+        "typical_roast": "medium-dark to dark"
+      },
+      {
+        "id": "italian-blend",
+        "label": "Italian-Style Blend",
+        "flavour_profile": "Dark chocolate, roasted nuts, caramel, smoky. Designed for milk drinks.",
+        "density": "low",
+        "typical_roast": "dark"
+      },
+      {
+        "id": "specialty-blend",
+        "label": "Specialty Espresso Blend",
+        "flavour_profile": "Varies — typically designed for sweetness, balance, and versatility as espresso.",
+        "density": "medium",
+        "typical_roast": "medium to medium-dark"
+      }
+    ],
+    "roast_levels": ["light", "medium-light", "medium", "medium-dark", "dark"],
+    "pairings": [
+      {
+        "origin": "ethiopian-natural",
+        "roast": "light",
+        "best_machines": ["arco-dual-boiler", "arco-barista-pro"],
+        "acceptable_machines": ["arco-classica", "arco-maestro"],
+        "rationale": "Light-roast Ethiopian naturals need precise temperature control (92-94C) and gentle pre-infusion to avoid channeling. The Dual Boiler's PID precision is ideal.",
+        "grind_setting": "Fine — 2-3 clicks finer than a medium roast baseline. Expect 27-32s extraction.",
+        "brew_temp_c": "92-94",
+        "dose_ratio": "1:2.2 to 1:2.5 — slightly longer ratios help develop the fruit notes without sourness."
+      },
+      {
+        "origin": "ethiopian-washed",
+        "roast": "light",
+        "best_machines": ["arco-dual-boiler", "arco-barista-pro"],
+        "acceptable_machines": ["arco-classica", "arco-lever"],
+        "rationale": "Delicate washed Ethiopians need the same temperature precision as naturals. The Lever is a great option here — manual pressure profiling can highlight floral notes beautifully.",
+        "grind_setting": "Fine — similar to natural but aim for slightly shorter shots to preserve delicacy.",
+        "brew_temp_c": "93-95",
+        "dose_ratio": "1:2.0 to 1:2.3 — keep it shorter to preserve the tea-like quality."
+      },
+      {
+        "origin": "kenyan",
+        "roast": "medium-light",
+        "best_machines": ["arco-barista-pro", "arco-dual-boiler"],
+        "acceptable_machines": ["arco-classica", "arco-maestro"],
+        "rationale": "Kenyan coffees love a bit of pre-infusion to develop their juicy acidity evenly. The Barista Pro's adjustable pre-infusion is excellent for this.",
+        "grind_setting": "Medium-fine. Kenyan beans can produce more fines — a slightly coarser grind compensates.",
+        "brew_temp_c": "93-95",
+        "dose_ratio": "1:2.0 to 1:2.5 — experiment within this range to balance brightness and body."
+      },
+      {
+        "origin": "colombian",
+        "roast": "medium",
+        "best_machines": ["arco-classica", "arco-barista-pro", "arco-automatico"],
+        "acceptable_machines": ["arco-nano", "arco-maestro", "arco-dual-boiler"],
+        "rationale": "Colombian medium roasts are forgiving and work well on virtually any Arco machine. The Classica is an ideal match — its consistent temperature is all these beans need.",
+        "grind_setting": "Standard espresso baseline. This is the reference point for dialing in other origins.",
+        "brew_temp_c": "93-96",
+        "dose_ratio": "1:2.0 — the classic double ristretto-to-normale sweet spot."
+      },
+      {
+        "origin": "brazilian",
+        "roast": "medium-dark",
+        "best_machines": ["arco-classica", "arco-automatico", "arco-maestro"],
+        "acceptable_machines": ["arco-nano", "arco-steam", "arco-lever"],
+        "rationale": "Brazilian beans are the ultimate crowd-pleaser espresso. Low acidity and creamy body work on every machine. The Automatico shines here — set it and forget it.",
+        "grind_setting": "Medium — 1-2 clicks coarser than baseline. Darker roasts extract faster.",
+        "brew_temp_c": "90-93",
+        "dose_ratio": "1:1.8 to 1:2.0 — keep it short for maximum chocolate and nut intensity."
+      },
+      {
+        "origin": "guatemalan",
+        "roast": "medium",
+        "best_machines": ["arco-classica", "arco-barista-pro"],
+        "acceptable_machines": ["arco-maestro", "arco-dual-boiler", "arco-automatico"],
+        "rationale": "Guatemalan coffees have complex sweetness that rewards careful extraction. The Barista Pro's pre-infusion helps develop toffee and spice notes without over-extracting.",
+        "grind_setting": "Medium-fine. Slightly finer than Brazilian due to higher density.",
+        "brew_temp_c": "93-95",
+        "dose_ratio": "1:2.0 to 1:2.3"
+      },
+      {
+        "origin": "costa-rican",
+        "roast": "medium-light",
+        "best_machines": ["arco-barista-pro", "arco-dual-boiler"],
+        "acceptable_machines": ["arco-classica", "arco-lever"],
+        "rationale": "Honey-processed Costa Ricans benefit from slightly higher temperatures and longer pre-infusion to develop their signature honeyed sweetness.",
+        "grind_setting": "Medium-fine. Similar to Guatemalan but can go slightly finer for washed lots.",
+        "brew_temp_c": "93-95",
+        "dose_ratio": "1:2.0 to 1:2.5"
+      },
+      {
+        "origin": "sumatran",
+        "roast": "dark",
+        "best_machines": ["arco-maestro", "arco-classica", "arco-automatico"],
+        "acceptable_machines": ["arco-nano", "arco-steam", "arco-lever"],
+        "rationale": "Sumatran dark roasts are best at lower temperatures to avoid ashy bitterness. The Maestro's heat-exchange system provides the stable, moderate temperature these beans prefer.",
+        "grind_setting": "Medium-coarse for espresso. Dark Sumatran beans are very porous and extract rapidly.",
+        "brew_temp_c": "88-91",
+        "dose_ratio": "1:1.5 to 1:2.0 — ristretto to short normale highlights the earthy, chocolatey character."
+      },
+      {
+        "origin": "italian-blend",
+        "roast": "dark",
+        "best_machines": ["arco-maestro", "arco-classica", "arco-automatico", "arco-lever"],
+        "acceptable_machines": ["arco-nano", "arco-steam", "arco-barista-pro"],
+        "rationale": "Traditional Italian blends are designed for classic machines at moderate temperatures. Any Arco machine will produce authentic Italian-style espresso with these beans. The Lever is particularly fitting.",
+        "grind_setting": "Medium. Italian blends are formulated to work at standard settings.",
+        "brew_temp_c": "90-93",
+        "dose_ratio": "1:1.5 to 1:2.0 — short and punchy, as tradition demands."
+      },
+      {
+        "origin": "specialty-blend",
+        "roast": "medium",
+        "best_machines": ["arco-classica", "arco-barista-pro", "arco-dual-boiler"],
+        "acceptable_machines": ["arco-automatico", "arco-maestro", "arco-nano"],
+        "rationale": "Specialty espresso blends are crafted for versatility. Start at the standard baseline and adjust to taste. Most roasters include brewing guidance on the bag.",
+        "grind_setting": "Standard espresso baseline. Follow the roaster's recommendation if provided.",
+        "brew_temp_c": "93-96",
+        "dose_ratio": "1:2.0 — adjust based on the roaster's tasting notes."
+      }
+    ]
+  },
+  "persona_tags": ["home-barista", "coffee-explorer", "origin-enthusiast"],
+  "intent_tags": ["bean-pairing", "brew-recipe", "origin-guide", "grind-setting"],
+  "related_products": [
+    "arco-classica",
+    "arco-barista-pro",
+    "arco-dual-boiler",
+    "arco-macinino-pro"
+  ],
+  "cta": {
+    "label": "Explore Arco Machines",
+    "url": "/products/espresso-machines"
+  },
+  "seo": {
+    "title": "Bean-to-Machine Pairing Guide | Match Your Coffee to Your Machine | Arco",
+    "meta_description": "Match your favourite coffee origin and roast level to the ideal Arco espresso machine and grind setting. Get brew temperature, ratio, and extraction tips for every combination."
+  }
+}

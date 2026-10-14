@@ -1,0 +1,65 @@
+{
+  "id": "arco-studio-vs-arco-studio-pro",
+  "slug": "arco-studio-vs-arco-studio-pro",
+  "title": "Arco Studio vs Arco Studio Pro",
+  "products": ["arco-studio", "arco-studio-pro"],
+  "comparison_headline": "How much machine do you actually need?",
+  "comparison_intro": "Both machines share DNA \u2014 dual boilers, saturated group heads, and build quality that's built to outlast trends. The Studio Pro adds flow control, shot profiling software, and details borrowed from competition machines. Whether that matters depends entirely on how you brew.",
+  "hero_image_alt": "Arco Studio and Arco Studio Pro espresso machines on a polished concrete countertop, the Pro slightly taller with its visible flow control paddle, both in matte black, a bottomless portafilter resting between them showing crema on a recent extraction, dramatic directional lighting",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac1,299",
+      "product_b": "\u20ac2,199"
+    },
+    "boiler_type": {
+      "product_a": "Dual boiler, saturated group head (brass throughout)",
+      "product_b": "Dual boiler, saturated group head (brass throughout), thermally insulated"
+    },
+    "heat_up_time": {
+      "product_a": "8 minutes",
+      "product_b": "10 minutes (additional thermal mass for stability)"
+    },
+    "pressure_control": {
+      "product_a": "Adjustable OPV + manual pre-infusion lever",
+      "product_b": "Adjustable OPV + flow control paddle with real-time pressure gauge"
+    },
+    "steam_capability": {
+      "product_a": "High-capacity steam boiler (800 ml), articulating cool-touch wand",
+      "product_b": "High-capacity steam boiler (1,000 ml), articulating cool-touch wand, dry steam mode"
+    },
+    "grind_compatibility": {
+      "product_a": "Stepless grinder essential (Preciso minimum, Zero ideal)",
+      "product_b": "Competition-grade grinder strongly recommended (Zero or equivalent)"
+    },
+    "suitable_for": {
+      "product_a": "Serious home baristas who want pre-infusion control and saturated group stability without complexity overload",
+      "product_b": "Advanced home baristas and competition hobbyists who want full flow control, shot profiling data, and no ceiling on experimentation"
+    },
+    "not_suitable_for": {
+      "product_a": "Anyone who needs flow control profiling or wants to log and compare shot data digitally",
+      "product_b": "Anyone who doesn't already understand pressure profiling \u2014 the Pro's features will be expensive decoration without the technique to use them"
+    }
+  },
+  "recommendation_by_persona": {
+    "craft-barista": {
+      "recommended_product_id": "arco-studio-pro",
+      "rationale": "If you are already profiling shots and want real-time flow data to refine your technique, the Pro gives you tools that the Studio simply doesn't have."
+    },
+    "upgrader": {
+      "recommended_product_id": "arco-studio",
+      "rationale": "The Studio already represents a major step up \u2014 the Pre-infusion lever alone will keep you learning for months before you would need what the Pro offers."
+    }
+  },
+  "verdict": "The Studio is a genuinely professional-grade machine that most home baristas will never outgrow. The Studio Pro is for the small percentage of people who have outgrown pre-infusion levers and want paddle-based flow control with data logging. If you have to ask whether you need the Pro, you probably don't \u2014 yet. Start with the Studio and let your technique tell you when it is time.",
+  "related_blog_posts": [
+    "flow-control-profiling",
+    "how-competition-baristas-dial-in",
+    "pressure-profiling-basics"
+  ],
+  "persona_tags": ["craft-barista", "upgrader"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Studio vs Arco Studio Pro \u2014 Serious vs Competition-Grade Espresso | Arco",
+    "meta_description": "The Arco Studio (\u20ac1,299) offers pre-infusion and saturated group design. The Studio Pro (\u20ac2,199) adds flow control and shot profiling. An honest comparison for serious home baristas."
+  }
+}

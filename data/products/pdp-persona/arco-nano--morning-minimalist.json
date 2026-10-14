@@ -1,0 +1,27 @@
+{
+  "base_product_id": "arco-nano",
+  "persona_tag": "morning-minimalist",
+  "headline": "The smallest footprint. The quickest morning.",
+  "subheadline": "The Arco Nano heats up instantly, takes up almost no counter space, and delivers a clean espresso in under a minute. Minimalism, concentrated.",
+  "hero_image_alt": "Arco Nano espresso machine in matte black on a narrow kitchen counter beside a single espresso cup, everything perfectly aligned and uncluttered, first light of morning, zen-like stillness",
+  "description_long": "Some mornings, less is everything. The Nano weighs 4.2 kg and measures just 18 x 28 x 25 cm -- it fits on a windowsill, a shelf, the corner of a counter you thought was too small to use. The thermoblock heats up in seconds, not minutes. The workflow is as simple as it gets: dose, tamp, press. No temperature dials, no steam wands, no decisions to make before your brain is fully online. Just a quick, clean espresso that tastes exactly right, every single morning. When you're done, the drip tray takes five seconds to empty and the portafilter knocks out in one tap. Your counter stays clear. Your morning stays calm.",
+  "use_case_headline": "Less machine. More morning.",
+  "use_case_body": "Instant heat-up. Two buttons. Tiny footprint. The Nano distils the espresso experience down to its essential gestures and produces a shot that's clean, balanced, and ready before you've found your shoes.",
+  "recommended_accessories": [
+    "Tamper Set",
+    "Espresso Cups Set",
+    "Cleaning Kit"
+  ],
+  "related_blog_posts": [
+    "morning-routine-three-minutes",
+    "your-first-home-espresso",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Keep It Minimal",
+  "cta_primary_url": "/products/arco-nano",
+  "social_proof_quote": {
+    "quote": "The Nano sits on a 20cm shelf in my studio apartment and makes the best espresso I've ever had at home. I love that there's nothing to fiddle with -- just a quick shot and I'm out the door. It's exactly the machine I needed.",
+    "name": "Yuki S.",
+    "location": "Tokyo, Japan"
+  }
+}

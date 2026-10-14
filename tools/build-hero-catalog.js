@@ -3,12 +3,12 @@
  * Build unified hero image catalog from multiple sources.
  *
  * Sources:
- *   1. content/hero-images.json        — 43 lifestyle images (life-*.png in DA)
- *   2. content/hero-images-curated.json — 34 curated entries (*.jpeg in DA)
+ *   1. data/hero-images.json        — 43 lifestyle images (life-*.png in DA)
+ *   2. data/hero-images-curated.json — 34 curated entries (*.jpeg in DA)
  *   3. drafts/media/                    — any additional media files not in the above
  *   4. drafts/**\/*.plain.html           — ~228 content page hero images from DA
  *
- * Output: content/hero-image-catalog.json
+ * Output: data/hero-image-catalog.json
  *
  * Each entry gets an `embeddingText` field suitable for vectorization.
  *
@@ -61,7 +61,7 @@ function inferAccessoryMeta(id) {
 // ── Source 1: Lifestyle images from hero-images.json ─────────────────────────
 
 function loadLifestyleImages() {
-  const data = readJSON('content/hero-images.json');
+  const data = readJSON('data/hero-images.json');
   return data.images.map((img) => {
     // Actual files in DA are .png, not .jpeg as listed in the JSON
     const ext = existsSync(join(PROJECT_DIR, 'drafts/media', `${img.id}.png`)) ? 'png' : 'jpeg';
@@ -81,7 +81,7 @@ function loadLifestyleImages() {
 // ── Source 2: Curated entries from hero-images-curated.json ───────────────────
 
 function loadCuratedImages() {
-  const data = readJSON('content/hero-images-curated.json');
+  const data = readJSON('data/hero-images-curated.json');
   return data.images.map((img) => {
     const filename = img.path.replace(/^\//, '');
     return {
@@ -212,7 +212,7 @@ function loadContentPageImages(coveredUrls) {
 
     entries.push({
       id,
-      type: page.type || 'content',
+      type: page.type || 'data',
       category: page.format || '',
       url,
       alt,
@@ -322,8 +322,8 @@ async function main() {
       description: 'Unified hero image catalog for Vectorize indexing and hero selection',
       generated: new Date().toISOString(),
       sources: [
-        'content/hero-images.json',
-        'content/hero-images-curated.json',
+        'data/hero-images.json',
+        'data/hero-images-curated.json',
         'drafts/media/',
         'drafts/**/*.plain.html + schema/content-index.json',
       ],
@@ -331,9 +331,9 @@ async function main() {
     images: all,
   };
 
-  const outPath = join(PROJECT_DIR, 'content/hero-image-catalog.json');
+  const outPath = join(PROJECT_DIR, 'data/hero-image-catalog.json');
   writeFileSync(outPath, JSON.stringify(output, null, 2) + '\n');
-  console.log(`\nWrote ${all.length} entries to content/hero-image-catalog.json`);
+  console.log(`\nWrote ${all.length} entries to data/hero-image-catalog.json`);
 }
 
 main().catch((err) => {

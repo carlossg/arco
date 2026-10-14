@@ -1,0 +1,53 @@
+{
+  "id": "pour-over-vs-aeropress-vs-french-press",
+  "slug": "pour-over-vs-aeropress-vs-french-press",
+  "category": "filter",
+  "title": "Pour-Over vs AeroPress vs French Press: Which Method Is Right for You?",
+  "difficulty": "beginner",
+  "read_time_minutes": 8,
+  "persona_tags": ["morning-minimalist", "upgrader"],
+  "intent_tags": ["discover", "research", "decide"],
+  "hero_image_alt": "Three filter coffee brewers arranged side by side on a concrete countertop — a white ceramic V60 on a glass server, a grey AeroPress on a sturdy mug, and a glass French Press with its plunger raised — each with freshly ground coffee in the brewer, warm overhead pendant lighting casting soft shadows",
+  "intro": "You have decided to try filter coffee. Now comes the first real choice: which brewer? The V60 pour-over, AeroPress, and French Press are the three most popular manual methods, and each produces a genuinely different cup. This guide breaks down the flavour profile, effort level, and ideal use case for each so you can choose with confidence.",
+  "body": [
+    {
+      "heading": "Pour-Over: The Clarity Champion",
+      "content": "Pour-over brewing — using a V60, Chemex, Kalita Wave, or similar cone dripper — is the method most closely associated with specialty coffee shops. The principle is simple: you place a paper filter in a cone, add ground coffee, and pour hot water over it in a controlled, circular motion. Gravity pulls the water through the bed of coffee and the paper filter, producing a clean, bright cup. The paper filter is the defining element. It traps oils and fine particles, yielding a cup with exceptional clarity. High-quality single-origin coffees shine here because you can taste individual flavour notes — floral aromatics, fruit acidity, subtle sweetness — without the muddying effect of sediment or oils. A well-executed pour-over of a washed Ethiopian coffee can present jasmine and citrus with almost tea-like delicacy. The trade-off is technique. Pour-over is the most skill-dependent of the three methods. Your pour rate, water temperature, grind size, and even the pattern of your pour all affect extraction. A gooseneck kettle is essentially required for consistent results. Brew time typically runs two and a half to four minutes for a single cup. If you enjoy the ritual of manual brewing and want to taste every detail in your coffee, pour-over is the method to learn first."
+    },
+    {
+      "heading": "AeroPress: The Versatile Traveller",
+      "content": "The AeroPress is an unusual brewer that uses a combination of immersion and pressure to extract coffee. You steep ground coffee in a plastic cylinder, then push a plunger down to force the brew through a paper or metal filter. The entire process takes about ninety seconds from pouring water to pressing, making it one of the fastest manual methods available. What makes the AeroPress distinctive is its versatility. By adjusting the grind size, water temperature, steep time, and filter type, you can produce cups that range from clean and pour-over-like to rich and nearly espresso-concentrated. The AeroPress World Championship has produced hundreds of creative recipes that push the brewer far beyond its original instructions. The standard paper filter gives a clean cup, while aftermarket metal filters let through more oils and body, approaching French Press territory. The AeroPress is also nearly indestructible and weighs almost nothing, which makes it the default brewer for travelling coffee enthusiasts. It brews a single cup at a time — typically around two hundred millilitres — so it is less practical if you are making coffee for a household. But for a single person who wants great coffee with minimal fuss and easy cleanup, the AeroPress is hard to beat. The learning curve is gentler than pour-over because immersion brewing is inherently more forgiving: the coffee is steeping evenly rather than relying on your pour technique."
+    },
+    {
+      "heading": "French Press: The Body Builder",
+      "content": "The French Press, also called a cafetiere or press pot, is the oldest and simplest of the three methods. You add coarsely ground coffee to a glass or stainless steel carafe, pour hot water over it, wait four minutes, and press the metal mesh plunger down to separate the grounds from the liquid. No paper filter. No technique required beyond patience. The absence of a paper filter is what defines the French Press experience. The metal mesh allows coffee oils and fine sediment to pass into the cup, producing a full-bodied, rich, slightly textured brew. Coffees that are naturally chocolatey, nutty, or caramelly — like a medium-roasted Brazilian or Colombian — feel substantial and warming in a French Press. The body and mouthfeel are closer to espresso than any other filter method. The downsides are also real. Because sediment remains in the cup, French Press coffee can taste muddy or over-extracted if your grind is too fine or you leave the coffee sitting on the grounds after pressing. Clean-up is more involved than pour-over or AeroPress because you need to dispose of the wet grounds from the carafe. And the lack of a paper filter means you lose the flavour clarity that makes pour-over so revealing. French Press is the best choice when you want comfort coffee — a big, warm mug of something rich and satisfying, ideally shared with someone else over a slow weekend morning. It also makes a larger batch easily, typically three to four cups, which pour-over and AeroPress cannot match without repeated brewing."
+    },
+    {
+      "heading": "How to Choose: A Practical Decision Framework",
+      "content": "Choosing between these three methods comes down to three questions: what flavour profile do you prefer, how much effort are you willing to invest, and how many cups do you need at once? If you prioritise flavour clarity and want to explore the nuances of single-origin specialty coffee, start with a pour-over. Invest in a gooseneck kettle, a good grinder set to medium-fine, and a V60 or Kalita Wave. Expect a learning curve of a few weeks before your technique becomes consistent, but know that the ceiling for quality is the highest of the three methods. If you want speed, versatility, and easy cleanup — especially if you are brewing for one — the AeroPress is the pragmatic choice. It is forgiving enough for Monday mornings and flexible enough for Saturday experiments. It also travels well, which neither the V60 nor the French Press can claim with a straight face. If you want body, warmth, and simplicity without any technique, go with the French Press. It makes the most approachable cup and works beautifully with medium and darker roasts. It is also the most social brewer: four cups in one press, no gooseneck kettle, no careful pouring. Many dedicated coffee drinkers end up owning all three. They are inexpensive, each serves a different mood, and rotating between them keeps your coffee routine interesting. The grinder is what matters most across all three — a consistent grind at the right size for each method will do more for your cup quality than any single brewer upgrade."
+    }
+  ],
+  "key_takeaways": [
+    "Pour-over (V60, Chemex) produces the cleanest, most flavour-transparent cup but requires the most technique and a gooseneck kettle.",
+    "AeroPress offers speed, versatility, and portability — ideal for single servings with minimal cleanup.",
+    "French Press delivers the fullest body and richest mouthfeel, with virtually no skill required beyond a coarse grind and a timer.",
+    "Your grinder matters more than your brewer — invest in consistent grind quality before upgrading your brewing device.",
+    "Many coffee enthusiasts own all three and rotate based on mood, bean, and occasion."
+  ],
+  "related_products": ["arco-filtro", "arco-macinino"],
+  "related_guides": [
+    "why-filter-is-having-a-moment",
+    "grind-size-for-filter",
+    "using-arco-filtro-for-different-methods",
+    "water-ratio-guide-for-filter"
+  ],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Find the right Arco grinder for filter",
+    "url": "/products/grinders"
+  },
+  "seo": {
+    "title": "Pour-Over vs AeroPress vs French Press — Which Filter Method? | Arco",
+    "meta_description": "Compare pour-over, AeroPress, and French Press coffee methods. Learn the flavour profiles, effort levels, and best use cases for each to find your ideal filter brewer."
+  }
+}

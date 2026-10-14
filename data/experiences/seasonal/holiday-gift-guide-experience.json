@@ -1,0 +1,39 @@
+{
+  "id": "exp-seasonal-003",
+  "slug": "holiday-gift-guide-experience",
+  "title": "Holiday Gift Guide Experience",
+  "persona_tag": "thoughtful-gifter",
+  "experience_archetype": "Holiday Gifting",
+  "hero_image_alt": "A carefully arranged gift display on a dark wooden table with wrapped Arco accessories, a bag of specialty beans with a red ribbon, a handwritten gift tag, warm fairy lights softly blurred in the background, a sprig of pine beside the parcels",
+  "hero_headline": "The gift that starts every morning right.",
+  "hero_subtext": "Whether you are giving or receiving, Arco makes the holidays taste better.",
+  "editorial_intro": "The holidays bring a particular kind of pressure. You want to give something meaningful, something that will not end up in a drawer by February. And if you are on the receiving end, you want the people who love you to understand that coffee is not just a preference — it is a daily practice. This guide bridges that gap, from both sides of the wrapping paper.",
+  "editorial_body": "There are two sides to every coffee gift. The giver's side, where the challenge is finding something that says 'I understand what matters to you' without requiring a degree in extraction theory. And the receiver's side, where the quiet hope is that this year, finally, someone gets it right.\n\nLet us start with the givers. You love someone who loves coffee. You know this because their kitchen counter has more equipment on it than some cafes, because they light up when they talk about a new bag of beans in a way they never do about anything else, and because the last time you bought them a generic coffee gift set from a department store, you noticed it had not been opened by Easter.\n\nThe secret is not to buy them a machine. Machines are deeply personal decisions, the product of months of research and comparison. Buying someone a machine is like choosing their next pair of running shoes based on the colour. Even if you guess right, it feels wrong. What you want are the things that complement the machine they already have — the accessories and consumables that elevate their daily practice.\n\nThe Arco tamper is the single best coffee gift under a hundred pounds. It is a beautifully machined piece of stainless steel, weighted perfectly, and it replaces the cheap plastic tamper that came with their machine and that they use every single day while vaguely wishing it were better. The WDT distribution tool is in the same category — a precision instrument that replaces whatever improvised solution they have been using, usually a bent paperclip or a repurposed cocktail stick.\n\nFor a larger budget, the Arco Essentials bundle wraps the tamper, distribution tool, and dosing funnel into a single gift that covers every accessory gap in their workflow. It arrives in packaging that looks like someone cared about the presentation, which is half the battle with gifts.\n\nBeans are always welcome, provided they are good. A subscription to a specialty roaster — three months, six months, twelve months — is the gift that keeps arriving long after the holidays are over. Each bag is a new exploration. You do not need to know their flavour preferences, because the variety is the point.\n\nNow for the receivers. If you are the coffee person in the family and you know that well-meaning relatives are going to try to buy you something coffee-related this holiday, there is nothing wrong with gentle guidance. Leave a browser tab open. Mention in passing that you have been thinking about upgrading your tamper. Create a wish list and share it when asked. The people who love you want to get it right — they just need a map.\n\nIf you receive an Arco product this holiday, here is what to do with it. The tamper: use it immediately. Pull a shot with your old tamper, then pull one with the new one, same dose, same beans. The difference is in the feel first — the weight, the balance, the way it sits in your hand — and in the cup second, where the more even tamp produces a cleaner, more balanced extraction.\n\nThe dosing funnel: place it on your portafilter before grinding. You will immediately wonder how you tolerated the mess before. The WDT tool: stir the grounds gently with the needles before tamping. Watch the channelling disappear. These are small upgrades that produce large, daily improvements, and every time you use them, you will think of the person who gave them to you.\n\nFor the person who is both giver and receiver — the coffee lover buying for another coffee lover — the dynamic changes entirely. You know exactly what matters. You can read the subtleties. If their grinder is good but their tamper is cheap, you buy the tamper. If they have been talking about trying lighter roasts, you buy a three-month subscription from a roaster who specialises in Ethiopians and Kenyans. If their knock box is a repurposed Tupperware container, you buy a proper one and include a note that says 'I noticed.'\n\nThe holidays, at their best, are an exchange of attention. Not money, not obligation, but the proof that someone has been watching, has been listening, has noticed what brings you joy and chosen to contribute to it. A good coffee gift is exactly this — a small, precise statement that says 'I see your morning ritual, and I want to make it better.'\n\nThat is worth more than any machine.",
+  "product_bundle": [
+    { "product_id": "arco-tamper", "role": "anchor" },
+    { "product_id": "arco-wdt-tool", "role": "primary" },
+    { "product_id": "arco-dosing-funnel", "role": "primary" },
+    { "product_id": "arco-essentials-bundle", "role": "accessory" },
+    { "product_id": "arco-travel-kit", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Holiday Gift setup",
+  "bundle_intro": "Thoughtful accessories and bundles that say 'I have been paying attention.'",
+  "featured_guides": [
+    "guide-gift-guide-by-budget",
+    "guide-what-accessories-actually-matter",
+    "guide-bean-subscriptions-explained"
+  ],
+  "related_blog_posts": [
+    "blog-holiday-gifts-for-coffee-lovers",
+    "blog-accessories-that-make-a-difference",
+    "blog-the-art-of-the-coffee-gift"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "thoughtful-gifter",
+  "persona_tags": ["non-barista", "upgrader", "gift-buyer", "holiday-shopper"],
+  "intent_tags": ["gift", "holiday", "seasonal", "accessories", "bundles", "subscription"],
+  "seo": {
+    "title": "Holiday Gift Guide — Coffee Gifts That Actually Get Used | Arco Coffee",
+    "meta_description": "The best holiday coffee gifts are not machines. Arco tampers, distribution tools, and curated bundles for the coffee lover who already has opinions. A guide for givers and receivers."
+  }
+}

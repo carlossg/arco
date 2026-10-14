@@ -1,0 +1,37 @@
+{
+  "id": "exp-mr-004",
+  "slug": "family-kitchen-morning",
+  "title": "Family Kitchen Morning",
+  "persona_tag": "family-host",
+  "experience_archetype": "Family Morning",
+  "hero_image_alt": "A busy family kitchen on a weekday morning with a parent making espresso on an Arco Studio while children sit at the table eating breakfast, school bags by the door, a second adult pouring filter coffee from an Arco Filtro carafe",
+  "hero_headline": "Four people. Four preferences. One kitchen.",
+  "hero_subtext": "When the morning coffee run serves an espresso, a latte, a hot chocolate, and a long filter — all before 8am.",
+  "editorial_intro": "The family kitchen at 7:15am is a study in controlled chaos. Someone needs a packed lunch. Someone cannot find their shoes. And four different people want four different drinks. You have learned to navigate this with a system that looks effortless but took months to perfect.",
+  "editorial_body": "The choreography begins before anyone else is awake. You come downstairs at 6:50, switch on the Arco Studio, and set water boiling for the hot chocolate. By the time the first child appears — bleary-eyed, still in pyjamas, clutching a stuffed rabbit — the machine is at temperature and you are ready.\n\nYour partner drinks filter coffee. This was a point of mild domestic contention when you first got together. You, the espresso drinker, could not understand the appeal of a large mug of brewed coffee. They, the filter devotee, found your small cups of concentrated darkness slightly performative. Over the years, you have each come to appreciate the other's preference without adopting it. The Arco Filtro sits on the counter beside the Studio, a permanent ceasefire in the great coffee war.\n\nYou start the Filtro first because it takes longer. Twenty-five grams of coarsely ground coffee — ground the night before on the Preciso's filter setting — into the basket, fill the reservoir, press the button. The machine begins its quiet work, and within four minutes the carafe is half full of clean, bright, properly extracted coffee. Your partner will appear in twelve minutes, pour themselves a large mug, add a precise amount of milk, and carry it to the bathroom where they drink it while getting ready. This system has not varied in three years.\n\nMeanwhile, you pull your own espresso. A double shot, straight, no milk. The Studio's group head is fully heated now, and the shot is textbook — a slow, even extraction that runs for twenty-six seconds and fills the cup with something dark and sweet. You drink it standing at the counter while spreading butter on toast. Multitasking is not optional in this kitchen.\n\nThe eldest child wants a latte. They are sixteen and have decided that coffee is part of their identity now, though they require enough milk to make it essentially a warm milkshake with espresso flavouring. You pull a single shot, steam a large jug of milk until it is just warm — not hot, because apparently hot milk is unacceptable — and pour it into the tall glass they insist on using. They will carry it to the table, take three sips, forget about it, and you will find it half-full and cold on the kitchen counter when you get home from work.\n\nThe youngest wants hot chocolate. This has nothing to do with the coffee setup, but it happens in the same kitchen in the same fifteen-minute window, so it is part of the operation. Milk heated in a saucepan, cocoa powder stirred in, a small marshmallow floated on top. They drink it at the table while eating cereal, which seems physiologically inadvisable but is not a battle you have chosen to fight.\n\nThe Studio earns its place in this household because it handles the volume. Dual boiler means you can pull a shot and steam milk simultaneously. The recovery time between shots is under thirty seconds. On weekend mornings, when your parents visit, you can produce six drinks in twelve minutes without the machine breaking a sweat. Your mother-in-law drinks a single espresso macchiato. Your father takes a long black. Your mother wants a cappuccino with one sugar, which she stirs for an improbable length of time.\n\nThe Filtro handles the other half of the household's needs with equal steadiness. It brews a full litre, keeps it warm without scorching it on the hot plate, and produces a cup that your filter-drinking partner describes as better than most cafes. The carafe is insulated glass, which means the last cup at 9am tastes as good as the first at 7:15.\n\nBy 8:05, the kitchen is quiet. The children are at school, your partner is at work, and you are loading the dishwasher with four different cups, a glass, and a saucepan. The machines are cooling. The morning rush is over.\n\nYou rinse the portafilter, wipe down the drip tray, and pour yourself one more espresso. A short one. Just for you. In the silence.\n\nThis is the real luxury of the family kitchen setup — not the equipment itself, but the fact that it makes a chaotic morning manageable enough that there is still time, at the end of it, for one quiet cup alone.",
+  "product_bundle": [
+    { "product_id": "arco-studio", "role": "anchor" },
+    { "product_id": "arco-filtro", "role": "primary" },
+    { "product_id": "arco-preciso", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Family Morning setup",
+  "bundle_intro": "Espresso, filter, lattes, and hot chocolate — one kitchen, one seamless system.",
+  "featured_guides": [
+    "guide-batch-morning-drinks",
+    "guide-filter-vs-espresso-grind",
+    "guide-studio-recovery-times"
+  ],
+  "related_blog_posts": [
+    "blog-coffee-for-the-whole-family",
+    "blog-filter-and-espresso-together",
+    "blog-morning-routines-that-scale"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "family-host",
+  "persona_tags": ["family-host", "multi-drink", "morning-manager"],
+  "intent_tags": ["family", "multiple-preferences", "volume", "filter-and-espresso", "morning-rush"],
+  "seo": {
+    "title": "Family Kitchen Morning — Coffee for Everyone Before 8am | Arco Coffee",
+    "meta_description": "Espresso, filter, lattes, and hot chocolate for the whole family. The Arco Studio and Filtro handle every preference in one busy morning kitchen."
+  }
+}

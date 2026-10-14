@@ -1,0 +1,56 @@
+{
+  "id": "right-for-you-arco-automatico",
+  "slug": "arco-automatico",
+  "product_id": "arco-automatico",
+  "headline": "Is the Arco Automatico right for you?",
+  "intro": "The Automatico grinds, doses, tamps, and brews with one touch. It is the fastest path from whole beans to specialty-grade espresso. But automatic means trade-offs, and if you value hands-on control, this is not your machine.",
+  "hero_image_alt": "Arco Automatico espresso machine in matte black on a bright, clean kitchen counter, its touchscreen interface glowing softly, a freshly brewed espresso with perfect crema in a glass cup beneath the spout, no clutter, no accessories, emphasising the simplicity of the setup",
+  "perfect_for": [
+    "You are switching from capsules or pods and want real coffee from whole beans without learning barista technique.",
+    "You live in a household where multiple people want different drinks \u2014 espresso, lungo, cappuccino \u2014 and nobody wants to be responsible for operating a manual machine.",
+    "You appreciate good coffee but have zero interest in the process \u2014 you want the result without the ritual.",
+    "You want one appliance on the counter that handles everything: grinding, brewing, and milk texturing, with no separate grinder taking up space."
+  ],
+  "not_ideal_for": [
+    "You find the manual process of making espresso enjoyable \u2014 the Automatico removes the hands-on involvement that craft baristas consider the entire point.",
+    "You want to experiment with grind size, dose, pre-infusion, or pressure profiling \u2014 the Automatico offers 5 grind settings and automatic pressure. That is enough for good espresso, not enough for obsessive dialling in.",
+    "You are a single person who drinks one black espresso per day \u2014 the Automatico's complexity and price are overkill for that use case, and a Primo or Nano would serve you better."
+  ],
+  "what_you_need_to_know": [
+    "The built-in grinder has 5 settings. This is a deliberate simplification \u2014 it covers the range from fine espresso to a coarser lungo grind. It will not give you the micro-adjustment control of a dedicated grinder, but for the vast majority of users, one of the five settings will produce excellent results with any quality bean.",
+    "The automatic milk system textures milk to a preset consistency based on the drink you select. It makes very good cappuccinos and lattes. It does not make latte art \u2014 the foam consistency is optimised for taste and drinkability, not for artistic pouring.",
+    "Cleaning is automated but not optional. The Automatico runs a rinse cycle on startup and shutdown, and prompts you for a deep clean every 200 cycles. Ignoring the maintenance prompts will degrade the coffee quality and shorten the machine's life."
+  ],
+  "common_objections": [
+    {
+      "objection": "Do automatic machines make real espresso?",
+      "honest_answer": "The Automatico uses the same extraction principles as our manual machines \u2014 9 bar of pressure through freshly ground coffee. The espresso it produces is genuine and, in blind taste tests, difficult to distinguish from a well-pulled manual shot. Where it differs is in flexibility: a skilled barista on a Studio will produce better espresso than the Automatico's best, but the Automatico's worst is much better than the Studio's worst."
+    },
+    {
+      "objection": "Is it worth \u20ac1,099 when I could get a manual machine and grinder for less?",
+      "honest_answer": "In pure equipment terms, a Primo plus a Macinino costs \u20ac428 and arguably makes better espresso in skilled hands. The Automatico's price buys you convenience: one appliance, one button, no learning curve, and consistent results regardless of who operates it. If you value your time more than the craft experience, the Automatico earns its price every morning."
+    },
+    {
+      "objection": "Will coffee snobs judge me for owning one?",
+      "honest_answer": "Some might. We won't. The Automatico exists because we believe great coffee should be accessible to people who don't want to become baristas. If the coffee tastes good to you and fits your life, it is the right choice. The best machine is the one you actually use every day."
+    }
+  ],
+  "alternative_if_not_right": {
+    "product_id": "arco-primo",
+    "rationale": "If you want a simpler, less expensive entry into manual espresso, the Primo at \u20ac299 pairs with the Macinino grinder for an approachable hands-on workflow."
+  },
+  "persona_match_score": {
+    "morning-minimalist": 3,
+    "upgrader": 1,
+    "craft-barista": 1,
+    "traveller": 1,
+    "non-barista": 5,
+    "office-manager": 4
+  },
+  "persona_tags": ["non-barista", "office-manager"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Is the Arco Automatico Right for You? \u2014 Honest Buying Guide | Arco",
+    "meta_description": "The Arco Automatico (\u20ac1,099) grinds, tamps, and brews with one touch. Here's an honest look at who it's built for, what it can't do, and when a manual machine is the better choice."
+  }
+}

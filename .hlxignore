@@ -9,4 +9,5 @@ test/*
 tools/*
 drafts/*
 content/*
+data/**/*.json
 .env.example

@@ -1,0 +1,48 @@
+{
+  "id": "how-competition-baristas-dial-in",
+  "slug": "how-competition-baristas-dial-in",
+  "category": "advanced",
+  "title": "How Competition Baristas Dial In: What the Pros Do Differently",
+  "difficulty": "advanced",
+  "read_time_minutes": 9,
+  "persona_tags": ["craft-barista"],
+  "intent_tags": ["research", "own"],
+  "hero_image_alt": "A barista competition setup with three espresso cups aligned on a presentation bar, a knock box and grinder beside the machine, a hand-written preparation sheet taped to the side of the grinder listing dose yield and time, focused overhead stage lighting, professional and precise atmosphere",
+  "intro": "World Barista Championship competitors spend hundreds of hours preparing four drinks that will be judged in fifteen minutes. Their level of precision — measuring every variable, testing every bean lot, refining every profile — goes far beyond what any home barista needs to do daily. But the principles behind competition preparation are immensely instructive. Understanding what the pros do differently — and what you can borrow — will elevate your home practice.",
+  "body": [
+    {
+      "heading": "The WBC Preparation Mindset",
+      "content": "Competition baristas approach dialing in with a mindset that most home baristas never consider: total variable control. Everything that can be measured is measured. Everything that can be standardized is standardized. The goal is to remove randomness so that the only variables left are the ones they intentionally adjust. This begins months before the competition. Competitors select a specific coffee — often a single lot from a single farm, sometimes a specific section of a farm — and buy enough of it to practice with for months. They profile the coffee's extraction behavior at different grind sizes, temperatures, doses, yields, and pressure profiles, building a comprehensive map of how the bean responds. They test different water mineral compositions, because water chemistry affects extraction and flavor. They may test three or four water recipes — varying the calcium, magnesium, and bicarbonate levels — before settling on one that brings out the best in their chosen bean. They calibrate their grinder by measuring particle size distribution, not just dialing by feel. They log every shot in spreadsheets, tracking EY, TDS, dose, yield, time, temperature, humidity, and ambient temperature. This is not obsessive — it is systematic. By controlling everything they can control, they ensure that the variation in their shots comes from intentional choices, not from uncontrolled variables."
+    },
+    {
+      "heading": "Competitor-Level Detail in Practice",
+      "content": "At competition level, the standard recipe is just a starting point. Competitors will pull 20 to 30 shots in a single practice session, adjusting in increments far smaller than most home baristas would consider. A grind change of half a micron — invisible to the naked eye — produces a measurable change in TDS and a perceptible change in flavor at competition sensitivity. Temperature adjustments of 0.3 degrees Celsius are tested and tasted. Yield adjustments of 0.5 grams are evaluated. This precision is possible because competitors eliminate other sources of variation. Their puck preparation is so consistent that distribution and tamping are not variables — they are constants. Their water recipe is fixed. Their machine temperature is verified with a thermocouple, not trusted to the PID display. With all other variables locked, the tiny incremental changes in grind, dose, and yield become audible in the cup. For home baristas, the lesson is not to buy a thermocouple and a particle sizer (though you can). The lesson is about the power of consistency. The more consistent you are in the variables you can control — dose accuracy, tamp pressure, puck prep routine, machine warm-up time — the more you can hear the effect of the variables you intentionally change. Consistency amplifies your ability to learn."
+    },
+    {
+      "heading": "What Home Baristas Can Borrow",
+      "content": "You do not need to train like a WBC competitor. But several competition principles translate directly to home practice with minimal effort. First, lock your dose. Weigh every dose to within 0.1 grams. This single discipline eliminates the most common source of shot-to-shot variation at home. Second, standardize your puck prep sequence. Do the same steps in the same order every time — grind, WDT, level, tamp — so that puck preparation becomes a constant, not a variable. Third, warm up your machine fully. Competitors flush the group head and run blank shots until the brew temperature stabilizes. At home, give your machine at least 20 minutes (single boiler) or 30 minutes (dual boiler) before pulling your first real shot. Fourth, take notes. Competitors log everything. You do not need a spreadsheet, but a simple notebook entry — date, grind setting, dose, yield, time, taste — for your morning shot builds a knowledge base that compounds over weeks and months. Fifth, taste deliberately. Competitors taste every shot with full attention, not while scrolling their phone. When you pull a shot, give it 30 seconds of focused tasting. These five habits — precise dosing, consistent prep, full warm-up, note-taking, and deliberate tasting — require no special equipment and will make a noticeable difference in your espresso within a week."
+    },
+    {
+      "heading": "The Role of Water Chemistry",
+      "content": "One area where competition preparation diverges most from typical home practice is water. Most home baristas use whatever comes out of the tap, perhaps filtered through a basic charcoal filter. Competitors recognize that water chemistry profoundly affects extraction. The key minerals are calcium and magnesium, which act as extraction agents — they bond with coffee compounds and help dissolve them into solution. More minerals generally mean more extraction. Bicarbonate acts as a buffer, neutralizing acids. Higher bicarbonate reduces perceived acidity and can make a bright coffee taste flatter. The total mineral content (measured in parts per million, or ppm) and the ratio of calcium to magnesium to bicarbonate create a water profile that interacts uniquely with each coffee. The SCA recommends a total dissolved solids (different from coffee TDS) of 75 to 250 ppm for brewing water, with an ideal target around 150 ppm. At home, the simplest way to experiment with water is to start with distilled or reverse-osmosis water and add a mineral concentrate. Products like Third Wave Water provide pre-measured mineral packets that create a consistent water profile designed for espresso. The difference between tap water and properly mineralized water can be as dramatic as a grind size change — it is that impactful. If you have ever wondered why your espresso at home does not taste like the same beans at a good cafe, water is often the missing variable."
+    }
+  ],
+  "key_takeaways": [
+    "Competition baristas control every variable — water chemistry, particle size, temperature to 0.3 degrees — to isolate intentional adjustments.",
+    "The power of competition preparation comes from consistency: when everything else is locked, tiny changes become audible in the cup.",
+    "Home baristas can borrow five key habits: precise dosing, standardized puck prep, full machine warm-up, note-taking, and deliberate tasting.",
+    "Water chemistry is one of the most impactful and most overlooked variables — mineral content and buffering directly affect extraction and flavor.",
+    "You do not need competition-grade equipment to benefit from competition-grade discipline."
+  ],
+  "related_products": ["arco-doppio"],
+  "related_guides": ["tds-and-extraction-yield", "building-a-cupping-vocabulary", "dialing-in-new-beans", "using-a-refractometer"],
+  "related_experience": "cultural",
+  "cta": {
+    "label": "Start Your Precision Journey with the Arco Doppio",
+    "url": "/products/arco-doppio"
+  },
+  "seo": {
+    "title": "How Competition Baristas Dial In Espresso: Lessons for Home | Arco",
+    "meta_description": "Learn how World Barista Championship competitors dial in — variable control, water chemistry, micro-adjustments — and what home baristas can borrow. Advanced guide from Arco."
+  }
+}

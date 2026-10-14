@@ -1,0 +1,37 @@
+{
+  "id": "exp-se-004",
+  "slug": "new-year-upgrade",
+  "title": "New Year Upgrade",
+  "persona_tag": "resolution-maker",
+  "experience_archetype": "January Resolution",
+  "hero_image_alt": "A January kitchen with grey morning light, a new Arco Primo machine freshly unboxed on the counter beside packing materials, a person reading the setup guide with a cup of coffee from their old machine beside them, a sense of fresh beginnings",
+  "hero_headline": "New year. New setup. The resolution that actually sticks.",
+  "hero_subtext": "January is for upgrading the things that matter most — starting with the first thing you do every morning.",
+  "editorial_intro": "January has a clarity that the rest of the year lacks. The holiday indulgence is over, the new calendar is blank, and there is a particular appetite for improvement that only the first week of the year provides. Most resolutions fail by February. This one will not, because the payoff arrives every morning at seven o'clock, in a cup.",
+  "editorial_body": "You made the decision on New Year's Day. Not at midnight, not in the euphoria of fireworks and champagne, but at eight in the morning, standing in the kitchen with a hangover and a cup of coffee from the machine you have been tolerating for two years. The coffee was, as usual, acceptable. And acceptable, you decided in the thin light of January the first, was no longer sufficient.\n\nThe resolution was simple: upgrade the coffee setup. Not the dramatic, research-intensive, spend-months-comparing-machines kind of upgrade that paralyses you into inaction. A practical upgrade. The right machine for your current skill level and budget, ordered this week, delivered next week, producing better coffee by the fifteenth of January.\n\nThis is where most people fail. They set the ambition too high — the top-of-the-line machine, the professional grinder, the full accessory kit — and the price tag makes them hesitate, and the hesitation turns into research, and the research turns into a browser with forty-seven open tabs, and by March they are still drinking from the old machine and the resolution is dead.\n\nThe Arco Primo is the antidote to this paralysis. It is the machine you should buy when the answer to 'What do you want from your coffee?' is 'Better.' Not perfect. Not competition-grade. Better. Measurably, immediately, enjoyably better than what you have now, at a price that does not require a spreadsheet to justify.\n\nYou ordered it on January the second. It arrived on the sixth. Unpacking it took ten minutes. Setting it up took five. By 7:15 on the morning of January the seventh, you were pulling your first shot, and by 7:16 you were tasting something that confirmed, immediately and unmistakably, that the resolution was the right one.\n\nThe difference was not subtle. Your old machine — a pressurised system with a built-in grinder that produced an approximation of espresso — had been delivering something drinkable but flat. The Primo, paired with even a basic separate grinder like the Macinino, produced espresso with body, crema, and flavour notes you had never tasted in your own kitchen. The coffee was recognisably the same beans, but the extraction was different — cleaner, sweeter, more complete.\n\nThe Macinino was the other half of the upgrade, and in some ways the more important half. Your old machine's built-in grinder produced particles of wildly varying sizes — some powder, some boulders — which meant the water found easy paths through the coffee bed and left other areas under-extracted. The Macinino's burrs produce a consistent, even grind that extracts uniformly. The result in the cup is the difference between a blurry photograph and a sharp one. Same subject, dramatically different clarity.\n\nJanuary's daily improvement curve is steep and satisfying. In the first week, you are learning the machine — where the sweet spot is on the grinder, how long to warm the group head, what eighteen grams looks like in the portafilter. By the second week, the routine is smooth and the shots are consistent. By the third week, you are experimenting — trying a different bean, adjusting the dose by half a gram, pulling a slightly longer shot to see what the tail end of the extraction adds.\n\nThis is why the resolution sticks. Unlike a gym membership or a diet, the coffee upgrade pays off every single day. The improvement is not theoretical or deferred — it is tangible, in the cup, every morning. You taste it. You enjoy it. And the enjoyment reinforces the habit, which reinforces the investment, which makes you glad, every morning, that you decided to upgrade.\n\nThe cost, calculated per cup, is lower than you expected. The Primo and the Macinino together cost less than what you spent on takeaway espressos in the last eight months. Good beans — genuinely good beans from a specialty roaster, not the supermarket stuff — add roughly thirty pence per double shot. The total daily cost of excellent home espresso is less than a pound. The takeaway you were buying on the way to work cost three fifty.\n\nBy the end of January, the old machine is in a box in the cupboard. You have not thought about it once. The Primo sits on the counter with the quiet confidence of something that belongs there, and the morning routine — grind, tamp, extract, taste — has become the fixed point around which the day organises itself.\n\nFebruary arrives. The gyms are emptying. The diets are crumbling. The ambitious journals bought on January the first are gathering dust. But your coffee is still excellent, still improving, still the first good thing that happens every morning. The resolution held.\n\nNext January, you might upgrade again. The Doppio is already in your browser history. But that is next year's decision. For now, the Primo is everything you needed — the entry point that turned a vague aspiration for better coffee into a daily, concrete, delicious reality.\n\nThe best resolutions are not the most ambitious. They are the ones that make tomorrow morning better than today's.",
+  "product_bundle": [
+    { "product_id": "arco-primo", "role": "anchor" },
+    { "product_id": "arco-macinino", "role": "primary" },
+    { "product_id": "arco-doppio", "role": "accessory" }
+  ],
+  "bundle_headline": "Your January Resolution setup",
+  "bundle_intro": "The upgrade that pays off every morning, starting the week it arrives.",
+  "featured_guides": [
+    "guide-primo-setup-walkthrough",
+    "guide-first-week-with-new-machine",
+    "guide-upgrading-step-by-step"
+  ],
+  "related_blog_posts": [
+    "blog-new-year-coffee-upgrade",
+    "blog-cost-per-cup-home-vs-cafe",
+    "blog-entry-machines-that-actually-deliver"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "resolution-maker",
+  "persona_tags": ["resolution-maker", "upgrader", "entry-level"],
+  "intent_tags": ["new-year", "upgrade", "entry-level", "resolution", "january"],
+  "seo": {
+    "title": "New Year Upgrade — The January Resolution That Actually Sticks | Arco Coffee",
+    "meta_description": "Upgrade your coffee setup in January with the Arco Primo and Macinino. The resolution that pays off every morning, costs less than takeaway, and never fails by February."
+  }
+}

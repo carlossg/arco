@@ -38,7 +38,7 @@ const VECTORIZE_BATCH_SIZE = 100;
 const EMBEDDING_DELAY_MS = 50; // rate-limit courtesy delay between embedding calls
 const MAX_TEXT_CHARS = 2000; // ~500 tokens, fits bge-small context window
 
-const CONTENT_ROOT = resolve(import.meta.dirname, '../../../content');
+const CONTENT_ROOT = resolve(import.meta.dirname, '../../../data');
 const HERO_CATALOG_PATH = join(CONTENT_ROOT, 'hero-image-catalog.json');
 const STORIES_INDEX_PATH = join(CONTENT_ROOT, 'stories-index.json');
 const EXPERIENCES_INDEX_PATH = join(CONTENT_ROOT, 'experiences-index.json');
@@ -380,7 +380,7 @@ function chunkContent(filePath) {
   if (!slug) return [];
 
   const title = data.title || data.name || '';
-  const category = data.category || filePath.split('/content/')[1]?.split('/')[0] || 'unknown';
+  const category = data.category || filePath.split('/data/')[1]?.split('/')[0] || 'unknown';
   const difficulty = data.difficulty || '';
   const personaTags = data.persona_tags || (data.persona_tag ? [data.persona_tag] : []);
 

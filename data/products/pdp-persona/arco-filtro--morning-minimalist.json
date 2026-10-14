@@ -1,0 +1,27 @@
+{
+  "base_product_id": "arco-filtro",
+  "persona_tag": "morning-minimalist",
+  "headline": "Fresh-ground pour-over. No complexity.",
+  "subheadline": "The Arco Filtro's stepped dial clicks into place and stays there. Find your favourite setting once, and every morning your pour-over, AeroPress, or French press coffee is ground perfectly -- no adjustments, no guessing.",
+  "hero_image_alt": "Arco Filtro grinder in matte black beside a simple pour-over dripper on a clean white countertop, freshly ground coffee in a paper filter, a single ceramic mug, peaceful morning light through a window",
+  "description_long": "If your morning routine is a pour-over or a French press, the Filtro makes the one upgrade that matters most -- fresh grinding -- completely effortless. The 30-step clicked dial snaps into place and holds its setting permanently. Find your sweet spot once, and then every morning is the same: beans in, button press, grounds out. The compact design sits neatly beside your dripper or press, the 200g hopper holds enough for several days of brewing, and at 3.2 kg it barely takes up any counter space. The 48mm flat burrs are calibrated specifically for coarser grinds, so your pour-over and French press water flows evenly through a uniform bed of grounds. The result is a cleaner, sweeter cup -- every day, with no added effort. If you've been using pre-ground coffee for your filter brew, the Filtro is the simplest path to a noticeably better morning.",
+  "use_case_headline": "Better pour-over starts with better grinding.",
+  "use_case_body": "Clicked dial: set once, forget forever. Filter-optimised burrs: even grind for clean extraction. Compact footprint: sits beside your dripper. Fresh-ground filter coffee with exactly one new step in your morning.",
+  "recommended_accessories": [
+    "Bean Vault",
+    "Double-Wall Glasses",
+    "Cleaning Kit"
+  ],
+  "related_blog_posts": [
+    "morning-routine-three-minutes",
+    "your-first-home-espresso",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Better Mornings, Ground Fresh",
+  "cta_primary_url": "/products/arco-filtro",
+  "social_proof_quote": {
+    "quote": "I do a V60 every morning and the Filtro made it taste noticeably better with zero extra effort. I set the dial to step 18, and now I just press the button. It's the most elegant addition to my morning routine I've ever made.",
+    "name": "Emma W.",
+    "location": "Bristol, United Kingdom"
+  }
+}

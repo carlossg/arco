@@ -11,9 +11,9 @@
  */
 
 /* eslint-disable import/extensions, import/no-relative-packages */
-import productsData from '../../../content/products/products.json';
-import productProfilesData from '../../../content/metadata/product-profiles.json';
-import accessoriesData from '../../../content/accessories/accessories.json';
+import productsData from '../../../data/products/products.json';
+import productProfilesData from '../../../data/metadata/product-profiles.json';
+import accessoriesData from '../../../data/accessories/accessories.json';
 /* eslint-enable import/extensions, import/no-relative-packages */
 
 import {

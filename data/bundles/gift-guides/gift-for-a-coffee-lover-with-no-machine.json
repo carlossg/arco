@@ -1,0 +1,45 @@
+{
+  "id": "bundle-gg-002",
+  "slug": "gift-for-a-coffee-lover-with-no-machine",
+  "title": "Gift for a Coffee Lover Who Doesn't Have a Machine",
+  "headline": "They love coffee but they have never made their own espresso. Change that.",
+  "editorial_intro": "Buying someone their first espresso machine is one of those gifts that changes a daily habit permanently. The key is choosing something approachable enough that they actually use it, not something that intimidates them into leaving it in the box.",
+  "tiers": [
+    {
+      "tier_name": "The Gentle Introduction — Under €250",
+      "price_range": "€89–€199",
+      "products": [
+        {
+          "product_id": "arco-nano",
+          "description": "The Nano is the least intimidating espresso machine Arco makes, and that is deliberate. It heats up in 60 seconds, occupies less counter space than a toaster, and produces shots that will genuinely surprise someone used to instant coffee or capsules. If they live in a small flat or have never expressed interest in 'becoming a barista,' this is the right choice."
+        },
+        {
+          "product_id": "arco-viaggio",
+          "description": "If they travel frequently or live somewhere without a fixed kitchen setup, the Viaggio is an unexpectedly delightful gift. It weighs 340 grams, needs no electricity, and makes real espresso using a manual lever. Pair it with a bag of freshly roasted beans and you have given them something they will use on every trip."
+        }
+      ]
+    },
+    {
+      "tier_name": "The Proper Starter Setup — Under €500",
+      "price_range": "€299–€428",
+      "products": [
+        {
+          "product_id": "arco-primo",
+          "description": "The Primo is the gift that says: I believe you will take this seriously. A proper single-boiler espresso machine with a 58mm portafilter, 90-second heat-up, and the kind of build quality that lasts for years. This is the entry point that does not feel like a compromise."
+        },
+        {
+          "product_id": "arco-macinino",
+          "description": "If the budget allows, pair the Primo with a Macinino grinder. Fresh grinding is the single biggest factor in espresso quality, and a good entry-level grinder transforms the experience from 'pretty good' to 'wait, I made this?' Consider the Morning Minimalist Kit for the best value on this combination."
+        }
+      ]
+    }
+  ],
+  "hero_image_alt": "An Arco Primo espresso machine wrapped with a simple linen ribbon on a kitchen countertop, a small card that reads 'your first real espresso' leaning against it, the Macinino grinder beside it, morning light through a frosted window",
+  "persona_tags": ["morning-minimalist", "non-barista"],
+  "intent_tags": ["discover", "decide"],
+  "seo": {
+    "title": "Gift Guide — First Espresso Machine for a Coffee Lover | Arco",
+    "meta_description": "The best first espresso machines to gift a coffee lover: from the €89 Viaggio portable to the €299 Primo home setup. Approachable, beautiful, and genuinely useful.",
+    "canonical_url": "/bundles/gift-guides/gift-for-a-coffee-lover-with-no-machine"
+  }
+}

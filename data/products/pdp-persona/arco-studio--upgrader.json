@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-studio",
+  "persona_tag": "upgrader",
+  "headline": "The machine you've been building towards.",
+  "subheadline": "Flow profiling, a saturated group head, and dual stainless boilers -- the Studio is what happens when you stop compromising and start investing in the espresso you actually want.",
+  "hero_image_alt": "Arco Studio espresso machine in matte black on a sophisticated kitchen counter, a rich espresso flowing from the saturated group head into a clear cortado glass, pressure gauge visible, warm ambient lighting",
+  "description_long": "You've dialed in your current machine as far as it can go. You've upgraded the basket, experimented with grind settings, maybe even modded the OPV. But you keep hitting the same ceiling -- inconsistent temperature, no flow control, limited steam power. The Studio removes every one of those limitations. Its saturated group head eliminates the thermal drift that plagues E61 machines. The integrated flow control lets you manipulate extraction pressure in real time, opening up an entirely new dimension of flavour. Dual stainless steel boilers give you independent temperature control for brew and steam, with no interaction between the two. The built-in shot timer and pressure gauge mean you have the data to improve, not just repeat. This isn't an incremental upgrade. It's the machine that makes the previous upgrades unnecessary.",
+  "use_case_headline": "Why the Studio is the endgame upgrade.",
+  "use_case_body": "Saturated group vs. E61: faster thermal recovery, less temperature surfing, more consistent shots. Integrated flow control: profiles you couldn't attempt on a standard machine. Dual stainless boilers with independent PID: set your brew and steam temperatures independently, adjusted in 0.5-degree increments. Every upgrade you've been chasing, built in from the start.",
+  "recommended_accessories": [
+    "Precision Scale",
+    "Distribution Tool",
+    "Milk Pitcher",
+    "Tamper Set",
+    "Dosing Cup"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "morning-routine-three-minutes",
+    "your-first-home-espresso"
+  ],
+  "cta_primary_label": "See What's Possible",
+  "cta_primary_url": "/products/arco-studio",
+  "social_proof_quote": {
+    "quote": "I went from a Lelit MaraX to the Studio and the difference is night and day. The saturated group eliminated my temperature inconsistency issues completely, and the flow control opened up flavours I didn't know were in my beans. Worth every cent.",
+    "name": "Andre S.",
+    "location": "Lisbon, Portugal"
+  }
+}

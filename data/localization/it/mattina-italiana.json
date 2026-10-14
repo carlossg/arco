@@ -1,0 +1,37 @@
+{
+  "id": "loc-it-002",
+  "slug": "mattina-italiana",
+  "title": "La mattina italiana con Arco",
+  "market": "Italy",
+  "language": "it",
+  "persona_tag": "morning-minimalist",
+  "hero_image_alt": "Una cucina italiana con luce del primo mattino, una macchina Arco Primo su un piano di marmo chiaro, una tazzina di espresso fumante, una finestra aperta su un cortile con piante di limone, atmosfera intima e silenziosa",
+  "hero_headline": "La tua mattina inizia con un gesto preciso.",
+  "hero_subtext": "Novanta secondi. Un espresso. La giornata che prende forma.",
+  "editorial_intro": "Non hai bisogno di svegliarti prima. Hai bisogno di quei primi minuti per te — silenziosi, intenzionali, scanditi dal ritmo di un caffè fatto come si deve. La mattina italiana non è fretta. È concentrazione.",
+  "editorial_body": "Ti svegli prima della sveglia. Non per virtù, ma per abitudine — il corpo ha imparato che quei minuti prima del rumore valgono più di qualsiasi ora dopo. La luce è ancora bassa, filtrata dalle tapparelle o dalle persiane, e la casa ha quel silenzio specifico che esiste solo tra le sei e le sette.\n\nVai in cucina e il gesto comincia. Prendi i chicchi dal barattolo — lo stesso barattolo, lo stesso scaffale, da mesi. Il Macinino li riduce in polvere con quel suono breve e deciso che ormai è parte del paesaggio sonoro della tua mattina come il canto degli uccelli o il rumore lontano di una serranda che si alza. La polvere cade nel portafiltro. Premi con il tamper, uniforme, senza esagerare. Il portafiltro entra nella Primo con un quarto di giro.\n\nPremi il pulsante. Novanta secondi fa la macchina era fredda. Adesso l'acqua attraversa il caffè a nove bar di pressione e il liquido scende nella tazzina — denso, con quella crema color nocciola che ti dice tutto quello che devi sapere sulla qualità dell'estrazione senza bisogno di strumenti o misurazioni.\n\nPorti la tazzina dove ti siedi al mattino. Il tavolo della cucina, il davanzale, la sedia sul balcone se la stagione lo permette. Non guardi il telefono. Non ancora. C'è un confine qui, sottile ma reale, tra il silenzio e il rumore della giornata. Il caffè è la soglia.\n\nIl primo sorso è quello che conta. Oggi il caffè ha una nota di cioccolato fondente con un finale leggermente agrumato — il sacchetto di beans etiopi che hai aperto venerdì scorso. Ieri era più rotondo, più dolce, con sentori di frutta a nocciolo. La differenza dipende da un grammo in più, da due secondi in meno, e tu apprezzi la sottigliezza senza analizzarla troppo. Non stai cercando di diventare un barista. Stai semplicemente prestando attenzione.\n\nQuesto è il malinteso fondamentale sulla semplicità. La gente pensa che significhi rinuncia, fare a meno. Ma tu, in piedi qui con questa singola tazzina di caffè, non stai facendo a meno di niente. Hai eliminato il superfluo — le capsule, le cialde, le macchine con diciotto pulsanti e un montalatte che non hai mai imparato a usare — e quello che resta è la cosa in sé. Caffè. Buon caffè. Fatto bene.\n\nLa Primo è stata la scelta giusta per te perché fa una cosa sola e la fa come si deve. Estrae un espresso consistente ogni volta, si riscalda in meno di un minuto e mezzo, e occupa meno spazio sul bancone di un tostapane. Il Macinino macina con una precisione sufficiente a farti smettere di pensare alla grana dopo le prime settimane. Hai trovato la tua impostazione, l'hai segnata, e adesso fa semplicemente parte del processo.\n\nQuando finisci la tazzina, la casa comincia a svegliarsi. Qualcuno si muove al piano di sopra. Una porta si apre. La giornata arriva, e tu sei pronto — non perché la caffeina ti ha scosso dal torpore, ma perché ti sei regalato cinque minuti di attenzione deliberata a qualcosa che ti importa.\n\nLa mattina italiana non è un concetto romantico. È un fatto quotidiano. E ogni giorno, comincia così.",
+  "product_bundle": [
+    { "product_id": "arco-primo", "role": "anchor" },
+    { "product_id": "arco-macinino", "role": "primary" },
+    { "product_id": "arco-tamper", "role": "accessory" }
+  ],
+  "featured_guides": [
+    "guide-dialling-in-espresso",
+    "guide-essential-grind-settings"
+  ],
+  "cta": {
+    "text": "Scopri il Kit Mattina Minimalista",
+    "url": "/it/bundles/persona-kits/morning-minimalist-kit",
+    "secondary_text": "Esplora la Arco Primo",
+    "secondary_url": "/it/products/arco-primo"
+  },
+  "seo": {
+    "title": "La mattina italiana — Il rituale dell'espresso con Arco | Arco Coffee",
+    "meta_description": "Il rituale del caffè mattutino in Italia: novanta secondi, un espresso perfetto, la giornata che prende forma. Scopri come la Arco Primo accompagna la tua mattina."
+  },
+  "hreflang": {
+    "en": "/en/italian-morning-ritual",
+    "it": "/it/mattina-italiana",
+    "de": "/de/italienisches-morgenritual"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "bundle-pk-001",
+  "slug": "morning-minimalist-kit",
+  "title": "The Morning Minimalist Kit",
+  "persona_tag": "morning-minimalist",
+  "headline": "Everything you need for one perfect cup. Nothing else.",
+  "editorial_intro": "The Morning Minimalist Kit assembles the essentials for a quiet, repeatable espresso ritual in under four minutes. No clutter, no extras, no decisions — just the tools that earn their place on your counter.",
+  "products": [
+    {
+      "product_id": "arco-primo",
+      "role": "anchor",
+      "include_rationale": "The Primo's 90-second heat-up and intuitive single-boiler workflow are purpose-built for the person who values speed and simplicity without sacrificing shot quality."
+    },
+    {
+      "product_id": "arco-macinino",
+      "role": "primary",
+      "include_rationale": "Twenty stepped settings mean you find your grind once and repeat it every morning — no fiddling, no second-guessing, just consistent grounds in the portafilter."
+    },
+    {
+      "product_id": "arco-tamper",
+      "role": "accessory",
+      "include_rationale": "A properly weighted 58mm flat tamper replaces the plastic one in the box and gives you a level, consistent tamp every time."
+    },
+    {
+      "product_id": "arco-cleaning-kit",
+      "role": "accessory",
+      "include_rationale": "Backflush tablets, a group head brush, and microfibre cloths keep the Primo running cleanly for years with minimal weekly effort."
+    }
+  ],
+  "total_price_eur": 450,
+  "price_display": "€450",
+  "savings_vs_individual_eur": 28,
+  "what_you_get_list": [
+    "Arco Primo compact espresso machine",
+    "Arco Macinino stepped burr grinder",
+    "58mm precision flat tamper",
+    "Complete cleaning kit with backflush tablets, group head brush, and microfibre cloths",
+    "Free shipping and consolidated packaging"
+  ],
+  "editorial_body": "The morning minimalist does not want options. They want the right option, delivered without ceremony, every single day. This kit exists because the most common mistake new espresso buyers make is assembling their setup piecemeal — a machine here, a grinder three weeks later, a tamper that does not quite fit sourced from a marketplace at midnight. The result is friction where there should be flow. We assembled the Morning Minimalist Kit to eliminate that friction entirely. The Primo and Macinino were designed to complement each other: the grinder's stepped settings map cleanly to the Primo's forgiving brew temperature, so dialling in a new bag takes minutes rather than days. The included tamper is the same 58mm flat base that professional baristas use, weighted to encourage a level press without overthinking technique. And the cleaning kit means your machine stays in condition from day one, rather than slowly degrading until you notice something tastes off. Open the box, set up once, and your morning ritual is complete. The counter stays clean. The coffee stays consistent. The morning stays yours.",
+  "related_experience": "morning-minimalist",
+  "hero_image_alt": "The Morning Minimalist Kit arranged on a clean white countertop: Arco Primo espresso machine, Macinino grinder, precision tamper, and cleaning supplies, bathed in soft morning light through a nearby window",
+  "persona_tags": ["morning-minimalist", "espresso-purist"],
+  "intent_tags": ["decide"],
+  "seo": {
+    "title": "Morning Minimalist Kit — Primo + Macinino Espresso Bundle | Arco",
+    "meta_description": "The Morning Minimalist Kit pairs the Arco Primo, Macinino grinder, precision tamper, and cleaning kit for a complete espresso setup. Save €28 at €450.",
+    "canonical_url": "/bundles/persona-kits/morning-minimalist-kit"
+  }
+}

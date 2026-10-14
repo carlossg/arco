@@ -1,0 +1,48 @@
+{
+  "id": "building-a-cupping-vocabulary",
+  "slug": "building-a-cupping-vocabulary",
+  "category": "advanced",
+  "title": "Building a Cupping Vocabulary: From Flavor Wheel to Espresso Language",
+  "difficulty": "advanced",
+  "read_time_minutes": 9,
+  "persona_tags": ["craft-barista"],
+  "intent_tags": ["research", "own"],
+  "hero_image_alt": "A printed SCA coffee flavor wheel on a table surrounded by cupping bowls, two spoons, a notepad with tasting descriptors written in ink, and a small cup of espresso, warm overhead lighting, a hand reaching for one of the cupping spoons, inviting and studious atmosphere",
+  "intro": "Tasting coffee is one thing. Describing what you taste is another skill entirely. A cupping vocabulary — a shared language of flavor descriptors — lets you communicate about coffee with precision, record meaningful tasting notes, and develop your palate far faster than vague impressions of 'good' or 'bad' ever could. This guide introduces the flavor wheel, explains formal cupping protocol, and shows you how to apply cupping language to your daily espresso.",
+  "body": [
+    {
+      "heading": "The SCA Flavor Wheel",
+      "content": "The Specialty Coffee Association (SCA) flavor wheel is the most widely used sensory reference in the coffee industry. It was developed through collaborative research by SCA and World Coffee Research, using a lexicon of over 100 scientifically defined flavor attributes. The wheel is organized in concentric rings. The innermost ring contains broad categories: fruity, sour/fermented, green/vegetative, roasted, spices, nutty/cocoa, sweet, floral. Moving outward, each category branches into more specific descriptors. 'Fruity' breaks into 'berry,' 'dried fruit,' 'citrus fruit,' and 'other fruit.' 'Berry' further divides into 'blackberry,' 'raspberry,' 'blueberry,' and 'strawberry.' This hierarchy is the key to building vocabulary. You start with broad strokes — 'this espresso tastes fruity' — and over time, as your palate calibrates, you narrow the description: 'this tastes like dried blueberry with a honey-like sweetness.' The wheel also includes less pleasant descriptors — papery, rubbery, medicinal, pipe tobacco — which are equally important. Being able to identify and name off-flavors helps you diagnose roasting defects, stale beans, or extraction problems. A roasty, ashy note might point to over-extraction rather than a bad bean. A fermented, winey note might indicate a natural-process coffee, not a defect. The language gives you diagnostic power."
+    },
+    {
+      "heading": "Formal Cupping Protocol",
+      "content": "Cupping is the standardized tasting method used by coffee professionals worldwide to evaluate coffee quality. Understanding the protocol, even if you only cup casually at home, trains your palate in a disciplined way. The basic procedure is as follows: weigh a fixed dose of coarsely ground coffee (typically 8.25 grams) into a cupping bowl. Pour 150 milliliters of water at 93 degrees Celsius directly onto the grounds and let it steep for 4 minutes. A crust of grounds forms on the surface. After 4 minutes, break the crust by pushing the grounds aside with a spoon while leaning in to smell the released aromatics — this is the 'break,' and it reveals the coffee's fragrance at its most intense. Skim the remaining grounds and foam from the surface with two spoons. Let the coffee cool to about 70 degrees, then taste by slurping aggressively from a spoon. The slurp aerates the coffee across your entire palate, giving you the fullest possible flavor impression. As the coffee cools further, taste again every few minutes — flavors change as temperature drops, and many positive attributes emerge below 60 degrees. Score each coffee on fragrance/aroma, flavor, aftertaste, acidity, body, balance, sweetness, uniformity, cleanness, and overall impression. This structured approach forces you to evaluate each dimension separately rather than forming a single 'good or bad' impression, which is exactly how you build vocabulary."
+    },
+    {
+      "heading": "Applying Cupping Language to Espresso",
+      "content": "Cupping is performed with a coarse grind and immersion brewing — a very different extraction method from espresso. But the vocabulary transfers perfectly. When you pull an espresso shot and taste it, you can apply the same descriptive framework. Start with the broad categories: is this shot fruity? Nutty? Chocolatey? Floral? Then narrow down. If fruity, what kind of fruit — citrus, stone fruit, berry? If chocolatey, is it dark chocolate, milk chocolate, or cocoa powder? Body is an especially important dimension in espresso. Because espresso is concentrated, the mouthfeel ranges from thin and tea-like (under-extracted) to thick and syrupy (well-extracted, high TDS) to gritty and chalky (over-extracted with fines). Learning to articulate body helps you communicate the textural dimension of a shot, not just the flavor. Acidity in espresso is often more intense than in cupped coffee due to the concentration. Descriptors like 'bright,' 'sparkling,' 'malic' (apple-like), or 'citric' (lemon-like) help you characterize whether the acidity is pleasant and lively or unpleasant and sharp. With practice, your tasting notes for each shot become more specific and more useful: instead of 'a little sour,' you write 'citric acidity, thin body, needs finer grind.' That specificity directly informs your next adjustment."
+    },
+    {
+      "heading": "Practical Exercises for Building Your Palate",
+      "content": "Vocabulary without calibration is just words. To truly build your palate, you need to taste deliberately and create reference points. Here are four exercises that professionals use. First, the extraction triangle: pull three shots of the same coffee — one deliberately under-extracted (coarse grind, fast shot), one in the sweet spot, and one deliberately over-extracted (fine grind, slow shot). Taste all three side by side and write descriptors for each. This calibrates your palate to the sensory signatures of extraction levels. Second, the origin comparison: buy two single-origin coffees from different regions — say, an Ethiopian and a Colombian — at the same roast level. Cup them or pull espresso from each and describe the differences. This trains you to distinguish origin character from roast character. Third, the process comparison: buy two coffees from the same origin but different processing methods — a washed and a natural from Ethiopia, for example. The washed will be cleaner and more acidic; the natural will be fruitier and more fermented. Describing these differences builds your vocabulary around processing. Fourth, triangulation cupping: have someone prepare three cups — two of the same coffee and one different. Taste all three and identify the odd one out. This sharpens your discrimination ability and proves to yourself that your palate is developing. Repeat these exercises monthly, and within six months your vocabulary and palate precision will be unrecognizable compared to where you started."
+    }
+  ],
+  "key_takeaways": [
+    "The SCA flavor wheel organizes coffee flavors from broad categories to specific descriptors — learn the inner ring first, then narrow down.",
+    "Formal cupping protocol evaluates coffee across multiple dimensions: fragrance, flavor, acidity, body, sweetness, and balance.",
+    "Cupping vocabulary transfers directly to espresso tasting — use the same descriptors for daily shot evaluation.",
+    "Build your palate with deliberate exercises: extraction triangles, origin comparisons, process comparisons, and triangulation cupping.",
+    "Specific tasting notes like 'citric acidity, thin body' are more useful for dialing in than vague impressions like 'a little sour.'"
+  ],
+  "related_products": ["arco-doppio"],
+  "related_guides": ["reading-a-shot", "what-is-extraction", "dialing-in-new-beans", "how-competition-baristas-dial-in"],
+  "related_experience": "cultural",
+  "cta": {
+    "label": "Explore Arco's Brewing Guides",
+    "url": "/guides"
+  },
+  "seo": {
+    "title": "Building a Coffee Cupping Vocabulary for Espresso | Arco",
+    "meta_description": "Learn the SCA flavor wheel, formal cupping protocol, and practical exercises to build a precise coffee vocabulary. Apply cupping language to your daily espresso. Advanced guide from Arco."
+  }
+}

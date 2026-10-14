@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-studio",
+  "persona_tag": "craft-barista",
+  "headline": "Flow profiling. Saturated group. Full control.",
+  "subheadline": "Dual stainless boilers, a rotary pump with integrated flow control, shot timer, and pressure gauge -- the Studio is a prosumer machine built for baristas who want to manipulate every variable.",
+  "hero_image_alt": "Arco Studio espresso machine with walnut accents, flow control paddle mid-adjustment during extraction, pressure gauge reading 6 bar during a declining pressure profile, precision scale beneath the cup showing real-time weight",
+  "description_long": "The Studio is where Arco stops holding your hand. The saturated 58mm group head delivers thermal stability measured in tenths of a degree. The rotary pump feeds through an integrated flow control valve that lets you manipulate flow rate in real time -- ramp pre-infusion, hold pressure, decline through the tail of the shot. Dual stainless steel boilers (300ml brew, 500ml steam) are independently PID-controlled, and the built-in shot timer syncs with the pump so you're never guessing. The 3-litre tank supports reservoir operation or direct plumbing for zero-interruption workflows. At 18 kg, it's substantial enough for thermal mass, compact enough for a home counter. This is the machine you buy when you've stopped asking how to make espresso and started asking what espresso can become.",
+  "use_case_headline": "For the barista who profiles, not just pulls.",
+  "use_case_body": "Real-time flow control. Saturated group for thermal precision. Dual PID with 0.1-degree resolution. Integrated shot timer. Plumb-in capable. The Studio gives you every lever -- literally and figuratively -- to chase the shot you've been imagining.",
+  "recommended_accessories": [
+    "Precision Scale",
+    "Distribution Tool",
+    "Dosing Cup",
+    "Knock Box",
+    "Group Head Brush"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "Explore the Studio",
+  "cta_primary_url": "/products/arco-studio",
+  "social_proof_quote": {
+    "quote": "The flow control on the Studio is exceptional. I'm running declining pressure profiles on light roasts that I couldn't achieve on my previous Decent. The saturated group holds temperature like nothing I've used at home. This is a serious machine.",
+    "name": "Hiroshi T.",
+    "location": "Tokyo, Japan"
+  }
+}

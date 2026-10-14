@@ -1,0 +1,53 @@
+{
+  "id": "the-architect-who-built-a-coffee-corner",
+  "slug": "the-architect-who-built-a-coffee-corner",
+  "category": "community",
+  "title": "The Architect Who Built a Coffee Corner",
+  "author": {
+    "name": "Sophie Chen",
+    "role": "Community Manager",
+    "bio_short": "Sophie manages the Arco community program and spends her weekends visiting home setups across Europe. She drinks cortados exclusively and judges every kitchen by its counter space."
+  },
+  "published_date": "2025-11-04T08:00:00Z",
+  "read_time_minutes": 8,
+  "hero_image_alt": "A sunlit corner of a modern kitchen featuring a custom-built walnut coffee station with an Arco Studio espresso machine, a precision grinder, and neatly arranged accessories on floating shelves, architectural blueprints pinned to the wall behind, warm morning light casting long shadows across polished concrete countertops",
+  "tags": ["home-setup", "kitchen-design", "community-profile", "architecture", "coffee-station"],
+  "persona_tags": ["craft-barista", "upgrader"],
+  "intent_tags": ["discover", "inspire"],
+  "intro": "When Beatrice Gallo redesigned her Milan apartment, she gave the coffee corner the same attention her firm gives museum lobbies. What started as a simple alcove for an espresso machine became a purpose-built station with dedicated power, plumbing, and lighting. We visited her home to see what happens when an architect approaches the morning ritual as a design problem.",
+  "body": [
+    {
+      "heading": "The Brief She Wrote for Herself",
+      "content": "Beatrice runs a small architecture practice in the Navigli district of Milan, specializing in cultural spaces — galleries, libraries, small museums. She is used to writing project briefs for clients, so when she renovated her own apartment she did the same thing for every room. The brief for the kitchen was two pages. The brief for the coffee corner alone was four. The requirements were specific: a dedicated twenty-amp circuit so the machine and grinder could run simultaneously without tripping the breaker; a direct water line with a filter stage so she would never fill a reservoir again; counter depth of at least sixty centimeters to accommodate the machine, grinder, and a knockbox without anything hanging over the edge; task lighting at exactly the right angle to illuminate the portafilter basket during distribution; and a surface material that could handle hot metal, water spills, and coffee stains without showing wear. She chose honed Ceppo di Gre, a Lombard limestone traditionally used in Milanese courtyards, for the countertop. It is nearly indestructible and develops a patina that she says makes it look better the more you use it. The backsplash is unlacquered brass sheet that will oxidize over the years. She wanted materials that age alongside the ritual rather than fighting it."
+    },
+    {
+      "heading": "Choosing the Machine as a Design Object",
+      "content": "Beatrice had been using a Moka pot and a French press for years before deciding to invest in a proper espresso setup. She spent three months researching machines, visiting showrooms, and pulling test shots at a specialty shop in Brera that lets customers try before buying. The Arco Studio won on two fronts: thermal performance and physical form. She was drawn to the proportions — the ratio of group head to body, the radius of the corners, the way the drip tray sits flush with the frame. As an architect she notices details most people gloss over, and she said the Studio looked like it had been designed by someone who understood that a machine sitting on a countertop is also a piece of furniture. But she is quick to clarify that aesthetics were secondary. The PID temperature stability convinced her that the Studio would produce consistent shots without the babysitting she had seen friends endure with cheaper machines. She paired it with the Arco Preciso grinder because the stepless adjustment let her dial in Ethiopian single origins that shift flavor dramatically with small grind changes. The two machines sit side by side on the limestone counter, and she positioned them so the power cables route through a channel she routed into the underside of the shelf above — invisible from standing height."
+    },
+    {
+      "heading": "How the Space Changed the Routine",
+      "content": "Before the renovation, Beatrice made coffee in the corner of a cluttered kitchen counter, wedged between a toaster and a fruit bowl. The process was something she got through on the way to the office. Now, she arrives at the coffee corner before six each morning and spends twenty minutes in what she calls a decompression sequence — weighing beans, grinding, distributing, tamping, and extracting. She pulls two shots: one to drink as a straight espresso while reviewing her schedule, and one as a small milk drink she carries to her drafting desk. The dedicated space removed friction. Everything is within arm's reach, stored in specific positions. The tamper sits in a magnetic holder she had fabricated by a metalworker who supplies her firm with custom hardware for installations. The dosing cup nests in a turned walnut cradle made by a furniture maker she collaborated with on a gallery project in Turin. Every object has a place, and returning each object to its place after use is part of the ritual. She described it as the same satisfaction an architect feels closing a well-fitted door — the click of things aligning. The space has also become the social center of the apartment. When colleagues visit for working sessions, the coffee corner is where everyone gathers first. She says more design problems have been solved standing at that counter than sitting at the conference table in her office."
+    },
+    {
+      "heading": "Lessons for Designing Your Own Coffee Corner",
+      "content": "When we asked Beatrice what advice she would give to someone planning a dedicated coffee space at home, she offered four principles. First, start with the workflow, not the aesthetic. Map out every movement you make when preparing coffee — where you reach, where you set things down, where waste goes — and let that sequence dictate the layout. A beautiful station that forces you to cross your arms or turn around mid-process will frustrate you daily. Second, invest in the surface. Your countertop will endure heat, moisture, impact, and abrasion. Choose a material rated for that abuse rather than selecting something pretty and hoping for the best. Natural stone, solid surface composites, and stainless steel all perform well. Laminate and untreated wood do not. Third, think about services. A dedicated electrical circuit prevents voltage drops that can affect machines with PID controllers. A plumbed water line removes the single most tedious part of owning an espresso machine — filling and draining the reservoir. Even if you cannot plumb in immediately, rough in the supply and drain lines during renovation so the option exists later. Fourth, light the workspace properly. An overhead pendant looks nice but casts shadows exactly where you need to see — inside the portafilter basket and on the surface of the espresso as it flows. Under-cabinet LED strips angled toward the counter solve this without adding visual clutter. Beatrice's coffee corner took four months from brief to completion. She says it was the most disproportionately rewarding project she has ever designed — a tiny space that improved every single morning."
+    }
+  ],
+  "key_takeaways": [
+    "Designing a coffee corner starts with mapping the workflow, not choosing the aesthetic.",
+    "Durable countertop materials like natural stone or stainless steel handle the demands of daily espresso preparation.",
+    "Dedicated electrical circuits and plumbed water lines remove daily friction and protect sensitive equipment.",
+    "Proper task lighting under cabinets prevents shadows where you need visibility most."
+  ],
+  "related_products": ["arco-studio", "arco-preciso"],
+  "related_experience": "craft-barista",
+  "cta": {
+    "label": "Explore the Arco Studio",
+    "url": "/products/arco-studio"
+  },
+  "related_posts": ["from-capsules-to-craft", "home-barista-of-the-month-sarah", "what-our-engineers-drink-at-home"],
+  "seo": {
+    "title": "The Architect Who Built a Coffee Corner | Arco",
+    "meta_description": "How architect Beatrice Gallo designed a purpose-built espresso station in her Milan apartment — from dedicated wiring and plumbing to honed limestone countertops and the Arco Studio."
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "id": "arco-viaggio-vs-arco-nano",
+  "slug": "arco-viaggio-vs-arco-nano",
+  "title": "Arco Viaggio vs Arco Nano",
+  "products": ["arco-viaggio", "arco-nano"],
+  "comparison_headline": "How portable does your espresso really need to be?",
+  "comparison_intro": "The Viaggio is a fully manual, hand-powered espresso maker that weighs 340 grams and fits in a jacket pocket. The Nano is an ultra-compact electric machine that makes genuine espresso on a countertop. One goes anywhere. The other needs a plug but asks less of you.",
+  "hero_image_alt": "Arco Viaggio manual espresso maker and Arco Nano electric machine, the Viaggio shown on a worn leather travel journal with a camping mug, the Nano on a minimal kitchen shelf, both in matte black, natural window light, illustrating the contrast between travel and home use",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac89",
+      "product_b": "\u20ac199"
+    },
+    "boiler_type": {
+      "product_a": "None \u2014 fully manual, no electricity required",
+      "product_b": "Thermoblock (compact)"
+    },
+    "heat_up_time": {
+      "product_a": "N/A \u2014 uses pre-heated water from a kettle or thermos",
+      "product_b": "45 seconds"
+    },
+    "pressure_control": {
+      "product_a": "Hand pressure \u2014 up to 9 bar with proper technique, variable by nature",
+      "product_b": "15 bar pump (9 bar at group), fixed"
+    },
+    "steam_capability": {
+      "product_a": "None \u2014 black espresso only",
+      "product_b": "Panarello-style steam wand for basic frothing"
+    },
+    "grind_compatibility": {
+      "product_a": "Requires pre-ground coffee or a hand grinder \u2014 forgiving of grind inconsistency",
+      "product_b": "Works with any electric grinder; 54 mm portafilter"
+    },
+    "suitable_for": {
+      "product_a": "Travellers, campers, hotel room brewers, and anyone who wants espresso where there is no electricity",
+      "product_b": "Small kitchens, secondary stations, and anyone who wants electric convenience in the smallest possible footprint"
+    },
+    "not_suitable_for": {
+      "product_a": "Anyone who wants consistency without technique \u2014 the Viaggio is only as good as the person using it",
+      "product_b": "Anyone who actually needs to travel with their espresso setup \u2014 the Nano needs mains power and a stable surface"
+    }
+  },
+  "recommendation_by_persona": {
+    "traveller": {
+      "recommended_product_id": "arco-viaggio",
+      "rationale": "Nothing else we make fits in a carry-on \u2014 the Viaggio is the only option for genuine espresso in a hotel room, a campsite, or a mountain hut."
+    },
+    "morning-minimalist": {
+      "recommended_product_id": "arco-nano",
+      "rationale": "The Nano plugs in and heats up in 45 seconds \u2014 the Viaggio demands a kettle, hand-grinding, and technique that doesn't match a calm morning routine."
+    },
+    "non-barista": {
+      "recommended_product_id": "arco-nano",
+      "rationale": "The Nano automates the hard part \u2014 the Viaggio requires you to generate pressure by hand, which takes practice to do well."
+    },
+    "craft-barista": {
+      "recommended_product_id": "arco-viaggio",
+      "rationale": "For an experienced barista, the Viaggio's hand-pressure control is part of the appeal \u2014 it's espresso stripped to its essential physics."
+    }
+  },
+  "verdict": "These are not really competing products \u2014 they solve different problems. If you need espresso where there is no plug, the Viaggio is remarkable for what it achieves at 340 grams. If you want the smallest possible electric espresso machine for a permanent spot in your kitchen, the Nano delivers more consistency with less effort. Many of our customers own both.",
+  "related_blog_posts": [
+    "morning-routine-three-minutes",
+    "espresso-bars-worth-visiting-in-milan",
+    "your-first-home-espresso"
+  ],
+  "persona_tags": ["traveller", "morning-minimalist", "non-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Viaggio vs Arco Nano \u2014 Portable Manual vs Ultra-Compact Electric Espresso | Arco",
+    "meta_description": "The Arco Viaggio (\u20ac89) is a 340g hand-powered espresso maker for travel. The Arco Nano (\u20ac199) is our smallest electric machine. Choose between true portability and plug-in convenience."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-ufficio",
+  "persona_tag": "office-manager",
+  "headline": "50 cups a day. Zero complaints.",
+  "subheadline": "The Arco Ufficio is built for offices that take coffee seriously. Dual commercial boilers, auto-dosing, self-cleaning cycles, and multi-user profiles -- reliable quality at scale.",
+  "hero_image_alt": "Arco Ufficio commercial espresso machine in matte black in a bright modern office kitchen, two espresso cups being pulled simultaneously from the dual group heads, a small queue of colleagues chatting nearby, professional and energetic atmosphere",
+  "description_long": "Bad office coffee is a morale problem disguised as a facilities decision. The Ufficio fixes it. Dual commercial boilers and a rotary pump deliver consistent espresso across 50 or more cups per day without performance degradation. The auto-dosing system means any team member can produce a quality shot without training -- load the portafilter, press the button, and the machine handles grind dose and extraction time. Self-cleaning cycles run on schedule, reducing maintenance to a weekly five-minute check. Multi-user profiles let individuals save their preferences, and the plumbed-in design eliminates tank refills entirely. Per-cup cost with quality beans runs under 20 cents -- a fraction of pod systems and an order of magnitude less than a daily cafe run. The ROI calculation isn't close.",
+  "use_case_headline": "The business case for better office coffee.",
+  "use_case_body": "At 20 cents per cup versus 45 cents for pods or 4 euros at a cafe, the Ufficio pays for itself within 6 to 9 months for a team of 15. Self-cleaning reduces maintenance labour. Auto-dosing eliminates training requirements. Dual group heads handle peak demand without queues. This is a productivity investment, not just a perk.",
+  "recommended_accessories": [
+    "Cleaning Kit",
+    "Descaling Solution",
+    "Knock Box",
+    "Milk Pitcher",
+    "Group Head Brush"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "Request an Office Quote",
+  "cta_primary_url": "/products/arco-ufficio",
+  "social_proof_quote": {
+    "quote": "We replaced three pod machines with one Ufficio. Coffee quality went through the roof, monthly costs dropped by 40%, and the machine basically maintains itself. Our team of 20 goes through about 35 cups a day and it never misses a beat. Best facilities decision I've made.",
+    "name": "Henrik J.",
+    "location": "Gothenburg, Sweden"
+  }
+}

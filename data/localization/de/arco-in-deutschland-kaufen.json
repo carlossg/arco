@@ -1,0 +1,37 @@
+{
+  "id": "loc-de-005",
+  "slug": "arco-in-deutschland-kaufen",
+  "title": "Arco in Deutschland kaufen",
+  "market": "Germany",
+  "language": "de",
+  "persona_tag": "morning-minimalist",
+  "hero_image_alt": "Schaufenster eines spezialisierten Kaffee-Fachgeschäfts in einer deutschen Innenstadt mit Arco-Maschinen im Ausstellungsbereich, klare Typografie im Schaufenster, Pflasterstein-Bürgersteig, herbstliches Tageslicht, einladende aber nicht aufdringliche Atmosphäre",
+  "hero_headline": "Anschauen. Ausprobieren. Entscheiden.",
+  "hero_subtext": "Arco-Maschinen sind bei ausgewählten Fachhändlern in ganz Deutschland erhältlich — und im Online-Shop mit kostenlosem Versand.",
+  "editorial_intro": "Eine Espressomaschine kauft man nicht blind. Man möchte wissen, wie sie sich anfühlt, wie viel Platz sie einnimmt, wie der erste Espresso schmeckt. Deshalb arbeiten wir mit Fachhändlern zusammen, die Arco nicht nur verkaufen, sondern verstehen.",
+  "editorial_body": "Arco ist in Deutschland über drei Kanäle erhältlich: autorisierte Fachhändler, unser Online-Shop und unser Showroom in Berlin.\n\nUnsere Fachhändler sind keine Elektronikmärkte. Es sind unabhängige Fachgeschäfte, die sich auf Kaffee spezialisiert haben — Orte, an denen die Beratung mit der Frage beginnt, wie Sie Ihren Kaffee trinken, nicht mit der Frage, wie viel Sie ausgeben möchten. Jeder autorisierte Arco-Händler in Deutschland hat unsere Schulung durchlaufen und kann nicht nur die technischen Unterschiede zwischen den Modellen erklären, sondern auch konkrete Empfehlungen geben, die auf Ihrem Erfahrungsstand, Ihrem Platzangebot und Ihren Geschmacksvorlieben basieren.\n\nDas aktuelle Händlernetz umfasst Standorte in Berlin, Hamburg, München, Köln, Frankfurt, Stuttgart, Düsseldorf und Leipzig. In jeder dieser Städte finden Sie mindestens einen Partner, der die vollständige Arco-Produktpalette ausstellt und Ihnen vor Ort einen Espresso mit der Maschine Ihrer Wahl zubereitet. Termine sind nicht zwingend erforderlich, werden aber empfohlen — damit sich der Berater ausreichend Zeit für Sie nehmen kann.\n\nUnser Berliner Showroom in Kreuzberg ist mehr als ein Verkaufsraum. Jede Maschine steht in einer realistischen Küchenumgebung, angeschlossen und betriebsbereit. Sie können selbst mahlen, tampen und einen Espresso ziehen — unter Anleitung unseres Teams, aber in Ihrem eigenen Tempo. Der Showroom ist Dienstag bis Samstag von 10 bis 18 Uhr geöffnet. Der Kaffee geht auf uns.\n\nFür den Online-Kauf bieten wir:\n\nKostenloser Versand innerhalb Deutschlands für alle Bestellungen. Lieferung erfolgt innerhalb von zwei bis drei Werktagen über einen spezialisierten Paketdienst, der auf empfindliche Geräte eingestellt ist — nicht der günstigste Versandweg, aber der sicherste.\n\n30 Tage Rückgaberecht ohne Angabe von Gründen. Wenn die Maschine nicht zu Ihnen passt, holen wir sie kostenlos ab und erstatten den vollen Kaufpreis. Unser Rückgabequote liegt bei unter 4 %. Nicht weil wir es kompliziert machen, sondern weil die Maschinen überzeugen.\n\nZwei Jahre gesetzliche Gewährleistung, ergänzt durch unsere erweiterte Arco-Garantie: fünf Jahre auf alle mechanischen Komponenten bei registrierten Produkten. Die Registrierung dauert zwei Minuten und erfordert nur Ihren Namen, Ihre Email-Adresse und die Seriennummer.\n\nErsatzteilversorgung für mindestens zehn Jahre nach Produktionsende. Jede Dichtung, jedes Ventil, jeder Schalter ist einzeln bestellbar. Reparaturanleitungen sind kostenlos als PDF und Video verfügbar.\n\nTechnischer Support auf Deutsch, per Email und Telefon, Montag bis Freitag von 9 bis 17 Uhr. Unser Support-Team besteht aus geschulten Baristas, nicht aus Call-Center-Mitarbeitern — die Antwort auf Ihre Frage kommt von jemandem, der dieselbe Maschine zu Hause stehen hat.\n\nWenn Sie Arco-Fachhändler werden möchten, kontaktieren Sie uns über das Partnerformular. Wir suchen Fachgeschäfte, die unsere Werte teilen: ehrliche Beratung, technische Kompetenz und die Überzeugung, dass eine gute Maschine ein Werkzeug ist, das man ein Leben lang besitzt.",
+  "product_bundle": [
+    { "product_id": "arco-primo", "role": "featured" },
+    { "product_id": "arco-doppio", "role": "featured" },
+    { "product_id": "arco-studio", "role": "featured" }
+  ],
+  "featured_guides": [
+    "guide-choosing-your-first-arco",
+    "guide-showroom-visit"
+  ],
+  "cta": {
+    "text": "Händler in Ihrer Nähe finden",
+    "url": "/de/store-locator",
+    "secondary_text": "Online-Shop mit kostenlosem Versand",
+    "secondary_url": "/de/shop"
+  },
+  "seo": {
+    "title": "Arco in Deutschland kaufen — Fachhändler und Online-Shop | Arco Coffee",
+    "meta_description": "Arco-Maschinen in Deutschland: autorisierte Fachhändler in 8 Städten, Showroom in Berlin, Online-Shop mit kostenlosem Versand und 30 Tagen Rückgaberecht."
+  },
+  "hreflang": {
+    "en": "/en/arco-in-the-uk",
+    "it": "/it/dove-trovare-arco-in-italia",
+    "de": "/de/arco-in-deutschland-kaufen"
+  }
+}

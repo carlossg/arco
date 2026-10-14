@@ -1,0 +1,249 @@
+{
+  "id": "maint-consumable-schedule",
+  "slug": "consumable-replacement-schedule",
+  "title": "Consumable Replacement Schedule",
+  "description": "Know exactly when to replace gaskets, screens, burrs, filters, and other wear parts on your Arco equipment. Each item has both a time-based and usage-based trigger — whichever comes first.",
+  "hero_image_alt": "A neatly organized layout of Arco replacement parts — gaskets, shower screens, burr sets, and filter cartridges — each labeled with replacement intervals",
+  "data": {
+    "consumables": [
+      {
+        "id": "group-gasket",
+        "name": "Group Head Gasket",
+        "description": "The rubber or silicone seal between the group head and the portafilter. When it wears, you will notice water leaking around the portafilter ears during extraction, or the portafilter becoming either too loose or too tight.",
+        "applicable_machines": ["arco-nano", "arco-classica", "arco-barista-pro", "arco-lever", "arco-maestro", "arco-dual-boiler"],
+        "not_applicable": ["arco-steam", "arco-automatico"],
+        "time_trigger_months": 12,
+        "usage_trigger": "Approximately 1,000-1,500 shots, or when you can no longer lock the portafilter snugly, or see water seeping during extraction.",
+        "signs_of_wear": [
+          "Water drips from around the portafilter during brewing",
+          "Portafilter handle no longer stops at 90 degrees — goes too far or not far enough",
+          "Gasket appears cracked, compressed flat, or has coffee permanently embedded in it",
+          "Visible channeling at the edges of the puck"
+        ],
+        "part_number": "ARCO-GASKET-58 (for 58mm machines) / ARCO-GASKET-53 (for Nano)",
+        "price": 6,
+        "diy_difficulty": "easy",
+        "replacement_notes": "Remove the old gasket with a flat-head screwdriver or gasket pick. Clean the groove thoroughly. Press the new gasket in by hand, then lock the portafilter to seat it."
+      },
+      {
+        "id": "shower-screen",
+        "name": "Shower Screen",
+        "description": "The perforated metal disc that distributes water evenly across the coffee puck. Over time, coffee oils and minerals clog the tiny holes, leading to uneven extraction.",
+        "applicable_machines": ["arco-nano", "arco-classica", "arco-barista-pro", "arco-lever", "arco-maestro", "arco-dual-boiler"],
+        "not_applicable": ["arco-steam", "arco-automatico"],
+        "time_trigger_months": 12,
+        "usage_trigger": "Replace annually or when holes are visibly clogged even after soaking in cleaning solution.",
+        "signs_of_wear": [
+          "Uneven water distribution visible through a bottomless portafilter",
+          "Holes appear blocked even after cleaning",
+          "Surface is pitted or corroded",
+          "Extraction runs noticeably slower than usual with the same grind"
+        ],
+        "part_number": "ARCO-SCREEN-58 / ARCO-SCREEN-53",
+        "price": 8,
+        "diy_difficulty": "easy",
+        "replacement_notes": "Remove the screw holding the screen (use a stubby Phillips screwdriver). The dispersion plate may come out with it. Clean both seats. Install new screen and re-tighten the screw — snug, not overtight."
+      },
+      {
+        "id": "dispersion-plate",
+        "name": "Dispersion Plate (Gicleur)",
+        "description": "Sits behind the shower screen and creates backpressure to ensure even water flow. Less frequently replaced than the screen, but can corrode over time.",
+        "applicable_machines": ["arco-classica", "arco-barista-pro", "arco-maestro", "arco-dual-boiler"],
+        "not_applicable": ["arco-steam", "arco-nano", "arco-automatico", "arco-lever"],
+        "time_trigger_months": 24,
+        "usage_trigger": "Every 2 years or when pitting or corrosion is visible on the surface.",
+        "signs_of_wear": [
+          "Visible pitting or mineral deposits that do not clean off",
+          "Water sprays unevenly even with a new shower screen",
+          "Coffee tastes metallic"
+        ],
+        "part_number": "ARCO-DISP-58",
+        "price": 12,
+        "diy_difficulty": "easy",
+        "replacement_notes": "Comes out when you remove the shower screen screw. Replace both at the same time for best results."
+      },
+      {
+        "id": "piston-seal",
+        "name": "Lever Piston Seal",
+        "description": "The seal around the piston in lever group heads. Critical for maintaining consistent extraction pressure. Unique to the Arco Lever.",
+        "applicable_machines": ["arco-lever"],
+        "not_applicable": ["arco-steam", "arco-nano", "arco-automatico", "arco-classica", "arco-barista-pro", "arco-maestro", "arco-dual-boiler"],
+        "time_trigger_months": 12,
+        "usage_trigger": "Annually, or immediately if you notice the lever feeling loose or extraction pressure dropping.",
+        "signs_of_wear": [
+          "Lever offers less resistance than it used to",
+          "Water bypasses the puck and drips without building pressure",
+          "Inconsistent extraction pressure shot-to-shot",
+          "Visible scoring on the piston surface"
+        ],
+        "part_number": "ARCO-PISTON-SEAL",
+        "price": 15,
+        "diy_difficulty": "moderate",
+        "replacement_notes": "Remove the group head cap and extract the piston. Replace the seal and the backup ring. Apply food-safe silicone grease to the new seal and the cylinder bore before reassembly."
+      },
+      {
+        "id": "solenoid-valve-kit",
+        "name": "Solenoid Valve Rebuild Kit",
+        "description": "O-rings and plunger components for the three-way solenoid valve that controls water flow and pressure release after extraction.",
+        "applicable_machines": ["arco-nano", "arco-classica", "arco-barista-pro", "arco-maestro", "arco-dual-boiler"],
+        "not_applicable": ["arco-steam", "arco-automatico", "arco-lever"],
+        "time_trigger_months": 24,
+        "usage_trigger": "Every 2 years, or when the machine fails to release pressure after brewing (drip tray overflow, group sputtering).",
+        "signs_of_wear": [
+          "Water continues to drip from the group after the pump stops",
+          "No pressure release sound (the pssst) when you stop the shot",
+          "Drip tray fills faster than usual",
+          "Portafilter is hard to remove immediately after a shot due to trapped pressure"
+        ],
+        "part_number": "ARCO-SOLENOID-KIT",
+        "price": 18,
+        "diy_difficulty": "moderate",
+        "replacement_notes": "Requires removing the solenoid body from the group. Replace all o-rings and the plunger. Reassemble and test. If unfamiliar, have a technician do this — incorrect assembly can cause leaks."
+      },
+      {
+        "id": "water-filter-cartridge",
+        "name": "Water Filter Cartridge",
+        "description": "Drop-in cartridge that reduces hardness, chlorine, and off-flavours from your water supply.",
+        "applicable_machines": ["arco-nano", "arco-automatico", "arco-classica", "arco-barista-pro", "arco-lever", "arco-maestro", "arco-dual-boiler"],
+        "not_applicable": ["arco-steam"],
+        "time_trigger_months": 2,
+        "usage_trigger": "Every 50 litres (Standard) or 40 litres (Pro). Some machines track this automatically.",
+        "signs_of_wear": [
+          "Flow rate from the cartridge decreases noticeably",
+          "Water taste changes (chlorine smell returns)",
+          "The cartridge's flow indicator (if present) turns red",
+          "Scale begins to appear on the shower screen sooner than expected"
+        ],
+        "part_number": "ARCO-FILTER-STD / ARCO-FILTER-PRO / ARCO-FILTER-TASTE",
+        "price": 12,
+        "diy_difficulty": "easy",
+        "replacement_notes": "Remove the old cartridge from the reservoir. Soak the new cartridge in water for 5 minutes before inserting. Run 500ml of water through the machine and discard before making drinks."
+      },
+      {
+        "id": "grinder-burrs-flat-38",
+        "name": "Replacement Burr Set — 38mm Flat (Mini Grinder)",
+        "description": "The cutting discs that grind your coffee. As burrs dull, particle size becomes less uniform and the grinder produces more heat.",
+        "applicable_machines": ["arco-mini-grinder"],
+        "not_applicable": [],
+        "time_trigger_months": 36,
+        "usage_trigger": "After approximately 300-400 kg of coffee ground, or 3 years, whichever comes first.",
+        "signs_of_wear": [
+          "Grind takes noticeably longer for the same dose",
+          "You need to grind significantly finer than before to achieve the same extraction time",
+          "Grind feels warm to the touch immediately after grinding",
+          "Visible flattening or chipping on burr edges"
+        ],
+        "part_number": "ARCO-BURR-38F",
+        "price": 35,
+        "diy_difficulty": "moderate",
+        "replacement_notes": "Unscrew the top burr carrier (3 screws). Lift out the old burrs. Clean all surfaces with a brush. Align and seat the new burrs. Re-calibrate the zero point after installation."
+      },
+      {
+        "id": "grinder-burrs-flat-50",
+        "name": "Replacement Burr Set — 50mm Flat (Macinino Home)",
+        "description": "Larger flat burrs for the Macinino Home. Designed for espresso-grade uniformity.",
+        "applicable_machines": ["arco-macinino-home"],
+        "not_applicable": [],
+        "time_trigger_months": 48,
+        "usage_trigger": "After approximately 500-600 kg of coffee, or 4 years.",
+        "signs_of_wear": [
+          "Same symptoms as 38mm burrs but at higher volumes",
+          "Espresso tastes less defined — muddy or flat compared to when the grinder was new"
+        ],
+        "part_number": "ARCO-BURR-50F",
+        "price": 55,
+        "diy_difficulty": "moderate",
+        "replacement_notes": "Same procedure as Mini Grinder but with larger carrier. Recalibrate zero point and season new burrs with 500g of inexpensive coffee before critical use."
+      },
+      {
+        "id": "grinder-burrs-conical-58",
+        "name": "Replacement Burr Set — 58mm Conical (Conico)",
+        "description": "Conical burr set for the Arco Conico. Conical burrs generally last longer than flat burrs at equivalent sizes.",
+        "applicable_machines": ["arco-conico"],
+        "not_applicable": [],
+        "time_trigger_months": 60,
+        "usage_trigger": "After approximately 700-900 kg of coffee, or 5 years.",
+        "signs_of_wear": [
+          "Grind consistency degrades — visible boulders mixed with fines",
+          "Motor sounds laboured at standard settings",
+          "Edges of the inner or outer burr are visibly rounded"
+        ],
+        "part_number": "ARCO-BURR-58C",
+        "price": 75,
+        "diy_difficulty": "moderate",
+        "replacement_notes": "Remove the hopper and upper burr housing. The inner (male) burr lifts off the drive shaft. The outer (female) burr is pressed into the housing — use the provided extraction tool. Recalibrate and season."
+      },
+      {
+        "id": "grinder-burrs-flat-64",
+        "name": "Replacement Burr Set — 64mm Flat (Macinino Pro)",
+        "description": "Premium flat burr set for the Macinino Pro. Titanium-coated for extended longevity.",
+        "applicable_machines": ["arco-macinino-pro"],
+        "not_applicable": [],
+        "time_trigger_months": 60,
+        "usage_trigger": "After approximately 800-1000 kg of coffee, or 5 years. The titanium coating extends life significantly over standard steel.",
+        "signs_of_wear": [
+          "Coating appears worn through (steel visible under the titanium layer)",
+          "Grind quality decreases despite proper calibration",
+          "Retention increases as worn burrs grip beans less efficiently"
+        ],
+        "part_number": "ARCO-BURR-64F-TI",
+        "price": 95,
+        "diy_difficulty": "moderate",
+        "replacement_notes": "Remove the upper burr assembly (3 Allen bolts). Clean the burr chamber thoroughly. Align new burrs using the provided alignment tool. Torque bolts to 2 Nm. Recalibrate zero and season with 1 kg of coffee."
+      },
+      {
+        "id": "anti-vacuum-valve",
+        "name": "Anti-Vacuum Valve (Steam Boiler)",
+        "description": "Prevents a vacuum forming in the steam boiler as it cools, which could collapse internal tubing. A small but critical safety component.",
+        "applicable_machines": ["arco-maestro", "arco-dual-boiler"],
+        "not_applicable": ["arco-steam", "arco-nano", "arco-automatico", "arco-classica", "arco-barista-pro", "arco-lever"],
+        "time_trigger_months": 24,
+        "usage_trigger": "Every 2 years as preventive maintenance. Immediately if you hear gurgling from the steam boiler during cooldown.",
+        "signs_of_wear": [
+          "Gurgling or sucking sounds from the top of the machine during cooldown",
+          "Steam pressure takes longer to build than usual",
+          "Small drips from the valve body"
+        ],
+        "part_number": "ARCO-AVV-01",
+        "price": 8,
+        "diy_difficulty": "easy",
+        "replacement_notes": "Unscrew the old valve from the boiler cap (usually hand-tight). Apply PTFE tape to the new valve threads. Screw in and hand-tighten plus a quarter turn with a wrench."
+      },
+      {
+        "id": "pump-rebuild-kit",
+        "name": "Vibratory Pump Rebuild Kit",
+        "description": "Piston, o-rings, and valve components for the ULKA/CEME vibratory pump used in most Arco machines. Rotary pump machines (some Maestro configurations) use a different kit.",
+        "applicable_machines": ["arco-nano", "arco-classica", "arco-barista-pro"],
+        "not_applicable": ["arco-steam", "arco-automatico", "arco-lever", "arco-maestro", "arco-dual-boiler"],
+        "time_trigger_months": 36,
+        "usage_trigger": "Every 3 years or 5,000+ shots. Earlier if pump noise increases or pressure drops.",
+        "signs_of_wear": [
+          "Pump is louder than when new — rattling or buzzing",
+          "Pressure gauge shows lower pressure than the 9-bar target",
+          "Flow rate has decreased even with the correct grind",
+          "Machine struggles to reach pressure with a blind basket during backflush"
+        ],
+        "part_number": "ARCO-PUMP-KIT-VIB",
+        "price": 22,
+        "diy_difficulty": "difficult",
+        "replacement_notes": "Requires opening the machine case. Disconnect the pump, disassemble, replace all o-rings and the piston. Reassemble and test. Recommended for experienced DIYers or service technicians."
+      }
+    ]
+  },
+  "persona_tags": ["maintenance-conscious", "diy-repairer", "long-term-owner"],
+  "intent_tags": ["replacement-parts", "maintenance", "wear-parts", "schedule"],
+  "related_products": [
+    "arco-descaling-solution",
+    "arco-cleaning-powder",
+    "arco-filter-standard",
+    "arco-group-head-brush"
+  ],
+  "cta": {
+    "label": "Order Replacement Parts",
+    "url": "/products/accessories/parts"
+  },
+  "seo": {
+    "title": "Consumable Replacement Schedule for Arco Equipment | Arco",
+    "meta_description": "Know exactly when to replace gaskets, shower screens, grinder burrs, and water filters on your Arco espresso machine and grinder. Time and usage triggers for every part."
+  }
+}

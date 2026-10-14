@@ -1,0 +1,38 @@
+{
+  "id": "loc-en-003",
+  "slug": "coffee-subscription-culture",
+  "title": "Building a Bean Subscription Workflow with Arco",
+  "market": "United Kingdom",
+  "language": "en-GB",
+  "persona_tag": "upgrader",
+  "hero_image_alt": "Three different bags of specialty coffee from UK roasters arranged on a kitchen countertop next to an Arco Preciso grinder, each bag a different colour with distinctive branding, one bag open with beans spilling out, a notebook with grind settings written in pencil beside them, natural daylight",
+  "hero_headline": "A new bag every fortnight. A better cup every morning.",
+  "hero_subtext": "How to build a bean subscription habit that works with your Arco setup — and why changing beans regularly is one of the best decisions you can make.",
+  "editorial_intro": "The UK has embraced coffee subscriptions more enthusiastically than almost any other market. A fortnightly bag from a roaster you trust transforms your home espresso from a static routine into an evolving experience. Here is how to make it work with your Arco equipment.",
+  "editorial_body": "The coffee subscription model is beautifully simple: a roaster sends you a bag of freshly roasted beans at regular intervals, and you make coffee with them. But the simplicity masks a genuine transformation in how you experience espresso at home. When you buy the same blend every time, your coffee tastes the same every morning. When you subscribe to a rotating selection, every fortnight brings a new origin, a new roast profile, a new set of flavour notes to discover. Your morning espresso becomes a conversation rather than a monologue.\n\nThe UK subscription market is mature and competitive, which is excellent news for consumers. Roasters like Square Mile, Hasbean, Assembly, Colonna, and dozens of smaller operations all offer subscription services with varying degrees of curation. Some let you choose every bag. Others surprise you based on your stated preferences. The best send tasting notes, brewing recommendations, and information about the farm or cooperative that grew the beans.\n\nHere is where your Arco setup matters. Changing beans regularly means changing your grind setting regularly, and this is where the difference between a stepped and stepless grinder becomes genuinely important.\n\nWith the Arco Macinino (stepped, 20 settings), changing beans is straightforward but approximate. You will find a setting that works well for most medium roasts — probably somewhere between 6 and 9 — and adjust up or down by one step for lighter or darker bags. This works. The coffee will be good. But you may occasionally find yourself between two settings, where one is slightly too coarse and the next is slightly too fine.\n\nWith the Arco Preciso (stepless), changing beans becomes precise. The infinite adjustment lets you dial in each new bag to within fractions of a step — a micro-turn of the collar that takes your shot from slightly sharp to perfectly balanced. If you are on a subscription that sends a different origin every fortnight, the Preciso rewards the investment by letting you extract the best from every bag rather than settling for 'close enough.'\n\nThe workflow for dialling in a new subscription bag is the same regardless of your grinder:\n\nDay one. The beans arrive. Ideally, they were roasted five to ten days ago — most UK subscription roasters time their dispatch to ensure this. Do not use them immediately. Give them a day to degas if they were roasted fewer than seven days ago.\n\nDay two. Pull your first shot using the grind setting from your previous bag. It will almost certainly be wrong, but it gives you a starting point. If the shot runs fast and tastes sour, grind finer. If it runs slow and tastes bitter, grind coarser. Adjust and pull another shot. Most new bags require two to four adjustments to dial in.\n\nDay three onward. You are dialled in. Enjoy. Note the grind setting in a small journal or on the bag itself — if you subscribe long enough, you will start seeing patterns. Ethiopian beans tend to need a finer grind. Brazilian ones tend to need coarser. Medium roasts fall in a predictable range. This knowledge accumulates quietly and makes each subsequent bag faster to dial in.\n\nA practical tip: if you use the Preciso or Zero, mark your current setting with a small piece of tape or a dot of correction fluid before adjusting for a new bag. If the new bag does not suit your taste, you can return to the previous setting precisely. This is less critical with the Macinino, where settings are already numbered.\n\nThe economics of subscriptions deserve a brief mention. Most UK specialty subscriptions cost between twelve and eighteen pounds per 250-gram bag, delivered fortnightly. That works out to roughly twenty-five to forty pounds per month — less than the cost of buying two flat whites per week from a specialty cafe. The beans are fresher than anything on a shop shelf, the variety is wider than any single retailer can offer, and the experience of tasting something genuinely new every two weeks is, frankly, one of the quiet pleasures of owning good espresso equipment.\n\nYour Arco machine does not care where the beans come from. It will extract a Kenyan AA with the same precision as a Colombian Huila. But the person drinking the espresso will care, very much, once they have experienced the difference between a coffee they chose out of habit and a coffee that was chosen for them by someone who roasts for a living.",
+  "product_bundle": [
+    { "product_id": "arco-preciso", "role": "anchor" },
+    { "product_id": "arco-doppio", "role": "primary" },
+    { "product_id": "arco-macinino", "role": "entry" }
+  ],
+  "featured_guides": [
+    "guide-dialling-in-espresso",
+    "guide-essential-grind-settings",
+    "guide-single-dose-workflow"
+  ],
+  "cta": {
+    "text": "Explore the Arco Preciso",
+    "url": "/en/products/arco-preciso",
+    "secondary_text": "Compare grinders: Macinino vs Preciso",
+    "secondary_url": "/en/products/comparison/arco-macinino-vs-arco-preciso"
+  },
+  "seo": {
+    "title": "Coffee Subscription Workflow with Arco — Bean Rotation Guide | Arco Coffee",
+    "meta_description": "How to build a coffee subscription habit that works with your Arco espresso setup. Dialling in new beans, choosing between stepped and stepless grinders, and making the most of rotating roasts."
+  },
+  "hreflang": {
+    "en": "/en/coffee-subscription-culture",
+    "it": "/it/abbonamento-caffe",
+    "de": "/de/kaffee-abonnement"
+  }
+}

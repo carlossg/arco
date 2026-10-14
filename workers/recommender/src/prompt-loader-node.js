@@ -248,7 +248,7 @@ function escapeNunjucksTokens(s) {
  * RecommenderContext (or SuggestionsContext if `vars.prompt === 'suggestions'`).
  *
  * If `vars.catalog` / `vars.accessories` are absent, we lazy-load the JSON
- * from the content/ directory so fixtures don't need to inline the catalog.
+ * from the data/ directory so fixtures don't need to inline the catalog.
  */
 export async function renderForPromptfoo({ vars = {} } = {}) {
   const promptName = vars.prompt === 'suggestions' ? 'suggestions' : 'recommender';
@@ -256,7 +256,7 @@ export async function renderForPromptfoo({ vars = {} } = {}) {
   const ctx = { ...vars };
 
   if (promptName === 'recommender' && (!ctx.catalog || !ctx.accessories)) {
-    const CONTENT_DIR = path.resolve(HERE, '../../../content');
+    const CONTENT_DIR = path.resolve(HERE, '../../../data');
     const products = JSON.parse(readFileSync(path.join(CONTENT_DIR, 'products/products.json'), 'utf8'));
     const profiles = JSON.parse(readFileSync(path.join(CONTENT_DIR, 'metadata/product-profiles.json'), 'utf8'));
     const accessories = JSON.parse(readFileSync(path.join(CONTENT_DIR, 'accessories/accessories.json'), 'utf8'));

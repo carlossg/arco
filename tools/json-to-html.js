@@ -13,7 +13,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const CONTENT_DIR = join(ROOT, 'content');
+const CONTENT_DIR = join(ROOT, 'data');
 const DRAFTS_DIR = join(ROOT, 'drafts');
 
 function loadEnv() {
@@ -441,7 +441,7 @@ function generateTool(data) {
 
   // Calculator block
   if (data.inputs) {
-    const modulePath = `/content/tools/calculators/${data.slug}.js`;
+    const modulePath = `/data/tools/calculators/${data.slug}.js`;
     const inputRows = (data.inputs || []).map((inp) => {
       const configParts = [`type:${inp.type || 'number'}`];
       if (inp.min !== undefined) configParts.push(`min:${inp.min}`);

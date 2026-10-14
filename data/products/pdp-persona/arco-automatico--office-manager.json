@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-automatico",
+  "persona_tag": "office-manager",
+  "headline": "Eight drinks. One button. Zero training.",
+  "subheadline": "The Arco Automatico serves cafe-quality espresso, cappuccino, and lattes to your entire team -- with no barista required, no training needed, and automatic self-cleaning.",
+  "hero_image_alt": "Arco Automatico espresso machine in brushed steel in an office break room, the touchscreen showing a grid of drink options, a colleague selecting a latte, clean professional environment with multiple cups nearby",
+  "description_long": "The Automatico is the ideal office coffee solution for teams who want quality without complexity. Its built-in conical burr grinder uses whole beans for dramatically better flavour than pods, while the touchscreen interface means anyone can make their preferred drink -- from straight espresso to a milk-heavy latte -- without any training. The automatic milk system handles frothing and steaming, then cleans itself after each use. The 250g bean hopper and 1.8-litre water tank support a full morning's worth of drinks for a team of 8 to 12, and the self-cleaning cycle means maintenance is limited to a weekly rinse. Per-cup cost runs about 15 to 20 cents with quality beans -- roughly half the cost of pods and a tenth of the daily cafe run. No specialist knowledge required. No designated coffee person needed. Just consistently good coffee for everyone.",
+  "use_case_headline": "Office-grade coffee. Consumer-simple operation.",
+  "use_case_body": "No training, no designated operator, no manual cleaning. The Automatico's touchscreen and automatic systems mean anyone can make eight different drinks with one touch. Per-cup cost of 15 to 20 cents. Self-cleaning after every use. For teams of 8 to 12, it's the lowest-friction path to genuinely good office coffee.",
+  "recommended_accessories": [
+    "Bean Vault",
+    "Cleaning Kit",
+    "Descaling Solution",
+    "Double-Wall Glasses",
+    "Knock Box"
+  ],
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Upgrade Your Office Coffee",
+  "cta_primary_url": "/products/arco-automatico",
+  "social_proof_quote": {
+    "quote": "We put the Automatico in our break room and overnight the entire pod machine debate was over. Everyone can use it, nobody has to maintain it, and the coffee is genuinely excellent. We've saved about 200 euros a month compared to the Nespresso capsules.",
+    "name": "Anna G.",
+    "location": "Zurich, Switzerland"
+  }
+}

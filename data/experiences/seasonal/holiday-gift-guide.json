@@ -1,0 +1,41 @@
+{
+  "id": "exp-se-003",
+  "slug": "holiday-gift-guide",
+  "title": "Holiday Gift Guide",
+  "persona_tag": "holiday-shopper",
+  "experience_archetype": "Holiday Gifting",
+  "hero_image_alt": "A festive table with carefully wrapped Arco products arranged beside a small Christmas tree, warm fairy lights reflected in the brushed steel of an Arco Doppio, gift tags handwritten, a mug of hot coffee steaming beside a plate of mince pies",
+  "hero_headline": "The gift that starts every morning right — matched to the person who matters.",
+  "hero_subtext": "Persona-matched Christmas gifts for every kind of coffee drinker in your life.",
+  "editorial_intro": "The holidays are approaching and you need gifts for people who love coffee. The problem is that they all love it differently. Your mother wants convenience. Your brother wants craft. Your best friend wants something beautiful on the counter. This is the guide that matches the right Arco product to the right person, so that every gift lands exactly where it should.",
+  "editorial_body": "The mistake most people make when gifting coffee equipment is treating all coffee lovers as the same. They are not. The person who drinks a quick espresso before work has different needs from the person who spends Saturday mornings dialling in single origins. The new parent who needs caffeine delivered in thirty seconds occupies a different world from the retiree who has taken up coffee as a serious hobby. Understanding who you are buying for is more important than understanding what you are buying.\n\nLet us start with the minimalist. This is the person who values simplicity, who drinks one or two cups a day, who does not want a counter full of gadgets. For them, the Arco Nano is the perfect machine — compact, reliable, and capable of producing an excellent double shot without fuss. Pair it with the Macinino grinder and a bag of a versatile medium roast, and you have given them everything they need and nothing they do not. Wrap it simply. They will appreciate the restraint.\n\nThe enthusiast is harder to buy for because they already own things and have opinions about things. Do not buy them a machine — they have researched machines more thoroughly than you have researched anything in your life. Instead, give them the accessories that elevate their existing setup. The Arco precision tamper replaces whatever came with their machine and improves every shot they pull. The WDT distribution tool replaces the bent paperclip they have been using. The dosing funnel eliminates mess. These are the items they know they want but have not quite justified buying for themselves. Your gift is permission.\n\nFor the convenience-first person — the one who switched from capsules but does not want a hobby — the Arco Automatico is transformative. It grinds, doses, tamps, and brews at the press of a button. The descaling kit makes an excellent stocking filler beside it. This is the gift that says: you deserve better coffee, and you do not have to work for it.\n\nThe craft barista, the serious one with the journal and the scales and the opinions about water chemistry, wants the Arco Zero grinder if they do not already have one. Zero retention, single-dose design, sixty-four millimetre flat burrs. It is the grinder that changes everything, and gifting it is an act of genuine generosity. If they already have the Zero, a twelve-month bean subscription from a specialty roaster gives them a new origin to explore every month — variety without the research.\n\nThe traveller needs the Arco Viaggio. They have complained about hotel coffee enough times for you to know this. The portable espresso maker fits in a suitcase, runs on battery, and pulls real espresso at nine bars of pressure. Add the travel kit — compact tamper, dosing funnel, and case — and you have solved a problem they did not know had a solution.\n\nFor the person who has everything, consider the Arco Studio Pro. This is the gift that says something serious about your relationship and your budget. Flow control, PID temperature management, commercial-grade group head. It is the machine that removes every ceiling from their home espresso practice. Not everyone can give this gift. But for the right person, from the right giver, it is unforgettable.\n\nFor couples where one drinks espresso and the other drinks filter, the Arco Filtro paired with a bag of light-roasted single origin is the gift for the filter drinker that the espresso drinker can give without compromising their own counter space.\n\nAnd for the person you do not know well — the colleague, the in-law, the friend of a friend whose name you drew in the office Secret Santa — a curated gift set solves the problem elegantly. The Arco Essentials bundle includes a tamper, distribution tool, and dosing funnel in a presentation box that looks considered without requiring intimate knowledge of the recipient's setup.\n\nThe wrapping matters. Coffee equipment is tactile and beautiful, and the unboxing should reflect that. Use simple paper, a ribbon, and a handwritten tag. Avoid novelty coffee-themed wrapping paper, which signals that you think of their interest as a personality quirk rather than a practice.\n\nInclude a note. Not a generic 'Happy Christmas' but something specific. 'I know you have been eyeing a better tamper.' 'I remember you saying hotel coffee ruins every trip.' 'You made me the best espresso I have ever had, and I wanted to contribute to the setup that produced it.' Specificity turns a good gift into a great one.\n\nThe holidays, at their core, are about paying attention to the people you care about and finding ways to show it. A persona-matched coffee gift — chosen not for what it is, but for who it is for — does exactly this. It says: I see your morning ritual, I understand what it means to you, and I want to make it better.\n\nThat message, wrapped in paper and given with intention, is the real gift. The Arco product inside is simply how it is delivered.",
+  "product_bundle": [
+    { "product_id": "arco-nano", "role": "anchor" },
+    { "product_id": "arco-automatico", "role": "primary" },
+    { "product_id": "arco-zero", "role": "primary" },
+    { "product_id": "arco-viaggio", "role": "primary" },
+    { "product_id": "arco-tamper", "role": "accessory" },
+    { "product_id": "arco-wdt-tool", "role": "accessory" },
+    { "product_id": "arco-essentials-bundle", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Holiday Gifting setup",
+  "bundle_intro": "Persona-matched gifts for every coffee lover in your life, from the minimalist to the craft barista.",
+  "featured_guides": [
+    "guide-gift-guide-by-budget",
+    "guide-gift-guide-by-persona",
+    "guide-what-accessories-actually-matter"
+  ],
+  "related_blog_posts": [
+    "blog-holiday-gifts-for-coffee-lovers",
+    "blog-persona-matched-gift-ideas",
+    "blog-wrapping-and-presenting-coffee-gifts"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "holiday-shopper",
+  "persona_tags": ["holiday-shopper", "gift-buyer", "seasonal"],
+  "intent_tags": ["gift", "holiday", "christmas", "all-products", "persona-matched"],
+  "seo": {
+    "title": "Holiday Gift Guide — Persona-Matched Coffee Gifts for Christmas | Arco Coffee",
+    "meta_description": "Match the right Arco coffee gift to the right person this Christmas. From minimalists to craft baristas, travellers to convenience lovers — a guide for every coffee personality."
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "total": 11,
+  "offset": 0,
+  "limit": 11,
+  "data": [
+    {
+      "id": "pid-control",
+      "name": "PID Temperature Control",
+      "slug": "pid-control",
+      "category": "temperature",
+      "description": "A PID (Proportional-Integral-Derivative) controller precisely regulates the boiler temperature, maintaining accuracy within 0.5 degrees Celsius. This eliminates the temperature surfing required with older thermostat-based machines and ensures shot-to-shot consistency. PID control is considered essential for serious espresso brewing.",
+      "benefits": [
+        "Consistent extraction temperature shot after shot",
+        "Adjustable brew temperature for different roast profiles",
+        "Eliminates need for temperature surfing",
+        "Better flavor clarity and repeatability"
+      ],
+      "products": [
+        "primo",
+        "doppio",
+        "nano",
+        "studio",
+        "studio-pro",
+        "ufficio",
+        "automatico"
+      ],
+      "importance": "high",
+      "learnMoreUrl": "/stories/understanding-pid-temperature-control"
+    },
+    {
+      "id": "pressure-profiling",
+      "name": "Pressure Profiling",
+      "slug": "pressure-profiling",
+      "category": "extraction",
+      "description": "Pressure profiling allows you to vary the extraction pressure throughout the shot, rather than maintaining a flat 9 bars. By controlling the pressure curve, you can emphasize different flavor characteristics: a gentle ramp-up reduces channeling, while a declining profile can enhance sweetness and body. This is the frontier of espresso extraction.",
+      "benefits": [
+        "Extract a wider range of flavors from each coffee",
+        "Reduce channeling with gentle pre-infusion pressure",
+        "Enhance sweetness with declining pressure profiles",
+        "Replicate famous extraction profiles from competition baristas",
+        "Save and recall custom profiles"
+      ],
+      "products": [
+        "studio-pro"
+      ],
+      "importance": "high",
+      "learnMoreUrl": "/stories/mastering-pressure-profiling"
+    },
+    {
+      "id": "dual-boiler",
+      "name": "Dual Boiler System",
+      "slug": "dual-boiler",
+      "category": "temperature",
+      "description": "A dual boiler system uses separate boilers for brewing and steaming, each with independent temperature control. This means you can brew espresso and steam milk simultaneously without any temperature compromise. The brew boiler stays at the optimal extraction temperature while the steam boiler runs hotter for powerful, dry steam.",
+      "benefits": [
+        "Brew and steam simultaneously",
+        "No recovery time between shots and steaming",
+        "Independent temperature control for each function",
+        "Faster workflow, especially for milk drinks",
+        "More consistent results under heavy use"
+      ],
+      "products": [
+        "doppio",
+        "studio",
+        "studio-pro",
+        "ufficio"
+      ],
+      "importance": "high",
+      "learnMoreUrl": "/stories/single-vs-dual-boiler"
+    },
+    {
+      "id": "flat-burrs",
+      "name": "Flat Burr Grinder",
+      "slug": "flat-burrs",
+      "category": "grinding",
+      "description": "Flat burrs consist of two parallel disc-shaped burrs that slice coffee beans into highly uniform particles. The result is a cleaner, brighter cup with more clarity and definition in the flavor. Flat burrs are favored by those who want to taste the distinct origin character of their coffee with precision and transparency.",
+      "benefits": [
+        "Superior particle size uniformity",
+        "Cleaner, brighter cup with more clarity",
+        "Better definition of origin flavors",
+        "Preferred for light and medium roast espresso",
+        "More even extraction across the puck"
+      ],
+      "products": [
+        "filtro",
+        "macinino",
+        "zero"
+      ],
+      "importance": "medium",
+      "learnMoreUrl": "/stories/flat-vs-conical-burrs"
+    },
+    {
+      "id": "conical-burrs",
+      "name": "Conical Burr Grinder",
+      "slug": "conical-burrs",
+      "category": "grinding",
+      "description": "Conical burrs use a cone-shaped inner burr that fits inside a ring-shaped outer burr. The geometry produces a bimodal particle distribution that many people find creates a sweeter, fuller-bodied cup with more perceived richness. Conical burrs tend to run cooler and quieter than flat burrs.",
+      "benefits": [
+        "Sweeter, fuller-bodied cup profile",
+        "Quieter operation at lower RPM",
+        "Less heat generated during grinding",
+        "Excellent all-rounder for espresso and filter",
+        "Naturally lower retention"
+      ],
+      "products": [
+        "preciso"
+      ],
+      "importance": "medium",
+      "learnMoreUrl": "/stories/flat-vs-conical-burrs"
+    },
+    {
+      "id": "zero-retention",
+      "name": "Zero Retention Design",
+      "slug": "zero-retention",
+      "category": "grinding",
+      "description": "Zero retention grinders are designed so that virtually every milligram of coffee you put in comes back out as ground coffee. Traditional hopper grinders retain 2-5g of stale grounds between uses. A zero retention design, typically using a bellows system and vertical burr alignment, ensures every dose is 100% fresh.",
+      "benefits": [
+        "Every dose is ground fresh from whole beans",
+        "No stale coffee mixing into fresh doses",
+        "Accurate dosing by weight (what goes in comes out)",
+        "Easy to switch between different beans",
+        "Less waste over time"
+      ],
+      "products": [
+        "zero"
+      ],
+      "importance": "medium",
+      "learnMoreUrl": "/stories/why-single-dose-grinding-matters"
+    },
+    {
+      "id": "saturated-group-head",
+      "name": "Saturated Group Head",
+      "slug": "saturated-group-head",
+      "category": "temperature",
+      "description": "A saturated group head is directly connected to and heated by the brew boiler, meaning the group is always at the exact same temperature as the water. Unlike E61 group heads that rely on thermosyphon circulation, a saturated group provides the most stable and consistent temperature delivery to the coffee puck, shot after shot.",
+      "benefits": [
+        "Most thermally stable group head design",
+        "Exact temperature match between boiler and group",
+        "Excellent shot-to-shot consistency",
+        "Faster recovery between back-to-back shots",
+        "Preferred by competition baristas"
+      ],
+      "products": [
+        "studio",
+        "studio-pro",
+        "ufficio"
+      ],
+      "importance": "high",
+      "learnMoreUrl": "/stories/group-head-designs-explained"
+    },
+    {
+      "id": "flow-control",
+      "name": "Flow Control",
+      "slug": "flow-control",
+      "category": "extraction",
+      "description": "Flow control allows you to manually adjust the flow rate of water through the coffee puck during extraction. Using a paddle or needle valve, you can perform a slow pre-infusion, ramp up to full flow, and taper off at the end. This provides a different dimension of control compared to pressure profiling and can produce uniquely sweet, complex shots.",
+      "benefits": [
+        "Manual control over water flow rate",
+        "Extended low-pressure pre-infusion",
+        "Ability to create unique extraction profiles",
+        "Reduce channeling with slow initial flow",
+        "Explore a wider range of flavors from each coffee"
+      ],
+      "products": [
+        "studio",
+        "studio-pro"
+      ],
+      "importance": "medium",
+      "learnMoreUrl": "/stories/introduction-to-flow-profiling"
+    },
+    {
+      "id": "auto-milk",
+      "name": "Automatic Milk System",
+      "slug": "auto-milk",
+      "category": "convenience",
+      "description": "An automatic milk system froths and steams milk to the perfect temperature and texture at the touch of a button. Using a dedicated milk container connected to the machine, it dispenses perfectly textured milk directly into your cup. This removes the learning curve of manual steam wand technique while delivering consistent milk drinks every time.",
+      "benefits": [
+        "Perfect milk texture every time with no technique required",
+        "One-touch operation for milk drinks",
+        "Consistent results regardless of operator skill",
+        "Automatic cleaning rinse after each use",
+        "Ideal for shared environments like offices"
+      ],
+      "products": [
+        "automatico"
+      ],
+      "importance": "medium",
+      "learnMoreUrl": "/stories/manual-vs-automatic-milk-frothing"
+    },
+    {
+      "id": "touchscreen",
+      "name": "Touchscreen Interface",
+      "slug": "touchscreen",
+      "category": "convenience",
+      "description": "A full-color touchscreen interface replaces traditional buttons and dials with an intuitive digital control surface. Save custom extraction profiles, view real-time pressure and flow graphs, adjust temperatures, and manage maintenance schedules all from the screen. Firmware updates keep your machine at the cutting edge.",
+      "benefits": [
+        "Intuitive, modern user interface",
+        "Save and recall custom extraction profiles",
+        "Real-time extraction data visualization",
+        "Easy access to maintenance and diagnostics",
+        "Firmware updates for new features over time"
+      ],
+      "products": [
+        "studio-pro"
+      ],
+      "importance": "low",
+      "learnMoreUrl": "/stories/studio-pro-touchscreen-guide"
+    },
+    {
+      "id": "plumbed-in",
+      "name": "Plumbed-In Water Connection",
+      "slug": "plumbed-in",
+      "category": "convenience",
+      "description": "A plumbed-in water connection provides a continuous water supply directly from your home or office plumbing. This eliminates the need to refill a water tank, enables continuous operation for high-volume use, and typically includes integrated water filtration for optimal water quality and machine protection.",
+      "benefits": [
+        "No manual water tank refilling",
+        "Continuous operation for high-volume environments",
+        "Consistent water pressure for extraction",
+        "Integrated water filtration options",
+        "Professional installation ensures optimal water quality"
+      ],
+      "products": [
+        "studio",
+        "studio-pro",
+        "ufficio"
+      ],
+      "importance": "medium",
+      "learnMoreUrl": "/stories/plumbing-in-your-espresso-machine"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "exp-sc-006",
+  "slug": "dinner-party-espresso",
+  "title": "Dinner Party Espresso",
+  "persona_tag": "craft-barista",
+  "experience_archetype": "Dinner Party Performer",
+  "hero_image_alt": "A candlelit dining table strewn with dessert plates and half-empty wine glasses, a host pulling espresso shots on an Arco Doppio at the kitchen counter in the background, a tray of small white cups arranged in a row, guests leaning back in their chairs in soft amber light",
+  "hero_headline": "The final course nobody forgets.",
+  "hero_subtext": "When the meal ends and the espresso begins, you own the room.",
+  "editorial_intro": "Dinner parties have acts. The first course sets the tone. The main builds momentum. Dessert draws applause. But the real finale — the one that keeps everyone at the table an extra hour — is espresso. Not coffee from a filter jug. Not a pod. Real espresso, pulled with intention, served with quiet confidence. You have turned this into your signature, and the machine is your stage.",
+  "editorial_body": "It started with a dinner in Rome. You were twenty-six, seated at a long table in someone's apartment in Trastevere, the remains of cacio e pepe congealing on plates, the wine nearly finished. The host — a friend of a friend, a woman in her fifties who cooked without recipes — disappeared into the kitchen. She returned with a moka pot in one hand and a stack of chipped espresso cups in the other. She poured without ceremony. The coffee was dark, slightly bitter, scalding hot, and completely perfect for the moment. Nobody moved to leave for another ninety minutes.\n\nYou do not use a moka pot. You use the Arco Doppio, because you learned early that if you are going to serve espresso to a table of eight, you need a machine that recovers between shots without breaking stride. The dual boiler keeps the brew temperature locked while you steam milk for the two guests who want a macchiato. The group head holds heat. The portafilter locks in with a quarter turn. You have the rhythm down to muscle memory — grind, distribute, tamp, lock, extract, serve — and you can produce eight shots in seven minutes without rushing.\n\nThe preparation begins before the guests arrive. You select the beans carefully. For a dinner party, you want something that reads as generous and warm rather than cerebral. A medium-dark blend with chocolate and hazelnut. Something that makes people close their eyes on the first sip. You avoid the light-roasted single origins you drink on your own mornings — they are too divisive, too dependent on explanation, and dinner is not the time for a lecture on processing methods.\n\nYou pre-weigh eight doses into small ceramic cups and line them on the counter beside the Arco Preciso grinder. Each dose is eighteen grams, measured on the scale you keep next to the machine. The guests do not see this. By the time they notice you have left the table, you are already grinding the first dose, the sound just loud enough to pique curiosity but not intrude.\n\nThe extraction is where your practice shows. Twenty-five seconds, thirty-six grams out, a stream that shifts from dark syrup to golden honey. You do not time it with a phone anymore. The colour and the sound tell you everything. The first cup goes on the tray. You wipe the basket, dose again, tamp again. The second shot is identical. The consistency is the point — when the tray arrives at the table, every cup must be the same quality. Nothing undermines the gesture like one thin, sour shot among seven good ones.\n\nThe tray lands on the table and the energy changes. People who were sinking into post-meal lethargy sit up. Hands reach. There is always a pause — the first sip, taken simultaneously by everyone, followed by the silence that means you got it right. Then the compliments come, and the questions. What machine is that? What beans? How did you learn? You answer briefly and redirect, because the coffee is a gift, not a performance. The point is not your skill. The point is their pleasure.\n\nYou keep a decaf option for the guests who ask. Same beans, same care, same extraction. You learned this the hard way after a friend's partner spent a sleepless night following one of your dinner parties and mentioned it, politely but firmly, the next time you saw each other. The decaf goes into a separate cup — slightly different shape, so you remember which is which — and the guest who receives it never feels like an afterthought.\n\nSome evenings, a guest follows you into the kitchen to watch. They lean against the doorframe, wine glass in hand, and observe the process. The grinding, the distribution, the tamp, the slow pour. They ask questions you enjoy answering. Sometimes they ask to try pulling a shot themselves. You let them. Their extraction is uneven, the shot a little fast, but they grin when the crema appears, and you pour it into a cup for them to taste. This, too, is part of hosting — the generosity of sharing a skill, not just a product.\n\nThe best dinner parties you have hosted all ended the same way. The food was good, the wine was good, but what people mention the next day — in the text message, in the thank-you note, in the conversation at work on Monday — is the espresso. It is the exclamation point at the end of the sentence. The thing that elevates a meal from pleasant to memorable.\n\nYou have considered getting a larger machine. The Studio, perhaps, with its programmable pre-infusion profiles. But the Doppio does everything you need for a dinner party. It is fast, reliable, and consistent under pressure — both the mechanical kind and the social kind. And there is something you like about its modesty. It sits on the counter, solid and purposeful, and it does not try to impress anyone. The coffee does that.\n\nThe candles are burning low. The conversation has turned philosophical, the way it only does after midnight, after wine, after good food and good coffee. Someone suggests another round. You are already standing, already walking to the kitchen. The Doppio is warm. The beans are waiting.\n\nNobody is calling a taxi yet.",
+  "product_bundle": [
+    { "product_id": "arco-doppio", "role": "anchor" },
+    { "product_id": "arco-preciso", "role": "primary" },
+    { "product_id": "arco-tamper", "role": "accessory" }
+  ],
+  "bundle_headline": "Your Dinner Party Performer setup",
+  "bundle_intro": "Eight perfect shots in seven minutes — the finale that keeps everyone at the table.",
+  "featured_guides": [
+    "guide-batch-espresso-for-guests",
+    "guide-choosing-crowd-pleasing-beans",
+    "guide-pre-weighing-multiple-doses"
+  ],
+  "related_blog_posts": [
+    "blog-post-dinner-espresso-tradition",
+    "blog-hosting-with-coffee",
+    "blog-espresso-and-food-pairing"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "craft-barista",
+  "persona_tags": ["craft-barista", "non-barista", "dinner-party", "host-entertainer"],
+  "intent_tags": ["entertaining", "guests", "dinner-party", "social", "volume", "hosting"],
+  "seo": {
+    "title": "Dinner Party Espresso — The Final Course Nobody Forgets | Arco Coffee",
+    "meta_description": "Turn your dinner party into an event with post-meal espresso from the Arco Doppio. Eight shots, seven minutes, and the kind of ending your guests will talk about on Monday."
+  }
+}

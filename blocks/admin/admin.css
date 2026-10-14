@@ -2525,15 +2525,241 @@
   white-space: pre-wrap;
 }
 
-.admin .admin-insights-stub {
-  padding: 2rem;
-  text-align: center;
+/* ---------- Insights / ROI ---------- */
+.admin .admin-insight-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
 }
 
-.admin .admin-insights-stub button[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
+.admin .admin-insight-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-color, #fafafa);
 }
+
+.admin .admin-insight-stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+/* ── Tooltips ────────────────────────────────────────────────── */
+
+.admin .admin-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.admin .admin-tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  cursor: help;
+}
+
+.admin .admin-tip-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  border: 1px solid currentcolor;
+  border-radius: 50%;
+  opacity: 0.55;
+  font-size: 0.85em;
+  line-height: 1;
+  text-transform: none;
+}
+
+.admin .admin-tip:hover .admin-tip-marker,
+.admin .admin-tip:focus-visible .admin-tip-marker {
+  opacity: 1;
+}
+
+/* The bubble. content comes from data-tip so no extra markup is needed. */
+.admin .admin-tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  width: max-content;
+  max-width: 280px;
+  padding: 0.6rem 0.7rem;
+  border-radius: 6px;
+  background: #1f2933;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+
+.admin .admin-tip:hover::after,
+.admin .admin-tip:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Right-hand columns would push the bubble off-screen; anchor those to the end. */
+.admin .admin-insight-table th:nth-last-child(-n+3) .admin-tip::after {
+  left: auto;
+  right: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin .admin-tip::after {
+    transition: none;
+  }
+}
+
+.admin .admin-insight-stat-value {
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.admin .admin-insight-stat-sub {
+  font-size: 0.78rem;
+  opacity: 0.65;
+}
+
+.admin .admin-insight-caveat {
+  margin-top: 1rem;
+  padding: 0.6rem 0.8rem;
+  border-left: 3px solid var(--accent-color, #8a6f3f);
+  font-size: 0.85rem;
+}
+
+.admin .admin-funnel-step {
+  margin-bottom: 1.1rem;
+}
+
+.admin .admin-funnel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.admin .admin-funnel-label {
+  font-weight: 600;
+}
+
+.admin .admin-funnel-bar-track {
+  height: 12px;
+  border-radius: 6px;
+  background: var(--border-color);
+  overflow: hidden;
+}
+
+.admin .admin-funnel-bar {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--accent-color, #8a6f3f);
+  transition: width 0.3s ease;
+}
+
+.admin .admin-funnel-meta {
+  margin-top: 0.25rem;
+  font-size: 0.78rem;
+}
+
+
+.admin .admin-insight-segment {
+  margin-bottom: 1.5rem;
+}
+
+.admin .admin-insight-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 160px;
+  padding-top: 0.5rem;
+  overflow-x: auto;
+}
+
+.admin .admin-insight-chart-col {
+  display: flex;
+  flex: 1 0 26px;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  height: 100%;
+}
+
+.admin .admin-insight-bars {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+}
+
+.admin .admin-insight-bar {
+  flex: 1;
+  min-height: 2px;
+  border-radius: 2px 2px 0 0;
+}
+
+.admin .admin-insight-bar-value {
+  background: var(--accent-color, #8a6f3f);
+}
+
+.admin .admin-insight-bar-cost {
+  background: #b0563f;
+}
+
+.admin .admin-insight-chart-label {
+  font-size: 0.65rem;
+  white-space: nowrap;
+  opacity: 0.6;
+}
+
+.admin .admin-insight-legend {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.admin .admin-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 0.3rem;
+  border-radius: 2px;
+}
+
+.admin .admin-swatch-value {
+  background: var(--accent-color, #8a6f3f);
+}
+
+.admin .admin-swatch-cost {
+  background: #b0563f;
+}
+
 
 /* Eval-matrix per-query feedback chip */
 .admin .admin-eval-feedback-chip {

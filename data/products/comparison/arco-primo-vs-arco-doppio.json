@@ -1,0 +1,73 @@
+{
+  "id": "arco-primo-vs-arco-doppio",
+  "slug": "arco-primo-vs-arco-doppio",
+  "title": "Arco Primo vs Arco Doppio",
+  "products": ["arco-primo", "arco-doppio"],
+  "comparison_headline": "Ready to upgrade, but not sure how far to go?",
+  "comparison_intro": "The Primo is where most people start their espresso journey, and it does that job beautifully. The Doppio is where you land when you want temperature stability, simultaneous steaming, and the kind of consistency that makes you stop blaming the beans.",
+  "hero_image_alt": "Arco Primo and Arco Doppio espresso machines side by side on a light marble countertop, the Primo in matte white and the Doppio in brushed steel, two freshly pulled espresso shots in matching ceramic cups between them, soft natural light from a kitchen window",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac299",
+      "product_b": "\u20ac549"
+    },
+    "boiler_type": {
+      "product_a": "Thermoblock",
+      "product_b": "Dual boiler (brass brew, stainless steam)"
+    },
+    "heat_up_time": {
+      "product_a": "90 seconds",
+      "product_b": "3 minutes"
+    },
+    "pressure_control": {
+      "product_a": "15 bar pump (9 bar at group), fixed OPV",
+      "product_b": "Rotary vane pump, adjustable OPV (6\u201310 bar)"
+    },
+    "steam_capability": {
+      "product_a": "Single boiler \u2014 must switch between brew and steam modes",
+      "product_b": "Dedicated steam boiler \u2014 brew and steam simultaneously"
+    },
+    "grind_compatibility": {
+      "product_a": "Works well with stepped grinders like the Macinino",
+      "product_b": "Benefits from a stepless grinder like the Preciso for fine-tuning"
+    },
+    "suitable_for": {
+      "product_a": "People who want a quick, reliable morning espresso without complexity",
+      "product_b": "People ready to explore latte art, temperature surfing is behind them, and consistency matters"
+    },
+    "not_suitable_for": {
+      "product_a": "Anyone who makes milk drinks frequently \u2014 the single boiler creates a wait between brewing and steaming",
+      "product_b": "Anyone who values a 90-second heat-up over temperature precision \u2014 the Doppio needs 3 minutes"
+    }
+  },
+  "recommendation_by_persona": {
+    "morning-minimalist": {
+      "recommended_product_id": "arco-primo",
+      "rationale": "The Primo heats up faster and keeps your morning simple \u2014 if your routine is one black espresso and out the door, it does everything you need."
+    },
+    "upgrader": {
+      "recommended_product_id": "arco-doppio",
+      "rationale": "If you have been frustrated by temperature inconsistency or waiting between shots and steaming, the Doppio solves both problems immediately."
+    },
+    "non-barista": {
+      "recommended_product_id": "arco-primo",
+      "rationale": "Fewer settings and faster heat-up mean fewer ways to get confused \u2014 the Primo is forgiving in a way the Doppio is not."
+    },
+    "craft-barista": {
+      "recommended_product_id": "arco-doppio",
+      "rationale": "The adjustable OPV and dual PID give you the control to actually dial in \u2014 the Primo is a great machine, but it will limit you quickly."
+    }
+  },
+  "verdict": "If you drink straight espresso and value speed above all else, the Primo is an excellent machine that will serve you well for years. But if you have started to notice inconsistency in your shots, want to make milk drinks without the wait, or simply want room to grow, the Doppio is the smarter long-term investment. The price gap is real, but so is the daily difference in workflow.",
+  "related_blog_posts": [
+    "single-boiler-to-dual-boiler",
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso"
+  ],
+  "persona_tags": ["morning-minimalist", "upgrader", "non-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Primo vs Arco Doppio \u2014 Which Espresso Machine Is Right for You? | Arco",
+    "meta_description": "Comparing the Arco Primo (\u20ac299, single boiler, 90-second heat-up) with the Arco Doppio (\u20ac549, dual boiler, PID control). An honest look at who each machine is really built for."
+  }
+}

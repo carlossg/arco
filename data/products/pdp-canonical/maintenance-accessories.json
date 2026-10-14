@@ -1,0 +1,86 @@
+{
+  "id": "maintenance-accessories",
+  "slug": "maintenance-accessories",
+  "name": "Maintenance Accessories",
+  "tagline": "Care for the machine that cares for your morning.",
+  "price_eur": 0,
+  "price_display": "From €9",
+  "category": "accessory",
+  "hero_image_alt": "Arco maintenance accessories arranged on a clean white surface — a box of cleaning tablets, a bottle of descaling solution, a group head brush with wooden handle, replacement silicone gaskets, a backflush disc, and microfibre cloths, all neatly organised with clinical precision, bright even lighting with minimal shadows",
+  "headline": "Longevity is a practice.",
+  "subheadline": "Cleaning tablets, descaling solutions, brushes, gaskets, and group head tools — everything you need to keep your Arco machine performing at its best for years.",
+  "description_short": "Cleaning tablets, descaling solutions, brushes, gaskets, and group head tools to keep every Arco machine in peak condition.",
+  "description_long": "An espresso machine is a precision instrument, and precision instruments need care. Our maintenance range covers every aspect of machine upkeep: phosphate-free cleaning tablets that dissolve coffee oils from the brew circuit, citric acid descaling solution that removes mineral buildup without damaging boilers, group head brushes with heat-resistant bristles, food-grade silicone gaskets sized for every Arco portafilter, and blind baskets for backflushing. A well-maintained machine extracts better, lasts longer, and rewards you with consistent flavour year after year. Maintenance is not a chore — it is the simplest way to protect your investment and your morning.",
+  "key_specs": {
+    "cleaning_tablets": "Phosphate-free, biodegradable, 2 g each, dissolves coffee oils and residue",
+    "descaling_solution": "Citric acid-based, safe for all boiler types (copper, brass, stainless), 250 ml per treatment",
+    "group_head_brush": "Heat-resistant nylon bristles, beechwood handle, fits E61 and standard groups",
+    "gaskets": "Food-grade silicone, available for 53 mm and 58 mm portafilters, rated to 200°C",
+    "blind_basket": "Stainless steel, 58 mm, for backflush cleaning",
+    "shower_screen": "Stainless steel replacement, precision-etched, 58 mm and 53 mm",
+    "microfibre_cloths": "Lint-free, machine-washable, 30 × 30 cm",
+    "water_filters": "Activated carbon, reduces scale and chlorine, 60-day replacement cycle",
+    "compatibility": "Designed for all Arco espresso machines"
+  },
+  "whats_in_box": [
+    "Each accessory ships individually or as curated kits:",
+    "Daily Care Kit: Cleaning tablets (30 pack) + group head brush + 2 microfibre cloths — €29",
+    "Quarterly Service Kit: Descaling solution (2 bottles) + cleaning tablets (30 pack) + replacement gasket + shower screen — €49",
+    "Annual Overhaul Kit: Descaling solution (4 bottles) + cleaning tablets (60 pack) + gasket set + shower screens + group head brush + water filters (4 pack) + microfibre cloths (4) — €89",
+    "All items also available individually from €9"
+  ],
+  "variants": [
+    { "name": "Standard (53 mm machines)", "hex": "#E0E0E0" },
+    { "name": "Standard (58 mm machines)", "hex": "#E0E0E0" }
+  ],
+  "use_case_headline": "Perfect for every Arco machine owner — because maintenance is non-negotiable.",
+  "use_case_body": "Whether you backflush daily or descale quarterly, having the right supplies on hand means you never skip a maintenance step. The kits are sized to match real maintenance schedules, so you always have what you need before you need it.",
+  "pairing_products": [
+    { "product_id": "arco-studio", "rationale": "E61 group heads benefit most from regular backflushing and gasket replacement." },
+    { "product_id": "arco-studio-pro", "rationale": "The saturated group and dual boilers in the Studio Pro demand consistent descaling and group maintenance." },
+    { "product_id": "arco-doppio", "rationale": "Dual-boiler machines need descaling for both boilers — the Quarterly Kit covers it." },
+    { "product_id": "arco-ufficio", "rationale": "High-volume office use means more frequent cleaning cycles — the Annual Kit is the right fit." },
+    { "product_id": "preparation-accessories", "rationale": "Pair maintenance with preparation accessories for a complete equipment care and brewing setup." }
+  ],
+  "experience_tag": "craft-barista",
+  "persona_tags": ["morning-minimalist", "upgrader", "craft-barista", "office-manager"],
+  "intent_tags": ["discover", "research", "decide"],
+  "related_blog_posts": [
+    "maintaining-your-espresso-machine",
+    "descaling-guide",
+    "backflushing-how-and-why",
+    "when-to-replace-your-gasket"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Maintenance Accessories",
+    "description": "Cleaning tablets, descaling solutions, brushes, gaskets, and group head tools to keep every Arco machine in peak condition.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-MAINT-ACC",
+    "image": "/content/products/images/maintenance-accessories-hero.jpg",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "EUR",
+      "lowPrice": 9,
+      "highPrice": 89,
+      "offerCount": 12,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/maintenance-accessories"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.8,
+      "reviewCount": 198
+    }
+  },
+  "seo": {
+    "title": "Maintenance Accessories — Cleaning, Descaling & Care | Arco",
+    "meta_description": "Cleaning tablets, descaling solution, brushes, gaskets, and group head tools for all Arco espresso machines. Longevity is a practice. From €9.",
+    "og_image_alt": "Arco maintenance accessories including cleaning tablets, descaling solution, and brushes",
+    "canonical_url": "/products/maintenance-accessories"
+  }
+}

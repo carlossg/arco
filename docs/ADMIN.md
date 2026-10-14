@@ -258,7 +258,7 @@ Spam/abuse gates (MVP): `UNIQUE(run_id, session_id)`, server-side comment trunca
 - **Search** — k-NN over the index (`GET /api/admin/vectorize/search?q=...&k=N`).
 - **Item detail** — per-vector content + nearest neighbours.
 
-Re-indexing is offline via the CLI: `cd workers/recommender && node scripts/index-content.js`. The script reads `content/stories-index.json` and `content/experiences-index.json` and skips entries with `published: false`.
+Re-indexing is offline via the CLI: `cd workers/recommender && node scripts/index-content.js`. The script reads `data/stories-index.json` and `data/experiences-index.json` and skips entries with `published: false`.
 
 ## Direct D1 Queries (Operator Quick Reference)
 

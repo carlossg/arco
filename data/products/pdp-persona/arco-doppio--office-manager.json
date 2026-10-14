@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-doppio",
+  "persona_tag": "office-manager",
+  "headline": "Premium espresso for small teams, without the commercial price tag.",
+  "subheadline": "The Doppio's dual-boiler system handles back-to-back drinks for a team of 5 to 10 -- real espresso and milk drinks, ready fast, built to last.",
+  "hero_image_alt": "Arco Doppio espresso machine in brushed steel in a bright modern office kitchen, two espresso cups on the counter ready for colleagues, clean professional environment with warm lighting",
+  "description_long": "For a small office or studio, the Doppio hits a sweet spot that commercial machines and pod systems both miss. Its dual-boiler architecture means someone can pull a shot while another steams milk -- no waiting, no queuing. The rotary pump handles back-to-back extractions without pressure drops, and the 2.5-litre tank gets a small team through the morning without constant refilling. Unlike pod machines, the Doppio uses standard ground coffee or fresh beans, which means dramatically lower per-cup costs and dramatically better coffee. Unlike full commercial equipment, it fits on a standard countertop, runs on a standard outlet, and costs a fraction to maintain. For teams of 5 to 10 who care about quality, this is the most cost-effective way to keep everyone caffeinated and happy.",
+  "use_case_headline": "Better coffee. Lower cost per cup. Happier team.",
+  "use_case_body": "At roughly 15 to 20 cents per espresso (using quality beans), the Doppio pays for itself within months compared to pod systems or daily cafe runs. The dual-boiler design handles the morning rush without bottlenecks, and the E61 group head is built for thousands of cycles.",
+  "recommended_accessories": [
+    "Knock Box",
+    "Cleaning Kit",
+    "Tamper Set",
+    "Milk Pitcher",
+    "Descaling Solution"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "Upgrade Your Office Coffee",
+  "cta_primary_url": "/products/arco-doppio",
+  "social_proof_quote": {
+    "quote": "We replaced a Nespresso machine in our design studio with the Doppio. The team loves it, the per-cup cost dropped by 60%, and honestly it's become a morale thing. People linger at the machine and actually talk to each other.",
+    "name": "Thomas R.",
+    "location": "Rotterdam, Netherlands"
+  }
+}

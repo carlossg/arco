@@ -1,0 +1,53 @@
+{
+  "id": "the-sustainability-audit",
+  "slug": "the-sustainability-audit",
+  "category": "brand",
+  "title": "The Sustainability Audit: Materials, Energy, Packaging, and Where We Stand",
+  "author": {
+    "name": "Elena Marchetti",
+    "role": "Head of Product",
+    "bio_short": "Elena leads product development at Arco and has been designing espresso equipment for over a decade. She splits her time between the Emilia-Romagna workshop and her home kitchen in Bologna, where she tests everything she builds."
+  },
+  "published_date": "2025-12-10T08:00:00Z",
+  "read_time_minutes": 10,
+  "hero_image_alt": "Flat lay of materials used in Arco machine production arranged on a recycled kraft paper background — brass boiler cutaway, stainless steel panel, silicone gasket, recycled cardboard packaging, hemp fiber insulation wrap, compostable packing peanuts — labeled with small handwritten tags indicating material origin",
+  "tags": ["sustainability", "materials", "packaging", "B-Corp", "circular-economy", "environment"],
+  "persona_tags": ["morning-minimalist", "upgrader", "craft-barista"],
+  "intent_tags": ["discover", "research"],
+  "intro": "We commissioned an independent lifecycle assessment of our operations and products last year. The results were encouraging in some areas and sobering in others. Rather than cherry-picking the good numbers for a marketing brochure, we are publishing the full picture here — what we are doing well, where we fall short, and what we are changing.",
+  "body": [
+    {
+      "heading": "Materials: What Goes Into an Arco Machine",
+      "content": "The largest environmental footprint of any durable product is the raw material. For the Arco Studio, the bill of materials breaks down roughly as follows: 38 percent brass by weight, 29 percent stainless steel, 12 percent aluminium, 8 percent copper wiring and tubing, 6 percent plastics and rubber, and 7 percent electronics and miscellaneous. Brass and stainless steel are energy-intensive to produce, but both are infinitely recyclable without loss of quality. The brass we source comes from a foundry in Reggio Emilia that uses 60 percent recycled brass feedstock — primarily scrap from plumbing and automotive applications. The stainless steel panels are laser-cut from stock supplied by a mill in Brescia that reports 85 percent recycled content. Aluminium is our weakest link. Primary aluminium production is extremely energy-intensive, and our current supplier uses a mix of primary and recycled stock with no guaranteed recycled content. We have committed to switching to a certified 100 percent recycled aluminium supplier by the end of next year. The plastics in our machines — primarily used for water tank bodies, drip tray inserts, and internal brackets — are currently virgin ABS and polypropylene. We are testing recycled-content alternatives in the lab and expect to transition the Primo's water tank to recycled polypropylene in the next production run."
+    },
+    {
+      "heading": "Energy and Carbon in Manufacturing",
+      "content": "Our workshop in Emilia-Romagna consumes approximately 42,000 kilowatt-hours of electricity per year for assembly, testing, lighting, and climate control. Since 2024, we have sourced 100 percent of our electricity from a certified renewable tariff — primarily Italian wind and solar — which reduces our Scope 2 emissions to near zero. Scope 1 emissions — direct emissions from our operations — are minimal because we do not operate furnaces, casting equipment, or other combustion processes on site. Our manufacturing is assembly, not fabrication. However, our Scope 3 emissions — those embedded in our supply chain — are substantial and harder to address. The brass foundry, the steel mill, the CNC machine shop, and the electronics suppliers all have their own energy profiles, and only some have transitioned to renewables. The lifecycle assessment estimated that Scope 3 emissions account for approximately 89 percent of our total carbon footprint. This is common for assembly-based manufacturers — the materials and components carry the bulk of the embedded carbon. We are addressing this by preferentially selecting suppliers who report renewable energy usage and by participating in a regional initiative in Emilia-Romagna that helps small manufacturers audit and reduce their supply chain emissions. Progress is incremental, and we do not claim to be carbon neutral — that would require offsets, which we view as a distraction from actual emissions reduction."
+    },
+    {
+      "heading": "Packaging and Shipping",
+      "content": "When we launched, our machines shipped in standard corrugated cardboard boxes with expanded polystyrene foam inserts. The foam protected the machines well but is not recyclable in most municipal systems and persists in landfills for centuries. In 2024, we switched to molded pulp inserts — made from recycled paper fiber — for all models except the Studio Pro, which ships next month in the new packaging. The molded pulp is home-compostable and provides equivalent shock protection in our drop-test protocol. The outer box is now unbleached recycled cardboard, printed with soy-based inks. We eliminated the plastic wrap around the machine body, replacing it with a reusable hemp-fiber bag that doubles as a dust cover for storage. The accessories — portafilter, tamper, baskets — are packed in compartments molded into the same pulp insert rather than in individual plastic bags. Total plastic in the packaging is now limited to a single sealed bag around the power cord, which we are working to eliminate. Shipping is our other major packaging-related impact. We ship within Europe via road freight, consolidated into full pallets where possible. Direct-to-consumer orders ship individually via parcel carriers, which is less efficient per unit. We offset this by using a fulfillment partner with optimized routing and by encouraging customers to buy from local authorized dealers where stock is already distributed."
+    },
+    {
+      "heading": "Where We Fall Short and What Comes Next",
+      "content": "Transparency requires admitting gaps. Our aluminium sourcing is our largest material weakness, and the transition to certified recycled stock is taking longer than we would like due to minimum order quantities from certified suppliers that exceed our small-batch production volumes. We are working with two other Italian appliance manufacturers to form a purchasing consortium that will meet those minimums. Electronics are another area where progress is slow. Circuit boards, microcontrollers, and wiring harnesses come from a global supply chain with limited visibility into material origins and manufacturing conditions. We are beginning to require conflict mineral declarations from our electronics suppliers, but enforcement depends on upstream transparency that the industry has not yet achieved. The Refurbishment Program addresses end-of-life impact, but participation is still lower than we would like — about 15 percent of machines sold are eventually returned. We are exploring a deposit system for new purchases that would incentivize returns, though the logistics are complex across multiple European markets. Our B Corp certification application is in progress, with an assessment expected by mid-next year. We view B Corp not as a badge but as a framework that forces rigorous measurement of social and environmental performance across every function of the business. We will publish the assessment results regardless of the outcome."
+    }
+  ],
+  "key_takeaways": [
+    "Brass and stainless steel in Arco machines are sourced with 60 and 85 percent recycled content respectively; aluminium is the weakest link and is being transitioned.",
+    "Scope 3 supply chain emissions account for 89 percent of Arco's carbon footprint — the main area for improvement.",
+    "Packaging transitioned to molded pulp, recycled cardboard, and soy inks, eliminating nearly all plastic from the box.",
+    "B Corp certification is in progress, and the full assessment results will be published regardless of outcome."
+  ],
+  "related_products": ["arco-primo", "arco-studio", "arco-studio-pro"],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Learn About Arco Renewed",
+    "url": "/renewed"
+  },
+  "related_posts": ["the-arco-refurbishment-program", "a-visit-to-our-workshop", "coffee-certifications-explained"],
+  "seo": {
+    "title": "Arco Sustainability Audit: Materials, Energy, Packaging | Arco",
+    "meta_description": "A transparent look at Arco's environmental impact — recycled materials, renewable energy, packaging changes, supply chain emissions, and where the company falls short."
+  }
+}

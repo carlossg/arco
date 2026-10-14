@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-doppio",
+  "persona_tag": "craft-barista",
+  "headline": "Dual brass boilers. E61 group. Rotary pump. No compromises.",
+  "subheadline": "The Doppio delivers independent brew and steam temperature control, a 250ml/350ml brass boiler configuration, and the thermal mass of a proper E61 -- at a price point that leaves room for a serious grinder.",
+  "hero_image_alt": "Arco Doppio espresso machine with side panel removed showing dual brass boilers and rotary pump internals, a bottomless portafilter producing a textbook extraction with tiger striping, precision scale on the drip tray",
+  "description_long": "You know what matters in an espresso machine, so here's what the Doppio offers: dual brass boilers (250ml brew, 350ml steam) with independent PID control, a rotary pump that delivers consistent 9-bar extraction pressure, and a genuine E61 thermosyphon group head with its full thermal mass. Brew temperature is adjustable in 0.5-degree increments. The steam boiler reaches 155 degrees C for dry, powerful steam -- enough for proper microfoam in seconds. The 2.5-litre reservoir keeps you pulling back-to-back shots without refilling, and the chassis is built around serviceability: every component is accessible from the top or sides. This is a serious machine that happens to fit on a kitchen counter.",
+  "use_case_headline": "Built for the home barista who reads spec sheets.",
+  "use_case_body": "Independent PID on both boilers. 0.5-degree brew temp adjustment. E61 group with full thermosyphon. Rotary pump. 58mm group compatibility with IMS, VST, and all commercial baskets. Back-to-back shot capability without temperature drop. Everything you need, nothing you don't.",
+  "recommended_accessories": [
+    "Precision Scale",
+    "Distribution Tool",
+    "Dosing Cup",
+    "Milk Pitcher",
+    "Knock Box"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "View Full Specifications",
+  "cta_primary_url": "/products/arco-doppio",
+  "social_proof_quote": {
+    "quote": "Compared the Doppio against machines costing twice as much. The brass boilers and E61 group give it thermal stability that rivals the Bianca. Rotary pump is dead silent. I paired it with the Zero and I'm pulling competition-level shots at home.",
+    "name": "Kai M.",
+    "location": "Munich, Germany"
+  }
+}

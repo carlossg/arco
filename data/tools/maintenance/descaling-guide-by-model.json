@@ -1,0 +1,227 @@
+{
+  "id": "maint-descaling-guide",
+  "slug": "descaling-guide-by-model",
+  "title": "Descaling Guide by Model",
+  "description": "Step-by-step descaling instructions for every Arco espresso machine. Each guide includes the correct solution ratio, cycle count, rinse procedure, and safety warnings specific to your model.",
+  "hero_image_alt": "Arco Descaling Solution being poured into a measuring cup next to an espresso machine reservoir, with clear numbered instruction steps visible",
+  "data": {
+    "general_notes": {
+      "product": "Arco Descaling Solution",
+      "active_ingredient": "Citric acid blend — food-safe, phosphate-free",
+      "do_not_use": ["Vinegar (damages boiler internals and leaves persistent taste)", "Generic descalers with hydrochloric acid", "Dishwasher tablets"],
+      "safety": "Always rinse thoroughly after descaling. Never leave descaling solution in the boiler for more than 20 minutes. Never descale while the machine is at full operating temperature — let it cool to warm first."
+    },
+    "guides": [
+      {
+        "machine": "arco-steam",
+        "label": "Arco Steam",
+        "solution_ratio": "25ml Arco Descaling Solution per 500ml water",
+        "total_water_needed_ml": 1500,
+        "steps": [
+          "Turn off the machine and let it cool until the boiler is warm but not hot (about 10 minutes after shutdown).",
+          "Empty the water reservoir completely.",
+          "Mix 25ml of Arco Descaling Solution with 500ml of fresh water in the reservoir.",
+          "Turn the machine on and let it heat to operating temperature.",
+          "Place a container under the group head. Run the brew switch and dispense about 200ml of solution through the group, then stop.",
+          "Place a container under the steam wand. Open the steam valve and let 100ml of solution pass through, then close.",
+          "Wait 10 minutes to let the solution work inside the boiler.",
+          "Dispense the remaining solution through the group head and steam wand in equal portions.",
+          "Turn off the machine. Empty and rinse the reservoir.",
+          "Fill the reservoir with 500ml of fresh water. Turn on and run the full tank through the group and steam wand.",
+          "Repeat the fresh-water rinse one more time (500ml).",
+          "Your machine is now descaled. Discard the first espresso you make after descaling."
+        ],
+        "cycle_count": 1,
+        "total_time_minutes": 30,
+        "frequency_note": "Every 1-3 months depending on water hardness. Use the Water Hardness Checker for a personalized schedule."
+      },
+      {
+        "machine": "arco-nano",
+        "label": "Arco Nano",
+        "solution_ratio": "25ml Arco Descaling Solution per 750ml water",
+        "total_water_needed_ml": 3000,
+        "steps": [
+          "Enter descaling mode: hold the brew button and steam button simultaneously for 5 seconds until the descale indicator flashes.",
+          "Empty the reservoir and mix 25ml of solution with 750ml of fresh water.",
+          "Fill the reservoir with the solution.",
+          "Place a large container (at least 1L) under the group head.",
+          "Press the brew button. The machine will automatically cycle: 30 seconds on, 30 seconds pause, repeated until half the reservoir is used.",
+          "When the machine pauses and the steam light blinks, move the container under the steam wand. Open the steam valve to dispense the remaining solution.",
+          "The machine will beep when the cycle is complete.",
+          "Empty and thoroughly rinse the reservoir.",
+          "Fill with 750ml fresh water and press the brew button to start the rinse cycle.",
+          "Repeat the rinse with another 750ml of fresh water.",
+          "Press and hold the brew button for 3 seconds to exit descaling mode.",
+          "The descale indicator will turn off. Discard the first drink."
+        ],
+        "cycle_count": 1,
+        "total_time_minutes": 30,
+        "frequency_note": "The machine will display a descale reminder based on usage. Typically every 2-3 months."
+      },
+      {
+        "machine": "arco-automatico",
+        "label": "Arco Automatico",
+        "solution_ratio": "30ml Arco Descaling Solution per 1000ml water",
+        "total_water_needed_ml": 4000,
+        "steps": [
+          "Navigate to Settings > Maintenance > Descale on the machine's display.",
+          "The machine will prompt you to empty the drip tray and grounds container.",
+          "Remove the water filter cartridge from the reservoir.",
+          "Mix 30ml of solution with 1000ml of water and pour into the empty reservoir.",
+          "Press Start. The machine will run the solution through all internal circuits automatically.",
+          "The display will show progress. The entire cycle takes approximately 20 minutes. Do not interrupt.",
+          "When prompted, empty the drip tray.",
+          "Rinse and fill the reservoir with 1000ml of fresh water when the display instructs.",
+          "Press Start for the rinse cycle. The machine will flush all circuits.",
+          "Repeat the rinse cycle one more time with another 1000ml of fresh water.",
+          "Re-insert the water filter cartridge.",
+          "The machine will display 'Descaling Complete'. Run one espresso cycle and discard the result."
+        ],
+        "cycle_count": 1,
+        "total_time_minutes": 40,
+        "frequency_note": "The machine tracks water usage and displays a descaling reminder automatically. Override frequency in settings if you use a water filter."
+      },
+      {
+        "machine": "arco-classica",
+        "label": "Arco Classica",
+        "solution_ratio": "25ml Arco Descaling Solution per 1000ml water",
+        "total_water_needed_ml": 4000,
+        "steps": [
+          "Turn off the machine and let it cool for 15 minutes.",
+          "Remove the portafilter. Insert the blind (backflush) basket.",
+          "Empty the reservoir. Mix 25ml of solution with 1000ml of water.",
+          "Fill the reservoir with the solution.",
+          "Turn the machine on. Once heated, activate the brew switch and dispense 300ml through the group into a container.",
+          "Stop the brew switch. Wait 5 minutes.",
+          "Dispense another 300ml through the group. Stop and wait 5 minutes.",
+          "Open the steam valve and dispense 200ml through the steam wand into a separate container.",
+          "Open the hot water valve (if equipped) and dispense 100ml.",
+          "Dispense the remaining solution through the group head.",
+          "Turn off the machine. Empty and rinse the reservoir thoroughly.",
+          "Fill with 1000ml fresh water. Turn on and run the full tank through the group and steam circuits.",
+          "Repeat fresh water rinse with another 1000ml.",
+          "Remove the blind basket, re-insert a normal basket. Discard the first shot."
+        ],
+        "cycle_count": 1,
+        "total_time_minutes": 35,
+        "frequency_note": "Every 2-3 months. More frequently with hard water or heavy use."
+      },
+      {
+        "machine": "arco-barista-pro",
+        "label": "Arco Barista Pro",
+        "solution_ratio": "25ml Arco Descaling Solution per 1000ml water",
+        "total_water_needed_ml": 5000,
+        "steps": [
+          "Enter descaling mode: press Menu > Maintenance > Descale. The PID display will show 'dESC'.",
+          "Remove the portafilter. Attach the blind basket.",
+          "Remove the water filter. Empty the reservoir.",
+          "Mix 25ml of solution with 1000ml of water. Fill the reservoir.",
+          "Press the brew button. The machine will cycle solution through the group in controlled pulses.",
+          "After 5 cycles, the machine pauses and the steam LED blinks — dispense 300ml through the steam wand.",
+          "The machine resumes group head cycles automatically.",
+          "When the reservoir is nearly empty, the machine beeps.",
+          "Empty the drip tray. Rinse and fill the reservoir with 1000ml fresh water.",
+          "Press the brew button for the first rinse cycle.",
+          "Repeat with a second 1000ml of fresh water for a thorough rinse.",
+          "The machine exits descaling mode automatically. Re-install the water filter.",
+          "Discard the first espresso. Check that the pressure gauge reads normally during a test shot."
+        ],
+        "cycle_count": 1,
+        "total_time_minutes": 35,
+        "frequency_note": "The machine displays a descaling reminder based on shot count and estimated water volume processed."
+      },
+      {
+        "machine": "arco-lever",
+        "label": "Arco Lever",
+        "solution_ratio": "20ml Arco Descaling Solution per 750ml water — reduced concentration to protect piston seals",
+        "total_water_needed_ml": 3000,
+        "steps": [
+          "IMPORTANT: Lever machines have a piston seal that can be degraded by strong acid. Use the reduced concentration specified above.",
+          "Turn off the machine and let it cool for 20 minutes.",
+          "Remove the portafilter.",
+          "Empty the reservoir. Mix 20ml of solution with 750ml of water.",
+          "Fill the reservoir with the solution.",
+          "Turn the machine on and wait for it to reach temperature.",
+          "Raise the lever to fill the group cylinder with solution. Lower the lever to press the solution through the group. Repeat 10 times slowly into a container.",
+          "Wait 10 minutes to allow the solution to work in the boiler.",
+          "Raise and lower the lever 10 more times to flush the remaining solution.",
+          "Open the steam valve and carefully release any remaining solution from the steam circuit.",
+          "Turn off. Empty and rinse the reservoir.",
+          "Fill with 750ml fresh water. Heat and pull 15 lever strokes to rinse the group.",
+          "Repeat with another 750ml fresh water.",
+          "Re-insert the portafilter. Discard the first 2-3 shots to clear any residual taste."
+        ],
+        "cycle_count": 1,
+        "total_time_minutes": 45,
+        "frequency_note": "Every 3-4 months. Lever machines are more sensitive to scale in the piston area — do not skip descaling."
+      },
+      {
+        "machine": "arco-maestro",
+        "label": "Arco Maestro",
+        "solution_ratio": "30ml Arco Descaling Solution per 1500ml water",
+        "total_water_needed_ml": 6000,
+        "steps": [
+          "CRITICAL: E61 group head machines require descaling solution to pass through both the group and the thermosyphon circuit. Never skip the group head flushing steps.",
+          "Turn off and cool the machine for 15 minutes.",
+          "Remove the portafilter. Insert the blind basket.",
+          "Remove the water filter. Empty the reservoir.",
+          "Mix 30ml of solution with 1500ml of water. Fill the reservoir.",
+          "Turn the machine on and wait for operating temperature.",
+          "Activate the brew switch: run 200ml through the group, stop, wait 3 minutes. Repeat 3 times.",
+          "With the brew switch off, open the E61 group lever to the pre-infusion position for 30 seconds — this flushes the thermosyphon tubes. Close.",
+          "Run 200ml through the hot water tap (if equipped).",
+          "Open the steam valve and carefully dispense 200ml of solution.",
+          "Dispense the remaining solution through the group in 2-minute intervals.",
+          "Turn off. Empty, rinse, and fill the reservoir with 1500ml fresh water.",
+          "Turn on. Flush the full tank through group, steam, and hot water in sequence.",
+          "Repeat with a final 1500ml fresh water rinse.",
+          "Remove the blind basket. Pull a test shot — the water should taste clean with no chemical flavour."
+        ],
+        "cycle_count": 1,
+        "total_time_minutes": 50,
+        "frequency_note": "Every 2-3 months. Heat-exchange boilers are the most susceptible to scale buildup. Use a water filter."
+      },
+      {
+        "machine": "arco-dual-boiler",
+        "label": "Arco Dual Boiler",
+        "solution_ratio": "35ml Arco Descaling Solution per 2000ml water",
+        "total_water_needed_ml": 8000,
+        "steps": [
+          "Enter the machine's descaling mode via the PID menu: Settings > Maintenance > Descale.",
+          "The display will guide you through the process. Both boilers are descaled in sequence.",
+          "Remove the portafilter. Insert the blind basket. Remove the water filter.",
+          "Mix 35ml of solution with 2000ml of water. Fill the reservoir.",
+          "Phase 1 — Brew Boiler: Press Start. The machine cycles solution through the group head in controlled pulses for 15 minutes.",
+          "When Phase 1 completes, the display prompts you to empty the drip tray.",
+          "Phase 2 — Steam Boiler: Press Start. The machine diverts solution to the steam boiler. Open the steam wand when prompted to expel solution. This phase takes 10 minutes.",
+          "When Phase 2 completes, the machine beeps.",
+          "Empty the reservoir. Rinse thoroughly. Fill with 2000ml fresh water.",
+          "Press Start for Rinse Phase 1 (brew boiler). The machine flushes automatically.",
+          "When prompted, refill with 2000ml fresh water for Rinse Phase 2 (steam boiler).",
+          "The machine exits descaling mode and performs a temperature calibration automatically.",
+          "Pull a test shot and steam a small amount of water to verify no residual taste.",
+          "Re-install the water filter. The descaling counter resets automatically."
+        ],
+        "cycle_count": 2,
+        "total_time_minutes": 50,
+        "frequency_note": "Every 2-3 months, or when the machine displays the descale alert. With the Max Protection in-line filter, interval can extend to 4-6 months."
+      }
+    ]
+  },
+  "persona_tags": ["new-owner", "maintenance-conscious", "home-barista"],
+  "intent_tags": ["descaling", "how-to", "maintenance", "limescale"],
+  "related_products": [
+    "arco-descaling-solution",
+    "arco-filter-pro",
+    "arco-filter-max",
+    "arco-backflush-disc"
+  ],
+  "cta": {
+    "label": "Buy Arco Descaling Solution",
+    "url": "/products/accessories/cleaning/descaling-solution"
+  },
+  "seo": {
+    "title": "Descaling Guide for Every Arco Espresso Machine | Arco",
+    "meta_description": "Step-by-step descaling instructions for every Arco espresso machine model. Includes solution ratios, cycle procedures, rinse steps, and safety warnings."
+  }
+}

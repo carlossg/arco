@@ -1,0 +1,56 @@
+{
+  "id": "right-for-you-arco-nano",
+  "slug": "arco-nano",
+  "product_id": "arco-nano",
+  "headline": "Is the Arco Nano right for you?",
+  "intro": "The Nano is our smallest electric espresso machine. It makes real espresso in very little space with very little fuss. But small means trade-offs, and we want you to understand them before you buy.",
+  "hero_image_alt": "Arco Nano espresso machine in matte black tucked into a narrow kitchen shelf between a toaster and a small plant, pulling a shot into a glass espresso cup, tight space showing how little room it needs, bright natural kitchen light",
+  "perfect_for": [
+    "You live in a studio apartment or have a galley kitchen where every centimetre of counter space is contested territory.",
+    "You drink black espresso exclusively and don't need a steam wand capable of latte art.",
+    "You want the fastest possible heat-up time in our range \u2014 45 seconds from cold to ready.",
+    "You are looking for a secondary machine for a home office, a holiday house, or a bedroom side table that happens to make real espresso."
+  ],
+  "not_ideal_for": [
+    "You want to develop barista skills over time \u2014 the 54 mm portafilter limits your accessory and basket options compared to the industry-standard 58 mm.",
+    "You care about milk texture \u2014 the Panarello wand produces passable froth but not the microfoam needed for latte art or silky cappuccinos.",
+    "You plan to make espresso for more than two people regularly \u2014 the small water tank and compact thermoblock need recovery time between back-to-back shots."
+  ],
+  "what_you_need_to_know": [
+    "The 54 mm portafilter is a deliberate design choice for size, not a cost-cutting measure. It works well with the included baskets but limits your options if you want to upgrade to VST or IMS precision baskets, which are only available in 58 mm.",
+    "The Panarello steam wand introduces air automatically. It makes decent froth for a quick cappuccino, but it does not give you the manual control needed for microfoam. If you drink lattes or flat whites daily, this will frustrate you.",
+    "Despite its size, the Nano uses a real 15-bar pump and delivers 9 bar at the group. The espresso quality is genuine \u2014 the compromises are in workflow flexibility and upgrade path, not in what ends up in your cup."
+  ],
+  "common_objections": [
+    {
+      "objection": "Is it just a toy or does it make real espresso?",
+      "honest_answer": "It makes real espresso. The extraction physics are the same as any other pump machine \u2014 9 bar of pressure through finely ground coffee. Blind taste tests consistently show the Nano holding its own against machines twice its size. Where it falls short is workflow flexibility, not cup quality."
+    },
+    {
+      "objection": "Should I spend the extra \u20ac100 for the Primo instead?",
+      "honest_answer": "If you have the counter space, probably yes. The Primo's 58 mm portafilter, better steam system, and broader accessory compatibility make it the stronger long-term choice. The Nano wins only when space is the primary constraint \u2014 but when space is the constraint, it wins decisively."
+    },
+    {
+      "objection": "Can I travel with it?",
+      "honest_answer": "It is small enough to bring to a holiday rental, but it still needs mains power and a stable surface. If you want espresso on the road \u2014 camping, hotel rooms, actual travel \u2014 the Viaggio is what you need. The Nano is portable-ish, not truly portable."
+    }
+  ],
+  "alternative_if_not_right": {
+    "product_id": "arco-primo",
+    "rationale": "The Primo at \u20ac299 gives you a 58 mm portafilter, better steaming, and a proper upgrade path \u2014 only 4 cm wider on the counter."
+  },
+  "persona_match_score": {
+    "morning-minimalist": 4,
+    "upgrader": 2,
+    "craft-barista": 1,
+    "traveller": 3,
+    "non-barista": 4,
+    "office-manager": 1
+  },
+  "persona_tags": ["morning-minimalist", "non-barista", "traveller"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Is the Arco Nano Right for You? \u2014 Honest Buying Guide | Arco",
+    "meta_description": "The Arco Nano (\u20ac199) is our smallest electric espresso machine with a 45-second heat-up. Here's who it's perfect for, where it falls short, and when you should spend more."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-doppio",
+  "persona_tag": "morning-minimalist",
+  "headline": "Your morning flat white, without the wait.",
+  "subheadline": "Brew and steam at the same time. The Doppio's dual boilers mean your espresso and milk are ready together -- no switching, no cooling, no wasted minutes.",
+  "hero_image_alt": "Arco Doppio espresso machine in matte black on a clean light-wood kitchen counter, a finished flat white in a simple white cup, soft early morning light, everything tidy and minimal",
+  "description_long": "If your morning drink involves milk -- a flat white, a latte, a cappuccino -- a single-boiler machine forces you to brew, then wait, then steam. The Doppio removes that pause entirely. Two independent boilers mean your espresso extracts at the perfect temperature while the steam wand heats your milk simultaneously. The result: a complete milk drink in the time it used to take just to pull the shot. The E61 group head warms up in about 15 minutes (use the programmable timer to have it ready when your alarm goes off), and the dual PID displays let you set it once and forget it. Your morning stays simple. Your coffee gets better.",
+  "use_case_headline": "Milk drinks in half the time.",
+  "use_case_body": "Set the programmable timer the night before. Wake up to a machine that's already at temperature. Pull your shot and steam your milk at the same time. Your flat white is ready in under a minute of actual hands-on time.",
+  "recommended_accessories": [
+    "Milk Pitcher",
+    "Precision Scale",
+    "Tamper Set",
+    "Espresso Cups Set"
+  ],
+  "related_blog_posts": [
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso"
+  ],
+  "cta_primary_label": "Streamline Your Morning",
+  "cta_primary_url": "/products/arco-doppio",
+  "social_proof_quote": {
+    "quote": "I drink a flat white every morning. With my old machine I had to wait between brewing and steaming and it drove me mad. The Doppio does both at once. I set the timer at night and it's ready when I walk into the kitchen. Genuinely life-changing.",
+    "name": "Sophie L.",
+    "location": "Stockholm, Sweden"
+  }
+}

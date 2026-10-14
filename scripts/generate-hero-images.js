@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generate hero images from content/hero-images.json using Adobe Firefly.
+ * Generate hero images from data/hero-images.json using Adobe Firefly.
  *
  * Usage:
  *   node scripts/generate-hero-images.js                    # generate all pending
@@ -22,7 +22,7 @@ import {
 } from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '..');
-const CATALOG_PATH = join(ROOT, 'content', 'hero-images.json');
+const CATALOG_PATH = join(ROOT, 'data', 'hero-images.json');
 const ASSETS_DIR = join(ROOT, 'assets', 'images', 'heroes');
 
 // Adobe endpoints

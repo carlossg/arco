@@ -1,0 +1,48 @@
+{
+  "id": "reading-a-shot",
+  "slug": "reading-a-shot",
+  "category": "fundamentals",
+  "title": "Reading a Shot: How to Evaluate Espresso by Sight, Time, and Taste",
+  "difficulty": "beginner",
+  "read_time_minutes": 7,
+  "persona_tags": ["morning-minimalist", "upgrader"],
+  "intent_tags": ["research", "own"],
+  "hero_image_alt": "Espresso flowing from a bottomless portafilter in a steady honey-colored stream into a white ceramic cup on a scale reading 32 grams, shot timer displaying 24 seconds, warm directional light from the right highlighting the espresso's viscosity and color",
+  "intro": "A great barista does not wait until the shot is finished to know whether it is good. They read the shot as it pours — watching the color, timing the flow, and evaluating the taste — then use that information to adjust the next one. Learning to read your shots turns every pull into a learning opportunity and dramatically accelerates your improvement.",
+  "body": [
+    {
+      "heading": "Reading by Time",
+      "content": "Shot time is the simplest diagnostic tool you have. Start your timer when you engage the pump and stop it when you stop the pump (or when the desired yield weight is reached on the scale). For a standard double espresso — roughly 18 grams in, 36 grams out — the target window is typically 25 to 30 seconds. If the shot finishes significantly faster than 25 seconds, water is passing through the puck too easily. This usually means the grind is too coarse, the dose is too low, or the tamp was uneven. A fast shot under-extracts, pulling mostly acids and producing a sour, thin cup. If the shot takes longer than 35 seconds, water is struggling to get through. The grind is too fine, the dose is too high, or something in the puck preparation is choking the flow. A slow shot over-extracts, pulling too many bitter and astringent compounds. Time alone does not tell you everything — a 27-second shot can still taste bad if other variables are off — but it gives you an immediate indication of flow resistance and extraction duration. Make it a habit to time every shot, even when you are in a rush. The number itself becomes part of your feedback vocabulary."
+    },
+    {
+      "heading": "Reading by Sight",
+      "content": "Watching the espresso as it flows from the portafilter reveals a surprising amount of information. If you have a bottomless portafilter (also called a naked portafilter), you can see exactly how the espresso emerges from the basket. In an ideal extraction, espresso starts as a slow, dark drip that thickens into a steady stream after a few seconds. The color transitions from a deep chocolate brown to a warm caramel and eventually to a pale, almost blonde color near the end of the shot. This color gradient reflects the extraction curve — dark, concentrated solubles come first, lighter compounds follow. If you see the stream split into multiple thin jets spraying in different directions, that is channeling — water has found weak paths through the puck and is over-extracting those spots while ignoring others. Channeling is the enemy of even extraction and usually indicates a distribution or tamping problem. If the stream starts blonde almost immediately, the shot is running too fast and under-extracting. If it stays dark brown for an unusually long time with only a thin drip, the shot is choking. With a spouted portafilter, you lose the view of the basket but can still watch the color and flow rate from the spout. A steady, mouse-tail-thick stream that gradually lightens is the visual signature of a well-extracted shot."
+    },
+    {
+      "heading": "Reading by Taste",
+      "content": "Taste is the ultimate judge. Let the shot cool for about 20 to 30 seconds — extremely hot espresso numbs your taste buds and makes evaluation harder. Take a small sip and let it coat your entire tongue. Pay attention to three dimensions. First, acidity: does the shot have a pleasant, fruity brightness or an unpleasant, sharp sourness? Pleasant acidity is like biting into a ripe nectarine; unpleasant sourness is like biting into an under-ripe lemon. Excessive sourness signals under-extraction. Second, bitterness: does the shot have a structured, chocolate-like bitterness that provides backbone, or a harsh, dry, astringent bitterness that makes you pucker? Some bitterness is normal and desirable in espresso, but if it dominates and lingers unpleasantly, the shot is over-extracted. Third, sweetness and body: a well-extracted shot has a noticeable sweetness — not sugary, but round and full, like caramel or honey. It should feel viscous and syrupy in your mouth, not thin and watery. If sweetness and body are present, extraction has hit the right zone. Finally, notice the aftertaste. A good shot leaves a clean, pleasant flavor that fades naturally over 10 to 15 seconds. A bad shot leaves a lingering sourness or bitter dryness that you want to rinse away."
+    },
+    {
+      "heading": "Building Your Feedback Loop",
+      "content": "The power of reading shots comes from connecting what you observe to what you change. Every shot gives you data — time, visual flow, and taste — and that data should directly inform your next adjustment. If the shot pulled in 22 seconds, looked pale early, and tasted sour: grind finer. If it pulled in 35 seconds, dripped slowly, and tasted harsh and bitter: grind coarser. If the time and visuals looked right but the taste lacked sweetness, consider adjusting the temperature by a degree or extending the yield slightly. The key discipline is changing only one variable at a time. If you grind finer and also increase the dose simultaneously, you will not know which change caused the improvement or decline. Single-variable adjustments are slower but infinitely more educational. Keep a simple log — even a mental one — of what you saw, what you tasted, and what you changed. Within a few days of deliberate practice, you will develop an intuitive sense for reading shots that will serve you for as long as you make espresso. This feedback loop is the heart of the craft."
+    }
+  ],
+  "key_takeaways": [
+    "Time every shot — 25 to 30 seconds is the standard target for a double espresso at a 1:2 ratio.",
+    "Watch the flow color: dark to caramel to blonde is ideal; spraying or immediate blonding indicates problems.",
+    "Taste for three dimensions: acidity (sour = under-extracted), bitterness (harsh = over-extracted), and sweetness (present = well-extracted).",
+    "Use a bottomless portafilter to see channeling and flow patterns directly from the basket.",
+    "Change one variable at a time after each shot to build a reliable cause-and-effect feedback loop."
+  ],
+  "related_products": ["arco-primo", "arco-doppio"],
+  "related_guides": ["what-is-extraction", "dose-and-yield", "troubleshooting-bad-espresso", "dialing-in-new-beans"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "Start Your Espresso Journey with Arco",
+    "url": "/products/arco-primo"
+  },
+  "seo": {
+    "title": "How to Read an Espresso Shot: Time, Sight, and Taste | Arco",
+    "meta_description": "Learn to evaluate espresso by shot time, visual flow, and taste. Build the feedback loop that turns every pull into a learning opportunity. Beginner guide from Arco."
+  }
+}

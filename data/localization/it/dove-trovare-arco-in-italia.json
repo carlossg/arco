@@ -1,0 +1,37 @@
+{
+  "id": "loc-it-005",
+  "slug": "dove-trovare-arco-in-italia",
+  "title": "Dove trovare Arco in Italia",
+  "market": "Italy",
+  "language": "it",
+  "persona_tag": "morning-minimalist",
+  "hero_image_alt": "Vetrina di un negozio di articoli per il caffè in una strada italiana con macchine Arco esposte, insegna artigianale, luce pomeridiana che illumina i prodotti, ambiente cittadino con architettura storica visibile sullo sfondo",
+  "hero_headline": "Tocca, prova, scegli. Di persona.",
+  "hero_subtext": "Le macchine Arco sono disponibili in rivenditori selezionati in tutta Italia e nel nostro negozio online con spedizione gratuita.",
+  "editorial_intro": "Comprare una macchina per l'espresso è una decisione che si prende meglio quando si può vedere lo strumento, sentirne il peso, capire lo spazio che occuperà nella propria cucina. Per questo abbiamo costruito una rete di rivenditori che condividono la nostra filosofia: competenza, onestà e nessuna fretta di chiudere una vendita.",
+  "editorial_body": "Arco è disponibile in Italia attraverso tre canali: rivenditori specializzati, il nostro negozio online, e lo showroom di Milano.\n\nI rivenditori specializzati sono il cuore della nostra presenza in Italia. Non li abbiamo scelti per la loro dimensione ma per la loro competenza. Ogni rivenditore Arco è un negozio indipendente gestito da persone che capiscono il caffè — che sanno consigliarti non solo quale macchina comprare, ma quale macinino abbinare, quali chicchi provare, e come configurare il tuo setup per i tuoi gusti specifici. Non troverete Arco nelle grandi catene di elettronica. È una scelta deliberata.\n\nLa rete attuale copre le principali città italiane. A Milano, il nostro showroom in zona Isola è aperto dal martedì al sabato e offre la possibilità di provare ogni macchina della gamma con chicchi appena tostati da torrefattori locali. A Torino, Roma, Bologna, Firenze, Napoli e Palermo collaboriamo con negozi specializzati che espongono la gamma completa e offrono dimostrazioni su appuntamento.\n\nPer le città non ancora coperte dalla rete fisica, il negozio online offre spedizione gratuita in tutta Italia, consegna in 2-3 giorni lavorativi, e un periodo di prova di 30 giorni con reso gratuito. Acquistiamo la fiducia di ogni cliente con la consapevolezza che chi prova una Arco raramente la restituisce — il tasso di reso è inferiore al 3% — ma la possibilità esiste perché crediamo che la decisione debba essere presa senza pressione.\n\nLo showroom di Milano merita una visita anche per chi non intende acquistare. Lo spazio è progettato come una cucina vera, non come un negozio — ogni macchina è posizionata su un bancone come lo sarebbe a casa vostra, con il macinino accanto, gli accessori a portata di mano, e un barista disponibile per prepararvi un espresso con la macchina che state considerando. Nessuna pressione, nessuna fretta. Venite, bevete un caffè, fatevi un'idea. Se decidete di comprare, bene. Se decidete che non è il momento, bene lo stesso. Il caffè è offerto.\n\nPer trovare il rivenditore più vicino a voi, inserite la vostra città o il vostro CAP nel localizzatore qui sotto. Se nella vostra zona non c'è ancora un rivenditore autorizzato e siete interessati a diventarlo, contattateci: cerchiamo sempre nuovi partner che condividano i nostri valori.\n\nOgni macchina Arco acquistata in Italia — sia online che in negozio — include garanzia di due anni, assistenza tecnica dedicata, e accesso al programma di manutenzione programmata che vi ricorda quando è il momento di decalcificare, sostituire le guarnizioni e controllare i componenti principali. Perché una macchina ben mantenuta non è solo una macchina che dura di più. È una macchina che produce caffè migliore, ogni giorno.",
+  "product_bundle": [
+    { "product_id": "arco-primo", "role": "featured" },
+    { "product_id": "arco-studio", "role": "featured" },
+    { "product_id": "arco-ufficio", "role": "featured" }
+  ],
+  "featured_guides": [
+    "guide-choosing-your-first-arco",
+    "guide-showroom-appointment"
+  ],
+  "cta": {
+    "text": "Trova il rivenditore più vicino",
+    "url": "/it/store-locator",
+    "secondary_text": "Acquista online con spedizione gratuita",
+    "secondary_url": "/it/shop"
+  },
+  "seo": {
+    "title": "Dove trovare Arco in Italia — Rivenditori e negozio online | Arco Coffee",
+    "meta_description": "Trova le macchine Arco in Italia: rivenditori specializzati nelle principali città, showroom a Milano, e negozio online con spedizione gratuita e 30 giorni di prova."
+  },
+  "hreflang": {
+    "en": "/en/arco-in-the-uk",
+    "it": "/it/dove-trovare-arco-in-italia",
+    "de": "/de/arco-in-deutschland-kaufen"
+  }
+}

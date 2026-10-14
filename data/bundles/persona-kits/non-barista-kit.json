@@ -1,0 +1,38 @@
+{
+  "id": "bundle-pk-005",
+  "slug": "non-barista-kit",
+  "title": "The Non-Barista Kit",
+  "persona_tag": "non-barista",
+  "headline": "Great coffee. Zero learning curve. Seriously.",
+  "editorial_intro": "The Non-Barista Kit is for the person who wants exceptional coffee every day but has absolutely no interest in becoming a hobbyist. Touch a button, drink something wonderful, get on with your life.",
+  "products": [
+    {
+      "product_id": "arco-automatico",
+      "role": "anchor",
+      "include_rationale": "The Automatico grinds, doses, brews, and froths at the touch of its colour screen — seven drinks, four user profiles, and a self-cleaning cycle that requires nothing from you."
+    },
+    {
+      "product_id": "arco-descaling-subscription",
+      "role": "accessory",
+      "include_rationale": "A twelve-month descaling subscription delivers fresh solution to your door every three months, timed to when the machine actually needs it — so maintenance happens automatically, not when you remember."
+    }
+  ],
+  "total_price_eur": 1150,
+  "price_display": "€1,150",
+  "savings_vs_individual_eur": 49,
+  "what_you_get_list": [
+    "Arco Automatico bean-to-cup espresso machine",
+    "12-month descaling subscription (4 deliveries)",
+    "Free shipping and consolidated packaging"
+  ],
+  "editorial_body": "Let us be honest: most people do not want a hobby. They want a flat white at seven in the morning that tastes as good as the one from the cafe on the corner, and they want it without watching YouTube tutorials about extraction yield. The Non-Barista Kit respects that position entirely. The Automatico handles the entire process — grinding whole beans, dosing the right amount, extracting at the correct pressure, and texturing milk into genuine microfoam — behind a simple touchscreen interface. You choose your drink, you press the icon, you wait forty-five seconds. The result is not a compromise. It is a genuinely good cup of coffee produced by a machine that was engineered to make decisions you would rather not think about. The descaling subscription removes the last remaining point of friction: maintenance. Every three months a box arrives with exactly the solution you need, timed to the machine's usage cycle. You pour it in, run the programme, and you are done. No searching online for compatible products, no forgetting until the machine starts tasting strange. The Non-Barista Kit is not the lazy option. It is the efficient one.",
+  "related_experience": "non-barista",
+  "hero_image_alt": "The Non-Barista Kit on a bright modern kitchen island: Arco Automatico in matte black with its touchscreen illuminated showing a flat white icon, a perfectly frothed latte beside it, descaling subscription box in the background, clean and uncluttered composition",
+  "persona_tags": ["non-barista", "morning-minimalist"],
+  "intent_tags": ["decide"],
+  "seo": {
+    "title": "Non-Barista Kit — Automatico + Descaling Subscription | Arco",
+    "meta_description": "The Non-Barista Kit pairs the Arco Automatico bean-to-cup machine with a 12-month descaling subscription. Great coffee, zero effort. Save €49 at €1,150.",
+    "canonical_url": "/bundles/persona-kits/non-barista-kit"
+  }
+}

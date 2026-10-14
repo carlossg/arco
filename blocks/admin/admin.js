@@ -35,7 +35,7 @@
 import {
   decorateBlock, decorateButtons, decorateIcons, loadBlock,
 } from '../../scripts/aem.js';
-import { ARCO_RECOMMENDER_URL } from '../../scripts/api-config.js';
+import { ARCO_ADMIN_URL } from '../../scripts/api-config.js';
 import { BLOCK_ALIASES } from '../../scripts/block-aliases.js';
 import { formatTimestamp as ts, formatDuration, formatInt as fmtInt } from '../../scripts/formatting.js';
 import { processSectionMetadata } from '../../scripts/section-metadata.js';
@@ -124,7 +124,7 @@ async function api(path, options = {}) {
   if (options.body && !headers['Content-Type']) {
     headers['Content-Type'] = 'application/json';
   }
-  const res = await fetch(`${ARCO_RECOMMENDER_URL}${path}`, {
+  const res = await fetch(`${ARCO_ADMIN_URL}${path}`, {
     method: options.method || 'GET',
     headers,
     body: options.body,
@@ -177,7 +177,7 @@ function parseRoute() {
   if (hash === '/feedback' || hash.startsWith('/feedback?')) return { view: 'feedback' };
   const fbRunMatch = hash.match(/^\/feedback\/run\/([^/]+)$/);
   if (fbRunMatch) return { view: 'feedback-run', id: fbRunMatch[1] };
-  if (hash === '/insights') return { view: 'insights' };
+  if (hash === '/insights' || hash.startsWith('/insights?')) return { view: 'insights' };
 
   return { view: 'sessions' };
 }
@@ -1457,7 +1457,7 @@ const EXPERIMENT_STATUS_TONE = { complete: 'ok', running: 'warn', error: 'muted'
 async function streamExperimentRun(body, onEvent, signal) {
   const token = getAdminToken();
   if (!token) throw new Error('Admin token required');
-  const res = await fetch(`${ARCO_RECOMMENDER_URL}/api/admin/experiments`, {
+  const res = await fetch(`${ARCO_ADMIN_URL}/api/admin/experiments`, {
     method: 'POST',
     headers: {
       Authorization: `Basic ${btoa(`admin:${token}`)}`,
@@ -3042,7 +3042,7 @@ async function renderEvaluation(root, evalRunId) {
     cellEl.removeAttribute('data-signature');
     try {
       const res = await fetch(
-        `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/variants/${encodeURIComponent(variantId)}/rejudge`,
+        `${ARCO_ADMIN_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/variants/${encodeURIComponent(variantId)}/rejudge`,
         {
           method: 'POST',
           headers: { Authorization: `Basic ${btoa(`admin:${getAdminToken()}`)}` },
@@ -3063,7 +3063,7 @@ async function renderEvaluation(root, evalRunId) {
     cellEl.removeAttribute('data-signature');
     try {
       const res = await fetch(
-        `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/variants/${encodeURIComponent(variantId)}/regenerate`,
+        `${ARCO_ADMIN_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/variants/${encodeURIComponent(variantId)}/regenerate`,
         {
           method: 'POST',
           headers: { Authorization: `Basic ${btoa(`admin:${getAdminToken()}`)}` },
@@ -3119,7 +3119,7 @@ async function renderEvaluation(root, evalRunId) {
     setToolbarStatus(`${label}…`);
     try {
       const res = await fetch(
-        `${ARCO_RECOMMENDER_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/judge`,
+        `${ARCO_ADMIN_URL}/api/admin/evaluations/${encodeURIComponent(evalRunId)}/judge`,
         {
           method: 'POST',
           headers: {
@@ -3536,8 +3536,8 @@ async function renderFeedbackList(root) {
         Has comment
       </label>
       <div class="admin-feedback-export">
-        <a class="admin-btn admin-btn-ghost" data-export="csv" href="${esc(ARCO_RECOMMENDER_URL)}/api/admin/feedback/export?format=csv" target="_blank" rel="noopener">Download CSV</a>
-        <a class="admin-btn admin-btn-ghost" data-export="json" href="${esc(ARCO_RECOMMENDER_URL)}/api/admin/feedback/export?format=json" target="_blank" rel="noopener">Download NDJSON</a>
+        <a class="admin-btn admin-btn-ghost" data-export="csv" href="${esc(ARCO_ADMIN_URL)}/api/admin/feedback/export?format=csv" target="_blank" rel="noopener">Download CSV</a>
+        <a class="admin-btn admin-btn-ghost" data-export="json" href="${esc(ARCO_ADMIN_URL)}/api/admin/feedback/export?format=json" target="_blank" rel="noopener">Download NDJSON</a>
       </div>
     </div>
 
@@ -3591,8 +3591,8 @@ async function renderFeedbackList(root) {
     if (filters.flag && filters.flag !== 'all') exportParams.set('flag', filters.flag);
     const csv = root.querySelector('[data-export="csv"]');
     const json = root.querySelector('[data-export="json"]');
-    csv.href = `${ARCO_RECOMMENDER_URL}/api/admin/feedback/export?format=csv${exportParams.toString() ? `&${exportParams.toString()}` : ''}`;
-    json.href = `${ARCO_RECOMMENDER_URL}/api/admin/feedback/export?format=json${exportParams.toString() ? `&${exportParams.toString()}` : ''}`;
+    csv.href = `${ARCO_ADMIN_URL}/api/admin/feedback/export?format=csv${exportParams.toString() ? `&${exportParams.toString()}` : ''}`;
+    json.href = `${ARCO_ADMIN_URL}/api/admin/feedback/export?format=json${exportParams.toString() ? `&${exportParams.toString()}` : ''}`;
   }
 
   root.querySelectorAll('[data-filter]').forEach((el) => {
@@ -3714,22 +3714,295 @@ async function renderFeedbackTab(panel, pageData) {
   panel.innerHTML = sections || '<p class="admin-empty">No feedback collected on this page yet.</p>';
 }
 
-function renderInsightsStub(root) {
+/* ── Insights (marketing metrics) ───────────────────────────────────────── */
+
+/**
+ * Plain-language definitions for the jargon on this page. Marketing acronyms
+ * (AOV, PDP) and our own coinages (run vs. page) both need spelling out — and
+ * where a number has a known limitation, the tooltip says so rather than
+ * letting the reader assume it means more than it does.
+ */
+const METRIC_TIPS = {
+  pages: 'Distinct ?q= visits in this window. Each one is a personalised page: '
+    + 'the first generation plus any follow-up refinements the visitor clicked.',
+  costPerPage: 'Total inference cost divided by personalised pages. This is the '
+    + 'figure to compare against what it costs to author a landing page by hand.',
+  inferenceCost: 'LLM token cost of generating pages, priced at vendor list rates. '
+    + 'Excludes search embeddings, evaluation/judge runs and Cloudflare platform '
+    + 'fees — so it is the cost of generation, not full cost-to-serve.',
+  productViews: 'Visitors who reached a product detail page (PDP). Treated as the '
+    + 'soft conversion: it shows interest, not yet an intent to buy.',
+  addToCart: 'The hard conversion. This demo has no checkout, so the funnel ends at '
+    + 'the cart. "Attributed" means the cart followed a generated page within the '
+    + '30-minute attribution window.',
+  conversionRate: 'Share of all sessions that added something to the cart. Blends '
+    + 'assisted and organic traffic, so it understates how well generated pages '
+    + 'convert on their own.',
+  aov: 'Average Order Value — total cart value divided by the number of cart events. '
+    + 'Tells you whether visitors chose more expensive products, not how many bought. '
+    + 'Measured on carts rather than orders, so no abandonment is deducted.',
+  costPerRun: 'Inference cost divided by generation calls. A follow-up chip click is '
+    + 'its own run, so this reads lower than cost per page.',
+  modelPdp: 'Product detail page views attributed to pages this model generated.',
+  modelConv: 'Attributed carts divided by this model\'s runs.',
+  modelRevenue: 'Attributed cart value per run — comparable across models even when '
+    + 'they ran a different number of times.',
+  modelJudge: 'Mean LLM-judge quality score (1–5) from the evaluation suite. Worth '
+    + 'comparing against actual conversion: if they disagree, the rubric is wrong.',
+  modelUser: 'Real thumbs up / down left by visitors on pages from this model.',
+  segmentRuns: 'Generation calls whose classified intent or journey stage fell into '
+    + 'this segment.',
+  segmentValue: 'Attributed cart value originating from this segment.',
+};
+
+/** Wrap any label in a focusable tooltip trigger. */
+function withTip(label, text) {
+  if (!text) return esc(label);
+  return `<span class="admin-tip" tabindex="0" data-tip="${esc(text)}">${esc(label)}<span
+    class="admin-tip-marker" aria-hidden="true">?</span><span class="admin-sr-only">${esc(text)}</span></span>`;
+}
+
+function usd(n) {
+  if (n == null || !Number.isFinite(Number(n))) return '—';
+  const v = Number(n);
+  if (Math.abs(v) >= 1000) return `$${v.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+  if (Math.abs(v) >= 1) return `$${v.toFixed(2)}`;
+  if (v === 0) return '$0';
+  return `$${v.toFixed(4)}`;
+}
+
+function pctFmt(n, digits = 1) {
+  if (n == null || !Number.isFinite(Number(n))) return '—';
+  return `${(Number(n) * 100).toFixed(digits)}%`;
+}
+
+function statCard(label, value, sub, tipText) {
+  return `
+    <div class="admin-insight-stat">
+      <span class="admin-insight-stat-label">${withTip(label, tipText)}</span>
+      <strong class="admin-insight-stat-value">${esc(String(value))}</strong>
+      ${sub ? `<span class="admin-insight-stat-sub">${esc(sub)}</span>` : ''}
+    </div>`;
+}
+
+const FUNNEL_TIPS = {
+  query: 'Sessions that generated at least one personalised page. The funnel starts '
+    + 'here, so every step below is measured against this.',
+  product_card_click: 'Sessions that clicked a product card inside a generated page.',
+  product_view: 'Sessions that reached a product detail page and were attributed to a '
+    + 'generated page. Organic visits are excluded, otherwise this step could exceed '
+    + 'the one above it.',
+  add_to_cart: 'Sessions that added a product to the cart within the attribution '
+    + 'window. There is no checkout step in this demo.',
+};
+
+function renderFunnel(funnel) {
+  const top = funnel[0]?.sessions || 0;
+  return funnel.map((step, i) => {
+    const width = top ? Math.max(2, (step.sessions / top) * 100) : 2;
+    return `
+      <div class="admin-funnel-step">
+        <div class="admin-funnel-head">
+          <span class="admin-funnel-label">${withTip(step.label, FUNNEL_TIPS[step.key])}</span>
+          <span class="admin-funnel-count">${step.sessions.toLocaleString()} sessions</span>
+        </div>
+        <div class="admin-funnel-bar-track">
+          <div class="admin-funnel-bar" style="width:${width}%"></div>
+        </div>
+        <div class="admin-funnel-meta admin-muted">
+          ${i === 0 ? 'entry point' : `${pctFmt(step.stepRate)} of previous · ${pctFmt(step.overallRate)} overall · ${step.dropOff.toLocaleString()} dropped off`}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderModelsTable(models) {
+  if (!models.length) {
+    return '<p class="admin-empty">No generations with a recorded model in this window.</p>';
+  }
+  return `
+    <table class="admin-table admin-insight-table">
+      <thead>
+        <tr>
+          <th>Model</th><th>Runs</th><th>Cost</th>
+          <th>${withTip('$/run', METRIC_TIPS.costPerRun)}</th>
+          <th>${withTip('PDP views', METRIC_TIPS.modelPdp)}</th>
+          <th>Carts</th>
+          <th>${withTip('Conv. rate', METRIC_TIPS.modelConv)}</th>
+          <th>${withTip('Revenue/run', METRIC_TIPS.modelRevenue)}</th>
+          <th>${withTip('Judge', METRIC_TIPS.modelJudge)}</th>
+          <th>${withTip('User', METRIC_TIPS.modelUser)}</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${models.map((m) => `
+          <tr>
+            <td><span class="admin-mono">${esc(m.provider || '?')}</span><br>${esc(m.model || '?')}</td>
+            <td>${m.runs.toLocaleString()}</td>
+            <td>${usd(m.costUsd)}</td>
+            <td>${usd(m.costPerRunUsd)}</td>
+            <td>${m.productViews.toLocaleString()}</td>
+            <td>${m.carts.toLocaleString()}</td>
+            <td>${pctFmt(m.cartConversionRate)}</td>
+            <td>${usd(m.revenuePerRunUsd)}</td>
+            <td>${m.judgeScore != null ? Number(m.judgeScore).toFixed(2) : '—'}</td>
+            <td>👍${m.up} 👎${m.down}</td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+function renderCampaignsTable(campaigns) {
+  if (!campaigns.length) {
+    return '<p class="admin-empty">No traffic in this window.</p>';
+  }
+  return `
+    <table class="admin-table admin-insight-table">
+      <thead>
+        <tr>
+          <th>Source</th><th>Medium</th><th>Campaign</th>
+          <th>Sessions</th><th>Page views</th><th>Carts</th>
+          <th>Conv. rate</th><th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${campaigns.map((c) => `
+          <tr>
+            <td>${esc(c.utmSource)}</td>
+            <td>${esc(c.utmMedium)}</td>
+            <td>${esc(c.utmCampaign)}</td>
+            <td>${c.sessions.toLocaleString()}</td>
+            <td>${c.pageViews.toLocaleString()}</td>
+            <td>${c.carts.toLocaleString()}</td>
+            <td>${pctFmt(c.conversionRate)}</td>
+            <td>${usd(c.cartValueUsd)}</td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+function renderSegmentTable(title, rows) {
+  if (!rows.length) return '';
+  return `
+    <div class="admin-insight-segment">
+      <h4>${esc(title)}</h4>
+      <table class="admin-table admin-insight-table">
+        <thead><tr><th>Segment</th><th>${withTip('Runs', METRIC_TIPS.segmentRuns)}</th><th>Carts</th><th>${withTip('Conv. rate', METRIC_TIPS.modelConv)}</th><th>${withTip('Value', METRIC_TIPS.segmentValue)}</th></tr></thead>
+        <tbody>
+          ${rows.map((r) => `
+            <tr>
+              <td>${esc(r.segment)}</td>
+              <td>${r.runs.toLocaleString()}</td>
+              <td>${r.carts.toLocaleString()}</td>
+              <td>${pctFmt(r.conversionRate)}</td>
+              <td>${usd(r.cartValueUsd)}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function renderTimeseries(series) {
+  if (!series.length) return '<p class="admin-empty">No activity in this window.</p>';
+  const max = Math.max(...series.map((d) => Math.max(d.costUsd, d.valueUsd)), 0.0001);
+  return `
+    <div class="admin-insight-chart">
+      ${series.map((d) => `
+        <div class="admin-insight-chart-col" title="${esc(d.day)} · cost ${usd(d.costUsd)} · value ${usd(d.valueUsd)}">
+          <div class="admin-insight-bars">
+            <div class="admin-insight-bar admin-insight-bar-value" style="height:${(d.valueUsd / max) * 100}%"></div>
+            <div class="admin-insight-bar admin-insight-bar-cost" style="height:${(d.costUsd / max) * 100}%"></div>
+          </div>
+          <span class="admin-insight-chart-label">${esc(d.day.slice(5))}</span>
+        </div>`).join('')}
+    </div>
+    <div class="admin-insight-legend admin-muted">
+      <span><i class="admin-swatch admin-swatch-value"></i> attributed cart value</span>
+      <span><i class="admin-swatch admin-swatch-cost"></i> inference cost</span>
+    </div>`;
+}
+
+async function renderInsights(root) {
+  const days = Number(new URLSearchParams(window.location.hash.split('?')[1] || '').get('days')) || 30;
+
   root.innerHTML = `
     <div class="admin-toolbar">
-      <h2>Feedback insights</h2>
+      <h2>Marketing insights</h2>
+      <div class="admin-toolbar-actions">
+        <label class="admin-muted">Window
+          <select data-role="days">
+            ${[7, 30, 90, 365].map((d) => `<option value="${d}" ${d === days ? 'selected' : ''}>${d} days</option>`).join('')}
+          </select>
+        </label>
+      </div>
     </div>
-    <section class="admin-card admin-insights-stub">
-      <h3>Automated summaries (coming soon)</h3>
-      <p class="admin-muted">
-        This view will summarize accumulated user feedback into actionable
-        improvement suggestions: recurring flag categories, problematic
-        product hallucinations, and judge↔user score divergence.
-      </p>
-      <button type="button" class="admin-btn admin-btn-ghost" disabled
-        title="Coming soon">Generate summary</button>
+    <div data-role="body"><p class="admin-muted">Loading…</p></div>`;
+
+  root.querySelector('[data-role="days"]').addEventListener('change', (e) => {
+    window.location.hash = `#/insights?days=${e.target.value}`;
+  });
+
+  const body = root.querySelector('[data-role="body"]');
+  const q = `?days=${days}`;
+
+  let summary; let funnel; let campaigns; let models; let segments; let series;
+  try {
+    [summary, funnel, campaigns, models, segments, series] = await Promise.all([
+      api(`/api/admin/insights/summary${q}`),
+      api(`/api/admin/insights/funnel${q}`),
+      api(`/api/admin/insights/campaigns${q}`),
+      api(`/api/admin/insights/models${q}`),
+      api(`/api/admin/insights/segments${q}`),
+      api(`/api/admin/insights/timeseries${q}`),
+    ]);
+  } catch (err) {
+    body.innerHTML = `<p class="admin-error">${esc(err.message)}</p>`;
+    return;
+  }
+
+  const { generation: g, conversions: c } = summary;
+
+  body.innerHTML = `
+    <section class="admin-card">
+      <div class="admin-insight-stats">
+        ${statCard('Personalised pages', g.pages.toLocaleString(), `${g.runs.toLocaleString()} runs · ${g.sessions.toLocaleString()} visitors`, METRIC_TIPS.pages)}
+        ${statCard('Cost per page', usd(g.costPerPageUsd), `${usd(g.costPerSessionUsd)} per visitor`, METRIC_TIPS.costPerPage)}
+        ${statCard('Inference cost', usd(g.costUsd), `${usd(g.costPerRunUsd)} per run · ${g.runsPerPage.toFixed(1)} runs/page`, METRIC_TIPS.inferenceCost)}
+        ${statCard('Product views', c.productViews.toLocaleString(), 'soft conversion', METRIC_TIPS.productViews)}
+        ${statCard('Add to cart', c.addToCart.toLocaleString(), `${c.attributedAddToCart} attributed`, METRIC_TIPS.addToCart)}
+        ${statCard('Conversion rate', pctFmt(c.conversionRate), 'sessions with a cart', METRIC_TIPS.conversionRate)}
+        ${statCard('AOV', usd(c.aovUsd), 'per cart event', METRIC_TIPS.aov)}
+      </div>
+      <p class="admin-insight-caveat admin-muted">⚠ ${esc(summary.caveat)}</p>
     </section>
-  `;
+
+    <section class="admin-card">
+      <h3>Conversion funnel</h3>
+      ${renderFunnel(funnel.funnel)}
+    </section>
+
+    <section class="admin-card">
+      <h3>By campaign</h3>
+      <p class="admin-muted">Traffic and conversion attributed to utm_source / utm_medium / utm_campaign.</p>
+      ${renderCampaignsTable(campaigns.campaigns)}
+    </section>
+
+    <section class="admin-card">
+      <h3>Cost vs. attributed value</h3>
+      ${renderTimeseries(series.series)}
+    </section>
+
+    <section class="admin-card">
+      <h3>By model</h3>
+      <p class="admin-muted">Does the LLM judge score predict actual conversion?</p>
+      ${renderModelsTable(models.models)}
+    </section>
+
+    <section class="admin-card">
+      <h3>By segment</h3>
+      ${renderSegmentTable('Query intent', segments.byIntent)}
+      ${renderSegmentTable('Journey stage', segments.byJourneyStage)}
+    </section>`;
 }
 
 // ── Entry ───────────────────────────────────────────────────────────────────
@@ -3789,7 +4062,7 @@ async function render(root) {
   } else if (route.view === 'feedback-run') {
     await renderFeedbackRun(root, route.id);
   } else if (route.view === 'insights') {
-    renderInsightsStub(root);
+    await renderInsights(root);
   } else {
     await renderSessions(root);
   }

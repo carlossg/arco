@@ -1,0 +1,69 @@
+{
+  "id": "arco-doppio-vs-arco-studio",
+  "slug": "arco-doppio-vs-arco-studio",
+  "title": "Arco Doppio vs Arco Studio",
+  "products": ["arco-doppio", "arco-studio"],
+  "comparison_headline": "Solid daily driver or serious home setup?",
+  "comparison_intro": "The Doppio is a genuinely capable dual-boiler machine that will satisfy most home baristas for years. The Studio adds saturated group head design, pre-infusion control, and build quality that crosses into semi-professional territory. The question is whether you will use those features or just admire them.",
+  "hero_image_alt": "Arco Doppio in brushed steel and Arco Studio in matte black side by side on a dark walnut kitchen island, the Studio noticeably larger and more substantial, a barista scale and WDT tool between them, warm pendant lighting overhead",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac549",
+      "product_b": "\u20ac1,299"
+    },
+    "boiler_type": {
+      "product_a": "Dual boiler (brass brew, stainless steam)",
+      "product_b": "Dual boiler with saturated group head (brass throughout)"
+    },
+    "heat_up_time": {
+      "product_a": "3 minutes",
+      "product_b": "8 minutes (saturated group needs thermal equilibrium)"
+    },
+    "pressure_control": {
+      "product_a": "Adjustable OPV (6\u201310 bar)",
+      "product_b": "Adjustable OPV + manual pre-infusion lever (0\u20139 bar ramp)"
+    },
+    "steam_capability": {
+      "product_a": "Dedicated steam boiler, quick-set wand",
+      "product_b": "High-capacity steam boiler (800 ml), articulating cool-touch wand"
+    },
+    "grind_compatibility": {
+      "product_a": "Stepless grinder recommended (Preciso or better)",
+      "product_b": "Stepless grinder essential \u2014 the Studio rewards micro-adjustments (Preciso minimum, Zero ideal)"
+    },
+    "suitable_for": {
+      "product_a": "Home baristas who want consistent results and milk drinks without fuss, and don't need pressure profiling",
+      "product_b": "Dedicated home baristas who want to explore pre-infusion, pressure profiling, and have the patience for an 8-minute warm-up"
+    },
+    "not_suitable_for": {
+      "product_a": "Anyone who already experiments with pressure profiling or needs competition-level temperature stability",
+      "product_b": "Anyone who wants to push a button and go \u2014 the Studio rewards attention and punishes impatience"
+    }
+  },
+  "recommendation_by_persona": {
+    "upgrader": {
+      "recommended_product_id": "arco-doppio",
+      "rationale": "If you are coming from a single-boiler machine, the Doppio is already a significant leap \u2014 jumping straight to the Studio often means paying for features you haven't learned to use yet."
+    },
+    "craft-barista": {
+      "recommended_product_id": "arco-studio",
+      "rationale": "The saturated group head and pre-infusion lever give you the thermal stability and pressure control that actually make a difference when you are dialling in light roasts or experimenting with profiles."
+    },
+    "morning-minimalist": {
+      "recommended_product_id": "arco-doppio",
+      "rationale": "The Doppio heats up in 3 minutes and delivers excellent results without demanding your full attention \u2014 the Studio's warm-up time alone may be a deal-breaker."
+    }
+  },
+  "verdict": "The Doppio is an outstanding machine for its price and will genuinely satisfy most home baristas. The Studio is for people who have already developed their technique and want equipment that can keep up with their curiosity. If you are still learning to dial in, the Doppio gives you plenty of runway. If you already know what pre-infusion does and want to control it, the Studio is where your money goes further.",
+  "related_blog_posts": [
+    "pid-temperature-explained",
+    "pre-infusion-in-practice",
+    "single-boiler-to-dual-boiler"
+  ],
+  "persona_tags": ["upgrader", "craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Doppio vs Arco Studio \u2014 Mid-Range vs Serious Home Espresso | Arco",
+    "meta_description": "The Arco Doppio (\u20ac549) is a capable dual-boiler for daily use. The Arco Studio (\u20ac1,299) adds a saturated group head and pre-infusion control. Here's how to decide."
+  }
+}

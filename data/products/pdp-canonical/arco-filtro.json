@@ -1,0 +1,90 @@
+{
+  "id": "arco-filtro",
+  "slug": "arco-filtro",
+  "name": "Arco Filtro",
+  "tagline": "Ground for clarity.",
+  "price_eur": 249,
+  "price_display": "€249",
+  "category": "grinder",
+  "hero_image_alt": "Arco Filtro flat burr filter grinder in matte sage green, positioned beside a Chemex pour-over brewer and a V60 dripper on a light birch countertop, coarsely ground coffee visible in the glass collection jar, morning sunlight streaming through a window casting soft shadows, minimalist Scandinavian kitchen setting",
+  "headline": "Designed for pour-over. Tuned for clarity.",
+  "subheadline": "A 48mm flat burr grinder with stepped settings optimised for filter brewing — purpose-built for V60, Chemex, AeroPress, and French press.",
+  "description_short": "A 48mm flat burr grinder with stepped settings optimised for pour-over, AeroPress, and French press brewing.",
+  "description_long": "Most grinders are designed for espresso and tolerate filter. The Arco Filtro is designed for filter and excels at it. Its 48mm flat burrs are profiled specifically for the coarser grind sizes that pour-over, AeroPress, and French press demand, producing fewer fines and more uniform particles than a typical espresso-first grinder can manage at the same settings. Twelve stepped positions are labelled by brew method — V60, Chemex, AeroPress, French press — so you can switch between methods without guesswork. The glass collection jar holds up to 40 grams and sits on a stable silicone base. If filter coffee is your daily practice, the Filtro is the grinder that respects it.",
+  "key_specs": {
+    "dimensions": "11 × 13 × 27 cm",
+    "weight": "2.6 kg",
+    "burr_type": "Flat, filter-optimised steel",
+    "burr_size": "48 mm",
+    "grind_settings": "12 stepped positions (labelled by brew method)",
+    "grind_range": "Fine filter (AeroPress) to coarse (French press)",
+    "dosing": "Timer-based (0.5 s increments) or manual",
+    "hopper_capacity": "200 g with lid",
+    "grounds_container": "Borosilicate glass jar, 40 g capacity",
+    "retention": "< 0.8 g",
+    "motor": "DC motor, 600 RPM",
+    "grind_speed": "~2.0 g/s",
+    "noise_level": "< 68 dB",
+    "anti_static": "Silicone-lined outlet",
+    "power": "180 W",
+    "voltage": "220–240 V"
+  },
+  "whats_in_box": [
+    "Arco Filtro grinder",
+    "Borosilicate glass collection jar",
+    "Spare silicone jar base",
+    "Cleaning brush",
+    "Brew method reference card (with recommended doses and ratios)",
+    "Quick-start guide"
+  ],
+  "variants": [
+    { "name": "Matte Sage", "hex": "#A3B18A" },
+    { "name": "Matte White", "hex": "#F0EDE8" },
+    { "name": "Matte Black", "hex": "#2C2C2C" }
+  ],
+  "use_case_headline": "Perfect for dedicated filter coffee drinkers.",
+  "use_case_body": "The Filtro is for people whose morning ritual involves a kettle, a timer, and a slow pour. If you rotate between V60 and Chemex during the week and French press on weekends, the labelled settings make switching effortless and repeatable.",
+  "pairing_products": [
+    { "product_id": "arco-primo", "rationale": "Pair the Filtro with the Primo if you want both filter and espresso — each grinder optimised for its purpose." },
+    { "product_id": "preparation-accessories", "rationale": "A gooseneck kettle, precision scale, and timer are the natural companions for filter brewing." }
+  ],
+  "experience_tag": "craft-barista",
+  "persona_tags": ["craft-barista", "morning-minimalist"],
+  "intent_tags": ["discover", "research", "decide"],
+  "related_blog_posts": [
+    "filter-grind-fundamentals",
+    "v60-recipe-guide",
+    "aeropress-techniques",
+    "french-press-the-right-way"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Filtro",
+    "description": "A 48mm flat burr grinder with stepped settings optimised for pour-over, AeroPress, and French press brewing.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-FILTRO",
+    "image": "/content/products/images/arco-filtro-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 249,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-filtro"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.6,
+      "reviewCount": 134
+    }
+  },
+  "seo": {
+    "title": "Arco Filtro — Filter-Optimised Flat Burr Grinder | Arco",
+    "meta_description": "The Arco Filtro features 48mm flat burrs optimised for pour-over, AeroPress, and French press. Stepped settings labelled by brew method. Ground for clarity. €249.",
+    "og_image_alt": "Arco Filtro filter grinder in matte sage beside a pour-over brewer",
+    "canonical_url": "/products/arco-filtro"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "right-for-you-arco-macinino",
+  "slug": "arco-macinino",
+  "product_id": "arco-macinino",
+  "headline": "Is the Arco Macinino right for you?",
+  "intro": "The Macinino is our most affordable grinder and the one we recommend most often as a first grinder. It does the fundamentals well and reliably. But affordable grinders have limits, and you should know what those limits are before you buy.",
+  "hero_image_alt": "Arco Macinino grinder in matte black on a light kitchen counter next to an Arco Primo espresso machine, a small pile of ground coffee on a scale, morning sunlight, clean and simple setup suggesting a beginner-friendly workflow",
+  "perfect_for": [
+    "You are buying your first grinder for espresso and want something reliable that pairs naturally with the Primo or Nano without overthinking the setup.",
+    "You grind the same beans most of the time and don't frequently switch between wildly different coffees or brewing methods.",
+    "You want stepped settings that are repeatable and intuitive \u2014 set it to 8, and it grinds at 8 every time without drift.",
+    "You have a budget of around \u20ac130 for a grinder and want the best quality available at that price without compromising on espresso capability."
+  ],
+  "not_ideal_for": [
+    "You change beans frequently and need to micro-adjust grind size between bags \u2014 the stepped settings can leave you stuck between two positions where neither is quite right.",
+    "You are pairing it with a Doppio, Studio, or better \u2014 at that machine price point, the Macinino becomes the weakest link in your chain, and you will taste the limitation.",
+    "You want to single-dose with minimal retention \u2014 the Macinino retains approximately 1\u20132 grams between doses, which is acceptable for a daily routine but not for switching beans shot to shot."
+  ],
+  "what_you_need_to_know": [
+    "The 20 stepped settings cover espresso through drip grind. Most espresso users find their sweet spot between settings 5 and 10. The steps are well-spaced but not infinitely adjustable \u2014 if your ideal grind falls between two settings, you adjust dose or extraction time to compensate. This is a normal workflow at this price point.",
+    "The conical burr set is durable and consistent, but it produces a slightly wider particle distribution than the flat burrs in the Preciso. In practical terms, this means marginally less clarity in the cup but more body \u2014 a trade-off many people actually prefer.",
+    "Retention is approximately 1\u20132 grams. For daily use with the same beans, this is irrelevant \u2014 the retained grounds from yesterday are the same beans. For anyone switching beans frequently, purging a few grams before each dose is the standard workaround."
+  ],
+  "common_objections": [
+    {
+      "objection": "Do I really need a dedicated grinder, or can I buy pre-ground coffee?",
+      "honest_answer": "Pre-ground coffee is espresso's biggest compromise. Coffee begins losing flavour within minutes of grinding. A Macinino grinding fresh beans will produce noticeably better espresso than any pre-ground bag, even through the same machine. If you are investing in an espresso machine, a grinder is not optional \u2014 it is the other half of the equation."
+    },
+    {
+      "objection": "Should I save up for the Preciso instead?",
+      "honest_answer": "If you are pairing with a Primo or Nano, the Macinino is the right match \u2014 you won't taste the Preciso's advantages through those machines. If you are pairing with a Doppio or better, yes, save for the Preciso. The grinder-machine pairing matters more than either component on its own."
+    },
+    {
+      "objection": "Why doesn't Arco make a cheaper grinder?",
+      "honest_answer": "Because below a certain quality threshold, a grinder does more harm than good. A bad grinder produces inconsistent particle sizes that cause channeling and uneven extraction, making even good beans taste flat. The Macinino is our minimum \u2014 below this, the espresso suffers regardless of the machine."
+    }
+  ],
+  "alternative_if_not_right": {
+    "product_id": "arco-preciso",
+    "rationale": "The Preciso at \u20ac299 offers stepless adjustment, flat burrs, and near-zero retention \u2014 the right grinder when your machine demands more precision than stepped settings can deliver."
+  },
+  "persona_match_score": {
+    "morning-minimalist": 5,
+    "upgrader": 3,
+    "craft-barista": 1,
+    "traveller": 2,
+    "non-barista": 3,
+    "office-manager": 2
+  },
+  "persona_tags": ["morning-minimalist", "upgrader"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Is the Arco Macinino Right for You? \u2014 Honest Grinder Buying Guide | Arco",
+    "meta_description": "The Arco Macinino (\u20ac129) is a reliable stepped grinder for espresso beginners. Here's who it's built for, where its limits are, and when you should invest in something better."
+  }
+}

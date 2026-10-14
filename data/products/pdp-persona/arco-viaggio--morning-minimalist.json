@@ -1,0 +1,26 @@
+{
+  "base_product_id": "arco-viaggio",
+  "persona_tag": "morning-minimalist",
+  "headline": "A meditative morning ritual that fits in your hand.",
+  "subheadline": "Heat water. Add coffee. Press the lever. The Viaggio turns your morning espresso into a quiet, tactile ritual -- no machine, no electricity, no noise.",
+  "hero_image_alt": "Arco Viaggio portable espresso maker in silver on a minimalist wooden breakfast tray beside a simple ceramic cup and a kettle, morning light through a sheer curtain, peaceful and deliberate atmosphere",
+  "description_long": "There's something deeply satisfying about making espresso with your hands. The Viaggio strips the morning ritual down to its most elemental form: hot water, ground coffee, and the slow press of a lever. No buttons to press, no machines humming, no screens glowing. Just the quiet resistance of the lever, the steady build of pressure, and then -- a rich, concentrated espresso that you built entirely by feel. At 1.2 kg, it stores in a drawer or on a shelf, leaving your counter completely clear. Clean-up takes thirty seconds under running water. For the minimalist who wants their morning ritual to be intentional and physical, the Viaggio is espresso at its most honest.",
+  "use_case_headline": "Espresso at its most intentional.",
+  "use_case_body": "Boil water. Load the basket. Press the lever slowly. The Viaggio takes about 90 seconds from start to finish, produces zero counter clutter, and cleans up in half a minute. It's the most calming way to start a morning.",
+  "recommended_accessories": [
+    "Espresso Cups Set",
+    "Bean Vault"
+  ],
+  "related_blog_posts": [
+    "morning-routine-three-minutes",
+    "your-first-home-espresso",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Discover the Ritual",
+  "cta_primary_url": "/products/arco-viaggio",
+  "social_proof_quote": {
+    "quote": "I sold my espresso machine and bought a Viaggio. No regrets. The silence, the simplicity, the feel of the lever in the morning -- it turned coffee from a task into a meditation. My kitchen counter has never been so clean.",
+    "name": "Ines M.",
+    "location": "Porto, Portugal"
+  }
+}

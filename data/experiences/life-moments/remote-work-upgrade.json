@@ -1,0 +1,36 @@
+{
+  "id": "exp-lm-004",
+  "slug": "remote-work-upgrade",
+  "title": "Remote Work Upgrade",
+  "persona_tag": "newly-remote",
+  "experience_archetype": "Remote Transition",
+  "hero_image_alt": "A home workspace transitioning from temporary to permanent, a new Arco Doppio machine on a side table beside a standing desk, a calendar on the wall with no commute blocked, plants on the windowsill, natural light",
+  "hero_headline": "The office closed. Your coffee upgrade began.",
+  "hero_subtext": "When 'working from home temporarily' became 'this is just how it works now.'",
+  "editorial_intro": "For the first few months, you told yourself it was temporary. The laptop on the kitchen table, the video calls from the sofa, the instant coffee because the office machine was no longer available. Then the email arrived confirming the permanent remote arrangement, and you looked around your home and realised: this is the office now. Everything needed to improve. Starting with the coffee.",
+  "editorial_body": "The office had a machine. It was nothing special — a commercial automatic that dispensed adequate lattes and passable espressos from a single button — but it was there, and it was free, and it punctuated the day with small breaks that you did not appreciate until they were gone. Three coffees a day, each one a reason to stand up, walk to the kitchen, exchange a word with a colleague. The coffee was mediocre. The rhythm was essential.\n\nAt home, the rhythm vanished. You sat at your desk for hours without moving because there was no destination to walk to. The kettle was six feet away, the instant coffee was in the cupboard, and making a cup involved standing up, boiling water, and returning to the same chair within ninety seconds. No break. No transition. No change of scene.\n\nThe first upgrade was the desk itself — a standing desk that at least gave you the option of a different posture. The second was the chair, because the dining chair was destroying your back. The third, and by far the most consequential, was the coffee.\n\nYou did the maths. Three takeaway coffees a day at the cafe near the old office cost roughly twelve pounds. Over a working year, that was nearly three thousand pounds. The Arco Doppio, the Preciso grinder, and a year's supply of excellent beans cost less than that combined. The economics were irrefutable, but the economics were not really the point. The point was building a new rhythm.\n\nThe Doppio established that rhythm within the first week. It sits on the side table beside the standing desk, close enough to be convenient, separate enough to require a physical movement. Making coffee takes three minutes: grinding, tamping, extracting, steaming a small amount of milk if the mood takes you. Those three minutes, repeated two or three times a day, have replaced the walk to the office kitchen. They are the breaks you lost.\n\nThe Preciso grinder grinds quietly enough to use during a muted portion of a call, though you prefer to make your coffee between meetings rather than during them. The sound of the grinder has become a signal — to yourself, to your household, to the rhythm of the day — that you are transitioning from one mode to another. Working to breaking. Breaking to working. The sound is brief and decisive, a small punctuation mark in the long sentence of a home-working day.\n\nYou have noticed other changes. Your coffee knowledge has deepened, almost accidentally, through daily practice. You can taste the difference between a twenty-four-second extraction and a twenty-eight-second one. You have preferences about bean origins that you did not have six months ago. You catch yourself reading roaster blogs during lunch. The coffee machine, purchased as a practical solution to a practical problem, has become a quiet interest that enriches the margins of your days.\n\nThe financial savings are real and accumulating. You track them in a spreadsheet, because you are the kind of person who tracks things in spreadsheets. After eight months, you have saved enough to cover the cost of the equipment and are now in profit. The beans are better than anything the cafe served. The milk is steamed the way you like it. The cup is your cup, not a paper one.\n\nBut the real value is not financial. It is structural. The Doppio has given your working day a shape. Morning coffee at 9:15, mid-morning at 11:30, early afternoon at 2:00. These are the waypoints that divide the day into manageable segments, the transitions that prevent the blur of undifferentiated hours. Without them, working from home is a featureless landscape. With them, it has contours.\n\nYour partner, who works in an office, comes home and you make them an espresso. They drink it and say it is better than anything at their workplace, and you feel a small but genuine satisfaction. Your home is not just a place where you happen to work. It is a place equipped for the work, designed for the breaks, and furnished with a coffee setup that treats your daily routine with the seriousness it deserves.\n\nThe temporary arrangement became permanent. The instant coffee became a Doppio. And the kitchen table became a proper office, with proper coffee, and proper breaks that you never again take for granted.",
+  "product_bundle": [
+    { "product_id": "arco-doppio", "role": "anchor" },
+    { "product_id": "arco-preciso", "role": "primary" }
+  ],
+  "bundle_headline": "Your Remote Transition setup",
+  "bundle_intro": "The coffee upgrade that turned working from home into working well from home.",
+  "featured_guides": [
+    "guide-building-a-wfh-coffee-routine",
+    "guide-doppio-daily-workflow",
+    "guide-cost-of-home-espresso-vs-cafe"
+  ],
+  "related_blog_posts": [
+    "blog-remote-work-coffee-economics",
+    "blog-structuring-your-day-with-coffee",
+    "blog-from-instant-to-espresso"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "newly-remote",
+  "persona_tags": ["newly-remote", "practical-upgrader", "routine-builder"],
+  "intent_tags": ["remote-work", "upgrade", "daily-use", "savings", "routine"],
+  "seo": {
+    "title": "Remote Work Upgrade — The Coffee Setup That Structures Your WFH Day | Arco Coffee",
+    "meta_description": "When remote work became permanent, the coffee needed an upgrade. The Arco Doppio and Preciso grinder replace the office machine and give your day the breaks it needs."
+  }
+}

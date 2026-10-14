@@ -41,6 +41,8 @@ The repository provides the basic structure, blocks, and configuration needed to
     ├── delayed.js          # Delayed functionality — browsing signal collection
     ├── session-context.js  # Session context manager — query history, browsing history, inferred profile
     ├── browsing-signals.js # Passive browsing signal collector and local intent classifier
+    ├── analytics-events.js # Marketing event beacon — funnel, conversions, attribution
+    ├── cart.js             # Simulated localStorage cart (demo hard conversion)
     └── api-config.js       # API endpoint configuration for recommender and analytics services
 ├── fonts/           # Web fonts
 ├── icons/           # SVG icons
@@ -74,6 +76,11 @@ The repository provides the basic structure, blocks, and configuration needed to
 ## Key Concepts
 
 ### Content
+
+Tracked application JSON and calculator modules live in `data/`; Worker imports
+and content-generation tools read that directory. `content/` is exclusively the
+ignored, independently versioned DA clone created by `aem content clone`.
+Never put build-time datasets there: a forced clone replaces the entire folder.
 
 CMS authored content is a key part of every AEM Website. The content of a page is broken into sections. Sections can have default content (text, headings, links, etc.) as well as content in blocks.
 
@@ -276,7 +283,7 @@ ssh -N -L 11434:localhost:11434 -L 8000:localhost:8000 user@your-host
 
 When the recommender surfaces a `{{story:SLUG}}` or `{{experience:SLUG}}` token, it renders a card whose CTA opens the authored page as a **modal fragment** instead of navigating away. This keeps the user in the query flow; the modal footer still carries an "Open full article ↗" link to the canonical page for sharing / SEO.
 
-**Card data** comes from `content/stories-index.json` and `content/experiences-index.json`. Each entry supports three optional fields on top of the existing schema:
+**Card data** comes from `data/stories-index.json` and `data/experiences-index.json`. Each entry supports three optional fields on top of the existing schema:
 
 | Field | Purpose | Fallback |
 |-------|---------|----------|
@@ -534,7 +541,7 @@ Every freshly-generated `/?q=...` run gets a run-level feedback widget anchored 
 
 **Why it exists:** the LLM-judge in `#/evaluations` scores generations offline against a rubric, but only real users tell you whether a page actually helped. Feeds development three ways — manual review in `#/feedback`, eval cross-check via a per-cell chip on the eval matrix, and a downloadable export for ad-hoc analysis or future fine-tuning.
 
-**Data model** (migration `0008_run_feedback.sql`, auto-applied on next worker boot):
+**Data model** (migration `0008_run_feedback.sql` — migrations are **not** auto-applied; run it manually with `wrangler d1 execute arco-sessions --remote --file=./migrations/0008_run_feedback.sql`):
 
 ```sql
 run_feedback(id, run_id, page_id, session_id, rating, comment, flags,
@@ -575,7 +582,7 @@ The widget only attaches on fresh `/?q=` runs (every `?q=` run is fresh today �
 | `#/feedback/run/:runId` | Per-run detail — run metadata + every feedback row (rating, flags, wrong products, full comment, dwell, UA, timestamp) + "View generated page" link. |
 | `#/pages/:id` `Feedback` tab | Fifth tab on the page-detail view; lists feedback for every run on that page. |
 | `#/evaluations/:id` | Each query row's label gets a `👍N 👎M` chip when real-user feedback exists for the same query. Click → jumps to `#/feedback?q=…`. Refreshes on the 3s poll. |
-| `#/insights` | Reserved route + disabled `Generate summary` button. LLM-powered feedback summarization is a follow-up spec. |
+| `#/insights` | Marketing metrics — KPI strip (pages, cost per page, conversion, AOV), conversion funnel, cost-vs-value chart, per-model and per-segment conversion. See "Marketing Metrics" below. |
 
 **Admin API** (Basic-auth, same `ADMIN_TOKEN`):
 
@@ -623,6 +630,126 @@ wrangler d1 execute arco-sessions --command \
 | `scripts/feedback-widget.js` + `styles/feedback-widget.css` | DOM widget + scoped styles |
 | `scripts/recommender-stream.js` | Stamps `section.dataset.runId`; attaches widget after each run |
 | `blocks/admin/admin.js` + `blocks/admin/admin.css` | `#/feedback` list, `#/feedback/run/:id` detail, `#/insights` stub, Feedback tab on page detail, eval-matrix per-row chip |
+
+### Marketing Metrics (page_events, conversions, `#/insights`)
+
+The site is a demo, but it has to make a business case: what does generated
+content cost, and does it convert? Two stores answer that.
+
+**Why not just Analytics Engine?** `/api/track` has always written to Workers
+Analytics Engine (`arco_usage`). AE is cheap and non-blocking, but it is
+**sampled** (`_sample_interval`), stores no session dimension, and supports
+aggregate queries only. It can tell you "how much traffic", never "did *this*
+generated run cause *this* add-to-cart". So `/api/track` now **dual-sinks**:
+AE for traffic trends, D1 for the exact, joinable, attributable funnel.
+
+**Data model** (migration `0009_events_conversions.sql` — apply with
+`npm run migrate:events` from `workers/recommender/`):
+
+```sql
+page_events(id, session_id, page_id, run_id, attributed_run_id, attribution,
+            event_type, path, page_type, product_slug, value_cents,
+            dwell_ms, scroll_pct, referrer_path, created_at, ip_hash, user_agent)
+
+conversions(id, session_id, event_id, attributed_run_id, attribution,
+            conversion_type, product_slug, value_cents, created_at)
+```
+
+**Event types** (closed set, server-validated — unknown types are dropped):
+`page_view`, `product_view`, `product_card_click`, `add_to_cart`,
+`follow_up_click`, `cta_click`, `search`, `engagement`.
+
+**Two conversion tiers.** `product_view` is the *soft* conversion (the user
+reached a PDP); `add_to_cart` is the *hard* one. There is no checkout — the
+funnel deliberately ends at the cart.
+
+**Attribution.** When a product link inside a generated page (`[data-run-id]`)
+is clicked, the run id is stashed in `sessionStorage['arco-attribution']`. Any
+`product_view` / `add_to_cart` within **30 minutes** credits that run;
+last touch wins. The server **re-validates every id against
+`generated_pages`** before storing it, so a spoofed or stale client id cannot
+inflate the conversion numbers. `attribution` is one of `direct` (fired on the
+generated page itself), `last-touch` (a downstream page it referred), or
+`none`.
+
+**Cost model** (`workers/recommender/src/pricing.js`). `PROVIDER_PRICING` maps
+`provider:model` to USD per 1M in/out tokens; `costSqlExpression()` emits a SQL
+`CASE` so cost aggregates run **inside D1** rather than pulling every row into
+the worker. Unknown models fall back to `DEFAULT_PRICE` (never $0, which would
+silently flatter the cost); `ollama` / `vllm` are treated as free since they
+cost GPU time, not per-token fees.
+
+**Cost denominators.** A *run* is one `/api/generate` call, so a follow-up chip
+click is its own run. A *page* is one `?q=` visit — the initial run plus every
+follow-up refining it, which is what a user means by "a personalised page". A
+*session* is one visitor. `costPerRunUsd` is always the flattering number;
+report `costPerPageUsd` when comparing against the cost of authoring a page.
+
+There is deliberately **no ROI multiple** and no authoring-hours-saved figure.
+Both depend on a counterfactual ("we would have paid someone to write these
+pages") that does not survive scrutiny, and the authoring term dominated the
+result so completely that it drowned out every measured number. Cost per page
+makes the same point using only observed data.
+
+**IMPORTANT — this is observational, not causal.** No control group is
+running, so the dashboard reports conversions *attributed to* generated pages,
+not *incremental lift*. Query traffic is inherently higher-intent than browse
+traffic, so the number flatters the technology for reasons that are not the
+technology. The UI states this inline. Adding deterministic cohort bucketing
+by `sessionId` is the natural next step if a defensible lift claim is needed.
+
+**Client** (`scripts/analytics-events.js`) — batching `sendBeacon` tracker
+started from `delayed.js`. It runs on **every** page, unlike
+`browsing-signals.js`, which deliberately skips `/discover/` and `?q=` pages;
+conversions happen on the product pages *downstream* of those. One delegated
+document-level click handler instruments product cards, CTAs and follow-up
+chips, so new blocks are covered without per-block wiring.
+
+**Beacon gotcha (CRITICAL).** The payload must be sent with a CORS-safelisted
+content type (`text/plain`). `navigator.sendBeacon` always sends with
+credentials mode `include`, and the worker replies with a wildcard
+`Access-Control-Allow-Origin: *` — so an `application/json` body triggers a
+preflight that the browser then rejects, and **every event is silently
+dropped**. The worker `JSON.parse`s the text body regardless.
+
+**Simulated cart.** `blocks/product-detail` renders an `Add to cart` button
+that reuses the already-parsed price for `value_cents`. `scripts/cart.js`
+keeps the demo cart in `localStorage` and fires `arco-cart-updated`.
+
+**Admin API** (Basic auth, same `ADMIN_TOKEN`), all accept `?days=N`:
+
+- `GET /api/admin/insights/summary` -> KPI strip (cost, conversion) + caveat text
+- `GET /api/admin/insights/funnel` -> query -> card click -> PDP -> cart
+- `GET /api/admin/insights/models` -> per-model cost, conversion, judge score
+- `GET /api/admin/insights/segments` -> by intent and journey stage
+- `GET /api/admin/insights/timeseries` -> daily cost vs. attributed value
+
+**Key files:**
+
+| File | Role |
+|------|------|
+| `workers/recommender/migrations/0009_events_conversions.sql` | Schema |
+| `workers/recommender/src/events.js` | Ingest + all six insights queries |
+| `workers/recommender/src/pricing.js` | Token price table + SQL cost expression |
+| `scripts/analytics-events.js` | Batching beacon, attribution, delegated listeners |
+| `scripts/cart.js` | Simulated localStorage cart |
+| `blocks/product-detail/product-detail.js` | Add-to-cart button |
+| `blocks/admin/admin.js` | `#/insights` dashboard |
+
+**Query D1 directly:**
+
+```bash
+# Funnel counts
+wrangler d1 execute arco-sessions --command \
+  "SELECT event_type, COUNT(*) n, COUNT(DISTINCT session_id) sessions
+   FROM page_events GROUP BY event_type ORDER BY n DESC"
+
+# Attributed cart value by model
+wrangler d1 execute arco-sessions --command \
+  "SELECT gp.llm_model, COUNT(*) carts, SUM(c.value_cents)/100.0 usd
+   FROM conversions c JOIN generated_pages gp ON gp.id = c.attributed_run_id
+   WHERE c.conversion_type = 'add_to_cart' GROUP BY gp.llm_model ORDER BY usd DESC"
+```
 
 ## Testing & Quality Assurance
 

@@ -1,0 +1,49 @@
+{
+  "id": "single-origin-vs-blend",
+  "slug": "single-origin-vs-blend",
+  "category": "sourcing",
+  "title": "Single Origin vs Blend: When Each Makes Sense",
+  "difficulty": "beginner",
+  "read_time_minutes": 7,
+  "persona_tags": ["morning-minimalist", "upgrader"],
+  "intent_tags": ["discover", "research", "decide"],
+  "hero_image_alt": "Two bags of coffee standing side by side on a white marble countertop — one labelled single origin with a specific farm name and origin details, the other labelled house blend with a flavour wheel graphic — a few beans spilled in front of each bag showing slightly different roast colours, soft morning window light from the right side",
+  "intro": "The specialty coffee world sometimes frames the single-origin-versus-blend debate as a question of quality, but that is misleading. Both have a purpose, and understanding when each excels will help you stock your shelf more intelligently. The real question is not which is better — it is which is better for what you are making today.",
+  "body": [
+    {
+      "heading": "What Single Origin Actually Means",
+      "content": "A single-origin coffee comes from one identifiable geographic source — a specific country, region, farm, or even a single lot within a farm. The defining characteristic is traceability: you can point to a place on a map and say, this is where my coffee grew. The value of single origin lies in distinctiveness. Because the coffee comes from one source, it expresses the unique terroir, variety, and processing of that place without being blended or averaged with beans from elsewhere. An Ethiopian Yirgacheffe tastes like nothing else because the combination of heirloom varieties, high altitude, and the Yirgacheffe microclimate produces flavours that no other region can replicate. A Kenyan SL-28 has a blackcurrant acidity that is genetically encoded in the variety and amplified by Kenya's volcanic soil. Single-origin coffees are seasonal. Unlike blends, which roasters formulate for year-round consistency, single-origin offerings change with the harvest cycle. A Colombian lot available in March may be replaced by a different lot in June as the harvest moves across regions. This seasonality is part of the appeal for enthusiasts — it creates a rotating menu of flavours, much like a chef working with seasonal produce. The flip side of distinctiveness is unpredictability. A single-origin coffee has a specific flavour profile that may not suit every palate or every preparation method. A bright, acidic Kenyan that tastes spectacular as a pour-over may taste sharp and sour as an under-extracted espresso. A jammy Ethiopian natural that makes an incredible shot may overwhelm in a large latte. Single origin asks more of the brewer: you need to understand the coffee's character and adjust your technique to bring out its strengths."
+    },
+    {
+      "heading": "Why Blends Exist and When They Shine",
+      "content": "A blend combines two or more coffees from different origins, varieties, or processing methods into a single product. The roaster selects and proportions each component to achieve a target flavour profile — typically one that balances sweetness, acidity, and body in a way that works across a range of brewing methods and palates. Blends are often dismissed by specialty coffee purists as a way to hide mediocre beans, and there is some truth to this in the commercial market, where blends are used to cut costs by mixing cheap filler with a small percentage of decent coffee. But at the specialty level, blending is a craft. A skilled roaster might combine a Brazilian natural for body and chocolate, a washed Colombian for sweetness and clean acidity, and a small percentage of Ethiopian for aromatic complexity. Each component contributes something the others lack, and the whole becomes more balanced than any single part. The strongest case for blends is espresso. Pulling a consistently good espresso shot requires a coffee with a specific set of qualities: enough solubility to extract evenly under pressure, enough sweetness to balance the concentration, enough body to produce pleasant crema, and enough complexity to taste interesting without any single note dominating. Few single-origin coffees hit every one of these targets simultaneously. A blend lets the roaster engineer a coffee that does. This is why nearly every serious espresso bar — even those that champion single-origin pour-overs — keeps a house blend on the grinder for their espresso-based menu. The blend provides the consistent, crowd-pleasing baseline that ensures every flat white, every cappuccino, every shot tastes reliably good regardless of the day, the barista, or the customer's palate."
+    },
+    {
+      "heading": "Choosing Based on Palate, Machine, and Occasion",
+      "content": "The most useful way to think about single origin versus blend is not as a hierarchy but as a toolkit. Different situations call for different coffees, and stocking your shelf with one of each covers most of your needs. For your daily espresso — especially if you make milk drinks — a well-formulated blend is almost always the better choice. It will be consistent bag to bag, forgiving of small variations in your technique, and designed to taste balanced through milk. A good house blend from a specialty roaster is a pleasure to drink every day without fatigue. The same blend on a pour-over will likely taste pleasant but unremarkable — smooth, sweet, easy, but without the specificity that makes filter coffee exciting. For your weekend pour-over or your Saturday morning AeroPress experiment, single origin is where the magic lives. This is the coffee you sip slowly, black, paying attention to how the flavour evolves as it cools. A washed Kenyan AA at 1:16 on a V60, tasted alongside the roaster's tasting notes — that is an experience a blend cannot deliver, because the whole point of a blend is to balance away the individual peaks that make single origin thrilling. If you are new to specialty coffee and not sure where your palate sits, start with a blend for your espresso and a single-origin filter roast for manual brewing. This gives you the consistency of a blend where you need it and the exploration of single origin where you can appreciate it. As your palate develops, you can experiment with single-origin espresso — pulling a natural Ethiopian as a solo shot, or dialling in a washed Guatemalan for cortados. Most experienced home baristas settle into a rhythm: a rotating single origin for their V60 or AeroPress, and a favourite blend (or a dependable single origin like a Brazilian natural) as their permanent espresso coffee."
+    }
+  ],
+  "key_takeaways": [
+    "Single-origin coffee is traceable to one source and expresses the distinctive terroir, variety, and processing of that place.",
+    "Blends combine multiple origins to achieve consistent balance — particularly valuable for espresso and milk-based drinks.",
+    "For daily espresso and milk drinks, a well-crafted blend is usually the most reliable and forgiving choice.",
+    "For filter brewing, single origin delivers the specificity and complexity that makes manual brewing rewarding.",
+    "The best approach for most home baristas is a rotation: a blend or dependable single origin for espresso, a changing single origin for filter."
+  ],
+  "related_products": ["arco-primo", "arco-doppio", "arco-filtro"],
+  "related_guides": [
+    "how-to-read-a-specialty-coffee-label",
+    "single-origin-espresso-profiles",
+    "what-processing-method-means-for-flavor",
+    "why-filter-is-having-a-moment"
+  ],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Find the right Arco machine for your coffee",
+    "url": "/products/espresso-machines"
+  },
+  "seo": {
+    "title": "Single Origin vs Blend — When Each Makes Sense for Espresso & Filter | Arco",
+    "meta_description": "Understand when to choose single-origin coffee and when a blend is the smarter pick. Practical advice for espresso, filter, and milk drinks based on palate and brewing method."
+  }
+}

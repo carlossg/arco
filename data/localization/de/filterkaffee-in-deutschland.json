@@ -1,0 +1,38 @@
+{
+  "id": "loc-de-002",
+  "slug": "filterkaffee-in-deutschland",
+  "title": "Filterkaffee in Deutschland und die Arco Filtro",
+  "market": "Germany",
+  "language": "de",
+  "persona_tag": "morning-minimalist",
+  "hero_image_alt": "Eine Arco Filtro Filtermaschine neben einer gläsernen Servierkanne auf einem hellen Holztisch, dampfender Filterkaffee in einer großen Keramiktasse, ein Frühstücksbrettchen mit Schwarzbrot im Hintergrund, weiches Morgenlicht durch ein Küchenfenster, typisch deutsche Morgenszene",
+  "hero_headline": "Filterkaffee ist kein Kompromiss. Er ist eine Entscheidung.",
+  "hero_subtext": "Deutschland trinkt mehr Filterkaffee als jedes andere Land in Europa. Arco nimmt das ernst.",
+  "editorial_intro": "In einer Welt, die zunehmend von Espresso-Kultur dominiert wird, bleibt Deutschland dem Filterkaffee treu — nicht aus Gewohnheit, sondern aus Überzeugung. Die Arco Filtro ist unsere Antwort auf eine Tradition, die Respekt verdient, nicht Bekehrung.",
+  "editorial_body": "Deutschland und Filterkaffee haben eine Beziehung, die älter ist als die meisten Espressomaschinen. Melitta Bentz erfand den Kaffeefilter 1908 in Dresden — eine Erfindung so grundlegend, dass sie den Kaffeekonsum eines ganzen Kontinents veränderte. Über hundert Jahre später trinken die Deutschen pro Kopf mehr Kaffee als die Italiener, und der größte Teil davon ist gefiltert.\n\nDas ist kein Defizit. Das ist eine Präferenz, und eine gut begründete. Filterkaffee extrahiert anders als Espresso: langsamer, bei niedrigerem Druck, mit größerem Wasser-zu-Kaffee-Verhältnis. Das Ergebnis ist ein Getränk, das Klarheit über Konzentration stellt — einzelne Geschmacksnoten sind leichter zu identifizieren, die Textur ist leichter, und eine große Tasse kann über dreißig Minuten genossen werden, ohne kalt und unangenehm zu werden. Für das deutsche Frühstück, für den Nachmittagskaffee mit Kuchen, für die Thermoskanne im Büro ist Filter nicht die zweite Wahl. Er ist die einzig richtige.\n\nArco hat die Filtro nicht entwickelt, um Deutschland zum Espresso zu bekehren. Wir haben sie entwickelt, weil wir glauben, dass Filterkaffee dieselbe Aufmerksamkeit für Wassertemperatur, Kontaktzeit und gleichmäßige Extraktion verdient, die wir unseren Espressomaschinen widmen.\n\nDie Filtro heizt Wasser auf exakt 94 °C — die von der Specialty Coffee Association empfohlene Brühtemperatur — und hält diese Temperatur während des gesamten Brühvorgangs konstant. Das klingt selbstverständlich, ist es aber nicht: Die meisten Filtermaschinen unter 200 Euro schwanken um bis zu 8 °C während eines Brühzyklus, was zu einer ungleichmäßigen Extraktion führt, die sich als Bitterkeit oder Flachheit im Geschmack äußert.\n\nDer Duschkopf verteilt das Wasser gleichmäßig über das gesamte Kaffeebett — kein einzelner Strahl, der einen Kanal durch die Mitte gräbt, sondern eine sanfte, spiralförmige Verteilung, die jedes Körnchen gleich behandelt. Die programmierbare Vorbefeuchtung (Blooming) lässt CO2 aus frisch geröstetem Kaffee entweichen, bevor der eigentliche Brühvorgang beginnt — ein Schritt, den Handfilter-Enthusiasten kennen und schätzen, der aber bei den meisten Maschinen fehlt.\n\nDie Thermoskanne aus doppelwandigem Edelstahl hält den Kaffee für bis zu zwei Stunden auf Trinktemperatur, ohne Warmhalteplatte — denn eine Warmhalteplatte kocht den Kaffee langsam weiter und zerstört die Aromen, die eine gute Extraktion gerade erst freigelegt hat.\n\nFür den Mahlgrad empfehlen wir den Arco Macinino auf den oberen Stufen (14-18) für einen gleichmäßigen mittleren Mahlgrad, der ideal zur Filtro passt. Wer bereits einen Preciso besitzt, kann den Mahlgrad noch feiner abstimmen — aber ehrlich gesagt: für Filterkaffee ist der Macinino vollkommen ausreichend. Nicht jedes Werkzeug muss das teuerste sein. Manchmal ist das richtige Werkzeug einfach das passende.\n\nDeutschland muss sich für seinen Filterkaffee nicht entschuldigen. Im Gegenteil: Die Klarheit, die Sauberkeit und die Zugänglichkeit von gutem Filterkaffee sind Qualitäten, die die Specialty-Coffee-Bewegung weltweit zunehmend schätzt. Arco schätzt sie schon immer.\n\nDie Filtro ist unser Bekenntnis zum deutschen Kaffeegeschmack — nicht als Zugeständnis, sondern als Respektbezeugung gegenüber einer Tradition, die es verdient hat, mit den besten verfügbaren Werkzeugen fortgeführt zu werden.",
+  "product_bundle": [
+    { "product_id": "arco-filtro", "role": "anchor" },
+    { "product_id": "arco-macinino", "role": "primary" },
+    { "product_id": "arco-preciso", "role": "upgrade" }
+  ],
+  "featured_guides": [
+    "guide-filter-brewing-basics",
+    "guide-essential-grind-settings",
+    "guide-choosing-beans"
+  ],
+  "cta": {
+    "text": "Die Arco Filtro entdecken",
+    "url": "/de/products/arco-filtro",
+    "secondary_text": "Filterkaffee-Mahlgrade im Detail",
+    "secondary_url": "/de/guides/filter-grind-settings"
+  },
+  "seo": {
+    "title": "Filterkaffee in Deutschland — Die Arco Filtro | Arco Coffee",
+    "meta_description": "Deutschland trinkt Filterkaffee — und verdient eine Maschine, die das respektiert. Die Arco Filtro: präzise Temperaturkontrolle, gleichmäßige Extraktion, keine Kompromisse."
+  },
+  "hreflang": {
+    "en": "/en/filter-coffee-culture",
+    "it": "/it/cultura-del-filtro",
+    "de": "/de/filterkaffee-in-deutschland"
+  }
+}

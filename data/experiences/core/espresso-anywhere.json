@@ -1,0 +1,36 @@
+{
+  "id": "exp-core-004",
+  "slug": "espresso-anywhere",
+  "title": "Espresso Anywhere",
+  "persona_tag": "travelling-purist",
+  "experience_archetype": "Espresso Traveller",
+  "hero_image_alt": "A compact espresso setup on a hotel room desk beside a window overlooking a foreign city at dawn, a small travel grinder and the Arco Viaggio machine neatly arranged next to a passport and a leather travel bag",
+  "hero_headline": "Hotel coffee is not coffee. You solved that.",
+  "hero_subtext": "Because the worst part of travelling should never be the espresso.",
+  "editorial_intro": "You have stood in enough hotel rooms staring at a Nespresso machine with stale capsules to know that you cannot leave this to chance anymore. You travel for work, for pleasure, for life — and you refuse to spend a single morning drinking something that insults the idea of coffee. So you bring your own.",
+  "editorial_body": "The first time you packed a coffee setup into a suitcase, you felt slightly ridiculous. A hand grinder, a portable espresso maker, a small bag of beans tucked into a shoe for protection. Your partner watched you rearrange the luggage to accommodate it and said nothing, which was worse than if they had laughed.\n\nBut that evening, in a hotel room in Lyon after a long day of meetings, you ground those beans by hand, heated water in the tiny kettle provided, and pulled something that tasted more like home than anything you had drunk in three days. You sat on the edge of the bed with that small cup and felt, for the first time on the trip, that the day had a proper ending. Your partner tried a sip and stopped commenting on the luggage arrangement.\n\nThat was years ago. The setup has evolved since then. The hand grinder gave way to a compact electric one that fits in a shoe bag and grinds in fifteen seconds. The portable espresso maker gave way to the Arco Viaggio, which is genuinely the size of a hardback book and pulls shots at nine bars of pressure from a rechargeable battery. You have used it in hotel rooms in Tokyo, on a balcony in Lisbon, in a camper van parked beside a Norwegian fjord, and once, memorably, in an airport lounge where the only available coffee was a burnt filter from a machine that looked like it had not been cleaned since the terminal was built.\n\nThe Viaggio is not a toy. This is the thing people do not understand until they taste the result. It uses a proper pressurised basket, accepts a standard fifty-eight millimetre tamped puck, and maintains temperature stability across the entire shot. The espresso it produces would not embarrass a mid-range home machine. On the road, it is a revelation.\n\nYour travel ritual has settled into something efficient and pleasurable. You arrive at the hotel, unpack the Viaggio and grinder before anything else, and set them on the desk or the bathroom counter if the desk is too cluttered. In the morning, you are making coffee before the city outside the window has fully woken up. The sound of the grinder is quiet enough not to wake anyone in the next room. The whole process takes three minutes. You have timed it.\n\nPeople notice. Colleagues have walked into your hotel room for a pre-meeting briefing and stopped mid-sentence when they saw the setup. You have converted at least four of them. One now carries his own Viaggio. Another asked you to make her an espresso every morning of a week-long conference in Berlin, and on the last day she ordered one for herself on her phone before the flight home.\n\nThe real luxury of travel is not the thread count of the sheets or the view from the window. It is the small continuities — the things that make an unfamiliar place feel briefly, gently yours. For you, that continuity is coffee. The same beans you drink at home, ground the same way, pulled at the same pressure, poured into a cup you hold in both hands while the light changes outside a window you have never looked through before.\n\nYou are not precious about it. You will drink a decent flat white at a good cafe without hesitation. You will try the local coffee wherever you go. But when the alternative is a plastic capsule and powdered milk, you reach for the Viaggio. Because you have learned something simple and true about yourself: you are a better traveller when the coffee is good.\n\nThe suitcase is heavier by eight hundred grams. You have never once minded.",
+  "product_bundle": [
+    { "product_id": "arco-viaggio", "role": "anchor" },
+    { "product_id": "arco-macinino-travel", "role": "primary" }
+  ],
+  "bundle_headline": "Your Espresso Traveller setup",
+  "bundle_intro": "Eight hundred grams that change every trip.",
+  "featured_guides": [
+    "guide-travel-espresso-workflow",
+    "guide-packing-your-coffee-kit",
+    "guide-best-beans-for-travel"
+  ],
+  "related_blog_posts": [
+    "blog-espresso-on-the-road",
+    "blog-hotel-coffee-survival-guide",
+    "blog-portable-brewing-compared"
+  ],
+  "quiz_result": true,
+  "persona_cookie_value": "travelling-purist",
+  "persona_tags": ["travelling-purist", "portable-coffee", "espresso-first"],
+  "intent_tags": ["travel", "portable", "compact", "no-compromise", "espresso"],
+  "seo": {
+    "title": "Espresso Anywhere — Travel Coffee Without Compromise | Arco Coffee",
+    "meta_description": "The Arco Viaggio portable espresso machine fits in your suitcase and pulls real espresso at nine bars. For travellers who refuse to settle for hotel coffee."
+  }
+}

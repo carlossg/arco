@@ -4,3 +4,4 @@ tools/
 scripts/generate-images.js
 personalization/
 content/
+data/

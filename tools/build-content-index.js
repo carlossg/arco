@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const CONTENT_DIR = join(ROOT, 'content');
+const CONTENT_DIR = join(ROOT, 'data');
 const OUTPUT_PATH = join(ROOT, 'schema', 'content-index.json');
 
 /**

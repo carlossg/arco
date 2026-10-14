@@ -8,7 +8,7 @@
 
 import { matchPersona, getPersonaBySlug } from '../../context.js';
 
-// Maps client-side quiz persona IDs to worker persona slugs (content/metadata/personas.json)
+// Maps client-side quiz persona IDs to worker persona slugs (data/metadata/personas.json)
 const QUIZ_PERSONA_MAP = {
   'morning-minimalist': 'morning-minimalist',
   'non-barista': 'morning-minimalist', // automatico-first persona in worker data

@@ -1,0 +1,73 @@
+{
+  "id": "arco-nano-vs-arco-primo",
+  "slug": "arco-nano-vs-arco-primo",
+  "title": "Arco Nano vs Arco Primo",
+  "products": ["arco-nano", "arco-primo"],
+  "comparison_headline": "How small can you go without giving up real espresso?",
+  "comparison_intro": "The Nano is the smallest electric espresso machine we make \u2014 designed to disappear into a kitchen and still deliver a proper shot. The Primo is compact by any standard, but gives you a full-sized portafilter and a workflow closer to what you would find in a cafe. The trade-off is counter space.",
+  "hero_image_alt": "Arco Nano and Arco Primo espresso machines on a narrow kitchen counter next to a toaster and kettle, the Nano dramatically smaller, both in matte black, a tape measure subtly visible to emphasise size difference, bright morning kitchen light",
+  "comparison_table": {
+    "price": {
+      "product_a": "\u20ac199",
+      "product_b": "\u20ac299"
+    },
+    "boiler_type": {
+      "product_a": "Thermoblock (compact)",
+      "product_b": "Thermoblock"
+    },
+    "heat_up_time": {
+      "product_a": "45 seconds",
+      "product_b": "90 seconds"
+    },
+    "pressure_control": {
+      "product_a": "15 bar pump (9 bar at group), fixed",
+      "product_b": "15 bar pump (9 bar at group), fixed OPV"
+    },
+    "steam_capability": {
+      "product_a": "Panarello-style steam wand \u2014 adequate for basic frothing, not for latte art",
+      "product_b": "Single boiler steam \u2014 must switch modes, but produces drier steam with more control"
+    },
+    "grind_compatibility": {
+      "product_a": "Works with any grinder; 54 mm portafilter is less sensitive to dose variation",
+      "product_b": "58 mm commercial portafilter \u2014 compatible with aftermarket baskets as your skills develop"
+    },
+    "suitable_for": {
+      "product_a": "Tiny kitchens, secondary brewing stations, and anyone who values a minimal footprint above all else",
+      "product_b": "People who want a proper 58 mm portafilter workflow and a more capable steam system in a still-compact package"
+    },
+    "not_suitable_for": {
+      "product_a": "Anyone serious about milk texturing or latte art \u2014 the Panarello wand gets you foam, not microfoam",
+      "product_b": "People with genuinely limited counter space \u2014 the Primo is compact but still needs a dedicated spot"
+    }
+  },
+  "recommendation_by_persona": {
+    "morning-minimalist": {
+      "recommended_product_id": "arco-nano",
+      "rationale": "If your morning ritual is one black espresso with no fuss, the Nano's 45-second heat-up and tiny footprint make it nearly invisible in your routine."
+    },
+    "upgrader": {
+      "recommended_product_id": "arco-primo",
+      "rationale": "The 58 mm portafilter gives you a path to better baskets and accessories as you learn \u2014 the Nano's 54 mm limits your upgrade options."
+    },
+    "traveller": {
+      "recommended_product_id": "arco-nano",
+      "rationale": "While neither is truly portable, the Nano is light enough to move between rooms or bring to a holiday rental."
+    },
+    "non-barista": {
+      "recommended_product_id": "arco-nano",
+      "rationale": "Fewer variables and faster heat-up \u2014 the Nano is the closest thing to push-button espresso in our manual range."
+    }
+  },
+  "verdict": "The Nano is a genuinely good espresso machine that happens to be very small. It does not taste like a compromise unless you are chasing latte art or want to grow into competition baskets. The Primo costs a little more and takes a little more space, but its 58 mm portafilter and better steaming make it the stronger foundation if you think your interest in espresso might deepen over time.",
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "persona_tags": ["morning-minimalist", "non-barista", "traveller"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Arco Nano vs Arco Primo \u2014 Ultra-Compact vs Full Single-Boiler Espresso | Arco",
+    "meta_description": "The Arco Nano (\u20ac199) is our smallest machine with a 45-second heat-up. The Arco Primo (\u20ac299) adds a 58 mm portafilter and better steaming. Which fits your kitchen and your goals?"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "exp-hs-004",
+  "slug": "rented-apartment",
+  "title": "Rented Apartment",
+  "persona_tag": "renter-practical",
+  "experience_archetype": "Rented Life",
+  "hero_image_alt": "A kitchen in a rented apartment with basic cabinets and limited counter space, an Arco Primo and Macinino grinder set up neatly beside the sink, a water filter jug nearby, no permanent modifications visible anywhere",
+  "hero_headline": "No plumbing. No mods. No landlord negotiations.",
+  "hero_subtext": "A proper espresso setup that moves when you do.",
+  "editorial_intro": "You rent. This means the kitchen is not yours to modify, the plumbing is not yours to tap into, and any hole you drill in the wall will cost you a portion of the deposit. Your coffee setup needs to work within these constraints — self-contained, portable, and requiring nothing from the building that the building was not already providing.",
+  "editorial_body": "The fantasy version of your coffee life involves a plumbed-in commercial machine, a dedicated water line with a filtration system, and a purpose-built counter at the perfect height. The reality involves a kitchen that was last renovated in 2007, a landlord who takes three weeks to fix a dripping tap, and a lease that explicitly prohibits alterations to the plumbing.\n\nYou have moved four times in the last six years. Each time, the coffee setup has moved with you, packed into a box labelled FRAGILE in aggressive capitals, carried personally rather than entrusted to the movers. Each kitchen has been different — different counter heights, different depths, different power socket locations — and the setup has adapted to all of them because it was chosen for exactly this portability.\n\nThe Arco Primo requires nothing from the building. No water line. No drain connection. No ventilation. You fill the water tank from a filter jug, plug it into a standard socket, and it works. The tank holds enough water for eight doubles before refilling, which covers a full day's use without inconvenience. The drip tray holds enough waste water for six shots. You empty it into the sink when you empty the grounds.\n\nThe Macinino grinder is similarly self-sufficient. Plug it in, fill the hopper, adjust the dial. It sits on any flat surface and asks nothing of the building's infrastructure. Together, the Primo and Macinino form a complete, portable coffee station that can be set up in any kitchen in twenty minutes and packed away in ten.\n\nThis matters more than it might seem. Renting means impermanence, and impermanence creates a particular relationship with your possessions. You think carefully about what you buy because you know it will need to be moved, stored, and reassembled in a space you have not yet seen. Heavy, cumbersome, installation-dependent equipment is a liability. Light, compact, self-contained equipment is an asset.\n\nThe Primo weighs seven kilograms. Manageable. It fits in the box it came in, cushioned by its original packaging, which you kept because you are a renter and you keep all original packaging. The Macinino weighs three. The combined setup fits on any counter deeper than thirty centimetres, which describes every kitchen you have lived in, even the studio flat with the kitchenette that was technically a cupboard.\n\nThere is a psychological dimension to this too. Renting can feel provisional, temporary, as though your real life is happening somewhere in the future when you finally own a place. The coffee setup pushes back against that feeling. It says: this is a real kitchen, this is a real home, this is a real espresso. The Primo does not know it is in a rented flat. It pulls the same shot here as it would in a penthouse. The water does not taste different because the lease is twelve months.\n\nYou use a Brita filter jug because the water in this building is hard and chalky. It is not a professional filtration system, but the Primo's simple boiler tolerates the mineral content well, and a monthly descale keeps everything running smoothly. The landlord's water, filtered through a ten-pound jug, produces an espresso that would satisfy anyone.\n\nWhen the lease ends and you move again — to a bigger flat, a different city, perhaps eventually somewhere you own — the Primo and Macinino will go into the box, into the car, and onto whatever counter the next place provides. They will be the first things unpacked, before the books, before the art, before the plates. Because the first night in a new home should begin the way every morning begins: with a good espresso made in your own kitchen, whoever's kitchen it technically is.\n\nRenting is not waiting for your life to start. It is living it, in kitchens you did not design, with coffee that is yours regardless.",
+  "product_bundle": [
+    { "product_id": "arco-primo", "role": "anchor" },
+    { "product_id": "arco-macinino", "role": "primary" }
+  ],
+  "bundle_headline": "Your Rented Life setup",
+  "bundle_intro": "A complete espresso station that requires nothing from the building and moves when you do.",
+  "featured_guides": [
+    "guide-setup-without-plumbing",
+    "guide-water-filtration-for-renters",
+    "guide-packing-your-coffee-equipment"
+  ],
+  "related_blog_posts": [
+    "blog-coffee-for-renters",
+    "blog-portable-vs-plumbed-machines",
+    "blog-hard-water-and-espresso"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "renter-practical",
+  "persona_tags": ["renter-practical", "portable-setup", "no-mods"],
+  "intent_tags": ["rental", "portable", "no-plumbing", "self-contained", "compact"],
+  "seo": {
+    "title": "Rented Apartment — Espresso Without Plumbing or Modifications | Arco Coffee",
+    "meta_description": "No plumbing, no mods, no landlord negotiations. The Arco Primo and Macinino deliver real espresso in any rented kitchen. Portable, self-contained, and ready to move."
+  }
+}

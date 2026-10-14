@@ -3,25 +3,25 @@
  */
 
 /* eslint-disable import/extensions, import/no-relative-packages */
-import productsData from '../../../content/products/products.json';
-import personasData from '../../../content/metadata/personas.json';
-import featuresData from '../../../content/metadata/features.json';
-import faqsData from '../../../content/metadata/faqs.json';
-import reviewsData from '../../../content/metadata/reviews.json';
-import useCasesData from '../../../content/metadata/use-cases.json';
-import productProfilesData from '../../../content/metadata/product-profiles.json';
+import productsData from '../../../data/products/products.json';
+import personasData from '../../../data/metadata/personas.json';
+import featuresData from '../../../data/metadata/features.json';
+import faqsData from '../../../data/metadata/faqs.json';
+import reviewsData from '../../../data/metadata/reviews.json';
+import useCasesData from '../../../data/metadata/use-cases.json';
+import productProfilesData from '../../../data/metadata/product-profiles.json';
 
 // Pre-authored comparisons (bundled for direct lookup)
-import compPrimoVsDoppio from '../../../content/products/comparison/arco-primo-vs-arco-doppio.json';
-import compNanoVsPrimo from '../../../content/products/comparison/arco-nano-vs-arco-primo.json';
-import compDoppioVsStudio from '../../../content/products/comparison/arco-doppio-vs-arco-studio.json';
-import compStudioVsStudioPro from '../../../content/products/comparison/arco-studio-vs-arco-studio-pro.json';
-import compAutomaticoVsStudio from '../../../content/products/comparison/arco-automatico-vs-arco-studio.json';
-import compUfficioVsStudioPro from '../../../content/products/comparison/arco-ufficio-vs-arco-studio-pro.json';
-import compViaggioVsNano from '../../../content/products/comparison/arco-viaggio-vs-arco-nano.json';
-import compPrecisoVsZero from '../../../content/products/comparison/arco-preciso-vs-arco-zero.json';
-import compMacinoVsPreciso from '../../../content/products/comparison/arco-macinino-vs-arco-preciso.json';
-import compFiltroVsPreciso from '../../../content/products/comparison/arco-filtro-vs-arco-preciso.json';
+import compPrimoVsDoppio from '../../../data/products/comparison/arco-primo-vs-arco-doppio.json';
+import compNanoVsPrimo from '../../../data/products/comparison/arco-nano-vs-arco-primo.json';
+import compDoppioVsStudio from '../../../data/products/comparison/arco-doppio-vs-arco-studio.json';
+import compStudioVsStudioPro from '../../../data/products/comparison/arco-studio-vs-arco-studio-pro.json';
+import compAutomaticoVsStudio from '../../../data/products/comparison/arco-automatico-vs-arco-studio.json';
+import compUfficioVsStudioPro from '../../../data/products/comparison/arco-ufficio-vs-arco-studio-pro.json';
+import compViaggioVsNano from '../../../data/products/comparison/arco-viaggio-vs-arco-nano.json';
+import compPrecisoVsZero from '../../../data/products/comparison/arco-preciso-vs-arco-zero.json';
+import compMacinoVsPreciso from '../../../data/products/comparison/arco-macinino-vs-arco-preciso.json';
+import compFiltroVsPreciso from '../../../data/products/comparison/arco-filtro-vs-arco-preciso.json';
 /* eslint-enable import/extensions, import/no-relative-packages */
 
 // Build comparison lookup map: sorted product pair → comparison data
@@ -46,7 +46,7 @@ export function matchPersona(query) {
   const lower = query.toLowerCase();
 
   // Derive trigger phrases per persona from their fields
-  // Keys must match persona slugs in content/metadata/personas.json
+  // Keys must match persona slugs in data/metadata/personas.json
   const PERSONA_TRIGGERS = {
     'morning-minimalist': ['quick', 'fast', 'easy', 'simple', 'convenient', 'morning', 'busy', 'no fuss', 'automatic', 'one button', 'consistent', 'reliable', 'smart', 'thinking', 'does the thinking', 'one touch', 'fully automatic'],
     'upgrade-seeker': ['upgrade', 'better', 'improve', 'next level', 'step up', 'outgrow', 'replace', 'prosumer', 'more control', 'serious'],
@@ -77,7 +77,7 @@ export function matchPersona(query) {
 
 /**
  * Look up a persona object by slug.
- * @param {string} slug The persona slug from content/metadata/personas.json
+ * @param {string} slug The persona slug from data/metadata/personas.json
  * @returns {Object|null}
  */
 export function getPersonaBySlug(slug) {

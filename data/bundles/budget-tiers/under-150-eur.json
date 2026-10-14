@@ -1,0 +1,32 @@
+{
+  "id": "bundle-bt-001",
+  "slug": "under-150-eur",
+  "title": "Best Espresso Setup Under €150",
+  "headline": "Real espresso on a real budget. Here is what is possible.",
+  "budget_range": "Under €150",
+  "editorial_intro": "A hundred and fifty euros is not a lot of money for an espresso setup, and we are not going to pretend otherwise. But it is enough to make genuinely good espresso if you choose carefully and accept a few honest trade-offs.",
+  "editorial_body": "At this price point, you are buying one excellent tool and relying on workarounds for everything else. That tool is the Arco Viaggio — a manual lever espresso maker that produces 9 bars of pressure from your own arm strength, needs no electricity, and at €89 leaves room in the budget for a good bag of beans and a basic hand grinder from any reputable brand.\n\nThe Viaggio is not a compromise machine. It is a different category entirely. The espresso it produces has body, crema, and genuine complexity — attributes that many electric machines under €200 struggle to deliver consistently. The trade-off is effort and workflow. You need a separate kettle to heat water. You need to grind your beans before loading the chamber. And the lever press requires a deliberate, steady push that takes a few attempts to learn.\n\nWhat you are giving up at this budget is convenience and volume. The Viaggio makes one shot at a time. There is no steam wand for milk drinks. There is no programmable temperature or pressure profiling. Your workflow will be slower and more manual than any plug-in machine. But the coffee itself — the liquid in the cup — will be better than what most pod machines and many entry-level electric machines produce.\n\nIf you are testing whether home espresso is for you, or if you want a secondary device for travel and weekends, the Viaggio at under €150 is an honest starting point that will not leave you feeling like you wasted your money if you later decide to invest more.",
+  "products": [
+    {
+      "product_id": "arco-viaggio",
+      "role": "recommended",
+      "combo_note": "Pair with a hand grinder (any reputable brand, €30–€50) and a bag of medium-roast espresso beans."
+    }
+  ],
+  "value_proposition": "Genuine 9-bar espresso in a 340g package, with enough budget remaining for beans and a basic grinder. The best coffee-per-euro ratio in the Arco range.",
+  "trade_offs": [
+    "Manual operation only — no electricity, no automation",
+    "Single shot at a time — not suitable for making multiple drinks quickly",
+    "No steam wand — milk drinks require a separate frother or stovetop method",
+    "Requires a separate kettle and grinder",
+    "Learning curve on lever pressure — takes three or four attempts to get consistent"
+  ],
+  "hero_image_alt": "An Arco Viaggio in graphite finish beside a small hand grinder and a bag of whole coffee beans on a simple wooden surface, a single shot of espresso in a small glass, natural daylight, minimal and honest composition",
+  "persona_tags": ["traveller", "morning-minimalist"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Best Espresso Setup Under €150 — Honest Budget Guide | Arco",
+    "meta_description": "The best home espresso you can get for under €150: the Arco Viaggio manual maker at €89 plus a grinder and beans. Honest about trade-offs, real about quality.",
+    "canonical_url": "/bundles/budget-tiers/under-150-eur"
+  }
+}

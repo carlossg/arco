@@ -35,11 +35,14 @@ export function getCurrentPageId() { return currentPageId; }
 export function getCurrentPageUrl() { return currentPageUrl; }
 
 /**
- * Check if debug mode is active (?debug=true on the URL).
+ * Check if debug mode is active (localStorage toggle or ?debug=true URL override).
  */
 export function isDebugMode() {
   const params = new URLSearchParams(window.location.search);
-  return params.get('debug') === 'true';
+  if (params.get('debug') === 'true') return true;
+  try {
+    return localStorage.getItem('arco-debug') === 'true';
+  } catch { return false; }
 }
 
 /**

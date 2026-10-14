@@ -65,7 +65,7 @@ function findJsonFiles(dir) {
 }
 
 function buildSourceMap(contentSubdir) {
-  const files = findJsonFiles(join(ROOT, 'content', contentSubdir));
+  const files = findJsonFiles(join(ROOT, 'data', contentSubdir));
   const map = new Map();
   files.forEach((path) => {
     try {
@@ -187,14 +187,14 @@ async function processIndex({
 
 const results = await Promise.all([
   processIndex({
-    indexPath: join(ROOT, 'content/stories-index.json'),
+    indexPath: join(ROOT, 'data/stories-index.json'),
     contentSubdir: 'blog',
     pathPrefix: '/stories',
     fragmentSubdir: 'stories',
     renderer: renderStory,
   }),
   processIndex({
-    indexPath: join(ROOT, 'content/experiences-index.json'),
+    indexPath: join(ROOT, 'data/experiences-index.json'),
     contentSubdir: 'experiences',
     pathPrefix: '/experiences',
     fragmentSubdir: 'experiences',

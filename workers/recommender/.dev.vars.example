@@ -44,6 +44,10 @@ OLLAMA_NUM_CTX=32768
 # CF_THINK-style toggle for vLLM reasoning models (Model Settings overrides it):
 # VLLM_THINK=false
 
+# Taalas (official API — api.taalas.com/v1/completions). Specialized hardware
+# running Llama 3.1 8B. Set TAALAS_API_KEY to enable. Context limit: 15k+ tokens.
+# TAALAS_API_KEY=your-taalas-api-key
+
 # DA_* are intentionally omitted locally: /api/generate never writes to DA, and
 # leaving DA tokens unset keeps the page-caching /api/persist path from touching
 # the production content store.

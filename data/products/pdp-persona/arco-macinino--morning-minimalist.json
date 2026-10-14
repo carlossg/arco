@@ -1,0 +1,27 @@
+{
+  "base_product_id": "arco-macinino",
+  "persona_tag": "morning-minimalist",
+  "headline": "Fresh-ground coffee. Zero drama.",
+  "subheadline": "The Arco Macinino grinds your beans with timed dosing -- set it once, press the button, and get the same perfect dose every morning. No weighing, no guessing.",
+  "hero_image_alt": "Arco Macinino flat burr grinder in walnut finish on a clean kitchen counter beside an espresso machine, a portafilter catching freshly ground coffee, soft morning light, everything tidy and minimal",
+  "description_long": "Grinding fresh makes the single biggest difference in coffee quality, but most grinders ask you to weigh, adjust, and fuss every time. The Macinino doesn't. Set your grind size once (it holds the setting indefinitely), programme your dose using the timed dosing feature, and then every morning is the same: put the portafilter under the spout, press the button, done. The 64mm Italian flat burrs grind quickly and evenly, the low-retention design means almost nothing stays behind in the chamber, and the timed dosing delivers a consistent dose within half a gram. Fill the hopper once a week with your favourite beans and forget about it. Your morning just got noticeably better with exactly one new step.",
+  "use_case_headline": "One button adds fresh-ground quality to your morning.",
+  "use_case_body": "Fill the hopper. Set the timer once. Every morning after that, just press the button. The Macinino's timed dosing and low retention mean your dose is consistent without scales or measuring. Fresh-ground coffee with zero added complexity.",
+  "recommended_accessories": [
+    "Dosing Cup",
+    "Bean Vault",
+    "Cleaning Kit"
+  ],
+  "related_blog_posts": [
+    "morning-routine-three-minutes",
+    "your-first-home-espresso",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Add Fresh Grinding",
+  "cta_primary_url": "/products/arco-macinino",
+  "social_proof_quote": {
+    "quote": "I was using pre-ground coffee because grinding seemed like too much effort. The Macinino changed my mind -- I set the dose once and now I just press a button every morning. The difference in taste is massive and the effort is basically zero.",
+    "name": "Camille D.",
+    "location": "Lyon, France"
+  }
+}

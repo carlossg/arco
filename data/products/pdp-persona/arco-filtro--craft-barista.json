@@ -1,0 +1,27 @@
+{
+  "base_product_id": "arco-filtro",
+  "persona_tag": "craft-barista",
+  "headline": "48mm flats calibrated for filter. Stepped for repeatability.",
+  "subheadline": "The Arco Filtro is a purpose-built filter grinder with 48mm flat burrs optimised for coarser profiles, a 30-step clicked adjustment for dead-accurate repeatability, and a compact footprint for the multi-method brewer.",
+  "hero_image_alt": "Arco Filtro filter grinder in copper beside a Hario V60, Chemex, and AeroPress arranged on a wooden counter, freshly ground coffee in a ceramic dosing vessel, a precision scale nearby, warm focused lighting in a home brewing station",
+  "description_long": "If you're serious about filter coffee, you know that espresso grinders adapted for coarser settings are a compromise. The Filtro isn't adapted -- it's built from the ground up for pour-over, AeroPress, Chemex, and batch brew. The 48mm flat burrs are calibrated for the coarser end of the spectrum, producing a clean, uniform particle distribution that extracts evenly across longer brew times. The 30-step clicked adjustment means you can switch between V60 and AeroPress and return to the exact same setting every time -- no guesswork, no dial drift. At 800 RPM, the motor generates minimal heat, preserving volatile aromatics that fast grinders destroy. The 200g hopper supports a light daily workflow, and at 3.2 kg the Filtro takes up less counter space than a pour-over dripper. For the brewer who treats filter coffee with the same precision as espresso, this is the dedicated tool for the job.",
+  "use_case_headline": "Purpose-built for the precision filter brewer.",
+  "use_case_body": "Filter-optimised 48mm flat burrs. 30-step clicked adjustment for exact repeatability. 800 RPM for low heat. Purpose-calibrated for V60, AeroPress, Chemex, batch brew, and French press. This is not an espresso grinder with a wider range -- it's a filter grinder, period.",
+  "recommended_accessories": [
+    "Precision Scale",
+    "Bean Vault",
+    "Double-Wall Glasses"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "Dedicated Filter Grinding",
+  "cta_primary_url": "/products/arco-filtro",
+  "social_proof_quote": {
+    "quote": "I was using my espresso grinder for V60 and always felt the grind was uneven at coarser settings. The Filtro is completely different -- calibrated for filter from the start. My pour-overs are cleaner, sweeter, and more transparent than anything I was getting before. It's a specialist tool and it shows.",
+    "name": "Haruka N.",
+    "location": "Kyoto, Japan"
+  }
+}

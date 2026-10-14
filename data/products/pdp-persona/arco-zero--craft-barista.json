@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-zero",
+  "persona_tag": "craft-barista",
+  "headline": "83mm flats. Zero retention. SSP compatible.",
+  "subheadline": "The Arco Zero is a single-dose grinder built around 83mm flat burrs with a bellows-assisted zero-retention system. Switch between espresso and filter in seconds. Every particle makes it to the cup.",
+  "hero_image_alt": "Arco Zero single-dose grinder in matte black, top-down view showing the 83mm flat burrs through the single-dose hopper, a bellows attachment visible, a precision scale and two dosing cups -- one for espresso, one for filter -- arranged on a dark wooden surface",
+  "description_long": "The Zero is built for the single-dose workflow. Weigh your beans, drop them in the hopper, grind, hit the bellows, and every last particle lands in your portafilter or dosing cup -- retention is functionally zero, verified by the bellows-assisted purge system. The 83mm flat burrs are SSP-compatible, so you can choose your burr profile: stock Arco burrs for a balanced all-rounder, SSP Multipurpose for a clean unimodal profile, or SSP High Uniformity for filter-focused clarity. The stepless adjustment with a calibrated dial indicator makes switching between espresso and filter a 30-second operation -- mark your settings, return to them precisely. At 1200 RPM, the motor is fast enough for workflow efficiency without generating excess heat. No hopper means no stale beans, no purging, no waste. For the barista who changes beans frequently, doses precisely, and refuses to leave anything behind in the burr chamber, the Zero is the grinder that doesn't compromise.",
+  "use_case_headline": "Single-dose precision for espresso and filter.",
+  "use_case_body": "Zero retention with bellows purge. 83mm SSP-compatible flat burrs. Stepless adjustment with calibrated indicator. Weigh, grind, purge -- every milligram in the cup. Switch between espresso and filter grind sizes in seconds and return to marked settings with zero drift.",
+  "recommended_accessories": [
+    "Precision Scale",
+    "Dosing Cup",
+    "Bean Vault",
+    "Distribution Tool"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "Explore the Zero",
+  "cta_primary_url": "/products/arco-zero",
+  "social_proof_quote": {
+    "quote": "I swapped the stock burrs for SSP HU and the Zero produces the cleanest filter grind I've ever achieved at home. For espresso, the retention is genuinely zero -- I've tested it. The dial indicator lets me switch between espresso and V60 in seconds and nail the same setting every time.",
+    "name": "Jens K.",
+    "location": "Berlin, Germany"
+  }
+}

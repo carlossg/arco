@@ -1,0 +1,167 @@
+{
+  "total": 20,
+  "offset": 0,
+  "limit": 20,
+  "data": [
+    {
+      "id": "faq-001",
+      "category": "getting-started",
+      "question": "What equipment do I need to get started with home espresso?",
+      "answer": "At minimum, you need an espresso machine and a grinder. A quality grinder is actually more important than the machine itself, as grind consistency is the single biggest factor in espresso quality. We recommend starting with the Arco Primo and the Arco Preciso grinder. Add a precision scale and a decent tamper, and you have everything needed to pull excellent shots. Total investment for a great starter setup: around $1,400.",
+      "relatedProducts": ["primo", "preciso", "precision-scale", "tamper-set"],
+      "priority": 1
+    },
+    {
+      "id": "faq-002",
+      "category": "getting-started",
+      "question": "Should I invest more in the espresso machine or the grinder?",
+      "answer": "If you have to choose, invest more in the grinder. A great grinder paired with a modest machine will consistently outperform a great machine paired with a mediocre grinder. The grind quality determines extraction evenness, flavor clarity, and shot consistency. Many experienced baristas say the grinder accounts for 60-70% of the final cup quality. That said, the machine still matters, so try to find a balanced setup within your budget.",
+      "relatedProducts": ["zero", "macinino", "preciso"],
+      "priority": 2
+    },
+    {
+      "id": "faq-003",
+      "category": "getting-started",
+      "question": "What is the difference between a single boiler, dual boiler, and thermoblock machine?",
+      "answer": "A single boiler machine (like the Primo) uses one boiler for both brewing and steaming, so you must wait between tasks. A dual boiler machine (like the Doppio or Studio) has separate boilers for brewing and steaming, allowing simultaneous operation with independent temperature control. A thermoblock machine (like the Nano or Automatico) heats water on demand as it passes through a heated metal block, offering faster heat-up times but potentially less temperature stability. Dual boiler machines are ideal for frequent milk drink preparation.",
+      "relatedProducts": ["primo", "doppio", "nano", "studio"],
+      "priority": 3
+    },
+    {
+      "id": "faq-004",
+      "category": "getting-started",
+      "question": "How long does it take to learn to make good espresso at home?",
+      "answer": "With proper equipment and guidance, most people can pull a consistently good espresso within 1-2 weeks of daily practice. The key variables to master are grind size, dose (weight of coffee), yield (weight of liquid espresso), and extraction time. Start by picking one variable to adjust at a time. A precision scale is invaluable during the learning process. If the learning curve feels steep, the Arco Automatico handles most variables automatically while still using fresh beans.",
+      "relatedProducts": ["primo", "automatico", "precision-scale"],
+      "priority": 4
+    },
+    {
+      "id": "faq-005",
+      "category": "maintenance",
+      "question": "How often should I clean my espresso machine?",
+      "answer": "Daily: wipe down the steam wand after every use and purge it briefly. Flush the group head with a short burst of water between shots. Weekly: backflush with cleaning detergent (for machines with solenoid valves, which includes all Arco machines except the Nano and Viaggio). Monthly: deep clean the shower screen and portafilter baskets by soaking in cleaning solution. Quarterly: descale the machine using Arco Descaling Solution. Following this schedule will keep your machine performing optimally for years.",
+      "relatedProducts": ["cleaning-kit", "descaling-solution", "group-head-brush"],
+      "priority": 5
+    },
+    {
+      "id": "faq-006",
+      "category": "maintenance",
+      "question": "How do I descale my espresso machine?",
+      "answer": "Fill the water tank with a mixture of Arco Descaling Solution and fresh water according to the bottle instructions. Run about half the solution through the group head, then pause for 15 minutes to let the solution work on internal scale buildup. Run the remaining solution through. Then flush with at least two full tanks of fresh water to remove all traces of the descaling solution. For machines with steam boilers, run some solution through the steam wand as well. Descale every 2-3 months, or more frequently in hard water areas.",
+      "relatedProducts": ["descaling-solution"],
+      "priority": 6
+    },
+    {
+      "id": "faq-007",
+      "category": "maintenance",
+      "question": "How often should I replace my grinder burrs?",
+      "answer": "For home use, Arco grinder burrs typically last 3-5 years before noticeable performance degradation. Signs that burrs need replacement include: increased grind time for the same dose, difficulty dialing in espresso, less crema production, and a general decline in flavor clarity. If you grind more than 1 kg per week, check burrs annually. The Arco Zero and Macinino burrs are user-replaceable with basic tools. Contact Arco support for replacement burr sets.",
+      "relatedProducts": ["zero", "macinino", "preciso", "filtro"],
+      "priority": 7
+    },
+    {
+      "id": "faq-008",
+      "category": "grinder",
+      "question": "What is the difference between flat and conical burrs?",
+      "answer": "Flat burrs (used in the Filtro, Macinino, and Zero) produce a unimodal particle distribution, meaning the ground particles are very uniform in size. This translates to a cleaner, brighter, more transparent cup with greater flavor clarity. Conical burrs (used in the Preciso) produce a bimodal distribution with a wider range of particle sizes, which many people find creates a sweeter, fuller-bodied cup. Neither is objectively better; it depends on your taste preferences. Light roast enthusiasts often prefer flat burrs, while those who enjoy darker roasts and richer body may prefer conical.",
+      "relatedProducts": ["macinino", "zero", "filtro", "preciso"],
+      "priority": 8
+    },
+    {
+      "id": "faq-009",
+      "category": "grinder",
+      "question": "What does zero retention mean and why does it matter?",
+      "answer": "Retention refers to the amount of ground coffee that remains trapped inside a grinder between doses. Traditional hopper grinders can retain 2-5g of coffee, which goes stale and mixes into your next dose. The Arco Zero achieves near-zero retention (under 0.1g with the bellows system), meaning virtually every milligram you grind comes out fresh. This matters for two reasons: first, your dose is always 100% freshly ground. Second, you can switch between different beans without stale grounds contaminating your next coffee. This is essential for single-dose workflows.",
+      "relatedProducts": ["zero"],
+      "priority": 9
+    },
+    {
+      "id": "faq-010",
+      "category": "grinder",
+      "question": "What is single dosing and should I do it?",
+      "answer": "Single dosing means weighing out exactly the amount of beans you need for one dose (typically 18g for espresso) and grinding only that amount, rather than keeping beans in a hopper and using a timer. Benefits include: every dose is weighed precisely, beans stay sealed in an airtight container (not exposed to air and light in a hopper), and you can easily switch between different beans. The tradeoff is a slightly slower workflow. Single dosing is ideal for home baristas who value freshness and variety. The Arco Zero is purpose-built for single dosing with its bellows system and no hopper.",
+      "relatedProducts": ["zero", "bean-vault", "dosing-cup", "precision-scale"],
+      "priority": 10
+    },
+    {
+      "id": "faq-011",
+      "category": "technique",
+      "question": "Why does my espresso taste sour?",
+      "answer": "Sour espresso is almost always under-extracted, meaning the water has not dissolved enough of the soluble compounds from the coffee. Common causes: grind too coarse (water flows through too quickly), water temperature too low, dose too high for the yield, or extraction time too short. Fix it by grinding finer in small increments until the sourness gives way to sweetness. Also check that your water temperature is at least 92 degrees Celsius. A precision scale helps confirm your dose and yield are in the right ratio (start with 1:2, so 18g in and 36g out).",
+      "relatedProducts": ["precision-scale"],
+      "priority": 11
+    },
+    {
+      "id": "faq-012",
+      "category": "technique",
+      "question": "Why does my espresso taste bitter?",
+      "answer": "Bitter espresso is typically over-extracted, meaning too many compounds have been dissolved from the coffee, including harsh, astringent ones. Common causes: grind too fine (water passes through too slowly), water temperature too high, extraction time too long, or dose too low for the yield. Fix it by grinding coarser in small increments. Also ensure your extraction time is in the 25-30 second range for a standard double shot. If the bitterness persists, try reducing your yield slightly (for example, from a 1:2.5 ratio down to 1:2). Very dark roasts are inherently more bitter and may benefit from lower temperatures and shorter ratios.",
+      "relatedProducts": ["precision-scale"],
+      "priority": 12
+    },
+    {
+      "id": "faq-013",
+      "category": "technique",
+      "question": "What is channeling and how do I prevent it?",
+      "answer": "Channeling occurs when water finds a path of least resistance through the coffee puck, creating a small channel where over-extraction happens while the rest of the puck is under-extracted. The result is an uneven, often sour and bitter shot at the same time. Signs include: uneven flow from the portafilter spouts, spurting or jetting, and blonde spots in a bottomless portafilter. Prevention: use a WDT distribution tool to break up clumps before tamping, tamp evenly and level, ensure a consistent dose weight, and consider upgrading your grinder for more uniform particle sizes. The Arco Distribution Tool is specifically designed for this purpose.",
+      "relatedProducts": ["distribution-tool", "tamper-set"],
+      "priority": 13
+    },
+    {
+      "id": "faq-014",
+      "category": "technique",
+      "question": "How do I steam milk properly for latte art?",
+      "answer": "Start with cold whole milk in a cold pitcher (the Arco Milk Pitcher is ideal). Purge the steam wand, then position the tip just below the milk surface, slightly off-center. Open the steam valve fully. For the first 2-3 seconds, keep the tip near the surface to introduce air (you will hear a gentle hissing). Then submerge the tip deeper to create a whirlpool that integrates the air into a silky microfoam. Heat to 60-65 degrees Celsius (the pitcher should feel hot but not painful to touch). Tap the pitcher on the counter to pop any large bubbles, then swirl to create a glossy, paint-like texture. Pour immediately. A dual boiler machine like the Doppio or Studio is ideal since you can steam while the shot pulls.",
+      "relatedProducts": ["milk-pitcher", "doppio", "studio"],
+      "priority": 14
+    },
+    {
+      "id": "faq-015",
+      "category": "technique",
+      "question": "What water should I use in my espresso machine?",
+      "answer": "Water quality significantly affects both taste and machine longevity. Avoid distilled water (too aggressive on metal components) and very hard water (causes scale buildup). Ideal water for espresso has a total dissolved solids (TDS) between 75-150 ppm, a pH of 6.5-7.5, and moderate mineral content for balanced extraction. Many baristas use Third Wave Water mineral packets added to distilled water for precise control. If using tap water, a quality carbon filter removes chlorine taste while preserving minerals. All Arco machines include a water filter in the tank, and the Ufficio includes a professional water treatment system.",
+      "relatedProducts": ["descaling-solution"],
+      "priority": 15
+    },
+    {
+      "id": "faq-016",
+      "category": "purchasing",
+      "question": "Which Arco espresso machine is right for me?",
+      "answer": "It depends on your priorities. For beginners wanting simplicity: Automatico (one-touch) or Primo (manual but approachable). For serious home baristas: Doppio (dual boiler, great for milk drinks) or Studio (prosumer with flow profiling). For the ultimate home setup: Studio Pro (pressure profiling, touchscreen, triple boiler). For travel: Viaggio (portable, no electricity needed). For small spaces: Nano (ultra-compact). For offices: Ufficio (dual group heads, 50+ cups per day). Our product recommender can help narrow down the best choice based on your specific needs and budget.",
+      "relatedProducts": ["primo", "doppio", "studio", "studio-pro", "automatico", "nano", "viaggio", "ufficio"],
+      "priority": 16
+    },
+    {
+      "id": "faq-017",
+      "category": "purchasing",
+      "question": "What grinder should I pair with my Arco espresso machine?",
+      "answer": "For espresso-focused brewing: the Macinino (64mm flat burrs, great clarity) or the Zero (83mm SSP, best-in-class for single dosing). For a versatile grinder that handles espresso and filter: the Preciso (48mm conical, excellent all-rounder). For dedicated filter or pour-over: the Filtro. As a general rule, allocate about 30-40% of your total equipment budget to the grinder. Do not pair an entry-level grinder with a premium machine, the grinder will be the bottleneck.",
+      "relatedProducts": ["zero", "macinino", "preciso", "filtro"],
+      "priority": 17
+    },
+    {
+      "id": "faq-018",
+      "category": "purchasing",
+      "question": "What is the warranty on Arco products?",
+      "answer": "Most Arco espresso machines and grinders come with a 2-year warranty covering manufacturing defects and component failures under normal use. The Studio and Studio Pro include an extended 3-year warranty reflecting their premium build quality. The Ufficio carries a 3-year commercial warranty. The Viaggio comes with a 5-year warranty due to its simple, durable construction. Accessories are covered by a 1-year warranty. Warranty does not cover damage from improper use, neglect of maintenance, or use of non-approved cleaning products.",
+      "relatedProducts": [],
+      "priority": 18
+    },
+    {
+      "id": "faq-019",
+      "category": "purchasing",
+      "question": "Do I need a scale for espresso?",
+      "answer": "A precision scale is one of the single best investments you can make for improving your espresso. It allows you to: weigh your dose precisely (consistency starts with a consistent input), measure your yield accurately (the espresso output weight), and time your extraction with a built-in timer. Without a scale, you are essentially guessing, and small variations in dose or yield produce significant flavor differences. The Arco Precision Scale is specifically designed for espresso with its thin profile, auto-tare, and built-in shot timer. Many baristas consider it more essential than any other accessory.",
+      "relatedProducts": ["precision-scale"],
+      "priority": 19
+    },
+    {
+      "id": "faq-020",
+      "category": "maintenance",
+      "question": "Can I use third-party accessories with my Arco espresso machine?",
+      "answer": "Yes. All Arco espresso machines with 58mm group heads (Primo, Doppio, Studio, Studio Pro, Ufficio) are compatible with standard 58mm portafilter baskets, tampers, and distribution tools from any manufacturer. This is an intentional design choice to give you access to the widest range of accessories. The Nano uses a proprietary 42mm group head and requires Arco-specific accessories. The Viaggio uses its own ESE pod adapter and ground coffee basket. For grinders, all Arco models include portafilter holders compatible with standard 54mm and 58mm portafilters.",
+      "relatedProducts": ["tamper-set", "distribution-tool", "dosing-cup"],
+      "priority": 20
+    }
+  ]
+}

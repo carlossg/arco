@@ -1,0 +1,56 @@
+{
+  "id": "right-for-you-arco-doppio",
+  "slug": "arco-doppio",
+  "product_id": "arco-doppio",
+  "headline": "Is the Arco Doppio right for you?",
+  "intro": "The Doppio is where most people land when they outgrow their first machine. It solves the two biggest complaints about entry-level espresso \u2014 temperature inconsistency and the wait between brewing and steaming. But it also asks more of you than a simpler machine does.",
+  "hero_image_alt": "Arco Doppio espresso machine in brushed steel on a dark walnut counter, PID display showing temperature, a milk pitcher with freshly textured microfoam beside it, a latte in a wide ceramic cup in the foreground, warm afternoon light",
+  "perfect_for": [
+    "You have been using a single-boiler machine for six months or more and are tired of temperature surfing and waiting between shots and steaming.",
+    "You make milk drinks daily and want to brew and steam at the same time without compromise.",
+    "You have developed enough technique to appreciate PID temperature control but don't need pressure profiling yet.",
+    "You want a machine that pairs well with a stepless grinder and gives you room to grow for several years."
+  ],
+  "not_ideal_for": [
+    "You are brand new to espresso and haven't yet learned basic workflow \u2014 the Doppio's adjustable OPV and dual PID are wasted if you are still learning to tamp consistently.",
+    "You are already experimenting with pressure profiling or flow control \u2014 the Doppio doesn't offer pre-infusion or profiling, and you will feel limited quickly.",
+    "You want a machine that heats up in under a minute \u2014 the dual boilers need 3 minutes, which is fast for this class but slow compared to a thermoblock."
+  ],
+  "what_you_need_to_know": [
+    "The adjustable OPV lets you set brew pressure between 6 and 10 bar. Most people leave it at 9, but being able to lower it for lighter roasts is a genuine advantage that cheaper machines don't offer.",
+    "You will need a good grinder to match this machine. The Preciso is our recommended pairing. Using a stepped grinder with the Doppio is like putting economy tyres on a sports car \u2014 it works, but you are leaving performance on the table.",
+    "The Doppio includes both a spouted and bottomless portafilter. Start with the spouted one. The bottomless portafilter is a diagnostic tool that shows you channeling and uneven extraction \u2014 it is honest, sometimes brutally so."
+  ],
+  "common_objections": [
+    {
+      "objection": "Is the jump from \u20ac299 to \u20ac549 worth it?",
+      "honest_answer": "If you drink straight espresso only and never make milk drinks, the Primo might still be enough for you. The Doppio's biggest advantages are simultaneous brew/steam, PID stability, and the adjustable OPV. If any of those matter to your daily routine, the \u20ac250 gap pays for itself in the first month of better mornings."
+    },
+    {
+      "objection": "Should I skip the Doppio and go straight to the Studio?",
+      "honest_answer": "Only if you are confident you will use pre-infusion control and can commit to an 8-minute warm-up. The Doppio is not a compromise \u2014 it is a genuinely excellent machine with a faster warm-up and less operational complexity. Many experienced baristas use dual-boiler machines like the Doppio as their daily driver."
+    },
+    {
+      "objection": "Can it handle hosting \u2014 making coffee for four or five guests?",
+      "honest_answer": "Yes, comfortably. The dual boiler system means you don't have to wait between shots and steaming, and the 2-litre water tank handles multiple drinks without refilling. It is not an office machine, but it handles a dinner party with ease."
+    }
+  ],
+  "alternative_if_not_right": {
+    "product_id": "arco-studio",
+    "rationale": "If you want pre-infusion control and a saturated group head for maximum thermal stability, the Studio at \u20ac1,299 is the next step."
+  },
+  "persona_match_score": {
+    "morning-minimalist": 3,
+    "upgrader": 5,
+    "craft-barista": 3,
+    "traveller": 1,
+    "non-barista": 2,
+    "office-manager": 2
+  },
+  "persona_tags": ["upgrader", "craft-barista", "morning-minimalist"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Is the Arco Doppio Right for You? \u2014 Honest Buying Guide | Arco",
+    "meta_description": "The Arco Doppio offers dual boilers, PID control, and simultaneous steaming at \u20ac549. Here's an honest look at who it's built for and when you should consider something else."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-doppio",
+  "persona_tag": "non-barista",
+  "headline": "Lattes and cappuccinos, made surprisingly easy.",
+  "subheadline": "The Doppio brews your espresso and steams your milk at the same time -- so you can make cafe-style milk drinks at home without any complicated technique.",
+  "hero_image_alt": "Arco Doppio espresso machine in matte black on a bright kitchen counter, a person pouring steamed milk into a latte, the scene warm and approachable with soft overhead lighting, no barista tools visible",
+  "description_long": "If you love lattes and cappuccinos but feel nervous about making them at home, the Doppio makes it genuinely approachable. The dual-boiler design means you don't need to understand temperature surfing or wait between steps -- just pull your shot on one side and steam your milk on the other. The steam wand is powerful enough to create silky microfoam, but forgiving enough that you'll get good results from your very first attempt. The E61 group head keeps temperature consistent so your espresso tastes the same every time, and the programmable timer means the machine is warm and ready when you wake up. You don't need to know what any of that means -- you just need to know that your morning latte will taste like it came from a cafe.",
+  "use_case_headline": "Cafe-style milk drinks, no expertise needed.",
+  "use_case_body": "The Doppio comes ready to make your favourite milk drink. The dual boilers handle brewing and steaming simultaneously, so there's no complicated switching or waiting. Pair it with pre-ground coffee to start, and upgrade to a grinder whenever you're ready.",
+  "recommended_accessories": [
+    "Milk Pitcher",
+    "Tamper Set",
+    "Cleaning Kit",
+    "Espresso Cups Set",
+    "Double-Wall Glasses"
+  ],
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Start Making Lattes at Home",
+  "cta_primary_url": "/products/arco-doppio",
+  "social_proof_quote": {
+    "quote": "I'm not a coffee nerd at all -- I just wanted to stop spending six euros a day on oat lattes. The Doppio made it so easy. Steam the milk, pour it in, done. My lattes are better than the cafe near my office and I've only had it three weeks.",
+    "name": "Marta P.",
+    "location": "Barcelona, Spain"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "bundle-bt-004",
+  "slug": "under-2000-eur",
+  "title": "Best Espresso Setup Under €2,000",
+  "headline": "The serious home station. Built to reward your attention for years.",
+  "budget_range": "Under €2,000",
+  "editorial_intro": "Two thousand euros buys a home espresso setup that stands alongside the equipment in specialty cafes. At this level, you are not compensating for anything — you are choosing tools that will grow with your palate and technique for a decade or more.",
+  "editorial_body": "The centrepiece of this tier is the Arco Studio (€1,299) paired with the Arco Zero (€699), totalling €1,998 — essentially the entire budget invested in the two components that matter most.\n\nThe Studio is the machine that craft baristas gravitate towards, and the reason is the E61 group head. This brass thermosyphon design has been the benchmark in espresso for over sixty years because it delivers something no electronic PID can fully replicate: a gentle, natural pre-infusion that smooths the first seconds of extraction and gives the puck time to saturate evenly before full pressure arrives. The result is a rounder, more forgiving extraction that rewards good technique without punishing small inconsistencies.\n\nThe heat-exchange boiler provides effectively unlimited steam while maintaining brew temperature stability, which means milk drinks are produced in a single fluid workflow. The walnut panels and chrome detailing are not decorative afterthoughts — they reflect a design philosophy that believes the tools you use every day should be worth looking at.\n\nThe Zero grinder is where this setup becomes genuinely special. Its 64mm competition-grade flat burrs produce a particle distribution tight enough to make single-origin light roasts taste clean and complex rather than sour and thin. True zero retention — less than 0.1 grams remaining in the chute after each dose — means single-dosing works exactly as it should: weigh your beans in, receive the same weight out, and know that every gram in the portafilter is fresh.\n\nWhat you are giving up compared to the Studio Pro tier is flow control and pressure profiling. The Studio's E61 group delivers a fixed pressure curve, which is beautiful and proven but not adjustable. If you want to shape extraction pressure in real time — long pre-infusions, declining pressure profiles, blooming techniques for very light roasts — you will need the Studio Pro. For the vast majority of specialty coffee, including medium and light-medium roasts, the Studio's natural profile is not merely adequate. It is ideal.",
+  "products": [
+    {
+      "product_id": "arco-studio",
+      "role": "recommended-machine",
+      "combo_note": "E61 brass group, heat-exchange boiler, walnut panels. The craft barista's benchmark."
+    },
+    {
+      "product_id": "arco-zero",
+      "role": "recommended-grinder",
+      "combo_note": "64mm competition burrs, true zero retention. The grinder that reveals origin character."
+    }
+  ],
+  "value_proposition": "An E61 heat-exchange machine with brass group head and a competition-grade zero-retention grinder — a combination that professional baristas choose for their own kitchens.",
+  "trade_offs": [
+    "No pressure profiling or flow control — extraction pressure is determined by the E61 group's fixed curve",
+    "15–20 minute warm-up for full thermal stability — not ideal for spontaneous espresso",
+    "Heat-exchange requires occasional cooling flushes between shots to manage brew temperature",
+    "The Studio's weight (21 kg) and footprint require a dedicated, stable counter position",
+    "At €1,998, there is no budget remaining for accessories — the items included with each product must suffice initially"
+  ],
+  "hero_image_alt": "An Arco Studio with walnut panels and chrome E61 group head beside an Arco Zero grinder on a dark stone countertop, dual pressure gauges visible on the Studio, a single-dose hopper loaded with light roast beans on the Zero, a perfectly extracted espresso in a hand-thrown ceramic cup, warm workshop lighting",
+  "persona_tags": ["craft-barista", "upgrader"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Best Espresso Setup Under €2,000 — Serious Home Barista Guide | Arco",
+    "meta_description": "The best home espresso setup under €2,000: Arco Studio E61 + Zero grinder at €1,998. Craft-level extraction with competition-grade grinding. Built to last decades.",
+    "canonical_url": "/bundles/budget-tiers/under-2000-eur"
+  }
+}

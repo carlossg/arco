@@ -1,0 +1,182 @@
+{
+  "id": "maint-warranty-service",
+  "slug": "warranty-and-service-guide",
+  "title": "Warranty & Service Guide",
+  "description": "Everything you need to know about Arco's warranty coverage, what voids your warranty, how to register your product, and how to get service or repairs. Keep this guide handy for the life of your equipment.",
+  "hero_image_alt": "An Arco warranty card beside a machine serial number plate, with a customer service headset and laptop showing the Arco support portal",
+  "data": {
+    "warranty_terms": {
+      "machines": {
+        "duration_years": 2,
+        "coverage": "All manufacturing defects in materials and workmanship, including boilers, heating elements, pumps, electronic control boards, solenoid valves, and wiring. Covers parts and labour when serviced by Arco or an authorised service partner.",
+        "start_date": "From the date of purchase (receipt or delivery confirmation required).",
+        "extended_warranty": {
+          "available": true,
+          "duration_years": 3,
+          "total_with_extension": 5,
+          "cost_note": "Available for purchase within 30 days of the original purchase. Extends parts and labour coverage to 5 years total.",
+          "purchase_url": "/support/extended-warranty"
+        }
+      },
+      "grinders": {
+        "duration_years": 1,
+        "coverage": "Manufacturing defects in motor, burr carrier, adjustment mechanism, and electronics. Burr wear from normal use is not covered — burrs are consumable parts.",
+        "start_date": "From the date of purchase.",
+        "extended_warranty": {
+          "available": true,
+          "duration_years": 2,
+          "total_with_extension": 3,
+          "cost_note": "Available within 30 days of purchase.",
+          "purchase_url": "/support/extended-warranty"
+        }
+      },
+      "accessories": {
+        "duration_years": 1,
+        "coverage": "Manufacturing defects only. Does not cover cosmetic damage, normal wear, or consumable items (filters, gaskets, cleaning supplies).",
+        "start_date": "From the date of purchase.",
+        "extended_warranty": {
+          "available": false
+        }
+      }
+    },
+    "what_is_not_covered": [
+      "Damage caused by using non-Arco descaling products containing hydrochloric acid or phosphoric acid",
+      "Scale damage resulting from failure to descale according to the recommended schedule",
+      "Damage from using the machine with water harder than 25 °dH without a water filter",
+      "Cosmetic damage (scratches, dents, discolouration from heat or cleaning chemicals)",
+      "Damage from power surges or incorrect voltage supply — use a surge protector",
+      "Modifications or alterations to the machine not authorised by Arco",
+      "Damage caused by using non-food-safe lubricants on internal components",
+      "Normal wear parts: group gaskets, shower screens, piston seals, burrs, water filter cartridges",
+      "Damage from freezing — do not store a machine with water in the boiler in freezing conditions",
+      "Commercial use of a product sold as a domestic/home model"
+    ],
+    "void_conditions": [
+      {
+        "condition": "Unauthorised repair or disassembly",
+        "detail": "Opening the machine case and working on electrical components (boiler, wiring, pump, heating element) without authorisation from Arco voids the warranty. Replacing user-serviceable parts (gaskets, screens, shower plates, water filters) does NOT void the warranty.",
+        "severity": "warranty-void"
+      },
+      {
+        "condition": "Using the machine commercially without a commercial warranty",
+        "detail": "Arco home machines are rated for domestic use (up to 15 drinks per day). Using a home-rated machine in a commercial setting voids the standard warranty. Contact Arco for commercial warranty options.",
+        "severity": "warranty-void"
+      },
+      {
+        "condition": "Using vinegar as a descaling agent",
+        "detail": "Vinegar (acetic acid) corrodes brass, copper, and aluminium components found in boilers and valves. If a technician finds vinegar damage during a warranty claim, the claim will be denied.",
+        "severity": "warranty-void"
+      },
+      {
+        "condition": "Removing or altering the serial number plate",
+        "detail": "The serial number is required for all warranty claims. If it is missing or altered, Arco cannot process the claim.",
+        "severity": "warranty-void"
+      },
+      {
+        "condition": "Using non-approved replacement parts for critical components",
+        "detail": "Using aftermarket pumps, heating elements, or electronic boards not approved by Arco may void coverage for related damage. Aftermarket accessories (tampers, baskets) do not affect warranty.",
+        "severity": "partial-void"
+      }
+    ],
+    "user_serviceable_parts": [
+      "Group head gasket",
+      "Shower screen and dispersion plate",
+      "Water filter cartridge",
+      "Drip tray and grounds container",
+      "Portafilter and baskets",
+      "Steam wand tip",
+      "Brew unit (Automatico — removable for cleaning)",
+      "Piston seal (Lever — when following official guide)",
+      "Anti-vacuum valve (Maestro/Dual Boiler — external screw-on)"
+    ],
+    "registration": {
+      "url": "/support/register",
+      "required_info": ["Serial number (on the bottom or back of the machine)", "Date of purchase", "Retailer name", "Proof of purchase (receipt or invoice)"],
+      "benefit": "Registering your product activates the warranty, enables support ticket tracking, provides descaling reminders by email, and qualifies you for the extended warranty offer.",
+      "deadline": "Register within 60 days of purchase for full warranty benefits."
+    },
+    "service_process": {
+      "steps": [
+        {
+          "step": 1,
+          "title": "Self-Diagnose",
+          "description": "Use the Symptom Diagnostic Guide to identify the issue. Many problems have simple fixes that do not require service."
+        },
+        {
+          "step": 2,
+          "title": "Contact Support",
+          "description": "If the issue requires professional attention, contact Arco Support via the support portal, email (support@arco.coffee), or phone. Have your serial number, purchase date, and a description of the issue ready.",
+          "contact": {
+            "portal": "/support/contact",
+            "email": "support@arco.coffee",
+            "phone": "+1-800-ARCO-FIX",
+            "hours": "Monday-Friday 8:00-18:00, Saturday 9:00-14:00 (local time)"
+          }
+        },
+        {
+          "step": 3,
+          "title": "Receive a Service Ticket",
+          "description": "Arco Support will create a service ticket and provide a reference number. You will receive an email with instructions for the next step — either a remote troubleshooting session or a shipping label."
+        },
+        {
+          "step": 4,
+          "title": "Ship or Drop Off",
+          "description": "For warranty repairs, Arco provides a prepaid shipping label. Pack the machine securely (keep your original packaging). Alternatively, drop the machine at an authorised service centre. Do not ship the portafilter, reservoir, or accessories unless instructed.",
+          "shipping_notes": "Empty and dry the boiler before shipping. Remove the portafilter. Secure the drip tray with tape. Use the original box and foam inserts if available."
+        },
+        {
+          "step": 5,
+          "title": "Repair and Return",
+          "description": "Warranty repairs typically take 5-10 business days from receipt. You will receive email updates at each stage: received, diagnosed, repaired, shipped. Out-of-warranty repairs include a cost estimate before work begins — you can approve or decline.",
+          "turnaround": {
+            "warranty_days": "5-10 business days",
+            "out_of_warranty_days": "7-14 business days (includes estimate approval time)"
+          }
+        }
+      ],
+      "out_of_warranty_pricing": {
+        "diagnosis_fee": 45,
+        "diagnosis_note": "Waived if you proceed with the repair.",
+        "labour_rate_per_hour": 75,
+        "common_repairs": [
+          { "repair": "Pump replacement", "estimated_cost": "80-120" },
+          { "repair": "Heating element replacement", "estimated_cost": "120-180" },
+          { "repair": "Solenoid valve rebuild", "estimated_cost": "60-90" },
+          { "repair": "Full descale and service (heavy scale)", "estimated_cost": "90-130" },
+          { "repair": "PID controller replacement", "estimated_cost": "100-150" },
+          { "repair": "E61 group head rebuild", "estimated_cost": "80-120" },
+          { "repair": "Grinder motor replacement", "estimated_cost": "90-140" },
+          { "repair": "Grinder burr replacement (parts + labour)", "estimated_cost": "60-130" }
+        ]
+      }
+    },
+    "authorised_service_centres": {
+      "note": "Arco maintains a network of authorised service partners. Find your nearest centre on the support portal.",
+      "find_url": "/support/service-centres"
+    },
+    "tips_to_maintain_warranty": [
+      "Register your product within 60 days of purchase",
+      "Keep your receipt or proof of purchase in a safe place",
+      "Use only Arco Descaling Solution or citric acid-based descalers",
+      "Follow the recommended descaling schedule for your water hardness",
+      "Install a water filter if your water hardness exceeds 14 °dH",
+      "Do not attempt electrical repairs yourself — replace only user-serviceable parts",
+      "Use the machine only for its intended domestic purpose",
+      "Keep the serial number plate intact and legible"
+    ]
+  },
+  "persona_tags": ["new-owner", "warranty-question", "service-needed"],
+  "intent_tags": ["warranty", "service", "repair", "registration", "coverage"],
+  "related_products": [
+    "arco-descaling-solution",
+    "arco-extended-warranty"
+  ],
+  "cta": {
+    "label": "Register Your Arco Product",
+    "url": "/support/register"
+  },
+  "seo": {
+    "title": "Warranty & Service Guide | Coverage, Repairs & Support | Arco",
+    "meta_description": "Understand your Arco warranty coverage, learn what voids it, register your product, and find out how to get repairs. Complete guide to Arco service and support."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "bundle-bt-003",
+  "slug": "under-1000-eur",
+  "title": "Best Espresso Setup Under €1,000",
+  "headline": "The sweet spot. Where value and quality intersect.",
+  "budget_range": "Under €1,000",
+  "editorial_intro": "A thousand euros is where home espresso crosses a meaningful threshold. At this budget, you can afford equipment that eliminates the compromises of entry-level gear and produces coffee that holds up against your favourite cafe. This is widely considered the best value tier in home espresso.",
+  "editorial_body": "The recommendation at this price point is clear: the Arco Doppio (€549) paired with the Arco Preciso (€299), totalling €848 with €152 remaining for accessories, beans, or both.\n\nThis combination addresses the two biggest frustrations that drive home baristas to upgrade. The Doppio's dual boilers solve temperature instability — the silent cause of shots that taste different every morning despite identical technique. PID control on both boilers keeps extraction temperature within one degree Celsius, which translates directly into consistency you can taste. Simultaneous brewing and steaming means milk drinks take half the time they did on a single-boiler machine.\n\nThe Preciso solves the grinder bottleneck. Its stepless flat burr design lets you make adjustments so fine they would be impossible on a stepped grinder — the kind of micro-tuning that turns a decent shot into one that reveals the origin character of the beans. Near-zero retention means the first shot from a new bag is dialled in accurately, not contaminated by grounds from last week.\n\nWith the remaining €152, a distribution tool (around €35) and a precision scale with shot timer (around €50) complete a workflow that is genuinely professional. You are no longer compensating for equipment limitations. Every variable is controlled, repeatable, and visible.\n\nWhat you are giving up compared to higher tiers is primarily build materials and specialty features. The Doppio's boilers are smaller than the Studio's, which means slightly less thermal mass during back-to-back shots. There is no E61 group head with its distinctive pre-infusion character. And the Preciso's 54mm burrs, while excellent, produce a slightly wider particle distribution than the Zero's 64mm competition burrs. In practice, these differences matter mainly to baristas with highly trained palates and very light roasts. For the vast majority of home users, the Doppio and Preciso deliver everything they need and nothing they will outgrow quickly.",
+  "products": [
+    {
+      "product_id": "arco-doppio",
+      "role": "recommended-machine",
+      "combo_note": "Dual boilers, PID control, simultaneous brew and steam. The upgrade that closes the gap with commercial equipment."
+    },
+    {
+      "product_id": "arco-preciso",
+      "role": "recommended-grinder",
+      "combo_note": "Stepless adjustment, near-zero retention. The grinder that stops being the bottleneck."
+    },
+    {
+      "product_id": "arco-distribution-tool",
+      "role": "recommended-accessory",
+      "combo_note": "Even puck preparation for consistent extractions."
+    },
+    {
+      "product_id": "arco-precision-scale",
+      "role": "recommended-accessory",
+      "combo_note": "0.1g accuracy with shot timer for precise dose and yield."
+    }
+  ],
+  "value_proposition": "Dual-boiler machine with PID, stepless grinder, and professional accessories — a setup that most home baristas will never outgrow, at the price point where every euro delivers the most noticeable improvement.",
+  "trade_offs": [
+    "Smaller boiler capacity than the Studio or Studio Pro — slight temperature recovery lag during rapid back-to-back extractions",
+    "No E61 group head or saturated group — less thermal mass and no passive pre-infusion",
+    "No flow control or pressure profiling — extraction profile is fixed",
+    "54mm burrs on the Preciso vs 64mm on the Zero — wider particle distribution on very light roasts",
+    "The Doppio's footprint is larger than single-boiler machines — requires dedicated counter space"
+  ],
+  "hero_image_alt": "An Arco Doppio in brushed steel with PID display glowing and an Arco Preciso grinder on a dark walnut countertop, a distribution tool and precision scale arranged in front, a double espresso with visible tiger striping in a clear glass, warm ambient lighting",
+  "persona_tags": ["upgrader", "craft-barista"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Best Espresso Setup Under €1,000 — The Value Sweet Spot | Arco",
+    "meta_description": "The best home espresso setup under €1,000: Arco Doppio + Preciso at €848. Dual boilers, stepless grinding, PID control. The sweet spot most baristas never outgrow.",
+    "canonical_url": "/bundles/budget-tiers/under-1000-eur"
+  }
+}

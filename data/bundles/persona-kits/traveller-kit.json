@@ -1,0 +1,44 @@
+{
+  "id": "bundle-pk-004",
+  "slug": "traveller-kit",
+  "title": "The Traveller Kit",
+  "persona_tag": "traveller",
+  "headline": "Every hotel room. Every campsite. Every train. Good coffee.",
+  "editorial_intro": "The Traveller Kit is a complete portable espresso setup that fits in a daypack and weighs under a kilogram. No electricity, no compromise, no more settling for whatever the hotel lobby is serving.",
+  "products": [
+    {
+      "product_id": "arco-viaggio",
+      "role": "anchor",
+      "include_rationale": "At 340 grams, the Viaggio produces genuine 9-bar espresso from a manual lever mechanism — your arm is the pump, and the result rivals machines that weigh fifty times as much."
+    },
+    {
+      "product_id": "arco-macinino",
+      "role": "primary",
+      "include_rationale": "The Macinino's compact form factor makes it the natural travel companion: grind fresh at the hotel, at the campsite, or at your desk before a meeting."
+    },
+    {
+      "product_id": "arco-travel-case",
+      "role": "accessory",
+      "include_rationale": "A padded hardshell case sized to hold both the Viaggio and Macinino, with compartments for a bag of beans and your dosing scoop."
+    }
+  ],
+  "total_price_eur": 230,
+  "price_display": "€230",
+  "savings_vs_individual_eur": 18,
+  "what_you_get_list": [
+    "Arco Viaggio manual lever espresso maker",
+    "Arco Macinino compact stepped burr grinder",
+    "Padded hardshell travel case with internal compartments",
+    "Free shipping and consolidated packaging"
+  ],
+  "editorial_body": "The worst coffee most of us drink is the coffee we drink away from home. Not because we stop caring, but because we assume good espresso requires infrastructure — a countertop, a power socket, a machine that weighs more than a carry-on. The Traveller Kit disproves that assumption entirely. The Viaggio and Macinino together weigh less than a bottle of water. The hardshell case protects both in a rucksack, a suitcase, or the side pocket of a panniers bag. The workflow is simple enough to execute half-asleep in a mountain hut: grind your dose with the Macinino, load the Viaggio's chamber, add hot water from a kettle or a camping stove, and press. Sixty seconds later you have a shot with body, crema, and the flavour of whatever beans you packed. We have seen travellers use this kit on overnight trains in Europe, at beachside hostels in Portugal, and in the back of campervans parked somewhere in Scotland. The common thread is the same small satisfaction: the rest of the trip might be unpredictable, but the coffee never is.",
+  "related_experience": "traveller",
+  "hero_image_alt": "The Traveller Kit laid out on a weathered wooden picnic table outdoors: Arco Viaggio in forest green, Macinino grinder, and open hardshell travel case, with a blurred mountain landscape in the background and a small cup of espresso in the foreground",
+  "persona_tags": ["traveller", "morning-minimalist"],
+  "intent_tags": ["decide"],
+  "seo": {
+    "title": "Traveller Kit — Viaggio + Macinino Portable Espresso Bundle | Arco",
+    "meta_description": "The Traveller Kit pairs the Arco Viaggio manual espresso maker with the Macinino grinder and a hardshell travel case. Save €18 at €230.",
+    "canonical_url": "/bundles/persona-kits/traveller-kit"
+  }
+}

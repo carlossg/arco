@@ -92,5 +92,5 @@ async function processFile(path, excerptField, pathPrefix) {
   console.log(`${path}: ${changedCount} entries updated, ${publishedCount}/${items.length} marked published`);
 }
 
-await processFile(join(ROOT, 'content/stories-index.json'), 'intro', '/stories');
-await processFile(join(ROOT, 'content/experiences-index.json'), 'hero_subtext', '/experiences');
+await processFile(join(ROOT, 'data/stories-index.json'), 'intro', '/stories');
+await processFile(join(ROOT, 'data/experiences-index.json'), 'hero_subtext', '/experiences');

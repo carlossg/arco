@@ -3,6 +3,7 @@ import { loadFragment } from '../fragment/fragment.js';
 import { SessionContextManager } from '../../scripts/session-context.js';
 import { FORYOU_PREFETCH_KEY, FORYOU_QUERY_KEY } from '../../scripts/for-you-prefetch.js';
 import { getAPIEndpoint } from '../../scripts/api-config.js';
+import { getUtm } from '../../scripts/analytics-events.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -54,6 +55,29 @@ function openOnKeydown(e) {
 
 function focusNavSection() {
   document.activeElement.addEventListener('keydown', openOnKeydown);
+}
+
+/**
+ * Build the white paper link, tagging it with campaign attribution so of1.live
+ * can tell which arco.coffee traffic sent the visitor there.
+ *
+ * - If the current session already has a captured utm_source/medium/campaign
+ *   (from a campaign link the visitor arrived on), those are carried over
+ *   unchanged — the click doesn't start a new campaign, it continues one.
+ * - Otherwise the click is tagged as organic arco.coffee referral traffic, so
+ *   it's still distinguishable from direct/no-referrer visits to of1.live.
+ * @returns {string}
+ */
+function whitepaperUrl() {
+  const url = new URL('https://of1.live');
+  const { utmSource, utmMedium, utmCampaign } = getUtm();
+  const params = (utmSource || utmMedium || utmCampaign)
+    ? { utm_source: utmSource, utm_medium: utmMedium, utm_campaign: utmCampaign }
+    : { utm_source: 'arco.coffee', utm_medium: 'referral', utm_campaign: 'whitepaper-link' };
+  Object.entries(params).forEach(([key, value]) => {
+    if (value) url.searchParams.set(key, value);
+  });
+  return url.toString();
 }
 
 /**
@@ -262,8 +286,22 @@ export default async function decorate(block) {
     paper.type = 'button';
     paper.textContent = 'White paper';
     paper.title = 'Explore more about Audience of One experiences in our white paper.';
-    paper.addEventListener('click', () => window.open('https://of1.live', '_blank', 'noopener'));
+    paper.addEventListener('click', () => window.open(whitepaperUrl(), '_blank', 'noopener'));
     wrapper.appendChild(paper);
+
+    const debugBtn = document.createElement('button');
+    debugBtn.className = 'nav-debug-toggle';
+    debugBtn.type = 'button';
+    debugBtn.title = 'Toggle debug mode for recommender';
+    const debugActive = localStorage.getItem('arco-debug') === 'true';
+    debugBtn.setAttribute('aria-pressed', debugActive ? 'true' : 'false');
+    debugBtn.textContent = 'Debug';
+    debugBtn.addEventListener('click', () => {
+      const on = localStorage.getItem('arco-debug') === 'true';
+      localStorage.setItem('arco-debug', on ? 'false' : 'true');
+      debugBtn.setAttribute('aria-pressed', on ? 'false' : 'true');
+    });
+    wrapper.appendChild(debugBtn);
   }
 
   // Inject "For You" personalized link

@@ -1,13 +1,14 @@
 {
-  "generated_at": "2026-02-25T16:02:05.811Z",
-  "total_pages": 246,
+  "generated_at": "2026-10-14T11:33:49.441Z",
+  "total_pages": 313,
   "type_counts": {
-    "blog": 42,
+    "other": 14,
+    "blog": 62,
     "budget-tier": 5,
     "gift-guide": 5,
     "persona-kit": 5,
-    "experience": 44,
-    "guide": 37,
+    "experience": 49,
+    "guide": 65,
     "localization": 19,
     "comparison": 10,
     "pdp-canonical": 14,
@@ -18,6 +19,21 @@
     "pairing-guide": 5
   },
   "pages": [
+    {
+      "id": "accessories",
+      "slug": "/accessories/accessories",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/accessories/accessories.json"
+    },
     {
       "id": "a-visit-to-our-workshop",
       "slug": "/blog/brand/a-visit-to-our-workshop",
@@ -43,7 +59,7 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/brand/a-visit-to-our-workshop.json"
+      "source_file": "data/blog/brand/a-visit-to-our-workshop.json"
     },
     {
       "id": "coffee-certifications-explained",
@@ -68,7 +84,7 @@
         "arco-studio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/brand/coffee-certifications-explained.json"
+      "source_file": "data/blog/brand/coffee-certifications-explained.json"
     },
     {
       "id": "qa-with-our-head-of-product",
@@ -94,7 +110,7 @@
         "arco-preciso"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/brand/qa-with-our-head-of-product.json"
+      "source_file": "data/blog/brand/qa-with-our-head-of-product.json"
     },
     {
       "id": "story-of-the-e61-group-head",
@@ -118,7 +134,7 @@
         "arco-studio-pro"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/brand/story-of-the-e61-group-head.json"
+      "source_file": "data/blog/brand/story-of-the-e61-group-head.json"
     },
     {
       "id": "the-arco-refurbishment-program",
@@ -146,7 +162,7 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/brand/the-arco-refurbishment-program.json"
+      "source_file": "data/blog/brand/the-arco-refurbishment-program.json"
     },
     {
       "id": "the-sustainability-audit",
@@ -172,7 +188,7 @@
         "arco-studio-pro"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/brand/the-sustainability-audit.json"
+      "source_file": "data/blog/brand/the-sustainability-audit.json"
     },
     {
       "id": "what-our-engineers-drink-at-home",
@@ -198,7 +214,7 @@
         "arco-zero"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/brand/what-our-engineers-drink-at-home.json"
+      "source_file": "data/blog/brand/what-our-engineers-drink-at-home.json"
     },
     {
       "id": "why-arco-chose-brass-for-the-studio-boiler",
@@ -220,7 +236,7 @@
         "arco-studio-pro"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/brand/why-arco-chose-brass-for-the-studio-boiler.json"
+      "source_file": "data/blog/brand/why-arco-chose-brass-for-the-studio-boiler.json"
     },
     {
       "id": "building-a-home-tasting-group",
@@ -247,7 +263,30 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/blog/community/building-a-home-tasting-group.json"
+      "source_file": "data/blog/community/building-a-home-tasting-group.json"
+    },
+    {
+      "id": "coffee-saved-my-commute",
+      "slug": "/blog/community/coffee-saved-my-commute",
+      "title": "Coffee Saved My Commute: Priya M., Project Manager & Mother of Two, Melbourne",
+      "type": "blog",
+      "persona_tags": [
+        "busy-parent",
+        "convenience-seeker"
+      ],
+      "intent_tags": [
+        "discover",
+        "convenience"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A sleek automatic espresso machine on a kitchen counter with a travel mug being filled, a child's backpack and car keys visible in the background, early morning light streaming through a window, a wall clock showing 6:50 AM, the scene conveying organized morning chaos",
+      "related_products": [
+        "arco-automatico"
+      ],
+      "related_experience": "morning-minimalist",
+      "source_file": "data/blog/community/coffee-saved-my-commute.json"
     },
     {
       "id": "espresso-at-545am",
@@ -268,7 +307,7 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/community/espresso-at-545am.json"
+      "source_file": "data/blog/community/espresso-at-545am.json"
     },
     {
       "id": "from-capsules-to-craft",
@@ -292,7 +331,30 @@
         "arco-macinino"
       ],
       "related_experience": "upgrader",
-      "source_file": "content/blog/community/from-capsules-to-craft.json"
+      "source_file": "data/blog/community/from-capsules-to-craft.json"
+    },
+    {
+      "id": "from-instant-to-arco",
+      "slug": "/blog/community/from-instant-to-arco",
+      "title": "From Instant to Arco: Ben T., Software Developer, Bristol",
+      "type": "blog",
+      "persona_tags": [
+        "beginner",
+        "curious-upgrader"
+      ],
+      "intent_tags": [
+        "discover",
+        "learn"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A kitchen counter showing an espresso machine with a portafilter and freshly pulled shot, a jar of instant coffee pushed to the back of a shelf behind it, a laptop open on the adjacent dining table showing code, mugs of various ages and styles on a shelf, the scene of someone mid-transition between old habits and new ones",
+      "related_products": [
+        "arco-primo"
+      ],
+      "related_experience": "craft-at-home",
+      "source_file": "data/blog/community/from-instant-to-arco.json"
     },
     {
       "id": "home-barista-of-the-month-sarah",
@@ -315,7 +377,30 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/blog/community/home-barista-of-the-month-sarah.json"
+      "source_file": "data/blog/community/home-barista-of-the-month-sarah.json"
+    },
+    {
+      "id": "my-wife-hated-coffee",
+      "slug": "/blog/community/my-wife-hated-coffee",
+      "title": "My Wife Hated Coffee: Sam & Leah R., Auckland",
+      "type": "blog",
+      "persona_tags": [
+        "social-host",
+        "curious-upgrader"
+      ],
+      "intent_tags": [
+        "discover",
+        "milk-drinks"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "Two people in a bright kitchen, one operating an espresso machine while the other reaches toward it impatiently, two cups waiting on the counter, a playful domestic scene with morning sunlight, the espresso machine positioned centrally as the obvious focal point of a small good-natured conflict",
+      "related_products": [
+        "arco-doppio"
+      ],
+      "related_experience": "social-host",
+      "source_file": "data/blog/community/my-wife-hated-coffee.json"
     },
     {
       "id": "our-community-brew-day-recap",
@@ -343,7 +428,53 @@
         "arco-macinino"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/blog/community/our-community-brew-day-recap.json"
+      "source_file": "data/blog/community/our-community-brew-day-recap.json"
+    },
+    {
+      "id": "retirement-project-latte-art",
+      "slug": "/blog/community/retirement-project-latte-art",
+      "title": "Retirement Project: Latte Art — Gerald W., Retired Chemical Engineer, Bath",
+      "type": "blog",
+      "persona_tags": [
+        "home-barista",
+        "precision-driven"
+      ],
+      "intent_tags": [
+        "discover",
+        "craft"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "An older man's hands pouring steamed milk from a stainless steel pitcher into a coffee cup creating a latte art pattern, an espresso machine visible in the background, a kitchen counter with a notebook of hand-drawn latte art diagrams open beside the cup, reading glasses resting on the notebook, warm afternoon light",
+      "related_products": [
+        "arco-studio"
+      ],
+      "related_experience": "craft-at-home",
+      "source_file": "data/blog/community/retirement-project-latte-art.json"
+    },
+    {
+      "id": "the-architect-and-the-nano",
+      "slug": "/blog/community/the-architect-and-the-nano",
+      "title": "The Architect and the Nano: Ingrid S., Principal Architect, Copenhagen",
+      "type": "blog",
+      "persona_tags": [
+        "minimalist",
+        "design-conscious"
+      ],
+      "intent_tags": [
+        "discover",
+        "compact"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A compact matte black espresso machine on a narrow white shelf in a minimalist design studio, architectural models and rolled blueprints visible in the background, a single espresso cup on a small saucer, clean lines and natural light, Scandinavian design aesthetic throughout the space",
+      "related_products": [
+        "arco-nano"
+      ],
+      "related_experience": "morning-minimalist",
+      "source_file": "data/blog/community/the-architect-and-the-nano.json"
     },
     {
       "id": "the-architect-who-built-a-coffee-corner",
@@ -367,7 +498,123 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/blog/community/the-architect-who-built-a-coffee-corner.json"
+      "source_file": "data/blog/community/the-architect-who-built-a-coffee-corner.json"
+    },
+    {
+      "id": "the-blind-taster",
+      "slug": "/blog/community/the-blind-taster",
+      "title": "The Blind Taster: James K., Music Teacher & Coffee Enthusiast, Edinburgh",
+      "type": "blog",
+      "persona_tags": [
+        "sensory-focused",
+        "home-barista"
+      ],
+      "intent_tags": [
+        "discover",
+        "accessibility"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "Hands carefully holding a small espresso cup close to the face, steam rising, an espresso machine with textured tactile controls visible in the background, a guide dog resting on a kitchen floor, soft warm lighting, the scene focused on closeness and sensory experience rather than visual presentation",
+      "related_products": [
+        "arco-primo"
+      ],
+      "related_experience": "morning-minimalist",
+      "source_file": "data/blog/community/the-blind-taster.json"
+    },
+    {
+      "id": "the-college-dorm-upgrade",
+      "slug": "/blog/community/the-college-dorm-upgrade",
+      "title": "The College Dorm Upgrade: Room 4B, University of Glasgow",
+      "type": "blog",
+      "persona_tags": [
+        "student",
+        "social-host"
+      ],
+      "intent_tags": [
+        "discover",
+        "budget"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A compact espresso machine squeezed onto a narrow desk between textbooks and a laptop in a small university room, three students visible with mugs in hand, fairy lights on the wall behind, a handwritten sign taped to the door reading CAFE 4B with opening hours, the atmosphere casual and slightly chaotic",
+      "related_products": [
+        "arco-nano"
+      ],
+      "related_experience": "social-host",
+      "source_file": "data/blog/community/the-college-dorm-upgrade.json"
+    },
+    {
+      "id": "the-digital-nomad-setup",
+      "slug": "/blog/community/the-digital-nomad-setup",
+      "title": "The Digital Nomad Setup: Katarina P., UX Designer, Everywhere",
+      "type": "blog",
+      "persona_tags": [
+        "traveler",
+        "remote-worker"
+      ],
+      "intent_tags": [
+        "discover",
+        "portable"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A portable espresso maker and a compact hand grinder arranged beside a laptop on a small wooden table in a European apartment, a window showing terracotta rooftops, a carry-on suitcase open in the background with clothes neatly rolled, a travel adapter plugged into the wall, the scene suggesting temporary but deliberate habitation",
+      "related_products": [
+        "arco-viaggio",
+        "arco-zero"
+      ],
+      "related_experience": "on-the-move",
+      "source_file": "data/blog/community/the-digital-nomad-setup.json"
+    },
+    {
+      "id": "the-night-shift-nurse",
+      "slug": "/blog/community/the-night-shift-nurse",
+      "title": "The Night Shift Nurse: Adaeze O., ICU Nurse, Birmingham",
+      "type": "blog",
+      "persona_tags": [
+        "shift-worker",
+        "morning-minimalist"
+      ],
+      "intent_tags": [
+        "discover",
+        "compact"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A compact espresso machine on a small kitchen counter in a flat at night, the kitchen lit by a single warm under-cabinet light, a nurse's scrub top draped over a chair, a clock on the microwave showing 2:47 AM, a small espresso cup beside a hospital ID lanyard, the scene quiet and solitary",
+      "related_products": [
+        "arco-nano"
+      ],
+      "related_experience": "morning-minimalist",
+      "source_file": "data/blog/community/the-night-shift-nurse.json"
+    },
+    {
+      "id": "the-remote-island-barista",
+      "slug": "/blog/community/the-remote-island-barista",
+      "title": "The Remote Island Barista: Tomás A., Marine Biologist, Azores",
+      "type": "blog",
+      "persona_tags": [
+        "traveler",
+        "minimalist"
+      ],
+      "intent_tags": [
+        "discover",
+        "portable"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A portable espresso maker and a small hand grinder sitting on a weathered wooden table on an outdoor terrace overlooking the Atlantic Ocean, volcanic rock cliffs in the background, low morning fog drifting across green hills, a cup of espresso beside a pair of binoculars and a worn field notebook",
+      "related_products": [
+        "arco-viaggio"
+      ],
+      "related_experience": "on-the-move",
+      "source_file": "data/blog/community/the-remote-island-barista.json"
     },
     {
       "id": "the-retired-teacher-who-became-a-barista",
@@ -391,7 +638,7 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/blog/community/the-retired-teacher-who-became-a-barista.json"
+      "source_file": "data/blog/community/the-retired-teacher-who-became-a-barista.json"
     },
     {
       "id": "the-retired-teacher-who-started-competing",
@@ -413,7 +660,7 @@
         "arco-zero"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/community/the-retired-teacher-who-started-competing.json"
+      "source_file": "data/blog/community/the-retired-teacher-who-started-competing.json"
     },
     {
       "id": "the-startup-office-upgrade",
@@ -435,7 +682,31 @@
         "arco-ufficio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/community/the-startup-office-upgrade.json"
+      "source_file": "data/blog/community/the-startup-office-upgrade.json"
+    },
+    {
+      "id": "the-surgeon-who-needs-precision",
+      "slug": "/blog/community/the-surgeon-who-needs-precision",
+      "title": "The Surgeon Who Needs Precision: Dr. Elena V., Neurosurgeon, Zurich",
+      "type": "blog",
+      "persona_tags": [
+        "home-barista",
+        "precision-driven"
+      ],
+      "intent_tags": [
+        "discover",
+        "craft"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A polished stainless steel espresso machine on a dark granite countertop in a modern kitchen, a naked portafilter mid-extraction showing a perfectly even stream, surgical loupes and a hospital ID badge resting on the counter nearby, soft morning light from a large window, clean and precise atmosphere",
+      "related_products": [
+        "arco-studio-pro",
+        "arco-preciso"
+      ],
+      "related_experience": "craft-at-home",
+      "source_file": "data/blog/community/the-surgeon-who-needs-precision.json"
     },
     {
       "id": "the-van-lifer-and-the-viaggio",
@@ -456,7 +727,30 @@
         "arco-viaggio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/community/the-van-lifer-and-the-viaggio.json"
+      "source_file": "data/blog/community/the-van-lifer-and-the-viaggio.json"
+    },
+    {
+      "id": "three-generations-one-machine",
+      "slug": "/blog/community/three-generations-one-machine",
+      "title": "Three Generations, One Machine: The Ferraro Family, Toronto",
+      "type": "blog",
+      "persona_tags": [
+        "family-focused",
+        "heritage"
+      ],
+      "intent_tags": [
+        "discover",
+        "gift"
+      ],
+      "format": "community",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A dual boiler espresso machine on a kitchen counter beside a vintage Italian moka pot and a framed black-and-white photograph of an elderly couple, three espresso cups of different sizes lined up, warm kitchen lighting, a family kitchen with evidence of multiple generations living together, wooden cabinets and tiled backsplash",
+      "related_products": [
+        "arco-doppio"
+      ],
+      "related_experience": "family-kitchen",
+      "source_file": "data/blog/community/three-generations-one-machine.json"
     },
     {
       "id": "two-coffee-people-one-machine",
@@ -479,7 +773,7 @@
         "arco-preciso"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/community/two-coffee-people-one-machine.json"
+      "source_file": "data/blog/community/two-coffee-people-one-machine.json"
     },
     {
       "id": "weeknight-espresso-martini-club",
@@ -505,7 +799,7 @@
         "arco-preciso"
       ],
       "related_experience": "entertainer",
-      "source_file": "content/blog/community/weeknight-espresso-martini-club.json"
+      "source_file": "data/blog/community/weeknight-espresso-martini-club.json"
     },
     {
       "id": "10-most-common-beginner-mistakes",
@@ -528,7 +822,7 @@
         "arco-macinino"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/10-most-common-beginner-mistakes.json"
+      "source_file": "data/blog/how-to/10-most-common-beginner-mistakes.json"
     },
     {
       "id": "blind-tasting-your-espresso",
@@ -550,7 +844,7 @@
         "arco-studio-pro"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/blind-tasting-your-espresso.json"
+      "source_file": "data/blog/how-to/blind-tasting-your-espresso.json"
     },
     {
       "id": "calibrating-a-burr-grinder",
@@ -573,7 +867,7 @@
         "arco-zero"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/calibrating-a-burr-grinder.json"
+      "source_file": "data/blog/how-to/calibrating-a-burr-grinder.json"
     },
     {
       "id": "descaling-step-by-step",
@@ -600,7 +894,7 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/descaling-step-by-step.json"
+      "source_file": "data/blog/how-to/descaling-step-by-step.json"
     },
     {
       "id": "how-to-clean-a-group-head",
@@ -623,7 +917,7 @@
         "arco-studio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/how-to-clean-a-group-head.json"
+      "source_file": "data/blog/how-to/how-to-clean-a-group-head.json"
     },
     {
       "id": "how-to-dial-in-espresso-in-under-10-minutes",
@@ -646,7 +940,7 @@
         "arco-macinino"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/how-to-dial-in-espresso-in-under-10-minutes.json"
+      "source_file": "data/blog/how-to/how-to-dial-in-espresso-in-under-10-minutes.json"
     },
     {
       "id": "how-to-store-beans-properly",
@@ -670,7 +964,7 @@
         "arco-preciso"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/how-to-store-beans-properly.json"
+      "source_file": "data/blog/how-to/how-to-store-beans-properly.json"
     },
     {
       "id": "pre-infusion-what-it-is-and-why-arco-uses-it",
@@ -694,7 +988,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/pre-infusion-what-it-is-and-why-arco-uses-it.json"
+      "source_file": "data/blog/how-to/pre-infusion-what-it-is-and-why-arco-uses-it.json"
     },
     {
       "id": "replacing-a-portafilter-gasket",
@@ -720,7 +1014,7 @@
         "arco-nano"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/replacing-a-portafilter-gasket.json"
+      "source_file": "data/blog/how-to/replacing-a-portafilter-gasket.json"
     },
     {
       "id": "why-your-grinder-matters-more-than-your-machine",
@@ -743,7 +1037,7 @@
         "arco-preciso"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/how-to/why-your-grinder-matters-more-than-your-machine.json"
+      "source_file": "data/blog/how-to/why-your-grinder-matters-more-than-your-machine.json"
     },
     {
       "id": "altitude-and-espresso",
@@ -766,7 +1060,7 @@
         "arco-viaggio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/travel/altitude-and-espresso.json"
+      "source_file": "data/blog/travel/altitude-and-espresso.json"
     },
     {
       "id": "coffee-culture-in-vienna",
@@ -792,7 +1086,7 @@
         "arco-primo"
       ],
       "related_experience": "the-non-barista",
-      "source_file": "content/blog/travel/coffee-culture-in-vienna.json"
+      "source_file": "data/blog/travel/coffee-culture-in-vienna.json"
     },
     {
       "id": "espresso-bars-worth-visiting-in-milan",
@@ -818,7 +1112,7 @@
         "arco-primo"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/travel/espresso-bars-worth-visiting-in-milan.json"
+      "source_file": "data/blog/travel/espresso-bars-worth-visiting-in-milan.json"
     },
     {
       "id": "guide-to-coffee-in-tokyo",
@@ -837,7 +1131,7 @@
       "hero_image_alt": "A Japanese barista in a crisp white shirt performing a slow, precise pour-over behind a beautifully lit counter in a minimalist Tokyo kissaten, copper kettle poised above a ceramic dripper, a row of siphon brewers visible on a wooden shelf behind, soft warm lighting against dark wood paneling",
       "related_products": [],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/travel/guide-to-coffee-in-tokyo.json"
+      "source_file": "data/blog/travel/guide-to-coffee-in-tokyo.json"
     },
     {
       "id": "lisbon-coffee-renaissance",
@@ -863,7 +1157,7 @@
         "arco-macinino"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/blog/travel/lisbon-coffee-renaissance.json"
+      "source_file": "data/blog/travel/lisbon-coffee-renaissance.json"
     },
     {
       "id": "melbourne-flat-white-trail",
@@ -890,7 +1184,7 @@
         "arco-macinino"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/travel/melbourne-flat-white-trail.json"
+      "source_file": "data/blog/travel/melbourne-flat-white-trail.json"
     },
     {
       "id": "scandinavian-light-roast-revolution",
@@ -916,7 +1210,7 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/blog/travel/scandinavian-light-roast-revolution.json"
+      "source_file": "data/blog/travel/scandinavian-light-roast-revolution.json"
     },
     {
       "id": "specialty-coffee-in-new-york-for-europeans",
@@ -936,7 +1230,7 @@
       "hero_image_alt": "A wide shot of a busy New York specialty coffee shop with exposed brick walls and large sash windows, customers sitting at communal wooden tables with laptops and ceramic cups, a barista working at a La Marzocca behind a marble counter, morning light cutting through the windows in dramatic shafts, energetic urban atmosphere",
       "related_products": [],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/travel/specialty-coffee-in-new-york-for-europeans.json"
+      "source_file": "data/blog/travel/specialty-coffee-in-new-york-for-europeans.json"
     },
     {
       "id": "the-best-cafes-in-lisbon",
@@ -955,7 +1249,7 @@
       "hero_image_alt": "A tiled exterior of a Lisbon cafe with traditional blue azulejo tiles surrounding the doorway, a modern espresso setup visible through the open door, sunlight casting sharp shadows on the cobblestone street, a small outdoor table with a white ceramic cup and a pastel de nata on a plate",
       "related_products": [],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/travel/the-best-cafes-in-lisbon.json"
+      "source_file": "data/blog/travel/the-best-cafes-in-lisbon.json"
     },
     {
       "id": "the-espresso-trail-naples-to-turin",
@@ -982,7 +1276,7 @@
         "arco-viaggio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/travel/the-espresso-trail-naples-to-turin.json"
+      "source_file": "data/blog/travel/the-espresso-trail-naples-to-turin.json"
     },
     {
       "id": "the-roasters-of-oslo",
@@ -1002,7 +1296,7 @@
       "hero_image_alt": "A bright Nordic roastery interior with white walls, blonde wood counters, and a large Probat roaster visible through a glass partition, bags of green coffee stacked on pallets, a barista pouring a filter coffee into a ceramic cup, cold autumn light streaming through floor-to-ceiling windows overlooking a quiet Oslo street",
       "related_products": [],
       "related_experience": "morning-minimalist",
-      "source_file": "content/blog/travel/the-roasters-of-oslo.json"
+      "source_file": "data/blog/travel/the-roasters-of-oslo.json"
     },
     {
       "id": "tokyo-kissaten-and-third-wave",
@@ -1029,7 +1323,221 @@
         "arco-nano"
       ],
       "related_experience": "craft-at-home",
-      "source_file": "content/blog/travel/tokyo-kissaten-and-third-wave.json"
+      "source_file": "data/blog/travel/tokyo-kissaten-and-third-wave.json"
+    },
+    {
+      "id": "batch-prep-for-the-work-week",
+      "slug": "/blog/workflow/batch-prep-for-the-work-week",
+      "title": "Batch Prep for the Work Week",
+      "type": "blog",
+      "persona_tags": [
+        "morning-minimalist",
+        "organized-planner"
+      ],
+      "intent_tags": [
+        "own",
+        "workflow",
+        "efficiency",
+        "maintenance"
+      ],
+      "format": "workflow",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A Sunday afternoon kitchen scene with an Arco Preciso grinder and a row of small glass containers each holding pre-weighed coffee doses, a portafilter drying on a towel, cleaning supplies neatly arranged, afternoon sunlight filtering through blinds",
+      "related_products": [
+        "arco-preciso",
+        "arco-primo",
+        "arco-zero"
+      ],
+      "related_experience": "organized-planner",
+      "source_file": "data/blog/workflow/batch-prep-for-the-work-week.json"
+    },
+    {
+      "id": "morning-routine-for-two",
+      "slug": "/blog/workflow/morning-routine-for-two",
+      "title": "Morning Routine for Two",
+      "type": "blog",
+      "persona_tags": [
+        "couple",
+        "shared-routine"
+      ],
+      "intent_tags": [
+        "own",
+        "workflow",
+        "efficiency",
+        "household"
+      ],
+      "format": "workflow",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A kitchen counter with two different espresso drinks side by side — a straight double shot in a small cup and a latte in a tall glass — an Arco Doppio machine and Macinino grinder between them, two people's hands visible reaching for their respective cups, morning light, a shared moment",
+      "related_products": [
+        "arco-doppio",
+        "arco-primo",
+        "arco-zero",
+        "arco-macinino"
+      ],
+      "related_experience": "couple",
+      "source_file": "data/blog/workflow/morning-routine-for-two.json"
+    },
+    {
+      "id": "my-travel-coffee-kit",
+      "slug": "/blog/workflow/my-travel-coffee-kit",
+      "title": "My Travel Coffee Kit",
+      "type": "blog",
+      "persona_tags": [
+        "frequent-traveller",
+        "coffee-anywhere"
+      ],
+      "intent_tags": [
+        "own",
+        "travel",
+        "portable",
+        "workflow"
+      ],
+      "format": "workflow",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A hotel room desk with an Arco Viaggio portable espresso maker, a compact hand grinder, a small bag of whole beans, a collapsible cup, and a travel pouch laid out neatly, a suitcase open on the bed behind, morning light through sheer curtains",
+      "related_products": [
+        "arco-viaggio"
+      ],
+      "related_experience": "frequent-traveller",
+      "source_file": "data/blog/workflow/my-travel-coffee-kit.json"
+    },
+    {
+      "id": "the-five-minute-morning-shot",
+      "slug": "/blog/workflow/the-five-minute-morning-shot",
+      "title": "The Five-Minute Morning Shot",
+      "type": "blog",
+      "persona_tags": [
+        "morning-minimalist",
+        "busy-professional"
+      ],
+      "intent_tags": [
+        "own",
+        "workflow",
+        "efficiency"
+      ],
+      "format": "workflow",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A kitchen counter at dawn with soft grey light coming through a window, an Arco Primo machine with steam rising from a fresh shot, a hand reaching for the cup, a grinder with the hopper half-full of beans, a phone showing 6:47, everything clean and minimal",
+      "related_products": [
+        "arco-primo",
+        "arco-automatico",
+        "arco-macinino"
+      ],
+      "related_experience": "morning-minimalist",
+      "source_file": "data/blog/workflow/the-five-minute-morning-shot.json"
+    },
+    {
+      "id": "the-monthly-deep-clean",
+      "slug": "/blog/workflow/the-monthly-deep-clean",
+      "title": "The Monthly Deep Clean",
+      "type": "blog",
+      "persona_tags": [
+        "meticulous-owner",
+        "home-barista"
+      ],
+      "intent_tags": [
+        "own",
+        "maintenance",
+        "workflow",
+        "longevity"
+      ],
+      "format": "workflow",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A kitchen counter with an Arco Studio Pro partially disassembled for cleaning, the shower screen removed and soaking in a bowl, a backflush disc beside the portafilter, descaling solution in a measuring cup, a grinder with the burrs removed and a brush nearby, clean towels laid out",
+      "related_products": [
+        "arco-studio-pro",
+        "arco-doppio",
+        "arco-preciso",
+        "arco-macinino"
+      ],
+      "related_experience": "meticulous-owner",
+      "source_file": "data/blog/workflow/the-monthly-deep-clean.json"
+    },
+    {
+      "id": "the-office-coffee-champion",
+      "slug": "/blog/workflow/the-office-coffee-champion",
+      "title": "The Office Coffee Champion",
+      "type": "blog",
+      "persona_tags": [
+        "office-champion",
+        "team-leader"
+      ],
+      "intent_tags": [
+        "own",
+        "workflow",
+        "office",
+        "team"
+      ],
+      "format": "workflow",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "An office kitchen with an Arco Ufficio machine on a clean counter, a queue of mugs lined up waiting to be filled, a small whiteboard on the wall with bean rotation notes, a colleague watching the extraction with curiosity, natural light from large office windows, professional but warm atmosphere",
+      "related_products": [
+        "arco-ufficio",
+        "arco-macinino",
+        "arco-preciso"
+      ],
+      "related_experience": "office-champion",
+      "source_file": "data/blog/workflow/the-office-coffee-champion.json"
+    },
+    {
+      "id": "the-post-dinner-espresso-ritual",
+      "slug": "/blog/workflow/the-post-dinner-espresso-ritual",
+      "title": "The Post-Dinner Espresso Ritual",
+      "type": "blog",
+      "persona_tags": [
+        "entertainer",
+        "italian-tradition"
+      ],
+      "intent_tags": [
+        "own",
+        "workflow",
+        "entertaining",
+        "culture"
+      ],
+      "format": "workflow",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "An evening dinner table with plates cleared to one side, a set of small espresso cups on saucers arranged for four guests, an Arco Doppio machine softly lit in the background, dark chocolate squares on a small plate, warm candlelight, linen napkins",
+      "related_products": [
+        "arco-doppio",
+        "arco-studio",
+        "arco-preciso"
+      ],
+      "related_experience": "entertainer",
+      "source_file": "data/blog/workflow/the-post-dinner-espresso-ritual.json"
+    },
+    {
+      "id": "the-weekend-slow-brew",
+      "slug": "/blog/workflow/the-weekend-slow-brew",
+      "title": "The Weekend Slow Brew",
+      "type": "blog",
+      "persona_tags": [
+        "weekend-experimenter",
+        "home-barista"
+      ],
+      "intent_tags": [
+        "own",
+        "workflow",
+        "skill-building"
+      ],
+      "format": "workflow",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A sunlit kitchen on a Saturday morning with an Arco Studio machine on a wooden counter, multiple cups lined up for tasting, a bag of single-origin beans with the label visible, a milk jug with a thermometer, flour-dusted croissants cooling on a rack nearby, warm golden light",
+      "related_products": [
+        "arco-studio",
+        "arco-doppio",
+        "arco-preciso"
+      ],
+      "related_experience": "weekend-experimenter",
+      "source_file": "data/blog/workflow/the-weekend-slow-brew.json"
     },
     {
       "id": "bundle-bt-005",
@@ -1049,7 +1557,7 @@
       "hero_image_alt": "The complete Arco dream setup on a wide concrete countertop: Studio Pro in matte black with copper accents and flow control paddle, Zero grinder with single-dose hopper, WDT tool, distribution tool, precision scale, graduated shot glasses, and maintenance kit arranged with care, dramatic directional lighting emphasising the copper and chrome details, a perfect espresso with tiger striping in the foreground",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/budget-tiers/dream-setup-no-budget.json"
+      "source_file": "data/bundles/budget-tiers/dream-setup-no-budget.json"
     },
     {
       "id": "bundle-bt-003",
@@ -1070,7 +1578,7 @@
       "hero_image_alt": "An Arco Doppio in brushed steel with PID display glowing and an Arco Preciso grinder on a dark walnut countertop, a distribution tool and precision scale arranged in front, a double espresso with visible tiger striping in a clear glass, warm ambient lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/budget-tiers/under-1000-eur.json"
+      "source_file": "data/bundles/budget-tiers/under-1000-eur.json"
     },
     {
       "id": "bundle-bt-001",
@@ -1091,7 +1599,7 @@
       "hero_image_alt": "An Arco Viaggio in graphite finish beside a small hand grinder and a bag of whole coffee beans on a simple wooden surface, a single shot of espresso in a small glass, natural daylight, minimal and honest composition",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/budget-tiers/under-150-eur.json"
+      "source_file": "data/bundles/budget-tiers/under-150-eur.json"
     },
     {
       "id": "bundle-bt-004",
@@ -1112,7 +1620,7 @@
       "hero_image_alt": "An Arco Studio with walnut panels and chrome E61 group head beside an Arco Zero grinder on a dark stone countertop, dual pressure gauges visible on the Studio, a single-dose hopper loaded with light roast beans on the Zero, a perfectly extracted espresso in a hand-thrown ceramic cup, warm workshop lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/budget-tiers/under-2000-eur.json"
+      "source_file": "data/bundles/budget-tiers/under-2000-eur.json"
     },
     {
       "id": "bundle-bt-002",
@@ -1133,7 +1641,7 @@
       "hero_image_alt": "An Arco Primo in matte black and Macinino grinder side by side on a light kitchen countertop, a freshly pulled espresso in a white ceramic cup between them, a small bag of specialty coffee beans and a simple tamper nearby, clean bright morning composition",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/budget-tiers/under-500-eur.json"
+      "source_file": "data/bundles/budget-tiers/under-500-eur.json"
     },
     {
       "id": "bundle-gg-002",
@@ -1154,7 +1662,7 @@
       "hero_image_alt": "An Arco Primo espresso machine wrapped with a simple linen ribbon on a kitchen countertop, a small card that reads 'your first real espresso' leaning against it, the Macinino grinder beside it, morning light through a frosted window",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/gift-guides/gift-for-a-coffee-lover-with-no-machine.json"
+      "source_file": "data/bundles/gift-guides/gift-for-a-coffee-lover-with-no-machine.json"
     },
     {
       "id": "bundle-gg-004",
@@ -1175,7 +1683,7 @@
       "hero_image_alt": "An Arco Viaggio in desert sand finish placed on a weathered leather travel journal beside a boarding pass, the Macinino grinder and hardshell travel case nearby, a small espresso in a metal camping cup, warm golden light suggesting a late afternoon somewhere far from home",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/gift-guides/gift-for-a-traveller.json"
+      "source_file": "data/bundles/gift-guides/gift-for-a-traveller.json"
     },
     {
       "id": "bundle-gg-003",
@@ -1196,7 +1704,7 @@
       "hero_image_alt": "An Arco Ufficio espresso machine in a modern open-plan office kitchen, two colleagues in the background chatting while one textures milk, a group of espresso cups on the warming tray, natural light from large windows, plants on the countertop",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/gift-guides/gift-for-an-office.json"
+      "source_file": "data/bundles/gift-guides/gift-for-an-office.json"
     },
     {
       "id": "bundle-gg-001",
@@ -1218,7 +1726,7 @@
       "hero_image_alt": "A curated selection of Arco accessories arranged on dark gift wrapping paper: a precision tamper, dosing cup, scale, and distribution tool alongside a small bag of specialty coffee beans and a gift tag, warm overhead lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/gift-guides/gift-for-someone-with-a-machine.json"
+      "source_file": "data/bundles/gift-guides/gift-for-someone-with-a-machine.json"
     },
     {
       "id": "bundle-gg-005",
@@ -1239,7 +1747,7 @@
       "hero_image_alt": "An Arco Studio Pro in matte black with copper accents displayed on a dark concrete surface, the drip tray showing a subtle laser engraving, the Zero grinder beside it, a single perfect espresso in a handmade ceramic cup, dramatic low-key lighting with warm highlights on the copper details",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/bundles/gift-guides/gift-for-the-person-who-has-everything.json"
+      "source_file": "data/bundles/gift-guides/gift-for-the-person-who-has-everything.json"
     },
     {
       "id": "bundle-pk-003",
@@ -1259,7 +1767,7 @@
       "hero_image_alt": "The Craft Barista Kit arranged on a dark stone surface: Arco Studio with walnut panels and brass group head, Zero grinder beside it, WDT tool and dosing cup in the foreground, graduated shot glasses catching the warm light of a workshop-style pendant lamp",
       "related_products": [],
       "related_experience": "craft-barista",
-      "source_file": "content/bundles/persona-kits/craft-barista-kit.json"
+      "source_file": "data/bundles/persona-kits/craft-barista-kit.json"
     },
     {
       "id": "bundle-pk-001",
@@ -1279,7 +1787,7 @@
       "hero_image_alt": "The Morning Minimalist Kit arranged on a clean white countertop: Arco Primo espresso machine, Macinino grinder, precision tamper, and cleaning supplies, bathed in soft morning light through a nearby window",
       "related_products": [],
       "related_experience": "morning-minimalist",
-      "source_file": "content/bundles/persona-kits/morning-minimalist-kit.json"
+      "source_file": "data/bundles/persona-kits/morning-minimalist-kit.json"
     },
     {
       "id": "bundle-pk-005",
@@ -1299,7 +1807,7 @@
       "hero_image_alt": "The Non-Barista Kit on a bright modern kitchen island: Arco Automatico in matte black with its touchscreen illuminated showing a flat white icon, a perfectly frothed latte beside it, descaling subscription box in the background, clean and uncluttered composition",
       "related_products": [],
       "related_experience": "non-barista",
-      "source_file": "content/bundles/persona-kits/non-barista-kit.json"
+      "source_file": "data/bundles/persona-kits/non-barista-kit.json"
     },
     {
       "id": "bundle-pk-004",
@@ -1319,7 +1827,7 @@
       "hero_image_alt": "The Traveller Kit laid out on a weathered wooden picnic table outdoors: Arco Viaggio in forest green, Macinino grinder, and open hardshell travel case, with a blurred mountain landscape in the background and a small cup of espresso in the foreground",
       "related_products": [],
       "related_experience": "traveller",
-      "source_file": "content/bundles/persona-kits/traveller-kit.json"
+      "source_file": "data/bundles/persona-kits/traveller-kit.json"
     },
     {
       "id": "bundle-pk-002",
@@ -1339,11 +1847,11 @@
       "hero_image_alt": "The Upgrader Kit displayed on a dark walnut countertop: Arco Doppio espresso machine with PID display glowing, Preciso grinder with stepless adjustment collar visible, distribution tool and precision scale arranged neatly alongside",
       "related_products": [],
       "related_experience": "the-upgrade-path",
-      "source_file": "content/bundles/persona-kits/upgrader-kit.json"
+      "source_file": "data/bundles/persona-kits/upgrader-kit.json"
     },
     {
       "id": "exp-core-003",
-      "slug": "/experiences/craft-at-home",
+      "slug": "/experiences/core/craft-at-home",
       "title": "Craft at Home",
       "type": "experience",
       "persona_tags": [
@@ -1364,11 +1872,11 @@
       "hero_image_alt": "A dedicated home coffee station with professional-grade equipment, a knock box, scales, and multiple bags of single-origin coffee arranged on a wooden shelf, warm pendant lighting overhead",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/craft-at-home.json"
+      "source_file": "data/experiences/core/craft-at-home.json"
     },
     {
       "id": "exp-core-004",
-      "slug": "/experiences/espresso-anywhere",
+      "slug": "/experiences/core/espresso-anywhere",
       "title": "Espresso Anywhere",
       "type": "experience",
       "persona_tags": [
@@ -1389,11 +1897,11 @@
       "hero_image_alt": "A compact espresso setup on a hotel room desk beside a window overlooking a foreign city at dawn, a small travel grinder and the Arco Viaggio machine neatly arranged next to a passport and a leather travel bag",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/espresso-anywhere.json"
+      "source_file": "data/experiences/core/espresso-anywhere.json"
     },
     {
       "id": "exp-core-001",
-      "slug": "/experiences/morning-minimalist",
+      "slug": "/experiences/core/morning-minimalist",
       "title": "The Morning Minimalist",
       "type": "experience",
       "persona_tags": [
@@ -1413,11 +1921,11 @@
       "hero_image_alt": "A single espresso cup on a clean white marble countertop, morning light streaming through a window, steam rising gently from a freshly pulled shot, an Arco Primo machine in soft focus behind it",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/morning-minimalist.json"
+      "source_file": "data/experiences/core/morning-minimalist.json"
     },
     {
       "id": "exp-core-005",
-      "slug": "/experiences/the-non-barista",
+      "slug": "/experiences/core/the-non-barista",
       "title": "The Non-Barista",
       "type": "experience",
       "persona_tags": [
@@ -1438,11 +1946,11 @@
       "hero_image_alt": "A modern automatic coffee machine on a clean kitchen counter with a freshly brewed cup beneath its spout, a person reaching for the cup while glancing at their phone, soft morning light filling the room",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/the-non-barista.json"
+      "source_file": "data/experiences/core/the-non-barista.json"
     },
     {
       "id": "exp-core-002",
-      "slug": "/experiences/the-upgrade-path",
+      "slug": "/experiences/core/the-upgrade-path",
       "title": "The Upgrade Path",
       "type": "experience",
       "persona_tags": [
@@ -1462,7 +1970,7 @@
       "hero_image_alt": "A person standing in their kitchen looking critically at a mid-range espresso machine, surrounded by bags of specialty coffee, a worn tamper, and a basic grinder, morning light casting long shadows across the countertop",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/the-upgrade-path.json"
+      "source_file": "data/experiences/core/the-upgrade-path.json"
     },
     {
       "id": "exp-cu-001",
@@ -1488,7 +1996,7 @@
       "hero_image_alt": "An Italian bar counter in warm morning light, a barista in a white shirt pulling espresso from a lever machine, small cups lined up on the marble counter, locals standing and reading newspapers, a vintage Arco logo visible on the wall behind the machine",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/cultural/italian-espresso-culture.json"
+      "source_file": "data/experiences/cultural/italian-espresso-culture.json"
     },
     {
       "id": "exp-cu-004",
@@ -1515,7 +2023,7 @@
       "hero_image_alt": "A meticulously organised home coffee station in a German kitchen, an Arco Studio Pro with a digital scale and refractometer beside it, a notebook with extraction data open on the counter, precise measurements visible, clean Bauhaus-inspired interior design",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/cultural/precision-coffee-germany.json"
+      "source_file": "data/experiences/cultural/precision-coffee-germany.json"
     },
     {
       "id": "exp-cu-002",
@@ -1541,7 +2049,7 @@
       "hero_image_alt": "A minimalist Scandinavian kitchen with pale wood surfaces and large windows overlooking a snow-covered landscape, an Arco Filtro brewing light golden coffee into a glass carafe, a simple ceramic cup and saucer waiting beside it, clean lines and natural light everywhere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/cultural/scandinavian-filter-tradition.json"
+      "source_file": "data/experiences/cultural/scandinavian-filter-tradition.json"
     },
     {
       "id": "exp-cu-003",
@@ -1567,7 +2075,7 @@
       "hero_image_alt": "A specialty coffee shop in London with exposed brick and industrial lighting, a barista pulling espresso on a commercial machine, bags of single-origin beans from UK roasters on a shelf, a chalkboard menu listing origins and processing methods, a diverse crowd of customers",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/cultural/third-wave-uk.json"
+      "source_file": "data/experiences/cultural/third-wave-uk.json"
     },
     {
       "id": "exp-hs-002",
@@ -1592,7 +2100,7 @@
       "hero_image_alt": "A purpose-built coffee station in a kitchen alcove featuring an Arco Studio machine, Arco Zero grinder, wooden shelving with coffee bags and ceramic cups, a knock box, scales, and a small plant under warm pendant lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/home-setups/dedicated-coffee-corner.json"
+      "source_file": "data/experiences/home-setups/dedicated-coffee-corner.json"
     },
     {
       "id": "exp-hs-005",
@@ -1617,7 +2125,7 @@
       "hero_image_alt": "A coffee station set up on a console table just outside a home office door, an Arco Doppio and Preciso grinder arranged on a linen runner, a cup and saucer ready, the edge of a desk with monitors visible through the open doorway",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/home-setups/home-office-setup.json"
+      "source_file": "data/experiences/home-setups/home-office-setup.json"
     },
     {
       "id": "exp-hs-003",
@@ -1642,7 +2150,7 @@
       "hero_image_alt": "A sleek open-plan kitchen and living area with an Arco Doppio machine on an island counter, its brushed steel finish complementing the modern interior, someone reading on the sofa in the background, soft diffused daylight",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/home-setups/open-plan-kitchen.json"
+      "source_file": "data/experiences/home-setups/open-plan-kitchen.json"
     },
     {
       "id": "exp-hs-004",
@@ -1667,7 +2175,7 @@
       "hero_image_alt": "A kitchen in a rented apartment with basic cabinets and limited counter space, an Arco Primo and Macinino grinder set up neatly beside the sink, a water filter jug nearby, no permanent modifications visible anywhere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/home-setups/rented-apartment.json"
+      "source_file": "data/experiences/home-setups/rented-apartment.json"
     },
     {
       "id": "exp-hs-001",
@@ -1692,7 +2200,7 @@
       "hero_image_alt": "A narrow kitchen counter under 40 centimetres deep with an Arco Nano and Macinino grinder neatly arranged beside a kettle, mugs hung on hooks above to save space, warm overhead lighting in a compact galley kitchen",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/home-setups/small-kitchen-setup.json"
+      "source_file": "data/experiences/home-setups/small-kitchen-setup.json"
     },
     {
       "id": "exp-lm-005",
@@ -1717,7 +2225,7 @@
       "hero_image_alt": "A kitchen counter with an Arco Primo machine beside a small ceramic cup, a fridge magnet from Naples visible in the background, a bag of Italian-roasted coffee beans, warm evening light suggesting nostalgia and longing",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/life-moments/back-from-naples.json"
+      "source_file": "data/experiences/life-moments/back-from-naples.json"
     },
     {
       "id": "exp-lm-001",
@@ -1742,7 +2250,7 @@
       "hero_image_alt": "A young person's first apartment kitchen with basic furnishings, an Arco Primo machine still half in its box on the counter, morning light through a bare window, moving boxes stacked against the wall",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/life-moments/first-apartment.json"
+      "source_file": "data/experiences/life-moments/first-apartment.json"
     },
     {
       "id": "exp-lm-006",
@@ -1767,7 +2275,7 @@
       "hero_image_alt": "A beautifully wrapped gift box open on a table revealing an Arco tamper, distribution tool, and a bag of specialty beans nestled in tissue paper, a handwritten card visible, warm holiday lighting in the background",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/life-moments/gifting-for-a-coffee-lover.json"
+      "source_file": "data/experiences/life-moments/gifting-for-a-coffee-lover.json"
     },
     {
       "id": "exp-lm-002",
@@ -1792,7 +2300,7 @@
       "hero_image_alt": "A kitchen at 6am with a baby monitor glowing on the counter beside an Arco Nano machine, a tired but content parent holding an espresso in one hand, soft predawn light, a high chair visible in the background",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/life-moments/new-parent-upgrade.json"
+      "source_file": "data/experiences/life-moments/new-parent-upgrade.json"
     },
     {
       "id": "exp-lm-004",
@@ -1817,7 +2325,7 @@
       "hero_image_alt": "A home workspace transitioning from temporary to permanent, a new Arco Doppio machine on a side table beside a standing desk, a calendar on the wall with no commute blocked, plants on the windowsill, natural light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/life-moments/remote-work-upgrade.json"
+      "source_file": "data/experiences/life-moments/remote-work-upgrade.json"
     },
     {
       "id": "exp-lm-003",
@@ -1842,7 +2350,7 @@
       "hero_image_alt": "A retired person in a well-lit kitchen carefully weighing coffee beans on a small scale beside an Arco Studio machine, reading glasses on, a coffee journal open on the counter, afternoon sunlight streaming through garden-facing windows",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/life-moments/retirement-time-to-learn.json"
+      "source_file": "data/experiences/life-moments/retirement-time-to-learn.json"
     },
     {
       "id": "exp-mr-005",
@@ -1867,7 +2375,7 @@
       "hero_image_alt": "A single espresso cup on a kitchen counter next to house keys and a transit card, coat hanging on a hook by the door, early morning grey light through the window, an Arco Nano machine compact and ready",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/morning-rituals/commuter-one-cup.json"
+      "source_file": "data/experiences/morning-rituals/commuter-one-cup.json"
     },
     {
       "id": "exp-mr-004",
@@ -1892,7 +2400,7 @@
       "hero_image_alt": "A busy family kitchen on a weekday morning with a parent making espresso on an Arco Studio while children sit at the table eating breakfast, school bags by the door, a second adult pouring filter coffee from an Arco Filtro carafe",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/morning-rituals/family-kitchen-morning.json"
+      "source_file": "data/experiences/morning-rituals/family-kitchen-morning.json"
     },
     {
       "id": "exp-mr-001",
@@ -1917,7 +2425,7 @@
       "hero_image_alt": "A double espresso shot on a kitchen counter next to a gym bag and car keys, pre-dawn blue light visible through the window, a compact Arco Nano machine glowing softly in the dim kitchen",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/morning-rituals/pre-gym-espresso.json"
+      "source_file": "data/experiences/morning-rituals/pre-gym-espresso.json"
     },
     {
       "id": "exp-mr-002",
@@ -1942,7 +2450,7 @@
       "hero_image_alt": "A person sitting at a wooden kitchen table on a Saturday morning with a newspaper spread open, a freshly pulled espresso in a ceramic cup, sunlight flooding through large windows, houseplants on the sill",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/morning-rituals/slow-weekend-morning.json"
+      "source_file": "data/experiences/morning-rituals/slow-weekend-morning.json"
     },
     {
       "id": "exp-mr-003",
@@ -1967,7 +2475,7 @@
       "hero_image_alt": "A home office with a laptop open on a desk, a freshly made cappuccino on a small wooden tray beside it, a second monitor showing a calendar with back-to-back meetings, midmorning light coming through blinds",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/morning-rituals/work-from-home-morning.json"
+      "source_file": "data/experiences/morning-rituals/work-from-home-morning.json"
     },
     {
       "id": "exp-seasonal-005",
@@ -1995,7 +2503,7 @@
       "hero_image_alt": "A cappuccino with rich microfoam on a reclaimed wooden table, autumn leaves visible through a rain-speckled window, an Arco Doppio and Preciso grinder on the counter, a warm amber pendant light overhead, a cinnamon stick resting on the saucer",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/seasonal/autumn-comfort-drinks.json"
+      "source_file": "data/experiences/seasonal/autumn-comfort-drinks.json"
     },
     {
       "id": "exp-se-005",
@@ -2020,7 +2528,84 @@
       "hero_image_alt": "An autumn morning kitchen scene with golden light filtering through trees visible outside the window, fallen leaves on the sill, a deep ceramic cup of espresso beside an Arco Studio machine, a bag of dark-roasted beans open on the counter, a sense of transition and warmth",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/seasonal/autumn-slow-brew.json"
+      "source_file": "data/experiences/seasonal/autumn-slow-brew.json"
+    },
+    {
+      "id": "exp-se-007",
+      "slug": "/experiences/seasonal/back-to-school-dorm-coffee",
+      "title": "Back to School: Dorm Coffee Done Right",
+      "type": "experience",
+      "persona_tags": [
+        "student-starter",
+        "budget-conscious",
+        "compact-setup"
+      ],
+      "intent_tags": [
+        "back-to-school",
+        "student",
+        "budget",
+        "compact",
+        "dorm",
+        "seasonal"
+      ],
+      "format": "experience",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A small dorm room desk with an Arco Nano espresso machine and Filtro grinder neatly arranged in the corner, a stack of textbooks nearby, a laptop open, a single espresso cup, a bag of beans with a student budget price tag visible, afternoon light through a narrow window, cozy and compact",
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/experiences/seasonal/back-to-school-dorm-coffee.json"
+    },
+    {
+      "id": "exp-se-009",
+      "slug": "/experiences/seasonal/christmas-morning-coffee",
+      "title": "Christmas Morning Coffee",
+      "type": "experience",
+      "persona_tags": [
+        "family-host",
+        "christmas",
+        "entertainer"
+      ],
+      "intent_tags": [
+        "christmas",
+        "family",
+        "hosting",
+        "seasonal",
+        "holiday",
+        "crowd-serving"
+      ],
+      "format": "experience",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A kitchen on Christmas morning with an Arco Studio machine on the counter, a row of mismatched mugs and espresso cups waiting to be filled, a plate of panettone slices beside the machine, Christmas tree lights softly blurred in the adjacent room, a child's stocking visible on a chair, warm golden light, festive but unhurried",
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/experiences/seasonal/christmas-morning-coffee.json"
+    },
+    {
+      "id": "exp-se-006",
+      "slug": "/experiences/seasonal/fathers-day-first-machine",
+      "title": "Father's Day: His First Real Machine",
+      "type": "experience",
+      "persona_tags": [
+        "thoughtful-gifter",
+        "fathers-day",
+        "entry-level"
+      ],
+      "intent_tags": [
+        "gift",
+        "fathers-day",
+        "beginner",
+        "entry-level",
+        "seasonal"
+      ],
+      "format": "experience",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A father standing in his kitchen looking at a new Arco Primo machine on the counter, the box open beside it with packing materials, his adult child standing nearby smiling, morning light through a window, a bag of specialty beans with a gift tag attached, the scene warm and genuine",
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/experiences/seasonal/fathers-day-first-machine.json"
     },
     {
       "id": "exp-seasonal-003",
@@ -2047,7 +2632,7 @@
       "hero_image_alt": "A carefully arranged gift display on a dark wooden table with wrapped Arco accessories, a bag of specialty beans with a red ribbon, a handwritten gift tag, warm fairy lights softly blurred in the background, a sprig of pine beside the parcels",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/seasonal/holiday-gift-guide-experience.json"
+      "source_file": "data/experiences/seasonal/holiday-gift-guide-experience.json"
     },
     {
       "id": "exp-se-003",
@@ -2072,7 +2657,7 @@
       "hero_image_alt": "A festive table with carefully wrapped Arco products arranged beside a small Christmas tree, warm fairy lights reflected in the brushed steel of an Arco Doppio, gift tags handwritten, a mug of hot coffee steaming beside a plate of mince pies",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/seasonal/holiday-gift-guide.json"
+      "source_file": "data/experiences/seasonal/holiday-gift-guide.json"
     },
     {
       "id": "exp-se-004",
@@ -2097,7 +2682,7 @@
       "hero_image_alt": "A January kitchen with grey morning light, a new Arco Primo machine freshly unboxed on the counter beside packing materials, a person reading the setup guide with a cup of coffee from their old machine beside them, a sense of fresh beginnings",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/seasonal/new-year-upgrade.json"
+      "source_file": "data/experiences/seasonal/new-year-upgrade.json"
     },
     {
       "id": "exp-seasonal-004",
@@ -2124,7 +2709,34 @@
       "hero_image_alt": "Three bags of single-origin coffee arranged on a marble counter beside an Arco Studio Pro and Zero grinder, morning spring light flooding through a window, a cupping spoon and small tasting bowls visible, fresh flowers in a vase at the edge of the frame",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/seasonal/spring-single-origins.json"
+      "source_file": "data/experiences/seasonal/spring-single-origins.json"
+    },
+    {
+      "id": "exp-se-008",
+      "slug": "/experiences/seasonal/summer-garden-party-drinks",
+      "title": "Summer Garden Party Drinks",
+      "type": "experience",
+      "persona_tags": [
+        "summer-host",
+        "entertainer",
+        "seasonal-adapter"
+      ],
+      "intent_tags": [
+        "summer",
+        "garden-party",
+        "entertaining",
+        "iced-drinks",
+        "shakerato",
+        "espresso-tonic",
+        "seasonal"
+      ],
+      "format": "experience",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A garden table set for a summer party with tall glasses of espresso tonic garnished with rosemary, a Shakerato in a coupe glass with a frosted rim, a bowl of ice, an Arco Doppio visible through the open kitchen door, lemon slices on a cutting board, green garden in the background, bright afternoon light",
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/experiences/seasonal/summer-garden-party-drinks.json"
     },
     {
       "id": "exp-se-001",
@@ -2149,7 +2761,32 @@
       "hero_image_alt": "A tall glass of iced espresso tonic on a sunlit terrace table, condensation running down the glass, ice cubes catching the light, an Arco Filtro visible through the open kitchen door, lemon trees in the background",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/seasonal/summer-iced-espresso.json"
+      "source_file": "data/experiences/seasonal/summer-iced-espresso.json"
+    },
+    {
+      "id": "exp-se-005",
+      "slug": "/experiences/seasonal/valentines-espresso-for-two",
+      "title": "Valentine's Espresso for Two",
+      "type": "experience",
+      "persona_tags": [
+        "romantic-ritualist",
+        "couple",
+        "gifter"
+      ],
+      "intent_tags": [
+        "valentines",
+        "romantic",
+        "couples",
+        "latte-art",
+        "seasonal"
+      ],
+      "format": "experience",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": "A dimly lit kitchen on a February morning with two small espresso cups on a wooden tray, one cup with a heart-shaped latte art, a box of dark chocolate truffles open beside the cups, an Arco Doppio machine glowing softly in the background, red and pink tones in the light, a single rose in a slim vase",
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/experiences/seasonal/valentines-espresso-for-two.json"
     },
     {
       "id": "exp-se-002",
@@ -2174,7 +2811,7 @@
       "hero_image_alt": "A large ceramic mug of filter coffee on a windowsill with frost patterns on the glass outside, a thick woollen jumper sleeve visible holding the mug, an Arco Filtro machine glowing warmly on the counter behind, a candle lit beside a stack of books",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/seasonal/winter-long-brews.json"
+      "source_file": "data/experiences/seasonal/winter-long-brews.json"
     },
     {
       "id": "exp-seasonal-002",
@@ -2200,7 +2837,7 @@
       "hero_image_alt": "A ceramic cup of steaming espresso on a wooden table beside a frosted window, early winter morning light filtering through, a woollen blanket draped over a chair, an Arco Automatico glowing warmly on the kitchen counter behind",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/seasonal/winter-warmers.json"
+      "source_file": "data/experiences/seasonal/winter-warmers.json"
     },
     {
       "id": "exp-sc-003",
@@ -2225,7 +2862,7 @@
       "hero_image_alt": "A polished home office with a meeting table, a client sitting with an espresso in a fine porcelain cup, the host returning from a corner where an Arco Ufficio machine gleams on a sideboard, architectural drawings on the wall, professional but warm atmosphere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/clients-coming-to-home-office.json"
+      "source_file": "data/experiences/social-contexts/clients-coming-to-home-office.json"
     },
     {
       "id": "exp-sc-008",
@@ -2252,7 +2889,7 @@
       "hero_image_alt": "Two people seated at a small kitchen table, each holding a simple espresso cup, morning light catching the steam rising between them, an Arco Primo machine on the counter behind, the scene quiet and unhurried",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/coffee-and-conversation.json"
+      "source_file": "data/experiences/social-contexts/coffee-and-conversation.json"
     },
     {
       "id": "exp-sc-001",
@@ -2277,7 +2914,7 @@
       "hero_image_alt": "A dinner table after a meal with empty wine glasses and dessert plates, a host carrying a tray of eight small espresso cups from the kitchen where an Arco Studio machine is visible, warm candlelight, guests turned in anticipation",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/coffee-for-a-dinner-party.json"
+      "source_file": "data/experiences/social-contexts/coffee-for-a-dinner-party.json"
     },
     {
       "id": "exp-sc-009",
@@ -2304,7 +2941,7 @@
       "hero_image_alt": "A kitchen counter at dawn with two different coffee drinks side by side — a straight espresso in a small white cup and a latte in a tall glass — an Arco Doppio machine between them, two pairs of hands reaching into frame, soft golden morning light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/couples-morning-ritual.json"
+      "source_file": "data/experiences/social-contexts/couples-morning-ritual.json"
     },
     {
       "id": "exp-sc-006",
@@ -2331,7 +2968,7 @@
       "hero_image_alt": "A candlelit dining table strewn with dessert plates and half-empty wine glasses, a host pulling espresso shots on an Arco Doppio at the kitchen counter in the background, a tray of small white cups arranged in a row, guests leaning back in their chairs in soft amber light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/dinner-party-espresso.json"
+      "source_file": "data/experiences/social-contexts/dinner-party-espresso.json"
     },
     {
       "id": "exp-sc-004",
@@ -2356,7 +2993,7 @@
       "hero_image_alt": "A couple in a sunlit kitchen, one holding a small espresso cup and the other cradling a large mug of filter coffee, both leaning against the counter, an Arco Doppio and Arco Filtro visible side by side, relaxed weekend morning atmosphere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/espresso-and-filter-couple.json"
+      "source_file": "data/experiences/social-contexts/espresso-and-filter-couple.json"
     },
     {
       "id": "exp-sc-002",
@@ -2381,7 +3018,7 @@
       "hero_image_alt": "A shared kitchen in a modern flat with an Arco Ufficio machine on the counter, a chalkboard on the wall listing flatmates' coffee preferences, mismatched mugs on a shelf, morning light through a large window",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/flatmates-shared-machine.json"
+      "source_file": "data/experiences/social-contexts/flatmates-shared-machine.json"
     },
     {
       "id": "exp-sc-005",
@@ -2406,7 +3043,7 @@
       "hero_image_alt": "A dining table set up for a cupping session with six small bowls of coffee, a kettle, spoons, and tasting sheets, an Arco Filtro machine and several bags of single-origin beans on a side table, four people leaning in to smell the aromas",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/home-coffee-tasting.json"
+      "source_file": "data/experiences/social-contexts/home-coffee-tasting.json"
     },
     {
       "id": "exp-sc-010",
@@ -2434,7 +3071,7 @@
       "hero_image_alt": "A tidy kitchen counter with an Arco Automatico machine producing a perfect espresso, an older couple seated at a dining table in the background visible through a kitchen pass-through, a tray set with four espresso cups and a small bowl of sugar, the scene bright and nervously immaculate",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/impressing-the-in-laws.json"
+      "source_file": "data/experiences/social-contexts/impressing-the-in-laws.json"
     },
     {
       "id": "exp-sc-007",
@@ -2461,7 +3098,22 @@
       "hero_image_alt": "A warm kitchen with friends gathered around a counter, an Arco Studio machine pulling a shot in the foreground, mismatched ceramic cups arranged on a wooden board, a bag of specialty beans open beside a grinder, natural light streaming through a large window",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/experiences/social-contexts/the-home-cafe.json"
+      "source_file": "data/experiences/social-contexts/the-home-cafe.json"
+    },
+    {
+      "id": "experiences-index",
+      "slug": "/./experiences-index",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/experiences-index.json"
     },
     {
       "id": "building-a-cupping-vocabulary",
@@ -2483,7 +3135,7 @@
         "arco-doppio"
       ],
       "related_experience": "cultural",
-      "source_file": "content/guides/advanced/building-a-cupping-vocabulary.json"
+      "source_file": "data/guides/advanced/building-a-cupping-vocabulary.json"
     },
     {
       "id": "espresso-water-chemistry",
@@ -2508,7 +3160,7 @@
         "arco-studio-pro"
       ],
       "related_experience": "home-setups",
-      "source_file": "content/guides/advanced/espresso-water-chemistry.json"
+      "source_file": "data/guides/advanced/espresso-water-chemistry.json"
     },
     {
       "id": "flow-control-profiling",
@@ -2530,7 +3182,7 @@
         "arco-doppio"
       ],
       "related_experience": "home-setups",
-      "source_file": "content/guides/advanced/flow-control-profiling.json"
+      "source_file": "data/guides/advanced/flow-control-profiling.json"
     },
     {
       "id": "how-competition-baristas-dial-in",
@@ -2552,7 +3204,7 @@
         "arco-doppio"
       ],
       "related_experience": "cultural",
-      "source_file": "content/guides/advanced/how-competition-baristas-dial-in.json"
+      "source_file": "data/guides/advanced/how-competition-baristas-dial-in.json"
     },
     {
       "id": "lever-espresso-vs-pump-espresso",
@@ -2575,7 +3227,7 @@
         "arco-doppio"
       ],
       "related_experience": "cultural",
-      "source_file": "content/guides/advanced/lever-espresso-vs-pump-espresso.json"
+      "source_file": "data/guides/advanced/lever-espresso-vs-pump-espresso.json"
     },
     {
       "id": "physics-of-puck-resistance",
@@ -2597,7 +3249,7 @@
         "arco-doppio"
       ],
       "related_experience": "home-setups",
-      "source_file": "content/guides/advanced/physics-of-puck-resistance.json"
+      "source_file": "data/guides/advanced/physics-of-puck-resistance.json"
     },
     {
       "id": "tds-and-extraction-yield",
@@ -2619,7 +3271,234 @@
         "arco-doppio"
       ],
       "related_experience": "home-setups",
-      "source_file": "content/guides/advanced/tds-and-extraction-yield.json"
+      "source_file": "data/guides/advanced/tds-and-extraction-yield.json"
+    },
+    {
+      "id": "best-espresso-machine-for-beginners",
+      "slug": "/guides/buying/best-espresso-machine-for-beginners",
+      "title": "Best Espresso Machine for Beginners: Nano vs Primo vs Automatico",
+      "type": "guide",
+      "persona_tags": [
+        "upgrader",
+        "morning-minimalist",
+        "curious-newcomer"
+      ],
+      "intent_tags": [
+        "purchase",
+        "compare",
+        "research"
+      ],
+      "format": "buying",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "Three Arco espresso machines arranged side by side on a light marble countertop, the compact Nano on the left, the classic Primo in the center, and the Automatico on the right, each with a freshly pulled espresso in a white ceramic cup beneath the group head, warm morning light streaming in from a kitchen window on the right, shallow depth of field with the Primo in sharp focus",
+      "related_products": [
+        "arco-nano",
+        "arco-primo",
+        "arco-automatico",
+        "arco-preciso"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/buying/best-espresso-machine-for-beginners.json"
+    },
+    {
+      "id": "best-espresso-machine-for-latte-art",
+      "slug": "/guides/buying/best-espresso-machine-for-latte-art",
+      "title": "Best Espresso Machine for Latte Art: Doppio vs Studio vs Studio Pro",
+      "type": "guide",
+      "persona_tags": [
+        "latte-artist",
+        "upgrader",
+        "home-barista"
+      ],
+      "intent_tags": [
+        "purchase",
+        "compare",
+        "research"
+      ],
+      "format": "buying",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A top-down view of a latte with an intricate rosetta pattern in a wide ceramic cup on a dark walnut table, an Arco Studio espresso machine with its chrome steam wand visible in the upper left corner, a stainless steel milk pitcher resting beside the cup, soft directional studio lighting creating gentle shadows and highlighting the milk foam texture",
+      "related_products": [
+        "arco-doppio",
+        "arco-studio",
+        "arco-studio-pro",
+        "arco-macinino"
+      ],
+      "related_experience": "latte-art-journey",
+      "source_file": "data/guides/buying/best-espresso-machine-for-latte-art.json"
+    },
+    {
+      "id": "best-espresso-machine-for-small-kitchens",
+      "slug": "/guides/buying/best-espresso-machine-for-small-kitchens",
+      "title": "Best Espresso Machine for Small Kitchens: Compact Options That Do Not Compromise",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "apartment-dweller",
+        "upgrader"
+      ],
+      "intent_tags": [
+        "purchase",
+        "compare",
+        "research"
+      ],
+      "format": "buying",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A compact Arco Nano espresso machine on a narrow white kitchen counter between a wooden cutting board and a small potted herb plant, a tiny white espresso cup beneath the portafilter, the kitchen is bright and minimal with open shelving visible in the background, natural light from a small window creating soft shadows, overhead angle showing how little counter space the machine occupies",
+      "related_products": [
+        "arco-nano",
+        "arco-viaggio",
+        "arco-automatico",
+        "arco-preciso"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/buying/best-espresso-machine-for-small-kitchens.json"
+    },
+    {
+      "id": "best-espresso-machine-under-1000",
+      "slug": "/guides/buying/best-espresso-machine-under-1000",
+      "title": "Best Espresso Machine Under $1,000: Budget Picks That Pull Real Shots",
+      "type": "guide",
+      "persona_tags": [
+        "budget-conscious",
+        "upgrader",
+        "morning-minimalist"
+      ],
+      "intent_tags": [
+        "purchase",
+        "compare",
+        "research"
+      ],
+      "format": "buying",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "An Arco Primo espresso machine and an Arco Preciso grinder arranged together on a warm oak kitchen counter, a double shot of espresso with golden crema in a clear glass beneath the portafilter, a small chalkboard price tag reading under 1000 leaning against the grinder, even natural daylight illuminating the scene from the left, clean and inviting lifestyle composition",
+      "related_products": [
+        "arco-primo",
+        "arco-nano",
+        "arco-viaggio",
+        "arco-preciso",
+        "arco-filtro"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/buying/best-espresso-machine-under-1000.json"
+    },
+    {
+      "id": "best-grinder-for-espresso",
+      "slug": "/guides/buying/best-grinder-for-espresso",
+      "title": "Best Grinder for Espresso: Comparing All Four Arco Grinders",
+      "type": "guide",
+      "persona_tags": [
+        "home-barista",
+        "upgrader",
+        "espresso-purist"
+      ],
+      "intent_tags": [
+        "purchase",
+        "compare",
+        "research"
+      ],
+      "format": "buying",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "Four Arco grinders arranged in a diagonal line on a dark slate surface, the Filtro on the far left followed by the Preciso, Macinino, and Zero, each with a small pile of freshly ground coffee in front of it showing slightly different textures, dramatic side lighting from the right creating long shadows and emphasizing the metallic finishes, shot from a low angle to give the grinders a commanding presence",
+      "related_products": [
+        "arco-filtro",
+        "arco-preciso",
+        "arco-macinino",
+        "arco-zero"
+      ],
+      "related_experience": "grinder-deep-dive",
+      "source_file": "data/guides/buying/best-grinder-for-espresso.json"
+    },
+    {
+      "id": "machine-and-grinder-pairing-guide",
+      "slug": "/guides/buying/machine-and-grinder-pairing-guide",
+      "title": "Machine and Grinder Pairing Guide: The Right Grinder for Every Arco Machine",
+      "type": "guide",
+      "persona_tags": [
+        "home-barista",
+        "upgrader",
+        "curious-newcomer"
+      ],
+      "intent_tags": [
+        "purchase",
+        "compare",
+        "research"
+      ],
+      "format": "buying",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "An Arco Doppio espresso machine and an Arco Macinino grinder positioned side by side on a polished concrete countertop, both in matching matte black finish, a portafilter loaded with freshly ground coffee resting on a small wooden tray between them, warm ambient lighting from above with a soft bokeh background of a modern kitchen, product photography style with balanced composition",
+      "related_products": [
+        "arco-preciso",
+        "arco-macinino",
+        "arco-zero",
+        "arco-primo",
+        "arco-doppio",
+        "arco-studio"
+      ],
+      "related_experience": "setup-guide",
+      "source_file": "data/guides/buying/machine-and-grinder-pairing-guide.json"
+    },
+    {
+      "id": "should-i-get-a-manual-or-automatic",
+      "slug": "/guides/buying/should-i-get-a-manual-or-automatic",
+      "title": "Should I Get a Manual or Automatic Espresso Machine?",
+      "type": "guide",
+      "persona_tags": [
+        "curious-newcomer",
+        "morning-minimalist",
+        "upgrader"
+      ],
+      "intent_tags": [
+        "research",
+        "compare",
+        "purchase"
+      ],
+      "format": "buying",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "Split composition on a white marble countertop, the left half showing an Arco Primo manual espresso machine with a hand tamping coffee in a portafilter and a separate grinder behind it, the right half showing an Arco Automatico bean-to-cup machine with a single finger pressing a button, both sides lit with warm natural light, a subtle visual divide down the center, editorial lifestyle photography style",
+      "related_products": [
+        "arco-primo",
+        "arco-doppio",
+        "arco-automatico",
+        "arco-preciso"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/buying/should-i-get-a-manual-or-automatic.json"
+    },
+    {
+      "id": "upgrading-from-a-pod-machine",
+      "slug": "/guides/buying/upgrading-from-a-pod-machine",
+      "title": "Upgrading from a Pod Machine: Your Transition Guide from Capsules to Real Espresso",
+      "type": "guide",
+      "persona_tags": [
+        "upgrader",
+        "curious-newcomer",
+        "morning-minimalist"
+      ],
+      "intent_tags": [
+        "research",
+        "purchase",
+        "learn"
+      ],
+      "format": "buying",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A used Nespresso-style capsule machine pushed to the back left of a white kitchen counter, slightly out of focus, with an Arco Nano espresso machine and Arco Preciso grinder prominently placed in the foreground right, a double shot of espresso with rich crema in a ceramic cup between them, scattered used aluminum capsules near the old machine contrasting with a bag of whole coffee beans near the Arco setup, warm morning light from the right, narrative storytelling composition",
+      "related_products": [
+        "arco-automatico",
+        "arco-nano",
+        "arco-primo",
+        "arco-preciso"
+      ],
+      "related_experience": "first-espresso",
+      "source_file": "data/guides/buying/upgrading-from-a-pod-machine.json"
     },
     {
       "id": "grind-size-for-filter",
@@ -2644,7 +3523,7 @@
         "arco-macinino"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/guides/filter/grind-size-for-filter.json"
+      "source_file": "data/guides/filter/grind-size-for-filter.json"
     },
     {
       "id": "pour-over-vs-aeropress-vs-french-press",
@@ -2669,7 +3548,7 @@
         "arco-macinino"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/guides/filter/pour-over-vs-aeropress-vs-french-press.json"
+      "source_file": "data/guides/filter/pour-over-vs-aeropress-vs-french-press.json"
     },
     {
       "id": "using-arco-filtro-for-different-methods",
@@ -2692,7 +3571,7 @@
         "arco-filtro"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/guides/filter/using-arco-filtro-for-different-methods.json"
+      "source_file": "data/guides/filter/using-arco-filtro-for-different-methods.json"
     },
     {
       "id": "water-ratio-guide-for-filter",
@@ -2716,7 +3595,7 @@
         "arco-macinino"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/guides/filter/water-ratio-guide-for-filter.json"
+      "source_file": "data/guides/filter/water-ratio-guide-for-filter.json"
     },
     {
       "id": "why-filter-is-having-a-moment",
@@ -2741,7 +3620,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/guides/filter/why-filter-is-having-a-moment.json"
+      "source_file": "data/guides/filter/why-filter-is-having-a-moment.json"
     },
     {
       "id": "dose-and-yield",
@@ -2765,7 +3644,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/fundamentals/dose-and-yield.json"
+      "source_file": "data/guides/fundamentals/dose-and-yield.json"
     },
     {
       "id": "grind-size-explained",
@@ -2789,7 +3668,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/fundamentals/grind-size-explained.json"
+      "source_file": "data/guides/fundamentals/grind-size-explained.json"
     },
     {
       "id": "reading-a-shot",
@@ -2813,7 +3692,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/fundamentals/reading-a-shot.json"
+      "source_file": "data/guides/fundamentals/reading-a-shot.json"
     },
     {
       "id": "tamping-technique",
@@ -2835,7 +3714,7 @@
         "arco-primo"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/fundamentals/tamping-technique.json"
+      "source_file": "data/guides/fundamentals/tamping-technique.json"
     },
     {
       "id": "troubleshooting-bad-espresso",
@@ -2859,7 +3738,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/fundamentals/troubleshooting-bad-espresso.json"
+      "source_file": "data/guides/fundamentals/troubleshooting-bad-espresso.json"
     },
     {
       "id": "water-temperature-and-pressure",
@@ -2883,7 +3762,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/fundamentals/water-temperature-and-pressure.json"
+      "source_file": "data/guides/fundamentals/water-temperature-and-pressure.json"
     },
     {
       "id": "what-is-extraction",
@@ -2907,7 +3786,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/fundamentals/what-is-extraction.json"
+      "source_file": "data/guides/fundamentals/what-is-extraction.json"
     },
     {
       "id": "your-first-week-with-a-machine",
@@ -2930,7 +3809,7 @@
         "arco-primo"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/fundamentals/your-first-week-with-a-machine.json"
+      "source_file": "data/guides/fundamentals/your-first-week-with-a-machine.json"
     },
     {
       "id": "dialing-in-new-beans",
@@ -2954,7 +3833,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/intermediate/dialing-in-new-beans.json"
+      "source_file": "data/guides/intermediate/dialing-in-new-beans.json"
     },
     {
       "id": "pre-infusion-in-practice",
@@ -2978,7 +3857,7 @@
         "arco-doppio"
       ],
       "related_experience": "home-setups",
-      "source_file": "content/guides/intermediate/pre-infusion-in-practice.json"
+      "source_file": "data/guides/intermediate/pre-infusion-in-practice.json"
     },
     {
       "id": "pressure-profiling-basics",
@@ -3001,7 +3880,7 @@
         "arco-doppio"
       ],
       "related_experience": "home-setups",
-      "source_file": "content/guides/intermediate/pressure-profiling-basics.json"
+      "source_file": "data/guides/intermediate/pressure-profiling-basics.json"
     },
     {
       "id": "single-dose-workflow",
@@ -3025,7 +3904,7 @@
         "arco-doppio"
       ],
       "related_experience": "morning-rituals",
-      "source_file": "content/guides/intermediate/single-dose-workflow.json"
+      "source_file": "data/guides/intermediate/single-dose-workflow.json"
     },
     {
       "id": "understanding-pressure-curve",
@@ -3047,7 +3926,7 @@
         "arco-doppio"
       ],
       "related_experience": "home-setups",
-      "source_file": "content/guides/intermediate/understanding-pressure-curve.json"
+      "source_file": "data/guides/intermediate/understanding-pressure-curve.json"
     },
     {
       "id": "using-a-refractometer",
@@ -3069,7 +3948,7 @@
         "arco-doppio"
       ],
       "related_experience": "home-setups",
-      "source_file": "content/guides/intermediate/using-a-refractometer.json"
+      "source_file": "data/guides/intermediate/using-a-refractometer.json"
     },
     {
       "id": "wdt-technique",
@@ -3093,7 +3972,7 @@
         "arco-doppio"
       ],
       "related_experience": "home-setups",
-      "source_file": "content/guides/intermediate/wdt-technique.json"
+      "source_file": "data/guides/intermediate/wdt-technique.json"
     },
     {
       "id": "latte-art-basics-for-home",
@@ -3118,7 +3997,7 @@
         "arco-studio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/guides/milk/latte-art-basics-for-home.json"
+      "source_file": "data/guides/milk/latte-art-basics-for-home.json"
     },
     {
       "id": "microfoam-science",
@@ -3141,7 +4020,7 @@
         "arco-studio"
       ],
       "related_experience": "upgrader",
-      "source_file": "content/guides/milk/microfoam-science.json"
+      "source_file": "data/guides/milk/microfoam-science.json"
     },
     {
       "id": "plant-milk-barista-guide",
@@ -3167,7 +4046,7 @@
         "arco-studio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/guides/milk/plant-milk-barista-guide.json"
+      "source_file": "data/guides/milk/plant-milk-barista-guide.json"
     },
     {
       "id": "steaming-technique",
@@ -3192,7 +4071,7 @@
         "arco-studio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/guides/milk/steaming-technique.json"
+      "source_file": "data/guides/milk/steaming-technique.json"
     },
     {
       "id": "why-oat-milk-behaves-differently",
@@ -3216,7 +4095,140 @@
         "arco-doppio"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/guides/milk/why-oat-milk-behaves-differently.json"
+      "source_file": "data/guides/milk/why-oat-milk-behaves-differently.json"
+    },
+    {
+      "id": "brazil-cerrado",
+      "slug": "/guides/sourcing/brazil-cerrado",
+      "title": "Brazil Cerrado: Chocolate, Nuts, and the Classic Espresso Base",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "upgrader"
+      ],
+      "intent_tags": [
+        "research",
+        "discover",
+        "use"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A thick crema-topped espresso in a brown ceramic cup on a rustic wooden table, small piles of roasted hazelnuts and dark chocolate pieces arranged beside it, a burlap coffee sack with Brazilian flag colours in the soft background, warm golden afternoon light casting long shadows across the scene",
+      "related_products": [
+        "arco-primo",
+        "arco-doppio",
+        "arco-macinino"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/sourcing/brazil-cerrado.json"
+    },
+    {
+      "id": "colombia-huila",
+      "slug": "/guides/sourcing/colombia-huila",
+      "title": "Colombia Huila: Caramel, Red Fruit, and the Most Versatile Origin in Espresso",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "upgrader",
+        "craft-barista"
+      ],
+      "intent_tags": [
+        "research",
+        "discover",
+        "use"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A freshly pulled double espresso in a clear glass cup on a marble countertop, rich amber crema with caramel tones, a small white bowl of raw cane sugar crystals and a halved blood orange arranged beside the cup, soft diffused daylight from a kitchen window, an Arco espresso machine softly blurred in the background",
+      "related_products": [
+        "arco-primo",
+        "arco-doppio",
+        "arco-macinino",
+        "arco-preciso",
+        "arco-zero"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/sourcing/colombia-huila.json"
+    },
+    {
+      "id": "costa-rica-tarrazu",
+      "slug": "/guides/sourcing/costa-rica-tarrazu",
+      "title": "Costa Rica Tarrazu: Honey, Citrus, and a Clean Finish for Single-Origin Espresso",
+      "type": "guide",
+      "persona_tags": [
+        "upgrader",
+        "craft-barista"
+      ],
+      "intent_tags": [
+        "research",
+        "discover",
+        "use"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "A clear glass espresso cup on a white marble surface showing a golden-amber espresso with a thin, uniform crema, a drizzle of honey on a small plate and a slice of orange arranged beside the cup, lush green coffee plants visible through a window, bright clean natural light filling the scene",
+      "related_products": [
+        "arco-doppio",
+        "arco-primo",
+        "arco-preciso"
+      ],
+      "related_experience": "craft-barista",
+      "source_file": "data/guides/sourcing/costa-rica-tarrazu.json"
+    },
+    {
+      "id": "ethiopia-yirgacheffe",
+      "slug": "/guides/sourcing/ethiopia-yirgacheffe",
+      "title": "Ethiopia Yirgacheffe: Floral, Citrus, and Tea-Like Espresso",
+      "type": "guide",
+      "persona_tags": [
+        "craft-barista",
+        "upgrader"
+      ],
+      "intent_tags": [
+        "research",
+        "discover",
+        "use"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "A single espresso shot in a white porcelain demitasse on a wooden counter, the crema showing a pale golden hue with tiger-stripe patterns, a small sprig of dried jasmine resting beside the cup, green Ethiopian coffee plant leaves softly blurred in the background, warm natural morning light streaming from the left",
+      "related_products": [
+        "arco-zero",
+        "arco-doppio",
+        "arco-studio"
+      ],
+      "related_experience": "craft-barista",
+      "source_file": "data/guides/sourcing/ethiopia-yirgacheffe.json"
+    },
+    {
+      "id": "guatemala-antigua",
+      "slug": "/guides/sourcing/guatemala-antigua",
+      "title": "Guatemala Antigua: Spice, Cocoa, and Full-Bodied Espresso for Milk Drinks",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "upgrader"
+      ],
+      "intent_tags": [
+        "research",
+        "discover",
+        "use"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A cappuccino in a wide ceramic cup with intricate latte art showing a rosetta pattern, the foam tinted slightly golden from the espresso beneath, a cinnamon stick and a small square of dark chocolate resting on the saucer, volcanic mountains visible through a window in the soft background, morning sunlight warming the scene",
+      "related_products": [
+        "arco-doppio",
+        "arco-preciso",
+        "arco-macinino"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/sourcing/guatemala-antigua.json"
     },
     {
       "id": "how-to-read-a-specialty-coffee-label",
@@ -3245,7 +4257,117 @@
         "arco-filtro"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/guides/sourcing/how-to-read-a-specialty-coffee-label.json"
+      "source_file": "data/guides/sourcing/how-to-read-a-specialty-coffee-label.json"
+    },
+    {
+      "id": "indonesia-sumatra",
+      "slug": "/guides/sourcing/indonesia-sumatra",
+      "title": "Indonesia Sumatra: Earthy, Herbal, and Dark Roast Espresso with Thick Crema",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "upgrader"
+      ],
+      "intent_tags": [
+        "research",
+        "discover",
+        "use"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "A double espresso in a heavy ceramic cup with exceptionally thick dark brown crema, wisps of steam rising, a few whole cloves and a stick of cinnamon on a dark wooden board beside the cup, dried tobacco leaves and fresh herbs arranged in the background, warm low-angle light creating a moody atmospheric scene",
+      "related_products": [
+        "arco-primo",
+        "arco-doppio",
+        "arco-macinino",
+        "arco-preciso"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/sourcing/indonesia-sumatra.json"
+    },
+    {
+      "id": "italian-espresso-blend-guide",
+      "slug": "/guides/sourcing/italian-espresso-blend-guide",
+      "title": "The Italian Espresso Blend: How Base, Body, Brightness, and Arco Honour a Tradition",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "upgrader",
+        "craft-barista"
+      ],
+      "intent_tags": [
+        "research",
+        "discover",
+        "use"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "Three small glass bowls of green coffee beans arranged on a white marble surface, each labelled with a handwritten tag reading Brazil, Sumatra, and Ethiopia, a vintage Italian moka pot and an Arco espresso machine blurred in the background, warm late-afternoon light casting golden tones across the scene, a few scattered roasted beans on the marble",
+      "related_products": [
+        "arco-primo",
+        "arco-doppio",
+        "arco-studio",
+        "arco-macinino",
+        "arco-preciso",
+        "arco-zero"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/sourcing/italian-espresso-blend-guide.json"
+    },
+    {
+      "id": "kenya-aa",
+      "slug": "/guides/sourcing/kenya-aa",
+      "title": "Kenya AA: Blackcurrant, Tomato, and Brilliant Acidity That Demands Precision",
+      "type": "guide",
+      "persona_tags": [
+        "craft-barista"
+      ],
+      "intent_tags": [
+        "research",
+        "discover",
+        "use"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "advanced",
+      "hero_image_alt": "A small tulip-shaped espresso glass on a dark slate surface showing a shot with deep reddish-brown crema, a handful of fresh blackcurrants and a halved grapefruit arranged artfully beside the glass, dramatic directional light from the right casting sharp shadows, a PID temperature display glowing softly blurred in the background",
+      "related_products": [
+        "arco-doppio",
+        "arco-studio",
+        "arco-zero",
+        "arco-preciso"
+      ],
+      "related_experience": "craft-barista",
+      "source_file": "data/guides/sourcing/kenya-aa.json"
+    },
+    {
+      "id": "rwanda-nyungwe",
+      "slug": "/guides/sourcing/rwanda-nyungwe",
+      "title": "Rwanda Nyungwe: Peach, Jasmine, and East African Elegance as a Ristretto",
+      "type": "guide",
+      "persona_tags": [
+        "craft-barista",
+        "upgrader"
+      ],
+      "intent_tags": [
+        "research",
+        "discover",
+        "use"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "A ristretto in a small white porcelain cup on a light oak table, the short shot showing a delicate golden crema with a slight pink hue, a fresh peach cut in half and a sprig of jasmine flowers arranged beside the cup, soft morning light filtering through sheer curtains, the scene conveying quiet elegance and simplicity",
+      "related_products": [
+        "arco-doppio",
+        "arco-studio",
+        "arco-zero",
+        "arco-preciso"
+      ],
+      "related_experience": "craft-barista",
+      "source_file": "data/guides/sourcing/rwanda-nyungwe.json"
     },
     {
       "id": "single-origin-espresso-profiles",
@@ -3272,7 +4394,7 @@
         "arco-preciso"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/guides/sourcing/single-origin-espresso-profiles.json"
+      "source_file": "data/guides/sourcing/single-origin-espresso-profiles.json"
     },
     {
       "id": "single-origin-vs-blend",
@@ -3298,7 +4420,7 @@
         "arco-filtro"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/guides/sourcing/single-origin-vs-blend.json"
+      "source_file": "data/guides/sourcing/single-origin-vs-blend.json"
     },
     {
       "id": "understanding-roast-dates-and-degassing",
@@ -3323,7 +4445,7 @@
         "arco-studio"
       ],
       "related_experience": "upgrader",
-      "source_file": "content/guides/sourcing/understanding-roast-dates-and-degassing.json"
+      "source_file": "data/guides/sourcing/understanding-roast-dates-and-degassing.json"
     },
     {
       "id": "what-processing-method-means-for-flavor",
@@ -3348,7 +4470,359 @@
         "arco-filtro"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/guides/sourcing/what-processing-method-means-for-flavor.json"
+      "source_file": "data/guides/sourcing/what-processing-method-means-for-flavor.json"
+    },
+    {
+      "id": "yemen-mocha",
+      "slug": "/guides/sourcing/yemen-mocha",
+      "title": "Yemen Mocha: Wine, Dried Fruit, and the World's Most Complex Espresso",
+      "type": "guide",
+      "persona_tags": [
+        "craft-barista"
+      ],
+      "intent_tags": [
+        "research",
+        "discover"
+      ],
+      "format": "sourcing",
+      "market": "en",
+      "difficulty": "advanced",
+      "hero_image_alt": "A ristretto in a hand-thrown ceramic cup with a deep terracotta glaze, the espresso showing a dark reddish crema with swirling patterns, dried figs and dates arranged on an ornate brass tray beside the cup, a folded linen cloth underneath, dramatic warm directional light from behind creating a halo effect on the steam",
+      "related_products": [
+        "arco-zero",
+        "arco-doppio",
+        "arco-studio"
+      ],
+      "related_experience": "craft-barista",
+      "source_file": "data/guides/sourcing/yemen-mocha.json"
+    },
+    {
+      "id": "descaling-when-and-how",
+      "slug": "/guides/troubleshooting/descaling-when-and-how",
+      "title": "Descaling Your Espresso Machine: When, Why, and How",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "upgrader",
+        "beginner",
+        "enthusiast"
+      ],
+      "intent_tags": [
+        "maintain",
+        "own"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A flat lay arrangement on a white marble countertop showing a bottle of espresso machine descaling solution, a measuring cup with diluted solution, a clean white cloth, and a small beaker of clear water beside a beaker of cloudy used solution, soft even lighting from above with no harsh shadows",
+      "related_products": [
+        "arco-primo",
+        "arco-nano",
+        "arco-doppio",
+        "arco-studio",
+        "arco-studio-pro",
+        "arco-ufficio",
+        "arco-viaggio"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/troubleshooting/descaling-when-and-how.json"
+    },
+    {
+      "id": "espresso-has-no-crema",
+      "slug": "/guides/troubleshooting/espresso-has-no-crema",
+      "title": "My Espresso Has No Crema: Bean Freshness, Grind, and Temperature Causes",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "beginner",
+        "upgrader"
+      ],
+      "intent_tags": [
+        "troubleshoot",
+        "own"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "Two espresso shots side by side in matching white ceramic cups on a dark slate surface, the left cup showing a bare dark liquid with no crema, the right cup showing a thick golden-brown crema layer, an Arco Primo machine softly blurred in the background, overhead natural light casting soft shadows",
+      "related_products": [
+        "arco-primo",
+        "arco-doppio",
+        "arco-studio",
+        "arco-filtro",
+        "arco-zero",
+        "arco-viaggio"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/troubleshooting/espresso-has-no-crema.json"
+    },
+    {
+      "id": "grinder-producing-inconsistent-grinds",
+      "slug": "/guides/troubleshooting/grinder-producing-inconsistent-grinds",
+      "title": "My Grinder Is Producing Inconsistent Grinds: Burrs, Alignment, and Calibration",
+      "type": "guide",
+      "persona_tags": [
+        "upgrader",
+        "enthusiast"
+      ],
+      "intent_tags": [
+        "troubleshoot",
+        "own"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "A white sheet of paper with two small piles of ground coffee side by side showing visibly different particle sizes, a pair of flat burrs removed from a grinder resting nearby with coffee residue visible on the cutting surfaces, natural window light from above, a magnifying loupe and brush arranged neatly to the right",
+      "related_products": [
+        "arco-filtro",
+        "arco-preciso",
+        "arco-macinino",
+        "arco-zero"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/troubleshooting/grinder-producing-inconsistent-grinds.json"
+    },
+    {
+      "id": "machine-making-unusual-noises",
+      "slug": "/guides/troubleshooting/machine-making-unusual-noises",
+      "title": "My Machine Is Making Unusual Noises: Pump, Valve, and Scale Diagnostics",
+      "type": "guide",
+      "persona_tags": [
+        "upgrader",
+        "enthusiast"
+      ],
+      "intent_tags": [
+        "troubleshoot",
+        "own"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "Side profile of an Arco Studio Pro espresso machine on a wooden countertop, the internal pump area subtly illuminated through a translucent side panel, a hand reaching toward the power switch, dramatic directional lighting from the left creating depth, a calm kitchen environment in soft focus behind",
+      "related_products": [
+        "arco-primo",
+        "arco-nano",
+        "arco-doppio",
+        "arco-studio",
+        "arco-studio-pro",
+        "arco-ufficio",
+        "arco-viaggio"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/troubleshooting/machine-making-unusual-noises.json"
+    },
+    {
+      "id": "machine-not-reaching-temperature",
+      "slug": "/guides/troubleshooting/machine-not-reaching-temperature",
+      "title": "My Machine Is Not Reaching Temperature: Heating Issues and Fixes",
+      "type": "guide",
+      "persona_tags": [
+        "upgrader",
+        "enthusiast"
+      ],
+      "intent_tags": [
+        "troubleshoot",
+        "own"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "An overhead view of an Arco espresso machine group head with a thermometer probe attached to the portafilter, the temperature display showing a low reading, wisps of steam rising faintly from the drip tray, clinical white studio lighting on a clean gray concrete countertop",
+      "related_products": [
+        "arco-primo",
+        "arco-nano",
+        "arco-doppio",
+        "arco-studio",
+        "arco-studio-pro",
+        "arco-ufficio"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/troubleshooting/machine-not-reaching-temperature.json"
+    },
+    {
+      "id": "my-espresso-tastes-bitter",
+      "slug": "/guides/troubleshooting/my-espresso-tastes-bitter",
+      "title": "My Espresso Tastes Bitter: How to Diagnose and Fix Over-Extraction",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "upgrader",
+        "beginner"
+      ],
+      "intent_tags": [
+        "troubleshoot",
+        "own"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A dark, thick espresso shot in a clear glass demitasse with an almost black crema on top, sitting on a brushed stainless steel drip tray, an Arco Studio espresso machine visible behind with its pressure gauge reading high, dramatic side lighting casting long shadows across a dark marble countertop",
+      "related_products": [
+        "arco-studio",
+        "arco-doppio",
+        "arco-zero",
+        "arco-macinino"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/troubleshooting/my-espresso-tastes-bitter.json"
+    },
+    {
+      "id": "my-espresso-tastes-sour",
+      "slug": "/guides/troubleshooting/my-espresso-tastes-sour",
+      "title": "My Espresso Tastes Sour: How to Diagnose and Fix Under-Extraction",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "upgrader",
+        "beginner"
+      ],
+      "intent_tags": [
+        "troubleshoot",
+        "own"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A close-up shot of a small white ceramic espresso cup on a walnut saucer, the espresso appearing thin and pale with a watery crema, a digital scale reading 36 grams beside it, soft morning light filtering through a kitchen window, shallow depth of field with an Arco espresso machine blurred in the background",
+      "related_products": [
+        "arco-preciso",
+        "arco-macinino",
+        "arco-zero",
+        "arco-doppio",
+        "arco-primo"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/troubleshooting/my-espresso-tastes-sour.json"
+    },
+    {
+      "id": "shot-is-channeling",
+      "slug": "/guides/troubleshooting/shot-is-channeling",
+      "title": "My Shot Is Channeling: Causes, Signs, and Puck Prep Fixes",
+      "type": "guide",
+      "persona_tags": [
+        "upgrader",
+        "enthusiast"
+      ],
+      "intent_tags": [
+        "troubleshoot",
+        "own"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "A bottomless portafilter during extraction showing uneven flow with one thin fast stream and one slow drip from different parts of the basket, golden-brown liquid against the dark coffee puck, an Arco Doppio machine in soft focus behind, warm studio lighting from the left highlighting the spray pattern",
+      "related_products": [
+        "arco-doppio",
+        "arco-primo",
+        "arco-studio",
+        "arco-nano",
+        "arco-preciso"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/troubleshooting/shot-is-channeling.json"
+    },
+    {
+      "id": "steam-wand-not-producing-foam",
+      "slug": "/guides/troubleshooting/steam-wand-not-producing-foam",
+      "title": "My Steam Wand Is Not Producing Foam: Steam Troubleshooting Guide",
+      "type": "guide",
+      "persona_tags": [
+        "morning-minimalist",
+        "upgrader",
+        "latte-artist"
+      ],
+      "intent_tags": [
+        "troubleshoot",
+        "own"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "beginner",
+      "hero_image_alt": "A close-up of a stainless steel steam wand tip submerged just below the surface of milk in a stainless steel pitcher, tiny bubbles visible on the milk surface, the steam knob of an Arco machine in sharp focus to the right, warm tungsten lighting from above reflecting off the milk surface",
+      "related_products": [
+        "arco-primo",
+        "arco-nano",
+        "arco-doppio",
+        "arco-studio",
+        "arco-studio-pro",
+        "arco-ufficio"
+      ],
+      "related_experience": "latte-art",
+      "source_file": "data/guides/troubleshooting/steam-wand-not-producing-foam.json"
+    },
+    {
+      "id": "water-leaking-from-group-head",
+      "slug": "/guides/troubleshooting/water-leaking-from-group-head",
+      "title": "Water Leaking from the Group Head: Gasket and Seal Maintenance",
+      "type": "guide",
+      "persona_tags": [
+        "upgrader",
+        "enthusiast"
+      ],
+      "intent_tags": [
+        "troubleshoot",
+        "own",
+        "maintain"
+      ],
+      "format": "troubleshooting",
+      "market": "en",
+      "difficulty": "intermediate",
+      "hero_image_alt": "A close-up of an espresso machine group head with a portafilter partially locked in, a thin stream of water visibly dripping from the gap between the portafilter and group, the rubber gasket visible as a dark ring inside the group head, sharp macro detail with clinical white lighting from above",
+      "related_products": [
+        "arco-primo",
+        "arco-nano",
+        "arco-doppio",
+        "arco-studio",
+        "arco-studio-pro",
+        "arco-ufficio"
+      ],
+      "related_experience": "morning-rituals",
+      "source_file": "data/guides/troubleshooting/water-leaking-from-group-head.json"
+    },
+    {
+      "id": "hero-image-catalog",
+      "slug": "/./hero-image-catalog",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/hero-image-catalog.json"
+    },
+    {
+      "id": "hero-images-curated",
+      "slug": "/./hero-images-curated",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/hero-images-curated.json"
+    },
+    {
+      "id": "hero-images",
+      "slug": "/./hero-images",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/hero-images.json"
     },
     {
       "id": "loc-de-004",
@@ -3365,7 +4839,7 @@
       "hero_image_alt": "Eine Arco Primo in mattem Schwarz, schlicht verpackt in braunem Kraftpapier mit einer einfachen Juteschnur, daneben ein handgeschriebener Gutschein, auf einem dunklen Holztisch, warmes Licht einer Kerze im Hintergrund, dezente weihnachtliche Atmosphäre ohne Kitsch",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/de/arco-als-geschenk.json"
+      "source_file": "data/localization/de/arco-als-geschenk.json"
     },
     {
       "id": "loc-de-005",
@@ -3382,7 +4856,7 @@
       "hero_image_alt": "Schaufenster eines spezialisierten Kaffee-Fachgeschäfts in einer deutschen Innenstadt mit Arco-Maschinen im Ausstellungsbereich, klare Typografie im Schaufenster, Pflasterstein-Bürgersteig, herbstliches Tageslicht, einladende aber nicht aufdringliche Atmosphäre",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/de/arco-in-deutschland-kaufen.json"
+      "source_file": "data/localization/de/arco-in-deutschland-kaufen.json"
     },
     {
       "id": "loc-de-002",
@@ -3399,7 +4873,7 @@
       "hero_image_alt": "Eine Arco Filtro Filtermaschine neben einer gläsernen Servierkanne auf einem hellen Holztisch, dampfender Filterkaffee in einer großen Keramiktasse, ein Frühstücksbrettchen mit Schwarzbrot im Hintergrund, weiches Morgenlicht durch ein Küchenfenster, typisch deutsche Morgenszene",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/de/filterkaffee-in-deutschland.json"
+      "source_file": "data/localization/de/filterkaffee-in-deutschland.json"
     },
     {
       "id": "loc-de-003",
@@ -3416,7 +4890,7 @@
       "hero_image_alt": "Detailaufnahme einer Arco Studio aus gebürstetem Edelstahl, Fokus auf die massiven Messingkomponenten des E61-Brühkopfs, daneben ein recycelter Jutesack mit Kaffeebohnen, natürliches Tageslicht, sachlicher industrieller Hintergrund",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/de/nachhaltigkeit-bei-arco.json"
+      "source_file": "data/localization/de/nachhaltigkeit-bei-arco.json"
     },
     {
       "id": "loc-de-001",
@@ -3433,7 +4907,7 @@
       "hero_image_alt": "Eine Arco Studio Pro auf einer Werkbank aus geöltem Eichenholz, Druckmanometer im Detail sichtbar, ein frisch bezogener Espresso in einer schlichten weißen Tasse, technische Zeichnungen im Hintergrund, präzises, klares Licht einer Werkstattlampe",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/de/praezision-trifft-kaffee.json"
+      "source_file": "data/localization/de/praezision-trifft-kaffee.json"
     },
     {
       "id": "loc-en-004",
@@ -3450,7 +4924,7 @@
       "hero_image_alt": "An Arco Macinino grinder wrapped in simple brown paper with a sprig of dried eucalyptus tucked under the string, placed on a doorstep beside a welcome mat, a handwritten gift tag visible, soft overcast British light, understated and thoughtful composition",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/en/arco-as-a-gift-uk.json"
+      "source_file": "data/localization/en/arco-as-a-gift-uk.json"
     },
     {
       "id": "loc-en-003",
@@ -3467,7 +4941,7 @@
       "hero_image_alt": "An Arco Primo espresso machine on a narrow British kitchen countertop beside a kettle and a toast rack, subway tiles on the wall behind, a small window above the sink letting in morning light, a cup of espresso on a saucer next to a jar of marmalade, compact and lived-in kitchen atmosphere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/en/arco-for-the-british-kitchen.json"
+      "source_file": "data/localization/en/arco-for-the-british-kitchen.json"
     },
     {
       "id": "loc-en-005",
@@ -3484,7 +4958,7 @@
       "hero_image_alt": "The interior of a specialist coffee equipment shop in a British high street, Arco machines displayed on wooden shelving, exposed brick walls, a barista behind the counter preparing an espresso for a customer, natural light from a large front window, inviting and unpretentious atmosphere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/en/arco-in-the-uk.json"
+      "source_file": "data/localization/en/arco-in-the-uk.json"
     },
     {
       "id": "loc-en-003",
@@ -3501,7 +4975,7 @@
       "hero_image_alt": "Three different bags of specialty coffee from UK roasters arranged on a kitchen countertop next to an Arco Preciso grinder, each bag a different colour with distinctive branding, one bag open with beans spilling out, a notebook with grind settings written in pencil beside them, natural daylight",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/en/coffee-subscription-culture.json"
+      "source_file": "data/localization/en/coffee-subscription-culture.json"
     },
     {
       "id": "loc-en-002",
@@ -3518,7 +4992,7 @@
       "hero_image_alt": "A flat white in a small ceramic cup on a wooden kitchen table, microfoam surface showing a simple tulip latte art design, an Arco Doppio espresso machine in soft focus behind it, the Preciso grinder beside it, warm morning light in a British kitchen with tiled splashback",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/en/flat-white-at-home.json"
+      "source_file": "data/localization/en/flat-white-at-home.json"
     },
     {
       "id": "loc-en-004",
@@ -3535,7 +5009,7 @@
       "hero_image_alt": "A close-up of a flat white being poured in a small ceramic cup, the milk creating a rosetta latte art pattern on the espresso surface, an Arco Doppio machine in soft focus behind, a British kitchen setting with a wooden chopping board and a window with condensation suggesting a cold morning outside",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/en/flat-white-nation.json"
+      "source_file": "data/localization/en/flat-white-nation.json"
     },
     {
       "id": "loc-en-006",
@@ -3552,7 +5026,7 @@
       "hero_image_alt": "A wide shot of a specialty coffee shop on a London side street, exposed brick interior visible through a large glass window, a barista working at a La Marzocca machine behind the counter, bags of single-origin coffee on wooden shelves, a bicycle locked to a railing outside, overcast London sky reflected in the window",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/en/london-specialty-coffee-guide.json"
+      "source_file": "data/localization/en/london-specialty-coffee-guide.json"
     },
     {
       "id": "loc-en-001",
@@ -3569,7 +5043,7 @@
       "hero_image_alt": "An Arco Doppio espresso machine on a reclaimed wood countertop in a bright, plant-filled London flat, a flat white in a ceramic cup beside it, specialty coffee bags from UK roasters visible on a shelf behind, soft grey daylight through a sash window",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/en/specialty-coffee-uk.json"
+      "source_file": "data/localization/en/specialty-coffee-uk.json"
     },
     {
       "id": "loc-en-005",
@@ -3586,7 +5060,7 @@
       "hero_image_alt": "A full English breakfast on a white plate — bacon, eggs, sausages, beans, toast, grilled tomato — on a wooden kitchen table, a double espresso in a small ceramic cup beside the plate, an Arco Primo espresso machine on the counter behind, Sunday newspapers scattered on the table, warm morning light through a kitchen window",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/en/sunday-morning-full-english.json"
+      "source_file": "data/localization/en/sunday-morning-full-english.json"
     },
     {
       "id": "loc-it-005",
@@ -3603,7 +5077,7 @@
       "hero_image_alt": "Vetrina di un negozio di articoli per il caffè in una strada italiana con macchine Arco esposte, insegna artigianale, luce pomeridiana che illumina i prodotti, ambiente cittadino con architettura storica visibile sullo sfondo",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/it/dove-trovare-arco-in-italia.json"
+      "source_file": "data/localization/it/dove-trovare-arco-in-italia.json"
     },
     {
       "id": "loc-it-003",
@@ -3620,7 +5094,7 @@
       "hero_image_alt": "Sacchi di caffè in grani appena tostati su un bancone di legno scuro accanto a una macchina Arco Doppio, con etichette artigianali che indicano origini diverse, luce calda da una lampada industriale, atmosfera di torrefazione artigianale",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/it/i-torrefattori-italiani.json"
+      "source_file": "data/localization/it/i-torrefattori-italiani.json"
     },
     {
       "id": "loc-it-001",
@@ -3637,7 +5111,7 @@
       "hero_image_alt": "Un bancone di bar italiano con una macchina espresso Arco Studio accanto a tazzine di ceramica bianca, luce mattutina che filtra attraverso le persiane, riflessi caldi sul marmo del bancone, atmosfera autentica e quotidiana",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/it/italian-espresso-culture-arco.json"
+      "source_file": "data/localization/it/italian-espresso-culture-arco.json"
     },
     {
       "id": "loc-it-002",
@@ -3654,7 +5128,7 @@
       "hero_image_alt": "Una cucina italiana con luce del primo mattino, una macchina Arco Primo su un piano di marmo chiaro, una tazzina di espresso fumante, una finestra aperta su un cortile con piante di limone, atmosfera intima e silenziosa",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/it/mattina-italiana.json"
+      "source_file": "data/localization/it/mattina-italiana.json"
     },
     {
       "id": "loc-it-004",
@@ -3671,7 +5145,97 @@
       "hero_image_alt": "Un ufficio italiano open space con una macchina Arco Ufficio nella zona cucina, colleghi in piedi intorno al bancone con tazzine in mano, luce naturale da ampie vetrate, piante verdi, atmosfera rilassata ma professionale",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/localization/it/ufficio-cultura-italiana.json"
+      "source_file": "data/localization/it/ufficio-cultura-italiana.json"
+    },
+    {
+      "id": "faqs",
+      "slug": "/metadata/faqs",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/metadata/faqs.json"
+    },
+    {
+      "id": "features",
+      "slug": "/metadata/features",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/metadata/features.json"
+    },
+    {
+      "id": "personas",
+      "slug": "/metadata/personas",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/metadata/personas.json"
+    },
+    {
+      "id": "product-profiles",
+      "slug": "/metadata/product-profiles",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/metadata/product-profiles.json"
+    },
+    {
+      "id": "reviews",
+      "slug": "/metadata/reviews",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/metadata/reviews.json"
+    },
+    {
+      "id": "use-cases",
+      "slug": "/metadata/use-cases",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/metadata/use-cases.json"
     },
     {
       "id": "arco-automatico-vs-arco-studio",
@@ -3694,7 +5258,7 @@
       "hero_image_alt": "Arco Automatico and Arco Studio espresso machines in a split-screen composition, the Automatico in a bright modern kitchen with a clean uncluttered counter, the Studio in a dedicated coffee corner surrounded by grinder and accessories, visual contrast between simplicity and craft",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-automatico-vs-arco-studio.json"
+      "source_file": "data/products/comparison/arco-automatico-vs-arco-studio.json"
     },
     {
       "id": "arco-doppio-vs-arco-studio",
@@ -3715,7 +5279,7 @@
       "hero_image_alt": "Arco Doppio in brushed steel and Arco Studio in matte black side by side on a dark walnut kitchen island, the Studio noticeably larger and more substantial, a barista scale and WDT tool between them, warm pendant lighting overhead",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-doppio-vs-arco-studio.json"
+      "source_file": "data/products/comparison/arco-doppio-vs-arco-studio.json"
     },
     {
       "id": "arco-filtro-vs-arco-preciso",
@@ -3737,7 +5301,7 @@
       "hero_image_alt": "Arco Filtro and Arco Preciso grinders on a wooden countertop, the Filtro next to a Chemex and V60 dripper, the Preciso next to a bottomless portafilter and espresso cup, morning light, clean composition showing their different brewing contexts",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-filtro-vs-arco-preciso.json"
+      "source_file": "data/products/comparison/arco-filtro-vs-arco-preciso.json"
     },
     {
       "id": "arco-macinino-vs-arco-preciso",
@@ -3759,7 +5323,7 @@
       "hero_image_alt": "Arco Macinino and Arco Preciso grinders side by side on a white marble countertop, the Macinino compact and minimal, the Preciso taller with its visible stepless adjustment collar, a small pile of freshly ground coffee in a dosing cup between them, clean studio lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-macinino-vs-arco-preciso.json"
+      "source_file": "data/products/comparison/arco-macinino-vs-arco-preciso.json"
     },
     {
       "id": "arco-nano-vs-arco-primo",
@@ -3781,7 +5345,7 @@
       "hero_image_alt": "Arco Nano and Arco Primo espresso machines on a narrow kitchen counter next to a toaster and kettle, the Nano dramatically smaller, both in matte black, a tape measure subtly visible to emphasise size difference, bright morning kitchen light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-nano-vs-arco-primo.json"
+      "source_file": "data/products/comparison/arco-nano-vs-arco-primo.json"
     },
     {
       "id": "arco-preciso-vs-arco-zero",
@@ -3802,7 +5366,7 @@
       "hero_image_alt": "Arco Preciso and Arco Zero grinders on a dark slate surface, the Zero noticeably taller and heavier, a refractometer and cupping spoon nearby suggesting advanced technique, shallow depth of field focusing on the burr adjustment collars, moody ambient lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-preciso-vs-arco-zero.json"
+      "source_file": "data/products/comparison/arco-preciso-vs-arco-zero.json"
     },
     {
       "id": "arco-primo-vs-arco-doppio",
@@ -3824,7 +5388,7 @@
       "hero_image_alt": "Arco Primo and Arco Doppio espresso machines side by side on a light marble countertop, the Primo in matte white and the Doppio in brushed steel, two freshly pulled espresso shots in matching ceramic cups between them, soft natural light from a kitchen window",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-primo-vs-arco-doppio.json"
+      "source_file": "data/products/comparison/arco-primo-vs-arco-doppio.json"
     },
     {
       "id": "arco-studio-vs-arco-studio-pro",
@@ -3845,7 +5409,7 @@
       "hero_image_alt": "Arco Studio and Arco Studio Pro espresso machines on a polished concrete countertop, the Pro slightly taller with its visible flow control paddle, both in matte black, a bottomless portafilter resting between them showing crema on a recent extraction, dramatic directional lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-studio-vs-arco-studio-pro.json"
+      "source_file": "data/products/comparison/arco-studio-vs-arco-studio-pro.json"
     },
     {
       "id": "arco-ufficio-vs-arco-studio-pro",
@@ -3866,7 +5430,7 @@
       "hero_image_alt": "Arco Ufficio and Arco Studio Pro side by side, the Ufficio in a modern office kitchen with a row of cups waiting, the Studio Pro in a home coffee corner with a precision scale and notebook, split composition showing their different contexts, bright office light on left and warm home light on right",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-ufficio-vs-arco-studio-pro.json"
+      "source_file": "data/products/comparison/arco-ufficio-vs-arco-studio-pro.json"
     },
     {
       "id": "arco-viaggio-vs-arco-nano",
@@ -3888,7 +5452,7 @@
       "hero_image_alt": "Arco Viaggio manual espresso maker and Arco Nano electric machine, the Viaggio shown on a worn leather travel journal with a camping mug, the Nano on a minimal kitchen shelf, both in matte black, natural window light, illustrating the contrast between travel and home use",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/comparison/arco-viaggio-vs-arco-nano.json"
+      "source_file": "data/products/comparison/arco-viaggio-vs-arco-nano.json"
     },
     {
       "id": "arco-automatico",
@@ -3914,7 +5478,7 @@
         "preparation-accessories"
       ],
       "related_experience": "non-barista",
-      "source_file": "content/products/pdp-canonical/arco-automatico.json"
+      "source_file": "data/products/pdp-canonical/arco-automatico.json"
     },
     {
       "id": "arco-doppio",
@@ -3938,7 +5502,7 @@
         "preparation-accessories"
       ],
       "related_experience": "upgrader",
-      "source_file": "content/products/pdp-canonical/arco-doppio.json"
+      "source_file": "data/products/pdp-canonical/arco-doppio.json"
     },
     {
       "id": "arco-filtro",
@@ -3963,7 +5527,7 @@
         "preparation-accessories"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/products/pdp-canonical/arco-filtro.json"
+      "source_file": "data/products/pdp-canonical/arco-filtro.json"
     },
     {
       "id": "arco-macinino",
@@ -3989,7 +5553,7 @@
         "preparation-accessories"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/products/pdp-canonical/arco-macinino.json"
+      "source_file": "data/products/pdp-canonical/arco-macinino.json"
     },
     {
       "id": "arco-nano",
@@ -4014,7 +5578,7 @@
         "preparation-accessories"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/products/pdp-canonical/arco-nano.json"
+      "source_file": "data/products/pdp-canonical/arco-nano.json"
     },
     {
       "id": "arco-preciso",
@@ -4039,7 +5603,7 @@
         "arco-ufficio"
       ],
       "related_experience": "upgrader",
-      "source_file": "content/products/pdp-canonical/arco-preciso.json"
+      "source_file": "data/products/pdp-canonical/arco-preciso.json"
     },
     {
       "id": "arco-primo",
@@ -4064,7 +5628,7 @@
         "preparation-accessories"
       ],
       "related_experience": "morning-minimalist",
-      "source_file": "content/products/pdp-canonical/arco-primo.json"
+      "source_file": "data/products/pdp-canonical/arco-primo.json"
     },
     {
       "id": "arco-studio-pro",
@@ -4088,7 +5652,7 @@
         "maintenance-accessories"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/products/pdp-canonical/arco-studio-pro.json"
+      "source_file": "data/products/pdp-canonical/arco-studio-pro.json"
     },
     {
       "id": "arco-studio",
@@ -4112,7 +5676,7 @@
         "preparation-accessories"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/products/pdp-canonical/arco-studio.json"
+      "source_file": "data/products/pdp-canonical/arco-studio.json"
     },
     {
       "id": "arco-ufficio",
@@ -4137,7 +5701,7 @@
         "maintenance-accessories"
       ],
       "related_experience": "office-manager",
-      "source_file": "content/products/pdp-canonical/arco-ufficio.json"
+      "source_file": "data/products/pdp-canonical/arco-ufficio.json"
     },
     {
       "id": "arco-viaggio",
@@ -4162,7 +5726,7 @@
         "preparation-accessories"
       ],
       "related_experience": "traveller",
-      "source_file": "content/products/pdp-canonical/arco-viaggio.json"
+      "source_file": "data/products/pdp-canonical/arco-viaggio.json"
     },
     {
       "id": "arco-zero",
@@ -4186,7 +5750,7 @@
         "preparation-accessories"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/products/pdp-canonical/arco-zero.json"
+      "source_file": "data/products/pdp-canonical/arco-zero.json"
     },
     {
       "id": "maintenance-accessories",
@@ -4216,7 +5780,7 @@
         "preparation-accessories"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/products/pdp-canonical/maintenance-accessories.json"
+      "source_file": "data/products/pdp-canonical/maintenance-accessories.json"
     },
     {
       "id": "preparation-accessories",
@@ -4244,7 +5808,7 @@
         "maintenance-accessories"
       ],
       "related_experience": "craft-barista",
-      "source_file": "content/products/pdp-canonical/preparation-accessories.json"
+      "source_file": "data/products/pdp-canonical/preparation-accessories.json"
     },
     {
       "id": "arco-automatico--morning-minimalist",
@@ -4261,7 +5825,7 @@
       "hero_image_alt": "Arco Automatico espresso machine in matte black on a clean light countertop, a single cup of espresso underneath the spout, morning light through a window, the scene calm and uncluttered with nothing else on the counter",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-automatico--morning-minimalist.json"
+      "source_file": "data/products/pdp-persona/arco-automatico--morning-minimalist.json"
     },
     {
       "id": "arco-automatico--non-barista",
@@ -4278,7 +5842,7 @@
       "hero_image_alt": "Arco Automatico automatic espresso machine in matte black on a bright modern kitchen counter, its touchscreen showing drink options with simple icons, a finished cappuccino with perfect foam beside it, inviting and uncomplicated scene",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-automatico--non-barista.json"
+      "source_file": "data/products/pdp-persona/arco-automatico--non-barista.json"
     },
     {
       "id": "arco-automatico--office-manager",
@@ -4295,7 +5859,7 @@
       "hero_image_alt": "Arco Automatico espresso machine in brushed steel in an office break room, the touchscreen showing a grid of drink options, a colleague selecting a latte, clean professional environment with multiple cups nearby",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-automatico--office-manager.json"
+      "source_file": "data/products/pdp-persona/arco-automatico--office-manager.json"
     },
     {
       "id": "arco-doppio--craft-barista",
@@ -4312,7 +5876,7 @@
       "hero_image_alt": "Arco Doppio espresso machine with side panel removed showing dual brass boilers and rotary pump internals, a bottomless portafilter producing a textbook extraction with tiger striping, precision scale on the drip tray",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-doppio--craft-barista.json"
+      "source_file": "data/products/pdp-persona/arco-doppio--craft-barista.json"
     },
     {
       "id": "arco-doppio--morning-minimalist",
@@ -4329,7 +5893,7 @@
       "hero_image_alt": "Arco Doppio espresso machine in matte black on a clean light-wood kitchen counter, a finished flat white in a simple white cup, soft early morning light, everything tidy and minimal",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-doppio--morning-minimalist.json"
+      "source_file": "data/products/pdp-persona/arco-doppio--morning-minimalist.json"
     },
     {
       "id": "arco-doppio--non-barista",
@@ -4346,7 +5910,7 @@
       "hero_image_alt": "Arco Doppio espresso machine in matte black on a bright kitchen counter, a person pouring steamed milk into a latte, the scene warm and approachable with soft overhead lighting, no barista tools visible",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-doppio--non-barista.json"
+      "source_file": "data/products/pdp-persona/arco-doppio--non-barista.json"
     },
     {
       "id": "arco-doppio--office-manager",
@@ -4363,7 +5927,7 @@
       "hero_image_alt": "Arco Doppio espresso machine in brushed steel in a bright modern office kitchen, two espresso cups on the counter ready for colleagues, clean professional environment with warm lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-doppio--office-manager.json"
+      "source_file": "data/products/pdp-persona/arco-doppio--office-manager.json"
     },
     {
       "id": "arco-doppio--upgrader",
@@ -4380,7 +5944,7 @@
       "hero_image_alt": "Arco Doppio dual-boiler espresso machine in brushed steel on a dark kitchen counter, dual PID displays showing different temperatures, a perfectly textured milk pitcher beside a freshly pulled espresso with thick crema",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-doppio--upgrader.json"
+      "source_file": "data/products/pdp-persona/arco-doppio--upgrader.json"
     },
     {
       "id": "arco-filtro--craft-barista",
@@ -4397,7 +5961,7 @@
       "hero_image_alt": "Arco Filtro filter grinder in copper beside a Hario V60, Chemex, and AeroPress arranged on a wooden counter, freshly ground coffee in a ceramic dosing vessel, a precision scale nearby, warm focused lighting in a home brewing station",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-filtro--craft-barista.json"
+      "source_file": "data/products/pdp-persona/arco-filtro--craft-barista.json"
     },
     {
       "id": "arco-filtro--morning-minimalist",
@@ -4414,7 +5978,7 @@
       "hero_image_alt": "Arco Filtro grinder in matte black beside a simple pour-over dripper on a clean white countertop, freshly ground coffee in a paper filter, a single ceramic mug, peaceful morning light through a window",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-filtro--morning-minimalist.json"
+      "source_file": "data/products/pdp-persona/arco-filtro--morning-minimalist.json"
     },
     {
       "id": "arco-filtro--upgrader",
@@ -4431,7 +5995,7 @@
       "hero_image_alt": "Arco Filtro grinder in copper on a modern kitchen counter with multiple brewing devices arranged nearby -- a pour-over dripper, an AeroPress, and an espresso machine -- showing the grinder's versatility, warm and inviting setup",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-filtro--upgrader.json"
+      "source_file": "data/products/pdp-persona/arco-filtro--upgrader.json"
     },
     {
       "id": "arco-macinino--morning-minimalist",
@@ -4448,7 +6012,7 @@
       "hero_image_alt": "Arco Macinino flat burr grinder in walnut finish on a clean kitchen counter beside an espresso machine, a portafilter catching freshly ground coffee, soft morning light, everything tidy and minimal",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-macinino--morning-minimalist.json"
+      "source_file": "data/products/pdp-persona/arco-macinino--morning-minimalist.json"
     },
     {
       "id": "arco-macinino--non-barista",
@@ -4465,7 +6029,7 @@
       "hero_image_alt": "Arco Macinino grinder in walnut finish on a bright kitchen counter, a person pressing the button with one hand while holding a mug in the other, simple cheerful scene with morning light, no technical tools visible",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-macinino--non-barista.json"
+      "source_file": "data/products/pdp-persona/arco-macinino--non-barista.json"
     },
     {
       "id": "arco-macinino--upgrader",
@@ -4482,7 +6046,7 @@
       "hero_image_alt": "Arco Macinino flat burr grinder in matte black on a dark countertop, the stepless adjustment dial in sharp focus, freshly ground coffee in a dosing cup showing uniform particle size, a precision scale nearby",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-macinino--upgrader.json"
+      "source_file": "data/products/pdp-persona/arco-macinino--upgrader.json"
     },
     {
       "id": "arco-nano--morning-minimalist",
@@ -4499,7 +6063,7 @@
       "hero_image_alt": "Arco Nano espresso machine in matte black on a narrow kitchen counter beside a single espresso cup, everything perfectly aligned and uncluttered, first light of morning, zen-like stillness",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-nano--morning-minimalist.json"
+      "source_file": "data/products/pdp-persona/arco-nano--morning-minimalist.json"
     },
     {
       "id": "arco-nano--non-barista",
@@ -4516,7 +6080,7 @@
       "hero_image_alt": "Arco Nano compact espresso machine in arctic white on a small bright kitchen shelf next to a plant and a ceramic mug, everything cheerful and unintimidating, soft natural light, clean and minimal scene",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-nano--non-barista.json"
+      "source_file": "data/products/pdp-persona/arco-nano--non-barista.json"
     },
     {
       "id": "arco-nano--office-manager",
@@ -4533,7 +6097,7 @@
       "hero_image_alt": "Arco Nano espresso machine in matte black on a clean modern office desk beside a laptop and a small plant, a shot of espresso in a double-wall glass, professional and tidy workspace, soft overhead lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-nano--office-manager.json"
+      "source_file": "data/products/pdp-persona/arco-nano--office-manager.json"
     },
     {
       "id": "arco-nano--traveller",
@@ -4550,7 +6114,7 @@
       "hero_image_alt": "Arco Nano espresso machine in copper finish on a rustic wooden table in a bright Airbnb kitchen, a small travel bag and passport nearby, a shot of espresso in a simple ceramic cup, morning light through large windows",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-nano--traveller.json"
+      "source_file": "data/products/pdp-persona/arco-nano--traveller.json"
     },
     {
       "id": "arco-preciso--craft-barista",
@@ -4567,7 +6131,7 @@
       "hero_image_alt": "Arco Preciso grinder in arctic white with its 40-step adjustment dial in sharp focus, a single-dose of medium-dark roasted beans in the hopper, a bottomless portafilter with a syrupy shot extracting in the background, technical and intentional setup",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-preciso--craft-barista.json"
+      "source_file": "data/products/pdp-persona/arco-preciso--craft-barista.json"
     },
     {
       "id": "arco-preciso--morning-minimalist",
@@ -4584,7 +6148,7 @@
       "hero_image_alt": "Arco Preciso grinder in arctic white on a clean light countertop beside an espresso machine, a portafilter catching ground coffee, everything orderly and serene, soft warm morning light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-preciso--morning-minimalist.json"
+      "source_file": "data/products/pdp-persona/arco-preciso--morning-minimalist.json"
     },
     {
       "id": "arco-preciso--upgrader",
@@ -4601,7 +6165,7 @@
       "hero_image_alt": "Arco Preciso conical burr grinder in matte black on a kitchen counter beside an espresso machine, the 40-step adjustment dial visible, a freshly ground dose in a portafilter, warm focused lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-preciso--upgrader.json"
+      "source_file": "data/products/pdp-persona/arco-preciso--upgrader.json"
     },
     {
       "id": "arco-primo--craft-barista",
@@ -4618,7 +6182,7 @@
       "hero_image_alt": "Arco Primo espresso machine beside an Arco Zero grinder on a wooden workbench, a bottomless portafilter mid-extraction showing a perfect cone of espresso, an Arco Studio visible in the background of a well-equipped home coffee station",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-primo--craft-barista.json"
+      "source_file": "data/products/pdp-persona/arco-primo--craft-barista.json"
     },
     {
       "id": "arco-primo--morning-minimalist",
@@ -4635,7 +6199,7 @@
       "hero_image_alt": "Arco Primo espresso machine on a clean white countertop beside a single ceramic cup, early morning light streaming through a kitchen window, everything calm and uncluttered",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-primo--morning-minimalist.json"
+      "source_file": "data/products/pdp-persona/arco-primo--morning-minimalist.json"
     },
     {
       "id": "arco-primo--non-barista",
@@ -4652,7 +6216,7 @@
       "hero_image_alt": "Arco Primo espresso machine in matte white on a bright modern kitchen counter, a person casually holding a finished espresso with a relaxed smile, warm inviting atmosphere with no clutter or tools visible",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-primo--non-barista.json"
+      "source_file": "data/products/pdp-persona/arco-primo--non-barista.json"
     },
     {
       "id": "arco-primo--traveller",
@@ -4669,7 +6233,7 @@
       "hero_image_alt": "Arco Primo espresso machine in matte black in a small modern apartment kitchen, a worn leather travel bag resting on a stool nearby, a rich espresso shot in a handmade ceramic cup, warm golden-hour light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-primo--traveller.json"
+      "source_file": "data/products/pdp-persona/arco-primo--traveller.json"
     },
     {
       "id": "arco-primo--upgrader",
@@ -4686,7 +6250,7 @@
       "hero_image_alt": "Arco Primo espresso machine in brushed steel on a dark marble countertop, a rich espresso shot with golden crema pooling in a clear glass, the machine's PID display glowing with a precise temperature reading",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-primo--upgrader.json"
+      "source_file": "data/products/pdp-persona/arco-primo--upgrader.json"
     },
     {
       "id": "arco-studio--craft-barista",
@@ -4703,7 +6267,7 @@
       "hero_image_alt": "Arco Studio espresso machine with walnut accents, flow control paddle mid-adjustment during extraction, pressure gauge reading 6 bar during a declining pressure profile, precision scale beneath the cup showing real-time weight",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-studio--craft-barista.json"
+      "source_file": "data/products/pdp-persona/arco-studio--craft-barista.json"
     },
     {
       "id": "arco-studio--morning-minimalist",
@@ -4720,7 +6284,7 @@
       "hero_image_alt": "Arco Studio espresso machine with walnut accents in a serene minimalist kitchen, a single perfect espresso on the drip tray, morning sunlight on white countertops, no clutter or accessories visible",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-studio--morning-minimalist.json"
+      "source_file": "data/products/pdp-persona/arco-studio--morning-minimalist.json"
     },
     {
       "id": "arco-studio--traveller",
@@ -4737,7 +6301,7 @@
       "hero_image_alt": "Arco Studio espresso machine in matte black in a loft apartment with large windows overlooking a city skyline, a cortado in a handmade ceramic cup, travel photography prints on the wall, warm evening light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-studio--traveller.json"
+      "source_file": "data/products/pdp-persona/arco-studio--traveller.json"
     },
     {
       "id": "arco-studio--upgrader",
@@ -4754,7 +6318,7 @@
       "hero_image_alt": "Arco Studio espresso machine in matte black on a sophisticated kitchen counter, a rich espresso flowing from the saturated group head into a clear cortado glass, pressure gauge visible, warm ambient lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-studio--upgrader.json"
+      "source_file": "data/products/pdp-persona/arco-studio--upgrader.json"
     },
     {
       "id": "arco-studio-pro--craft-barista",
@@ -4771,7 +6335,7 @@
       "hero_image_alt": "Arco Studio Pro espresso machine in matte black, touchscreen displaying a custom pressure profile curve, gear pump mid-extraction with a bottomless portafilter showing a flawless even extraction, professional-grade setup with precision scale and distribution tools",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-studio-pro--craft-barista.json"
+      "source_file": "data/products/pdp-persona/arco-studio-pro--craft-barista.json"
     },
     {
       "id": "arco-studio-pro--upgrader",
@@ -4788,7 +6352,7 @@
       "hero_image_alt": "Arco Studio Pro espresso machine on a dark stone countertop in a modern kitchen, touchscreen showing temperature and pressure readouts, a perfectly extracted espresso with rich crema in a clear glass, dramatic lighting emphasizing the machine's premium build quality",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-studio-pro--upgrader.json"
+      "source_file": "data/products/pdp-persona/arco-studio-pro--upgrader.json"
     },
     {
       "id": "arco-ufficio--office-manager",
@@ -4805,7 +6369,7 @@
       "hero_image_alt": "Arco Ufficio commercial espresso machine in matte black in a bright modern office kitchen, two espresso cups being pulled simultaneously from the dual group heads, a small queue of colleagues chatting nearby, professional and energetic atmosphere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-ufficio--office-manager.json"
+      "source_file": "data/products/pdp-persona/arco-ufficio--office-manager.json"
     },
     {
       "id": "arco-ufficio--upgrader",
@@ -4822,7 +6386,7 @@
       "hero_image_alt": "Arco Ufficio espresso machine in matte black in a large open-plan kitchen during a gathering, dual group heads pulling shots simultaneously, guests mingling with espresso cups in hand, warm convivial atmosphere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-ufficio--upgrader.json"
+      "source_file": "data/products/pdp-persona/arco-ufficio--upgrader.json"
     },
     {
       "id": "arco-viaggio--craft-barista",
@@ -4839,7 +6403,7 @@
       "hero_image_alt": "Arco Viaggio portable espresso maker disassembled showing the precision lever mechanism and stainless steel basket, a hand grinder and precision scale beside it, a dark espresso shot in a clear glass showing syrupy body, workshop-style flat lay on a wooden surface",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-viaggio--craft-barista.json"
+      "source_file": "data/products/pdp-persona/arco-viaggio--craft-barista.json"
     },
     {
       "id": "arco-viaggio--morning-minimalist",
@@ -4856,7 +6420,7 @@
       "hero_image_alt": "Arco Viaggio portable espresso maker in silver on a minimalist wooden breakfast tray beside a simple ceramic cup and a kettle, morning light through a sheer curtain, peaceful and deliberate atmosphere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-viaggio--morning-minimalist.json"
+      "source_file": "data/products/pdp-persona/arco-viaggio--morning-minimalist.json"
     },
     {
       "id": "arco-viaggio--non-barista",
@@ -4873,7 +6437,7 @@
       "hero_image_alt": "Arco Viaggio portable espresso maker in silver on a bright kitchen table beside a kettle and a simple mug, a person pressing the lever with a relaxed expression, cheerful and approachable scene with morning light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-viaggio--non-barista.json"
+      "source_file": "data/products/pdp-persona/arco-viaggio--non-barista.json"
     },
     {
       "id": "arco-viaggio--traveller",
@@ -4890,7 +6454,7 @@
       "hero_image_alt": "Arco Viaggio portable espresso maker in forest green being used at a mountain campsite at dawn, a person pressing the lever with both hands, a small camp stove and kettle nearby, dramatic mountain scenery in the background",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-viaggio--traveller.json"
+      "source_file": "data/products/pdp-persona/arco-viaggio--traveller.json"
     },
     {
       "id": "arco-zero--craft-barista",
@@ -4907,7 +6471,7 @@
       "hero_image_alt": "Arco Zero single-dose grinder in matte black, top-down view showing the 83mm flat burrs through the single-dose hopper, a bellows attachment visible, a precision scale and two dosing cups -- one for espresso, one for filter -- arranged on a dark wooden surface",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-zero--craft-barista.json"
+      "source_file": "data/products/pdp-persona/arco-zero--craft-barista.json"
     },
     {
       "id": "arco-zero--upgrader",
@@ -4924,7 +6488,22 @@
       "hero_image_alt": "Arco Zero single-dose grinder in matte black on a sophisticated kitchen counter, the calibrated dial indicator showing precise markings, a single dose of specialty beans in the hopper, an Arco espresso machine in the background, aspirational but achievable home setup",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/pdp-persona/arco-zero--upgrader.json"
+      "source_file": "data/products/pdp-persona/arco-zero--upgrader.json"
+    },
+    {
+      "id": "products",
+      "slug": "/products/products",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/products/products.json"
     },
     {
       "id": "right-for-you-arco-automatico",
@@ -4945,7 +6524,7 @@
       "hero_image_alt": "Arco Automatico espresso machine in matte black on a bright, clean kitchen counter, its touchscreen interface glowing softly, a freshly brewed espresso with perfect crema in a glass cup beneath the spout, no clutter, no accessories, emphasising the simplicity of the setup",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-automatico.json"
+      "source_file": "data/products/right-for-you/arco-automatico.json"
     },
     {
       "id": "right-for-you-arco-doppio",
@@ -4967,7 +6546,7 @@
       "hero_image_alt": "Arco Doppio espresso machine in brushed steel on a dark walnut counter, PID display showing temperature, a milk pitcher with freshly textured microfoam beside it, a latte in a wide ceramic cup in the foreground, warm afternoon light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-doppio.json"
+      "source_file": "data/products/right-for-you/arco-doppio.json"
     },
     {
       "id": "right-for-you-arco-macinino",
@@ -4988,7 +6567,7 @@
       "hero_image_alt": "Arco Macinino grinder in matte black on a light kitchen counter next to an Arco Primo espresso machine, a small pile of ground coffee on a scale, morning sunlight, clean and simple setup suggesting a beginner-friendly workflow",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-macinino.json"
+      "source_file": "data/products/right-for-you/arco-macinino.json"
     },
     {
       "id": "right-for-you-arco-nano",
@@ -5010,7 +6589,7 @@
       "hero_image_alt": "Arco Nano espresso machine in matte black tucked into a narrow kitchen shelf between a toaster and a small plant, pulling a shot into a glass espresso cup, tight space showing how little room it needs, bright natural kitchen light",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-nano.json"
+      "source_file": "data/products/right-for-you/arco-nano.json"
     },
     {
       "id": "right-for-you-arco-preciso",
@@ -5031,7 +6610,7 @@
       "hero_image_alt": "Arco Preciso grinder in matte black on a dark walnut counter next to an Arco Doppio, a dosing cup catching freshly ground coffee, the stepless adjustment collar clearly visible, a small notebook with grind settings written in pencil nearby, warm focused lighting",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-preciso.json"
+      "source_file": "data/products/right-for-you/arco-preciso.json"
     },
     {
       "id": "right-for-you-arco-primo",
@@ -5053,7 +6632,7 @@
       "hero_image_alt": "Arco Primo espresso machine in sage green on a light oak countertop next to a simple ceramic cup, a person's hand reaching for the cup, soft morning light, calm and unhurried domestic scene",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-primo.json"
+      "source_file": "data/products/right-for-you/arco-primo.json"
     },
     {
       "id": "right-for-you-arco-studio-pro",
@@ -5073,7 +6652,7 @@
       "hero_image_alt": "Arco Studio Pro espresso machine in matte black on a polished concrete countertop, the flow control paddle visible, a real-time pressure gauge glowing, a bottomless portafilter mid-extraction showing tiger striping, dramatic side lighting, serious and intentional atmosphere",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-studio-pro.json"
+      "source_file": "data/products/right-for-you/arco-studio-pro.json"
     },
     {
       "id": "right-for-you-arco-studio",
@@ -5094,7 +6673,7 @@
       "hero_image_alt": "Arco Studio espresso machine in matte black in a dedicated home coffee corner, surrounded by a precision grinder, WDT tool, barista scale, and a well-worn brew journal, warm task lighting, the kind of setup that has clearly been used and loved",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-studio.json"
+      "source_file": "data/products/right-for-you/arco-studio.json"
     },
     {
       "id": "right-for-you-arco-ufficio",
@@ -5114,7 +6693,7 @@
       "hero_image_alt": "Arco Ufficio espresso machine in brushed steel in a modern office kitchen, a row of clean white cups on a wooden tray beside it, a small sign reading 'Help yourself', bright overhead office lighting, clean and professional environment",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-ufficio.json"
+      "source_file": "data/products/right-for-you/arco-ufficio.json"
     },
     {
       "id": "right-for-you-arco-viaggio",
@@ -5135,7 +6714,37 @@
       "hero_image_alt": "Arco Viaggio manual espresso maker on a weathered wooden table at a campsite, a thermos of hot water beside it, mountains visible in the background, morning mist, the Viaggio's compact size emphasised by the expansive landscape around it",
       "related_products": [],
       "related_experience": null,
-      "source_file": "content/products/right-for-you/arco-viaggio.json"
+      "source_file": "data/products/right-for-you/arco-viaggio.json"
+    },
+    {
+      "id": "recipes",
+      "slug": "/recipes/recipes",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/recipes/recipes.json"
+    },
+    {
+      "id": "stories-index",
+      "slug": "/./stories-index",
+      "title": "",
+      "type": "other",
+      "persona_tags": [],
+      "intent_tags": [],
+      "format": "other",
+      "market": "en",
+      "difficulty": null,
+      "hero_image_alt": null,
+      "related_products": [],
+      "related_experience": null,
+      "source_file": "data/stories-index.json"
     },
     {
       "id": "calc-capsule-bean-cost",
@@ -5163,7 +6772,7 @@
         "arco-macinino-home"
       ],
       "related_experience": null,
-      "source_file": "content/tools/calculators/capsule-to-bean-cost-comparison.json"
+      "source_file": "data/tools/calculators/capsule-to-bean-cost-comparison.json"
     },
     {
       "id": "calc-espresso-ratio",
@@ -5191,7 +6800,7 @@
         "arco-precision-scale"
       ],
       "related_experience": null,
-      "source_file": "content/tools/calculators/espresso-ratio-calculator.json"
+      "source_file": "data/tools/calculators/espresso-ratio-calculator.json"
     },
     {
       "id": "calc-grinder-setting",
@@ -5219,7 +6828,7 @@
         "arco-mini-grinder"
       ],
       "related_experience": null,
-      "source_file": "content/tools/calculators/grinder-setting-guide.json"
+      "source_file": "data/tools/calculators/grinder-setting-guide.json"
     },
     {
       "id": "calc-setup-value",
@@ -5248,7 +6857,7 @@
         "arco-macinino-pro"
       ],
       "related_experience": null,
-      "source_file": "content/tools/calculators/setup-value-estimator.json"
+      "source_file": "data/tools/calculators/setup-value-estimator.json"
     },
     {
       "id": "calc-water-hardness",
@@ -5276,7 +6885,7 @@
         "arco-water-test-strips"
       ],
       "related_experience": null,
-      "source_file": "content/tools/calculators/water-hardness-checker.json"
+      "source_file": "data/tools/calculators/water-hardness-checker.json"
     },
     {
       "id": "maint-consumable-schedule",
@@ -5305,7 +6914,7 @@
         "arco-group-head-brush"
       ],
       "related_experience": null,
-      "source_file": "content/tools/maintenance/consumable-replacement-schedule.json"
+      "source_file": "data/tools/maintenance/consumable-replacement-schedule.json"
     },
     {
       "id": "maint-descaling-guide",
@@ -5334,7 +6943,7 @@
         "arco-backflush-disc"
       ],
       "related_experience": null,
-      "source_file": "content/tools/maintenance/descaling-guide-by-model.json"
+      "source_file": "data/tools/maintenance/descaling-guide-by-model.json"
     },
     {
       "id": "maint-care-calendar",
@@ -5363,7 +6972,7 @@
         "arco-backflush-disc"
       ],
       "related_experience": null,
-      "source_file": "content/tools/maintenance/machine-care-calendar.json"
+      "source_file": "data/tools/maintenance/machine-care-calendar.json"
     },
     {
       "id": "maint-symptom-diagnostic",
@@ -5392,7 +7001,7 @@
         "arco-wdt-tool"
       ],
       "related_experience": null,
-      "source_file": "content/tools/maintenance/symptom-diagnostic-guide.json"
+      "source_file": "data/tools/maintenance/symptom-diagnostic-guide.json"
     },
     {
       "id": "maint-warranty-service",
@@ -5420,7 +7029,7 @@
         "arco-extended-warranty"
       ],
       "related_experience": null,
-      "source_file": "content/tools/maintenance/warranty-and-service-guide.json"
+      "source_file": "data/tools/maintenance/warranty-and-service-guide.json"
     },
     {
       "id": "pairing-accessory-portafilter",
@@ -5448,7 +7057,7 @@
         "arco-precision-tamper-58"
       ],
       "related_experience": null,
-      "source_file": "content/tools/pairing-guides/accessory-portafilter-compatibility.json"
+      "source_file": "data/tools/pairing-guides/accessory-portafilter-compatibility.json"
     },
     {
       "id": "pairing-bean-machine",
@@ -5477,7 +7086,7 @@
         "arco-macinino-pro"
       ],
       "related_experience": null,
-      "source_file": "content/tools/pairing-guides/bean-to-machine-pairing.json"
+      "source_file": "data/tools/pairing-guides/bean-to-machine-pairing.json"
     },
     {
       "id": "pairing-grinder-machine",
@@ -5508,7 +7117,7 @@
         "arco-maestro"
       ],
       "related_experience": null,
-      "source_file": "content/tools/pairing-guides/grinder-machine-compatibility-matrix.json"
+      "source_file": "data/tools/pairing-guides/grinder-machine-compatibility-matrix.json"
     },
     {
       "id": "pairing-upgrade-path",
@@ -5538,7 +7147,7 @@
         "arco-macinino-pro"
       ],
       "related_experience": null,
-      "source_file": "content/tools/pairing-guides/upgrade-path-map.json"
+      "source_file": "data/tools/pairing-guides/upgrade-path-map.json"
     },
     {
       "id": "pairing-water-filter",
@@ -5567,7 +7176,7 @@
         "arco-descaling-solution"
       ],
       "related_experience": null,
-      "source_file": "content/tools/pairing-guides/water-filter-compatibility.json"
+      "source_file": "data/tools/pairing-guides/water-filter-compatibility.json"
     }
   ]
 }

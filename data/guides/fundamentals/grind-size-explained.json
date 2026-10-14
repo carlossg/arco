@@ -1,0 +1,48 @@
+{
+  "id": "grind-size-explained",
+  "slug": "grind-size-explained",
+  "category": "fundamentals",
+  "title": "Grind Size Explained: Why It Is the Most Powerful Dial on Your Grinder",
+  "difficulty": "beginner",
+  "read_time_minutes": 7,
+  "persona_tags": ["morning-minimalist", "upgrader"],
+  "intent_tags": ["research", "own"],
+  "hero_image_alt": "Three small piles of ground coffee on a white ceramic plate arranged from coarse to fine left to right, macro lens capturing individual particle shapes and sizes, diffused natural light from above, a burr grinder softly blurred in the background",
+  "intro": "Grind size is the single most impactful adjustment you will make day to day. It determines how quickly water flows through the coffee puck, how much surface area is exposed to the water, and ultimately how your espresso tastes. Learning to read your shots and respond with a grind change is the core feedback loop of espresso making.",
+  "body": [
+    {
+      "heading": "Particle Size and Surface Area",
+      "content": "When you grind coffee beans, you are breaking them into thousands of tiny particles. The finer you grind, the smaller those particles become, and the more total surface area is exposed to the brewing water. Surface area is the key concept here. Imagine a single coffee bean — it has a fixed outer surface. Now imagine crushing it into a hundred pieces: the total surface area of those hundred fragments is dramatically larger than the surface of the original bean. More surface area means the water can access and dissolve solubles more quickly. In espresso, we grind extremely fine — much finer than for drip coffee or French press — because the brew time is very short, typically 25 to 30 seconds. We need all that surface area to extract enough flavor in that brief contact time. But there is a trade-off: if the particles are too fine, they pack together so tightly that water cannot flow through the puck at a reasonable rate. The shot chokes, extraction becomes uneven, and the result tastes bitter and astringent. Finding the right particle size for your specific coffee, dose, and machine is the daily act of dialing in."
+    },
+    {
+      "heading": "How Grind Size Affects Flow Rate",
+      "content": "The coffee puck acts as a filter bed. Water must find pathways between the compressed particles to travel from the top of the puck to the bottom and into your cup. Coarser particles leave larger gaps between them, so water flows through more easily and faster. Finer particles create smaller gaps, slowing the water down and increasing the contact time between water and coffee. When water flows through too quickly — because the grind is too coarse — it does not have enough contact time to dissolve sufficient solubles. The shot runs fast, finishes in 15 or 20 seconds, and tastes sour and watery. When water flows through too slowly — because the grind is too fine — it spends too long in contact with the coffee and dissolves too many solubles, including the harsh, bitter compounds that extract last. The shot drips out over 40 or 50 seconds and tastes astringent and woody. The practical target for most espresso recipes is a total shot time of roughly 25 to 30 seconds for a standard double. If your shot runs faster than that, grind finer. If it runs slower, grind coarser. This simple adjustment is the one you will make most often."
+    },
+    {
+      "heading": "The Taste Feedback Loop",
+      "content": "Grind adjustment is not something you set once and forget. Coffee is a natural agricultural product that changes over time. As beans age after roasting, they degas and become less resistant to water, so you may need to grind slightly finer over the life of a bag to maintain the same flow rate and extraction. Ambient humidity also affects grind — on humid days, coffee absorbs moisture and the particles swell, slowing flow. On dry days, you may need to grind slightly finer. The most reliable feedback comes from tasting. Pull a shot, note the time, and taste it. If it is sour and finishes quickly, grind one step finer and pull another shot. If it is bitter and drags on too long, grind one step coarser. Make only one change at a time so you can hear what that single variable is telling you. Over days and weeks, this feedback loop becomes instinctive. You will taste a shot and your hand will reach for the grind collar before you have consciously articulated what was wrong. That muscle memory — the connection between taste and adjustment — is the most valuable skill in home espresso, and grind size is where it begins."
+    },
+    {
+      "heading": "Choosing and Maintaining Your Grinder",
+      "content": "Not all grinders are created equal. For espresso, you need a grinder that can produce a fine, consistent grind with minimal variation in particle size. Blade grinders, which chop beans randomly, produce a wide range of particle sizes and are unsuitable for espresso. Burr grinders — whether flat or conical — crush beans between two precisely machined surfaces and produce a far more uniform particle distribution. Within burr grinders, the key differentiator is adjustment granularity. A grinder with large stepped adjustments may jump from too coarse to too fine with no usable setting in between. Stepless or micro-stepped grinders let you make tiny incremental changes, which is essential for espresso dialing. Keep your burrs clean: oily residue builds up over time, coating the burrs and altering particle size. A quick brush after each session and a thorough cleaning with grinder-cleaning tablets once a month will keep your grind consistent and your espresso tasting as it should."
+    }
+  ],
+  "key_takeaways": [
+    "Finer grinds expose more surface area, increasing extraction speed; coarser grinds do the opposite.",
+    "Grind size directly controls flow rate — too fast means too coarse, too slow means too fine.",
+    "Aim for a total shot time of roughly 25 to 30 seconds and adjust grind to get there.",
+    "Make one grind adjustment at a time and taste the result to build your feedback loop.",
+    "Use a quality burr grinder with fine adjustment increments for reliable espresso grinding."
+  ],
+  "related_products": ["arco-primo", "arco-doppio"],
+  "related_guides": ["what-is-extraction", "dose-and-yield", "troubleshooting-bad-espresso", "dialing-in-new-beans"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "Start Pulling Shots with the Arco Primo",
+    "url": "/products/arco-primo"
+  },
+  "seo": {
+    "title": "Grind Size Explained for Espresso Beginners | Arco",
+    "meta_description": "Understand how grind size affects espresso extraction, flow rate, and taste. Learn the feedback loop that makes great espresso consistent. Beginner guide from Arco."
+  }
+}

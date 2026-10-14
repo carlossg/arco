@@ -1,0 +1,85 @@
+{
+  "id": "arco-primo",
+  "slug": "arco-primo",
+  "name": "Arco Primo",
+  "tagline": "Your first real espresso, every morning.",
+  "price_eur": 299,
+  "price_display": "€299",
+  "category": "espresso-machine",
+  "hero_image_alt": "Arco Primo compact espresso machine in matte black finish on a light oak countertop, pulling a shot of espresso into a ceramic demitasse cup, soft morning light casting gentle shadows, clean minimalist kitchen backdrop with white subway tiles",
+  "headline": "Simplicity, perfected.",
+  "subheadline": "A compact single-boiler espresso machine that heats up in 90 seconds and delivers café-quality shots without the complexity.",
+  "description_short": "A compact single-boiler espresso machine with 90-second heat-up, built for your morning ritual.",
+  "description_long": "The Arco Primo is designed for those who want genuine espresso without a steep learning curve. Its thermoblock heating system reaches brewing temperature in just 90 seconds, so your morning never has to wait. The standard 58mm portafilter means you can use commercial-grade baskets and accessories as your skills grow. Clean lines, a small footprint, and an intuitive interface make the Primo the quiet centrepiece of any kitchen counter.",
+  "key_specs": {
+    "dimensions": "25 × 14 × 31 cm",
+    "weight": "4.2 kg",
+    "boiler_type": "Thermoblock",
+    "warm_up_time": "90 seconds",
+    "pressure": "15 bar pump (9 bar at group)",
+    "water_tank": "1.0 L removable",
+    "portafilter": "58 mm bottomless-compatible",
+    "power": "1350 W",
+    "voltage": "220–240 V",
+    "material": "Stainless steel body, aluminium chassis",
+    "drip_tray_capacity": "300 ml"
+  },
+  "whats_in_box": [
+    "Arco Primo espresso machine",
+    "58 mm portafilter with single and double baskets",
+    "Tamper (58 mm flat base)",
+    "Dosing funnel",
+    "Cleaning pin",
+    "Water hardness test strip",
+    "Quick-start guide"
+  ],
+  "variants": [
+    { "name": "Matte Black", "hex": "#2C2C2C" },
+    { "name": "Matte White", "hex": "#F0EDE8" },
+    { "name": "Sage", "hex": "#A3B18A" }
+  ],
+  "use_case_headline": "Perfect for your weekday morning ritual.",
+  "use_case_body": "The Primo is built for people who care about good espresso but not about fiddling with equipment before their first cup. Heat up, dose, tamp, pull — then get on with your morning.",
+  "pairing_products": [
+    { "product_id": "arco-macinino", "rationale": "A capable stepped grinder that pairs naturally with the Primo's approachable workflow." },
+    { "product_id": "preparation-accessories", "rationale": "Add a precision scale and distribution tool to elevate your shots." }
+  ],
+  "experience_tag": "morning-minimalist",
+  "persona_tags": ["morning-minimalist", "upgrader"],
+  "intent_tags": ["discover", "research", "decide"],
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "thermoblock-vs-boiler-explained",
+    "morning-routine-three-minutes"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Primo",
+    "description": "A compact single-boiler espresso machine with 90-second heat-up, built for your morning ritual.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-PRIMO",
+    "image": "/content/products/images/arco-primo-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 299,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-primo"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.5,
+      "reviewCount": 187
+    }
+  },
+  "seo": {
+    "title": "Arco Primo — Compact Espresso Machine | Arco",
+    "meta_description": "The Arco Primo heats up in 90 seconds and pulls café-quality espresso from a standard 58 mm portafilter. Compact, approachable, and beautifully designed. From €299.",
+    "og_image_alt": "Arco Primo espresso machine in matte black pulling a shot of espresso",
+    "canonical_url": "/products/arco-primo"
+  }
+}

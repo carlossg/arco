@@ -1,0 +1,29 @@
+{
+  "base_product_id": "arco-studio-pro",
+  "persona_tag": "upgrader",
+  "headline": "The last espresso machine you'll ever need.",
+  "subheadline": "Triple boiler, electronic pressure profiling, touchscreen controls, and IoT connectivity. The Studio Pro isn't just an upgrade -- it's the endgame.",
+  "hero_image_alt": "Arco Studio Pro espresso machine on a dark stone countertop in a modern kitchen, touchscreen showing temperature and pressure readouts, a perfectly extracted espresso with rich crema in a clear glass, dramatic lighting emphasizing the machine's premium build quality",
+  "description_long": "Every upgrade path has a destination. The Studio Pro is it. Where your current machine gives you fixed pressure, the Studio Pro offers fully programmable electronic profiling -- design your own pressure curves and save them to the touchscreen. Where your current machine makes you choose between brew and steam temperature, the Studio Pro's triple boiler system gives each function its own dedicated thermal unit. Where your current machine is a closed box, the Studio Pro logs every shot, syncs data to your phone, and receives firmware updates over Wi-Fi. The gear pump delivers pressure with a precision that vibratory and rotary pumps physically cannot match. The saturated group head provides commercial-grade thermal stability. And the build quality -- precision-machined stainless steel throughout -- means this machine will outlast anything you've owned before. You've been upgrading piece by piece. The Studio Pro is the single move that makes all those incremental steps unnecessary.",
+  "use_case_headline": "Why the Studio Pro makes future upgrades irrelevant.",
+  "use_case_body": "Electronic pressure profiling eliminates the need for aftermarket flow control mods. Triple boilers remove thermal compromise. IoT connectivity means the machine improves with firmware updates. The Studio Pro doesn't just match your next upgrade -- it leapfrogs the three after that.",
+  "recommended_accessories": [
+    "Precision Scale",
+    "Distribution Tool",
+    "Milk Pitcher",
+    "Dosing Cup",
+    "Knock Box"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "morning-routine-three-minutes",
+    "your-first-home-espresso"
+  ],
+  "cta_primary_label": "Reach the Endgame",
+  "cta_primary_url": "/products/arco-studio-pro",
+  "social_proof_quote": {
+    "quote": "I went through four machines in five years, always chasing the next feature. The Studio Pro has everything -- pressure profiling, triple boiler, data logging. I've had it eight months and for the first time I'm not looking at what's next. This is the one.",
+    "name": "Roberto C.",
+    "location": "Rome, Italy"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "loc-en-001",
+  "slug": "specialty-coffee-uk",
+  "title": "Specialty Coffee in the UK and Where Arco Fits",
+  "market": "United Kingdom",
+  "language": "en-GB",
+  "persona_tag": "craft-barista",
+  "hero_image_alt": "An Arco Doppio espresso machine on a reclaimed wood countertop in a bright, plant-filled London flat, a flat white in a ceramic cup beside it, specialty coffee bags from UK roasters visible on a shelf behind, soft grey daylight through a sash window",
+  "hero_headline": "The UK specialty scene has raised the bar. Your home setup should follow.",
+  "hero_subtext": "From East London roasters to Edinburgh microroasteries, British specialty coffee is among the best in the world. Arco gives you the tools to do it justice at home.",
+  "editorial_intro": "The United Kingdom has quietly become one of the most exciting specialty coffee markets on the planet. Over the past decade, a generation of roasters, baristas and cafes has built a scene that rivals Scandinavia, Australia and the Pacific Northwest. Arco exists in this context not as an alternative to the cafe, but as its extension into your kitchen.",
+  "editorial_body": "Something remarkable has happened to coffee in Britain. A country whose relationship with the beverage was historically defined by instant granules and milky builders' brews has become, in the space of roughly fifteen years, a genuine specialty coffee culture. The transformation is visible on every high street: independent roasters in converted railway arches, cafes serving single-origin pour-overs alongside flat whites, barista competitions that draw serious crowds.\n\nThe UK scene has a particular character that distinguishes it from other specialty markets. There is less orthodoxy than in the Nordic tradition, less machismo than in the Italian one, and more willingness to experiment than in the American third-wave movement. British specialty coffee tends to be approachable without being dumbed down — the sort of culture where a cafe can serve a complex Ethiopian natural alongside a comforting Brazilian blend without anyone raising an eyebrow.\n\nArco was designed with precisely this kind of drinker in mind. Not the person who treats coffee as a competitive sport, but the person who has developed a genuine palate through years of drinking well and now wants to reproduce that quality at home.\n\nThe Arco Doppio is where most UK specialty enthusiasts should begin. Its dual boilers and PID temperature control handle the range of roast levels that British roasters produce — from the medium-dark blends that many UK cafes still favour for milk drinks to the lighter single-origins that have become the mark of progressive roasting. The ability to brew and steam simultaneously matters here, because the flat white remains the defining drink of British coffee culture, and making one properly requires temperature stability on both sides of the equation.\n\nPair the Doppio with the Preciso grinder and you have a setup that handles everything from a morning flat white with a Square Mile blend to a weekend single-origin espresso from a small-batch Scottish roaster. The Preciso's stepless adjustment lets you dial in for each new bag — a habit that becomes instinctive once you start buying from roasters who change their offerings seasonally.\n\nFor those deeper into the craft, the Studio and Studio Pro open up extraction possibilities that track the kind of experimentation happening at the best UK competition stages. Flow control and pressure profiling on the Studio Pro let you build extraction curves for the delicate, light-roasted coffees that UK competitors have been showcasing to international acclaim.\n\nThe UK specialty community values transparency, quality and a certain lack of pretension. These are values Arco shares. Our machines are built to produce exceptional coffee without requiring a certification or a subscription to an ideology. They are tools — well-made, well-designed tools that get better as your skills and palate develop.\n\nBritish coffee culture is not Italian coffee culture transplanted. It is something new, something distinctly its own, shaped by immigration, by the pub-going habit of lingering over a drink and talking, by the peculiarly British talent for taking something from elsewhere and making it feel like it was always here. The flat white did not originate in Britain, but it found a permanent home here. Espresso did not originate in Britain, but the British have developed their own relationship with it — less ritualistic than the Italian one, less technical than the German one, but no less genuine.\n\nArco's place in this culture is not to define it but to serve it. We make the machines. You make the coffee. And judging by what the UK specialty scene has achieved in the past decade, the coffee is in very good hands.",
+  "product_bundle": [
+    { "product_id": "arco-doppio", "role": "anchor" },
+    { "product_id": "arco-preciso", "role": "primary" },
+    { "product_id": "arco-studio-pro", "role": "aspirational" }
+  ],
+  "featured_guides": [
+    "guide-dialling-in-espresso",
+    "guide-flat-white-technique",
+    "guide-choosing-beans"
+  ],
+  "cta": {
+    "text": "Explore the Arco range",
+    "url": "/en/products",
+    "secondary_text": "Find Arco in the UK",
+    "secondary_url": "/en/arco-in-the-uk"
+  },
+  "seo": {
+    "title": "Specialty Coffee in the UK — Where Arco Fits | Arco Coffee",
+    "meta_description": "The UK specialty coffee scene is world-class. Arco gives you the tools to bring that quality home: from the Doppio dual-boiler to the Studio Pro with flow control."
+  },
+  "hreflang": {
+    "en": "/en/specialty-coffee-uk",
+    "it": "/it/specialty-coffee-regno-unito",
+    "de": "/de/specialty-coffee-uk"
+  }
+}

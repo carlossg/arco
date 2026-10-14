@@ -1,0 +1,56 @@
+{
+  "id": "right-for-you-arco-studio",
+  "slug": "arco-studio",
+  "product_id": "arco-studio",
+  "headline": "Is the Arco Studio right for you?",
+  "intro": "The Studio is a serious machine for people who have moved past the basics and want equipment that can keep up with real technique. It rewards attention and patience. It does not reward impatience or shortcuts.",
+  "hero_image_alt": "Arco Studio espresso machine in matte black in a dedicated home coffee corner, surrounded by a precision grinder, WDT tool, barista scale, and a well-worn brew journal, warm task lighting, the kind of setup that has clearly been used and loved",
+  "perfect_for": [
+    "You understand extraction theory and want a machine that lets you manipulate pre-infusion pressure to match different bean origins and roast levels.",
+    "You own a capable grinder (or plan to buy one) and are frustrated that your current machine cannot express the differences between grind adjustments.",
+    "You value thermal stability above heat-up speed and are willing to wait 8 minutes for a machine that stays within half a degree of target.",
+    "You want a machine you can grow into over years, not months \u2014 the Studio's feature set has enough depth that competition baristas use it at home."
+  ],
+  "not_ideal_for": [
+    "You want fast mornings \u2014 the 8-minute warm-up is non-negotiable and a timer or smart plug is the only workaround.",
+    "You primarily want convenience or automation \u2014 the Studio is manual in every sense, and it expects you to pay attention.",
+    "You haven't spent time on a simpler machine first \u2014 the Studio's features are only valuable if you have the technique to use them."
+  ],
+  "what_you_need_to_know": [
+    "The saturated group head is the key engineering difference between the Studio and less expensive machines. It means the entire brew path is at temperature, not just the boiler water. This makes a real, tasteable difference in extraction consistency.",
+    "The pre-infusion lever gives you manual control over the ramp from 0 to 9 bar. This is a powerful tool for reducing channeling and improving the sweetness of lighter roasts, but it takes practice to use well.",
+    "The Studio demands a quality grinder. Pairing it with anything less than the Preciso is like shooting on film with a phone lens \u2014 the camera body is excellent but the lens is the bottleneck. The Zero is the ideal pairing."
+  ],
+  "common_objections": [
+    {
+      "objection": "Is \u20ac1,299 too much for a home espresso machine?",
+      "honest_answer": "By consumer electronics standards, yes. By specialty coffee equipment standards, the Studio is competitively priced against machines with similar build quality and features. The question is whether you will use the features you are paying for. If you will, the value is exceptional. If you won't, the Doppio gives you most of the daily experience for less than half the price."
+    },
+    {
+      "objection": "How is this different from the Studio Pro?",
+      "honest_answer": "The Studio Pro adds a flow control paddle and shot profiling data. If you don't know what those do or why you would want them, the Studio is the right choice. The Pro exists for a very specific type of barista who has already explored everything the Studio offers and wants more control."
+    },
+    {
+      "objection": "Can someone else in my household use it?",
+      "honest_answer": "Yes, but they will need a quick tutorial. The basic workflow \u2014 dose, tamp, lock in, press the button \u2014 is not complicated. But getting great results requires understanding grind adjustment and extraction time. If your partner wants push-button coffee, consider adding a Nano or Automatico for their use."
+    }
+  ],
+  "alternative_if_not_right": {
+    "product_id": "arco-doppio",
+    "rationale": "If you want dual-boiler consistency without the 8-minute warm-up and don't need pre-infusion control, the Doppio at \u20ac549 is an excellent machine."
+  },
+  "persona_match_score": {
+    "morning-minimalist": 2,
+    "upgrader": 4,
+    "craft-barista": 5,
+    "traveller": 1,
+    "non-barista": 1,
+    "office-manager": 2
+  },
+  "persona_tags": ["craft-barista", "upgrader"],
+  "intent_tags": ["research", "decide"],
+  "seo": {
+    "title": "Is the Arco Studio Right for You? \u2014 Honest Buying Guide | Arco",
+    "meta_description": "The Arco Studio (\u20ac1,299) features a saturated group head and manual pre-infusion. Here's who it's built for, who should look elsewhere, and what you need to know before buying."
+  }
+}

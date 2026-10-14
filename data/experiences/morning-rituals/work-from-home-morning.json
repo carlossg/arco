@@ -1,0 +1,36 @@
+{
+  "id": "exp-mr-003",
+  "slug": "work-from-home-morning",
+  "title": "Work From Home Morning",
+  "persona_tag": "remote-worker",
+  "experience_archetype": "WFH Coffee Break",
+  "hero_image_alt": "A home office with a laptop open on a desk, a freshly made cappuccino on a small wooden tray beside it, a second monitor showing a calendar with back-to-back meetings, midmorning light coming through blinds",
+  "hero_headline": "The mid-morning cup that rescues the whole day.",
+  "hero_subtext": "Between meetings, between tasks, between the first coffee and lunch — this is the one that counts.",
+  "editorial_intro": "The first coffee of the day happened at 7am, mechanical and half-conscious. It did its job. But now it is 10:30, the morning meetings have blurred together, and you need something that is not just caffeine but a genuine interruption — a three-minute break that resets the rhythm of the day. This is the second coffee. The important one.",
+  "editorial_body": "Working from home changed your relationship with coffee in ways you did not expect. In the office, the ritual was social. You walked to the machine, exchanged small talk with whoever was there, carried a mediocre latte back to your desk, and repeated the cycle at two o'clock. The coffee was incidental. The break was the point.\n\nAt home, there is no machine to walk to. There is no small talk. There is just you, your desk, your laptop, and the slow accumulation of fatigue that comes from sitting in the same chair, in the same room, staring at the same screen for hours. The break has to come from somewhere, and you have learned to build it around coffee.\n\nThe 10:30 coffee is the one you think about during the 9:15 standup. It sits in your mind like a small appointment — not on the calendar, but just as fixed. When the meeting ends, you close the laptop lid (not all the way, just enough to signal that you are stepping away), and you walk to the kitchen.\n\nThe Arco Doppio is already warm. Like the first coffee, it has been on since morning, holding temperature patiently. But this time you are not rushing. You are not trying to beat the alarm or get dressed or find your keys. You have seven minutes before the next call, and that is enough.\n\nYou grind fresh. The Arco Preciso produces its quiet, steady whir, and you watch the grounds fall into the portafilter. Eighteen grams. You level and tamp with a single, deliberate motion. The portafilter clicks into the group head. You position the cup — the bigger one, the one that holds a proper double shot with room for a thin layer of steamed milk.\n\nWhile the shot pulls, you steam a small amount of milk. The Doppio's dual boiler means both happen simultaneously, and you have become efficient at this. The milk stretches, swirls, and thickens into a glossy microfoam. The espresso finishes. You pour the milk slowly, watching it fold into the crema, and you do not attempt latte art because this is not for anyone but you.\n\nYou carry the cup back to your desk. But you do not open the laptop yet. You sit. You drink. You look out the window at whatever the weather is doing, and for two minutes you are a person in a room with a good cup of coffee instead of a name on a screen in a meeting.\n\nThis small boundary matters more than it should. The psychologists call it a transition ritual — a physical action that separates one mode of being from another. In the office, the transition was the walk to the kitchen, the elevator ride, the queue at the cafe. At home, it is this. The grinder, the machine, the milk, the cup. Three minutes of doing something with your hands that is not typing.\n\nThe Doppio was a deliberate choice for this life. It is capable enough to reward attention — you can pull genuinely excellent shots when you feel like experimenting — but consistent enough to deliver a great cup on autopilot when you are between meetings and operating on muscle memory. The Preciso holds its grind setting perfectly between uses, which means the 10:30 cup is as good as the 7:00 cup without any readjustment.\n\nBy the time you open the laptop again, the next meeting is starting. You join with your camera on and the cup just out of frame, and someone says, 'You look refreshed,' and you say, 'Just had a coffee,' and they say, 'Must be a good one,' and you say, 'It was.' And you mean it.\n\nThe afternoon will bring a third cup, around 2:30, shorter and sharper, a single shot to push through the final stretch. But that is hours away. Right now, the mid-morning cappuccino is doing its work — warming your hands, clearing your head, and reminding you that even on the most relentless days, three minutes of quiet attention to something real is always available.",
+  "product_bundle": [
+    { "product_id": "arco-doppio", "role": "anchor" },
+    { "product_id": "arco-preciso", "role": "primary" }
+  ],
+  "bundle_headline": "Your WFH Coffee Break setup",
+  "bundle_intro": "The three-minute break between meetings that resets your entire afternoon.",
+  "featured_guides": [
+    "guide-milk-steaming-basics",
+    "guide-dual-boiler-workflow",
+    "guide-maintaining-grind-consistency"
+  ],
+  "related_blog_posts": [
+    "blog-coffee-breaks-and-productivity",
+    "blog-work-from-home-coffee-setup",
+    "blog-cappuccino-at-home"
+  ],
+  "quiz_result": false,
+  "persona_cookie_value": "remote-worker",
+  "persona_tags": ["remote-worker", "routine-builder", "cappuccino-drinker"],
+  "intent_tags": ["work-from-home", "mid-morning", "productivity", "milk-drinks", "routine"],
+  "seo": {
+    "title": "Work From Home Morning — The Mid-Morning Coffee That Resets Your Day | Arco Coffee",
+    "meta_description": "The 10:30am coffee between meetings. The Arco Doppio and Preciso grinder deliver a proper cappuccino in three minutes, giving your WFH day the break it needs."
+  }
+}

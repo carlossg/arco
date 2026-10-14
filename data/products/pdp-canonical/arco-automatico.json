@@ -1,0 +1,92 @@
+{
+  "id": "arco-automatico",
+  "slug": "arco-automatico",
+  "name": "Arco Automatico",
+  "tagline": "One touch. No learning curve. Great coffee.",
+  "price_eur": 1099,
+  "price_display": "€1,099",
+  "category": "espresso-machine",
+  "hero_image_alt": "Arco Automatico bean-to-cup espresso machine in matte black with a colour touchscreen interface, positioned on a light marble countertop, a latte with microfoam art on the drip tray, whole coffee beans visible in the top-mounted hopper, clean modern kitchen setting with warm indirect lighting",
+  "headline": "Bean to cup. Thought to finish.",
+  "subheadline": "A fully automatic espresso machine with a built-in grinder, touchscreen interface, and one-touch recipes — because great coffee should not require a hobby.",
+  "description_short": "A bean-to-cup automatic espresso machine with built-in grinder, touchscreen, and one-touch recipes for effortless quality.",
+  "description_long": "The Arco Automatico is for people who love great coffee but have no interest in becoming baristas. Load whole beans into the hopper, fill the water tank, and touch the screen. The integrated ceramic burr grinder doses freshly ground coffee for every cup, the brewing system extracts at optimal pressure, and the automatic milk system produces microfoam that would satisfy a café owner. Seven pre-set recipes — from ristretto to flat white — can each be customised and saved to personal profiles. The Automatico's self-cleaning cycle runs daily, and descaling prompts appear when needed. It is, quite simply, the best coffee you can make without learning anything.",
+  "key_specs": {
+    "dimensions": "28 × 38 × 36 cm",
+    "weight": "11.2 kg",
+    "boiler_type": "Thermoblock with rapid heat system",
+    "warm_up_time": "45 seconds",
+    "grinder": "Built-in ceramic conical burr, 13 settings",
+    "bean_hopper": "250 g capacity with freshness seal",
+    "pressure": "15 bar pump system (auto-regulated)",
+    "water_tank": "1.8 L removable",
+    "milk_system": "Automatic steam and froth, removable carafe",
+    "touchscreen": "3.5-inch colour TFT",
+    "recipes": "7 pre-set (ristretto, espresso, lungo, americano, cappuccino, latte, flat white)",
+    "user_profiles": "4 customisable profiles",
+    "auto_clean": "Daily rinse cycle, weekly milk system clean prompt",
+    "power": "1450 W",
+    "voltage": "220–240 V",
+    "drip_tray_capacity": "500 ml with full indicator",
+    "grounds_container": "14-serving capacity"
+  },
+  "whats_in_box": [
+    "Arco Automatico bean-to-cup machine",
+    "Removable milk carafe with lid",
+    "Water hardness test strip",
+    "Cleaning tablets (8 pack)",
+    "Descaling solution (2 sachets)",
+    "Milk system cleaning solution",
+    "Measuring scoop for pre-ground bypass",
+    "Quick-start guide",
+    "Recipe booklet with customisation tips"
+  ],
+  "variants": [
+    { "name": "Matte Black", "hex": "#1A1A1A" },
+    { "name": "Matte White", "hex": "#F0EDE8" }
+  ],
+  "use_case_headline": "Perfect for households that want great coffee with zero ritual.",
+  "use_case_body": "The Automatico is for families, busy professionals, and anyone who drinks multiple cups a day. Four user profiles mean everyone gets their preferred drink at the touch of a button, and the self-cleaning system means no one has to be the designated barista.",
+  "pairing_products": [
+    { "product_id": "maintenance-accessories", "rationale": "Extra cleaning tablets and descaling solution keep the Automatico running at peak performance." },
+    { "product_id": "preparation-accessories", "rationale": "Quality cups and a milk thermometer for those who want to fine-tune their drinks." }
+  ],
+  "experience_tag": "non-barista",
+  "persona_tags": ["non-barista", "morning-minimalist", "office-manager"],
+  "intent_tags": ["discover", "research", "decide"],
+  "related_blog_posts": [
+    "automatic-vs-manual-espresso",
+    "choosing-beans-for-automatic-machines",
+    "milk-drinks-at-home"
+  ],
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Arco Automatico",
+    "description": "A bean-to-cup automatic espresso machine with built-in grinder, touchscreen, and one-touch recipes for effortless quality.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Arco"
+    },
+    "sku": "ARCO-AUTOMATICO",
+    "image": "/content/products/images/arco-automatico-hero.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "price": 1099,
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.arco.coffee/products/arco-automatico"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 4.6,
+      "reviewCount": 156
+    }
+  },
+  "seo": {
+    "title": "Arco Automatico — Bean-to-Cup Automatic Espresso Machine | Arco",
+    "meta_description": "The Arco Automatico grinds, brews, and froths at the touch of a button. Built-in grinder, colour touchscreen, one-touch recipes. Effortless quality. €1,099.",
+    "og_image_alt": "Arco Automatico bean-to-cup machine in matte black with touchscreen interface",
+    "canonical_url": "/products/arco-automatico"
+  }
+}

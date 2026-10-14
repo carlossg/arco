@@ -26,7 +26,7 @@ import {
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURES_DIR = path.resolve(HERE, '../tests/fixtures');
-const CONTENT_DIR = path.resolve(HERE, '../../../content');
+const CONTENT_DIR = path.resolve(HERE, '../../../data');
 
 async function main() {
   const [name, which = '--both'] = process.argv.slice(2);

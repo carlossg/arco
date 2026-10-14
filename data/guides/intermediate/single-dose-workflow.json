@@ -1,0 +1,48 @@
+{
+  "id": "single-dose-workflow",
+  "slug": "single-dose-workflow",
+  "category": "intermediate",
+  "title": "Single-Dose Workflow: Grind Fresh, Waste Nothing",
+  "difficulty": "intermediate",
+  "read_time_minutes": 7,
+  "persona_tags": ["upgrader", "craft-barista"],
+  "intent_tags": ["research", "own"],
+  "hero_image_alt": "A hand pouring pre-weighed whole coffee beans from a small dosing cup into the hopper of a flat-burr grinder, the scale in the background displaying 18.0 grams, a tidy espresso station with a portafilter and tamper arranged neatly on a walnut bar mat",
+  "intro": "Single-dosing means weighing the exact amount of beans you need for one shot and grinding them fresh, rather than keeping a hopper full of beans and grinding on demand. It maximizes freshness, minimizes retention, and gives you precise control over your dose. For home baristas who value quality and variety, it is the ideal workflow.",
+  "body": [
+    {
+      "heading": "Why Single-Dosing Improves Freshness",
+      "content": "Coffee beans begin to stale from the moment they are roasted, and grinding accelerates this process dramatically. Ground coffee has an enormously larger surface area than whole beans, so it oxidizes and loses volatile aromatics within minutes. When you keep a hopper full of beans, the beans at the bottom sit exposed to air, light, and the residual heat of the grinder's motor for hours or even days. Every time you grind, you pull beans from this partially stale supply, and the flavor degrades incrementally. Single-dosing eliminates this problem. You weigh your beans fresh from a sealed bag or airtight container moments before grinding. The beans have maximum aromatic potential, the grind is as fresh as physically possible, and every shot starts with the same quality input. For home baristas who may only pull one or two shots per day, this matters enormously — those beans would otherwise sit in a hopper all day, losing flavor. The difference in the cup is real: single-dosed shots tend to have more aromatic complexity, brighter acidity, and cleaner flavor definition compared to shots ground from a hopper that has been sitting for several hours. It is a small habit change with a noticeable taste payoff."
+    },
+    {
+      "heading": "Retention and Why It Matters",
+      "content": "Retention refers to the ground coffee that remains trapped inside the grinder between doses — stuck in the burr chamber, the chute, or the exit path. When you grind your next dose, some of this retained coffee is pushed out and mixed with the fresh grind. The retained coffee is stale (it has been sitting inside the grinder since the last use, sometimes overnight) and may be at a different grind setting if you adjusted between uses. Mixing stale, potentially differently sized grounds with fresh ones introduces inconsistency in both freshness and particle size distribution, which translates directly to inconsistent extraction. Single-dosing minimizes retention impact because you grind only what you need and can account for what stays behind. Most grinders retain between 0.5 and 3 grams. To purge this retention, single-dosers often use a technique called bellows purging: a small rubber bellows attached to the hopper that blasts air through the grinder after the last bean has been ground, pushing retained grounds out. Some grinders designed specifically for single-dosing have very low retention — under 0.3 grams — and may not need bellows at all. Knowing your grinder's retention number lets you compensate: if your grinder retains 1 gram, weigh 19 grams of beans to get 18 grams of ground output."
+    },
+    {
+      "heading": "The Dosing Cup Workflow",
+      "content": "A dosing cup is a small metal or plastic cup that catches the ground coffee as it exits the grinder, replacing the portafilter as the receiver. The workflow goes like this: weigh your beans on a scale, pour them into the grinder hopper, grind into the dosing cup, then transfer the grounds from the cup into the portafilter. This might sound like an extra step, but it offers significant advantages. First, it decouples the grinder from the machine — you do not need to hold the portafilter under the grinder and worry about grounds spilling over the edge or landing unevenly. Second, you can weigh the ground output in the dosing cup to verify the dose and check for retention. Third, when you transfer from the dosing cup to the portafilter, the grounds tend to fall in a more even, centered pile than when grinding directly into the basket, which gives you a better starting point for distribution. Some baristas invert the dosing cup onto the portafilter and flip the whole assembly, using the cup as a funnel. Others tap the cup gently to settle the grounds before pouring. Experiment with both methods and choose whichever gives you the most even distribution in the basket. The dosing cup also makes it easy to switch between coffees — grind one bean into one cup, another into another — without cross-contaminating flavors."
+    },
+    {
+      "heading": "The RDT Technique: Reducing Static",
+      "content": "One annoyance of single-dosing is static electricity. When beans pass through the burrs, friction generates a static charge that causes ground coffee to cling to the grinder chute, the dosing cup walls, and anything else it touches. This creates a mess, increases retention, and makes dose accuracy harder to achieve. The Ross Droplet Technique — RDT — solves this elegantly. Before grinding, add a single drop of water to the weighed beans and stir briefly with a spoon or shake the cup. One drop is enough; you are not wetting the coffee, just neutralizing the static charge on the surface of the beans. The result is immediately noticeable: grounds flow smoothly out of the grinder, cling far less to surfaces, and settle neatly in the dosing cup. Your retention drops, your dose accuracy improves, and cleanup becomes trivial. Use clean, filtered water for the droplet — you do not want to introduce minerals or chlorine to your beans. A small spray bottle set to a single mist works well if you find it hard to produce just one drop from a tap. RDT has become standard practice in the single-dosing community because it is free, takes two seconds, and solves a genuinely annoying problem. If you single-dose and do not use RDT, you are making your life harder for no reason."
+    }
+  ],
+  "key_takeaways": [
+    "Single-dosing grinds only what you need, maximizing freshness and eliminating stale hopper beans.",
+    "Grinder retention mixes stale grounds with fresh — know your grinder's retention number and compensate or purge.",
+    "A dosing cup catches grounds separately from the portafilter, improving accuracy and distribution.",
+    "The Ross Droplet Technique (RDT) — one drop of water on beans before grinding — eliminates static cling and mess.",
+    "Single-dosing is ideal for home baristas who pull one to three shots per day and want to switch between coffees easily."
+  ],
+  "related_products": ["arco-primo", "arco-doppio"],
+  "related_guides": ["dose-and-yield", "wdt-technique", "dialing-in-new-beans", "grind-size-explained"],
+  "related_experience": "morning-rituals",
+  "cta": {
+    "label": "See Arco Preparation Accessories",
+    "url": "/products/preparation-accessories"
+  },
+  "seo": {
+    "title": "Single-Dose Espresso Workflow: Freshness, Retention, and RDT | Arco",
+    "meta_description": "Learn the single-dose espresso workflow — why it improves freshness, how to manage retention, the dosing cup method, and the RDT static-reduction technique. From Arco."
+  }
+}

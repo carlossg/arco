@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-automatico",
+  "persona_tag": "morning-minimalist",
+  "headline": "One touch. Perfect coffee. Every morning.",
+  "subheadline": "The Arco Automatico grinds fresh beans and brews your drink automatically. No measuring, no fuss, no waiting -- just press the button for your favourite drink and walk away.",
+  "hero_image_alt": "Arco Automatico espresso machine in matte black on a clean light countertop, a single cup of espresso underneath the spout, morning light through a window, the scene calm and uncluttered with nothing else on the counter",
+  "description_long": "If you've been making pour-over or French press because espresso machines seem too involved, the Automatico will change your mind. It grinds whole beans fresh for every cup -- which is why it tastes dramatically better than pre-ground -- but does it all automatically. Pick your drink on the touchscreen, and the machine handles everything: grinding, tamping, extracting, and cleaning up after itself. The thermoblock heats up rapidly, so there's no warm-up wait. The 8 programmable drink options mean you can save your exact preferences and recreate them with a single touch every morning. This is the machine for people who want exceptional coffee without any of the process. Your morning stays effortless. Your coffee gets a serious upgrade.",
+  "use_case_headline": "The easiest path to the best coffee you've ever made at home.",
+  "use_case_body": "Save your preferred drink. Press one button in the morning. The Automatico grinds, brews, and cleans up automatically. Fresh-ground bean coffee with zero effort -- a massive upgrade from capsules, instant, or pre-ground, with zero added complexity.",
+  "recommended_accessories": [
+    "Bean Vault",
+    "Double-Wall Glasses",
+    "Espresso Cups Set",
+    "Cleaning Kit"
+  ],
+  "related_blog_posts": [
+    "morning-routine-three-minutes",
+    "your-first-home-espresso",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Simplify Your Coffee",
+  "cta_primary_url": "/products/arco-automatico",
+  "social_proof_quote": {
+    "quote": "I was a pour-over person who didn't want the fuss of an espresso machine. The Automatico is genuinely easier than my pour-over was -- and the coffee is on another level. One button, fresh beans, perfect drink. It's my favourite thing in the kitchen.",
+    "name": "Lars E.",
+    "location": "Malmo, Sweden"
+  }
+}

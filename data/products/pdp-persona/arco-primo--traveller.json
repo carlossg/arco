@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-primo",
+  "persona_tag": "traveller",
+  "headline": "The home base your travels deserve.",
+  "subheadline": "You know what good espresso tastes like because you've had it everywhere. The Arco Primo is the compact, reliable machine that makes coming home feel just as good as being abroad.",
+  "hero_image_alt": "Arco Primo espresso machine in matte black in a small modern apartment kitchen, a worn leather travel bag resting on a stool nearby, a rich espresso shot in a handmade ceramic cup, warm golden-hour light",
+  "description_long": "When you've tasted espresso at a tiny bar in Naples or a specialty cafe in Melbourne, coming home to bad coffee stings. The Arco Primo fixes that. Its compact footprint fits even the smallest apartment kitchen, and the 90-second heat-up means you can have a proper shot moments after dropping your bags. The 58mm commercial group head ensures the quality matches what you've experienced abroad, while the simple workflow means you won't spend your first morning home fumbling with settings. Think of it as the home espresso you'll actually miss when you're away.",
+  "use_case_headline": "Compact enough for any kitchen. Good enough for any palate.",
+  "use_case_body": "At just 27 x 35 x 30 cm and 8.5 kg, the Primo takes up less counter space than a toaster. But with its commercial-grade group head and PID temperature control, it punches well above its size. The perfect anchor for someone who's always between trips.",
+  "recommended_accessories": [
+    "Espresso Cups Set",
+    "Tamper Set",
+    "Bean Vault",
+    "Cleaning Kit"
+  ],
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Set Up Your Home Base",
+  "cta_primary_url": "/products/arco-primo",
+  "social_proof_quote": {
+    "quote": "I travel for work about two weeks a month. The Primo is the first thing I use when I get home. It's small enough for my London flat and makes espresso that holds up against anything I've had in Italy. That matters more than I expected.",
+    "name": "James O.",
+    "location": "London, United Kingdom"
+  }
+}

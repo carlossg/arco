@@ -1,0 +1,45 @@
+{
+  "id": "bundle-gg-004",
+  "slug": "gift-for-a-traveller",
+  "title": "Gift for a Traveller",
+  "headline": "The gift that fixes the worst part of every trip: the coffee.",
+  "editorial_intro": "Anyone who travels regularly knows the quiet disappointment of hotel coffee. Instant sachets, pod machines with mystery capsules, or a lobby carafe that has been sitting since dawn. This gift eliminates all of that, permanently.",
+  "tiers": [
+    {
+      "tier_name": "The Essential — Under €100",
+      "price_range": "€89",
+      "products": [
+        {
+          "product_id": "arco-viaggio",
+          "description": "The Viaggio weighs 340 grams, fits in a jacket pocket, and produces genuine 9-bar espresso using nothing but hot water and a lever press. It is the gift that gets packed on every single trip after the first use. Include a bag of whole beans and a handwritten note about the best way to grind them, and you have a present that shows genuine thought."
+        }
+      ]
+    },
+    {
+      "tier_name": "The Complete Travel Setup — Under €250",
+      "price_range": "€218–€248",
+      "products": [
+        {
+          "product_id": "arco-viaggio",
+          "description": "The espresso maker itself — portable, manual, and capable of producing shots that rival countertop machines at a fraction of the size and weight."
+        },
+        {
+          "product_id": "arco-macinino",
+          "description": "A compact grinder that lets them grind fresh anywhere. Hotel rooms, Airbnbs, campervans — wherever there is a flat surface and a bag of beans."
+        },
+        {
+          "product_id": "arco-travel-case",
+          "description": "The padded hardshell case holds both the Viaggio and Macinino with room for a small bag of beans. It is the detail that elevates this from a collection of items to a considered gift."
+        }
+      ]
+    }
+  ],
+  "hero_image_alt": "An Arco Viaggio in desert sand finish placed on a weathered leather travel journal beside a boarding pass, the Macinino grinder and hardshell travel case nearby, a small espresso in a metal camping cup, warm golden light suggesting a late afternoon somewhere far from home",
+  "persona_tags": ["traveller", "morning-minimalist"],
+  "intent_tags": ["discover", "decide"],
+  "seo": {
+    "title": "Gift Guide — Best Portable Espresso Gift for Travellers | Arco",
+    "meta_description": "Gift a traveller proper espresso on the road: the Arco Viaggio portable maker from €89, or the complete travel kit with grinder and case under €250.",
+    "canonical_url": "/bundles/gift-guides/gift-for-a-traveller"
+  }
+}

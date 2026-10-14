@@ -16,6 +16,7 @@ import { SessionContextManager } from './session-context.js';
 import { getAPIEndpoint } from './api-config.js';
 import { BLOCK_ALIASES } from './block-aliases.js';
 import showWelcomeModal from './welcome-modal.js';
+import { captureUtm } from './analytics-events.js';
 import {
   newPageId,
   getCurrentPageId,
@@ -166,6 +167,13 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
+
+  // Capture utm_source/medium/campaign off the landing URL before anything
+  // else decorates — the header's whitepaper link needs it immediately, well
+  // before the delayed-phase event tracker (analytics-events.js) would
+  // otherwise capture it 3s after load.
+  captureUtm();
+
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);

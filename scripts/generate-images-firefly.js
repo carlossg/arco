@@ -37,7 +37,7 @@ import {
 } from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '..');
-const CONTENT_ROOT = join(ROOT, 'content');
+const CONTENT_ROOT = join(ROOT, 'data');
 const ASSETS_DIR = join(ROOT, 'assets', 'images');
 
 // Adobe endpoints

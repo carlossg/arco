@@ -81,6 +81,12 @@ For full documentation see [`docs/ADMIN.md`](docs/ADMIN.md). Architecture refere
 
 ## Content (drafts/)
 
+Tracked application datasets live in `data/`. The Worker imports these JSON files
+at build time; indexing, image, and page-generation tools also read this directory.
+`content/` is reserved for the independent DA checkout created by
+`aem content clone --all`. It is ignored by the outer Git repository, and
+`--force` replaces that checkout without touching the application datasets.
+
 The `drafts/` folder contains the **pre-expansion** page set (38 pages: home, nav, footer, products, stories, experiences). These are the canonical source of truth for DA (`froesef/arco`).
 
 > **Note:** Commit `bf566a152c` (Feb 25 2026) added 239 additional pages (guides, blog, bundles, localization, etc.). Those pages are intentionally not present in `drafts/` — the site runs on the pre-expansion content. If you need to upload or re-publish, use `./tools/upload-to-da.sh --all` followed by `./tools/preview-all.sh` and `./tools/publish-all.sh`.
@@ -90,3 +96,20 @@ The `drafts/` folder contains the **pre-expansion** page set (38 pages: home, na
 1. Install dependencies: `npm i`
 2. Install the [AEM CLI](https://github.com/adobe/helix-cli): `npm install -g @adobe/aem-cli`
 3. Start the dev server: `aem up` (opens your browser at `http://localhost:3000`)
+
+### Syncing this fork
+
+The `upstream` remote points to `https://github.com/aem-growth-adoption/arco.git`.
+Fetch it and merge `upstream/main` on a sync branch. Preserve the merge commit
+(do not squash) so future upstream commits remain easy to identify with
+`git log HEAD..upstream/main`.
+
+Keep `fstab.yaml`, the Cloud Manager challenge, and
+`workers/recommender/wrangler.carlossg.jsonc` scoped to this fork. Preserve the
+isolated Worker routing in `scripts/api-config.js`, the context inspector, and
+the TV flow when resolving conflicts. Application data belongs in `data/`, not
+the DA clone's `content/`.
+
+Before deploying the new metrics endpoints to the isolated Worker, apply
+`npm run migrate:events:carlossg` followed by `npm run migrate:utm:carlossg` from
+`workers/recommender/`, then deploy with `npm run deploy:carlossg`.

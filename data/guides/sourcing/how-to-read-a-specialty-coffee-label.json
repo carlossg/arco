@@ -1,0 +1,53 @@
+{
+  "id": "how-to-read-a-specialty-coffee-label",
+  "slug": "how-to-read-a-specialty-coffee-label",
+  "category": "sourcing",
+  "title": "How to Read a Specialty Coffee Label",
+  "difficulty": "beginner",
+  "read_time_minutes": 8,
+  "persona_tags": ["morning-minimalist", "upgrader", "craft-barista", "traveller", "non-barista", "office-manager"],
+  "intent_tags": ["discover", "research"],
+  "hero_image_alt": "A close-up of a kraft paper specialty coffee bag lying on a dark slate surface, the label clearly visible showing origin, variety, process, altitude, and roast date information in clean typography, a few roasted coffee beans scattered beside the bag, warm side lighting emphasising the texture of the paper and beans",
+  "intro": "A specialty coffee label can feel like a foreign language: Caturra, washed, 1,800 masl, SCA 86. But every piece of information on that label tells you something meaningful about how the coffee will taste. Once you learn to decode these terms, choosing a bag at your local roastery becomes an informed decision rather than a lucky guess.",
+  "body": [
+    {
+      "heading": "Origin: Where the Coffee Grew",
+      "content": "The country and region of origin is usually the most prominent piece of information on a specialty label, and for good reason — geography is the single largest predictor of flavour character. Coffee grown in Ethiopia tastes fundamentally different from coffee grown in Brazil, even when the variety, process, and roast level are identical. This is because coffee is an agricultural product shaped by soil, climate, altitude, and the microbiology of its environment, collectively known as terroir. At the broadest level, coffee-growing regions divide into three zones. African coffees (Ethiopia, Kenya, Rwanda, Burundi) tend toward bright acidity, floral aromatics, and fruit-forward flavour. Central and South American coffees (Colombia, Guatemala, Costa Rica, Brazil) often present balanced sweetness, chocolate, caramel, and stone fruit. Asian and Pacific coffees (Indonesia, Papua New Guinea, India) lean toward earthy, herbal, and full-bodied profiles. These are generalisations — there is enormous variation within each region — but they are useful starting points when you are scanning a shelf. Many specialty labels go further than country, naming the specific region, farm, or even the individual lot within a farm. A label that reads 'Ethiopia, Yirgacheffe, Kochere, Lot 7' is telling you exactly where on the planet those cherries were picked. This traceability is one of the defining features of specialty coffee and reflects the roaster's relationship with the producer. The more specific the origin information, the more intentional the sourcing."
+    },
+    {
+      "heading": "Variety: The Genetics of Flavour",
+      "content": "Coffee variety (sometimes called cultivar) refers to the genetic type of the coffee plant. Just as wine grapes come in varieties — Cabernet Sauvignon, Pinot Noir, Riesling — coffee has its own family tree of varieties, each with distinct flavour tendencies. The two main species are Arabica and Robusta, but specialty coffee deals almost exclusively with Arabica, which contains hundreds of varieties. Common varieties you will encounter on labels include Bourbon, Typica, Caturra, Catuai, SL-28, SL-34, Gesha (also spelled Geisha), and Castillo. Bourbon and Typica are heritage varieties known for sweetness and complexity. SL-28 and SL-34, developed in Kenya, are prized for intense fruit acidity and blackcurrant flavour. Gesha, originally from the forests of western Ethiopia, is famous for jasmine, bergamot, and tropical fruit — and commands the highest prices in specialty coffee. Caturra and Catuai are compact, high-yielding mutations of Bourbon that produce good but generally less complex cups. Castillo, common in Colombia, was bred for disease resistance and delivers reliable caramel and fruit notes. Not every label lists variety, and its absence does not necessarily indicate poor quality — some excellent cooperatives blend varieties from multiple farms. But when variety is listed, it gives you a genetic preview of the flavour potential. If you see Gesha or SL-28 on a label, you can expect a coffee with above-average complexity and distinctiveness. If you see Catimor or Robusta crosses, the focus was likely on agricultural resilience rather than cup quality."
+    },
+    {
+      "heading": "Process: How the Cherry Became a Bean",
+      "content": "After coffee cherries are picked, the seed (what we call the bean) must be separated from the fruit and dried. How this is done — the processing method — has a profound impact on flavour, often as significant as the origin itself. The three most common processes are washed, natural, and honey. Washed (also called wet-processed) coffees have the fruit pulp mechanically removed immediately after picking. The beans are then fermented in water tanks to dissolve the remaining mucilage, washed clean, and dried on raised beds or patios. The result is a clean, bright cup where the inherent characteristics of the bean — terroir, variety, altitude — come through clearly without interference from the fruit. Most specialty filter coffees are washed because the process highlights clarity and acidity. Natural (also called dry-processed) coffees are dried inside the whole cherry. The fruit ferments around the bean as it dries over two to four weeks, imparting fruity, wine-like, and sometimes funky flavours. Natural processing can produce extraordinary cups — big, jammy, complex — or problematic ones if drying was uneven. When done well, natural coffees taste like a fruit salad. Honey process is a hybrid: the skin is removed but some or all of the sticky mucilage is left on the bean during drying. Depending on how much mucilage remains, you will see labels marked yellow honey, red honey, or black honey (more mucilage equals darker colour and more fruit influence). Honey coffees typically sit between washed and natural in body and sweetness. Understanding process helps you predict whether a coffee will be clean and bright (washed), fruity and full (natural), or sweet and rounded (honey)."
+    },
+    {
+      "heading": "Altitude, Roast Date, and Score",
+      "content": "Three additional label elements round out your understanding of a specialty coffee. Altitude, expressed in metres above sea level (masl), indicates the elevation at which the coffee was grown. Higher altitude generally means denser beans, slower maturation, more complex sugars, and brighter acidity. Coffees grown above 1,600 masl are typically considered high-altitude and command higher prices. An Ethiopian coffee at 2,100 masl will almost certainly have more acidity and complexity than a Brazilian coffee at 900 masl — though the Brazilian may offer more body and chocolate sweetness. Altitude is not a quality score in itself, but it is a reliable proxy for flavour complexity. Roast date tells you when the coffee was roasted. Freshness matters enormously in coffee: roasted beans begin to lose volatile aromatic compounds within days of roasting. For filter coffee, beans are generally at their peak between seven and thirty days after roast. For espresso, a slightly longer rest of ten to twenty-one days allows CO2 to dissipate, improving extraction consistency. Avoid any bag without a roast date — it usually means the coffee is stale. If you see a 'best before' date instead of a roast date, the roaster is hiding something. SCA score is a numerical quality grade assigned by certified Q graders using the Specialty Coffee Association's cupping protocol. Coffees scoring 80 or above are classified as specialty grade. Scores of 85 and above are considered excellent, and anything above 90 is exceptional and rare. Not all roasters print the score, but when present, it gives you a calibrated benchmark of the coffee's intrinsic quality. A score of 87 from a reputable Q grader tells you the coffee has been professionally evaluated and found to have well above-average complexity, sweetness, and balance."
+    }
+  ],
+  "key_takeaways": [
+    "Origin (country and region) is the strongest predictor of general flavour character — African coffees tend bright and fruity, American coffees balanced and sweet, Asian coffees earthy and full.",
+    "Variety tells you the genetic type of the plant, which influences complexity and flavour potential. Gesha, SL-28, and Bourbon are prized for cup quality.",
+    "Processing method (washed, natural, honey) determines how much fruit influence ends up in the cup. Washed is clean and bright; natural is fruity and full-bodied.",
+    "Higher altitude generally means more complex, acidic coffee. Look for 1,600+ masl for high-quality lots.",
+    "Always check the roast date. Peak freshness is 7–30 days post-roast for filter, 10–21 days for espresso."
+  ],
+  "related_products": ["arco-primo", "arco-doppio", "arco-filtro"],
+  "related_guides": [
+    "what-processing-method-means-for-flavor",
+    "single-origin-espresso-profiles",
+    "understanding-roast-dates-and-degassing",
+    "single-origin-vs-blend"
+  ],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Discover Arco coffee equipment",
+    "url": "/products"
+  },
+  "seo": {
+    "title": "How to Read a Specialty Coffee Label — Origin, Variety, Process & More | Arco",
+    "meta_description": "Learn to decode specialty coffee labels. Understand origin, variety, processing method, altitude, roast date, and SCA score to choose better beans with confidence."
+  }
+}

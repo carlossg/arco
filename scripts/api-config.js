@@ -72,6 +72,33 @@ export const ARCO_RECOMMENDER_URL = resolveRecommenderURL();
 // Analytics service — same worker, separate endpoint
 export const ARCO_ANALYTICS_URL = window.ARCO_CONFIG?.ANALYTICS_URL || ARCO_RECOMMENDER_URL;
 
+/**
+ * Admin/metrics API base.
+ *
+ * Split from the recommender URL on purpose: the admin dashboards read D1 and KV
+ * directly, so when you are developing them you want your *local* worker and its
+ * local database, even while the page-generation flow keeps hitting production
+ * (which is the only place Vectorize actually works).
+ *
+ * Override with localStorage['arco-admin-url'], or set it to the production
+ * worker to inspect real traffic from a local admin page.
+ */
+function resolveAdminURL() {
+  if (window.ARCO_CONFIG?.ADMIN_URL) return window.ARCO_CONFIG.ADMIN_URL;
+
+  try {
+    const stored = window.localStorage?.getItem('arco-admin-url');
+    if (stored) return stored;
+  } catch { /* localStorage may be unavailable (private mode / sandbox) */ }
+
+  const { hostname } = window.location;
+  if (hostname === 'localhost' || hostname === '127.0.0.1') return 'http://localhost:8787';
+
+  return ARCO_RECOMMENDER_URL;
+}
+
+export const ARCO_ADMIN_URL = resolveAdminURL();
+
 // ============================================
 // Environment Detection
 // ============================================

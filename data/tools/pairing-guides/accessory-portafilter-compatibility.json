@@ -1,0 +1,156 @@
+{
+  "id": "pairing-accessory-portafilter",
+  "slug": "accessory-portafilter-compatibility",
+  "title": "Accessory & Portafilter Compatibility Guide",
+  "description": "Check which Arco accessories fit your machine's portafilter size before you buy. Our guide covers 58mm and 53mm portafilter systems, including tampers, distribution tools, filter baskets, and bottomless portafilters.",
+  "hero_image_alt": "An array of Arco accessories — tamper, distribution tool, filter baskets, and bottomless portafilter — arranged by size on a walnut surface",
+  "data": {
+    "portafilter_sizes": [
+      {
+        "size": "58mm",
+        "machines": ["arco-classica", "arco-barista-pro", "arco-lever", "arco-maestro", "arco-dual-boiler"],
+        "description": "Industry-standard 58mm portafilter. Compatible with the widest range of aftermarket accessories."
+      },
+      {
+        "size": "53mm",
+        "machines": ["arco-nano"],
+        "description": "Compact 53mm portafilter designed for the Nano's smaller group head. Requires size-specific accessories."
+      },
+      {
+        "size": "n/a",
+        "machines": ["arco-automatico", "arco-steam"],
+        "description": "The Automatico uses an internal brew unit (no portafilter). The Steam uses a proprietary pressurized holder."
+      }
+    ],
+    "accessories": [
+      {
+        "id": "arco-precision-tamper-58",
+        "name": "Arco Precision Tamper 58mm",
+        "category": "tamper",
+        "compatible_sizes": ["58mm"],
+        "price": 49,
+        "notes": "Spring-loaded calibrated tamper. Ensures consistent 30lb tamp pressure. Fits all Arco 58mm machines."
+      },
+      {
+        "id": "arco-precision-tamper-53",
+        "name": "Arco Precision Tamper 53mm",
+        "category": "tamper",
+        "compatible_sizes": ["53mm"],
+        "price": 39,
+        "notes": "Compact version for the Arco Nano. Same calibrated spring mechanism as the 58mm."
+      },
+      {
+        "id": "arco-wdt-tool",
+        "name": "Arco WDT Distribution Tool",
+        "category": "distribution",
+        "compatible_sizes": ["58mm", "53mm"],
+        "price": 29,
+        "notes": "0.4mm needles break up clumps before tamping. Universal fit — works with any portafilter diameter."
+      },
+      {
+        "id": "arco-leveling-tamper-58",
+        "name": "Arco Leveling Tamper 58mm",
+        "category": "distribution",
+        "compatible_sizes": ["58mm"],
+        "price": 45,
+        "notes": "Combined distributor and tamper in one tool. Adjustable depth. Thread onto portafilter and spin to level, then tamp."
+      },
+      {
+        "id": "arco-bottomless-pf-58",
+        "name": "Arco Bottomless Portafilter 58mm",
+        "category": "portafilter",
+        "compatible_sizes": ["58mm"],
+        "price": 65,
+        "notes": "Walnut-handle bottomless portafilter for diagnosing extraction. Fits all Arco 58mm group heads. Includes 18g VST-style basket."
+      },
+      {
+        "id": "arco-bottomless-pf-53",
+        "name": "Arco Bottomless Portafilter 53mm",
+        "category": "portafilter",
+        "compatible_sizes": ["53mm"],
+        "price": 55,
+        "notes": "Nano-specific bottomless portafilter. Includes 16g precision basket."
+      },
+      {
+        "id": "arco-precision-basket-14",
+        "name": "Arco Precision Basket 14g (Single)",
+        "category": "basket",
+        "compatible_sizes": ["58mm"],
+        "price": 25,
+        "notes": "IMS-type precision single basket for 12-15g doses. Fits all Arco 58mm portafilters."
+      },
+      {
+        "id": "arco-precision-basket-18",
+        "name": "Arco Precision Basket 18g (Double)",
+        "category": "basket",
+        "compatible_sizes": ["58mm"],
+        "price": 25,
+        "notes": "The default basket for most users. Optimized for 16-20g doses. Uniform hole pattern for even extraction."
+      },
+      {
+        "id": "arco-precision-basket-21",
+        "name": "Arco Precision Basket 21g (Triple)",
+        "category": "basket",
+        "compatible_sizes": ["58mm"],
+        "price": 25,
+        "notes": "Deep basket for 19-22g doses. Ideal for lighter roasts that benefit from higher doses."
+      },
+      {
+        "id": "arco-nano-basket-16",
+        "name": "Arco Nano Precision Basket 16g",
+        "category": "basket",
+        "compatible_sizes": ["53mm"],
+        "price": 22,
+        "notes": "The standard basket for the Arco Nano. Optimized for 14-17g doses."
+      },
+      {
+        "id": "arco-puck-screen-58",
+        "name": "Arco Puck Screen 58.5mm",
+        "category": "puck-prep",
+        "compatible_sizes": ["58mm"],
+        "price": 15,
+        "notes": "Stainless steel mesh screen sits atop the puck. Promotes even water distribution and keeps the shower screen clean."
+      },
+      {
+        "id": "arco-puck-screen-53",
+        "name": "Arco Puck Screen 53.5mm",
+        "category": "puck-prep",
+        "compatible_sizes": ["53mm"],
+        "price": 15,
+        "notes": "Nano-sized puck screen. Same benefits as the 58mm version."
+      },
+      {
+        "id": "arco-dosing-funnel-58",
+        "name": "Arco Dosing Funnel 58mm",
+        "category": "dosing",
+        "compatible_sizes": ["58mm"],
+        "price": 18,
+        "notes": "Magnetic dosing ring prevents grounds from spilling during transfer. Anodized aluminum."
+      },
+      {
+        "id": "arco-dosing-funnel-53",
+        "name": "Arco Dosing Funnel 53mm",
+        "category": "dosing",
+        "compatible_sizes": ["53mm"],
+        "price": 18,
+        "notes": "Nano-specific dosing funnel. Same magnetic attachment system."
+      }
+    ]
+  },
+  "persona_tags": ["new-owner", "accessory-shopper", "home-barista"],
+  "intent_tags": ["compatibility", "accessory-fit", "portafilter-size"],
+  "related_products": [
+    "arco-classica",
+    "arco-nano",
+    "arco-barista-pro",
+    "arco-precision-tamper-58"
+  ],
+  "cta": {
+    "label": "Shop Accessories for Your Machine",
+    "url": "/products/accessories"
+  },
+  "seo": {
+    "title": "Accessory & Portafilter Compatibility Guide | Arco",
+    "meta_description": "Check which Arco accessories fit your espresso machine before buying. Full compatibility guide for 58mm and 53mm portafilter systems, tampers, baskets, and more."
+  }
+}

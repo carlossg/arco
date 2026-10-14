@@ -1,0 +1,53 @@
+{
+  "id": "how-to-clean-a-group-head",
+  "slug": "how-to-clean-a-group-head",
+  "category": "how-to",
+  "title": "How to Clean a Group Head: The Backflush Routine You Should Know",
+  "author": {
+    "name": "Luca Bianchi",
+    "role": "Head of Training",
+    "bio_short": "Luca spent eight years behind commercial bars in Milan and Melbourne before joining Arco to build the training program. He has strong opinions about grind uniformity and weak spots for flat whites."
+  },
+  "published_date": "2025-07-10T08:00:00Z",
+  "read_time_minutes": 7,
+  "hero_image_alt": "Close-up of a barista's hands inserting a blind filter basket into a stainless steel portafilter, espresso machine group head visible above, a small pile of backflush detergent powder on a clean white saucer to the side, bright task lighting illuminating droplets of water on the shower screen",
+  "tags": ["backflush", "group-head", "maintenance", "cleaning", "machine-care"],
+  "persona_tags": ["upgrader"],
+  "intent_tags": ["own"],
+  "intro": "The group head is where water meets coffee, and it accumulates oily residue faster than any other part of your machine. Left uncleaned, those oils go rancid and taint every shot you pull. Backflushing takes two minutes and keeps your espresso tasting clean. Here is how to do it properly.",
+  "body": [
+    {
+      "heading": "Why the Group Head Gets Dirty",
+      "content": "Every espresso shot pushes pressurized water through a bed of finely ground coffee, and that water carries dissolved oils, fine particles, and volatile compounds. Most of this ends up in your cup, but a thin film deposits on every surface the water touches on its way there — the shower screen, the dispersion plate behind it, the group gasket, and the inside of the group head itself. Over the course of a day, these deposits are imperceptible. Over a week, they form a sticky, brown film. Over a month without cleaning, they oxidize and turn rancid, adding stale, acrid flavors to every shot. If you have ever pulled an espresso that tasted inexplicably off despite fresh beans and a good recipe, dirty group internals are the most likely culprit. The shower screen is especially vulnerable because its fine perforations trap particles that restrict flow and create uneven water distribution across the puck. A partially blocked screen means uneven extraction, regardless of how good your grind and distribution are. Commercial cafes backflush after every service — some do it multiple times a day. At home, where you pull far fewer shots, a daily water backflush and a weekly detergent backflush will keep your group spotless."
+    },
+    {
+      "heading": "Daily Backflush with Water",
+      "content": "A water backflush should become part of your post-session cleanup, right after you knock out the puck and rinse the portafilter. Insert the blind filter — a solid, rubberized basket with no holes — into your portafilter and lock it into the group. Activate the brew switch. The pump will pressurize water against the blind filter, and since it has nowhere to go, it will force water back through the group head internals and out through the three-way solenoid valve into the drip tray. Run the pump for five seconds, then stop it. You will hear the solenoid release with a hiss as the pressurized water drains. Repeat this cycle five times — five seconds on, release, five seconds on, release. Each cycle flushes residual coffee oils and fine particles from behind the shower screen and out of the exhaust path. Remove the portafilter and run a brief flush through the open group to rinse the shower screen face. The entire process takes about sixty seconds. On Arco machines with a three-way solenoid — the Primo, Doppio, and Studio all have one — this is straightforward. The Arco Nano uses a different exhaust mechanism, so refer to its specific cleaning instructions in the manual. The important thing is consistency: a daily water backflush prevents the buildup that makes deep cleaning necessary."
+    },
+    {
+      "heading": "Weekly Detergent Backflush",
+      "content": "Once a week, add espresso machine cleaning detergent to the backflush routine. Use a purpose-made powder or tablet — Arco's cleaning powder is phosphate-free and formulated for the seal materials we use, but any reputable espresso machine detergent works. Add about half a gram of powder — roughly a pinch — to the blind filter basket. Lock the portafilter into the group and run the same backflush cycle: five seconds on, release, repeat. This time, do ten cycles instead of five. The detergent dissolves the baked-on coffee oils that water alone cannot remove. After the tenth cycle, remove the portafilter and inspect the liquid in the blind basket. The first few cycles will produce dark brown, oily water. By the end, it should be mostly clear. If it is still discolored after ten cycles, your group was overdue for a clean — run five more cycles to be thorough. After the detergent backflush, rinse the blind basket, reload the portafilter without detergent, and run five more water-only backflush cycles to ensure no detergent residue remains. Then flush the open group for a few seconds. Pull and discard a short shot if you want extra assurance that no soapy taste lingers. Your group is now clean, and your next real shot will taste noticeably brighter and cleaner."
+    },
+    {
+      "heading": "Deep Cleaning the Shower Screen and Dispersion Plate",
+      "content": "Every month or so, go beyond backflushing and physically remove the shower screen and dispersion plate for a soak. On most Arco machines, the shower screen is held by a single center screw — a short flathead or Phillips, depending on the model. Unscrew it, and the screen drops into your hand. Behind it sits the dispersion plate, which usually lifts out once the screen is removed. Inspect both pieces. You will likely see a brown buildup on the screen's perforations and the plate's water channels. Soak both parts in a solution of hot water and espresso machine cleaning powder for fifteen to twenty minutes. After soaking, scrub gently with a soft nylon brush — an old toothbrush works perfectly. Pay attention to the shower screen holes; use a wooden toothpick or the cleaning pin included with your Arco machine to clear any that are blocked. Rinse everything thoroughly under running water. Before reassembling, wipe the inside of the group head cavity with a damp cloth. You may find coffee residue or scale in there as well. Reinsert the dispersion plate, place the shower screen, and tighten the center screw snugly but not aggressively — over-tightening can warp the screen. Run a brief flush, and you are done. The difference in water flow evenness after this deep clean is often visible through a bottomless portafilter as a more uniform, even extraction."
+    }
+  ],
+  "key_takeaways": [
+    "A daily water backflush takes sixty seconds and prevents coffee oil buildup in the group head.",
+    "A weekly detergent backflush dissolves baked-on oils that water alone cannot remove.",
+    "Monthly removal and soaking of the shower screen and dispersion plate clears blocked holes and restores even water distribution.",
+    "Consistent cleaning prevents stale, rancid flavors from tainting your shots — it is the simplest way to improve taste."
+  ],
+  "related_products": ["arco-primo", "arco-doppio", "arco-studio"],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Shop Arco Cleaning Supplies",
+    "url": "/accessories/maintenance"
+  },
+  "related_posts": ["descaling-step-by-step", "replacing-a-portafilter-gasket", "10-most-common-beginner-mistakes"],
+  "seo": {
+    "title": "How to Clean a Group Head: Backflush Routine Guide | Arco",
+    "meta_description": "Keep your espresso tasting clean with a proper backflush routine. Daily water backflush, weekly detergent backflush, and monthly deep clean — all explained step by step."
+  }
+}

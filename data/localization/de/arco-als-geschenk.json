@@ -1,0 +1,38 @@
+{
+  "id": "loc-de-004",
+  "slug": "arco-als-geschenk",
+  "title": "Arco als Geschenk — Geschenkguide für den deutschen Markt",
+  "market": "Germany",
+  "language": "de",
+  "persona_tag": "morning-minimalist",
+  "hero_image_alt": "Eine Arco Primo in mattem Schwarz, schlicht verpackt in braunem Kraftpapier mit einer einfachen Juteschnur, daneben ein handgeschriebener Gutschein, auf einem dunklen Holztisch, warmes Licht einer Kerze im Hintergrund, dezente weihnachtliche Atmosphäre ohne Kitsch",
+  "hero_headline": "Das richtige Geschenk zur richtigen Gelegenheit.",
+  "hero_subtext": "Ein Leitfaden für durchdachte Kaffee-Geschenke — von der kleinen Aufmerksamkeit bis zur großen Geste.",
+  "editorial_intro": "In Deutschland schenkt man nicht leichtfertig. Ein gutes Geschenk zeigt, dass man den anderen kennt — seine Gewohnheiten, seine Vorlieben, sein Verhältnis zu den Dingen. Arco-Produkte eignen sich als Geschenk, weil sie genau diese Aufmerksamkeit widerspiegeln.",
+  "editorial_body": "Die deutsche Geschenkkultur hat ihre eigenen Regeln. Man schenkt nicht zu viel und nicht zu wenig. Man vermeidet Überraschungen, die den Beschenkten in Verlegenheit bringen. Und man achtet darauf, dass ein Geschenk nützlich ist — nicht als Zeichen mangelnder Fantasie, sondern als Ausdruck von Respekt: Ich kenne dich gut genug, um zu wissen, was du tatsächlich brauchst.\n\nKaffee-Geschenke passen in diesen Rahmen besonders gut, weil Kaffee ein tägliches Ritual ist. Ein gutes Kaffee-Geschenk verbessert etwas, das der Beschenkte bereits jeden Tag tut — es ist kein neues Hobby, das im Schrank verstaubt, sondern eine Aufwertung einer bestehenden Gewohnheit.\n\nHier sind unsere Empfehlungen, geordnet nach Anlass und Budget:\n\nZum Geburtstag oder als Dankeschön (€30–€80). Ein Arco-Tamper aus Edelstahl oder ein Set aus Dosierbecher und Verteilerwerkzeug. Wer eine Espressomaschine besitzt, nutzt diese Werkzeuge täglich — und die meisten verwenden noch die mitgelieferten Basiswerkzeuge, obwohl ein Upgrade den Unterschied sofort spürbar macht. Alternativ: das Arco-Reinigungsset mit Rückspültabletten, Brühkopfbürste und Mikrofasertüchern. Nicht glamourös, aber ausgesprochen praktisch — und die Art von Geschenk, die zeigt, dass man die Gewohnheiten des anderen wirklich kennt.\n\nZu Weihnachten (€80–€300). Der Arco Macinino ist als Weihnachtsgeschenk nahezu ideal: Er verbessert den täglichen Kaffee sofort und sichtbar, passt in jede Küche und kostet genug, um als richtiges Geschenk wahrgenommen zu werden, ohne unangemessen teuer zu wirken. Für jemanden ohne eigene Maschine ist die Arco Nano eine ebenso durchdachte Wahl — klein genug, dass sie nicht als Verpflichtung wirkt, aber leistungsfähig genug für ehrlichen Espresso.\n\nZum Einzug oder zur Hochzeit (€200–€600). In Deutschland ist der Einzug in eine neue Wohnung ein Anlass, bei dem praktische Geschenke nicht nur akzeptabel, sondern willkommen sind. Die Arco Primo mit einem Macinino ist ein Geschenk, das sofort einen festen Platz in der neuen Küche findet. Für Paare, die bereits gut ausgestattet sind, bietet der Arco Preciso eine echte Aufwertung des bestehenden Setups — vorausgesetzt, Sie wissen, dass eine Espressomaschine vorhanden ist.\n\nZum Firmenjubiläum oder als Teamgeschenk (€800+). Die Arco Ufficio als Geschenk an ein Büro-Team ist eine Investition in die Unternehmenskultur. Kombiniert mit einem Jahresvorrat an Pflegemitteln und einer Einführung durch einen Arco-Partner vor Ort entsteht ein Geschenk, das nicht nur Freude bereitet, sondern die tägliche Zusammenarbeit verändert.\n\nWenn Sie unsicher sind, bieten wir Geschenkgutscheine in jeder Höhe an — einlösbar im Online-Shop und bei allen autorisierten Händlern in Deutschland. Der Gutschein wird auf hochwertigem Karton gedruckt und in einem schlichten Umschlag geliefert, der keiner weiteren Verpackung bedarf.\n\nEin letzter Hinweis: Wenn Sie ein Arco-Produkt verschenken möchten und Fragen haben — welche Maschine zum Beschenkten passt, welches Zubehör sinnvoll ist, ob die Küche groß genug für eine Studio ist — schreiben Sie uns. Unser Team berät Sie persönlich, ehrlich und ohne Kaufdruck. Das gehört zum Geschenk dazu.",
+  "product_bundle": [
+    { "product_id": "arco-primo", "role": "featured" },
+    { "product_id": "arco-macinino", "role": "featured" },
+    { "product_id": "arco-nano", "role": "featured" },
+    { "product_id": "arco-ufficio", "role": "featured" }
+  ],
+  "featured_guides": [
+    "guide-choosing-your-first-arco",
+    "guide-gift-wrapping-options"
+  ],
+  "cta": {
+    "text": "Geschenkberatung anfragen",
+    "url": "/de/contact/gift-advice",
+    "secondary_text": "Geschenkgutschein bestellen",
+    "secondary_url": "/de/shop/gift-cards"
+  },
+  "seo": {
+    "title": "Arco als Geschenk — Geschenkguide für Kaffeeliebhaber | Arco Coffee",
+    "meta_description": "Der Arco-Geschenkguide für Deutschland: von der €30-Aufmerksamkeit bis zur €800-Büro-Ausstattung. Durchdachte Kaffee-Geschenke für jeden Anlass und jedes Budget."
+  },
+  "hreflang": {
+    "en": "/en/arco-as-a-gift-uk",
+    "it": "/it/arco-come-regalo",
+    "de": "/de/arco-als-geschenk"
+  }
+}

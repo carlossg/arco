@@ -1,0 +1,28 @@
+{
+  "base_product_id": "arco-preciso",
+  "persona_tag": "craft-barista",
+  "headline": "48mm conicals tuned for flavour clarity on medium-dark roasts.",
+  "subheadline": "The Preciso isn't trying to be a flat-burr competitor. It's a purpose-built conical grinder that excels where conicals should: sweetness, body, and a forgiving extraction window on traditional and medium-dark profiles.",
+  "hero_image_alt": "Arco Preciso grinder in arctic white with its 40-step adjustment dial in sharp focus, a single-dose of medium-dark roasted beans in the hopper, a bottomless portafilter with a syrupy shot extracting in the background, technical and intentional setup",
+  "description_long": "You already know the flat-vs-conical debate, so here's where the Preciso lands: 48mm steel conical burrs running at 600 RPM, producing a bimodal distribution that naturally emphasises sweetness and body. This makes it exceptional for medium to dark roasts where you want round, chocolatey flavours without the aggressive clarity of a unimodal flat profile. The 40-step macro adjustment with continuous micro dial gives you enough precision to dial in origin-specific profiles without the finicky overshoot of a fully stepless mechanism. Retention at under 0.8 grams is respectable -- not single-dose territory, but with a quick purge you're within half a gram. The 250g hopper supports a hopper-flow workflow for daily use. If your rotation includes traditional Italian blends, natural-process Brazils, or anything in the medium-dark spectrum, the Preciso is a dedicated tool that does exactly what conicals do best.",
+  "use_case_headline": "The conical specialist for traditional profiles.",
+  "use_case_body": "Bimodal distribution for sweetness and body. 600 RPM for low heat generation. 40-step macro + micro for precise, repeatable adjustment. If you grind medium-dark roasts for traditional espresso, the Preciso is purpose-built for your workflow.",
+  "recommended_accessories": [
+    "Precision Scale",
+    "Dosing Cup",
+    "Distribution Tool",
+    "Bean Vault"
+  ],
+  "related_blog_posts": [
+    "thermoblock-vs-boiler-explained",
+    "your-first-home-espresso",
+    "morning-routine-three-minutes"
+  ],
+  "cta_primary_label": "View Specifications",
+  "cta_primary_url": "/products/arco-preciso",
+  "social_proof_quote": {
+    "quote": "I use the Zero for light single-origins and the Preciso for my daily Italian blend. The conical profile is exactly right for medium-dark -- sweet, full-bodied, with none of the harsh clarity that my flat burrs produce on darker roasts. It knows what it is.",
+    "name": "Paolo G.",
+    "location": "Turin, Italy"
+  }
+}

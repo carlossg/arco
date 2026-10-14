@@ -1,0 +1,38 @@
+{
+  "id": "loc-it-001",
+  "slug": "italian-espresso-culture-arco",
+  "title": "La cultura dell'espresso italiano e Arco",
+  "market": "Italy",
+  "language": "it",
+  "persona_tag": "espresso-purist",
+  "hero_image_alt": "Un bancone di bar italiano con una macchina espresso Arco Studio accanto a tazzine di ceramica bianca, luce mattutina che filtra attraverso le persiane, riflessi caldi sul marmo del bancone, atmosfera autentica e quotidiana",
+  "hero_headline": "L'espresso non si reinventa. Si rispetta.",
+  "hero_subtext": "Arco nasce dalla convinzione che la tradizione italiana del caffè non ha bisogno di essere stravolta — ha bisogno di strumenti all'altezza della sua storia.",
+  "editorial_intro": "In Italia l'espresso non è una bevanda. È un gesto, un momento, un linguaggio condiviso che attraversa generazioni, città e classi sociali. Arco esiste perché crediamo che questo gesto meriti strumenti progettati con la stessa cura con cui un torrefattore seleziona i suoi chicchi.",
+  "editorial_body": "C'è qualcosa di profondamente italiano nel rapporto con l'espresso che resiste a qualsiasi traduzione. Non è il caffè in sé — chicchi eccellenti crescono in Etiopia, in Colombia, in Guatemala. Non è la macchina — i brevetti che hanno definito l'espresso moderno appartengono alla storia industriale milanese, ma oggi si costruiscono macchine eccellenti ovunque nel mondo. Quello che è italiano, irriducibilmente, è il modo in cui l'espresso abita la giornata.\n\nAl bancone di un bar, alle sette del mattino, un uomo in giacca ordina un caffè senza specificare nient'altro. La barista sa cosa intende. La tazzina arriva in meno di un minuto — calda, con la crema densa che copre la superficie come una pelle sottile. Lui beve in tre sorsi, lascia il resto sul bancone, esce. Nessuna parola superflua. Nessuna personalizzazione. L'intero scambio dura novanta secondi e contiene una densità di significato culturale che altrove richiederebbe un saggio.\n\nÈ questo rituale — rapido, quotidiano, perfettamente calibrato — che Arco ha studiato prima di progettare una singola macchina. Non abbiamo cercato di reinventare l'espresso. Abbiamo cercato di capire cosa lo rende essenziale nella vita di milioni di italiani, e poi ci siamo chiesti: possiamo portare questa stessa qualità e immediatezza nella cucina di casa?\n\nLa risposta è la Arco Primo: una macchina che si riscalda in novanta secondi, usa un portafiltro da 58 millimetri — lo stesso standard dei bar — e occupa meno spazio di un tostapane. Non ha quindici pulsanti, non richiede un corso di formazione, non pretende di trasformarti in un barista. Fa una cosa sola, e la fa come si deve. Esattamente come il caffè al bancone.\n\nPer chi vuole spingersi oltre, la Studio onora la tradizione del gruppo E61 — il design più longevo e rispettato nella storia dell'espresso, nato a Milano nel 1961 e ancora oggi il punto di riferimento per la stabilità termica e la qualità dell'estrazione. Il corpo in ottone, i pannelli in noce, i manometri analogici: ogni dettaglio della Studio parla un linguaggio che gli italiani riconoscono istintivamente, perché è lo stesso linguaggio delle macchine che hanno visto nei bar da quando erano bambini.\n\nMa Arco non è un esercizio di nostalgia. La temperatura PID del Doppio, il controllo di flusso dello Studio Pro, il macinino Zero con ritenzione inferiore a 0,1 grammi — queste sono innovazioni che rispettano la tradizione portandola dove non poteva arrivare da sola. L'espresso italiano del ventunesimo secolo non deve scegliere tra fedeltà al passato e precisione del presente. Può avere entrambe le cose.\n\nQuesto è il principio fondante di Arco: che la cultura dell'espresso italiano è troppo importante per essere semplificata in capsule usa e getta, e troppo viva per essere cristallizzata in un museo. Merita strumenti che la onorano evolvendola. Strumenti che un barista di Napoli riconoscerebbe come propri, e che un ingegnere di Torino rispetterebbe per la loro precisione.\n\nL'espresso non si reinventa. Si rispetta. E rispettarlo significa dargli gli strumenti migliori che la nostra epoca sa costruire.",
+  "product_bundle": [
+    { "product_id": "arco-primo", "role": "anchor" },
+    { "product_id": "arco-studio", "role": "primary" },
+    { "product_id": "arco-macinino", "role": "accessory" }
+  ],
+  "featured_guides": [
+    "guide-dialling-in-espresso",
+    "guide-essential-grind-settings",
+    "guide-cleaning-your-machine"
+  ],
+  "cta": {
+    "text": "Scopri la gamma Arco",
+    "url": "/it/products",
+    "secondary_text": "Trova un rivenditore in Italia",
+    "secondary_url": "/it/dove-trovare-arco"
+  },
+  "seo": {
+    "title": "La cultura dell'espresso italiano e Arco | Arco Coffee",
+    "meta_description": "Arco nasce dal rispetto per la tradizione italiana dell'espresso. Macchine progettate per onorare il rituale quotidiano del caffè, dalla Primo alla Studio con gruppo E61."
+  },
+  "hreflang": {
+    "en": "/en/italian-espresso-culture-arco",
+    "it": "/it/italian-espresso-culture-arco",
+    "de": "/de/italian-espresso-culture-arco"
+  }
+}

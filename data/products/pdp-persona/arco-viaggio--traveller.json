@@ -1,0 +1,27 @@
+{
+  "base_product_id": "arco-viaggio",
+  "persona_tag": "traveller",
+  "headline": "Real espresso. No electricity. No compromise.",
+  "subheadline": "The Arco Viaggio is a hand-powered lever espresso maker built from stainless steel and aluminium. At 1.2 kg, it goes everywhere you go -- and pulls genuine 9-bar shots.",
+  "hero_image_alt": "Arco Viaggio portable espresso maker in forest green being used at a mountain campsite at dawn, a person pressing the lever with both hands, a small camp stove and kettle nearby, dramatic mountain scenery in the background",
+  "description_long": "The best espresso of your life might happen at 3,000 metres. Or on a train through the Alps. Or in a Tokyo hostel at midnight. The Viaggio makes that possible. Its manual lever mechanism generates up to 9 bar of pressure -- the same as a full-size machine -- using nothing but your hands. At 1.2 kg and 10 x 18 x 8 cm, it packs smaller than a water bottle and weighs less than a paperback. The stainless steel and aluminium construction shrugs off the reality of life in a backpack. Use ESE pods for zero-mess convenience or the fine-grind basket with your favourite beans for full control. All you need is hot water and the Viaggio. That's the freedom of carrying your own espresso bar in your bag.",
+  "use_case_headline": "Your espresso bar weighs 1.2 kilograms.",
+  "use_case_body": "No electricity. No batteries. No fragile parts. The Viaggio's lever mechanism and metal construction are built for exactly the kind of environments where good espresso doesn't usually exist. Camp sites, hostels, trains, mountain huts, hotel rooms -- anywhere you have hot water, you have espresso.",
+  "recommended_accessories": [
+    "Espresso Cups Set",
+    "Bean Vault",
+    "Double-Wall Glasses"
+  ],
+  "related_blog_posts": [
+    "your-first-home-espresso",
+    "morning-routine-three-minutes",
+    "thermoblock-vs-boiler-explained"
+  ],
+  "cta_primary_label": "Pack Your Espresso Bar",
+  "cta_primary_url": "/products/arco-viaggio",
+  "social_proof_quote": {
+    "quote": "I've taken the Viaggio to Patagonia, through Southeast Asia, and on a month-long campervan trip around Iceland. It has never let me down. The shots are genuinely good -- not good-for-travel, but actually good. It's the single best piece of travel gear I own.",
+    "name": "Mia K.",
+    "location": "Auckland, New Zealand"
+  }
+}

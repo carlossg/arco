@@ -1,0 +1,53 @@
+{
+  "id": "a-visit-to-our-workshop",
+  "slug": "a-visit-to-our-workshop",
+  "category": "brand",
+  "title": "A Visit to Our Workshop in Emilia-Romagna",
+  "author": {
+    "name": "Luca Bianchi",
+    "role": "Head of Training",
+    "bio_short": "Luca spent eight years behind commercial bars in Milan and Melbourne before joining Arco to build the training program. He has strong opinions about grind uniformity and weak spots for flat whites."
+  },
+  "published_date": "2025-07-20T08:00:00Z",
+  "read_time_minutes": 10,
+  "hero_image_alt": "Wide-angle photograph of a bright, high-ceilinged workshop in an old industrial building with exposed brick walls, rows of espresso machines in various stages of assembly on wooden workbenches, natural light pouring through large arched windows, a technician in a navy apron inspecting a boiler under a magnifying lamp",
+  "tags": ["factory-visit", "manufacturing", "craftsmanship", "emilia-romagna", "behind-the-scenes"],
+  "persona_tags": ["morning-minimalist", "upgrader", "craft-barista"],
+  "intent_tags": ["discover"],
+  "intro": "Arco machines are designed, assembled, and tested in a converted textile mill outside Reggio Emilia, in the heart of Italy's motor valley. We opened the doors to walk through the production floor, meet the people who build your machine, and see what a small-batch manufacturing philosophy looks like in practice.",
+  "body": [
+    {
+      "heading": "The Building and Its History",
+      "content": "The Arco workshop sits in a two-story brick building that was built in 1923 as a weaving mill. It produced silk thread for three decades, then sat vacant through the 1970s before being converted into a series of artisan workshops. Arco moved in six years ago, attracted by the high ceilings, abundant natural light from the original factory windows, and proximity to the precision engineering suppliers that cluster in this region of Emilia-Romagna. The area is known as Motor Valley because it is home to Ferrari, Lamborghini, Ducati, and Maserati, but the same ecosystem of metalworkers, machinists, and toolmakers that supports automotive excellence also supports small manufacturers like Arco. Our brass boilers are cast by a foundry fifteen minutes away. Our stainless steel panels are laser-cut and bent by a sheet metal shop across the river. The E61 group bodies are machined by a family-run CNC operation that has been cutting brass since 1967. Inside, the ground floor is divided into three zones: incoming materials and quality inspection, assembly, and testing. The upper floor houses the design office, the training room, and a small cupping lab where the product team evaluates shots from every machine before it ships. The atmosphere is more workshop than factory — no conveyor belts, no robotic arms, just workbenches, hand tools, and people who know what they are doing."
+    },
+    {
+      "heading": "Assembly: One Machine, One Technician",
+      "content": "Every Arco machine is assembled start-to-finish by a single technician. There is no production line where each person adds one component and passes the unit along. Instead, a technician takes a parts kit — every component needed for a complete machine, pre-picked and laid out in a labeled tray — and builds the entire unit at their workbench over the course of a day. This approach is slower than line production, but it produces a different relationship between the builder and the machine. The technician who installs the boiler is the same person who routes the wiring, connects the pump, and fills the system for its first pressure test. They develop an intuitive sense for how each machine feels as it comes together — a slightly stiff valve here, an unusually smooth portafilter fit there. They catch issues that a line worker focused on a single repetitive task would never notice. Each finished machine carries an assembly card inside its case with the technician's initials and the date. It is a small thing, but it means someone put their name on your machine, and that accountability shapes the care that goes into the build. Currently, four full-time technicians work the assembly floor. They build between three and five machines per day each, depending on the model. The Studio Pro, with its more complex electronics and dual boiler, takes a full day. The Nano can be completed in a morning."
+    },
+    {
+      "heading": "Testing: Every Machine Gets a Shot",
+      "content": "Before any machine leaves the workshop, it passes through a three-stage testing protocol. Stage one is a cold pressure test. The hydraulic system is pressurized to fifteen bars with the machine powered off, and held for ten minutes. Any drop in pressure indicates a leak — a fitting that was not torqued properly, a gasket that did not seat, a hairline crack in a brazed joint. Machines that fail are returned to the assembly bench for rework. Stage two is a thermal stability test. The machine is powered on, brought to brew temperature, and left to idle for thirty minutes while a data logger records temperature at the boiler, the group head, and the puck face. The readings must fall within a tight band — plus or minus one degree Celsius at the group — for the machine to pass. Any unit showing excessive temperature oscillation gets its PID parameters re-tuned on the bench. Stage three is an actual espresso shot. Every machine pulls at least one shot using a standardized dose of fresh coffee on a calibrated grinder. The technician evaluates flow rate, visual extraction pattern through a bottomless portafilter, and taste. If anything is off — uneven flow, channeling, or off-flavors — the machine is investigated and retested. This final stage is unusual in the industry. Most manufacturers test function and pressure but never actually brew coffee on every unit. We do, because the only way to know if a machine makes good espresso is to make espresso on it."
+    },
+    {
+      "heading": "The People Behind the Machines",
+      "content": "What struck us most during the visit was how quietly passionate the team is. There are no motivational posters on the walls, no mission statements printed on the break room mugs. Instead, there is an espresso station on every floor where people pull shots throughout the day, debating extraction curves and grind settings as casually as others discuss the weather. Marco, a technician who has been with Arco since the beginning, showed us his personal modification to the assembly process — a custom jig he machined in his garage to hold boilers at a precise angle during brazing inspection, reducing the time to check each joint by half. Elena Marchetti, the head of product, keeps a whiteboard in her office covered in hand-drawn cross-sections of group heads and valve assemblies, annotated with the kind of detail that reveals genuine obsession. The youngest member of the team, Giulia, joined out of university last year and is already running the incoming quality station, where she measures every batch of critical components — gaskets, burrs, solenoid valves — against specification before they reach the assembly bench. Her rejection rate data is posted on the wall, and suppliers pay attention. The workshop is not large, and Arco is not trying to become large. The ambition is to build the best machines they can at a volume that lets them maintain this level of hands-on quality — and to drink excellent espresso while doing it."
+    }
+  ],
+  "key_takeaways": [
+    "Arco machines are built in a converted textile mill in Emilia-Romagna, surrounded by the precision engineering ecosystem of Motor Valley.",
+    "Each machine is assembled start-to-finish by a single technician who signs their name on the assembly card.",
+    "Every unit passes a three-stage test: cold pressure, thermal stability logging, and an actual espresso shot with fresh coffee.",
+    "The team is small by design — the goal is quality at a volume that sustains hands-on craftsmanship."
+  ],
+  "related_products": ["arco-studio", "arco-studio-pro", "arco-primo", "arco-doppio", "arco-nano"],
+  "related_experience": "morning-minimalist",
+  "cta": {
+    "label": "Explore the Full Arco Range",
+    "url": "/products"
+  },
+  "related_posts": ["qa-with-our-head-of-product", "why-arco-chose-brass-for-the-studio-boiler", "the-arco-refurbishment-program"],
+  "seo": {
+    "title": "Inside the Arco Workshop: A Visit to Emilia-Romagna | Arco",
+    "meta_description": "Go inside Arco's workshop in Emilia-Romagna — where every espresso machine is built by one technician, pressure-tested, thermally logged, and shot-tested before it ships."
+  }
+}

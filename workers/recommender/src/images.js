@@ -3,19 +3,19 @@
  */
 
 /* eslint-disable import/extensions, import/no-relative-packages */
-import productsData from '../../../content/products/products.json';
-import recipesData from '../../../content/recipes/recipes.json';
-import reviewsData from '../../../content/metadata/reviews.json';
-import accessoriesData from '../../../content/accessories/accessories.json';
-import storiesData from '../../../content/stories-index.json';
-import experiencesData from '../../../content/experiences-index.json';
+import productsData from '../../../data/products/products.json';
+import recipesData from '../../../data/recipes/recipes.json';
+import reviewsData from '../../../data/metadata/reviews.json';
+import accessoriesData from '../../../data/accessories/accessories.json';
+import storiesData from '../../../data/stories-index.json';
+import experiencesData from '../../../data/experiences-index.json';
 /* eslint-enable import/extensions, import/no-relative-packages */
 
 /* eslint-disable import/extensions, import/no-relative-packages */
-import catalogData from '../../../content/hero-image-catalog.json';
+import catalogData from '../../../data/hero-image-catalog.json';
 /* eslint-enable import/extensions, import/no-relative-packages */
 
-const ARCO_BASE = 'https://main--arco--froesef.aem.live';
+const ARCO_BASE = 'https://main--arco--carlossg.aem.page';
 
 // Default hero image — used when no specific product is featured
 const HERO_MAIN_IMAGE = '/media_1f7e12f4bd38e8ecf4fdc73dc84ebd9a5fd516521.jpg';
@@ -363,16 +363,11 @@ export function setHeroResult(result) {
 }
 
 function resolveHeroImageToken() {
-  // Use the selected hero only when it is a publicly servable URL. The
-  // hero-image-catalog entries point at the DA authoring origin
-  // (content.da.live), which is auth-gated (401) and not public — those would
-  // render broken, so skip them and fall back to the default hero image, which
-  // lives on the delivery host and resolves fine. Product-image heroes
-  // ({{product-image:ID}}) go through resolveProductImageToken and are
-  // unaffected.
   if (currentHeroResult?.url && !currentHeroResult.url.includes('content.da.live')) {
-    return `<picture><img src="${currentHeroResult.url}" alt="${currentHeroResult.alt}"></picture>`;
+    const src = absoluteImageUrl(currentHeroResult.url);
+    return `<picture><img src="${src}" alt="${currentHeroResult.alt}"></picture>`;
   }
+  // Fallback: DA authoring origin URLs are auth-gated (401)
   const image = absoluteImageUrl(HERO_MAIN_IMAGE);
   if (!image) return '<!-- hero-image:main unavailable -->';
   return `<picture><img src="${image}" alt="Arco espresso machine brewing a perfect shot on a sunlit kitchen counter"></picture>`;
@@ -395,6 +390,7 @@ accessories.forEach((a) => {
 knownImageUrls.add(absoluteImageUrl(HERO_MAIN_IMAGE));
 // Register all hero catalog image URLs so they pass the known-image check
 catalogData.images.forEach((img) => {
+  if (img.publishUrl) knownImageUrls.add(absoluteImageUrl(img.publishUrl));
   if (img.url) knownImageUrls.add(img.url);
 });
 

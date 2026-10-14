@@ -14,6 +14,7 @@ import sambanova from './sambanova.js';
 import ollama from './ollama.js';
 import vllm from './vllm.js';
 import vertex from './vertex.js';
+import taalas from './taalas.js';
 
 const PROVIDERS = {
   bedrock,
@@ -23,6 +24,7 @@ const PROVIDERS = {
   ollama,
   vllm,
   vertex,
+  taalas,
 };
 
 /**
@@ -352,6 +354,15 @@ export const MODEL_CATALOG = [
     model: 'served-model',
     label: 'vLLM · served model (set VLLM_BASE_URL)',
   },
+  // Taalas (official API with API key authentication).
+  // Uses api.taalas.com/v1/completions (text completion, not chat).
+  // Set TAALAS_API_KEY in secrets. Context limit: 15k+ tokens (full RAG prompt supported).
+  {
+    provider: 'taalas',
+    model: 'llama3.1-8B',
+    label: 'Taalas · Llama 3.1 8B (HC1 hardware, 15k+ ctx)',
+    requires: ['TAALAS_API_KEY'],
+  },
 ];
 
 export const DEFAULT_CATALOG_ENTRY = MODEL_CATALOG[0];
@@ -396,6 +407,7 @@ const PROVIDER_BASE_REQUIREMENTS = {
     if (!env.VERTEX_AI_ENDPOINT) missing.push('VERTEX_AI_ENDPOINT');
     return missing;
   },
+  taalas: (env) => (env.TAALAS_API_KEY ? [] : ['TAALAS_API_KEY']),
 };
 
 /**

@@ -189,7 +189,7 @@ Static guide markdown/HTML by slug — used as RAG context.
 ## Vectorize Index — `CONTENT_INDEX`
 
 - Index name: `arco-content`.
-- Populated by `workers/recommender/scripts/index-content.js` (CLI) — reads `content/stories-index.json` and `content/experiences-index.json`, skips entries with `published: false`.
+- Populated by `workers/recommender/scripts/index-content.js` (CLI) — reads `data/stories-index.json` and `data/experiences-index.json`, skips entries with `published: false`.
 - Embeddings: Workers AI `@cf/baai/bge-base-en-v1.5`.
 - Queried by `searchContent()` in `src/context.js`; inspected via `#/vectorize` and `GET /api/admin/vectorize/{stats,search}`.
 
