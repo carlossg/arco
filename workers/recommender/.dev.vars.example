@@ -60,3 +60,9 @@ OLLAMA_NUM_CTX=32768
 # `num_diffusion_steps` in the request body. Fewer steps = faster generation
 # at the cost of some quality. Model default is typically 64–128; try 16–32.
 # VERTEX_AI_DIFFUSION_STEPS=32
+
+# Jev (TypeSafe AI System One decision model) — optional fast-path hint for
+# which block/layout shape to lead the page with (see
+# src/pipeline/steps/select-layout.js). Purely additive: unset this and the
+# pipeline behaves exactly as it did before the feature existed.
+# TYPESAFE_API_KEY=your-typesafe-api-key

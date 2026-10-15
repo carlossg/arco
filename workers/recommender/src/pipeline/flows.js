@@ -11,7 +11,16 @@ const RECOMMENDER_FLOW = {
     { step: 'safety-gate', gate: true },
     { step: 'analyze-behavior' },
     { step: 'intent-classify' },
-    { parallel: [{ step: 'persona-match' }, { step: 'use-case-match' }] },
+    {
+      parallel: [
+        { step: 'persona-match' },
+        { step: 'use-case-match' },
+        // Jev (TypeSafe AI System One) fast-path block-layout hint — 70-500ms
+        // typed decision, additive only. No-op (ctx.layoutHint stays null) if
+        // TYPESAFE_API_KEY is unset or the call errors/times out/is unsure.
+        { step: 'select-layout' },
+      ],
+    },
     { step: 'rag-products', config: { maxResults: 8 } },
     {
       parallel: [

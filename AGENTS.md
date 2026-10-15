@@ -279,6 +279,16 @@ ssh -N -L 11434:localhost:11434 -L 8000:localhost:8000 user@your-host
 
 `LLM_TIMEOUT_MS` overrides the per-call LLM timeout for **any** provider (default 60s; Ollama defaults to 300s) — useful for slow local reasoning models.
 
+### Jev Fast-Path Block-Layout Hint (TypeSafe AI System One)
+
+There is no standalone "block/preset selection" LLM call in this pipeline — the single `llm-generate` step (see `pipeline/flows.js`) both writes prose and chooses blocks in one pass, following the JSON schema in `prompts/partials/block-guide.njk`. `src/pipeline/steps/select-layout.js` adds an **optional, additive** fast path in front of that: it asks TypeSafe AI's Jev model (a "System One" model — typed decisions in 70–500ms, not text generation, see [docs.typesafe.ai](https://docs.typesafe.ai)) a single `choice` question — which primary content shape (`comparison-table` / `single-recommendation` / `discovery-grid` / `editorial-verdict`) best fits the query — and writes `ctx.layoutHint = { choice, confidence, probabilities } | null`.
+
+**Wiring:** `select-layout` runs in the existing `persona-match` / `use-case-match` parallel group in `pipeline/flows.js`, so it costs no extra latency on the critical path. `build-recommender-prompt.js` appends the hint as one advisory sentence to `ctx.prompt.user` only when `ctx.layoutHint` is non-null (confidence ≥ 0.6 by default) — the model is told to treat it as a hint, not a hard constraint, and can still choose freely.
+
+**Fail-safe by construction:** `src/jev-client.js` (`askChoice()`) returns `null` — never throws — on a missing `TYPESAFE_API_KEY`, non-2xx response, timeout (2s default), or malformed body. `selectLayout()` treats `null` and low-confidence answers identically: `ctx.layoutHint` stays `null` and the prompt is byte-identical to before this feature existed. There is no separate "full-LLM fallback path" to maintain because the full LLM call was never replaced — Jev only ever adds an optional hint on top of it.
+
+**Config:** `TYPESAFE_API_KEY` (secret, unset by default — see `.dev.vars.example` and `wrangler.jsonc`). No new `MODEL_PRESET`/`VALID_PRESETS` entry was needed since this doesn't select a provider/model for the main generation call. Unit tests: `tests/snapshots/jev-client.test.js` (mocks `fetch`, no real API key needed).
+
 ### Article Cards & Modal Fragments
 
 When the recommender surfaces a `{{story:SLUG}}` or `{{experience:SLUG}}` token, it renders a card whose CTA opens the authored page as a **modal fragment** instead of navigating away. This keeps the user in the query flow; the modal footer still carries an "Open full article ↗" link to the canonical page for sharing / SEO.

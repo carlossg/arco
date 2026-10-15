@@ -40,5 +40,12 @@ export async function buildRecommenderPrompt(ctx, config = {}, env = {}) {
     { tv: ctx.tv === true },
   );
 
+  // Jev fast-path hint (see select-layout.js) — advisory only, appended as
+  // plain text so a low-confidence/unavailable Jev call leaves the prompt
+  // byte-identical to before this feature existed.
+  if (ctx.layoutHint) {
+    ctx.prompt.user += `\n\nSuggested content shape (advisory, confidence ${ctx.layoutHint.confidence.toFixed(2)}): ${ctx.layoutHint.choice}. Use this as a hint for which block type to lead with after the hero, but prioritize your own judgment of the query and available content.`;
+  }
+
   ctx.timings.prompt = Date.now() - start;
 }
