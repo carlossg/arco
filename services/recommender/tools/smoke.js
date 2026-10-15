@@ -22,6 +22,9 @@ async function request(path, body, method = body === undefined ? 'GET' : 'POST')
   });
   const text = await response.text();
   assert.ok(response.ok, `${method} ${path}: ${response.status} ${text.slice(0, 300)}`);
+  if (response.headers.get('Content-Type')?.includes('application/x-ndjson')) {
+    return text.trim() ? text.trim().split('\n').map((line) => JSON.parse(line)) : [];
+  }
   return text ? JSON.parse(text) : null;
 }
 
@@ -91,6 +94,8 @@ const feedback = await request(`/api/admin/feedback/run/${runId}`);
 assert.ok(feedback.feedback.some(
   (row) => row.run_id === runId && row.session_id === sessionId && row.rating === 1,
 ));
+const exported = await request('/api/admin/feedback/export?format=json');
+assert.ok(exported.some((row) => row.run_id === runId && row.session_id === sessionId));
 const summary = await request('/api/admin/insights/summary');
 assert.ok(summary.conversions.attributedAddToCart >= 1);
 assert.ok(summary.conversions.attributedCartValueUsd >= 199);

@@ -1,0 +1,45 @@
+name: Google backend tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - services/recommender/**
+      - workers/recommender/**
+      - scripts/api-config.js
+      - data/**
+      - schema/**
+      - eval/suites/**
+      - .github/workflows/google-backend.yaml
+  push:
+    paths:
+      - services/recommender/**
+      - workers/recommender/**
+      - scripts/api-config.js
+      - data/**
+      - schema/**
+      - eval/suites/**
+      - .github/workflows/google-backend.yaml
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - name: Install Worker dependencies
+        run: bun install --cwd workers/recommender --frozen-lockfile --ignore-scripts --registry=https://registry.npmjs.org
+      - name: Install Google dependencies
+        run: bun install --cwd services/recommender --frozen-lockfile --ignore-scripts --registry=https://registry.npmjs.org
+      - name: Test shared Worker behavior
+        run: bun run --cwd workers/recommender test
+      - name: Test native Google implementation
+        run: bun run --cwd services/recommender test
