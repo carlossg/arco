@@ -133,6 +133,25 @@ authentication does not replace Adobe authentication. Store `DA_TOKEN` as
 `arco-gcp-da-token` in Secret Manager and bind it on deployment, or configure the
 existing `DA_CLIENT_ID`, `DA_CLIENT_SECRET` and `DA_SERVICE_TOKEN` credentials.
 An interactive IMS token expires and must be refreshed. Never commit it.
+After rotating the secret, deploy a new Cloud Run revision so warm instances
+receive the refreshed credential.
+
+The deployed smoke runner checks actual native storage, retrieval, generation,
+admin, feedback and attribution. Opt into background evaluation with
+`RUN_EVAL=1`, and into real DA save, preview, publish and public read-back with
+`RUN_PERSIST=1`:
+
+```sh
+ADMIN_TOKEN="$(gcloud secrets versions access latest \
+  --secret=arco-gcp-admin-token --project=api-project-642841493686)" \
+RUN_EVAL=1 RUN_PERSIST=1 bun services/recommender/tools/smoke.js
+```
+
+Publishing requires the runtime's valid Adobe credential. It creates a unique,
+permanently published synthetic page at `/discover/google-smoke-{runId}` on
+every opted-in run; it does not overwrite existing authored pages. Preview and
+live delivery must both return the saved title without failed-media markers.
+The smoke runner never prints credentials.
 
 ## Explicit legacy Cloudflare mode
 

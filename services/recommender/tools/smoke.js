@@ -59,7 +59,34 @@ async function generate(model, tv = false) {
     assert.equal(events.filter((event) => event.type === 'section').length, 1);
   }
   console.log(`PASS ${tv ? 'TV comparison' : 'real generation'}: streamed sections and durable run ${id}`);
-  return saved;
+  return events;
+}
+
+async function publish(events) {
+  const title = 'Google Cloud smoke: portable espresso';
+  const published = await request('/api/persist', {
+    query: 'Portable espresso for camping',
+    title,
+    pageId: `google-smoke-${runId}`,
+    blocks: events.filter((event) => event.type === 'section'),
+  });
+  assert.equal(published.success, true);
+  assert.equal(published.path, `/discover/google-smoke-${runId}`);
+  for (const kind of ['preview', 'live']) {
+    const url = new URL(published.urls[kind]);
+    assert.equal(url.protocol, 'https:');
+    assert.equal(url.pathname, published.path);
+    assert.ok(url.hostname.endsWith(kind === 'preview' ? '.aem.page' : '.aem.live'));
+    // eslint-disable-next-line no-await-in-loop
+    const response = await fetch(url, { signal: AbortSignal.timeout(60_000) });
+    assert.equal(response.status, 200, `${kind} must deliver the published page`);
+    // eslint-disable-next-line no-await-in-loop
+    const html = await response.text();
+    assert.ok(html.includes(title), `${kind} must contain the saved title`);
+    assert.match(html, /<main[\s>]/);
+    assert.ok(!html.includes('about:error'), `${kind} must not contain failed media ingestion`);
+    console.log(`PASS Adobe ${kind}: ${url}`);
+  }
 }
 
 assert.equal((await request('/health')).platform, 'google-cloud');
@@ -73,8 +100,9 @@ assert.ok(catalog.every((entry) => entry.provider !== 'cloudflare'));
 const { active } = await request('/api/admin/llm-config');
 assert.equal(active.provider, 'gemini');
 await request('/api/admin/llm-config', active, 'PUT');
-await generate(active.model);
+const events = await generate(active.model);
 await generate(active.model, true);
+if (process.env.RUN_PERSIST === '1') await publish(events);
 
 await request('/api/track', {
   sessionId,
@@ -148,4 +176,4 @@ if (process.env.RUN_EVAL === '1') {
   console.log(`PASS Cloud Tasks generation and Gemini judging: ${id}`);
 }
 
-console.log('Google smoke tests passed. Adobe publishing requires a separate valid Adobe credential.');
+console.log(`Google smoke tests passed. Adobe publishing ${process.env.RUN_PERSIST === '1' ? 'verified' : 'not requested (set RUN_PERSIST=1)'}.`);
