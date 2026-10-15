@@ -11,7 +11,8 @@ The low-traffic demo uses managed, pay-per-use services, not a database server:
 | Existing HTTP API and NDJSON streaming | Cloud Run, request-based billing, minimum 0 and maximum 1 instance |
 | Sessions, events, feedback, experiments, evaluations, configuration and cache | Firestore Native |
 | Semantic retrieval | Firestore native vector search, Vertex `text-embedding-005`, 768 dimensions |
-| Generation, suggestions and evaluation judge | Vertex Gemini 2.5 Flash with service-account authentication |
+| Generation and suggestions | Vertex Gemini 2.5 Flash-Lite with service-account authentication |
+| Evaluation judge | Vertex Gemini 2.5 Flash |
 | Background evaluations and recovery | Cloud Tasks and one authenticated Cloud Scheduler job |
 | Payloads exceeding Firestore's document size limit | Private Cloud Storage bucket |
 | Admin and Adobe credentials | Secret Manager |
@@ -20,6 +21,11 @@ Firestore repositories use native documents and transactions, **not a SQL
 compatibility layer**. Demo dashboards aggregate at most 5,000 documents and fail
 explicitly above that limit. This intentionally avoids an always-on database,
 analytics warehouse, or additional infrastructure for a small demonstration.
+Flash-Lite roughly halved measured generation latency in live pipeline trials;
+the separate Flash judge retains the stronger evaluation model. Native text
+generation list rates are $0.10 input / $0.40 output per million tokens for
+Flash-Lite, and $0.30 / $2.50 for the Flash judge (approximate demo accounting,
+not a billing guarantee).
 Cloud Scheduler, storage, builds and inference can still incur charges even
 though Cloud Run scales to zero.
 

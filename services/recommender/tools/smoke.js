@@ -28,7 +28,7 @@ async function request(path, body, method = body === undefined ? 'GET' : 'POST')
   return text ? JSON.parse(text) : null;
 }
 
-async function generate(tv = false) {
+async function generate(model, tv = false) {
   const id = tv ? randomUUID() : runId;
   const response = await fetch(new URL('/api/generate', origin), {
     method: 'POST',
@@ -51,6 +51,7 @@ async function generate(tv = false) {
   const saved = await request(`/api/admin/runs/${id}`);
   assert.equal(saved.run.id, id);
   assert.equal(saved.run.llm_provider, 'gemini');
+  assert.equal(saved.run.llm_model, model);
   assert.ok(saved.payload);
   if (tv) {
     assert.equal(saved.run.flow_id, 'tv-comparison');
@@ -72,8 +73,8 @@ assert.ok(catalog.every((entry) => entry.provider !== 'cloudflare'));
 const { active } = await request('/api/admin/llm-config');
 assert.equal(active.provider, 'gemini');
 await request('/api/admin/llm-config', active, 'PUT');
-await generate();
-await generate(true);
+await generate(active.model);
+await generate(active.model, true);
 
 await request('/api/track', {
   sessionId,
@@ -128,7 +129,7 @@ console.log('PASS authenticated admin, feedback, events, ROI/UTM, catalog, vecto
 if (process.env.RUN_EVAL === '1') {
   const evaluation = await request('/api/admin/evaluations/start', {
     suiteId: 'coffee-dev',
-    models: [{ provider: 'gemini', model: 'gemini-2.5-flash', maxTokens: 4096 }],
+    models: [{ provider: 'gemini', model: active.model, maxTokens: 4096 }],
   });
   const id = evaluation.evalRunId || evaluation.id;
   assert.ok(id, 'Evaluation start must return its ID');

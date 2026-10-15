@@ -33,7 +33,7 @@ gcloud run deploy "$SERVICE" --project="$PROJECT" --region="$REGION" \
   --image="$IMAGE" --service-account="$ACCOUNT" --allow-unauthenticated \
   --min=0 --max=1 --concurrency=4 --cpu=1 --memory=512Mi \
   --cpu-throttling --timeout=600 --execution-environment=gen2 \
-  --set-env-vars="CLOUD_PLATFORM=gcp,ENVIRONMENT=production,GOOGLE_CLOUD_PROJECT=$PROJECT,VERTEX_LOCATION=$REGION,GEMINI_MODEL=gemini-2.5-flash,SERVICE_URL=$URL,TASK_SERVICE_ACCOUNT=$ACCOUNT,PAYLOAD_BUCKET=arco-gcp-payloads-$NUMBER,DA_ORG=carlossg,DA_REPO=arco" \
+  --set-env-vars="CLOUD_PLATFORM=gcp,ENVIRONMENT=production,GOOGLE_CLOUD_PROJECT=$PROJECT,VERTEX_LOCATION=$REGION,GEMINI_MODEL=gemini-2.5-flash-lite,GEMINI_JUDGE_MODEL=gemini-2.5-flash,SERVICE_URL=$URL,TASK_SERVICE_ACCOUNT=$ACCOUNT,PAYLOAD_BUCKET=arco-gcp-payloads-$NUMBER,DA_ORG=carlossg,DA_REPO=arco" \
   --set-secrets="$SECRETS" --quiet
 DEPLOYED_URL="$(gcloud run services describe "$SERVICE" --project="$PROJECT" \
   --region="$REGION" --format='value(status.url)')"

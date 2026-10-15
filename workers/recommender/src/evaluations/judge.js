@@ -47,7 +47,7 @@ export const JUDGE_MODELS = [
 
 export function getJudgeModels(env = {}) {
   if (env.CLOUD_PLATFORM !== 'gcp') return JUDGE_MODELS;
-  const id = env.GEMINI_JUDGE_MODEL || env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const id = env.GEMINI_JUDGE_MODEL || 'gemini-2.5-flash';
   return [{
     id,
     geminiModel: id,

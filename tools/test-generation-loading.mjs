@@ -16,6 +16,10 @@ after(async () => {
 
 async function createPage(width = 390) {
   const page = await browser.newPage({ viewport: { width, height: 844 } });
+  await page.route(
+    (url) => /(^|\.)(workers\.dev|cloudflare\.com)$/.test(url.hostname),
+    (route) => route.abort(),
+  );
   await page.addInitScript(() => {
     sessionStorage.setItem('arco-welcome-shown', '1');
     window.loadingMetrics = { cls: 0, lcp: 0 };

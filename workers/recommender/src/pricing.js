@@ -13,6 +13,7 @@
 export const PROVIDER_PRICING = {
   // Vertex Gemini standard online text inference, USD per 1M tokens.
   'gemini:gemini-2.5-flash': { in: 0.30, out: 2.50 },
+  'gemini:gemini-2.5-flash-lite': { in: 0.10, out: 0.40 },
 
   // ─── Cerebras ──────────────────────────────────────────────────────────────
   'cerebras:gpt-oss-120b': { in: 0.25, out: 0.69 },

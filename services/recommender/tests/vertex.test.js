@@ -128,6 +128,7 @@ test('GCP model catalog/defaults avoid Cloudflare and unconfigured AWS; Worker c
   assert.equal(catalog.some((entry) => ['cloudflare', 'bedrock'].includes(entry.provider)), false);
   assert.equal(catalogAvailability({ provider: 'cloudflare' }, { ...env, AI: {} }).available, false);
   assert.equal(platformDefaultEntry({}).provider, 'cerebras');
+  assert.equal(platformDefaultEntry({ CLOUD_PLATFORM: 'gcp' }).model, 'gemini-2.5-flash-lite');
   assert.equal((await getCatalog({})).some((entry) => entry.provider === 'cloudflare'), true);
   assert.equal((await getActiveLlmConfig(env)).provider, 'gemini');
   env.CACHE = {
@@ -143,6 +144,7 @@ test('GCP judge uses Gemini without AWS while preserving Worker judge list', asy
   const score = Object.fromEntries(dimensions.map((key) => [key, { score: 4, reasoning: 'good' }]));
   const { env } = geminiEnv([{ candidates: [{ content: { parts: [{ text: JSON.stringify(score) }] }, finishReason: 'STOP' }] }]);
   assert.equal(getJudgeModels(env)[0].id, 'gemini-2.5-flash');
+  assert.equal(getJudgeModels({ ...env, GEMINI_MODEL: 'gemini-2.5-flash-lite' })[0].id, 'gemini-2.5-flash');
   assert.equal(isValidJudgeModel('claude-sonnet-4-6', env), false);
   assert.equal(isValidJudgeModel('claude-sonnet-4-6'), true);
   const result = await judgeVariant(env, { query: 'espresso', blocks: [], rag: {} });

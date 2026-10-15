@@ -371,7 +371,7 @@ export const DEFAULT_CATALOG_ENTRY = MODEL_CATALOG[0];
 
 export function platformDefaultEntry(env = {}) {
   if (env.CLOUD_PLATFORM !== 'gcp') return DEFAULT_CATALOG_ENTRY;
-  const model = env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const model = env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
   return { provider: 'gemini', model, label: `Vertex Gemini · ${model}` };
 }
 
