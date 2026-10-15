@@ -49,6 +49,11 @@ async function generate(tv = false) {
   assert.equal(saved.run.id, id);
   assert.equal(saved.run.llm_provider, 'gemini');
   assert.ok(saved.payload);
+  if (tv) {
+    assert.equal(saved.run.flow_id, 'tv-comparison');
+    assert.equal(saved.run.block_count, 1);
+    assert.equal(events.filter((event) => event.type === 'section').length, 1);
+  }
   console.log(`PASS ${tv ? 'TV comparison' : 'real generation'}: streamed sections and durable run ${id}`);
   return saved;
 }
@@ -82,6 +87,16 @@ await request('/api/track', {
 await request('/api/feedback', {
   sessionId, runId, pageId, rating: 1, comment: 'Google smoke test',
 });
+const feedback = await request(`/api/admin/feedback/run/${runId}`);
+assert.ok(feedback.feedback.some(
+  (row) => row.run_id === runId && row.session_id === sessionId && row.rating === 1,
+));
+const summary = await request('/api/admin/insights/summary');
+assert.ok(summary.conversions.attributedAddToCart >= 1);
+assert.ok(summary.conversions.attributedCartValueUsd >= 199);
+const { campaigns } = await request('/api/admin/insights/campaigns');
+const campaign = campaigns.find((row) => row.utmCampaign === 'google-serverless-demo');
+assert.ok(campaign?.carts >= 1 && campaign?.cartValueUsd >= 199);
 for (const path of [
   `/api/admin/sessions/${sessionId}`,
   `/api/admin/pages/${pageId}`,

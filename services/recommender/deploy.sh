@@ -12,7 +12,8 @@ URL="$(gcloud run services list --project="$PROJECT" --region="$REGION" \
 if [[ -z "$URL" ]]; then
   URL="https://${SERVICE}-${NUMBER}.${REGION}.run.app"
 fi
-IMAGE="${REGION}-docker.pkg.dev/${PROJECT}/arco-gcp/recommender:$(date -u +%Y%m%d-%H%M%S)"
+TAG="$(git rev-parse --short HEAD)-$(date -u +%Y%m%d-%H%M%S)"
+IMAGE="${REGION}-docker.pkg.dev/${PROJECT}/arco-gcp/recommender:$TAG"
 
 bun install --cwd workers/recommender --frozen-lockfile --ignore-scripts --registry=https://registry.npmjs.org
 bun install --cwd services/recommender --frozen-lockfile --ignore-scripts --registry=https://registry.npmjs.org
