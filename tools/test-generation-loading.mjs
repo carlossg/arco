@@ -46,7 +46,11 @@ async function createPage(width = 390) {
     const page = await createPage(width);
     const cloudflare = [];
     const errors = [];
+    const imageRequests = [];
+    let generating = false;
     page.on('request', (request) => {
+      if (new URL(request.url()).pathname === '/api/generate') generating = true;
+      if (generating && request.resourceType() === 'image') imageRequests.push(request.url());
       if (/(^|\.)(workers\.dev|cloudflare\.com)$/.test(new URL(request.url()).hostname)) {
         cloudflare.push(request.url());
       }
@@ -76,6 +80,12 @@ async function createPage(width = 390) {
       assert.equal(await heroImage.getAttribute('loading'), 'eager');
       assert.equal(await heroImage.getAttribute('fetchpriority'), 'high');
       assert.match(await heroImage.evaluate((image) => image.currentSrc), /format=webply/);
+      const heroUrl = new URL(await heroImage.getAttribute('src'), origin);
+      assert.deepEqual(imageRequests.filter((url) => {
+        const candidate = new URL(url);
+        return candidate.origin === heroUrl.origin && candidate.pathname === heroUrl.pathname
+          && !candidate.searchParams.has('format');
+      }), [], 'The unoptimized hero must never be downloaded');
       assert.ok(metrics.cls < 0.1, `CLS ${metrics.cls} must remain below 0.1`);
       assert.equal(await page.evaluate(() => (
         document.documentElement.scrollWidth > window.innerWidth

@@ -103,7 +103,17 @@ export async function renderStreamedSection(data, content, runId) {
   }
   section.dataset.sectionStatus = 'initialized';
   if (runId) section.dataset.runId = runId;
-  section.innerHTML = data.html;
+  // Parse inertly so raw hero images cannot start downloading before optimization.
+  const markup = document.createElement('template');
+  markup.innerHTML = data.html;
+  const heroes = markup.content.querySelectorAll('.hero');
+  if (heroes.length) {
+    const { optimizeHeroImage } = await import('../blocks/hero/hero.js');
+    heroes.forEach((hero, index) => {
+      optimizeHeroImage(hero, index === 0 && !content.querySelector('.hero'));
+    });
+  }
+  section.append(markup.content);
 
   processSectionMetadata(section);
 

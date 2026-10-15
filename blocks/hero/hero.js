@@ -110,25 +110,29 @@ function applyPersonaOverride(block, persona) {
   block.classList.add(`hero-persona-${persona}`);
 }
 
+export function optimizeHeroImage(block, eager) {
+  const picture = block.querySelector('picture');
+  const image = picture?.querySelector('img');
+  const src = image?.getAttribute('src');
+  if (src && !picture.querySelector('source') && /\/media_[^/]+$/.test(new URL(src, window.location.href).pathname)) {
+    picture.replaceWith(createOptimizedPicture(src, image.alt, eager));
+  }
+  if (eager) {
+    const heroImage = block.querySelector('img');
+    if (heroImage) {
+      heroImage.loading = 'eager';
+      heroImage.fetchPriority = 'high';
+    }
+  }
+}
+
 /**
  * Loads and decorates the hero block.
  * @param {Element} block The hero block element
  */
 export default async function decorate(block) {
   if (document.body.classList.contains('arco-recommender-mode')) {
-    const picture = block.querySelector('picture');
-    const image = picture?.querySelector('img');
-    const eager = block === document.querySelector('main .hero');
-    if (image && !picture.querySelector('source') && /\/media_[^/]+$/.test(new URL(image.src).pathname)) {
-      picture.replaceWith(createOptimizedPicture(image.src, image.alt, eager));
-    }
-    if (eager) {
-      const heroImage = block.querySelector('img');
-      if (heroImage) {
-        heroImage.loading = 'eager';
-        heroImage.fetchPriority = 'high';
-      }
-    }
+    optimizeHeroImage(block, block === document.querySelector('main .hero'));
   }
 
   const persona = getPersona();
