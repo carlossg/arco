@@ -74,7 +74,7 @@ function parseJsonField(value) {
 // ─── POST /api/feedback ──────────────────────────────────────────────────────
 
 export async function handleSubmitFeedback(request, env) {
-  if (!env.SESSIONS_DB) {
+  if (!env.GCP_STORAGE && !env.SESSIONS_DB) {
     return jsonResponse({ error: 'Storage unavailable' }, { status: 503 });
   }
 
@@ -114,6 +114,24 @@ export async function handleSubmitFeedback(request, env) {
   const id = crypto.randomUUID();
 
   try {
+    if (env.GCP_STORAGE) {
+      await env.GCP_STORAGE.saveFeedback({
+        id,
+        run_id: runId,
+        page_id: pageId,
+        session_id: sessionId,
+        rating: ratingNum,
+        comment,
+        flags: JSON.stringify(flags),
+        wrong_products: JSON.stringify(wrongProducts),
+        dwell_ms: dwellMs,
+        user_agent: ua,
+        ip_hash: ipHashed,
+        created_at: now,
+        updated_at: now,
+      });
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
     await env.SESSIONS_DB.prepare(`
       INSERT INTO run_feedback
         (id, run_id, page_id, session_id, rating, comment, flags, wrong_products,
@@ -179,6 +197,7 @@ function feedbackRowToDto(r) {
 // ─── GET /api/admin/feedback ─────────────────────────────────────────────────
 
 export async function handleListFeedback(request, env) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleListFeedback(request, env);
   const url = new URL(request.url);
   const limit = Math.min(parseInt(url.searchParams.get('limit') || '50', 10), 200);
   const offset = parseInt(url.searchParams.get('offset') || '0', 10);
@@ -251,6 +270,7 @@ export async function handleListFeedback(request, env) {
 // ─── GET /api/admin/feedback/run/:runId ──────────────────────────────────────
 
 export async function handleRunFeedback(request, env, runId) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleRunFeedback(request, env, runId);
   const { results: feedback } = await env.SESSIONS_DB.prepare(
     `SELECT rf.*, gp.query, gp.intent_type, gp.journey_stage,
             gp.llm_provider, gp.llm_model, gp.da_path, gp.title, gp.page_id as gp_page_id
@@ -289,6 +309,7 @@ export async function handleRunFeedback(request, env, runId) {
 // ─── GET /api/admin/feedback/summary ─────────────────────────────────────────
 
 export async function handleFeedbackSummary(request, env) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleFeedbackSummary(request, env);
   const url = new URL(request.url);
   const since = parseInt(url.searchParams.get('since') || '0', 10);
   const sinceClause = since > 0 ? 'WHERE rf.created_at >= ?1' : '';
@@ -445,14 +466,15 @@ export async function handleFeedbackExport(request, env) {
   }
 
   // No pagination — admin export, expected size is hundreds-to-low-thousands.
-  const { results } = await env.SESSIONS_DB.prepare(
-    `SELECT rf.*, gp.query, gp.intent_type, gp.journey_stage,
+  const results = env.GCP_STORAGE ? await env.GCP_STORAGE.feedbackRows(request)
+    : (await env.SESSIONS_DB.prepare(
+      `SELECT rf.*, gp.query, gp.intent_type, gp.journey_stage,
             gp.llm_provider, gp.llm_model, gp.da_path
      FROM run_feedback rf
      LEFT JOIN generated_pages gp ON gp.id = rf.run_id
      WHERE ${where.join(' AND ')}
      ORDER BY rf.created_at DESC`,
-  ).bind(...binds).all();
+    ).bind(...binds).all()).results;
 
   const stamp = new Date().toISOString().split('T')[0];
   const filename = `arco-feedback-${stamp}.${format === 'json' ? 'ndjson' : 'csv'}`;
@@ -494,6 +516,7 @@ export async function handleFeedbackExport(request, env) {
  * query string matches the suite query).
  */
 export async function attachFeedbackToQueries(env, queries) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.attachFeedbackToQueries(queries);
   if (!env.SESSIONS_DB || !Array.isArray(queries) || queries.length === 0) {
     return new Map();
   }

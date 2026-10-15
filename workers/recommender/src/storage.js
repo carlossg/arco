@@ -226,6 +226,9 @@ function buildDebugSnapshot(ctx) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export async function saveGeneration(ctx, env, sessionId, meta = {}) {
+  if (env.GCP_STORAGE) {
+    return env.GCP_STORAGE.saveGeneration(ctx, env, sessionId, meta, buildDebugSnapshot(ctx));
+  }
   if (!env.SESSIONS_DB || !env.SESSION_STORE) {
     console.error('[Storage] saveGeneration skipped: missing SESSIONS_DB or SESSION_STORE bindings');
     return null;

@@ -8,6 +8,23 @@ This project is based on the https://github.com/adobe/aem-boilerplate/ project a
 
 The repository provides the basic structure, blocks, and configuration needed to run a complete site with `*.aem.live` as the backend.
 
+### This fork's backend
+
+The default is the low-traffic, serverless Google implementation in
+`services/recommender/`: Cloud Run (minimum 0, maximum 1 instance), Firestore
+Native for documents/KV/vector search, Vertex Gemini and embeddings, Cloud Tasks,
+Cloud Scheduler, private GCS payloads and Secret Manager. Do not add an always-on
+database or SQL emulation for this demo. See `services/recommender/README.md`.
+
+The existing `workers/recommender/` pipeline and Cloudflare implementation are
+retained. Native Firestore repository hooks preserve public/admin contracts;
+Google evaluations use their own native Firestore lifecycle. Google runtime
+must not call Cloudflare, including provider, analytics or queue-admin APIs.
+Frontend defaults for generation, analytics and admin all use Google, even on
+localhost. Cloudflare is explicit `ARCO_CONFIG.BACKEND="cloudflare"` opt-in only.
+Google deployments must never run Wrangler deployment or remote D1 migrations.
+The Cloudflare architecture sections below describe the retained alternative.
+
 ### Key Technologies
 - Edge Delivery Services for AEM Sites (documentation at https://www.aem.live/ – search with `site:www.aem.live` to restrict web search results)
 - Vanilla JavaScript (ES6+), no transpiling, no build steps
@@ -17,12 +34,14 @@ The repository provides the basic structure, blocks, and configuration needed to
 
 ## Setup Commands
 
-- Install dependencies: `npm install`
-- Start local development: `npx -y @adobe/aem-cli up --no-open --forward-browser-logs` (run in background, if possible)
-  - Install the AEM CLI globally by running `npm install -g @adobe/aem-cli` then `aem up` is equivalent to the command above
+- Install dependencies: `bun install --registry=https://registry.npmjs.org --ignore-scripts`
+- Use Bun, with an explicit public-registry override rather than the user's `~/.npmrc`. Keep Bun lockfiles tracked.
+- Start local development: `aem up --no-open --forward-browser-logs` (run in background, if possible)
+  - If needed, install the CLI with `bun add -g --registry=https://registry.npmjs.org @adobe/aem-cli`
   - The dev server runs at `http://localhost:3000` with auto-reload. Open it in playwright, puppeteer, or a browser. If none are available, ask the human to open it and give feedback.
-- Run linting before committing: `npm run lint`
-- Auto-Fix linting issues: `npm run lint:fix`
+- Run linting before committing: `bun run lint:js` and `bun run lint:css`
+- Auto-fix: `bun run lint:js --fix` and `bun run lint:css --fix`
+- Backend tests: `bun run --cwd services/recommender test` and `bun run --cwd workers/recommender test`
 
 ## Project Structure
 

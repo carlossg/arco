@@ -97,6 +97,10 @@ function jsonResponse(body, init = {}) {
 // ── Persistence ────────────────────────────────────────────────────────────────
 
 async function insertExperimentRow(db, exp) {
+  if (db.insertExperiment) {
+    await db.insertExperiment(exp);
+    return;
+  }
   await db.prepare(`
     INSERT INTO experiments
       (id, session_id, query, page_url, variant_count, status,
@@ -116,6 +120,10 @@ async function insertExperimentRow(db, exp) {
 }
 
 async function insertVariantRow(db, v) {
+  if (db.insertVariant) {
+    await db.insertVariant(v);
+    return;
+  }
   await db.prepare(`
     INSERT INTO experiment_variants
       (id, experiment_id, variant_index, provider, model,
@@ -133,6 +141,10 @@ async function insertVariantRow(db, v) {
 }
 
 async function finalizeVariantRow(db, v) {
+  if (db.finalizeVariant) {
+    await db.finalizeVariant(v);
+    return;
+  }
   await db.prepare(`
     UPDATE experiment_variants
     SET status = ?1, duration_ms = ?2, input_tokens = ?3, output_tokens = ?4,
@@ -152,6 +164,10 @@ async function finalizeVariantRow(db, v) {
 }
 
 async function finalizeExperimentRow(db, expId, status, sharedDurationMs) {
+  if (db.finalizeExperiment) {
+    await db.finalizeExperiment(expId, status, sharedDurationMs);
+    return;
+  }
   await db.prepare(`
     UPDATE experiments
     SET status = ?1, completed_at = ?2, shared_duration_ms = ?3
@@ -213,6 +229,7 @@ function buildVariantPayload(ctx, variant) {
 export async function handleCreateExperiment(request, env) {
   const unauth = await requireAdminAuth(request, env);
   if (unauth) return unauth;
+  const database = env.GCP_STORAGE || env.SESSIONS_DB;
 
   let rawBody;
   try {
@@ -331,9 +348,9 @@ export async function handleCreateExperiment(request, env) {
 
       // Write D1 rows now (status=running) so the experiment is visible to the
       // list endpoint even before variants finish.
-      if (env.SESSIONS_DB) {
+      if (database) {
         try {
-          await insertExperimentRow(env.SESSIONS_DB, {
+          await insertExperimentRow(database, {
             id: experimentId,
             sessionId: body.sessionId,
             query: body.query,
@@ -345,7 +362,7 @@ export async function handleCreateExperiment(request, env) {
           });
           // Batch variant inserts — one per variant.
           await Promise.all(
-            variants.map((v) => insertVariantRow(env.SESSIONS_DB, v)),
+            variants.map((v) => insertVariantRow(database, v)),
           );
         } catch (dbErr) {
           console.error('[Experiment] pre-fanout D1 insert failed:', dbErr.message);
@@ -411,7 +428,7 @@ export async function handleCreateExperiment(request, env) {
       }));
 
       // ── Persist each variant's payload to KV + update D1 rows ──────────────
-      if (env.SESSION_STORE && env.SESSIONS_DB) {
+      if (env.SESSION_STORE && database) {
         await Promise.all(variants.map(async (v) => {
           try {
             const payload = buildVariantPayload(ctx, v);
@@ -424,7 +441,7 @@ export async function handleCreateExperiment(request, env) {
             console.error(`[Experiment] variant KV write failed (${v.id}):`, kvErr.message);
           }
           try {
-            await finalizeVariantRow(env.SESSIONS_DB, {
+            await finalizeVariantRow(database, {
               id: v.id,
               status: v.status,
               durationMs: v.finishedAt && v.startedAt ? v.finishedAt - v.startedAt : null,
@@ -447,9 +464,9 @@ export async function handleCreateExperiment(request, env) {
       if (allComplete) expStatus = 'complete';
       else if (anyComplete) expStatus = 'complete';
       else expStatus = 'error';
-      if (env.SESSIONS_DB) {
+      if (database) {
         try {
-          await finalizeExperimentRow(env.SESSIONS_DB, experimentId, expStatus, sharedDurationMs);
+          await finalizeExperimentRow(database, experimentId, expStatus, sharedDurationMs);
         } catch (dbErr) {
           console.error('[Experiment] experiment finalize failed:', dbErr.message);
         }
@@ -487,6 +504,7 @@ export async function handleCreateExperiment(request, env) {
 export async function handleListExperiments(request, env) {
   const unauth = await requireAdminAuth(request, env);
   if (unauth) return unauth;
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleListExperiments(request, env);
   if (!env.SESSIONS_DB) {
     return jsonResponse({
       experiments: [], total: 0, limit: 0, offset: 0,
@@ -524,6 +542,7 @@ export async function handleListExperiments(request, env) {
 export async function handleGetExperiment(request, env, experimentId) {
   const unauth = await requireAdminAuth(request, env);
   if (unauth) return unauth;
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleGetExperiment(request, env, experimentId);
 
   const { results: [experiment] } = await env.SESSIONS_DB.prepare(
     'SELECT * FROM experiments WHERE id = ?1',
@@ -545,6 +564,9 @@ export async function handleGetExperiment(request, env, experimentId) {
 export async function handleGetExperimentVariant(request, env, experimentId, variantId) {
   const unauth = await requireAdminAuth(request, env);
   if (unauth) return unauth;
+  if (env.GCP_STORAGE) {
+    return env.GCP_STORAGE.handleGetExperimentVariant(request, env, experimentId, variantId);
+  }
 
   const { results: [variant] } = await env.SESSIONS_DB.prepare(
     'SELECT * FROM experiment_variants WHERE id = ?1 AND experiment_id = ?2',
