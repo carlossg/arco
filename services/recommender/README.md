@@ -38,6 +38,13 @@ bun run --cwd services/recommender test
 Bun manages dependencies and runs scripts. The container retains Node 24 for
 the existing ESM loader and shared Worker pipeline.
 
+For browser regressions, start the AEM development server against real preview
+content, then run `bun run test:browser` from the repository root. Set `BASE_URL`
+to test another frontend. The runner checks real Google generation at mobile
+and desktop widths, requires CLS below 0.1, rejects Cloudflare requests, and
+checks that early and late NDJSON errors remain visible. Successful-generation
+tests use the deployed backend and persist synthetic test runs.
+
 ## Local development
 
 Authenticate with `gcloud auth application-default login`. Configure the same

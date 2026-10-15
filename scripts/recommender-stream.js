@@ -97,6 +97,7 @@ async function renderDebugPanel(debugData, sessionContext, sectionEl) {
 export async function renderStreamedSection(data, content, runId) {
   const section = document.createElement('div');
   section.className = 'section';
+  section.style.display = 'none';
   if (data.sectionStyle && data.sectionStyle !== 'default') {
     section.classList.add(data.sectionStyle);
   }
@@ -224,9 +225,10 @@ async function handleNdjsonEvent(data, container, state, options = {}) {
   if (data.type === 'heartbeat') return;
 
   if (data.type === 'section') {
-    if (state.blockCount === 0 && options.onFirstSection) options.onFirstSection();
+    const firstSection = state.blockCount === 0;
     state.blockCount += 1;
     await renderStreamedSection(data, container, state.runId);
+    if (firstSection && options.onFirstSection) options.onFirstSection();
     const lastSection = container.querySelector('.section:last-of-type');
     if (lastSection) {
       trackSectionContent(lastSection);

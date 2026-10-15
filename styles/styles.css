@@ -92,6 +92,50 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+.arco-recommender-mode main {
+  min-height: calc(100svh - var(--nav-height));
+}
+
+.generating-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100svh - var(--nav-height));
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.generating-container .generating-title {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l, 28px);
+  font-weight: 700;
+  color: var(--text-color, #1c2b35);
+  margin: 0 0 8px;
+}
+
+.generating-container .generating-query {
+  font-size: var(--body-font-size-m, 18px);
+  color: var(--text-color, #1c2b35);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.generating-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-color, #d4cfc5);
+  border-top-color: var(--accent-color, #b5651d);
+  border-radius: 50%;
+  animation: recommender-spin 0.8s linear infinite;
+  margin-bottom: 24px;
+}
+
+@keyframes recommender-spin {
+  to { transform: rotate(360deg); }
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin-top: 1em;
   margin-bottom: 0.3em;
