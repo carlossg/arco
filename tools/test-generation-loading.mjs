@@ -68,6 +68,10 @@ async function createPage(width = 390) {
       }));
       const metrics = await page.evaluate(() => window.loadingMetrics);
       t.diagnostic(JSON.stringify({ width, ...metrics }));
+      const heroImage = page.locator('#generation-content .hero img').first();
+      assert.equal(await heroImage.getAttribute('loading'), 'eager');
+      assert.equal(await heroImage.getAttribute('fetchpriority'), 'high');
+      assert.match(await heroImage.evaluate((image) => image.currentSrc), /format=webply/);
       assert.ok(metrics.cls < 0.1, `CLS ${metrics.cls} must remain below 0.1`);
       assert.equal(await page.evaluate(() => (
         document.documentElement.scrollWidth > window.innerWidth
