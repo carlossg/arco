@@ -1,0 +1,21 @@
+{
+  "name": "arco-recommender-google",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node --loader ../../workers/recommender/tools/json-loader.js src/server.js",
+    "test": "node --loader ../../workers/recommender/tools/json-loader.js --test 'tests/*.test.js'",
+    "index-content": "node tools/index-content.js",
+    "smoke": "node tools/smoke.js"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^8.0.0",
+    "@google-cloud/storage": "^7.19.0",
+    "@google-cloud/tasks": "^6.2.0",
+    "google-auth-library": "^10.5.0"
+  }
+}

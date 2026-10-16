@@ -4,7 +4,9 @@
  * and, ultimately, the first catalog entry.
  */
 
-import { findCatalogEntry, DEFAULT_CATALOG_ENTRY } from './providers/index.js';
+import {
+  findCatalogEntry, DEFAULT_CATALOG_ENTRY, platformDefaultEntry, catalogAvailability,
+} from './providers/index.js';
 
 const KV_KEY = 'llm-config:active';
 
@@ -26,6 +28,15 @@ function clamp(n, min, max) {
  * OLLAMA_MODEL is unset.
  */
 function ollamaEnvDefault(env) {
+  if (env?.CLOUD_PLATFORM === 'gcp') {
+    return {
+      ...platformDefaultEntry(env),
+      temperature: null,
+      maxTokens: null,
+      thinking: false,
+      updatedAt: null,
+    };
+  }
   if (!env?.OLLAMA_MODEL) return null;
   // Reasoning-capable Ollama models spend output budget on a thinking phase
   // before emitting page content, so the flow default (5120) can be fully
@@ -60,6 +71,10 @@ export async function getActiveLlmConfig(env) {
     console.warn(`[llm-config] stored entry not in catalog: ${stored.provider}/${stored.model}`);
     return ollamaEnvDefault(env);
   }
+  if (env.CLOUD_PLATFORM === 'gcp'
+    && !catalogAvailability(findCatalogEntry(stored.provider, stored.model), env).available) {
+    return ollamaEnvDefault(env);
+  }
   return {
     provider: stored.provider,
     model: stored.model,
@@ -79,6 +94,10 @@ export async function putActiveLlmConfig(env, patch) {
   if (!patch || typeof patch !== 'object') return { error: 'Invalid body.' };
   const entry = findCatalogEntry(patch.provider, patch.model);
   if (!entry) return { error: `Unknown provider/model: ${patch.provider}/${patch.model}` };
+  if (env.CLOUD_PLATFORM === 'gcp') {
+    const { available, missing } = catalogAvailability(entry, env);
+    if (!available) return { error: `Provider unavailable on GCP: ${missing.join(', ')}` };
+  }
 
   const temperature = clamp(patch.temperature, TEMP_MIN, TEMP_MAX);
   const maxTokens = patch.maxTokens != null

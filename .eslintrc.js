@@ -17,6 +17,13 @@ module.exports = {
   },
   overrides: [
     {
+      // The Google adapter deliberately reuses the retained Worker pipeline.
+      files: ['services/recommender/**/*.js'],
+      rules: {
+        'import/no-relative-packages': 'off',
+      },
+    },
+    {
       // Node.js scripts that need sequential async iteration patterns
       files: [
         'scripts/generate-*.js',
@@ -36,7 +43,11 @@ module.exports = {
       // the browser. Their dependencies (nunjucks, yaml) and generated prompt
       // bundles live in the worker's own package and are not installed at the
       // repo root, so import resolution is delegated to the worker's tooling.
-      files: ['workers/recommender/src/**/*.js', 'workers/recommender/tests/**/*.js'],
+      files: [
+        'workers/recommender/src/**/*.js',
+        'workers/recommender/tests/**/*.js',
+        'services/recommender/**/*.js',
+      ],
       env: {
         node: true, browser: false, 'shared-node-browser': true, es2022: true,
       },
@@ -53,7 +64,7 @@ module.exports = {
     },
     {
       // Snapshot/unit tests favour compact single-line fixtures and stubs.
-      files: ['workers/recommender/tests/**/*.js'],
+      files: ['workers/recommender/tests/**/*.js', 'services/recommender/tests/**/*.js'],
       rules: {
         'max-len': 'off',
       },

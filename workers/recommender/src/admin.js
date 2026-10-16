@@ -96,6 +96,7 @@ const unauthorized = adminUnauthorized;
 
 export async function handleAdminSessions(request, env) {
   if (!await checkCookieAuth(request, env) && !checkBasicAuth(request, env)) return unauthorized();
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleAdminSessions(request, env);
   const url = new URL(request.url);
   const limit = Math.min(parseInt(url.searchParams.get('limit') || '50', 10), 200);
   const offset = parseInt(url.searchParams.get('offset') || '0', 10);
@@ -125,6 +126,7 @@ export async function handleAdminSessions(request, env) {
  */
 export async function handleAdminSession(request, env, sessionId) {
   if (!await checkCookieAuth(request, env) && !checkBasicAuth(request, env)) return unauthorized();
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleAdminSession(request, env, sessionId);
 
   const { results: [session] } = await env.SESSIONS_DB.prepare(
     'SELECT * FROM sessions WHERE id = ?1',
@@ -183,6 +185,7 @@ export async function handleAdminSession(request, env, sessionId) {
  */
 export async function handleAdminPageGroup(request, env, pageId) {
   if (!await checkCookieAuth(request, env) && !checkBasicAuth(request, env)) return unauthorized();
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleAdminPageGroup(request, env, pageId);
 
   const { results: runs } = await env.SESSIONS_DB.prepare(
     'SELECT * FROM generated_pages WHERE page_id = ?1 ORDER BY run_index ASC, created_at ASC',
@@ -215,6 +218,7 @@ export async function handleAdminPageGroup(request, env, pageId) {
  */
 export async function handleAdminRun(request, env, runId) {
   if (!await checkCookieAuth(request, env) && !checkBasicAuth(request, env)) return unauthorized();
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleAdminRun(request, env, runId);
 
   const { results: [run] } = await env.SESSIONS_DB.prepare(
     'SELECT * FROM generated_pages WHERE id = ?1',

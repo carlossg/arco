@@ -14,6 +14,8 @@
  * If no data attributes, falls back to the authored content.
  */
 
+import { createOptimizedPicture } from '../../scripts/aem.js';
+
 /**
  * Reads the arco_persona cookie value.
  * @returns {string|null}
@@ -108,11 +110,31 @@ function applyPersonaOverride(block, persona) {
   block.classList.add(`hero-persona-${persona}`);
 }
 
+export function optimizeHeroImage(block, eager) {
+  const picture = block.querySelector('picture');
+  const image = picture?.querySelector('img');
+  const src = image?.getAttribute('src');
+  if (src && !picture.querySelector('source') && /\/media_[^/]+$/.test(new URL(src, window.location.href).pathname)) {
+    picture.replaceWith(createOptimizedPicture(src, image.alt, eager));
+  }
+  if (eager) {
+    const heroImage = block.querySelector('img');
+    if (heroImage) {
+      heroImage.loading = 'eager';
+      heroImage.fetchPriority = 'high';
+    }
+  }
+}
+
 /**
  * Loads and decorates the hero block.
  * @param {Element} block The hero block element
  */
 export default async function decorate(block) {
+  if (document.body.classList.contains('arco-recommender-mode')) {
+    optimizeHeroImage(block, block === document.querySelector('main .hero'));
+  }
+
   const persona = getPersona();
 
   // Only apply persona overrides on the homepage or when block has campaign variant

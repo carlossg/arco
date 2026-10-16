@@ -15,6 +15,7 @@ import ollama from './ollama.js';
 import vllm from './vllm.js';
 import vertex from './vertex.js';
 import taalas from './taalas.js';
+import gemini from './gemini.js';
 
 const PROVIDERS = {
   bedrock,
@@ -25,6 +26,7 @@ const PROVIDERS = {
   vllm,
   vertex,
   taalas,
+  gemini,
 };
 
 /**
@@ -367,6 +369,12 @@ export const MODEL_CATALOG = [
 
 export const DEFAULT_CATALOG_ENTRY = MODEL_CATALOG[0];
 
+export function platformDefaultEntry(env = {}) {
+  if (env.CLOUD_PLATFORM !== 'gcp') return DEFAULT_CATALOG_ENTRY;
+  const model = env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+  return { provider: 'gemini', model, label: `Vertex Gemini · ${model}` };
+}
+
 export function findCatalogEntry(provider, model) {
   const found = MODEL_CATALOG.find((e) => e.provider === provider && e.model === model);
   if (found) return found;
@@ -379,6 +387,9 @@ export function findCatalogEntry(provider, model) {
   }
   if (provider === 'vertex' && model) {
     return { provider, model, label: `Vertex AI · ${model}` };
+  }
+  if (provider === 'gemini' && model && /^[a-zA-Z0-9._-]+$/.test(model)) {
+    return { provider, model, label: `Vertex Gemini · ${model}` };
   }
   return null;
 }
@@ -395,6 +406,7 @@ export function getProvider(name) {
  * AI_GATEWAY_ID + a vendor key).
  */
 const PROVIDER_BASE_REQUIREMENTS = {
+  gemini: (env) => (env.GCP_AUTH || env.GCP_ACCESS_TOKEN ? [] : ['Google ADC']),
   bedrock: (env) => (env.AWS_BEARER_TOKEN_BEDROCK ? [] : ['AWS_BEARER_TOKEN_BEDROCK']),
   cerebras: (env) => (env.CEREBRAS_API_KEY ? [] : ['CEREBRAS_API_KEY']),
   sambanova: (env) => (env.SAMBANOVA_API_KEY ? [] : ['SAMBANOVA_API_KEY']),
@@ -415,6 +427,9 @@ const PROVIDER_BASE_REQUIREMENTS = {
  * Returns { available: boolean, missing: string[] }.
  */
 export function catalogAvailability(entry, env = {}) {
+  if (env.CLOUD_PLATFORM === 'gcp' && entry.provider === 'cloudflare') {
+    return { available: false, missing: ['Cloudflare is disabled on GCP'] };
+  }
   const base = PROVIDER_BASE_REQUIREMENTS[entry.provider]?.(env) || [];
   const extra = (entry.requires || []).filter((k) => !env[k]);
   const missing = [...base, ...extra];
@@ -477,6 +492,16 @@ async function fetchVertexModels(env) {
  * static placeholder when the server can't be reached.
  */
 export async function getCatalog(env = {}) {
+  if (env.CLOUD_PLATFORM === 'gcp') {
+    // Do not probe external endpoints or list Worker bindings as generation
+    // providers merely because the Vertex embedding adapter is named AI.
+    return [
+      platformDefaultEntry(env),
+      ...MODEL_CATALOG.filter((entry) => (
+        entry.provider !== 'cloudflare' && catalogAvailability(entry, env).available
+      )),
+    ];
+  }
   const [vllmModels, ollamaModels, vertexModels] = await Promise.all([
     fetchVllmModels(env),
     fetchOllamaModels(env),

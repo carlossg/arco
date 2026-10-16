@@ -97,12 +97,23 @@ async function renderDebugPanel(debugData, sessionContext, sectionEl) {
 export async function renderStreamedSection(data, content, runId) {
   const section = document.createElement('div');
   section.className = 'section';
+  section.style.display = 'none';
   if (data.sectionStyle && data.sectionStyle !== 'default') {
     section.classList.add(data.sectionStyle);
   }
   section.dataset.sectionStatus = 'initialized';
   if (runId) section.dataset.runId = runId;
-  section.innerHTML = data.html;
+  // Parse inertly so raw hero images cannot start downloading before optimization.
+  const markup = document.createElement('template');
+  markup.innerHTML = data.html;
+  const heroes = markup.content.querySelectorAll('.hero');
+  if (heroes.length) {
+    const { optimizeHeroImage } = await import('../blocks/hero/hero.js');
+    heroes.forEach((hero, index) => {
+      optimizeHeroImage(hero, index === 0 && !content.querySelector('.hero'));
+    });
+  }
+  section.append(markup.content);
 
   processSectionMetadata(section);
 
@@ -224,9 +235,10 @@ async function handleNdjsonEvent(data, container, state, options = {}) {
   if (data.type === 'heartbeat') return;
 
   if (data.type === 'section') {
-    if (state.blockCount === 0 && options.onFirstSection) options.onFirstSection();
+    const firstSection = state.blockCount === 0;
     state.blockCount += 1;
     await renderStreamedSection(data, container, state.runId);
+    if (firstSection && options.onFirstSection) options.onFirstSection();
     const lastSection = container.querySelector('.section:last-of-type');
     if (lastSection) {
       trackSectionContent(lastSection);

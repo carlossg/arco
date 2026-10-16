@@ -1,6 +1,6 @@
 # Arco: AI-Powered Generative Website on AEM Edge Delivery Services
 
-Arco is a specialty espresso brand website that demonstrates how Adobe Experience Manager Edge Delivery Services and Cloudflare Workers can work together to deliver AI-powered personalization. The site passively learns from user browsing behavior and generates fully personalized pages in real time using a Cloudflare Worker with Vectorize RAG and Cerebras LLM.
+Arco is a specialty espresso brand website demonstrating AI-powered personalization on Adobe Experience Manager Edge Delivery Services. This fork defaults to a serverless Google Cloud backend: Cloud Run, Firestore native storage and vector search, Vertex Gemini, and Cloud Tasks. The original Cloudflare implementation is retained as an explicit alternative, not a fallback. See [Google Cloud deployment and architecture](services/recommender/README.md).
 
 ## Demo
 
@@ -12,9 +12,9 @@ The [demo video](build-demo/arco-demo.mp4) walks through Arco's AI-powered perso
 
 2. **Personalized "For You" recommendations** — A *For You* link appears in the navigation based on the user's browsing behavior. Clicking it sends the browsing context to the backend, which generates a set of recommendations tailored to the user's interests. The page streams in progressively.
 
-3. **Natural language AI search** — The user types a query like *"I'm looking for a coffee machine to use when camping in the middle of the forest"*. The backend runs a hybrid RAG pipeline combining keyword search with Cloudflare Vectorize semantic search. The LLM reasons over the results and generates a fully personalized page in real time.
+3. **Natural language AI search** — The user types a query like *"I'm looking for a coffee machine to use when camping in the middle of the forest"*. The backend runs a hybrid RAG pipeline combining keyword and native vector search. The LLM reasons over the results and generates a fully personalized page in real time.
 
-4. **Instant caching** — Refreshing the page loads it instantly from the Edge Delivery cache with no AI pipeline needed. The same query always maps to the same deterministic URL.
+4. **DA persistence** — Generated pages can be saved to Document Authoring and published through Edge Delivery. Generation currently runs afresh for every query; deterministic query-to-page caching is not implemented.
 
 ### Rebuilding the demo
 
@@ -29,24 +29,24 @@ cd build-demo && node record-demo.mjs
 ## Installation
 
 ```sh
-npm i
+bun install --registry=https://registry.npmjs.org --ignore-scripts
 ```
 
 ## Linting
 
 ```sh
-npm run lint
+bun run lint:js
+bun run lint:css
 ```
 
 ## Recommender
 
-The site includes an AI-powered recommender at `/?q=...`. Generated pages are cached in DA so repeat queries redirect instantly instead of re-running the LLM pipeline. The backing Cloudflare Worker (`arco-recommender`) supports four LLM providers — Cerebras, Cloudflare Workers AI, SambaNova, and AWS Bedrock — switchable at runtime from the admin UI.
+The site includes an AI-powered recommender at `/?q=...`. Each query streams a fresh generated page, with optional DA persistence. The default Google service uses Vertex Gemini and Firestore; runtime model selection remains available in the admin UI. The legacy Cloudflare Worker and its providers remain under `workers/recommender/`.
 
 | Parameter | Example | Description |
 |-----------|---------|-------------|
 | `q` | `/?q=best+espresso` | Natural language query |
-| `preset` | `/?q=...&preset=default` | Cache-slot preset |
-| `regen` | `/?q=...&regen` | Force regeneration, skip cache |
+| `tv` | `/?q=compare+primo+and+doppio&tv=1` | TV comparison layout |
 
 ### Local model: DiffusionGemma (MLX / vLLM)
 
@@ -75,7 +75,7 @@ Notes: the default model ids in the script are starting points — confirm the e
 
 ## Admin
 
-An EDS-hosted admin SPA at `/admin` provides session browsing, multi-model A/B experiments, large LLM evaluation sweeps with a Claude (Bedrock) judge, runtime model selection, Vectorize inspection, and real-user feedback dashboards. Login is HTTP Basic with the `ADMIN_TOKEN` worker secret.
+An EDS-hosted admin SPA at `/admin` provides session browsing, multi-model A/B experiments, evaluation sweeps, runtime model selection, vector inspection, and real-user feedback dashboards. Google mode uses a Vertex Gemini judge and Firestore; legacy Cloudflare mode retains the Bedrock judge and Vectorize. Login is HTTP Basic with `ADMIN_TOKEN`, stored in Secret Manager for Google deployment.
 
 For full documentation see [`docs/ADMIN.md`](docs/ADMIN.md). Architecture references live in [`docs/CODEMAPS/`](docs/CODEMAPS/).
 
