@@ -292,7 +292,10 @@ test('MCP handoff survives browser hydration and request parsing and reaches the
       removeItem: (key) => storage.delete(key),
     },
   });
-  t.after(() => Object.defineProperty(globalThis, 'sessionStorage', descriptor));
+  t.after(() => {
+    if (descriptor) Object.defineProperty(globalThis, 'sessionStorage', descriptor);
+    else delete globalThis.sessionStorage;
+  });
   manager.clear();
   t.mock.method(globalThis, 'fetch', (input) => {
     assert.match(input, /^https:\/\/demo.run.app\/api\/mcp\/context\//);

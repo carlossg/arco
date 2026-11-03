@@ -13,7 +13,10 @@ function reset(t) {
       removeItem: (key) => storage.delete(key),
     },
   });
-  t.after(() => Object.defineProperty(globalThis, 'sessionStorage', descriptor));
+  t.after(() => {
+    if (descriptor) Object.defineProperty(globalThis, 'sessionStorage', descriptor);
+    else delete globalThis.sessionStorage;
+  });
   manager.clear();
 }
 
