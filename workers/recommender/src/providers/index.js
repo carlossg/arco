@@ -371,7 +371,7 @@ export const DEFAULT_CATALOG_ENTRY = MODEL_CATALOG[0];
 
 export function platformDefaultEntry(env = {}) {
   if (env.CLOUD_PLATFORM !== 'gcp') return DEFAULT_CATALOG_ENTRY;
-  const model = env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+  const model = env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
   return { provider: 'gemini', model, label: `Vertex Gemini · ${model}` };
 }
 
@@ -495,8 +495,12 @@ export async function getCatalog(env = {}) {
   if (env.CLOUD_PLATFORM === 'gcp') {
     // Do not probe external endpoints or list Worker bindings as generation
     // providers merely because the Vertex embedding adapter is named AI.
+    const defaultEntry = platformDefaultEntry(env);
     return [
-      platformDefaultEntry(env),
+      defaultEntry,
+      ...['gemini-3.8-flash', 'gemini-3.5-flash-lite']
+        .filter((model) => model !== defaultEntry.model)
+        .map((model) => findCatalogEntry('gemini', model)),
       ...MODEL_CATALOG.filter((entry) => (
         entry.provider !== 'cloudflare' && catalogAvailability(entry, env).available
       )),

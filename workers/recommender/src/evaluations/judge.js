@@ -10,6 +10,7 @@
 
 import bedrock from '../providers/bedrock.js';
 import gemini from '../providers/gemini.js';
+import { priceFor } from '../pricing.js';
 
 // Judge models mapped to Bedrock cross-region inference profile ids.
 export const JUDGE_MODELS = [
@@ -47,12 +48,13 @@ export const JUDGE_MODELS = [
 
 export function getJudgeModels(env = {}) {
   if (env.CLOUD_PLATFORM !== 'gcp') return JUDGE_MODELS;
-  const id = env.GEMINI_JUDGE_MODEL || 'gemini-2.5-flash';
+  const id = env.GEMINI_JUDGE_MODEL || 'gemini-3.8-flash';
+  const rates = priceFor('gemini', id);
   return [{
     id,
     geminiModel: id,
     label: `Vertex Gemini · ${id}`,
-    defaults: { inputPerMillion: 0.3, outputPerMillion: 2.5 },
+    defaults: { inputPerMillion: rates.in, outputPerMillion: rates.out },
   }];
 }
 

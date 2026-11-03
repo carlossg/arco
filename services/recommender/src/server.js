@@ -33,6 +33,7 @@ export default async function start(config = process.env) {
     ...config,
     GOOGLE_CLOUD_PROJECT: projectId,
     VERTEX_LOCATION: location,
+    GEMINI_LOCATION: config.GEMINI_LOCATION || 'global',
     CLOUD_PLATFORM: 'gcp',
     GCP_AUTH: auth,
     ENVIRONMENT: config.ENVIRONMENT || 'production',

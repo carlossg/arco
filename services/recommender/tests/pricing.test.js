@@ -11,4 +11,6 @@ test('native Gemini ROI uses its own standard token prices, not an unknown-model
     in: 0.10, out: 0.40, known: true, free: false,
   });
   assert.equal(costUsd('gemini', 'gemini-2.5-flash-lite', 1000, 200), 0.00018);
+  assert.equal(costUsd('gemini', 'gemini-3.5-flash-lite', 1000, 200), 0.0008);
+  assert.equal(costUsd('gemini', 'gemini-3.8-flash', 1000, 200), 0.003);
 });
