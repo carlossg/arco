@@ -19,18 +19,27 @@ async function* stream({
   env, model, messages, temperature, maxTokens, thinking, signal,
 }) {
   const project = env.GOOGLE_CLOUD_PROJECT || 'api-project-642841493686';
-  const location = env.VERTEX_LOCATION || 'us-central1';
+  const location = env.GEMINI_LOCATION || env.VERTEX_LOCATION || 'us-central1';
   const token = await accessToken(env);
-  const endpoint = `https://${location}-aiplatform.googleapis.com/v1/projects/${encodeURIComponent(project)}/locations/${encodeURIComponent(location)}/publishers/google/models/${encodeURIComponent(model)}:streamGenerateContent?alt=sse`;
+  const host = location === 'global' ? 'aiplatform.googleapis.com' : `${location}-aiplatform.googleapis.com`;
+  const endpoint = `https://${host}/v1/projects/${encodeURIComponent(project)}/locations/${encodeURIComponent(location)}/publishers/google/models/${encodeURIComponent(model)}:streamGenerateContent?alt=sse`;
   const system = messages.filter((m) => m.role === 'system').map((m) => ({ text: String(m.content) }));
   const body = {
     contents: messages.filter((m) => m.role !== 'system').map((m) => ({
       role: m.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: String(m.content) }],
     })),
-    generationConfig: { temperature, maxOutputTokens: maxTokens },
+    generationConfig: {
+      ...(model === 'gemini-3.5-flash-lite' ? {} : { temperature }),
+      maxOutputTokens: maxTokens,
+    },
   };
-  if (thinking === false && model.startsWith('gemini-2.5-flash')) {
+  if (typeof thinking === 'boolean' && model === 'gemini-3.8-flash') {
+    // Flash 3.8 cannot disable thinking and rejects MINIMAL.
+    body.generationConfig.thinkingConfig = { thinkingLevel: thinking ? 'HIGH' : 'LOW' };
+  } else if (typeof thinking === 'boolean' && model === 'gemini-3.5-flash-lite') {
+    body.generationConfig.thinkingConfig = { thinkingLevel: thinking ? 'HIGH' : 'MINIMAL' };
+  } else if (thinking === false && model.startsWith('gemini-2.5-flash')) {
     body.generationConfig.thinkingConfig = { thinkingBudget: 0 };
   }
   if (system.length) body.systemInstruction = { parts: system };

@@ -120,6 +120,35 @@ test('Gemini propagates authorization, streaming and blocked errors', async () =
   }
 });
 
+test('current Flash models use global generation without changing regional embeddings and support their thinking levels', async () => {
+  for (const [model, minimum] of [
+    ['gemini-3.8-flash', 'LOW'],
+    ['gemini-3.5-flash-lite', 'MINIMAL'],
+  ]) {
+    for (const thinking of [false, true, null]) {
+      const stub = geminiEnv([{ candidates: [{ content: { parts: [{ text: 'Coffee' }] }, finishReason: 'STOP' }] }]);
+      Object.assign(stub.env, { GEMINI_LOCATION: 'global', VERTEX_LOCATION: 'us-central1' });
+      for await (const chunk of gemini.stream({
+        env: stub.env,
+        model,
+        thinking,
+        temperature: 0.6,
+        maxTokens: 256,
+        messages: [{ role: 'user', content: 'Coffee?' }],
+      })) assert.ok(chunk);
+      const request = stub.captured();
+      assert.equal(new URL(request.url).hostname, 'aiplatform.googleapis.com');
+      assert.ok(request.url.includes(`/locations/global/publishers/google/models/${model}:`));
+      const config = JSON.parse(request.init.body).generationConfig;
+      assert.deepEqual(config.thinkingConfig, thinking === null ? undefined : {
+        thinkingLevel: thinking ? 'HIGH' : minimum,
+      });
+      assert.equal(config.temperature, model === 'gemini-3.5-flash-lite' ? undefined : 0.6);
+      assert.equal(stub.env.VERTEX_LOCATION, 'us-central1');
+    }
+  }
+});
+
 test('GCP model catalog/defaults avoid Cloudflare and unconfigured AWS; Worker catalog remains intact', async () => {
   const env = { CLOUD_PLATFORM: 'gcp', GCP_AUTH: {}, GEMINI_MODEL: 'gemini-test' };
   const catalog = await getCatalog(env);
@@ -128,7 +157,14 @@ test('GCP model catalog/defaults avoid Cloudflare and unconfigured AWS; Worker c
   assert.equal(catalog.some((entry) => ['cloudflare', 'bedrock'].includes(entry.provider)), false);
   assert.equal(catalogAvailability({ provider: 'cloudflare' }, { ...env, AI: {} }).available, false);
   assert.equal(platformDefaultEntry({}).provider, 'cerebras');
-  assert.equal(platformDefaultEntry({ CLOUD_PLATFORM: 'gcp' }).model, 'gemini-2.5-flash-lite');
+  assert.equal(platformDefaultEntry({ CLOUD_PLATFORM: 'gcp' }).model, 'gemini-3.5-flash-lite');
+  for (const model of ['gemini-3.8-flash', 'gemini-3.5-flash-lite']) {
+    const selected = await getCatalog({ ...env, GEMINI_MODEL: model });
+    assert.equal(selected[0].model, model);
+    assert.equal(selected.filter((entry) => entry.model === model).length, 1);
+    assert.ok(selected.some((entry) => entry.model === 'gemini-3.8-flash'));
+    assert.ok(selected.some((entry) => entry.model === 'gemini-3.5-flash-lite'));
+  }
   assert.equal((await getCatalog({})).some((entry) => entry.provider === 'cloudflare'), true);
   assert.equal((await getActiveLlmConfig(env)).provider, 'gemini');
   env.CACHE = {
@@ -143,16 +179,17 @@ test('GCP judge uses Gemini without AWS while preserving Worker judge list', asy
   const dimensions = ['structure', 'intent', 'faithfulness', 'helpfulness', 'brandVoice', 'specificity', 'visualAssetUsage'];
   const score = Object.fromEntries(dimensions.map((key) => [key, { score: 4, reasoning: 'good' }]));
   const { env } = geminiEnv([{ candidates: [{ content: { parts: [{ text: JSON.stringify(score) }] }, finishReason: 'STOP' }] }]);
-  assert.equal(getJudgeModels(env)[0].id, 'gemini-2.5-flash');
-  assert.equal(getJudgeModels({ ...env, GEMINI_MODEL: 'gemini-2.5-flash-lite' })[0].id, 'gemini-2.5-flash');
+  assert.equal(getJudgeModels(env)[0].id, 'gemini-3.8-flash');
+  assert.equal(getJudgeModels({ ...env, GEMINI_MODEL: 'gemini-3.5-flash-lite' })[0].id, 'gemini-3.8-flash');
+  assert.deepEqual(getJudgeModels(env)[0].defaults, { inputPerMillion: 1.5, outputPerMillion: 7.5 });
   assert.equal(isValidJudgeModel('claude-sonnet-4-6', env), false);
   assert.equal(isValidJudgeModel('claude-sonnet-4-6'), true);
   const result = await judgeVariant(env, { query: 'espresso', blocks: [], rag: {} });
   assert.equal(result.score, 4);
-  assert.equal(result.judgeModel, 'gemini-2.5-flash');
+  assert.equal(result.judgeModel, 'gemini-3.8-flash');
 });
 
-test('GCP suggestions default to Vertex Gemini with thinking disabled for the small token budget', async () => {
+test('GCP suggestions default to Vertex Gemini with minimal thinking for the small token budget', async () => {
   const suggestions = [{ label: 'Try a flat white', query: 'How do I make a flat white?' }];
   const stub = geminiEnv([{ candidates: [{ content: { parts: [{ text: JSON.stringify({ suggestions }) }] }, finishReason: 'STOP' }] }]);
   const response = await handleSuggestRequest(new Request('https://arco.example/api/suggest', {
@@ -163,6 +200,6 @@ test('GCP suggestions default to Vertex Gemini with thinking disabled for the sm
   assert.equal(response.status, 200);
   assert.deepEqual((await response.json()).suggestions, suggestions);
   const body = JSON.parse(stub.captured().init.body);
-  assert.equal(body.generationConfig.thinkingConfig.thinkingBudget, 0);
+  assert.equal(body.generationConfig.thinkingConfig.thinkingLevel, 'MINIMAL');
   assert.equal(body.generationConfig.maxOutputTokens, 256);
 });

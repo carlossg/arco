@@ -11,8 +11,8 @@ The low-traffic demo uses managed, pay-per-use services, not a database server:
 | Existing HTTP API and NDJSON streaming | Cloud Run, request-based billing, minimum 0 and maximum 1 instance |
 | Sessions, events, feedback, experiments, evaluations, configuration and cache | Firestore Native |
 | Semantic retrieval | Firestore native vector search, Vertex `text-embedding-005`, 768 dimensions |
-| Generation and suggestions | Vertex Gemini 2.5 Flash-Lite with service-account authentication |
-| Evaluation judge | Vertex Gemini 2.5 Flash |
+| Generation and suggestions | Vertex Gemini 3.5 Flash-Lite with service-account authentication |
+| Evaluation judge | Vertex Gemini 3.8 Flash |
 | Background evaluations and recovery | Cloud Tasks and one authenticated Cloud Scheduler job |
 | Payloads exceeding Firestore's document size limit | Private Cloud Storage bucket |
 | Admin and Adobe credentials | Secret Manager |
@@ -21,11 +21,20 @@ Firestore repositories use native documents and transactions, **not a SQL
 compatibility layer**. Demo dashboards aggregate at most 5,000 documents and fail
 explicitly above that limit. This intentionally avoids an always-on database,
 analytics warehouse, or additional infrastructure for a small demonstration.
-Flash-Lite roughly halved measured generation latency in live pipeline trials;
-the separate Flash judge retains the stronger evaluation model. Native text
-generation list rates are $0.10 input / $0.40 output per million tokens for
-Flash-Lite, and $0.30 / $2.50 for the Flash judge (approximate demo accounting,
-not a billing guarantee).
+The latest text Flash-Lite is 3.5; the 3.8 Flash-Lite variant is TTS-only.
+Generation defaults to `gemini-3.5-flash-lite`; judging defaults to
+`gemini-3.8-flash`. Both text models are available in Model Settings.
+Set `GEMINI_LOCATION=global` for generation, independently of
+`VERTEX_LOCATION=us-central1` for embeddings, vector retrieval and tasks.
+The deployment script accepts `GEMINI_MODEL`, `GEMINI_JUDGE_MODEL` and
+`GEMINI_LOCATION` overrides. A saved Model Settings selection takes precedence
+over `GEMINI_MODEL`, so update it too when migrating an existing deployment.
+Thinking off selects `MINIMAL` on Flash-Lite and `LOW` on Flash 3.8, which cannot
+disable thinking or accept `MINIMAL`. Flash-Lite uses fixed sampling parameters,
+so its temperature setting is not sent.
+Native text generation list rates are $0.30 input / $2.50 output per million
+tokens for Flash-Lite and $1.50 / $7.50 for Flash 3.8, excluding temporary
+promotional credits (approximate demo accounting, not a billing guarantee).
 Cloud Scheduler, storage, builds and inference can still incur charges even
 though Cloud Run scales to zero.
 
