@@ -9,6 +9,7 @@
  */
 
 import bedrock from '../providers/bedrock.js';
+import gemini from '../providers/gemini.js';
 
 // Judge models mapped to Bedrock cross-region inference profile ids.
 export const JUDGE_MODELS = [
@@ -44,13 +45,29 @@ export const JUDGE_MODELS = [
   },
 ];
 
+export function getJudgeModels(env = {}) {
+  if (env.CLOUD_PLATFORM !== 'gcp') return JUDGE_MODELS;
+  const id = env.GEMINI_JUDGE_MODEL || 'gemini-2.5-flash';
+  return [{
+    id,
+    geminiModel: id,
+    label: `Vertex Gemini · ${id}`,
+    defaults: { inputPerMillion: 0.3, outputPerMillion: 2.5 },
+  }];
+}
+
 const JUDGE_BY_ID = new Map(JUDGE_MODELS.map((m) => [m.id, m]));
 
-export function isValidJudgeModel(id) {
+export function isValidJudgeModel(id, env = {}) {
+  if (env.CLOUD_PLATFORM === 'gcp') return getJudgeModels(env).some((entry) => entry.id === id);
   return JUDGE_BY_ID.has(id);
 }
 
-export function getJudgeRates(id) {
+export function getJudgeRates(id, env = {}) {
+  if (env.CLOUD_PLATFORM === 'gcp') {
+    const models = getJudgeModels(env);
+    return (models.find((entry) => entry.id === id) || models[0]).defaults;
+  }
   return JUDGE_BY_ID.get(id)?.defaults || { inputPerMillion: 3, outputPerMillion: 15 };
 }
 
@@ -227,19 +244,21 @@ function compositeScore(dims) {
 }
 
 async function callBedrockOnce({
-  env, bedrockModel, prompt, maxTokens, signal,
+  env, bedrockModel, geminiModel, prompt, maxTokens, signal,
 }) {
   let fullText = '';
   let usage = null;
   // Run the existing streaming Bedrock provider and concatenate deltas.
   // The judge is short and not user-visible, so we don't need progressive
   // rendering — we just need a final string + token counts.
-  const stream = bedrock.stream({
+  const provider = env.CLOUD_PLATFORM === 'gcp' ? gemini : bedrock;
+  const stream = provider.stream({
     env,
-    model: bedrockModel,
+    model: geminiModel || bedrockModel,
     messages: [{ role: 'user', content: prompt }],
     temperature: 0,
     maxTokens,
+    ...(env.CLOUD_PLATFORM === 'gcp' ? { thinking: false } : {}),
     signal,
   });
   // eslint-disable-next-line no-restricted-syntax
@@ -288,10 +307,14 @@ async function callWithRetry(args) {
  * @returns {Promise<{dims, score, summary, judgeModel, inputTokens, outputTokens, durationMs}>}
  */
 export async function judgeVariant(env, args) {
-  if (!env.AWS_BEARER_TOKEN_BEDROCK) {
+  if (env.CLOUD_PLATFORM !== 'gcp' && !env.AWS_BEARER_TOKEN_BEDROCK) {
     throw new Error('AWS_BEARER_TOKEN_BEDROCK not configured');
   }
-  const judgeEntry = JUDGE_BY_ID.get(args.judgeModel);
+  const judgeId = args.judgeModel
+    || (env.CLOUD_PLATFORM === 'gcp' ? getJudgeModels(env)[0].id : undefined);
+  const judgeEntry = env.CLOUD_PLATFORM === 'gcp'
+    ? getJudgeModels(env).find((entry) => entry.id === judgeId)
+    : JUDGE_BY_ID.get(judgeId);
   if (!judgeEntry) {
     throw new Error(`Unknown judge model: ${args.judgeModel}`);
   }
@@ -302,8 +325,9 @@ export async function judgeVariant(env, args) {
   const { fullText, usage } = await callWithRetry({
     env,
     bedrockModel: judgeEntry.bedrockModel,
+    geminiModel: judgeEntry.geminiModel,
     prompt,
-    maxTokens: 1024,
+    maxTokens: env.CLOUD_PLATFORM === 'gcp' ? 8192 : 1024,
     signal: args.signal,
   });
 
@@ -325,7 +349,7 @@ export async function judgeVariant(env, args) {
     dims,
     score,
     summary,
-    judgeModel: args.judgeModel,
+    judgeModel: judgeId,
     inputTokens: usage?.prompt_tokens || 0,
     outputTokens: usage?.completion_tokens || 0,
     durationMs,

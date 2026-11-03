@@ -430,7 +430,7 @@ function initKeepExploring() {
 
 /**
  * Render an Arco Recommender page from ?q= or ?query= parameter.
- * Streams NDJSON from the Cloudflare Worker via fetch + ReadableStream.
+ * Streams NDJSON from the configured backend via fetch + ReadableStream.
  * @param {string} [explicitQuery] Optional query override (for SPA transitions)
  */
 async function renderArcoRecommenderPage(explicitQuery) {
@@ -447,7 +447,7 @@ async function renderArcoRecommenderPage(explicitQuery) {
   try {
     const raw = sessionStorage.getItem(PREFETCH_KEY);
     sessionStorage.removeItem(PREFETCH_KEY);
-    if (raw) {
+    if (raw && !params.has('persona') && !params.has('ctx') && !params.has('contextId')) {
       const prefetchData = JSON.parse(raw);
       const age = Date.now() - (prefetchData.timestamp || 0);
       if (age < PREFETCH_MAX_AGE_MS && prefetchData.blocks?.length > 0) {
@@ -463,13 +463,15 @@ async function renderArcoRecommenderPage(explicitQuery) {
     <div class="section generating-container arco-recommender">
       <div class="generating-spinner" aria-hidden="true"></div>
       <h1 class="generating-title">Finding recommendations&hellip;</h1>
-      <span class="generating-query">&ldquo;${query}&rdquo;</span>
+      <span class="generating-query"></span>
     </div>
     <div id="generation-content"></div>
   `;
 
   const loadingState = main.querySelector('.generating-container');
   const content = main.querySelector('#generation-content');
+  loadingState.querySelector('.generating-query').textContent = `\u201c${query}\u201d`;
+  let generationFailed = false;
 
   const tvMode = isTvMode();
   if (tvMode) document.body.classList.add('arco-tv-mode');
@@ -477,18 +479,22 @@ async function renderArcoRecommenderPage(explicitQuery) {
   try {
     await streamAndAppendContent(query, content, {
       tv: tvMode,
-      onFirstSection: () => loadingState.classList.add('done'),
+      onFirstSection: () => loadingState.remove(),
       onError: (msg) => {
+        generationFailed = true;
         loadingState.innerHTML = `
           <h1>Something went wrong</h1>
-          <p style="color: #c00;">${msg || 'Generation failed'}</p>
+          <p style="color: #c00;"></p>
           <p><a href="/">Return to homepage</a></p>
         `;
+        loadingState.querySelector('p').textContent = msg || 'Generation failed';
+        loadingState.setAttribute('role', 'alert');
+        if (!loadingState.isConnected) content.before(loadingState);
       },
     });
 
     // Stream finished
-    loadingState.remove();
+    if (!generationFailed) loadingState.remove();
 
     // Update document title
     const h1 = content.querySelector('h1');
@@ -501,6 +507,8 @@ async function renderArcoRecommenderPage(explicitQuery) {
       <p style="color: #c00;">Unable to connect to the server. Please try again.</p>
       <p><a href="/">Return to homepage</a></p>
     `;
+    loadingState.setAttribute('role', 'alert');
+    if (!loadingState.isConnected) content.before(loadingState);
   }
 
   // Initialize keep-exploring event listener — skipped on TV, which is a
@@ -606,6 +614,14 @@ window.addEventListener('popstate', () => {
 window.arcoTransitionToRecommender = transitionToRecommender;
 
 async function loadPage() {
+  captureUtm();
+  const params = new URLSearchParams(window.location.search);
+  const endpoint = getAPIEndpoint();
+  const externalContext = await SessionContextManager.hydrateExternalContext(params, endpoint);
+  if (externalContext) {
+    const { default: showExternalContext } = await import('./external-context.js');
+    showExternalContext(externalContext);
+  }
   // Check if this is an Arco Recommender request (?q= or ?query=)
   if (isArcoRecommenderRequest()) {
     const tvMode = isTvMode();

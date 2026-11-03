@@ -82,6 +82,7 @@ export function writeEvent(env, eventType, pageType, intent, path, extras = {}) 
  * @returns {Promise<object|null>} Aggregated stats or null if unavailable
  */
 export async function queryStats(env, hoursBack = 24) {
+  if (env.CLOUD_PLATFORM === 'gcp') return env.ANALYTICS.queryStats(hoursBack);
   if (!env.CF_API_TOKEN) return null;
 
   const apiUrl = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/analytics_engine/sql`;

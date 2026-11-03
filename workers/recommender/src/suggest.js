@@ -8,7 +8,9 @@
  */
 
 import { CORS_HEADERS } from './pipeline/context.js';
-import { getProvider, catalogAvailability, MODEL_CATALOG } from './providers/index.js';
+import {
+  getProvider, catalogAvailability, MODEL_CATALOG, platformDefaultEntry,
+} from './providers/index.js';
 import { writeEvent } from './analytics.js';
 import { renderPrompt } from './prompt-loader.js';
 
@@ -165,12 +167,17 @@ async function rateLimit(env, request) {
  * Falls back to cloudflare workers-AI if the primary is unavailable.
  */
 function resolveModel(env) {
-  const provider = env.SUGGEST_LLM_PROVIDER || DEFAULT_PROVIDER;
-  const model = env.SUGGEST_LLM_MODEL || DEFAULT_MODEL;
+  const defaults = env.CLOUD_PLATFORM === 'gcp'
+    ? platformDefaultEntry(env) : { provider: DEFAULT_PROVIDER, model: DEFAULT_MODEL };
+  const provider = env.SUGGEST_LLM_PROVIDER || defaults.provider;
+  const model = env.SUGGEST_LLM_MODEL || defaults.model;
   const entry = MODEL_CATALOG.find((e) => e.provider === provider && e.model === model)
     || { provider, model };
   const { available } = catalogAvailability(entry, env);
   if (available) return { provider, model };
+  if (env.CLOUD_PLATFORM === 'gcp') {
+    return catalogAvailability(defaults, env).available ? defaults : null;
+  }
   // Fallback
   const fb = { provider: FALLBACK_PROVIDER, model: FALLBACK_MODEL };
   const fbEntry = MODEL_CATALOG.find(
@@ -236,6 +243,7 @@ export default async function handleSuggestRequest(request, env) {
       model: resolved.model,
       temperature: 0.7,
       maxTokens: 256,
+      ...(env.CLOUD_PLATFORM === 'gcp' ? { thinking: false } : {}),
       messages: [
         { role: 'system', content: system },
         { role: 'user', content: user },

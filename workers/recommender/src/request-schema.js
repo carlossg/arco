@@ -10,6 +10,9 @@
  * can evolve independently without breaking production.
  */
 
+// eslint-disable-next-line import/no-relative-packages
+import { normalizeConversationContext } from '../../../scripts/conversation-context.js';
+
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const MAX_QUERY_LEN = 500;
@@ -67,6 +70,11 @@ function parseContext(ctx) {
   }
   if (typeof ctx.quizPersona === 'string') {
     out.quizPersona = ctx.quizPersona.slice(0, 64);
+  } else if (typeof ctx.quizPersona?.persona === 'string') {
+    out.quizPersona = { persona: ctx.quizPersona.persona.slice(0, 64) };
+  }
+  if (ctx.conversationContext !== undefined) {
+    out.conversationContext = normalizeConversationContext(ctx.conversationContext);
   }
   return out;
 }
@@ -87,6 +95,12 @@ export function parseGenerateBody(body) {
     return { ok: false, error: 'Invalid query' };
   }
 
+  let context;
+  try {
+    context = parseContext(body.context);
+  } catch (error) {
+    return { ok: false, error: error.message };
+  }
   const payload = {
     query,
     sessionId: uuidOrNull(body.sessionId),
@@ -98,7 +112,7 @@ export function parseGenerateBody(body) {
     tv: body.tv === true,
     flow: stringOrNull(body.flow, 32),
     followUp: parseFollowUp(body.followUp),
-    context: parseContext(body.context),
+    context,
   };
   return { ok: true, payload };
 }

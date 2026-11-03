@@ -1,12 +1,12 @@
 /**
- * Arco - API Configuration (Cloudflare Worker)
+ * Arco - API Configuration
  *
  * Central configuration for all API endpoints.
- * Recommender runs on Cloudflare Workers with Cerebras LLM inference.
+ * Google Cloud is the default. The retained Cloudflare backend is explicit opt-in.
  */
 
 // ============================================
-// Cloudflare Worker Endpoints
+// Backend Endpoints
 // ============================================
 
 const PRODUCTION_WORKER = 'https://arco-recommender.franklin-prod.workers.dev';
@@ -15,6 +15,19 @@ const PRODUCTION_WORKER = 'https://arco-recommender.franklin-prod.workers.dev';
 // Reuses the shared CF account's AI binding + Vectorize, but its own D1, KV
 // session store, queues, and DA_ORG=carlossg.
 const CARLOSSG_WORKER = 'https://arco-recommender-carlossg.franklin-prod.workers.dev';
+const GOOGLE_SERVICE = 'https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app';
+const USE_CLOUDFLARE = window.ARCO_CONFIG?.BACKEND === 'cloudflare';
+
+function allowEndpoint(value) {
+  if (!value || USE_CLOUDFLARE) return value;
+  const { hostname } = new URL(value, window.location.origin || 'http://localhost');
+  if (/(^|\.)(workers\.dev|cloudflare\.com)$/.test(hostname)) {
+    // A previously saved Worker override must not silently undo the platform migration.
+    console.warn('[Arco] Ignoring a Cloudflare URL. Set ARCO_CONFIG.BACKEND="cloudflare" to opt in.');
+    return undefined;
+  }
+  return value;
+}
 
 /**
  * Resolve the recommender worker URL for the current environment.
@@ -25,18 +38,24 @@ const CARLOSSG_WORKER = 'https://arco-recommender-carlossg.franklin-prod.workers
  *        localStorage.setItem('arco-recommender-url', 'http://localhost:8787')  // local wrangler dev
  *        localStorage.setItem('arco-recommender-url', '<prod url>')  // force prod locally
  *        localStorage.removeItem('arco-recommender-url')             // back to default
- *   3. localhost / 127.0.0.1 → the isolated carlossg worker (this branch default)
+ *   3. Google Cloud Run (default for all hosts)
+ *
+ * With ARCO_CONFIG.BACKEND="cloudflare", the retained legacy routing is:
+ *   localhost / 127.0.0.1 → the isolated carlossg worker
  *   4. *--arco--carlossg.aem.{page,live} → the isolated carlossg worker
  *   5. {branch}--{repo}--{owner}.aem.page → that branch's worker version
  *   6. everything else → production
  */
 function resolveRecommenderURL() {
-  if (window.ARCO_CONFIG?.RECOMMENDER_URL) return window.ARCO_CONFIG.RECOMMENDER_URL;
+  const configured = allowEndpoint(window.ARCO_CONFIG?.RECOMMENDER_URL);
+  if (configured) return configured;
 
   try {
-    const stored = window.localStorage?.getItem('arco-recommender-url');
+    const stored = allowEndpoint(window.localStorage?.getItem('arco-recommender-url'));
     if (stored) return stored;
   } catch { /* localStorage may be unavailable (private mode / sandbox) */ }
+
+  if (!USE_CLOUDFLARE) return GOOGLE_SERVICE;
 
   const { hostname } = window.location;
 
@@ -66,33 +85,33 @@ function resolveRecommenderURL() {
   return `https://${alias}-arco-recommender.franklin-prod.workers.dev`;
 }
 
-// Main recommender service (Cloudflare Worker)
+// Main recommender service
 export const ARCO_RECOMMENDER_URL = resolveRecommenderURL();
 
 // Analytics service — same worker, separate endpoint
-export const ARCO_ANALYTICS_URL = window.ARCO_CONFIG?.ANALYTICS_URL || ARCO_RECOMMENDER_URL;
+export const ARCO_ANALYTICS_URL = allowEndpoint(window.ARCO_CONFIG?.ANALYTICS_URL)
+  || ARCO_RECOMMENDER_URL;
 
 /**
  * Admin/metrics API base.
  *
- * Split from the recommender URL on purpose: the admin dashboards read D1 and KV
- * directly, so when you are developing them you want your *local* worker and its
- * local database, even while the page-generation flow keeps hitting production
- * (which is the only place Vectorize actually works).
- *
- * Override with localStorage['arco-admin-url'], or set it to the production
- * worker to inspect real traffic from a local admin page.
+ * Uses the same Google service by default, including localhost. Override with
+ * localStorage['arco-admin-url'] to inspect a local Google development server.
+ * The legacy Cloudflare mode retains its local Wrangler default.
  */
 function resolveAdminURL() {
-  if (window.ARCO_CONFIG?.ADMIN_URL) return window.ARCO_CONFIG.ADMIN_URL;
+  const configured = allowEndpoint(window.ARCO_CONFIG?.ADMIN_URL);
+  if (configured) return configured;
 
   try {
-    const stored = window.localStorage?.getItem('arco-admin-url');
+    const stored = allowEndpoint(window.localStorage?.getItem('arco-admin-url'));
     if (stored) return stored;
   } catch { /* localStorage may be unavailable (private mode / sandbox) */ }
 
   const { hostname } = window.location;
-  if (hostname === 'localhost' || hostname === '127.0.0.1') return 'http://localhost:8787';
+  if (USE_CLOUDFLARE && (hostname === 'localhost' || hostname === '127.0.0.1')) {
+    return 'http://localhost:8787';
+  }
 
   return ARCO_RECOMMENDER_URL;
 }

@@ -196,11 +196,12 @@ export async function handleTrack(request, env) {
   });
 
   // Sink 2 — D1 (exact, joinable, attributable).
-  if (env.SESSIONS_DB && events.length) {
+  if ((env.GCP_STORAGE || env.SESSIONS_DB) && events.length) {
     try {
       await persistEvents(env, request, events);
     } catch (err) {
       console.error('[Events] persist failed:', err.message);
+      if (env.GCP_STORAGE) throw err;
     }
   }
 
@@ -208,6 +209,15 @@ export async function handleTrack(request, env) {
 }
 
 async function persistEvents(env, request, events) {
+  if (env.GCP_STORAGE) {
+    const ip = request.headers.get('cf-connecting-ip')
+      || (request.headers.get('x-forwarded-for') || 'unknown').split(',')[0].trim();
+    await env.GCP_STORAGE.persistEvents(events, {
+      ipHash: await hashIp(ip),
+      userAgent: (request.headers.get('user-agent') || '').substring(0, 200),
+    });
+    return;
+  }
   const db = env.SESSIONS_DB;
   await validateAttribution(db, events);
 
@@ -288,6 +298,7 @@ function sinceFrom(url, defaultDays = 30) {
  * GET /api/admin/insights/summary
  */
 export async function handleInsightsSummary(request, env) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleInsightsSummary(request, env);
   if (!env.SESSIONS_DB) return jsonResponse({ error: 'Storage unavailable' }, { status: 503 });
   const db = env.SESSIONS_DB;
   const { since, days } = sinceFrom(new URL(request.url));
@@ -385,6 +396,7 @@ export async function handleInsightsSummary(request, env) {
  * GET /api/admin/insights/funnel
  */
 export async function handleInsightsFunnel(request, env) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleInsightsFunnel(request, env);
   if (!env.SESSIONS_DB) return jsonResponse({ error: 'Storage unavailable' }, { status: 503 });
   const db = env.SESSIONS_DB;
   const { since, days } = sinceFrom(new URL(request.url));
@@ -447,6 +459,7 @@ export async function handleInsightsFunnel(request, env) {
  * none)' so the totals always foot to the funnel's overall session count.
  */
 export async function handleInsightsCampaigns(request, env) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleInsightsCampaigns(request, env);
   if (!env.SESSIONS_DB) return jsonResponse({ error: 'Storage unavailable' }, { status: 503 });
   const db = env.SESSIONS_DB;
   const { since, days } = sinceFrom(new URL(request.url));
@@ -517,6 +530,7 @@ const RUN_CONVERSIONS_CTE = `
  * rubric predict revenue?" view.
  */
 export async function handleInsightsModels(request, env) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleInsightsModels(request, env);
   if (!env.SESSIONS_DB) return jsonResponse({ error: 'Storage unavailable' }, { status: 503 });
   const db = env.SESSIONS_DB;
   const { since, days } = sinceFrom(new URL(request.url));
@@ -600,6 +614,7 @@ export async function handleInsightsModels(request, env) {
  * GET /api/admin/insights/segments — conversion by intent and journey stage.
  */
 export async function handleInsightsSegments(request, env) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleInsightsSegments(request, env);
   if (!env.SESSIONS_DB) return jsonResponse({ error: 'Storage unavailable' }, { status: 503 });
   const db = env.SESSIONS_DB;
   const { since, days } = sinceFrom(new URL(request.url));
@@ -634,6 +649,7 @@ export async function handleInsightsSegments(request, env) {
  * GET /api/admin/insights/timeseries — daily cost vs. attributed value.
  */
 export async function handleInsightsTimeseries(request, env) {
+  if (env.GCP_STORAGE) return env.GCP_STORAGE.handleInsightsTimeseries(request, env);
   if (!env.SESSIONS_DB) return jsonResponse({ error: 'Storage unavailable' }, { status: 503 });
   const db = env.SESSIONS_DB;
   const { since, days } = sinceFrom(new URL(request.url));

@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@cerebras/cerebras_cloud_sdk": "^1.0.0",
+    "google-auth-library": "^10.5.0",
     "nunjucks": "^3.2.4",
     "yaml": "^2.9.0"
   },

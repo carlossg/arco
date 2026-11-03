@@ -6,9 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - name: Use Node.js 20
+    - name: Use Node.js 24
       uses: actions/setup-node@v6
       with:
         node-version: 24
-    - run: npm ci
-    - run: npm run lint
+    - uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: 1.4.0
+    - run: bun install --frozen-lockfile --ignore-scripts --registry=https://registry.npmjs.org
+    - run: bun run lint
+    - run: bun x --no-install eslint --no-ignore tools/test-generation-loading.mjs
