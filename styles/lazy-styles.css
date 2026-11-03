@@ -204,3 +204,24 @@ img[data-gen-image].loaded {
     transform: translateY(0);
   }
 }
+
+/* Context received from connected apps, outside the generated page content. */
+.external-context {
+  max-width: 1200px;
+  margin: 16px auto;
+  padding: 12px 24px;
+  border: 1px solid var(--dark-color, #666);
+  border-radius: 8px;
+}
+
+.external-context summary {
+  cursor: pointer;
+}
+
+.external-context pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 60vh;
+  overflow: auto;
+  font-size: 13px;
+}

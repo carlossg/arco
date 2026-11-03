@@ -287,6 +287,9 @@ async function handleNdjsonEvent(data, container, state, options = {}) {
 export async function streamAndAppendContent(query, container, options = {}) {
   const startTime = Date.now();
   const sessionContext = SessionContextManager.buildContextParam();
+  window.dispatchEvent(new CustomEvent('arco-generation-context', {
+    detail: JSON.parse(JSON.stringify(sessionContext)),
+  }));
   const baseUrl = getAPIEndpoint('recommender');
   const runId = crypto.randomUUID();
   const state = { blockCount: 0, runId };

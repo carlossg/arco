@@ -8,6 +8,8 @@
  */
 
 import { searchContent, findComparison, extractProductIds } from '../../context.js';
+// eslint-disable-next-line import/no-relative-packages
+import { conversationSearchText } from '../../../../../scripts/conversation-context.js';
 
 /**
  * Build an enriched query that incorporates session context for better
@@ -15,6 +17,8 @@ import { searchContent, findComparison, extractProductIds } from '../../context.
  */
 function buildEnrichedQuery(ctx) {
   const parts = [ctx.request.query];
+  const conversation = conversationSearchText(ctx.request.conversationContext);
+  if (conversation) parts.push(conversation);
 
   // Add follow-up context if it differs from the main query
   if (ctx.request.followUp?.query && ctx.request.followUp.query !== ctx.request.query) {

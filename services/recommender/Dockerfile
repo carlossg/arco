@@ -14,6 +14,7 @@ COPY workers/recommender/prompts workers/recommender/prompts
 COPY workers/recommender/tools/precompile-prompts.js workers/recommender/tools/precompile-prompts.js
 COPY workers/recommender/tools/json-loader.js workers/recommender/tools/json-loader.js
 COPY services/recommender/src services/recommender/src
+COPY scripts/conversation-context.js scripts/conversation-context.js
 COPY data data
 COPY schema schema
 COPY eval/suites eval/suites
