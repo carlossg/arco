@@ -22,11 +22,11 @@ const QUIZ_PERSONA_MAP = {
 export async function personaMatch(ctx, config = {}, env = {}) {
   const start = Date.now();
 
-  const quizTag = ctx.request.quizPersona;
+  const quizTag = ctx.request.quizPersona?.persona || ctx.request.quizPersona;
   if (quizTag) {
-    const workerSlug = QUIZ_PERSONA_MAP[quizTag];
-    if (workerSlug) {
-      ctx.rag.persona = getPersonaBySlug(workerSlug);
+    const persona = getPersonaBySlug(QUIZ_PERSONA_MAP[quizTag] || quizTag);
+    if (persona) {
+      ctx.rag.persona = persona;
       ctx.timings.persona = Date.now() - start;
       return;
     }

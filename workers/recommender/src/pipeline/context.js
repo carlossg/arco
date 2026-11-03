@@ -3,6 +3,9 @@
  * that flows through all pipeline steps.
  */
 
+// eslint-disable-next-line import/no-relative-packages
+import { normalizeConversationContext } from '../../../../scripts/conversation-context.js';
+
 export const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
@@ -45,6 +48,7 @@ export function createContext(body, request) {
       followUp,
       shownContent,
       quizPersona,
+      conversationContext: normalizeConversationContext(reqContext?.conversationContext),
       ip,
       speculative,
       tv: tvMode,

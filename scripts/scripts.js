@@ -447,7 +447,7 @@ async function renderArcoRecommenderPage(explicitQuery) {
   try {
     const raw = sessionStorage.getItem(PREFETCH_KEY);
     sessionStorage.removeItem(PREFETCH_KEY);
-    if (raw) {
+    if (raw && !params.has('persona') && !params.has('ctx') && !params.has('contextId')) {
       const prefetchData = JSON.parse(raw);
       const age = Date.now() - (prefetchData.timestamp || 0);
       if (age < PREFETCH_MAX_AGE_MS && prefetchData.blocks?.length > 0) {
@@ -614,6 +614,14 @@ window.addEventListener('popstate', () => {
 window.arcoTransitionToRecommender = transitionToRecommender;
 
 async function loadPage() {
+  captureUtm();
+  const params = new URLSearchParams(window.location.search);
+  const endpoint = getAPIEndpoint();
+  const externalContext = await SessionContextManager.hydrateExternalContext(params, endpoint);
+  if (externalContext) {
+    const { default: showExternalContext } = await import('./external-context.js');
+    showExternalContext(externalContext);
+  }
   // Check if this is an Arco Recommender request (?q= or ?query=)
   if (isArcoRecommenderRequest()) {
     const tvMode = isTvMode();

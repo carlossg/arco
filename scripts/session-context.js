@@ -5,10 +5,38 @@
  * Uses sessionStorage - context resets when tab closes.
  */
 
+import { normalizeConversationContext } from './conversation-context.js';
+
 const CONTEXT_KEY = 'arco-session-context';
 const MAX_HISTORY = 10;
 const MAX_BROWSING_HISTORY = 15;
 const MAX_SHOWN_ITEMS = 20;
+const EXTERNAL_PERSONAS = new Set([
+  'morning-minimalist', 'upgrade-seeker', 'craft-home-barista',
+  'traveling-professional', 'budget-conscious-beginner', 'office-manager',
+]);
+
+function boundedStrings(value) {
+  if (!Array.isArray(value) || value.some((entry) => (
+    typeof entry !== 'string' || entry.length > 2000
+  ))) throw new Error('Context lists must contain strings of at most 2000 characters.');
+  return value.slice(-MAX_SHOWN_ITEMS);
+}
+
+function decodeExternalContext(raw) {
+  if (raw.length > 16000) throw new Error('External context exceeds 16000 characters.');
+  let decoded = raw;
+  if (raw.startsWith('%')) decoded = decodeURIComponent(raw);
+  if (!decoded.trim().startsWith('{')) {
+    const bytes = Uint8Array.from(atob(raw.replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0));
+    decoded = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+  }
+  const parsed = JSON.parse(decoded);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error('External context must be a JSON object.');
+  }
+  return parsed;
+}
 
 // In-memory write-through cache — avoids redundant JSON parse/stringify on every call
 let contextCache = null;
@@ -26,6 +54,124 @@ function saveContext(context) {
  * Session Context Manager - handles reading/writing query history for contextual browsing
  */
 export class SessionContextManager {
+  static async hydrateExternalContext(params, baseUrl) {
+    if (!params.has('contextId')) return this.hydrateFromUrl(params);
+    const report = {
+      source: params.get('utm_source') || 'external',
+      query: params.get('q') || params.get('query'),
+      persona: params.get('persona'),
+      contextId: params.get('contextId'),
+      received: null,
+      applied: {},
+      errors: [],
+    };
+    try {
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(report.contextId)) {
+        throw new Error('Invalid context ID.');
+      }
+      const response = await fetch(`${baseUrl}/api/mcp/context/${report.contextId}`, {
+        credentials: 'omit',
+        cache: 'no-store',
+        referrerPolicy: 'no-referrer',
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!response.ok) {
+        throw new Error(response.status === 410
+          ? 'Conversation context expired or was not found. Request a new Arco link in Gemini.'
+          : `Unable to load conversation context (HTTP ${response.status}).`);
+      }
+      const saved = await response.json();
+      const expiresAt = Date.parse(saved.expiresAt);
+      if (!Number.isFinite(expiresAt) || expiresAt <= Date.now()) {
+        throw new Error('Conversation context expired. Request a new Arco link in Gemini.');
+      }
+      const hydrated = new URLSearchParams(params);
+      hydrated.set('ctx', JSON.stringify(saved.context));
+      return {
+        ...this.hydrateFromUrl(hydrated),
+        contextId: report.contextId,
+        expiresAt: saved.expiresAt,
+      };
+    } catch (error) {
+      report.errors.push(`Context rejected: ${error.message}`);
+      // eslint-disable-next-line no-console
+      console.warn('[External context]', report.errors.join(' '));
+      return report;
+    }
+  }
+
+  static hydrateFromUrl(params = new URLSearchParams(window.location.search)) {
+    if (!params.has('persona') && !params.has('ctx')) return null;
+    const report = {
+      source: params.get('utm_source') || 'external',
+      query: params.get('q') || params.get('query'),
+      persona: params.get('persona'),
+      received: null,
+      applied: {},
+      errors: [],
+    };
+    try {
+      if (params.has('ctx')) {
+        report.received = decodeExternalContext(params.get('ctx'));
+        const incoming = report.received;
+        if (incoming.conversationContext !== undefined) {
+          report.applied.conversationContext = normalizeConversationContext(
+            incoming.conversationContext,
+          );
+        }
+        if (incoming.shownProducts !== undefined) {
+          report.applied.shownProducts = boundedStrings(incoming.shownProducts);
+        }
+        if (incoming.inferredProfile !== undefined) {
+          const profile = incoming.inferredProfile;
+          if (!profile || typeof profile !== 'object' || Array.isArray(profile)) {
+            throw new Error('inferredProfile must be an object.');
+          }
+          const clean = {};
+          ['productsViewed', 'categoriesViewed', 'contentTypes', 'interests'].forEach((key) => {
+            if (profile[key] !== undefined) clean[key] = boundedStrings(profile[key]);
+          });
+          ['inferredIntent', 'journeyStage'].forEach((key) => {
+            if (profile[key] !== undefined) {
+              if (typeof profile[key] !== 'string' || profile[key].length > 100) {
+                throw new Error(`Invalid profile field: ${key}`);
+              }
+              clean[key] = profile[key];
+            }
+          });
+          report.applied.inferredProfile = clean;
+        }
+        if (report.applied.inferredProfile) {
+          this.updateInferredProfile({
+            ...this.getContext().inferredProfile, ...report.applied.inferredProfile,
+          });
+        }
+        (report.applied.shownProducts || []).forEach((id) => this.addShownProduct(id));
+        if (report.applied.conversationContext) {
+          const context = this.getContext();
+          context.conversationContext = report.applied.conversationContext;
+          saveContext(context);
+        }
+      }
+    } catch (error) {
+      report.applied = {};
+      report.errors.push(`Context rejected: ${error.message}`);
+    }
+    if (report.persona) {
+      if (EXTERNAL_PERSONAS.has(report.persona)) {
+        report.applied.quizPersona = { persona: report.persona };
+        this.setQuizPersona(report.applied.quizPersona);
+      } else {
+        report.errors.push('Unknown persona; existing session persona was preserved.');
+      }
+    }
+    if (report.errors.length) {
+      // eslint-disable-next-line no-console
+      console.warn('[External context]', report.errors.join(' '));
+    }
+    return report;
+  }
+
   /**
    * Get the current session context. Reads from in-memory cache when available,
    * falling back to sessionStorage on first access.
@@ -128,6 +274,9 @@ export class SessionContextManager {
     }
     if (context.inferredProfile) {
       param.inferredProfile = context.inferredProfile;
+    }
+    if (context.conversationContext) {
+      param.conversationContext = normalizeConversationContext(context.conversationContext);
     }
 
     // Include shown content for deduplication

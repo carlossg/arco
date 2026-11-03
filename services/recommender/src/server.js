@@ -10,6 +10,7 @@ import { createStorage } from './storage.js';
 import { createAnalytics } from './analytics.js';
 import { CloudTasksQueue, taskDeliveryMetadata } from './tasks.js';
 import { createEvaluations } from './evaluations.js';
+import { createMcpHandler, handleMcpContext } from './mcp.js';
 import { blockCloudflareRequests, createGoogleServer, googleTokenVerifier } from './http.js';
 
 export default async function start(config = process.env) {
@@ -41,6 +42,7 @@ export default async function start(config = process.env) {
     CACHE: createKV(storageConfig, 'cache'),
     GUIDES: createKV(storageConfig, 'guides'),
     SESSION_STORE: sessionStore,
+    MCP_CONTEXT_STORE: createKV(storageConfig, 'mcp-context'),
     GCP_STORAGE: createStorage({ firestore, sessionStore }),
     ANALYTICS: createAnalytics({ firestore }),
     AI: createAI({ projectId, location, auth }),
@@ -57,6 +59,7 @@ export default async function start(config = process.env) {
     firestore,
   });
   const evaluations = createEvaluations({ firestore, queue: env.EVAL_QUEUE });
+  const mcp = createMcpHandler();
   // Verify database access before Cloud Run's startup probe can succeed.
   await firestore.collection('arco_kv_gcp').limit(1).get();
   const server = createGoogleServer({
@@ -64,6 +67,11 @@ export default async function start(config = process.env) {
     verifyInternal: googleTokenVerifier({ serviceUrl, serviceAccount: serviceAccountEmail }),
     handler: async (request, bindings, ctx) => {
       request.ctx = ctx;
+      const { pathname } = new URL(request.url);
+      if (pathname === '/mcp' || pathname === '/.well-known/google-connected-apps') {
+        return mcp(request, bindings);
+      }
+      if (pathname.startsWith('/api/mcp/context/')) return handleMcpContext(request, bindings);
       if (request.method !== 'OPTIONS') {
         const response = await evaluations.fetch(request, bindings, ctx);
         if (response) return response;

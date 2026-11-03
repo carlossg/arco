@@ -6,6 +6,8 @@
 !services/recommender/bun.lock
 !services/recommender/src/
 !services/recommender/src/**
+!scripts/
+!scripts/conversation-context.js
 !workers/
 !workers/recommender/
 !workers/recommender/package.json
