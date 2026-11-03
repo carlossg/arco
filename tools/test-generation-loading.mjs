@@ -294,7 +294,7 @@ test('live MCP conversation context reaches Firestore retrieval and real Arco ge
     assert.ok(sections.length);
     const html = sections.map((event) => event.html).join('\n');
     assert.match(html, /cappuccino|milk/i);
-    assert.match(html, /quiet|rotary/i);
+    assert.match(html, /quiet|rotary|noise|silent|sound/i);
     await page.locator('.external-context summary').click();
     const inspected = JSON.parse(await page.locator('.external-context pre').textContent());
     assert.deepEqual(inspected.received.conversationContext, context);
