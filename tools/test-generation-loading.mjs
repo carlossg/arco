@@ -140,6 +140,80 @@ async function createPage(width = 390) {
   });
 });
 
+[390, 768, 1440].forEach((width) => {
+  test(`For You records quick browsing before delayed code without counting twice at ${width}px`, async () => {
+    const page = await createPage(width);
+    const errors = [];
+    page.on('pageerror', (error) => errors.push(error.message));
+    await page.route('**/scripts/delayed.js', (route) => route.fulfill({
+      contentType: 'application/javascript', body: '',
+    }));
+    try {
+      await page.goto(`${origin}/`);
+      await page.locator('.nav-foryou-link').waitFor({ state: 'attached' });
+      assert.equal(await page.locator('.nav-foryou-link').getAttribute('aria-disabled'), 'true');
+      assert.match(await page.locator('.nav-foryou').getAttribute('title'), /Browse two pages/);
+      await page.goto(`${origin}/products/espresso-machines`);
+      await page.waitForFunction(() => (
+        document.querySelector('.nav-foryou-link')?.getAttribute('aria-disabled') === 'false'
+      ));
+      const visits = await page.evaluate(() => JSON.parse(
+        sessionStorage.getItem('arco-session-context'),
+      ).browsingHistory);
+      assert.deepEqual(visits.map((visit) => visit.path), ['/', '/products/espresso-machines']);
+      // eslint-disable-next-line import/no-unresolved, import/no-absolute-path
+      await page.evaluate(async () => (await import('/scripts/browsing-signals.js')).collectBrowsingSignals());
+      const context = await page.evaluate(() => JSON.parse(
+        sessionStorage.getItem('arco-session-context'),
+      ));
+      assert.equal(context.browsingHistory.length, 2);
+      assert.equal(context.inferredProfile.pagesVisited, 2);
+      assert.ok(context.browsingHistory[1].blocks.length > 0);
+      if (width < 900) await page.locator('.nav-hamburger button').click();
+      assert.equal(await page.locator('.nav-foryou-link').isVisible(), true);
+      assert.equal(await page.locator('.nav-foryou-link').evaluate((link) => (
+        getComputedStyle(link).pointerEvents
+      )), 'auto');
+      assert.deepEqual(errors, []);
+    } finally {
+      await page.close();
+    }
+  });
+});
+
+test('For You unlocks after a query completes without a browsing event or reload', async () => {
+  const page = await createPage(1440);
+  let release;
+  const gate = new Promise((resolve) => { release = resolve; });
+  let calls = 0;
+  await page.route('**/api/generate', async (route) => {
+    calls += 1;
+    if (calls === 1) await gate;
+    await route.fulfill({
+      contentType: 'application/x-ndjson',
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: '{"type":"done"}\n',
+    });
+  });
+  try {
+    await page.goto(`${origin}/?q=Compare+Primo+and+Doppio`);
+    await page.locator('.nav-foryou-link').waitFor({ state: 'attached' });
+    assert.equal(await page.locator('.nav-foryou-link').getAttribute('aria-disabled'), 'true');
+    release();
+    await page.waitForFunction(() => (
+      document.querySelector('.nav-foryou-link')?.getAttribute('aria-disabled') === 'false'
+    ));
+    const nextRequest = page.waitForRequest((request) => new URL(request.url()).pathname === '/api/generate');
+    await page.locator('.nav-foryou-link').click();
+    const body = (await nextRequest).postDataJSON();
+    assert.equal(body.context.previousQueries[0].query, 'Compare Primo and Doppio');
+    assert.equal(body.context.browsingHistory?.length || 0, 0);
+  } finally {
+    release();
+    await page.close();
+  }
+});
+
 [390, 768, 1440].flatMap((width) => [false, true].map((handoff) => ({
   width, handoff,
 }))).forEach(({ width, handoff }) => {
@@ -218,6 +292,17 @@ async function createPage(width = 390) {
       // eslint-disable-next-line import/no-unresolved, import/no-absolute-path
       const utm = await page.evaluate(async () => (await import('/scripts/analytics-events.js')).getUtm());
       assert.deepEqual(utm, { utmSource: 'gemini', utmMedium: 'connected_app', utmCampaign: 'mcp_concierge' });
+      await page.waitForFunction(() => (
+        document.querySelector('.nav-foryou-link')?.getAttribute('aria-disabled') === 'false'
+      ));
+      if (width < 900) await page.locator('.nav-hamburger button').click();
+      const nextRequest = page.waitForRequest((request) => new URL(request.url()).pathname === '/api/generate');
+      await page.locator('.nav-foryou-link').click();
+      const forYouBody = (await nextRequest).postDataJSON();
+      assert.deepEqual(forYouBody.context.conversationContext, incoming.conversationContext);
+      assert.deepEqual(forYouBody.context.quizPersona, { persona: 'upgrade-seeker' });
+      assert.equal(forYouBody.context.browsingHistory?.length || 0, 0);
+      assert.doesNotMatch(forYouBody.query, /1600|shared compact kitchen|quiet operation/);
       assert.deepEqual(errors, []);
       if (process.env.CONTEXT_SCREENSHOT_DIR) {
         await page.locator('.external-context').screenshot({

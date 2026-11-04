@@ -1,7 +1,9 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 import { SessionContextManager } from '../../scripts/session-context.js';
-import { FORYOU_PREFETCH_KEY, FORYOU_QUERY_KEY } from '../../scripts/for-you-prefetch.js';
+import {
+  FORYOU_PREFETCH_KEY, FORYOU_QUERY_KEY, isForYouReady, synthesizeQuery,
+} from '../../scripts/for-you-prefetch.js';
 import { getAPIEndpoint } from '../../scripts/api-config.js';
 import { getUtm } from '../../scripts/analytics-events.js';
 
@@ -318,7 +320,7 @@ export default async function decorate(block) {
 
 /**
  * Inject a "For You" nav item that links to a pre-generated personalized page.
- * Hidden until the user has visited at least 2 pages. Uses the speculative
+ * Enabled once browsing, queries or explicit preferences can personalize it. Uses the speculative
  * engine for hover-based prefetching and SPA transition on click.
  * @param {Element} navSections The nav-sections element
  */
@@ -348,14 +350,11 @@ function injectForYouLink(navSections) {
   }
 
   function getForYouHref(query) {
-    const q = query || getForYouQuery();
-    if (q) {
-      const currentPreset = new URLSearchParams(window.location.search).get('preset');
-      const params = new URLSearchParams({ q });
-      if (currentPreset) params.set('preset', currentPreset);
-      return `/?${params.toString()}`;
-    }
-    return '/?q=Recommend+coffee+equipment+based+on+my+browsing';
+    const q = query || getForYouQuery() || synthesizeQuery(SessionContextManager.getContext());
+    const currentPreset = new URLSearchParams(window.location.search).get('preset');
+    const params = new URLSearchParams({ q });
+    if (currentPreset) params.set('preset', currentPreset);
+    return `/?${params.toString()}`;
   }
 
   let engineAttached = false;
@@ -372,35 +371,34 @@ function injectForYouLink(navSections) {
         });
       }
 
-      // Import synthesizeQuery from for-you-prefetch for dynamic query generation
-      import('../../scripts/for-you-prefetch.js').then(({ synthesizeQuery }) => {
-        window.arcoSpeculativeEngine.attachToElement(link, {
-          isFollowUp: false,
-          queryGetter: () => {
-            // Prefer existing stored query, fall back to synthesizing one
-            const stored = getForYouQuery();
-            if (stored) return stored;
-            const context = SessionContextManager.getContext();
-            return synthesizeQuery(context);
-          },
-          onReady: (query, buffer) => {
-            try {
-              sessionStorage.setItem(FORYOU_PREFETCH_KEY, JSON.stringify({
-                query,
-                ndjsonLines: buffer,
-                timestamp: Date.now(),
-              }));
-              sessionStorage.setItem(FORYOU_QUERY_KEY, query);
-            } catch { /* sessionStorage unavailable */ }
-            link.href = getForYouHref(query);
-          },
-        });
+      window.arcoSpeculativeEngine.attachToElement(link, {
+        isFollowUp: false,
+        queryGetter: () => {
+          const stored = getForYouQuery();
+          if (stored) return stored;
+          return synthesizeQuery(SessionContextManager.getContext());
+        },
+        onReady: (query, buffer) => {
+          try {
+            sessionStorage.setItem(FORYOU_PREFETCH_KEY, JSON.stringify({
+              query,
+              ndjsonLines: buffer,
+              timestamp: Date.now(),
+            }));
+            sessionStorage.setItem(FORYOU_QUERY_KEY, query);
+          } catch { /* sessionStorage unavailable */ }
+          link.href = getForYouHref(query);
+        },
       });
     });
   }
 
   // Intercept click for SPA transition
   link.addEventListener('click', (e) => {
+    if (!isForYouReady(SessionContextManager.getContext())) {
+      e.preventDefault();
+      return;
+    }
     if (!window.arcoTransitionToRecommender) return; // fall through to normal navigation
 
     // Use stored query, or check if speculative engine has an active query
@@ -423,9 +421,11 @@ function injectForYouLink(navSections) {
 
   function updateVisibility() {
     const context = SessionContextManager.getContext();
-    const visits = (context.browsingHistory || []).length;
-    const visible = visits >= 2;
+    const visible = isForYouReady(context);
     li.setAttribute('aria-hidden', visible ? 'false' : 'true');
+    link.setAttribute('aria-disabled', visible ? 'false' : 'true');
+    li.title = visible ? 'Recommendations using your session preferences'
+      : 'Browse two pages, ask a coffee question, or share your preferences to enable For You';
     if (visible) {
       link.href = getForYouHref();
       attachEngine();

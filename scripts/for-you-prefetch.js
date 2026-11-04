@@ -1,7 +1,7 @@
 /**
  * "For You" Query Synthesis
  *
- * After 2+ page visits, synthesizes a personalized query from the user's
+ * Once personalization context is available, synthesizes a query from the user's
  * browsing context and stores it in sessionStorage. The speculative engine
  * in header.js triggers actual generation on hover — not here.
  *
@@ -9,6 +9,7 @@
  */
 
 import { SessionContextManager } from './session-context.js';
+import { conversationSearchText } from './conversation-context.js';
 
 export const FORYOU_PREFETCH_KEY = 'arco-foryou-prefetch';
 export const FORYOU_QUERY_KEY = 'arco-foryou-query';
@@ -18,6 +19,20 @@ const DEBOUNCE_MS = 30000;
 
 let lastPrefetchTime = 0;
 let lastPrefetchSnapshot = null;
+
+export function isForYouReady(context) {
+  const profile = context.inferredProfile || {};
+  return (context.browsingHistory || []).length >= MIN_PAGE_VISITS
+    || (context.queries || []).some((entry) => entry.query?.trim())
+    || Boolean(typeof context.quizPersona === 'string'
+      ? context.quizPersona.trim() : context.quizPersona?.persona)
+    || (context.shownProducts || []).length > 0
+    || ['productsViewed', 'categoriesViewed', 'interests'].some((key) => (
+      (profile[key] || []).some((value) => value.trim())
+    ))
+    || Object.keys(profile.quizAnswers || {}).length > 0
+    || Boolean(conversationSearchText(context.conversationContext));
+}
 
 /**
  * Extract distinctive topic words from the most recent browsing history entries.
@@ -62,6 +77,10 @@ function extractTopicWords(browsingHistory) {
  */
 export function synthesizeQuery(context) {
   const { inferredProfile, browsingHistory } = context;
+  if (conversationSearchText(context.conversationContext) || context.quizPersona
+    || (context.queries || []).length || (context.shownProducts || []).length) {
+    return 'Recommend a coffee setup based on my session preferences and previous questions';
+  }
   if (!inferredProfile) return 'Recommend coffee equipment based on my browsing';
 
   const {
@@ -159,10 +178,9 @@ function hasSignificantChange(current, previous) {
  */
 function attemptPrefetch() {
   const context = SessionContextManager.getContext();
-  const { browsingHistory = [], inferredProfile } = context;
+  const { inferredProfile } = context;
 
-  // Need at least MIN_PAGE_VISITS
-  if (browsingHistory.length < MIN_PAGE_VISITS) return;
+  if (!isForYouReady(context)) return;
 
   // Debounce — don't prefetch more than once per DEBOUNCE_MS
   const now = Date.now();

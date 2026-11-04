@@ -8,7 +8,7 @@
  *
  * Reads (never writes) the session context from SessionContextManager and the
  * synthesized "For You" query from for-you-prefetch.js. Re-renders live on the
- * `arco-context-updated` event fired by browsing-signals.js.
+ * `arco-context-updated` event fired by the session context manager.
  *
  * Loaded in the delayed phase via delayed.js — zero impact on LCP.
  */

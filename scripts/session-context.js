@@ -40,6 +40,7 @@ function decodeExternalContext(raw) {
 
 // In-memory write-through cache — avoids redundant JSON parse/stringify on every call
 let contextCache = null;
+let contextEventQueued = false;
 
 function saveContext(context) {
   contextCache = context;
@@ -47,6 +48,14 @@ function saveContext(context) {
     sessionStorage.setItem(CONTEXT_KEY, JSON.stringify(context));
   } catch {
     // sessionStorage unavailable (private browsing, storage quota, etc.)
+  }
+  if (typeof window !== 'undefined' && !contextEventQueued) {
+    // Publish one notification after synchronous context mutations have settled.
+    contextEventQueued = true;
+    queueMicrotask(() => {
+      contextEventQueued = false;
+      window.dispatchEvent(new CustomEvent('arco-context-updated'));
+    });
   }
 }
 
@@ -391,14 +400,15 @@ export class SessionContextManager {
   }
 
   /**
-   * Update the last page visit with engagement data (time spent, scroll depth)
-   * @param {Object} engagement - Engagement data
+   * Update the last page visit with engagement and decorated block metadata.
+   * @param {Object} engagement - Engagement data and optional block names
    */
   static updateLastPageVisit(engagement) {
     const context = this.getContext();
     if (!context.browsingHistory || context.browsingHistory.length === 0) return;
 
     const last = context.browsingHistory[context.browsingHistory.length - 1];
+    if (engagement.blocks !== undefined) last.blocks = engagement.blocks;
     if (engagement.timeSpent !== undefined) last.timeSpent = engagement.timeSpent;
     if (engagement.scrollDepth !== undefined) last.scrollDepth = engagement.scrollDepth;
 
