@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { SessionContextManager as manager } from '../../../scripts/session-context.js';
+import { isForYouReady, synthesizeQuery } from '../../../scripts/for-you-prefetch.js';
 
 function reset(t) {
   const storage = new Map();
@@ -81,4 +82,29 @@ test('failed or expired handoffs are reported without falling back to inline URL
   t.mock.method(globalThis, 'fetch', async () => { throw new Error('Network unavailable'); });
   const report = await manager.hydrateExternalContext(params, 'https://demo.run.app');
   assert.match(report.errors[0], /Network unavailable/);
+});
+
+test('For You accepts meaningful session context without requiring ordinary browsing', (t) => {
+  reset(t);
+  const empty = manager.getContext();
+  for (const context of [
+    empty,
+    { browsingHistory: [{ path: '/' }] },
+    { queries: [{ query: ' ' }], inferredProfile: { interests: [' '] } },
+    { conversationContext: { preferences: { drinks: [], priorities: [] } } },
+  ]) assert.equal(isForYouReady(context), false);
+  for (const context of [
+    { browsingHistory: [{ path: '/' }, { path: '/products' }] },
+    { queries: [{ query: 'Compare Primo and Doppio' }] },
+    { quizPersona: { persona: 'upgrade-seeker' } },
+    { quizPersona: 'upgrader' },
+    { shownProducts: ['primo'] },
+    { inferredProfile: { interests: ['cappuccino'] } },
+    { conversationContext: { preferences: { budgetUsd: 1600 } } },
+  ]) assert.equal(isForYouReady(context), true);
+  const context = {
+    conversationContext: { summary: 'Private coffee preferences', preferences: { budgetUsd: 1600 } },
+  };
+  assert.equal(isForYouReady(context), true);
+  assert.doesNotMatch(synthesizeQuery(context), /Private|1600/);
 });

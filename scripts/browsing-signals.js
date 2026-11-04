@@ -20,29 +20,12 @@
  */
 
 import { SessionContextManager } from './session-context.js';
+import { classifyFromPath, recordPageVisit } from './page-context.js';
 
 const MAX_SIGNALS = 20;
 const ENGAGEMENT_THRESHOLD_MS = 5000;
 const DEEP_ENGAGEMENT_MS = 30000;
 const SCROLL_THROTTLE_MS = 500;
-
-/* ========================================================================== */
-/*  Path-based intent rules                                                    */
-/* ========================================================================== */
-
-const PATH_RULES = [
-  { pattern: /^\/products\/espresso-machines\/[^/]+/, intent: 'product-detail', stage: 'comparing' },
-  { pattern: /^\/products\/grinders\/[^/]+/, intent: 'product-detail', stage: 'comparing' },
-  { pattern: /^\/products\/espresso-machines\/?$/, intent: 'discovery', stage: 'exploring' },
-  { pattern: /^\/products\/grinders\/?$/, intent: 'discovery', stage: 'exploring' },
-  { pattern: /^\/products\/accessories/, intent: 'discovery', stage: 'exploring' },
-  { pattern: /^\/products\/?$/, intent: 'discovery', stage: 'exploring' },
-  { pattern: /^\/stories\//, intent: 'technique', stage: 'exploring' },
-  { pattern: /^\/experiences\//, intent: 'use-case', stage: 'exploring' },
-  { pattern: /^\/about/, intent: 'discovery', stage: 'exploring' },
-  { pattern: /^\/support/, intent: 'support', stage: 'deciding' },
-  { pattern: /^\/warranty/, intent: 'support', stage: 'deciding' },
-];
 
 /* ========================================================================== */
 /*  Signal collection                                                          */
@@ -176,12 +159,6 @@ function extractCategory(path) {
   return match ? match[1] : null;
 }
 
-function classifyFromPath(pathname) {
-  const matched = PATH_RULES.find((rule) => rule.pattern.test(pathname));
-  if (matched) return { intent: matched.intent, stage: matched.stage };
-  return { intent: 'discovery', stage: 'exploring' };
-}
-
 /**
  * Build the inferred profile from accumulated signals.
  */
@@ -248,7 +225,7 @@ function buildInferredProfile(signals) {
     journeyStage,
     interests: [...new Set(interests)],
     quizAnswers: Object.keys(quizAnswers).length > 0 ? quizAnswers : undefined,
-    pagesVisited: signals.filter((s) => s.type === 'page').length,
+    pagesVisited: (SessionContextManager.getContext().browsingHistory || []).length,
     totalTimeOnSite,
   };
 }
@@ -279,22 +256,9 @@ export function collectBrowsingSignals() {
 
     const profile = buildInferredProfile(signals);
     SessionContextManager.updateInferredProfile(profile);
-    window.dispatchEvent(new CustomEvent('arco-context-updated', {
-      detail: { signalType: signal.type, profile },
-    }));
   }
 
-  // Record the page visit before firing signals so arco-context-updated
-  // reflects the updated browsingHistory count (needed for "For You" link visibility).
-  const { intent, stage } = classifyFromPath(window.location.pathname);
-  SessionContextManager.addPageVisit({
-    path: window.location.pathname,
-    title: document.title,
-    blocks: getBlockNames(),
-    intent,
-    stage,
-    timestamp: Date.now(),
-  });
+  recordPageVisit(getBlockNames());
 
   // 1. Page signal — immediate
   const pageSignal = getPageSignal();

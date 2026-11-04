@@ -13,6 +13,7 @@ import {
   loadCSS,
 } from './aem.js';
 import { SessionContextManager } from './session-context.js';
+import { recordPageVisit } from './page-context.js';
 import { getAPIEndpoint } from './api-config.js';
 import { BLOCK_ALIASES } from './block-aliases.js';
 import showWelcomeModal from './welcome-modal.js';
@@ -650,6 +651,7 @@ async function loadPage() {
     return;
   }
 
+  recordPageVisit();
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
