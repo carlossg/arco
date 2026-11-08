@@ -24,7 +24,10 @@ const context = await browser.newContext({
   viewport: { width: 1920, height: 1080 },
   recordVideo: { dir: output, size: { width: 1920, height: 1080 } },
 });
-await context.addInitScript(() => sessionStorage.setItem('arco-welcome-shown', '1'));
+await context.addInitScript((apiOrigin) => {
+  sessionStorage.setItem('arco-welcome-shown', '1');
+  window.ARCO_CONFIG = { ...window.ARCO_CONFIG, RECOMMENDER_URL: apiOrigin };
+}, api.origin);
 const cloudflare = [];
 const errors = [];
 const generations = [];

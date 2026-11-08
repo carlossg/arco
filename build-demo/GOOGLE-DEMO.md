@@ -14,6 +14,9 @@ Requires the existing Playwright dependency and browser, plus `ffmpeg` and
 `ffprobe`. Defaults to the main preview and `https://arco-recommender.cloud.run`,
 not localhost. Override `BASE_URL`, `API_URL`, or `OUTPUT_DIR` as needed; set
 `HEADED=1` to show the browser during recording.
+The recorder sets the browser's recommender URL to the selected `API_URL`
+before page scripts load, so generation and publishing use the same backend
+even when the preview still has an older default.
 
 The recording follows the original walkthrough with an updated final act:
 
