@@ -11,9 +11,12 @@ bun build-demo/record-google-demo.mjs
 ```
 
 Requires the existing Playwright dependency and browser, plus `ffmpeg` and
-`ffprobe`. Defaults to the deployed Google-backed feature preview, not main or
-localhost. Override `BASE_URL`, `API_URL`, or `OUTPUT_DIR` as needed; set
+`ffprobe`. Defaults to the main preview and `https://arco-recommender.cloud.run`,
+not localhost. Override `BASE_URL`, `API_URL`, or `OUTPUT_DIR` as needed; set
 `HEADED=1` to show the browser during recording.
+The recorder sets the browser's recommender URL to the selected `API_URL`
+before page scripts load, so generation and publishing use the same backend
+even when the preview still has an older default.
 
 The recording follows the original walkthrough with an updated final act:
 
@@ -23,7 +26,7 @@ The recording follows the original walkthrough with an updated final act:
 4. Click For You and wait for actual Google-backed personalized generation.
 5. Type a camping espresso query and show its streamed recommendations.
 6. Publish those generated blocks through `/api/persist`, open the saved page
-   on the feature preview, and reload it.
+   on the configured preview, and reload it.
 
 Publishing is performed by the recorder through the real API, not an invented
 site button. This creates a unique, permanently published

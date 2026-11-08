@@ -8,9 +8,9 @@ import { resolve } from 'node:path';
 import { chromium } from 'playwright';
 
 const origin = new URL(process.env.BASE_URL
-  || 'https://feat-google-cloud-backend--arco--carlossg.aem.page');
+  || 'https://main--arco--carlossg.aem.page');
 const api = new URL(process.env.API_URL
-  || 'https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app');
+  || 'https://arco-recommender.cloud.run');
 const stamp = new Date().toISOString().replace(/[:.]/g, '-');
 const output = resolve(process.env.OUTPUT_DIR || `build-demo/recordings/google-${stamp}`);
 const query = "I'm looking for a coffee machine to use when camping in the middle of the forest";
@@ -24,7 +24,10 @@ const context = await browser.newContext({
   viewport: { width: 1920, height: 1080 },
   recordVideo: { dir: output, size: { width: 1920, height: 1080 } },
 });
-await context.addInitScript(() => sessionStorage.setItem('arco-welcome-shown', '1'));
+await context.addInitScript((apiOrigin) => {
+  sessionStorage.setItem('arco-welcome-shown', '1');
+  window.ARCO_CONFIG = { ...window.ARCO_CONFIG, RECOMMENDER_URL: apiOrigin };
+}, api.origin);
 const cloudflare = [];
 const errors = [];
 const generations = [];

@@ -15,7 +15,7 @@ const PRODUCTION_WORKER = 'https://arco-recommender.franklin-prod.workers.dev';
 // Reuses the shared CF account's AI binding + Vectorize, but its own D1, KV
 // session store, queues, and DA_ORG=carlossg.
 const CARLOSSG_WORKER = 'https://arco-recommender-carlossg.franklin-prod.workers.dev';
-const GOOGLE_SERVICE = 'https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app';
+const GOOGLE_SERVICE = 'https://arco-recommender.cloud.run';
 const USE_CLOUDFLARE = window.ARCO_CONFIG?.BACKEND === 'cloudflare';
 
 function allowEndpoint(value) {

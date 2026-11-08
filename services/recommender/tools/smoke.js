@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { setTimeout } from 'node:timers/promises';
 
 const origin = process.env.BASE_URL
-  || 'https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app';
+  || 'https://arco-recommender.cloud.run';
 if (!process.env.ADMIN_TOKEN) throw new Error('Set ADMIN_TOKEN without committing or printing it');
 const authorization = `Basic ${Buffer.from(`admin:${process.env.ADMIN_TOKEN}`).toString('base64')}`;
 const sessionId = randomUUID();

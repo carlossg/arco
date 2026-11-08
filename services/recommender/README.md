@@ -87,10 +87,39 @@ audience is `SERVICE_URL` and whose verified email matches
 sufficient. The public service requires `ADMIN_TOKEN` at startup.
 Use `GET /health` for public health checks.
 
+## Public custom URL
+
+Public generation, analytics, admin APIs and MCP use
+`https://arco-recommender.cloud.run`. The custom URL maps to the existing
+`arco-recommender-gcp` service in `us-central1`, without DNS configuration or
+a load balancer. Custom URLs are a Google Cloud Preview feature.
+
+The mapping is managed separately from container deployments. To create it
+in this project, use a current Google Cloud CLI with the beta component:
+
+```sh
+gcloud beta run domain-mappings create \
+  --project=api-project-642841493686 --region=us-central1 \
+  --service=arco-recommender-gcp --domain=arco-recommender.cloud.run
+curl --fail-with-body https://arco-recommender.cloud.run/health
+```
+
+Keep `https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app` enabled.
+`deploy.sh` selects the Cloud Run `status.url` for `SERVICE_URL`, Cloud Tasks
+delivery and token audiences, and Cloud Scheduler. Use that deployed
+`SERVICE_URL` as the OIDC audience when recreating the Scheduler job; do not
+substitute a separately documented URL or the public custom URL.
+Rollback public clients to that address if needed without deleting the custom
+mapping, which would release its name for others to claim.
+
+Existing Gemini registrations must be updated to the new `/mcp` URL and have
+their tools resynced. Connected Console domain verification must be repeated
+if required; mapping the URL does not register or approve the app.
+
 ## Gemini coffee concierge (MCP)
 
 The public, stateless Streamable HTTP endpoint is
-`https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app/mcp`.
+`https://arco-recommender.cloud.run/mcp`.
 POST accepts JSON-RPC 2.0 and returns `application/json` (the JSON response
 variant of Streamable HTTP). Ordinary GET returns metadata/health; GET with
 `Accept: text/event-stream` returns HTTP 405 as required for a server without
@@ -192,7 +221,7 @@ frontend hydration code must also be delivered by AEM Code Sync.
 ### Curl smoke checks
 
 ```sh
-MCP=https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app/mcp
+MCP=https://arco-recommender.cloud.run/mcp
 curl --fail-with-body "$MCP"
 curl --fail-with-body -X OPTIONS -i "$MCP"
 curl --fail-with-body "$MCP" \
@@ -235,14 +264,14 @@ for the current console labels.
      --project=api-project-642841493686 --region=us-central1 \
      --update-env-vars="GOOGLE_CONNECTED_VERIFICATION_TOKEN=YOUR_PUBLIC_CHALLENGE_TOKEN"
    curl --fail-with-body \
-     https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app/.well-known/google-connected-apps
+     https://arco-recommender.cloud.run/.well-known/google-connected-apps
    ```
 
    Confirm HTTP 200 without redirects, then select **Verify domain**. The
    verification route returns 404 until configured. Reapply this setting after
    running `deploy.sh`, which replaces environment settings. If Google rejects
-   a shared `run.app` hostname, map a domain you own to this same service and
-   register its HTTPS `/mcp` instead; do not claim ownership of `run.app`.
+   the shared `cloud.run` hostname, map a domain you own to this same service and
+   register its HTTPS `/mcp` instead; do not claim ownership of `cloud.run`.
 4. Under **Access credentials**, answer **No** to “Does your server require
    authorization?” for this public demo. Do not enter the backend's admin token;
    this endpoint does not implement OAuth or require admin access.
@@ -296,7 +325,7 @@ For an independent client, merge this into Gemini CLI's
 {
   "mcpServers": {
     "arco": {
-      "httpUrl": "https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app/mcp",
+      "httpUrl": "https://arco-recommender.cloud.run/mcp",
       "timeout": 600000
     }
   }
