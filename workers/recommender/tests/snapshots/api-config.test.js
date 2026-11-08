@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 
 const source = await readFile(new URL('../../../../scripts/api-config.js', import.meta.url), 'utf8');
 const forkWorker = 'https://arco-recommender-carlossg.franklin-prod.workers.dev';
-const googleService = 'https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app';
+const googleService = 'https://arco-recommender.cloud.run';
 let moduleId = 0;
 
 async function loadConfig(hostname, overrides = {}, stored = {}) {

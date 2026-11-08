@@ -328,7 +328,7 @@ test('live MCP conversation context reaches Firestore retrieval and real Arco ge
     }
   });
   const mcp = process.env.MCP_URL
-    || 'https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app/mcp';
+    || 'https://arco-recommender.cloud.run/mcp';
   const context = {
     summary: 'Two people make cappuccinos each morning in a small shared kitchen.',
     preferences: {
