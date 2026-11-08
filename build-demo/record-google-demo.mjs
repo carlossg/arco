@@ -8,9 +8,9 @@ import { resolve } from 'node:path';
 import { chromium } from 'playwright';
 
 const origin = new URL(process.env.BASE_URL
-  || 'https://feat-google-cloud-backend--arco--carlossg.aem.page');
+  || 'https://main--arco--carlossg.aem.page');
 const api = new URL(process.env.API_URL
-  || 'https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app');
+  || 'https://arco-recommender.cloud.run');
 const stamp = new Date().toISOString().replace(/[:.]/g, '-');
 const output = resolve(process.env.OUTPUT_DIR || `build-demo/recordings/google-${stamp}`);
 const query = "I'm looking for a coffee machine to use when camping in the middle of the forest";

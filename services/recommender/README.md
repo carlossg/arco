@@ -105,8 +105,10 @@ curl --fail-with-body https://arco-recommender.cloud.run/health
 ```
 
 Keep `https://arco-recommender-gcp-okyq6gkx3a-uc.a.run.app` enabled.
-`SERVICE_URL`, Cloud Tasks delivery and token audiences, and Cloud Scheduler
-continue using that address; `deploy.sh` intentionally leaves them unchanged.
+`deploy.sh` selects the Cloud Run `status.url` for `SERVICE_URL`, Cloud Tasks
+delivery and token audiences, and Cloud Scheduler. Use that deployed
+`SERVICE_URL` as the OIDC audience when recreating the Scheduler job; do not
+substitute a separately documented URL or the public custom URL.
 Rollback public clients to that address if needed without deleting the custom
 mapping, which would release its name for others to claim.
 
