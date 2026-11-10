@@ -30,6 +30,9 @@ const COFFEE_KEYWORDS = [
   'automatico', 'ufficio', 'preciso', 'macinino', 'filtro', 'zero',
 ];
 
+// Whole-word variants avoid treating unrelated words such as "cofferdam" as coffee.
+const COFFEE_SPELLING_VARIANTS = /\b(?:cofee|coffe|expresso|esperesso|espreso|esspresso)\b/;
+
 // Shopping-intent words that are on-topic on a coffee equipment site,
 // but too generic to override harmful/illegal signals on their own
 const SHOPPING_KEYWORDS = [
@@ -91,7 +94,8 @@ const GENERAL_QA_PATTERNS = [
 ];
 
 function hasCoreSignal(query) {
-  return COFFEE_KEYWORDS.some((kw) => query.includes(kw));
+  return COFFEE_KEYWORDS.some((kw) => query.includes(kw))
+    || COFFEE_SPELLING_VARIANTS.test(query);
 }
 
 function hasShoppingSignal(query) {
