@@ -73,6 +73,24 @@ test('Firestore CAS permits one concurrent phase owner, and bounded scans fail e
   assert.throws(() => storage.collection('invalid'), /Unknown repository/);
 });
 
+test('Google persists Decisions diagnostics and includes decision overhead in generation costs', async () => {
+  const { storage, env } = fixture();
+  const ctx = context();
+  ctx.decisions = {
+    classificationMode: 'on', inputTokens: 2000, costUsd: 0.0002, status: 'complete',
+  };
+  ctx.intent.journeyStage = 'decision';
+  await saveGeneration(ctx, env, 'session', { runId: 'run', pageId: 'page' });
+  const row = await storage.get('generated_pages', 'run');
+  assert.equal(row.decision_input_tokens, 2000);
+  assert.equal(row.journey_stage, 'decision');
+  const payload = await env.SESSION_STORE.get('page:run', 'json');
+  assert.equal(payload.debug.decisions.status, 'complete');
+  const summary = await (await storage.handleInsightsSummary(request())).json();
+  // 100 input + 50 output tokens on Gemini Flash cost 0.000155 USD.
+  assert.ok(Math.abs(summary.generation.costUsd - 0.000355) < 1e-10);
+});
+
 test('Session/page/run admin hooks preserve auth, CORS, schemas and 404s without D1', async () => {
   const { storage, env } = fixture();
   await saveGeneration(context(), env, 'session', { runId: 'run', pageId: 'page' });

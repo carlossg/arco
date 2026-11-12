@@ -7,6 +7,7 @@
  */
 
 import { matchPersona, getPersonaBySlug } from '../../context.js';
+import { acceptedDecision } from '../../decisions.js';
 
 // Maps client-side quiz persona IDs to worker persona slugs (data/metadata/personas.json)
 const QUIZ_PERSONA_MAP = {
@@ -32,6 +33,10 @@ export async function personaMatch(ctx, config = {}, env = {}) {
     }
   }
 
-  ctx.rag.persona = matchPersona(ctx.request.query);
+  const baseline = matchPersona(ctx.request.query);
+  const answer = acceptedDecision(ctx, 'persona');
+  ctx.rag.persona = answer
+    ? getPersonaBySlug(answer.choice) : baseline;
+  if (ctx.decisions) ctx.decisions.baselinePersona = baseline?.slug || null;
   ctx.timings.persona = Date.now() - start;
 }

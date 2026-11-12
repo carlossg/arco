@@ -221,6 +221,31 @@ test('durable outbox recovers enqueue failure via Scheduler without losing the r
   assert.equal(f.rows('eval_runs')[0].status, 'complete');
 });
 
+test('native evaluations persist Decisions blockers, no-explanation scores and both judge costs', async () => {
+  const f = fixture({
+    judge: async () => ({
+      score: 4,
+      judgeModel: 'gemini-3.8-flash',
+      inputTokens: 1000,
+      outputTokens: 100,
+      dims: { structure: { score: 4 }, faithfulness: { score: 4 } },
+      blockerReasons: ['faithfulness:P(score<3)>=0.5'],
+      decisionJudge: {
+        status: 'low-confidence', inputTokens: 100, costUsd: 0.00001,
+      },
+    }),
+  });
+  await f.start();
+  await f.drain();
+  const row = f.rows('experiment_variants')[0];
+  const notes = JSON.parse(row.evaluator_notes);
+  assert.equal(notes.blocker, true);
+  assert.ok(notes.blocker_reasons.includes('faithfulness:P(score<3)>=0.5'));
+  assert.equal(notes.decisionJudge.status, 'low-confidence');
+  assert.ok(Math.abs(row.judge_cost_usd - 0.00226) < 1e-10);
+  assert.ok(Math.abs(f.rows('eval_runs')[0].estimated_cost_usd - 0.00452) < 1e-10);
+});
+
 test('skip judge, explicit judge, regenerate and rejudge retain the async lifecycle', async () => {
   const f = fixture();
   const { body: { evalRunId } } = await f.start({ skipJudge: true });

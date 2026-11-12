@@ -65,11 +65,18 @@ export async function askChoice({
       signal: controller.signal,
     });
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.warn('[Jev] No layout hint: HTTP', res.status);
+      return null;
+    }
 
     const body = await res.json();
     const answer = body?.answers?.decision;
-    if (!answer || answer.type !== 'choice') return null;
+    if (!answer || answer.type !== 'choice' || !Object.hasOwn(criteria, answer.choice)
+      || !Number.isFinite(answer.confidence) || answer.confidence < 0 || answer.confidence > 1) {
+      console.warn('[Jev] No layout hint: invalid choice answer');
+      return null;
+    }
 
     return {
       choice: answer.choice,
@@ -78,8 +85,8 @@ export async function askChoice({
       model: body.model,
       usage: body.usage,
     };
-  } catch {
-    // Network error, timeout, abort, malformed JSON — all treated as "no opinion".
+  } catch (error) {
+    console.warn('[Jev] No layout hint:', error.name);
     return null;
   } finally {
     clearTimeout(timer);

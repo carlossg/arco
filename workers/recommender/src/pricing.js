@@ -11,6 +11,7 @@
 
 // key: `${provider}:${model}` → { in, out } USD per 1M tokens
 export const PROVIDER_PRICING = {
+  'gemini:gemini-decision-1': { in: 0.10, out: 0 },
   // Vertex Gemini standard online text inference, USD per 1M tokens.
   'gemini:gemini-2.5-flash': { in: 0.30, out: 2.50 },
   'gemini:gemini-2.5-flash-lite': { in: 0.10, out: 0.40 },

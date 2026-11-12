@@ -38,6 +38,100 @@ promotional credits (approximate demo accounting, not a billing guarantee).
 Cloud Scheduler, storage, builds and inference can still incur charges even
 though Cloud Run scales to zero.
 
+## Gemini Decisions and optional Jev
+
+The shared pipeline can classify intent, shopping journey, persona and use case,
+and choose an advisory layout, in **one Gemini Decisions API request** before
+RAG. Questions are independent: layout is judged from the request and relevant
+preferences, not from another answer in the batch. Catalog metadata supplies the
+persona/use-case options; `other` explicitly means no matching persona/use case.
+Current requests override older preferences. Quiz personas and explicit `buy`
+follow-ups remain authoritative. TV keeps its fixed comparison-only layout and
+does not ask for a layout decision. The deterministic safety gate still runs first.
+
+This is the Gemini **Developer API**, not Vertex: it calls
+`https://generativelanguage.googleapis.com/v1beta/decisions` with
+`gemini-decision-1` and `GEMINI_API_KEY`. Existing Vertex service-account
+authentication alone is insufficient. Verify account availability, quotas and
+applicable data-handling terms before enabling. Never expose the key to the
+frontend. Only relevant coffee preferences are sent, not full browsing transcripts.
+
+| Environment setting | Values / default |
+| --- | --- |
+| `DECISIONS_CLASSIFICATION_MODE` | `off`, `shadow`, `on` |
+| `DECISIONS_LAYOUT_MODE` | `off`, `shadow`, `on` (only for Gemini layout) |
+| `DECISIONS_JUDGE_MODE` | `off`, `shadow`, `on` |
+| `LAYOUT_DECISION_PROVIDER` | `gemini`, `jev`, `off` |
+| `DECISIONS_CONFIDENCE_THRESHOLD` | Winning-option probability; default `0.7` |
+| `DECISIONS_TIMEOUT_MS` | Classification/layout deadline; default `2000` |
+| `DECISIONS_JUDGE_TIMEOUT_MS` | Judge deadline; default `5000` |
+
+On Google, a configured `GEMINI_API_KEY` defaults all three capabilities to `on`
+and layout to `gemini`. Without it, modes default to `off`, preserving existing
+classifiers and the optional Jev layout. Explicitly enabling a capability without
+a key fails Google startup. The retained Cloudflare backend still defaults to
+local classifiers, its existing judge, and optional Jev, even if a Gemini key is
+present. An explicit provider/mode selection is required to change those defaults.
+
+`shadow` calls Decisions and records answers, latency, usage and baseline
+classifications without applying them. In `on`, low-confidence answers retain
+the corresponding local rule result; errors/timeouts retain all local results.
+A missing or uncertain Gemini layout leaves the prompt unchanged. There is no
+silent cross-provider layout fallback: select Jev explicitly to use it.
+
+To keep Jev for layout while using Decisions classification:
+
+```sh
+LAYOUT_DECISION_PROVIDER=jev
+# TYPESAFE_API_KEY must also be configured on the backend.
+```
+
+Jev retains its existing `0.6` confidence threshold. Its normalized confidence
+is not Gemini's top-option probability: with four layouts, Jev `0.6` corresponds
+to top probability `0.7`. Do not copy thresholds between providers without
+calibration. Neither API generates text or explanations.
+
+The Google evaluation judge lists Decisions first in `on` mode and keeps the
+Vertex judge selectable. It batches seven rubric questions and maps zero-based
+scores to the existing 1–5 scale. Scores are continuous expected values, not
+integer ratings; explanations are explicitly unavailable. Deterministic
+assertions and blocker checks remain, including probability mass on poor
+structure/faithfulness levels. Uncertain, blocked, malformed or failed Decisions
+judgements use the existing Vertex judge with recorded fallback diagnostics.
+`shadow` keeps Vertex scores authoritative. Historical runs pinned to a Vertex
+judge continue using that model; new runs select the current default.
+
+Generation debug records include `decisions` (answers, baseline labels, fallback
+questions, timing, input tokens and estimated cost) and `layoutHint`.
+Google generation cost aggregates include the additional Decisions request.
+Evaluation notes retain judge probabilities/confidence and fallback/shadow usage;
+judge cost includes both calls when falling back or shadowing. Prices are
+approximate list-rate accounting: $0.10 per million input tokens and zero output
+tokens for Decisions. Shared pre-RAG decision costs are stored in evaluation
+payloads but are not included in the evaluation's **judge-only** cost.
+
+### Provisioning and rollout
+
+`deploy.sh` optionally binds Secret Manager secrets `arco-gcp-gemini-api-key`
+and `arco-gcp-typesafe-api-key`. Override their names with `GEMINI_API_KEY_SECRET`
+and `TYPESAFE_API_KEY_SECRET`; grant the Cloud Run service account access to the
+chosen secrets. Do not put key values in deployment arguments, source or logs.
+An absent Gemini secret prints a warning and preserves the existing stack.
+
+For the first deployment, explicitly set all three modes to `shadow` when
+running `deploy.sh`. Compare `coffee-extended` results plus held-out spelling,
+ambiguous, context-dependent, adversarial and TV cases before switching each
+capability to `on`. Track fallback rates, confidence calibration, blocker
+agreement, end-to-end p50/p95 latency and cost. The suite's coarse expected intent
+labels are not the pipeline's full intent taxonomy; do not treat their direct
+string agreement as classification accuracy.
+
+Rollback by setting the affected mode to `off`; set the layout provider to `jev`
+to restore Jev. No Firestore migration, Wrangler deployment or D1 migration is
+needed. Generation, suggestions, embeddings, retrieval and MCP tool execution
+continue using their existing implementations. Retrieval reranking remains a
+future experiment, not an unmeasured extra request on every generation.
+
 ## Dependencies and tests
 
 Use Bun. The explicit registry flag overrides user `.npmrc` and environment

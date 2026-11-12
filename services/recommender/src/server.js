@@ -12,6 +12,7 @@ import { CloudTasksQueue, taskDeliveryMetadata } from './tasks.js';
 import { createEvaluations } from './evaluations.js';
 import { createMcpHandler, handleMcpContext } from './mcp.js';
 import { blockCloudflareRequests, createGoogleServer, googleTokenVerifier } from './http.js';
+import { validateDecisionConfig } from '../../../workers/recommender/src/decisions.js';
 
 export default async function start(config = process.env) {
   const projectId = config.GOOGLE_CLOUD_PROJECT || 'api-project-642841493686';
@@ -21,6 +22,7 @@ export default async function start(config = process.env) {
   const serviceAccountEmail = config.TASK_SERVICE_ACCOUNT
     || `arco-recommender-gcp@${projectId}.iam.gserviceaccount.com`;
   if (!config.ADMIN_TOKEN) throw new Error('ADMIN_TOKEN must be configured before starting the Google backend');
+  validateDecisionConfig({ ...config, CLOUD_PLATFORM: 'gcp' });
 
   globalThis.fetch = blockCloudflareRequests();
   const firestore = new Firestore({ projectId, ignoreUndefinedProperties: true });

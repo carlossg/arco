@@ -25,6 +25,8 @@ import { createHash, randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { isDeepStrictEqual } from 'node:util';
 import { deliverTask } from './tasks.js';
+import { costUsd } from '../../../workers/recommender/src/pricing.js';
+import { DECISION_MODEL } from '../../../workers/recommender/src/decisions.js';
 
 const ACTIVE_JOB_STATES = new Set(['pending', 'queued', 'running']);
 const LEASE_MS = 35 * 60 * 1000;
@@ -100,6 +102,8 @@ async function defaultGenerate({ queryDef, models, env }) {
         })),
         rag: ctx.rag,
         intent: ctx.intent,
+        journeyStage: ctx.intent?.journeyStage,
+        decisions: ctx.decisions || null,
         query: queryDef.query,
         followUpOptions: out.suggestions || [],
         title: extractTitle(out.sections[0]),
@@ -146,6 +150,7 @@ function summarize(models, variants) {
     totalOutputTokens: variants.reduce((sum, row) => sum + (row.output_tokens || 0), 0),
     judgeInputTokens: variants.reduce((sum, row) => sum + (row.judge_input_tokens || 0), 0),
     judgeOutputTokens: variants.reduce((sum, row) => sum + (row.judge_output_tokens || 0), 0),
+    judgeCostUsd: variants.reduce((sum, row) => sum + (row.judge_cost_usd || 0), 0),
   };
 }
 
@@ -248,6 +253,7 @@ export function createEvaluations(config) {
         total_output_tokens: summary.totalOutputTokens,
         judge_input_tokens: summary.judgeInputTokens,
         judge_output_tokens: summary.judgeOutputTokens,
+        estimated_cost_usd: summary.judgeCostUsd,
       });
     });
     await publishPending(runId);
@@ -449,11 +455,19 @@ export function createEvaluations(config) {
       ...(notes.assertions?.passed === false ? ['assertions-failed'] : []),
       ...(judgement.dims?.structure?.score < 3 ? ['structure<3'] : []),
       ...(judgement.dims?.faithfulness?.score < 3 ? ['faithfulness<3'] : []),
+      ...(judgement.blockerReasons || []),
     ];
     await persistWithLease(body, token, (tx) => tx.update(ref('experiment_variants', variant.id), {
       evaluator_score: judgement.score,
       judge_input_tokens: judgement.inputTokens || 0,
       judge_output_tokens: judgement.outputTokens || 0,
+      judge_cost_usd: costUsd(
+        'gemini',
+        judgement.judgeModel,
+        judgement.inputTokens,
+        judgement.outputTokens,
+      )
+        + (judgement.judgeModel === DECISION_MODEL ? 0 : judgement.decisionJudge?.costUsd || 0),
       evaluator_notes: JSON.stringify({
         ...judgement.dims,
         assertions: notes.assertions,
@@ -464,6 +478,7 @@ export function createEvaluations(config) {
         judge_input_tokens: judgement.inputTokens || 0,
         judge_output_tokens: judgement.outputTokens || 0,
         judge_duration_ms: judgement.durationMs,
+        ...(judgement.decisionJudge ? { decisionJudge: judgement.decisionJudge } : {}),
       }),
     }));
   }
