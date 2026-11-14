@@ -158,6 +158,8 @@ async function insertRun(db, runId, sessionId, ctx, now, meta) {
 function buildDebugSnapshot(ctx) {
   return {
     intent: ctx.intent || null,
+    decisions: ctx.decisions || null,
+    layoutHint: ctx.layoutHint || null,
     behaviorAnalysis: ctx.rag?.behaviorAnalysis || null,
     rag: {
       products: (ctx.rag?.products || []).map((p) => ({

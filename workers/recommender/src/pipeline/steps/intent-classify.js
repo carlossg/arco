@@ -1,5 +1,5 @@
 /**
- * Intent Classify Step — rule-based query intent classification for coffee equipment.
+ * Intent Classify Step — Decisions classification with local-rule fallback.
  * Writes ctx.intent = { type, confidence, journeyStage }.
  *
  * This is the *query* intent — distinct from the per-page-view browsing intent
@@ -7,6 +7,8 @@
  * `ctx.intent.type` is the source of truth for `generated_pages.intent_type`
  * in D1. See browsing-signals.js for the full three-layer taxonomy.
  */
+
+import { acceptedDecision } from '../../decisions.js';
 
 const ESPRESSO_KEYWORDS = [
   'espresso', 'shot', 'crema', 'extraction', 'pull', 'dial in', 'dial-in',
@@ -138,5 +140,15 @@ export async function intentClassify(ctx, config = {}, env = {}) {
   );
 
   ctx.intent = { type, confidence, journeyStage };
+  const intent = acceptedDecision(ctx, 'intent');
+  const journey = acceptedDecision(ctx, 'journey');
+  if (intent) {
+    ctx.intent.type = intent.choice;
+    ctx.intent.confidence = intent.confidence;
+  }
+  if (journey && ctx.request.followUp?.type !== 'buy') {
+    ctx.intent.journeyStage = journey.choice;
+  }
+  if (ctx.decisions) ctx.decisions.baselineIntent = { type, confidence, journeyStage };
   ctx.timings.intentClassify = Date.now() - start;
 }

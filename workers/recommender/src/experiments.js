@@ -193,6 +193,7 @@ function buildVariantPayload(ctx, variant) {
     followUpOptions: state.suggestions || [],
     debug: {
       intent: ctx.intent || null,
+      decisions: ctx.decisions || null,
       behaviorAnalysis: ctx.rag?.behaviorAnalysis || null,
       prompt: {
         systemLength: ctx.prompt?.system?.length || 0,

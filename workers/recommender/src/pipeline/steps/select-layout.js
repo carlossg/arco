@@ -1,10 +1,10 @@
 /**
  * Select Layout Step — fast-path structured decision for the primary content
- * shape of the generated page, using TypeSafe AI's Jev (System One) model.
+ * shape of the generated page, using Gemini Decisions or TypeSafe AI's Jev.
  *
  * This is additive, not a replacement: the `llm-generate` step still decides
  * every block freely from the full JSON block schema (see
- * prompts/partials/block-guide.njk). When Jev returns a confident answer, we
+ * prompts/partials/block-guide.njk). When the provider returns a confident answer, we
  * inject it into the prompt as a *hint* the model is told it may follow.
  * When Jev is unavailable, errors, times out, or returns low confidence,
  * ctx.layoutHint stays null and generation is byte-identical to before this
@@ -14,20 +14,29 @@
  */
 
 import { askChoice } from '../../jev-client.js';
+import { layoutProvider } from '../../decisions.js';
+import { LAYOUT_CRITERIA } from './classify-decisions.js';
 
 const DEFAULT_CONFIDENCE_THRESHOLD = 0.6;
-
-const LAYOUT_CRITERIA = {
-  'comparison-table': 'User is weighing 2+ specific products or asking which is better/different.',
-  'single-recommendation': 'User wants one clear best pick for a stated need or use case.',
-  'discovery-grid': 'User is browsing broadly with no single stated need — show a spread of options.',
-  'editorial-verdict': 'User wants a direct answer, explanation, or verdict rather than a list of products.',
-};
 
 // eslint-disable-next-line import/prefer-default-export, no-unused-vars
 export async function selectLayout(ctx, config = {}, env = {}) {
   const start = Date.now();
   ctx.layoutHint = null;
+  const provider = layoutProvider(env);
+  if (ctx.tv || provider === 'off') {
+    ctx.timings.selectLayout = Date.now() - start;
+    return;
+  }
+  if (provider === 'gemini') {
+    const answer = ctx.decisions?.answers?.layout;
+    if (ctx.decisions?.layoutMode === 'on'
+      && answer?.confidence >= ctx.decisions.threshold) {
+      ctx.layoutHint = { ...answer, model: ctx.decisions.model };
+    }
+    ctx.timings.selectLayout = Date.now() - start;
+    return;
+  }
 
   const apiKey = env.TYPESAFE_API_KEY;
   if (!apiKey) {

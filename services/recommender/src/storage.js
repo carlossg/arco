@@ -44,6 +44,7 @@ function matchesLike(value, search) {
 }
 const totalCost = (rows) => rows.reduce((n, r) => (
   n + costUsd(r.llm_provider, r.llm_model, r.input_tokens, r.output_tokens)
+    + (r.decision_cost_usd || 0)
 ), 0);
 const seconds = (value) => (value > 1e11 ? value / 1000 : value);
 const snake = (row) => Object.fromEntries(Object.entries(row).map(([key, value]) => [
@@ -161,7 +162,8 @@ export class FirestoreStorage {
         ? JSON.stringify(ctx.request.previousQueries) : null,
       title: titleMatch ? titleMatch[1].slice(0, 200) : null,
       intent_type: ctx.intent?.type || null,
-      journey_stage: ctx.request?.inferredProfile?.journeyStage || null,
+      journey_stage: ctx.decisions?.classificationMode === 'on'
+        ? ctx.intent?.journeyStage || null : ctx.request?.inferredProfile?.journeyStage || null,
       flow_id: ctx.flowId || null,
       follow_up_type: ctx.request?.followUp?.type || null,
       follow_up_label: ctx.request?.followUp?.label || null,
@@ -176,6 +178,8 @@ export class FirestoreStorage {
       live_url: ctx.daUrls?.live || null,
       llm_provider: ctx.llm?.provider || null,
       llm_model: ctx.llm?.model || null,
+      decision_input_tokens: ctx.decisions?.inputTokens || 0,
+      decision_cost_usd: ctx.decisions?.costUsd || 0,
     };
     const payload = {
       runId,

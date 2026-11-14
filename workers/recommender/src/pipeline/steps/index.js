@@ -15,6 +15,7 @@ import { llmGenerate } from './llm-generate.js';
 import { analyzeBehavior } from './analyze-behavior.js';
 import { buildRecommenderPrompt } from './build-recommender-prompt.js';
 import { selectLayout } from './select-layout.js';
+import { classifyDecisions } from './classify-decisions.js';
 
 /**
  * Step function map — keys match the "step" field in flow configs.
@@ -38,4 +39,5 @@ export const STEPS = {
   'analyze-behavior': analyzeBehavior,
   'build-recommender-prompt': buildRecommenderPrompt,
   'select-layout': selectLayout,
+  'classify-decisions': classifyDecisions,
 };

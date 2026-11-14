@@ -98,6 +98,10 @@ export function matchUseCase(query) {
   }) || null;
 }
 
+export function getUseCaseBySlug(slug) {
+  return (useCasesData.data || []).find((entry) => entry.slug === slug) || null;
+}
+
 /**
  * Get relevant products based on persona, use case, and query.
  *
