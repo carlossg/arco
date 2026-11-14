@@ -175,6 +175,7 @@ Data tables for comparisons and specs. First row = header.
 
 ### comparison-table
 Side-by-side product specs. Row 1: empty cell + product name cells using {{product-link:ID}} tokens. Spec rows: strong spec name + value cells (✓=best, ✗=missing). Optional final rows: single cell "Best for X: {{product-link:ID}}".
+Each product MUST occupy its own cell, not another paragraph in the same cell. For 2 products, every header/spec row has exactly 3 cells (label + product A + product B); for 3 products, exactly 4 cells. Never pack multiple products or their values into one cell.
 Use "data": {"recommended": "Product Name"} to highlight the recommended column with a BEST PICK badge.
 
 {"block":"comparison-table","data":{"recommended":"Primo"},"rows":[

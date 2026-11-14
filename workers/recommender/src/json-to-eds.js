@@ -183,6 +183,37 @@ function sanitizeTestimonialsSection(section) {
   return { ...section, rows: kept };
 }
 
+function sanitizeComparisonSection(section) {
+  const [header] = section.rows;
+  if (!Array.isArray(header)) {
+    console.warn('[json-to-eds] Skipping comparison-table without a header');
+    return null;
+  }
+  const packed = header.length === 2 && Array.isArray(header[1])
+    && header[1].length >= 2 && header[1].length <= 3
+    && header[1].every((item) => item?.type === 'p'
+      && /^\{\{product-link:[a-z0-9-]+\}\}$/.test(item.text || ''));
+  const columns = packed ? header[1].length + 1 : header.length;
+  if (columns < 3 || columns > 4) {
+    console.warn('[json-to-eds] Skipping comparison-table with invalid product columns');
+    return null;
+  }
+  const rows = section.rows.map((row) => {
+    if (packed && Array.isArray(row) && row.length === 2
+      && Array.isArray(row[1]) && row[1].length === columns - 1) {
+      return [row[0], ...row[1].map((item) => [item])];
+    }
+    return row;
+  });
+  if (rows.some((row) => !Array.isArray(row)
+    || (row.length !== columns && row.length !== 1))) {
+    console.warn('[json-to-eds] Skipping comparison-table with inconsistent product columns');
+    return null;
+  }
+  if (packed) console.warn('[json-to-eds] Expanded packed comparison-table product columns');
+  return packed ? { ...section, rows } : section;
+}
+
 /**
  * Post-generation sanity check for block content. Strips malformed rows
  * (e.g. empty testimonials) and returns null to signal the whole section
@@ -191,6 +222,7 @@ function sanitizeTestimonialsSection(section) {
 export function sanitizeBlockContent(section) {
   if (!section || !Array.isArray(section.rows)) return section;
   if (section.block === 'testimonials') return sanitizeTestimonialsSection(section);
+  if (section.block === 'comparison-table') return sanitizeComparisonSection(section);
   return section;
 }
 
