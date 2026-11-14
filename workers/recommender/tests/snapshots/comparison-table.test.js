@@ -38,6 +38,24 @@ test('valid comparison cells keep multiline content and existing product boundar
   assert.equal(sanitizeBlockContent(section), section);
 });
 
+test('a trailing product-specific best-for row keeps its values in the matching product columns', () => {
+  const section = {
+    block: 'comparison-table',
+    rows: [
+      [[], [p('{{product-link:primo}}')], [p('{{product-link:doppio}}')]],
+      [[p('Price')], [p('$899')], [p('$1,599')]],
+      [[p('Best for espresso: {{product-link:primo}}')], [p('Best for milk: {{product-link:doppio}}')]],
+    ],
+  };
+  const original = structuredClone(section);
+  const result = sanitizeBlockContent(section);
+  assert.deepEqual(result.rows.slice(0, 2), section.rows.slice(0, 2));
+  assert.deepEqual(result.rows[2], [[], ...section.rows[2]]);
+  assert.deepEqual(section, original);
+  const reversed = { ...section, rows: [...section.rows.slice(0, 2), [...section.rows[2]].reverse()] };
+  assert.equal(sanitizeBlockContent(reversed), null);
+});
+
 test('ambiguous and inconsistent comparisons are rejected instead of guessing product values', () => {
   for (const rows of [
     [],

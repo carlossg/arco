@@ -198,11 +198,19 @@ function sanitizeComparisonSection(section) {
     console.warn('[json-to-eds] Skipping comparison-table with invalid product columns');
     return null;
   }
-  const rows = section.rows.map((row) => {
+  const productHeaders = packed ? header[1].map((item) => [item]) : header.slice(1);
+  const rows = section.rows.map((row, index) => {
     if (packed && Array.isArray(row) && row.length === 2
       && Array.isArray(row[1]) && row[1].length === columns - 1) {
       return [row[0], ...row[1].map((item) => [item])];
     }
+    if (index === section.rows.length - 1 && Array.isArray(row)
+      && row.length === columns - 1 && row.every((cell, productIndex) => {
+      if (!Array.isArray(cell) || cell.length !== 1 || cell[0]?.type !== 'p'
+        || !/^Best for\b/i.test(cell[0].text || '')) return false;
+      const tokens = cell[0].text.match(/\{\{product-link:[a-z0-9-]+\}\}/g) || [];
+      return tokens.length === 1 && tokens[0] === productHeaders[productIndex]?.[0]?.text;
+    })) return [[], ...row];
     return row;
   });
   if (rows.some((row) => !Array.isArray(row)
@@ -210,8 +218,9 @@ function sanitizeComparisonSection(section) {
     console.warn('[json-to-eds] Skipping comparison-table with inconsistent product columns');
     return null;
   }
-  if (packed) console.warn('[json-to-eds] Expanded packed comparison-table product columns');
-  return packed ? { ...section, rows } : section;
+  const changed = rows.some((row, index) => row !== section.rows[index]);
+  if (changed) console.warn('[json-to-eds] Expanded comparison-table product columns');
+  return changed ? { ...section, rows } : section;
 }
 
 /**
